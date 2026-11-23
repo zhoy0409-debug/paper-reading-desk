@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="a">
+    <meta name="color-scheme" content="light">
+    <title>一分钟看文献精读</title>
+    <link rel="stylesheet" href="film.css">
+    <script defer src="film.js"></script>
+  </head>
+  <body>
+    <header><a class="brand" href="https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh">文献精读</a>
+      <nav aria-label="导航"><a href="#features">功能一览</a><a data-language href="en.html" lang="en">English</a>
+      </nav>
+    </header>
+    <main>
+      <section class="premiere" aria-labelledby="title">
+        <div class="intro">
+          <p class="kicker">产品短片 <span>·</span> 01:00</p>
+          <h1 id="title">下一次组会，你准备讲哪张图？</h1>
+          <p class="lead">直接取用论文原图，在图旁弄懂陌生方法，再把证据串成一场汇报。</p><a class="cta" href="https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh">打开阅读器 <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="media">
+          <video id="film" width="1920" height="1080" controls playsinline preload="metadata" poster="poster-zh.webp" aria-label="文献精读一分钟宣传片，中文配音和字幕">
+            <source src="reading-desk-zh.mp4" type="video/mp4">
+            <track kind="captions" srclang="zh" label="中文" src="film-zh.vtt">
+          </video>
+          <div class="utilities"><a href="reading-desk-zh.mp4" download>下载宣传片 <span aria-hidden="true">↓</span></a><a href="https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh">看分步操作演示 <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+      <section id="features" class="features">
+        <div class="section-title">
+          <h2>读到这里，你想做什么？</h2>
+        </div>
+        <div class="rows">
+          <details>
+            <summary>汇报要用一幅小图，怎样把图例一起带走？</summary>
+            <div>
+              <p>选中小图，直接从原 PDF 导出 PNG。遇到跨小图的图例、坐标轴或标尺，可以手动框选并校正边界。多张小图加入汇报队列后，可附上自己的讲解，一起导出到 PowerPoint。</p><a href="https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export">看取图与导出 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+          <details>
+            <summary>图里这个点、这条轴，到底要怎么看？</summary>
+            <div>
+              <p>点进小图，在已识别的图中文字上打开解释。比如 UMAP 图里，先弄清每个点代表什么，再观察邻近的点形成哪些组。点回空白处即可继续看原图。</p><a href="https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#method">看小图精读 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+          <details>
+            <summary>面对陌生方法，怎样看清对照和先后顺序？</summary>
+            <div>
+              <p>读图基础把能从原文识别的研究设计和时间线放到图旁。先找干预、对照和测量发生的顺序，再判断终点比较回答了什么问题。有经核对的病理图导读时，还能按提示比较组织结构，再去看对应的定量评分。</p><a href="https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh">打开阅读器 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+          <details>
+            <summary>遇到一个陌生词，只想翻译，也可以继续问吗？</summary>
+            <div>
+              <p>划选原文可翻译或单独发起追问。识别到论文内的缩写定义时，可以看到全称和页码。图旁追问会带上当前选段和图号，方便核对回答所依据的图注或原句。</p><a href="https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#context">看划词与追问 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+          <details>
+            <summary>每张图都看懂了，怎样串成一次汇报？</summary>
+            <div>
+              <p>论文图谱把研究问题、图和小图放在一起。选一条分支回到对应证据。需要看补充图或作者引用的资料时，也可以把手头的文件作为补充材料或参考文献一起打开。</p><a href="https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#story">看论文图谱 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+          <details>
+            <summary>昨天读到哪里，怎样接着看？</summary>
+            <div>
+              <p>在图旁写下自己的笔记，把阅读位置保存到私人图谱。下次在同一浏览器打开，就能从这里重开原文、笔记与读图位置。</p><a href="https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh">打开阅读器 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+          <details>
+            <summary>想查背景文献，或换一个自己能用的模型？</summary>
+            <div>
+              <p>网页版提供原文导读和 Crossref 检索，也可复制问题与选段到你常用的网页 AI。Windows 便携版还可检索 PubMed，或在阅读器内连接 DeepSeek、通义千问、已安装的 Ollama 或 Codex CLI。下载包自带 Python。</p><a href="https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/README.zh-CN.md#怎么提问">查看接入方法 <span aria-hidden="true">↗</span></a>
+            </div>
+          </details>
+        </div>
+      </section>
+      <details class="transcript">
+        <summary>宣传片逐字稿</summary>
+        <ol>
+          <li><button type="button" data-t="0" aria-label="跳至 0 秒">0:00</button><span>明天组会，图还没截清楚。</span>
+          </li>
+          <li><button type="button" data-t="4" aria-label="跳至 4 秒">0:04</button><span>每张图都读了，上台怎么串起来？</span>
+          </li>
+          <li><button type="button" data-t="7.8" aria-label="跳至 7 秒">0:07</button><span>点选小图，直接从原文保存高清图片。</span>
+          </li>
+          <li><button type="button" data-t="13.1" aria-label="跳至 13 秒">0:13</button><span>写句讲解，把图和出处一起放进幻灯片。</span>
+          </li>
+          <li><button type="button" data-t="18.6" aria-label="跳至 18 秒">0:18</button><span>第一次见这种图？先看每个点代表什么。</span>
+          </li>
+          <li><button type="button" data-t="24.2" aria-label="跳至 24 秒">0:24</button><span>再看哪些点靠在一起。陌生的缩写，划一下就能查。</span>
+          </li>
+          <li><button type="button" data-t="29.4" aria-label="跳至 29 秒">0:29</button><span>这些细胞的取样跨了多久？在图旁就能问。</span>
+          </li>
+          <li><button type="button" data-t="34.3" aria-label="跳至 34 秒">0:34</button><span>零天到四个月。点开出处，就能看到图注。</span>
+          </li>
+          <li><button type="button" data-t="39.1" aria-label="跳至 39 秒">0:39</button><span>准备汇报，打开论文图谱，先看作者想回答的问题。</span>
+          </li>
+          <li><button type="button" data-t="45.3" aria-label="跳至 45 秒">0:45</button><span>顺着分支找图，看它为这个问题提供了什么证据。</span>
+          </li>
+          <li><button type="button" data-t="50.8" aria-label="跳至 50 秒">0:50</button><span>回到原图，挑出你最想讲的那一张。</span>
+          </li>
+          <li><button type="button" data-t="55.2" aria-label="跳至 55 秒">0:55</button><span>打开文献精读，试试你下一篇要讲的论文。</span>
+          </li>
+        </ol>
+      </details>
+    </main>
+    <footer><span>片中原图节选与标注 · Böhm, Berens &amp; Kobak (2022), Fig. 6. <a href="https://www.jmlr.org/papers/v23/21-0055.html">JMLR</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span><a href="https://github.com/zhoy0409-debug/paper-reading-desk">GitHub ↗</a>
+    </footer>
+  </body>
+</html>

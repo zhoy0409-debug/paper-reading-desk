@@ -17,6 +17,12 @@
   el('chapter-heading').textContent=local('选一个你遇到过的问题','Jump to a question');
   document.querySelector('nav').setAttribute('aria-label',local('语言','Language'));
   el(lang).setAttribute('aria-current','page');
+  if (!embedded && location.hostname === 'zhoy0409-debug.github.io') {
+    const promo = document.createElement('a');
+    promo.href = '/paper-reading-desk/film/' + lang + '.html';
+    promo.textContent = local('看一分钟宣传片','Watch the one-minute film');
+    el('repo').before(promo);
+  }
   if(embedded)document.addEventListener('keydown',e=>{
     if(e.key==='Escape' && !document.fullscreenElement)window.frameElement?.closest('dialog')?.close();
   });

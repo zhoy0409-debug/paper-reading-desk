@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="a"><title>Reading Desk</title></head>
+<body><nav><a href="en.html" lang="en">English</a> · <a href="zh.html" lang="zh-CN">中文</a></nav><script>
+const requested = new URLSearchParams(location.search).get('lang');
+const lang = ['zh','en'].includes(requested) ? requested : (/^zh/i.test(navigator.language) ? 'zh' : 'en');
+location.replace(lang + '.html' + location.hash);
+</script></body></html>
