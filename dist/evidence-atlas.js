@@ -18,6 +18,9 @@
 .ea .ea-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px;color:#5d5766}
 .ea .ea-foot button{min-height:44px;padding:5px 12px;background:#fffefa;border:1px solid #dad1e1;border-radius:8px;color:#4e3b6a;font-size:13px;white-space:nowrap}
 
+.ea .ea-language-loading,.ea .ea-language-retry{display:none}
+.ea:has(.ea-canvas [aria-busy=true]):not(:has(.ea-canvas [data-translation-retry])) .ea-language-loading{display:inline}
+.ea:has(.ea-canvas [data-translation-retry]) .ea-language-retry{display:inline-flex;align-items:center;border:0;background:transparent;color:inherit;text-decoration:underline;text-underline-offset:.2em}
 @container(max-width:650px){.ea-canvas{grid-template-columns:1fr;gap:13px;padding:12px}.ea-root{min-height:48px;grid-column:auto;grid-row:auto}.ea-nodes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.ea .ea-node{grid-row:auto;grid-column:auto;min-height:55px}.ea .ea-foot{align-items:flex-start}.ea{padding-block:13px}}
 @media(prefers-reduced-motion:reduce){.ea .ea-node{transition:none}}
 `;
@@ -46,7 +49,10 @@
     toggle.type = 'button';
     const coverage=el('span','','ea-coverage');coverage.setAttribute('role','status');
     const explore=el('button','','ea-explore');explore.type='button';explore.setAttribute('aria-haspopup','dialog');
-    PaperUI.set(explore,'展开探索','Explore map');head.append(title,coverage,toggle,explore);
+    PaperUI.set(explore,'展开探索','Explore map');head.append(title,coverage);
+    const loading=el('span','正在生成中文导读…','ea-language-loading');loading.setAttribute('role','status');
+    const retry=el('button','重新加载中文导读','ea-language-retry');retry.type='button';retry.onclick=()=>PaperLanguageText.retry();
+    head.append(loading,retry,toggle,explore);
     const dialog=el('dialog','','ea-explorer');dialog.setAttribute('aria-label','篇内图谱探索 / Explore evidence map');
     const canvas = el('div', '', 'ea-canvas');
     const svg = doc.createElementNS(svgNS, 'svg');
