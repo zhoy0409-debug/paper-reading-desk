@@ -106,11 +106,12 @@
       section.hidden = !model.figures.length;
       PaperUI.set(tag,model.question ? '研究问题' : model.rootKind || '这篇论文');
       topic.textContent = model.question || model.rootLabel || '论文图件';
-      if(model.questionEnglish)PaperUI.set(topic,model.question,model.questionEnglish);
+      if(model.questionEnglish){PaperLanguageText.clear(topic);PaperUI.set(topic,model.question,model.questionEnglish);}
+      else PaperLanguageText.bind(topic,topic.textContent);
       topic.title=model.questionEnglish?model.question+' / '+model.questionEnglish:topic.textContent;
       fullTopic.hidden=Math.max((model.question||topic.textContent).length,(model.questionEnglish||"").length)<=135;
-      if(model.questionEnglish)PaperUI.set(fullTopic.lastChild,model.question,model.questionEnglish);
-      else fullTopic.lastChild.textContent=topic.textContent;
+      if(model.questionEnglish){PaperLanguageText.clear(fullTopic.lastChild);PaperUI.set(fullTopic.lastChild,model.question,model.questionEnglish);}
+      else PaperLanguageText.bind(fullTopic.lastChild,model.question||model.rootLabel||topic.textContent);
       const located=model.figures.filter(f=>!f.raw.pageOnly);
       const short=model.figures.length<=5, all=short||expanded;
       const sourceOrder=model.figures;
@@ -145,7 +146,14 @@
         button.title = f.raw.evidenceStep ? f.title+" / "+f.raw.evidenceStep[0] : f.branchTitle || f.title || f.label;
         const branchTitle=el('strong',button.title);
         if(f.raw.evidenceStep)PaperUI.set(branchTitle,f.title,f.raw.evidenceStep[0]);
-        button.append(el('small',[f.label, f.page ? 'p.'+f.page : ''].filter(Boolean).join(' · ')),branchTitle);
+        else PaperLanguageText.bind(branchTitle,f.branchTitle||f.raw.title||f.title||f.label);
+        const meta=el('small',[f.label, f.page ? 'p.'+f.page : ''].filter(Boolean).join(' · '));
+        if(!f.raw.evidenceStep){
+          const roles=[[/\bvalidat(?:e[sd]?|ion)\b/i,'方法验证','Validation'],[/\b(?:associat(?:ed|ion)|correlat(?:ed|ion))\b/i,'关联分析','Association'],[/\b(?:pipeline|workflow)\b/i,'方法流程','Workflow'],[/\b(?:quantification|quantifying|measurement)\b/i,'定量测量','Quantification'],[/\bcompar(?:ison|ing)\b/i,'对比分析','Comparison']];
+          const role=roles.find(([re])=>re.test(f.raw.title||f.title));
+          if(role){meta.append(document.createTextNode(' · '),PaperUI.set(el('span'),role[1],role[2]));}
+        }
+        button.append(meta,branchTitle);
         button.addEventListener('click',()=>{
           openId=openId===f.id?'':f.id;
           opts.onFigure(f.id); render();opts.remember?.({openId,expanded});
@@ -167,7 +175,7 @@
             const leaf=el('button','','ea-leaf');leaf.type='button';leaf.dataset.panel=part.id;
             leaf.setAttribute('aria-pressed',String(part.id===panelId));
             const guide=part.raw?.reading, label=guide?.title;
-            const passage=guide?.sources?.find(s=>s.kind==='小图图注')?.text;
+            const passage=guide?.sources?.find(s=>s.kind==='小图图注'||s.kind.startsWith('组内共用图注'))?.text;
             const ownLabel=part.raw?.printedTitle;
             leaf.append(el('b',part.label));
             if(label || passage || ownLabel){
@@ -175,7 +183,7 @@
               if(label) PaperUI.set(body,label[0],label[1]);
               else {
                 const excerpt=ownLabel||passage;
-                body.textContent=excerpt.length>110?excerpt.slice(0,109)+'…':excerpt;
+                PaperLanguageText.bind(body,excerpt.split(/(?<=[.!?])\s+(?=[A-Z])/)[0]);
                 body.title=excerpt;
               }
               leaf.append(body);

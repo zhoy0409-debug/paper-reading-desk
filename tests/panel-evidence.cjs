@@ -84,4 +84,14 @@ assert.equal(PaperPanelLabels.plan('replace', box, figure, {}, manual, 0).label,
 assert.equal(PaperPanelLabels.plan('replace', {...box,width:.26}, figure, {}, manual, 0).known, false);
 assert.deepEqual(PaperPanelLabels.plan('replace', {x:.2,y:.2,width:.06,height:.06}, figure, {}, manual, 0).masks, []);
 assert.equal(PaperPanelLabels.letters(26), 'AA');
+const capitals=read('Figure 2. Optical measurements. A Calibrated intensity. B–C Voltage distributions. D Detector response.');
+assert.ok(capitals[0].sources.some(s=>s.kind==='小图图注'&&s.text==='Calibrated intensity.'));
+for(const guide of capitals.slice(1,3))assert.ok(guide.sources.some(s=>s.kind==='组内共用图注 · B–C'&&s.text.includes('Voltage distributions')));
+require('../dist/composite-plate.js');
+assert.match(CompositePlate.labelGuide('Time (s)',[],9)[2],/时间/);
+assert.equal(CompositePlate.labelGuide('Time (s)',[],9)[4],9);
+const line=(text,x,y)=>({text,x0:x,x1:x+210,y0:y-8,y1:y+2,base:y,size:8});
+const columns=[line('Fig. 1 | Optical response.',26,40),line('B–C Detector response.',304,40),line('A Excitation intensity.',26,50),line('D Reference spectrum.',304,50)];
+assert.equal(CompositePlate.columnCaption(columns[0],columns,{width:600}).text,'Fig. 1 | Optical response. A Excitation intensity. B–C Detector response. D Reference spectrum.');
+assert.equal(CompositePlate.columnCaption(columns[0],[...columns.slice(0,3),line('Partial text',304,50)],{width:600}),undefined);
 console.log('PASS: attributed panel evidence, original-language quantities, grouped references, units and crop-bound label masks.');

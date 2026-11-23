@@ -13,4 +13,6 @@ for(const [source,checks] of [
 const tricky='No increase was seen with abaucin at 16 mg/L in (b).';
 const preserved=await translatePassage(tricky,'en',async()=>'图 a 中 8 mg/L 时出现增长。');
 assert.deepEqual(preserved.warnings,[tricky]);assert.ok(preserved.text.includes(tricky));
+const expanded=await translatePassage('The MRI signal was measured.','en',async()=>'测量了磁共振成像信号。');
+assert.deepEqual(expanded.warnings,[]);assert.match(expanded.text,/磁共振成像（MRI）/);
 console.log('PASS · unseen subjects, reversed groups, isolate IDs, concentration bounds and source fallback');

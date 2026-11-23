@@ -245,7 +245,7 @@
       syncPanels:id=>{preparePanels();updateTabs();atlas?.syncPanels();selectPanel(id)},
       listPanels:()=>{preparePanels();updateTabs();atlas?.syncPanels()}
     });
-    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,desk,selectPanel,
+    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,histograms,desk,selectPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
     notes.querySelector('.pd-report')?.addEventListener('toggle',renderTarget);
     function preparePanels(){
@@ -710,6 +710,7 @@
             dl.append(PaperUI.set(el('dt'),line.role,line.en));
             const dd=PaperUI.set(el('dd'),line.zh,line.enText);
             dl.append(dd);
+            if(line.zh&&!/[\u3400-\u9fff]/u.test(line.zh))PaperLanguageText.bind(dd,line.zh);
           }
           section.append(dl);
           if(guide.kind==='checked'||guide.kind==='axis'){
@@ -741,12 +742,13 @@
         }
       } else {
         if(active.branchTitle){
-          explain.append(ui('strong','作者表述'),el('p',active.branchTitle));
+          explain.append(ui('strong','作者表述'),PaperLanguageText.bind(el('p'),active.branchTitle));
           if(active.raw.findingPage)explain.append(btn('正文 p.'+active.raw.findingPage,()=>inspectPage(active.raw.findingPage,active.branchTitle),'frw-inline'));
         }
         explain.append(ui('strong', active.raw.editorGuide?'整图阅读':'原文数据 · 图注'));
         const lead=active.caption.replace(/^(?:(?:extended data|supplementary)\s+)?(?:fig(?:ure)?\.?|图)\s*[a-z]*\d+\s*[.|:：]?\s*/i,'').split(/(?<=\.)\s+(?=[A-Z])|(?<=。)/u)[0];
-        explain.append(el('p', (active.raw.editorGuide?active.summary:lead||active.summary)||'当前没有可核实的图注或解读，先看原文。'));
+        const overview=el('p',active.raw.editorGuide?active.summary:lead||active.summary);
+        explain.append(overview);if(!active.raw.editorGuide)PaperLanguageText.bind(overview,overview.textContent);
         if(active.panels.length)explain.append(panelOverview());
       }
       const restriction = panel?.raw?.reading?.kind==='checked'?'':panel?.boundary || active.boundary;
@@ -1040,8 +1042,9 @@
       const detailedTitle=f.raw.title||f.title;
       figTitle.textContent = detailedTitle?.endsWith('…') && f.caption
         ? (global.PaperFigureContext?.captionTitle(f.caption,f.label)||detailedTitle) : detailedTitle || f.label;
+      PaperLanguageText.clear(figTitle);
       if(f.raw.evidenceStep) { PaperUI.set(figTitle,figTitle.textContent,f.raw.evidenceStep[0]);figTitle.removeAttribute('lang'); }
-      else { figTitle.lang=/[㐀-鿿]/u.test(figTitle.textContent)?'zh-CN':'en';figTitle.dataset.sourceText=''; }
+      else { figTitle.lang=/[㐀-鿿]/u.test(figTitle.textContent)?'zh-CN':'en';PaperLanguageText.bind(figTitle,figTitle.textContent); }
       figMeta.textContent = [model.sourceLabel, f.page ? `PDF 第 ${f.page} 页` : ''].filter(Boolean).join(' · ');
       if(f.raw.captionPage&&f.raw.captionPage!==f.page){
         PaperUI.set(figMeta,'图像第 '+f.page+' 页 · 图注第 '+f.raw.captionPage+' 页','Figure p.'+f.page+' · Caption p.'+f.raw.captionPage);
@@ -1077,7 +1080,7 @@
       // A clip is attached to this article instance, not to generic figure numbers on later articles.
       currentLesson = evidenceOptions?.lesson ?? next?.lesson ?? (next === options.model ? options.lesson : null);
       generation++; cache.clear(); model = normalize(next); active=null;
-      title.textContent = model.title; takeaway.textContent=model.takeaway;
+      PaperLanguageText.bind(title,model.title); takeaway.textContent=model.takeaway;
       takeaway.hidden = !model.takeaway;
       empty.hidden=Boolean(model.figures.length); body.hidden=!empty.hidden;
       addRail(); atlas?.setModel(model);

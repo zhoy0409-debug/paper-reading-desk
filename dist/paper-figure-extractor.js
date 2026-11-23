@@ -175,7 +175,9 @@ function captions(lines,p){
     if(/\bb\s+[A-Z]/.test(continuation)&&!chunks.join(' ').includes(right.text))chunks.push(continuation);
    }
   }
-  const caption=chunks.join(' ');
+  const columns=window.CompositePlate?.columnCaption(line,lines,p);
+  const caption=columns?.text||chunks.join(' ');
+  if(columns)endY=columns.endY;
   found.push({...name,caption,partial:!/[.!?。！？][”")\]]?$/.test(caption),line,anchor:{x:line.x0,y:line.y0,endY,line:idx+1}});
  }
  return found;
@@ -458,18 +460,25 @@ async function scan(file,options={}){
      const layers=!stack&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(layers)crop=layers.crop;
      let plate=null;
+     let raster=null;
+     if(!grid&&!pair&&!stack&&!layers&&!printed.some(p=>p.rect)&&here.length===1&&cap.line.y0>viewport.height*.22){
+       raster=await window.CompositePlate?.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+       check();if(raster)crop=raster.crop;
+     }
      if(!crop&&previous&&cap===here[0]&&cap.line.y0<viewport.height*.16&&usedDrawings<MAX_GRAPHIC_PAGES){
       let earlier;
       try{
        earlier=await pdf.getPage(previous.pg);usedDrawings++;
        const marks=drawings(await earlier.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE}),pdfjs.OPS,previous.viewport.transform);
        plate=window.PaperPanelGeometry?.precedingPlate(cap.caption,previous,marks);
+       if(!plate&&(!marks.length||marks.some(q=>q.kind==='image'&&area(q)>previous.viewport.width*previous.viewport.height*.05)))
+         plate=await window.CompositePlate?.locate(earlier,previous.viewport,previous.lines,cap,true,pdfjs.AnnotationMode.DISABLE);
       }catch{check()}finally{earlier?.cleanup()}
      }
      const imagePage=plate?previous.pg:pg,imageView=plate?previous.viewport:viewport;
      if(plate)crop=plate.crop;
      const id=cap.matchKey+'@'+pg+':'+cap.anchor.line;
-     const panels=(layers?.panels??stack?.panels??plate?.panels??pair?.panels??grid?.panels??[]).map(panel=>{
+     const panels=(layers?.panels??stack?.panels??plate?.panels??pair?.panels??grid?.panels??raster?.panels??[]).map(panel=>{
       const pId=id+':'+panel.position;
       internals.set(pId,{page:imagePage,crop:panel.rect});
       const printedAxis=panel.axis||window.PaperPanelGeometry?.axisIn(panel.rect,plate?previous.axes:axes,plate?previous.words:words);
@@ -485,7 +494,7 @@ async function scan(file,options={}){
        panels.push({...label,id:pId,bbox:label.rect?normalized(label.rect,crop):null});
       }
      }
-     const figure={id,matchKey:cap.matchKey,label:cap.label,layerStack:layers?{rows:layers.rows,horizontal:layers.horizontal,ticks:layers.ticks,shared:normalized(layers.shared,{x0:0,y0:0,x1:imageView.width,y1:imageView.height})}:null,markedStack:stack?{first:stack.first,rows:stack.rows}:null,
+     const figure={id,rasterPlate:Boolean(raster||plate?.raster),matchKey:cap.matchKey,label:cap.label,layerStack:layers?{rows:layers.rows,horizontal:layers.horizontal,ticks:layers.ticks,shared:normalized(layers.shared,{x0:0,y0:0,x1:imageView.width,y1:imageView.height})}:null,markedStack:stack?{first:stack.first,rows:stack.rows}:null,
       page:imagePage,captionPage:pg,caption:cap.caption,captionPartial:cap.partial,anchor:{page:pg,...cap.anchor},panels,pageBox:crop?normalized(crop,{x0:0,y0:0,x1:imageView.width,y1:imageView.height}):null,mode:crop?'crop':'page',duplicatePages:[],
       reason:plate?'前页图内编号与本页图注编号吻合，已定位跨页图版。':crop?'按明确图注和紧邻版面选取的原文区域。':'已定位图注，图形范围待核对。'};
      if(!plate&&!pair&&/\bhistograms?\b/i.test(cap.caption)){
