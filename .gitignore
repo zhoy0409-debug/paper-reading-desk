@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+.backups/
+acceptance/
+node_modules/
+*.pdf
+!dist/media/2007.08902.pdf
+*.pptx
+*.docx
+*.zip
+.DS_Store
+Thumbs.db

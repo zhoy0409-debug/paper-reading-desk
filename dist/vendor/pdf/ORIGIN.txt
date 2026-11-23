@@ -1,0 +1,2 @@
+Mozilla PDF.js pdfjs-dist 5.6.205; Apache-2.0. Only local, packaged files are used.
+The JavaScript JPEG 2000 fallback in wasm/ is from the same pdfjs-dist release. Its license notices are included alongside it.

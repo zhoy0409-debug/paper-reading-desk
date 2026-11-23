@@ -1,0 +1,6 @@
+Offline axis-label recognition uses Tesseract.js (naptha/tesseract.js), its
+WebAssembly core (naptha/tesseract.js-core), and the English LSTM recognition
+data from Tesseract (tesseract-ocr/tessdata_fast). Each is distributed under
+Apache License 2.0. The bundled JavaScript license notices accompany the code.
+The uncompressed English model SHA-256 is
+7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2.

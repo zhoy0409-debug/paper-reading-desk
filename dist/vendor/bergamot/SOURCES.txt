@@ -1,0 +1,5 @@
+BrowserMT Bergamot Translator 0.4.9 (MPL-2.0)
+https://github.com/browsermt/bergamot-translator
+Mozilla Firefox Translations. The en / zh-Hans model files were retrieved from the Firefox Remote Settings translations-models collection, version 2.1. The SHA-256 of each shipped file is recorded in models.json.
+https://firefox.settings.services.mozilla.com/v1/buckets/main/collections/translations-models/records
+https://github.com/mozilla/firefox-translations-models/tree/e7957fc407441a5e3e35bbcbf9d60d9b35764618

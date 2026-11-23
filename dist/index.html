@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="author" content="a">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="从论文原图出发，逐格读图、核对原文与追问。">
+<title>文献精读</title>
+<link rel="stylesheet" href="./reader-shell.css">
+<link rel="stylesheet" href="./reading-desk.css">
+<link rel="stylesheet" href="./folio.css?rev=selection-2">
+<link rel="stylesheet" href="./reading-focus.css?rev=1123d">
+<link rel="stylesheet" href="./reader-language.css?rev=source-notes-1">
+</head>
+<body>
+<main>
+<header class="top"><h1><strong><i class="folio-mark" aria-hidden="true"></i>文献精读 <span lang="en">Reading Desk</span></strong></h1><div class="reader-languages" data-language-switch role="group" aria-label="界面语言"><button type="button" lang="zh-CN" data-locale="zh" aria-pressed="true">中文</button><button type="button" lang="en" data-locale="en" aria-pressed="false">English</button></div></header>
+<div id="literaturePane"></div>
+</main>
+<script src="./reading-ui.js"></script>
+<script src="./paper-source-notes.js?rev=source-notes-1"></script>
+<script src="./reader-copy.js?v=model-1"></script>
+<script src="./reader-language.js?v=reading-desk-1"></script>
+<script src="./reader-hints.js?v=1"></script>
+<script src="./tiff-reader.js"></script>
+<script src="./document-reader.js?rev=source-reading-2"></script>
+<script src="./paper-mindmap.js"></script>
+<script src="./paper-reading-editions.js?rev=model-1"></script>
+<script src="./panel-geometry.js"></script>
+<script src="./dual-axis.js"></script>
+<script src="./marked-plots.js"></script>
+<script src="./stacked-plots.js"></script>
+<script src="./curve-reading.js"></script>
+<script src="./curve-ratio.js"></script>
+<script src="./mixed-axes.js"></script>
+<script src="./hubble-reading.js"></script>
+<script src="./residual-reading.js?rev=source-reading-2"></script>
+<script type="module" src="./selection-translation.js?rev=source-notes-1"></script>
+<script src="./paper-figure-extractor.js?rev=source-reading-2"></script>
+<script src="./model-reading.js?rev=3"></script>
+<script src="./paper-figure-context.js?rev=model-1"></script>
+<script src="./evidence-atlas.js?rev=locale-1"></script>
+<script src="./vendor/pptx/pptxgen.bundle.js"></script>
+<script src="./local-shelf.js"></script>
+<script src="./panel-reading.js?rev=panel-route-1"></script>
+<script src="./histogram-evidence.js"></script>
+<script src="./histogram-matrix.js"></script>
+<script src="./open-histograms.js"></script>
+<script src="./binning-reading.js"></script>
+<script src="./histogram-grid.js"></script>
+<script src="./histogram-axes.js"></script>
+<script src="./histogram-reader.js"></script>
+<script src="./checked-panel-guides.js?rev=details-1123a"></script>
+<script src="./study-design.js"></script>
+<script src="./reading-evidence.js"></script>
+<script src="./panel-labels.js"></script>
+<script src="./talk-export.js"></script>
+<script src="./panel-desk.js?rev=panel-route-1"></script>
+<script defer src="./reading-motion.js"></script>
+<script src="./source-pane.js?rev=source-notes-1"></script>
+<script src="./reading-primer.js?rev=details-1123a"></script>
+<script src="./reading-questions.js?rev=source-notes-1"></script>
+<script src="./figure-reading-workbench.js?rev=source-notes-1"></script>
+<script src="./literature-reader.js?rev=source-notes-1"></script>
+<script>
+  const readerPane = document.getElementById('literaturePane');
+  if (window.PaperLiterature) {
+    window.PaperLiterature.mount(readerPane);
+  } else {
+    const note = document.createElement('p');
+    note.setAttribute('role','alert');
+    (window.PaperUI?.set || ((node,text)=>node.textContent=text))(note,'阅读器未载入，请刷新页面。','The reader did not load. Reload this page.');
+    readerPane.append(note);
+  }
+</script>
+</body>
+</html>
