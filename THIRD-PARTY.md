@@ -1,6 +1,6 @@
 # Third-party credits
 
-**Sample paper.** Jan Niklas Böhm, Philipp Berens and Dmitry Kobak, *Attraction–Repulsion Spectrum in Neighbor Embeddings*, Journal of Machine Learning Research 23(95), 2022. The PDF includes the authors’ CC BY 4.0 notice on its first page. The tour cover, bilingual screen recordings and demonstration slides show Figure 6, with crops and interface annotations. The example slide adds a reading note. The bundled PDF is shown as received. [Article](https://www.jmlr.org/papers/v23/21-0055.html) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+**Sample paper.** Jan Niklas Böhm, Philipp Berens and Dmitry Kobak, *Attraction–Repulsion Spectrum in Neighbor Embeddings*, Journal of Machine Learning Research 23(95), 2022. The PDF includes the authors’ CC BY 4.0 notice on its first page. The tour cover, bilingual screen recordings, one-minute product films and demonstration slides show Figure 6, with crops and interface annotations. The example slide adds a reading note. The bundled PDF is shown as received. [Article](https://www.jmlr.org/papers/v23/21-0055.html) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 **PDF display and fonts.** PDF.js, character maps, bundled PDF fonts and JPEG 2000 support retain the licenses in [dist/vendor/pdf](dist/vendor/pdf).
 

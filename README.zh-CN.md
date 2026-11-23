@@ -1,10 +1,12 @@
 # 文献精读
 
-[English](README.md) · [直接打开阅读器](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh) · [观看操作演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
+[English](README.md) · [直接打开阅读器](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh) · [一分钟宣传片](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html) · [观看操作演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
 
 做一次文献汇报，时间常花在这些地方：为了把图放上 PPT，一张张放大、截图、裁边。遇见陌生的方法，查了半天资料还没回到原图。等每张图都看完，又得重新梳理作者为什么接着做下一个实验。
 
-[![做文献汇报，还在逐张截图？观看三种真实用法。](dist/media/tour/cover-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
+[![播放一分钟宣传片：明天组会，图还没截好？](docs/film/poster-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html)
+
+[看一分钟宣传片](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html) · [按阅读问题浏览全部功能](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html#features)
 
 | 读论文时遇到的事 | 打开论文后可以怎么做 |
 | --- | --- |

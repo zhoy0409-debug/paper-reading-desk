@@ -1,10 +1,12 @@
 # Reading Desk
 
-[简体中文](README.zh-CN.md) · [Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Watch the tour](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[简体中文](README.zh-CN.md) · [Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [One-minute film](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html) · [Watch the tour](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
 Preparing a journal club talk? You can spend an evening cropping figures, looking up an unfamiliar method, and trying to explain why Figure 6 follows Figure 5. Open your PDF in Reading Desk and work through those tasks beside the paper.
 
-[![Still cropping paper figures? Watch three workflows in Reading Desk.](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[![Play the one-minute film: Journal club tomorrow?](docs/film/poster-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html)
+
+[Watch the one-minute film](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html) · [Browse features by reading task](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html#features)
 
 | When you get stuck | What you can do |
 | --- | --- |
