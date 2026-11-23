@@ -7,6 +7,23 @@
   function groupedParts(caption){
     // An A–C) description can itself contain (A), (B) and (C) as references.
     // Reserve the entire grouped statement before looking for individual captions.
+    const capitals=[...caption.matchAll(/(?:^|(?<=[.:;。；：])\s*)\(?([A-T])(?:\s*[-–—]\s*([A-T]))?\)?\s+(?=[A-Z(\d])/g)];
+    const ordered=new Map(),shared=new Map();
+    let next=65;
+    for(const [i,m] of capitals.entries()){
+      const first=m[1].charCodeAt(0),last=(m[2]||m[1]).charCodeAt(0);
+      if(first!==next||last<first)break;
+      const text=clean(caption.slice(m.index+m[0].length,capitals[i+1]?.index));
+      if(!text)break;
+      for(let n=first;n<=last;n++){
+        const id=String.fromCharCode(n).toLowerCase();
+        if(last>first)shared.set(id,{label:m[1]+'–'+m[2],text});
+        else ordered.set(id,text);
+      }
+      next=last+1;
+    }
+    if(next>=67&&ordered.size+shared.size===next-65&&capitals.length===ordered.size+new Set([...shared.values()].map(v=>v.label)).size)
+      return {groups:shared,explicit:ordered,individual:caption};
     const headers=[...caption.matchAll(/(?:^|[.:;。；：]\s*)\(?([a-z])(?:\)?\s*([-–—]|and|和|,|、)\s*\(?([a-z]))?\)\s*(?=[\p{L}\d])/giu)];
     const groups=new Map(), masked=caption.split('');
     for(const [i,h] of headers.entries()){
@@ -93,8 +110,8 @@
       f.designContext=designContext;
       if(f.openHistogram)f.binningEvidence=BinningReading.documentEvidence(f,refStart<0?rows:rows.slice(0,refStart));
       const cap=clean(f.caption);
-      const {groups,individual}=groupedParts(cap);
-      const parts=panelParts(individual,groups);
+      const {groups,individual,explicit:markedParts}=groupedParts(cap);
+      const parts=markedParts||panelParts(individual,groups);
       const found=new Set(f.panels.map(p=>p.id));
       const explicit=new Set([...groups.keys(),...parts.keys()]);
       const captionSequence=explicit.has('a')&&explicit.has('b');

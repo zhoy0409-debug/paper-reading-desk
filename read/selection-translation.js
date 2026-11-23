@@ -1,4 +1,4 @@
-import {translatePassage} from './scientific-translation.js';
+import {translatePassage} from './scientific-translation.js?rev=import-021';
 
 const popup = document.createElement('section');
 popup.className = 'local-translation';
@@ -40,7 +40,7 @@ definition.className = 'rq-term-definition'; definition.hidden = true;
 popup.append(actions, definition, output, notice, original);
 document.body.append(popup);
 
-let selected = '', source = '', request = 0, engine, ignore = false, timer;
+let selected = '', source = '', request = 0, ignore = false, timer;
 let activeRange, frame, settle;
 // A gloss is keyed to the verified expansion, since the same initials can mean different things.
 const glosses = new Map([
@@ -190,15 +190,7 @@ async function translate(){
   if(text.length>8000){PaperUI.set(output,'每次最多选择 8000 个字符。','Select up to 8,000 characters at a time.');return}
   delete output.dataset.sourceText;run.disabled=true;PaperUI.set(output,'正在本机翻译…','Translating on this device…');
   try{
-    const translate=async(value,lang)=>{
-      if(!engine){
-        const {BatchTranslator}=await import('./vendor/bergamot/translator.js');
-        engine=new BatchTranslator({registryUrl:new URL('./vendor/bergamot/models.json',import.meta.url).href,workers:1,cacheSize:0,useNativeIntGemm:false});
-      }
-      if(request!==id)throw new Error('Selection changed');
-      return (await engine.translate({from:lang,to:lang==='en'?'zh':'en',text:value,html:false})).target.text;
-    };
-    const result=await translatePassage(text,from,translate);
+    const result=await translatePassage(text,from,PaperLanguageText.translate);
     if(request===id){
       output.textContent=result.text;output.lang=from==='en'?'zh-CN':'en';output.dataset.sourceText='';
       quote.textContent=text;original.hidden=false;notice.hidden=!result.warnings.length;
@@ -229,4 +221,4 @@ window.addEventListener('resize', schedulePlace);
 document.addEventListener('scroll', e => { if (!popup.contains(e.target)) schedulePlace() }, true);
 window.visualViewport?.addEventListener('resize', schedulePlace);
 window.visualViewport?.addEventListener('scroll', schedulePlace);
-window.addEventListener('pagehide', () => { engine?.delete(); engine = null; hide() });
+window.addEventListener('pagehide', hide);

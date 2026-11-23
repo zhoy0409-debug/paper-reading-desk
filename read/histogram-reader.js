@@ -435,7 +435,51 @@
         choose(open&&selected>=0?selected:saved>=0?saved:matches.length===1?matches[0]:0,false);
       }).catch(()=>{if(!closed&&mine===version)uncertain()});
     }
-    return {show,reset,destroy(){closed=true;reset();cache.clear();previews.clear();worker?.terminate()}};
+    // Most vertical chart labels read from bottom to top. Rotate only the two margins.
+    async function verticalLabels(canvas,isCurrent){
+      const labels=[];
+      const band=Math.max(1,Math.ceil(canvas.width*.15));
+      const strip=document.createElement('canvas');strip.width=canvas.height;strip.height=band;
+      const ctx=strip.getContext('2d');
+      try{
+        for(const start of [0,canvas.width-band]){
+          if(!isCurrent())break;
+          ctx.setTransform(0,1,-1,0,canvas.height,-start);
+          ctx.drawImage(canvas,0,0);
+          for(const line of await ocrLines(strip)){
+            if(line.conf<70||line.x1-line.x0<(line.y1-line.y0)*2.1||!/[a-z]{2}/i.test(line.text))continue;
+            labels.push({text:line.text.trim(),rotate:true,x0:(start+line.y0)/canvas.width,x1:(start+line.y1)/canvas.width,
+              y0:1-line.x1/canvas.height,y1:1-line.x0/canvas.height});
+          }
+        }
+      }finally{strip.width=strip.height=0}
+      return labels;
+    }
+    const labelCache=new Map();
+    function panelLabels(page,box,isCurrent){
+      const key=JSON.stringify([page,box]);
+      if(labelCache.has(key))return Promise.resolve(labelCache.get(key));
+      const job=chain.then(async()=>{
+        if(closed||!isCurrent())return [];
+        const pic=await session.renderRegion(page,box,{quality:'slide'});
+        if(!isCurrent()||pic.mode!=='crop')return [];
+        const bitmap=await createImageBitmap(pic.blob);
+        const c=document.createElement('canvas');c.width=bitmap.width;c.height=bitmap.height;
+        try{
+          c.getContext('2d').drawImage(bitmap,0,0);
+          const lines=await ocrLines(c);
+          const labels=lines.filter(l=>l.conf>=65&&/[\p{L}]{2}|[µμ]m|\d+\s*h\b/u.test(l.text))
+            .map(l=>({text:l.text.trim(),x0:l.x0/c.width,x1:l.x1/c.width,y0:l.y0/c.height,y1:l.y1/c.height}));
+          const axisLike=lines.some(l=>/\b(?:time|frequency|intensity|score|voltage|distance|probability|concentration)\b/i.test(l.text));
+          if(axisLike&&isCurrent())labels.push(...await verticalLabels(c,isCurrent));
+          if(!isCurrent())return [];
+          labelCache.set(key,labels);if(labelCache.size>64)labelCache.delete(labelCache.keys().next().value);
+          return labels;
+        }finally{bitmap.close();c.width=c.height=0}
+      });
+      chain=job.catch(()=>{});return job;
+    }
+    return {show,reset,panelLabels,destroy(){closed=true;reset();cache.clear();previews.clear();worker?.terminate()}};
   }
   window.HistogramReader={create};
 })();

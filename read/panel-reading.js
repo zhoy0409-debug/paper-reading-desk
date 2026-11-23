@@ -208,9 +208,10 @@
     }
     row('怎么读','How to read it',interpretation);
     if(group){
-      let zh='作者把 '+group.label+' 合在一起说明，可在来源里展开共用图注。',en='The authors describe '+group.label+' together. Open the shared caption in the source passages.';
+      const lead=group.text.split(/(?<=[.!?。])\s+(?=[A-Z])/u)[0];
+      let zh=lead,en=lead;
       if(/\babsolute values?\b/i.test(group.text)){
-        zh+='按绝对值比较时，数值体现偏离零的大小，正负方向已被去掉。';
+        zh='按绝对值比较时，数值体现偏离零的大小，正负方向已被去掉。';
         en+=' Absolute values show the size of a departure from zero and omit its sign.';
       }
       row('这些小图一起说明什么','Shared panel description',pair(zh,en));

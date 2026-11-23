@@ -64,7 +64,7 @@ function assay(sentence){
 }
 export function sentences(text){
   // Only split completed sentences. A genus initial, figure abbreviation or decimal is internal.
-  return normalizeSelection(text).split(/(?<!\b[A-Z])(?<!\bFig)(?<=[.!?])\s+(?=[A-Z])/).reduce((out,s)=>{
+  return normalizeSelection(text).replace(/\bFigs\.\s*(?=\d)/gi,'Figures ').replace(/\bFig\.\s*(?=\d)/gi,'Figure ').split(/(?<!\b[A-Z])(?<!\bFig)(?<=[.!?])\s+(?=[A-Z])/).reduce((out,s)=>{
     if(out.length&&/(?:\b[A-Z]|\bFig|\bet al)\.$/.test(out.at(-1)))out[out.length-1]+=' '+s;else out.push(s);return out;
   },[]);
 }
@@ -80,7 +80,16 @@ export async function translatePassage(original,from,translate){
     const body=fig?s.slice(fig[0].length):s;
     const keys=[...new Set([...body.matchAll(/\b(?:[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|abaucin)\b/g)].map(m=>m[0]))];
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
-    let result=body?await translate(body,from):'';
+    const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells');
+    let result=body?await translate(prepared,from):'';
+    if(/\bTimer probe\b/.test(body))result=result.replace(/定时器探针/g,'Timer 探针');
+    if(/\blog[- ]posterior\b/i.test(body))result=result.replace(/日志后部|对数后部/g,'对数后验');
+    if(/\b(?:imaging|image[- ]based|analysis|processing|data) pipeline\b/i.test(body))result=result.replace(/管道/g,'分析流程');
+    // Translators often spell out standard abbreviations. Keep the original token searchable as well.
+    const expanded={TB:'结核病',DNA:'脱氧核糖核酸',RNA:'核糖核酸',MRI:'磁共振成像',ATP:'三磷酸腺苷',PCR:'聚合酶链式反应'};
+    for(const k of keys){
+      if(expanded[k]&&!result.includes(k)&&result.includes(expanded[k]))result=result.replace(expanded[k],expanded[k]+'（'+k+'）');
+    }
     if(/\bresiduals?\b/i.test(body)&&/\b(?:cosmolog\w*|Hubble|best[- ]fit|distance modul\w*)\b/i.test(body))
       result=result.replace(/残余物|残留物|残余量/g,'残差').replace(/最适合的宇宙学(?!模型)/g,'最佳拟合宇宙学模型');
     const numbers=body.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];

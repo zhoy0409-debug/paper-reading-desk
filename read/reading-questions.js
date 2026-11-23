@@ -179,7 +179,7 @@
     },hasText:()=>Boolean(draft.value),clear};
   }
 
-  function mount({notes,visual,img,session,desk,source,resetPanel,selectPanel}){
+  function mount({notes,visual,img,session,histograms,desk,source,resetPanel,selectPanel}){
     const tabs=el('nav','rq-tabs'),primer=el('section','rq-primer'),ask=el('section','rq-ask');
     const viewer=el('section','rq-focus'),bar=el('div','rq-focus-bar'),label=el('strong'),stage=el('div','rq-stage'),
       viewport=el('div','rq-viewport'),sheet=el('div','rq-sheet'),canvas=el('canvas'),layer=el('div','rq-hits'),callout=el('article','rq-callout'),
@@ -467,6 +467,7 @@
       if(isolate){
         callout.replaceChildren(pair(el('h4'),isolate+' · 受测临床分离株',isolate+' · Clinical isolate tested'),pair(el('p'),'从左到右读这一行：菌株编号、物种、β-内酰胺酶基因，以及两种药的最低抑菌浓度。作者用近期临床分离株检验先前观察到的抗菌活性。','Read across the row for the isolate, species, β-lactamase genes and minimum inhibitory concentrations for the two drugs. The recent clinical isolates test whether the previously observed antibacterial activity is also seen here.'));
       }else callout.replaceChildren(pair(el('h4'),entry[0],/Printed .*label/i.test(entry[1])?entry[0]:entry[1]),pair(el('p'),entry[2],entry[3]));
+      if(entry.localize)PaperLanguageText.bind(callout.querySelector('p'),entry[3]);
       const actions=el('div','rq-actions');actions.append(locate);
       if(entry[4])actions.append(btn('对照 p.'+entry[4],'Source · p.'+entry[4],()=>source(entry[4])));
       actions.append(btn('继续追问','Ask a question',()=>openQuestion(row?entry[0]:[ReaderLanguage.choose(entry[0],entry[1]),ReaderLanguage.choose(entry[2],entry[3])].join('\n'),'',row)));
@@ -679,6 +680,15 @@
         const endX=Math.min(1,x+s.w*original.width/r.width),endY=Math.min(1,y+s.h*original.height/r.height);
         const order=['stain','sham','air','tissue'];const rank=order.indexOf(s.id);return {verified:true,priority:rank<0?10:rank,entry:s.id==='mouse'?(modelEntries()[0]||ReadingPrimer.entries.mouse):ReadingPrimer.entries[s.id],x:Math.max(0,x),y:Math.max(0,y),w:endX-Math.max(0,x),h:endY-Math.max(0,y)};
       }).filter(s=>s.w>.006&&s.h>.006);
+      if(!fixed.length&&pageBox&&p.raw.markerBox){
+        const marker=p.raw.markerBox,entrySource=p.raw.reading?.sources?.find(s=>s.kind==='小图图注'||s.kind.startsWith('组内共用图注'));
+        const x=(marker.x-pageBox.x)/pageBox.width,y=(marker.y-pageBox.y)/pageBox.height;
+        if(entrySource&&x>=0&&y>=0&&x<1&&y<1){
+          const entry=['小图 '+p.label,'Panel '+p.label,entrySource.text,entrySource.text,entrySource.page];
+          entry.localize=true;
+          fixed.push({x,y,w:Math.min(1-x,marker.width/pageBox.width+.012),h:Math.min(1-y,marker.height/pageBox.height+.012),entry,priority:0});
+        }
+      }
       apply(fixed);
       if(pageBox){
         // The paper image is a fast preview. Repaint the PDF vectors at
@@ -693,9 +703,13 @@
           }finally{image.close()}
         }).catch(()=>{});
       }
-      if(!fixed.length&&pageBox){
+      if(!checked&&pageBox){
         try{
-          const words=await session.chartText(f.page,pageBox);
+          let words=await session.chartText(f.page,pageBox);
+          if(f.raw.rasterPlate&&histograms&&current===epoch){
+            const raster=await histograms.panelLabels(f.page,pageBox,()=>current===epoch).catch(()=>[]);
+            words=words.concat(raster.filter(a=>!words.some(b=>a.text===b.text&&Math.abs(a.x0-b.x0)<.025&&Math.abs(a.y0-b.y0)<.025)));
+          }
           if(current!==epoch)return;
           const seen=new Set(),hits=[];
           // Join cells only inside a table with a verified units header and aligned rows.
@@ -710,17 +724,18 @@
             return (head.length?'Headers: '+[...new Set(head.map(w=>w.text))].join(' | ')+'\n':'')+'Row: '+cells.map(c=>c.text).join(' | ');
           }
           for(const word of words){
-            const t=word.text.trim();if((!/[\p{L}]{2}/u.test(t)&&!(table&&/^[>≥<≤]?\s*\d/.test(t)))||t.length>82||hits.length>=60)continue;
+            const t=word.text.trim();if((!/[\p{L}]{2}|\d+\s*h\b|[µμ]m/u.test(t)&&!(table&&/^[>≥<≤]?\s*\d/.test(t)))||t.length>82||hits.length>=60)continue;
             const id=[t,word.x0.toFixed(2),word.y0.toFixed(2)].join('|');if(seen.has(id))continue;seen.add(id);
             const x=Math.max(0,word.x0),y=Math.max(0,word.y0),w=Math.min(1,word.x1)-x,h=Math.min(1,word.y1)-y;
             if(w<=0||h<=0)continue;
             const g=p.raw.reading, axis=g?.axis?.toLowerCase()===t.toLowerCase()&&g.rows.find(line=>line.en==='Vertical axis');
             const strainLabel=ModelReading.strains(t).length || f.raw.animalCohorts?.some(c=>c.name.toLowerCase()===t.toLowerCase());
             const model=strainLabel?modelEntries(t)[0]:null;
-            const entry=model||[t,word.rotate?'Printed vertical label':'Printed label',axis?.zh||'这是本小图中可定位的原文标注「'+t+'」。可对照图注或就这个词提问。',axis?.enText||'The PDF text layer locates this label in this panel. Its interpretation can be checked against the caption.',f.page];
+            const info=f.raw.rasterPlate&&CompositePlate.labelGuide(t,p.raw.reading?.sources,f.page);
+            const entry=model||info||[t,word.rotate?'Printed vertical label':'Printed label',axis?.zh||'这是本小图中可定位的原文标注「'+t+'」。可对照图注或就这个词提问。',axis?.enText||'The PDF text layer locates this label in this panel. Its interpretation can be checked against the caption.',f.page];
             hits.push({x,y,w,h,entry,verified:!!model,priority:model?1:10,row:rowFor(word)});
           }
-          tableRows=hits.filter(h=>h.row);apply(hits);
+          tableRows=hits.filter(h=>h.row);apply([...fixed,...hits]);
         }catch{/* A raster-only panel still opens from its original pixels. */}
       }
     }
