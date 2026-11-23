@@ -17,3 +17,11 @@ assert.ok(read('Body weight at 48 hours.').every(f=>!f.en.includes('regained')))
 assert.equal(read('A study of paired measurements.','Prior studies used a crossover design.').filter(f=>f.key==='allocation').length,0);
 assert.match(read('Each subject completed three visits.', 'We used a randomized crossover design.').find(f=>f.key==='allocation').en,/same participant/);
 console.log('PASS evidence scope, order direction, crossover, uncertainty and non-biomedical events.');
+
+const sampling=(q,lines)=>model.samplingWindow(q,'Cells',lines.map(text=>({kind:'整图图注',text,page:2})));
+const q='这些细胞的取样跨了多长时间？';
+assert.match(sampling(q,['Cells were sampled at seven time points between 0 days and 4 months.']).zh,/0 天到 4 个月/);
+assert.match(sampling('Over what period were samples collected?',['Samples were collected from 2 to 6 weeks.']).en,/2 weeks to 6 weeks/);
+assert.equal(sampling(q,['Samples were collected. They were stored from 2 to 6 weeks.']),null);
+assert.equal(sampling('为什么选择这段采样时间？',['Cells were sampled from 2 to 6 weeks.']),null);
+assert.equal(sampling(q,['Cells were sampled from 2 to 6 weeks.','Cells were sampled from 3 to 9 weeks.']),null);

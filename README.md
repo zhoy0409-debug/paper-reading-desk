@@ -1,21 +1,28 @@
-# 文献精读 · Reading Desk
+# 文献精读
 
 [English](README.en.md)
 
-从论文的一张图开始阅读。点进小图，沿着坐标、组别和图注理解作者在比较什么，再回到对应的 PDF 原句核对。首页提供一篇可以直接打开的示例论文。
+读论文遇到一张六格图，放大以后，还是不知道先看哪一格。点进下面这段 **43 秒实录**，跟着一张图，从看清小图走到做出一页有出处的汇报。
+
+[![一张论文图，到底该怎么看？播放 43 秒实录](dist/media/tour/cover-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
+
+## 选一个你遇到过的问题
+
+| 读到这里的疑问 | 演示里的实际操作 |
+| --- | --- |
+| 一张图挤了六格，该从哪格看起？ | [点开 A，再切到 F](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#focus)，对照同一批细胞的两种画法。 |
+| 又碰到 PCA，要离开论文查词吗？ | [划选 PCA](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#context)，就地看到作者给出的全称和第 7 页出处。 |
+| 这句解释，作者到底写在哪里？ | [从图注跳回 PDF](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#evidence)，直接看到第 10 页高亮的原句。 |
+| 只想问细胞取样跨了多久，还要重讲一遍背景吗？ | [在图旁追问](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#ask)，原文导读答出「0 天到 4 个月」，并列出图注页码。 |
+| 做汇报时，这张截图到底出自哪一页？ | [打开导出的 PowerPoint](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#slide)，核对小图 F、讲解和第 10 页出处。 |
+
+![三处实际界面细节。划词显示 PCA 全称，图注回答取样范围，导出的幻灯片保留小图和出处。](dist/media/tour/details-zh.webp)
 
 ## 开始阅读
 
-1. 下载并解压 [v0.1.0](https://github.com/zhoy0409-debug/paper-reading-desk/releases/tag/v0.1.0) 的源码 ZIP。
+1. 下载并解压 [最新版本](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest) 的源码 ZIP。
 2. 安装 Python 3.8 或更新版本。Windows 双击 `start.cmd`。macOS 或 Linux 在解压目录运行 `python3 preview.py`。
 3. 浏览器会打开 [文献精读](http://127.0.0.1:4187/)。点「公开论文试读」体验示例，或选入自己的主文 PDF。右上角可切换中文和英文。
-
-## 用一张图试读
-
-- **看整体，再看小图。** 在篇内图谱中选一张图。点小图字母放大，点图内可识别的标注看解释，点空白处收起。
-- **核对作者原话。** 点「对读原文」逐段看图注和相关正文。点「在 PDF 中定位」查看上下文，再点「回到摘录」接着读。
-- **理解术语和设计。** 划选可选文本中的缩写，查看匹配到的本文全称、页码，或继续提问。「读图基础」提供与当前图相关的读法。有些论文只有整图图注，可直接查看原页或手动选择小图边界。
-- **留下阅读成果。** 可保存阅读位置、笔记和要汇报的小图，也可导出 PPTX。浏览器本地保存的阅读记录随该浏览器配置使用。
 
 ## 联网检索与模型问答
 

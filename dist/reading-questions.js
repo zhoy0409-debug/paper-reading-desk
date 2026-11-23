@@ -311,6 +311,8 @@
         const key=figure.raw.matchKey==='F:2'&&(scopedKey(q)||scopedKey(excerpt));
         const e=key&&ReadingPrimer.entries[key];if(e)return {reported:{zh:e[2],en:e[3],refs:src.flatMap((s,i)=>s.page===e[4]?['P'+(i+1)]:[]).slice(0,2)}};
       }
+      const windowAnswer=StudyDesignReading.samplingWindow(q,excerpt,src);
+      if(windowAnswer)return {reported:windowAnswer};
       const matches=(q.match(/[A-Za-z][A-Za-z0-9-]{2,}/g)||[]).map(t=>t.toLowerCase());
       const why=/为什么|为何|理由|why|purpose/i.test(q);
       const pick=src.map((s,i)=>({s,i,score:(why&&s.kind==='研究目的原句'?12:0)+(/正文|小图图注/.test(s.kind)?2:0)+matches.filter(t=>s.text.toLowerCase().includes(t)).length*3})).sort((a,b)=>b.score-a.score)[0];

@@ -371,3 +371,13 @@ main:has(.frw) .hero.uploadHero{padding:18px 0}main:has(.frw) .uploadHero h1{fon
 #literaturePane .ea-panel-choices .ea-panel-topic .ui-en{display:block;margin:2px 0 0;color:inherit;opacity:.82}
 #literaturePane .ea-panel-choices .ea-leaf:not([aria-pressed=true]){background:#233b40;border-color:#607e7b;color:#edf4ed}
 #literaturePane .frw-map-back{border:0;background:transparent;color:var(--accent);text-decoration:underline;text-underline-offset:.22em}
+
+.folio-example .folio-watch{display:block;width:100%;padding:0;margin:0;min-height:0;border:0;border-radius:10px;background:#142f2c;overflow:hidden;cursor:pointer}
+.folio-example .folio-watch img{width:100%;height:auto;max-height:none;display:block}
+.folio-watch:focus-visible,.folio-tour-bar button:focus-visible{outline:3px solid #258060;outline-offset:3px}
+.folio-tour{width:min(940px,94vw);max-width:94vw;padding:0;max-height:94vh;overflow:hidden;border:1px solid #47675b;border-radius:14px;background:#f8f8f3;color:#18332f}
+.folio-tour::backdrop{background:rgb(13 27 24 / 67%);backdrop-filter:blur(5px)}
+.folio-tour-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;gap:16px}
+.folio-tour-bar strong{font-size:16px}
+.folio-tour-bar button{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:4px 14px;border:1px solid #b7c8bc;border-radius:18px;line-height:1;font:600 14px/1 var(--sans);background:#fff;color:#19382e;cursor:pointer}
+.folio-tour iframe{display:block;width:100%;height:min(73vh,760px);border:0}

@@ -110,5 +110,35 @@
     if(comp&&!facts.some(f=>f.key==='order'))add('comparison','图注或正文给出了比较关系。点开出处可以核对原句中的对象和变量。','The source names a comparison. Open the passage to check its objects and variables.',comp);
     return facts;
   }
-  window.StudyDesignReading={studyContext,explain};
+  function samplingWindow(question, excerpt, sources) {
+    if (!/(?:采样|取样|采集|sampl(?:e|es|ed|ing)|collect(?:ed|ion)?)/i.test(question)
+        || !/(?:多久|多长|跨度|哪段|起止|时间范围|时间段|time span|over what period|how long|what time (?:span|range)|from when)/i.test(question)
+        || /为什么|为何|why|频率|间隔|how often|frequency/i.test(question)) return null;
+    const unit = '(seconds?|minutes?|hours?|days?|weeks?|months?|years?)';
+    const number = '(\\d+(?:\\.\\d+)?)';
+    const limits = new RegExp('\\b(?:between|from)\\s+'+number+'(?:\\s+'+unit+')?\\s+(?:and|to|through)\\s+'+number+'\\s+'+unit+'\\b','i');
+    const names = {second:'秒',minute:'分钟',hour:'小时',day:'天',week:'周',month:'个月',year:'年'};
+    const zhUnit = s=>names[s.toLowerCase().replace(/s$/,'')];
+    const selected = clean(excerpt).toLowerCase();
+    const candidates = [];
+    for (const [i,s] of sources.entries()) {
+      if (!/图注|正文/.test(s.kind)) continue;
+      for (const {text} of passages(s.text,s.page)) {
+        const sampling = /\b(?:sampled|sampling took place|samples were collected)\b/i.exec(text);
+        if (!sampling || !relevant({text})) continue;
+        const after=text.slice(sampling.index+sampling[0].length);
+        const m=limits.exec(after);
+        if (!m || /stored|incubated|storage|after treatment|were treated|;/.test(after.slice(0,m.index))) continue;
+        const lowUnit=m[2]||m[4], z=m[1]+' '+zhUnit(lowUnit)+'到 '+m[3]+' '+zhUnit(m[4]);
+        const score=(s.kind==='小图图注'?2:0)+(selected.length>2&&text.toLowerCase().includes(selected)?4:0);
+        candidates.push({i,score,z,english:m[1]+' '+lowUnit+' to '+m[3]+' '+m[4]});
+      }
+    }
+    candidates.sort((a,b)=>b.score-a.score);
+    const hit=candidates[0];
+    if (!hit || candidates.some(other=>other.score===hit.score && other.z!==hit.z)) return null;
+    return {zh:'取样时间范围是 '+hit.z+'。',en:'Sampling ranged from '+hit.english+'.',refs:['P'+(hit.i+1)]};
+  }
+
+  window.StudyDesignReading={studyContext,explain,samplingWindow};
 })();

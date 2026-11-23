@@ -271,8 +271,31 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  const uploadColumn=add(opening,'div',undefined,'folio-intake');
  uploadColumn.append(titleRow,primaryPicker,formats,paste,support);
  const plate=add(opening,'figure',undefined,'folio-example');
- const illustration=add(plate,'img');illustration.src='./media/embedding-plate.webp';
- illustration.alt='Böhm et al., Figure 6, panels A–F and shared sampling-time legend';illustration.width=917;illustration.height=503;
+ const watch=add(plate,'button',undefined,'folio-watch');watch.type='button';
+ const cover=add(watch,'img');cover.width=1360;cover.height=660;cover.alt='';
+ const locale=()=>window.ReaderLanguage?.current==='en'?'en':'zh';
+ function localizeTour(){
+   const en=locale()==='en';
+   cover.src='./media/tour/cover-'+locale()+'.webp';
+   watch.setAttribute('aria-label',en?'Watch the 43-second reading tour':'观看 43 秒读图演示');
+ }
+ localizeTour();
+ doc.addEventListener('reader-language-change',localizeTour);
+ watch.addEventListener('click',()=>{
+   const en=locale()==='en';
+   const dialog=add(mountBox,'dialog',undefined,'folio-tour');
+   dialog.setAttribute('aria-label',en?'Reading tour':'读图演示');
+   const bar=add(dialog,'div',undefined,'folio-tour-bar');
+   add(bar,'strong',en?'Reading tour':'读图演示');
+   const close=add(bar,'button',en?'Close':'关闭');close.type='button';
+   const frame=add(dialog,'iframe');frame.title=en?'Reading tour':'读图演示';
+   frame.src='./media/tour/index.html?lang='+locale()+'&embed=1';
+   frame.allow='autoplay; fullscreen';frame.allowFullscreen=true;
+   close.addEventListener('click',()=>dialog.close());
+   dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+   dialog.addEventListener('close',()=>{dialog.remove();watch.focus();},{once:true});
+   dialog.showModal();close.focus();
+ });
  const plateInfo=add(plate,'figcaption');
  add(plateInfo,'small','Böhm, Berens & Kobak · Fig. 6 · PDF p.10');
  const sampleTitle=add(plateInfo,'cite','Attraction–Repulsion Spectrum in Neighbor Embeddings');sampleTitle.lang='en';
