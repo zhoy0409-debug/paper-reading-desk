@@ -509,6 +509,10 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  };
  function autoMap(item){
   const mm=item.model;
+  function figureTopic(key){
+   const figure=item.figureSession?.figures.find(f=>f.matchKey===key);
+   return figure?.title||figureLabel(key);
+  }
   const front=mm.rows.filter(r=>!r.page||r.page===1).slice(0,22);
   const knownId=front.flatMap(r=>sourceDOIs(r.text)).find(doi=>window.PaperReadingEditions?.get(doi));
   if(knownId)return {model:window.PaperReadingEditions.get(knownId),curated:true};
@@ -519,7 +523,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    const tokens=[...new Set(section.rows.flatMap(r=>r.mentions||[]))].filter(fig=>mm.captions.has(fig)).slice(0,3);
    const children=tokens.map(fig=>{
     const r=mm.captions.get(fig)[0];
-    return {id:key+'-'+fig,title:figureLabel(fig),summary:'这里定位到原文提及的图注，点原文核对。',source:{label:figureLabel(fig),location:r.location,figure:fig}};
+    return {id:key+'-'+fig,title:figureTopic(fig),summary:'这里定位到原文提及的图注，点原文核对。',source:{label:figureLabel(fig),location:r.location,figure:fig}};
    });
    return {id:key,title:sectionNames[key],category:'原文定位',summary:explanations[key],children,
     source:{label:'查看'+sectionNames[key],location:first?.location||section.title,sectionIndex}};
@@ -527,12 +531,12 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   if(branches.length<5&&mm.captions.size){
    const captions=Array.from(mm.captions.entries()).slice(0,5);
    branches.push({id:'caption-index',title:'图表怎么读',category:'图注定位',summary:'从能定位到的图注开始，不把图注当成已经读过原图。',
-    children:captions.map(([fig,records])=>({id:'cap-'+fig,title:figureLabel(fig),summary:'查看可定位的图注。',source:{label:figureLabel(fig),location:records[0].location,figure:fig}}))});
+    children:captions.map(([fig,records])=>({id:'cap-'+fig,title:figureTopic(fig),summary:'查看可定位的图注。',source:{label:figureLabel(fig),location:records[0].location,figure:fig}}))});
   }
   if(!branches.length)branches.push({id:'source-only',title:'从可读原文开始',category:'原文定位',summary:'标题还未可靠识别。可以点开已有文字，不猜测论文在证明什么。',source:{label:'显示原文',location:mm.rows[0]?.location||'',sectionIndex:-1}});
   const explicit=mm.sections.find(sec=>sec.key==='question');
   const question=explicit?.rows.find(row=>!row.heading&&/[？?]$/.test(row.text.trim())&&inline(row.text).length<112);
-  return {model:{title:'本地文献导览',root:{title:question?inline(question.text):'从哪里读懂这篇论文？',summary:'先点一个分支。节点连到本地识别到的段落或图注，不把目录当成论点。'},branches},curated:false};
+  return {model:{title:'本地文献导览',root:{title:question?inline(question.text):item.figureSession?.documentTitle||'从哪里读懂这篇论文？',summary:'先点一个分支。节点连到本地识别到的段落或图注，不把目录当成论点。'},branches},curated:false};
  }
  function graphContents(item,isExample=false){
   const data=isExample?{model:window.PaperReadingEditions?.example,curated:true}:autoMap(item);

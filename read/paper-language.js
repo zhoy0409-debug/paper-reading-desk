@@ -3,7 +3,7 @@
   'use strict';
   const base=new URL('.',document.currentScript.src);
   let engine;
-  const cache=new Map(),bindings=new WeakMap();
+  const cache=new Map(),ready=new Map(),bindings=new WeakMap();
   async function translate(text,from) {
     if(!engine){
       engine=import(new URL('vendor/bergamot/translator.js',base)).then(({BatchTranslator})=>
@@ -15,15 +15,27 @@
   }
   function chinese(source) {
     if(!cache.has(source)){
-      const job=import(new URL('scientific-translation.js?rev=import-021',base)).then(async({translatePassage})=>{
-        const result=await translatePassage(source,'en',translate);
-        return result.text;
+      const job=import(new URL('scientific-translation.js?rev=map-030',base)).then(async({mapChinese})=>{
+        if(!han.test(source))return mapChinese(source,translate);
+        const parts=source.split(/([\u3400-\u9fff]+)/u);
+        return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translate):part))).join('');
       });
       cache.set(source,job);
+      job.then(value=>{
+        ready.set(source,value);if(ready.size>256)ready.delete(ready.keys().next().value);
+      },()=>{});
       job.catch(()=>{if(cache.get(source)===job)cache.delete(source)});
       if(cache.size>256)cache.delete(cache.keys().next().value);
     }
     return cache.get(source);
+  }
+  const han=/[\u3400-\u9fff]/u;
+  const englishPassage=/\b[A-Za-z][\w-]*(?:\s+[A-Za-z][\w-]*){2,}/;
+  function needsText(text){return han.test(text)?englishPassage.test(text):/[A-Za-z]/.test(text)}
+  function identifier(text){
+    if(/^(?:Fig(?:ure)?\.?|Tab(?:le)?\.?)\s*S?\d+[a-z]?$/i.test(text))return text.replace(/^(?:Fig(?:ure)?\.?)/i,'图').replace(/^Tab(?:le)?\.?/i,'表');
+    if(/^(?:[A-Z]{1,8}[A-Z\d_./-]*|[a-zA-Z]\d[\w./-]*)$/.test(text))return '标记 '+text;
+    return '';
   }
   function refresh(el) {
     const binding=bindings.get(el);
@@ -33,25 +45,28 @@
     delete el.dataset.translationRetry;
     const revision=binding.revision=(binding.revision||0)+1;
     const current=()=>bindings.get(el)===binding&&binding.revision===revision;
-    if(ReaderLanguage.current==='en'||!source.match(/[A-Za-z]{3}/)||/[\u3400-\u9fff]/u.test(source)){
-      el.textContent=source;el.removeAttribute('aria-busy');return;
+    if(ReaderLanguage.current==='en'||!needsText(source)||identifier(source)){
+      el.textContent=ReaderLanguage.current==='zh'?(identifier(source)||source):source;el.lang=ReaderLanguage.current==='zh'?'zh-CN':'en';el.removeAttribute('aria-busy');return;
     }
-    el.setAttribute('aria-busy','true');
+    if(ready.has(source)){el.textContent=ready.get(source);el.lang='zh-CN';el.removeAttribute('aria-busy');return;}
+    el.lang='zh-CN';el.textContent='正在生成中文…';el.setAttribute('aria-busy','true');
     binding.timer=setTimeout(()=>{if(current()&&el.isConnected)el.dataset.translationRetry='slow'},45000);
     chinese(source).then(value=>{
       if(current()&&ReaderLanguage.current==='zh'&&el.isConnected){
         delete el.dataset.translationRetry;
         el.textContent=value;el.lang=/[\u3400-\u9fff]/u.test(value)?'zh-CN':'en';
       }
-    }).catch(()=>{if(current()&&ReaderLanguage.current==='zh')el.dataset.translationRetry='error'}).finally(()=>{
+    }).catch(()=>{if(current()&&ReaderLanguage.current==='zh'){
+      el.textContent='中文解读待重试';el.dataset.translationRetry='error';
+    }}).finally(()=>{
       if(current()){clearTimeout(binding.timer);el.removeAttribute('aria-busy')}
     });
   }
   function bind(el,source) {
     if(!el||!source)return el;
-    clear(el);el.textContent=source;delete el.dataset.sourceText;
+    clear(el);el.textContent=ReaderLanguage.current==='zh'&&needsText(source)?identifier(source)||ready.get(source)||'正在生成中文…':source;delete el.dataset.sourceText;
     bindings.set(el,{source});el.dataset.paperTranslation='';
-    if(ReaderLanguage.current==='zh')queueMicrotask(()=>{if(el.isConnected)refresh(el)});
+    queueMicrotask(()=>{if(el.isConnected&&bindings.get(el)?.source===source)refresh(el)});
     return el;
   }
   function clear(el){

@@ -9,6 +9,7 @@ const PALETTE = [
 ];
 const CSS = `
 .paper-map{--pm-ink:#28233a;--pm-muted:#615b72;--pm-border:#e8e0ee;--pm-plum:#6c4cb0;font:inherit;color:var(--pm-ink);container-type:inline-size;line-height:1.48}
+.paper-map .pm-retry{display:none}.paper-map:has([data-translation-retry]) .pm-retry{display:inline-block}
 .paper-map,.paper-map *{box-sizing:border-box}
 .paper-map :is(h2,h3,h4,p){margin:0}
 .paper-map button,.paper-map a{font-family:inherit}
@@ -142,12 +143,14 @@ function mount(container,rawModel,options={}){
  const previous=controls.get(container);if(previous){previous.update(rawModel,options);return previous;}
  const doc=container.ownerDocument||window.document, base=doc.baseURI;
  const make=(tag,text,cls)=>{const e=doc.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
- const ui=(tag,text,cls)=>PaperUI.set(make(tag,undefined,cls),text);
+ const label=(el,text)=>text&&/[A-Za-z]/.test(text)&&!/[\u3400-\u9fff]/u.test(text)?PaperLanguageText.bind(el,text):PaperUI.set(el,text);
+ const ui=(tag,text,cls)=>label(make(tag,undefined,cls),text);
  const button=(text,fn,cls='pm-switch')=>{const b=ui('button',text,cls);b.type='button';b.addEventListener('click',fn);return b;};
  const wrapper=make('section',undefined,'paper-map');
  const style=make('style',CSS);
  const header=make('div',undefined,'pm-head'), titles=make('div'), heading=make('h2'), hint=make('p','先看核心问题，点一条枝再展开图解和出处。','pm-orientation');
  titles.append(heading,hint);header.append(titles);
+ const retry=make('button','重新加载中文导读','pm-retry');retry.type='button';retry.onclick=()=>PaperLanguageText.retry();header.append(retry);
  const body=make('div',undefined,'pm-layout'), plot=make('div'), drawer=make('aside',undefined,'pm-drawer');drawer.tabIndex=-1;drawer.setAttribute('aria-label','所选节点说明');
  body.append(plot,drawer);wrapper.append(style,header,body);container.append(wrapper);
 
@@ -172,7 +175,7 @@ function mount(container,rawModel,options={}){
   return b;
  }
  function drawGraph(){
-  PaperUI.set(heading,m.title);
+  label(heading,m.title);
   graphButtons=[];graphPaths=[];
   const visible=m.branches.slice(0,openAll?m.branches.length:8);
   const graph=make('div',undefined,'pm-graph'), left=make('div',undefined,'pm-side'), center=make('div',undefined,'pm-side pm-side-center'), right=make('div',undefined,'pm-side');

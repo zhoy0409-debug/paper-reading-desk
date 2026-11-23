@@ -104,3 +104,38 @@ export async function translatePassage(original,from,translate){
   }
   return {text:lines.join('\n\n'),warnings};
 }
+// A scientific sentence can lose a number or identifier during translation.
+// Retry with protected spans, then run the same factual checks again.
+export async function mapChinese(source,translate){
+  const han=/[\u3400-\u9fff]/u;
+  const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
+  const escaped=[...names.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[\-\/\\^$*+?.()|[\]{}]/g,'\\$&'));
+  const technical=/\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
+  const anchors=new RegExp(escaped.join('|')+'|'+technical.source,'g');
+  async function protectedSentence(s){
+    const pieces=[];let end=0;
+    async function prose(value){
+      if(!/[a-z]{2}/i.test(value))return value;
+      const text=(await translate(value.trim(),'en')).trim();
+      if(!han.test(text)&&/[a-z]{3,}\s+[a-z]{3,}/i.test(text))throw Error('Untranslated passage');
+      return text;
+    }
+    for(const match of s.matchAll(anchors)){
+      pieces.push(await prose(s.slice(end,match.index)),names.get(match[0].toLowerCase())||match[0]);
+      end=match.index+match[0].length;
+    }
+    pieces.push(await prose(s.slice(end)));
+    return pieces.filter(Boolean).join(' ').trim();
+  }
+  const parts=[];
+  for(const s of sentences(source)){
+    let result=await translatePassage(s,'en',translate);
+    if(result.warnings.length){
+      const localized=await protectedSentence(s);
+      result=await translatePassage(s,'en',async()=>localized);
+    }
+    if(result.warnings.length||!han.test(result.text))throw Error('Translation needs another reading');
+    parts.push(result.text);
+  }
+  return parts.join(' ');
+}
