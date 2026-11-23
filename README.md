@@ -20,7 +20,7 @@ Preparing a journal club talk? You can spend an evening cropping figures, lookin
 
 **In your browser.** Open the reader and open the sample paper or select your own PDF. Reading, figure export and the source guide work without installing software or creating an account. The browser processes your PDF on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
-**Portable Windows edition (x64).** Download the ZIP, extract the whole folder, then double-click **start.cmd**. Python is included. This edition also supports in-reader answers from model APIs and installed local tools. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
+**Portable Windows edition (x64).** Download the ZIP, extract the whole folder, then double-click **start.cmd**. Python is included. This edition also supports in-reader answers from model APIs and installed local tools. From version 0.3.0, open **Updates** in the header to download, install and restart. Users of 0.2.2 and earlier need this download once. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
 
 ## Ask questions
 

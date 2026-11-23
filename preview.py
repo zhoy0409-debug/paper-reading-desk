@@ -3,6 +3,8 @@ import argparse
 import http.client
 import json
 import sys
+import threading
+import portable_update
 import webbrowser
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -31,14 +33,16 @@ class ReadingHandler(SimpleHTTPRequestHandler):
         self.wfile.write(encoded)
 
     def do_GET(self):
-        if self.path!="/api/reading-options":
+        if self.path not in ("/api/reading-options", "/api/portable-update"):
             return super().do_GET()
         if self.headers.get("Host")!=f"{ADDRESS}:{self.server.server_port}":
             return self.reply(403,{"error":"Use the local reading desk"})
+        if self.path=="/api/portable-update":
+            return self.reply(200,self.server.updater.status())
         return self.reply(200,reading_questions.options())
 
     def do_POST(self):
-        if self.path not in ("/api/reading-question","/api/literature-search","/api/model-session"):
+        if self.path not in ("/api/reading-question","/api/literature-search","/api/model-session","/api/portable-update"):
             return self.reply(404,{"error":"Unknown route"})
         authority=f"{ADDRESS}:{self.server.server_port}"
         if self.headers.get("Host")!=authority or self.headers.get("Origin")!="http://"+authority:
@@ -49,6 +53,20 @@ class ReadingHandler(SimpleHTTPRequestHandler):
             size=int(self.headers.get("Content-Length","0"))
             if not 0<size<=65536:raise ValueError()
             body=json.loads(self.rfile.read(size))
+            if self.path=="/api/portable-update":
+                if not isinstance(body,dict) or set(body)!={"action"} or body["action"] not in ("check","install","restart"):
+                    return self.reply(400,{"error":"Unknown update action"})
+                updater=self.server.updater
+                if not updater.enabled:
+                    return self.reply(404,{"error":"Portable edition required"})
+                if body["action"]=="restart":
+                    if not updater.restart():
+                        return self.reply(409,updater.status())
+                    self.reply(200,updater.status())
+                    self.server.restart_requested=True
+                    threading.Thread(target=self.server.shutdown,daemon=True).start()
+                    return
+                return self.reply(200,updater.begin(body["action"]))
             if self.path=="/api/model-session":
                 if not isinstance(body,dict) or set(body)!={'provider','key'} or not isinstance(body['provider'],str):
                     raise ValueError()
@@ -87,16 +105,26 @@ def main():
                 conn.request("GET","/")
                 response=conn.getresponse()
                 same_app=response.status==200 and b"./panel-desk.js" in response.read()
+                if same_app and portable_update.Updater().enabled:
+                    conn.request("GET","/api/portable-update")
+                    info=conn.getresponse()
+                    existing=info.read(16384)
+                    if info.status != 200 or json.loads(existing).get("current") != portable_update.VERSION or not json.loads(existing).get("enabled"):
+                        sys.exit("请先关闭旧阅读器的启动窗口，再双击新版 start.cmd。\nClose the other Reading Desk window that started the local service, then run start.cmd again.")
             finally:conn.close()
         except OSError:same_app=False
         if not same_app:sys.exit(f"Port {args.port} is occupied. Close the other local service and retry.")
         if not args.no_browser:webbrowser.open(url)
         return
+    server.updater=portable_update.Updater()
+    server.updater.started()
+    server.restart_requested=False
     print(url,flush=True)
     if not args.no_browser:webbrowser.open(url)
     with server:
         try:server.serve_forever()
         except KeyboardInterrupt:pass
+    if server.restart_requested:sys.exit(75)
 
 
 if __name__=="__main__":

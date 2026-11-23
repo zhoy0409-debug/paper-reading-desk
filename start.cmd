@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0"
 if exist "%~dp0runtime\python.exe" (
-  "%~dp0runtime\python.exe" "%~dp0preview.py" %*
+  "%~dp0runtime\python.exe" "%~dp0portable_launcher.py" %*
   goto done
 )
 set "tree_python=%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"

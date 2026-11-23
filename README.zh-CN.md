@@ -20,7 +20,7 @@
 
 **网页直接用。** 打开阅读器，点「公开论文试读」，或选入自己的 PDF。读图、导出和原文导读都免安装、免账号。PDF 由你设备上的浏览器处理。[打开中文版](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh)
 
-**Windows x64 便携版。** 下载 ZIP，完整解压，双击 **start.cmd**。运行环境已随包附带。需要在阅读器内接入模型时使用这一版。[下载 Windows 便携版](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
+**Windows x64 便携版。** 下载 ZIP，完整解压，双击 **start.cmd**。运行环境已随包附带。需要在阅读器内接入模型时使用这一版。自 0.3.0 起，右上角「版本更新」可以检查新版、下载安装并重启。0.2.2 及更早版本需要先从这里下载一次新版。[下载 Windows 便携版](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
 
 ## 怎么提问
 

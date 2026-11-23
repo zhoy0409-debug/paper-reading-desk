@@ -108,10 +108,10 @@
         body.replaceChildren();if(!papers.length){body.append(PaperUI.set(el('p'),'读图时点「保存到私人图谱」，即可从这里重开原文、笔记与读图位置。'));return}
         const current=papers.find(p=>p.id===center)||papers[0];center=current.id;
         const nav=el('select');nav.setAttribute('aria-label','探索已保存的论文');
-        for(const p of papers){const o=el('option',p.title);o.value=p.id;nav.append(o)}nav.value=center;
+        for(const p of papers){const o=PaperLanguageText.bind(el('option'),p.title);o.value=p.id;nav.append(o)}nav.value=center;
         nav.onchange=()=>{center=nav.value;draw()};body.append(nav);
         const graph=el('div');graph.className='ps-network';
-        const node=button(current.title,()=>open(current.id));node.className='ps-center';graph.append(node);
+        const node=PaperLanguageText.bind(button('',()=>open(current.id)),current.title);node.className='ps-center';graph.append(node);
         const peers=el('div');graph.append(peers);
         const edges=graphEdges(papers,manual).filter(e=>e.from===center||e.to===center);
         for(const e of edges){
@@ -120,7 +120,7 @@
           const reason=el('p',e.reason);reason.hidden=true;
           const label=e.type==='原文确有引用'?(e.from===center?'本文引用 →':'← 对方引用本文'):e.type;
           const edge=button(label,()=>{reason.hidden=!reason.hidden;edge.setAttribute('aria-expanded',String(!reason.hidden))});
-          edge.setAttribute('aria-expanded','false');line.append(edge,button(peer.title,()=>{center=peer.id;draw()}),reason);peers.append(line);
+          edge.setAttribute('aria-expanded','false');line.append(edge,PaperLanguageText.bind(button('',()=>{center=peer.id;draw()}),peer.title),reason);peers.append(line);
         }
         if(!edges.length)peers.append(PaperUI.set(el('p'),'尚无已记录的联系。'));
         const pos=state(center),last=pos.spot||{};
@@ -132,7 +132,7 @@
           const kind=el('select');kind.setAttribute('aria-label','联系类型');
           for(const label of ['我确认的联系','主题相近']){const option=el('option',label+' / '+PaperUI.english(label));option.value=label;kind.append(option)};
           const select=el('select');select.setAttribute('aria-label','关联论文');
-          for(const p of papers.filter(p=>p!==current)){const o=el('option',p.title);o.value=p.id;select.append(o)}
+          for(const p of papers.filter(p=>p!==current)){const o=PaperLanguageText.bind(el('option'),p.title);o.value=p.id;select.append(o)}
           const input=el('input');input.placeholder='两篇论文的具体联系 / Why are these papers connected?';input.maxLength=600;
           form.append(select,kind,input,button('保存联系',async()=>{
             if(!input.value.trim()){input.focus();return}

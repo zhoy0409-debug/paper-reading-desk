@@ -1080,7 +1080,7 @@
       // A clip is attached to this article instance, not to generic figure numbers on later articles.
       currentLesson = evidenceOptions?.lesson ?? next?.lesson ?? (next === options.model ? options.lesson : null);
       generation++; cache.clear(); model = normalize(next); active=null;
-      PaperLanguageText.bind(title,model.title); takeaway.textContent=model.takeaway;
+      PaperLanguageText.bind(title,model.title); if(model.takeaway)PaperLanguageText.bind(takeaway,model.takeaway);else{PaperLanguageText.clear(takeaway);takeaway.textContent=''}
       takeaway.hidden = !model.takeaway;
       empty.hidden=Boolean(model.figures.length); body.hidden=!empty.hidden;
       addRail(); atlas?.setModel(model);

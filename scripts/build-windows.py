@@ -12,7 +12,7 @@ RUNTIME_SHA256 = '90905e64a840557d8c1bc4f5b74db3d7ee85e3ffb217611cac1c7813acea41
 def build(runtime, output):
     if hashlib.sha256(runtime.read_bytes()).hexdigest() != RUNTIME_SHA256:
         raise ValueError('Expected python-3.14.10-embed-amd64.zip from python.org')
-    files = ['start.cmd', 'preview.py', 'reading_questions.py', 'reading_providers.py',
+    files = ['start.cmd', 'VERSION', 'portable_launcher.py', 'portable_update.py', 'preview.py', 'reading_questions.py', 'reading_providers.py',
              'public_literature.py', 'THIRD-PARTY.md', 'README.md', 'README.zh-CN.md']
     with ZipFile(runtime) as source, ZipFile(output, 'x', compression=ZIP_DEFLATED) as bundle:
         for name in source.namelist():

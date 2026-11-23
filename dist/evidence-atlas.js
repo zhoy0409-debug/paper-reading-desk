@@ -59,7 +59,7 @@
     svg.setAttribute('class','ea-lines'); svg.setAttribute('aria-hidden','true');
     const root = el('div', '', 'ea-root');
     const tag = el('small'), topic = el('strong'), fullTopic=el('details');
-    fullTopic.append(el('summary','读完整摘录 / Full excerpt'),el('p'));
+    fullTopic.append(PaperUI.set(el('summary'),'读完整摘录','Full excerpt'),el('p'));
     root.append(tag, topic, fullTopic);
     const nodes = el('div', '', 'ea-nodes');
     canvas.append(svg, root, nodes);
@@ -111,13 +111,13 @@
     function render() {
       section.hidden = !model.figures.length;
       PaperUI.set(tag,model.question ? '研究问题' : model.rootKind || '这篇论文');
-      topic.textContent = model.question || model.rootLabel || '论文图件';
+      const rootText=model.question || model.rootLabel || '论文图件';
       if(model.questionEnglish){PaperLanguageText.clear(topic);PaperUI.set(topic,model.question,model.questionEnglish);}
-      else PaperLanguageText.bind(topic,topic.textContent);
-      topic.title=model.questionEnglish?model.question+' / '+model.questionEnglish:topic.textContent;
-      fullTopic.hidden=Math.max((model.question||topic.textContent).length,(model.questionEnglish||"").length)<=135;
+      else PaperLanguageText.bind(topic,rootText);
+      topic.removeAttribute('title');
+      fullTopic.hidden=Math.max(rootText.length,(model.questionEnglish||"").length)<=135;
       if(model.questionEnglish){PaperLanguageText.clear(fullTopic.lastChild);PaperUI.set(fullTopic.lastChild,model.question,model.questionEnglish);}
-      else PaperLanguageText.bind(fullTopic.lastChild,model.question||model.rootLabel||topic.textContent);
+      else PaperLanguageText.bind(fullTopic.lastChild,rootText);
       const located=model.figures.filter(f=>!f.raw.pageOnly);
       const short=model.figures.length<=5, all=short||expanded;
       const sourceOrder=model.figures;
@@ -149,11 +149,12 @@
         button.onpointerenter=button.onfocus=()=>previewPath(true);
         button.onpointerleave=button.onblur=()=>previewPath(false);
         button.setAttribute('aria-expanded',String(f.id===openId));
-        button.title = f.raw.evidenceStep ? f.title+" / "+f.raw.evidenceStep[0] : f.branchTitle || f.title || f.label;
-        const branchTitle=el('strong',button.title);
+        const branchTitle=el('strong');
         if(f.raw.evidenceStep)PaperUI.set(branchTitle,f.title,f.raw.evidenceStep[0]);
         else PaperLanguageText.bind(branchTitle,f.branchTitle||f.raw.title||f.title||f.label);
-        const meta=el('small',[f.label, f.page ? 'p.'+f.page : ''].filter(Boolean).join(' · '));
+        const meta=el('small');
+        const figNumber=(f.label||'').replace(/^Fig(?:ure)?\.?\s*/i,'图 ');
+        meta.append(PaperUI.set(el('span'),figNumber+(f.page?' · 第 '+f.page+' 页':''),f.label+(f.page?' · p.'+f.page:'')));
         if(!f.raw.evidenceStep){
           const roles=[[/\bvalidat(?:e[sd]?|ion)\b/i,'方法验证','Validation'],[/\b(?:associat(?:ed|ion)|correlat(?:ed|ion))\b/i,'关联分析','Association'],[/\b(?:pipeline|workflow)\b/i,'方法流程','Workflow'],[/\b(?:quantification|quantifying|measurement)\b/i,'定量测量','Quantification'],[/\bcompar(?:ison|ing)\b/i,'对比分析','Comparison']];
           const role=roles.find(([re])=>re.test(f.raw.title||f.title));
@@ -186,16 +187,17 @@
             leaf.append(el('b',part.label));
             if(label || passage || ownLabel){
               const body=el('span','','ea-panel-topic');
-              if(label) PaperUI.set(body,label[0],label[1]);
+              if(label&&/[\u3400-\u9fff]/u.test(label[0])) PaperUI.set(body,label[0],label[1]);
+              else if(label)PaperLanguageText.bind(body,label[0]||label[1]);
               else {
                 const excerpt=ownLabel||passage;
                 PaperLanguageText.bind(body,excerpt.split(/(?<=[.!?])\s+(?=[A-Z])/)[0]);
-                body.title=excerpt;
+
               }
               leaf.append(body);
             }
             leaf.setAttribute('aria-label','小图 / Panel '+part.label);
-            if(label||passage||ownLabel)leaf.setAttribute('aria-description',label?label.join(' / '):ownLabel||passage);
+
             leaf.onclick=()=>{opts.onPanel(part.id);inspect()};
             choices.append(leaf);
           }
