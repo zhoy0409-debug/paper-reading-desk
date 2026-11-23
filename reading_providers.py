@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import threading
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
@@ -11,6 +12,25 @@ HOSTED = {
 }
 LOCAL = 'http://127.0.0.1:11434/api/'
 MODES = ('auto', 'evidence', 'deepseek', 'qwen', 'ollama', 'chatgpt')
+
+
+_session_keys = {}
+_key_lock = threading.Lock()
+
+
+def set_session_key(provider, key):
+    if provider not in HOSTED or not isinstance(key, str) or len(key) > 512 or (key and not re.fullmatch(r'[!-~]+', key)):
+        raise ValueError('Invalid session key')
+    with _key_lock:
+        if key:
+            _session_keys[provider] = key
+        else:
+            _session_keys.pop(provider, None)
+
+
+def credential(provider):
+    with _key_lock:
+        return _session_keys.get(provider) or os.environ.get(HOSTED[provider][1])
 
 
 class ProviderIssue(Exception):
@@ -50,8 +70,8 @@ def local_model():
 
 
 def automatic(cli):
-    for key,(_,secret,_,_) in HOSTED.items():
-        if os.environ.get(secret):return key
+    for key in HOSTED:
+        if credential(key):return key
     if local_model():return 'ollama'
     return 'chatgpt' if cli else 'evidence'
 
@@ -72,7 +92,7 @@ def complete(provider,system,message,schema):
         data=request_json(LOCAL+'chat',{'model':model,'messages':messages,'stream':False,'format':schema})
         return decode((data.get('message') or {}).get('content'))
     endpoint,secret,model_env,default=HOSTED[provider]
-    token=os.environ.get(secret)
+    token=credential(provider)
     if not token:raise ProviderIssue('阅读器尚未配置此服务的 API 密钥')
     body={'model':os.environ.get(model_env) or default,'messages':messages,'response_format':{'type':'json_object'},'stream':False}
     data=request_json(endpoint,body,token)

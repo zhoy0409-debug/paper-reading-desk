@@ -1,41 +1,30 @@
-# 文献精读
+# Reading Desk
 
-[English](README.en.md)
+[简体中文](README.zh-CN.md) · [Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Watch the tour](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
-读论文遇到一张六格图，放大以后，还是不知道先看哪一格。点进下面这段 **43 秒实录**，跟着一张图，从看清小图走到做出一页有出处的汇报。
+Preparing a journal club talk? You can spend an evening cropping figures, looking up an unfamiliar method, and trying to explain why Figure 6 follows Figure 5. Open your PDF in Reading Desk and work through those tasks beside the paper.
 
-[![一张论文图，到底该怎么看？播放 43 秒实录](dist/media/tour/cover-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
+[![Still cropping paper figures? Watch three workflows in Reading Desk.](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
-## 选一个你遇到过的问题
-
-| 读到这里的疑问 | 演示里的实际操作 |
+| When you get stuck | What you can do |
 | --- | --- |
-| 一张图挤了六格，该从哪格看起？ | [点开 A，再切到 F](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#focus)，对照同一批细胞的两种画法。 |
-| 又碰到 PCA，要离开论文查词吗？ | [划选 PCA](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#context)，就地看到作者给出的全称和第 7 页出处。 |
-| 这句解释，作者到底写在哪里？ | [从图注跳回 PDF](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#evidence)，直接看到第 10 页高亮的原句。 |
-| 只想问细胞取样跨了多久，还要重讲一遍背景吗？ | [在图旁追问](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#ask)，原文导读答出「0 天到 4 个月」，并列出图注页码。 |
-| 做汇报时，这张截图到底出自哪一页？ | [打开导出的 PowerPoint](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#slide)，核对小图 F、讲解和第 10 页出处。 |
+| **“I zoom, screenshot and crop every panel. The labels still look fuzzy on my slide.”** | Select the panel once. Save a PNG rendered from the source PDF or add it to a PowerPoint slide with the figure number, page and your speaking note. [Watch the export](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export) · [Inspect the actual 1243 × 1500 PNG](dist/media/tour/sample-panel.png) |
+| **“I opened five tabs to learn UMAP. What am I supposed to look for in these dots?”** | Read the method beside the plot and see how to compare local groups. Select PCA to find the authors’ definition, or ask about a detail and jump back to the cited passage. [Watch the method walkthrough](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#methods) |
+| **“I understand each figure on its own. How do I explain the paper as a whole?”** | Open the evidence map to see the research focus and figures in paper order. Follow a figure to its panels and the authors’ text, then choose the evidence you want to present. [Explore the map](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#story) |
 
-![三处实际界面细节。划词显示 PCA 全称，图注回答取样范围，导出的幻灯片保留小图和出处。](dist/media/tour/details-zh.webp)
+![An exported slide with a source, a UMAP explanation next to the figure, and the evidence map for the same paper.](dist/media/tour/details-en.webp)
 
-## 开始阅读
+## Start reading
 
-1. 下载并解压 [最新版本](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest) 的源码 ZIP。
-2. 安装 Python 3.8 或更新版本。Windows 双击 `start.cmd`。macOS 或 Linux 在解压目录运行 `python3 preview.py`。
-3. 浏览器会打开 [文献精读](http://127.0.0.1:4187/)。点「公开论文试读」体验示例，或选入自己的主文 PDF。右上角可切换中文和英文。
+**In your browser.** Open the reader and open the sample paper or select your own PDF. Reading, figure export and the source guide work without installing software or creating an account. The browser processes your PDF on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
-## 联网检索与模型问答
+**Portable Windows edition (x64).** Download the ZIP, extract the whole folder, then double-click **start.cmd**. Python is included. This edition also supports in-reader answers from model APIs and installed local tools. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
 
-阅读 PDF、查看摘录和使用随附的中英翻译模型均可在本机完成。公开文献检索使用 PubMed 与 Crossref，无需模型账号。选择在线模型后，界面会显示随问题发送的选段和出处。
+## Ask questions
 
-| 回答方式 | 配置 |
-| --- | --- |
-| 原文导读与公开检索 | 直接使用 |
-| DeepSeek | 设置环境变量 `DEEPSEEK_API_KEY` |
-| 通义千问 | 设置 `DASHSCOPE_API_KEY`，使用北京地域接口 |
-| Ollama | 启动本机 Ollama，安装模型，按需设置 `READING_OLLAMA_MODEL` |
-| ChatGPT / Codex | 安装并登录本机 Codex CLI |
+- **Use the source guide** to ask about an excerpt and return to the page. For background literature, choose a public search. The web edition queries Crossref, and the local edition can also use PubMed.
+- **Already use a web AI chat?** Choose **Continue in a web AI chat**, copy your question and excerpts, then paste them into your preferred service. You decide what to send.
+- **Want an answer inside the local reader?** In the question panel, open **Answer and search settings → Connect a model**. Select DeepSeek or Qwen (Beijing), paste your provider’s API key and choose **Use key**. The key stays in the local service’s memory until removed or the reader service stops. API access and billing follow your provider.
+- **Already have Ollama or Codex CLI?** The local reader detects an available Ollama model or the installed Codex CLI. For Codex, sign in with your own account.
 
-在设置环境变量后重新启动服务。Web 界面与 Python 服务在同一本机地址运行。运行 `python3 preview.py --no-browser --port 4190` 可指定其他端口。
-
-示例论文及组件的作者、来源和许可见[第三方资料说明](THIRD-PARTY.md)。
+To run the local service from source on macOS or Linux, use Python 3.8+ and run `python3 preview.py`. See [third-party credits](THIRD-PARTY.md) for the paper, figures and bundled components.

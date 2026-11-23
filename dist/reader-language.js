@@ -2,8 +2,10 @@
 (() => {
   'use strict';
   const key = 'paper-reader-language';
-  let language = 'zh';
-  try { if (localStorage.getItem(key) === 'en') language = 'en'; } catch {}
+  const requested=new URLSearchParams(location.search).get('lang');
+  let language=/^zh/i.test(navigator.language)?'zh':'en';
+  try {const saved=localStorage.getItem(key);if(['zh','en'].includes(saved))language=saved;} catch {}
+  if(['en','zh'].includes(requested))language=requested;
   const texts = new WeakMap(), attributes = new WeakMap();
   const dictionary = new Map(Object.entries(window.ReaderEnglish || {}));
   const ignored = 'script,style,textarea,pre,blockquote,cite,svg,canvas,.textLayer,[contenteditable=true],[data-source-text],[data-language-switch]';

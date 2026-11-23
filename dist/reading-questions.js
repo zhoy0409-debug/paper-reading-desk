@@ -45,14 +45,27 @@
       const serviceText=free?'No account required.':name?'Answer service: '+name+'.':'Selects an available answer service.';
       pair(note,label+(search?' 公开数据库接收检索词及待核对的书目信息。':''),serviceText+(search?' The public index receives search terms and bibliographic details.':''));
     }
-    fetch('/api/reading-options').then(r=>r.ok?r.json():null).then(config=>{
-      if(!config?.available||!host.isConnected)return;
+    const initialLabels=Array.from(provider.options,o=>[o.value,o.textContent]);
+    if(!ReaderAccess.local){provider.value='evidence';service.hidden=true;range.value='paper';recommended='evidence';}
+    function refreshOptions(config){
+      if(!config?.available)return;
       recommended=config.automatic;
-      for(const item of provider.options){
-        if(['deepseek','qwen','ollama','chatgpt'].includes(item.value)&&!config.available[item.value])item.textContent+='（待配置）';
+      for(const [value] of initialLabels){
+        if(!['deepseek','qwen','ollama','chatgpt'].includes(value))continue;
+        const item=Array.from(provider.options).find(o=>o.value===value), name=providers[value];
+        const english={qwen:'Qwen',deepseek:'DeepSeek',ollama:'Ollama',chatgpt:'ChatGPT'}[value];
+        item.dataset.needsKey=String(!config.available[value]);
+        pair(item,name+(config.available[value]?'':'（待配置）'),english+(config.available[value]?'':' (set up)'));
       }
       preview();
-    }).catch(()=>{});
+    }
+    ReaderAccess.options().then(refreshOptions).catch(()=>{});
+    ReaderAccess.connections(options,provider,refreshOptions);
+    ReaderAccess.webChat(host,()=>{
+      if(!question.value.trim())return '';
+      const prior=history.map(turn=>turn.question+'\n'+turn.answer);
+      return [question.value,spot,draft.value,...(range.value==='selection'?[]:sources).map(s=>'[p.'+s.page+'] '+s.text),...prior].filter(Boolean).join('\n\n');
+    });
     function resetHistory(){history=[];transcript.hidden=true;previous.textContent='';state.textContent=''}
     function busy(on){for(const control of [send,provider,range,topic,lookup,draft,question,remember])control.disabled=on}
     function clear(keepTurns=false){
@@ -104,8 +117,7 @@
       const q=(topic.value.trim()||suggestedQuery);if(!q){lookState.textContent='请填写公开检索词。';topic.focus();return}
       lookupController?.abort();const active=new AbortController();lookupController=active;lookState.textContent='正在检索公开文献…';
       try{
-        const res=await fetch('/api/literature-search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q}),signal:active.signal});
-        if(!res.ok)throw Error();const data=await res.json();
+        const data=await ReaderAccess.search(q,active.signal);
         if(!active.signal.aborted){publications(lookState,data);const d=lookState.querySelector('details');if(d)d.open=true}
       }catch{if(!active.signal.aborted)publications(lookState,{search:{query:q,status:'unavailable'}})}
     }
@@ -153,9 +165,8 @@
       const mine=++version,q=question.value.trim(),search=range.value==='search';controller=new AbortController();busy(true);
       state.textContent=search?'正在核对本文、引文和公开文献…':'正在核对本文…';
       try{
-        const resp=await fetch('/api/reading-question',{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,
-          body:JSON.stringify({excerpt:draft.value.trim(),question:q,location:spot,history,sharePublic:true,paper:range.value==='selection'?[]:sources,searchPublic:search,provider:provider.value,query:search?(topic.value.trim()||suggestedQuery):''})});
-        if(!resp.ok)throw Error('联网问答暂时不可用');const data=await resp.json();if(mine!==version)return;
+        const data=await ReaderAccess.ask({excerpt:draft.value.trim(),question:q,location:spot,history,sharePublic:true,paper:range.value==='selection'?[]:sources,searchPublic:search,provider:provider.value,query:search?(topic.value.trim()||suggestedQuery):''},controller.signal);
+        if(mine!==version)return;
         display(q,data,free);question.value='';updateQuery();state.textContent='可以接着问。';
       }catch(err){if(mine===version){display(q,{modelNotice:err.message||'联网问答暂时不可用',search:{query:topic.value.trim()||suggestedQuery,status:search?'unavailable':'off'}},true);state.textContent='已保留本页依据。'}}
       finally{if(mine===version){busy(false);controller=null}}

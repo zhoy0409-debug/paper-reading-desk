@@ -277,7 +277,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  function localizeTour(){
    const en=locale()==='en';
    cover.src='./media/tour/cover-'+locale()+'.webp';
-   watch.setAttribute('aria-label',en?'Watch the 43-second reading tour':'观看 43 秒读图演示');
+   watch.setAttribute('aria-label',en?'Watch three reading workflows':'观看三种文献精读用法');
  }
  localizeTour();
  doc.addEventListener('reader-language-change',localizeTour);

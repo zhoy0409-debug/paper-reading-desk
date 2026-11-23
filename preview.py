@@ -38,7 +38,7 @@ class ReadingHandler(SimpleHTTPRequestHandler):
         return self.reply(200,reading_questions.options())
 
     def do_POST(self):
-        if self.path not in ("/api/reading-question","/api/literature-search"):
+        if self.path not in ("/api/reading-question","/api/literature-search","/api/model-session"):
             return self.reply(404,{"error":"Unknown route"})
         authority=f"{ADDRESS}:{self.server.server_port}"
         if self.headers.get("Host")!=authority or self.headers.get("Origin")!="http://"+authority:
@@ -49,6 +49,11 @@ class ReadingHandler(SimpleHTTPRequestHandler):
             size=int(self.headers.get("Content-Length","0"))
             if not 0<size<=65536:raise ValueError()
             body=json.loads(self.rfile.read(size))
+            if self.path=="/api/model-session":
+                if not isinstance(body,dict) or set(body)!={'provider','key'} or not isinstance(body['provider'],str):
+                    raise ValueError()
+                reading_questions.providers.set_session_key(body['provider'],body['key'])
+                return self.reply(200,reading_questions.options())
             if self.path=="/api/literature-search":
                 if not isinstance(body,dict) or set(body)!={'query'}:raise ValueError()
                 query=reading_questions.text(body['query'],120,True)

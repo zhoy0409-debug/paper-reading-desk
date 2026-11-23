@@ -257,9 +257,7 @@
     const key=saved.key;
     if(pending.has(key))return pending.get(key);
     const operation=(async()=>{
-      const res=await fetch('/api/literature-search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:m.query})});
-      if(!res.ok)throw Error('index');
-      const data=await res.json();
+      const data=await ReaderAccess.search(m.query);
       if(data.search?.status==='unavailable'||!Array.isArray(data.literature))throw Error('index');
       const incoming=vetted(data.literature,m);
       try{return await topicRecord(key,incoming)}

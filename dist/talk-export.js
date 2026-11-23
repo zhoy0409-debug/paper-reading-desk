@@ -43,7 +43,7 @@
           if(p.publicUrl){
             const origin=new URL(p.publicUrl);
             if(/\.pdf$|\/pdf\//i.test(origin.pathname))origin.hash='page='+figure.page;
-            refs.push({text:'     '},{text:'公开原文 / Source',options:{hyperlink:{url:origin.href}}});
+            refs.push({text:'     '},{text:window.ReaderLanguage?.choose('公开原文','Source')||'Source',options:{hyperlink:{url:origin.href}}});
           }
           slide.addText(refs,{x,y:bottomKey?5.31:6.48,w:width-.25,h:.32,fontSize:12,margin:0,objectName:'读图来源 · '+p.label});
         }

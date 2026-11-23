@@ -1,6 +1,10 @@
 @echo off
 setlocal
 cd /d "%~dp0"
+if exist "%~dp0runtime\python.exe" (
+  "%~dp0runtime\python.exe" "%~dp0preview.py" %*
+  goto done
+)
 set "tree_python=%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
 if exist "%tree_python%" (
   "%tree_python%" preview.py
@@ -13,7 +17,9 @@ if not errorlevel 1 (
 )
 python -c "import sys;sys.exit(sys.version_info < (3,8))" >nul 2>&1
 if errorlevel 1 (
-  echo Python 3.8 or newer is required.
+  echo Open the web reader or download the portable Windows edition:
+  echo https://zhoy0409-debug.github.io/paper-reading-desk/read/
+  echo https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest
   pause
   exit /b 1
 )

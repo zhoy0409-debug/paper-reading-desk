@@ -381,3 +381,7 @@ main:has(.frw) .hero.uploadHero{padding:18px 0}main:has(.frw) .uploadHero h1{fon
 .folio-tour-bar strong{font-size:16px}
 .folio-tour-bar button{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:4px 14px;border:1px solid #b7c8bc;border-radius:18px;line-height:1;font:600 14px/1 var(--sans);background:#fff;color:#19382e;cursor:pointer}
 .folio-tour iframe{display:block;width:100%;height:min(73vh,760px);border:0}
+
+.access-web,.access-keys{margin-block:12px;padding:10px 0;border-top:1px solid #d5dfd4}
+.access-web p,.access-keys label{margin:8px 0;font-size:14px}.access-web a,.access-keys a{display:inline-block;margin:6px 12px 4px 0;font-size:14px}
+.access-web small,.access-keys small{display:block}.access-keys input{max-width:100%}.rq-service[hidden]{display:none!important}

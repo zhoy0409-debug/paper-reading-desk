@@ -1,29 +1,30 @@
 # Reading Desk
 
-[中文](README.md)
+[简体中文](README.zh-CN.md) · [Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Watch the tour](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
-You zoom in on a six-panel figure and still don’t know where to look first. Follow one figure through this **43-second screen recording**, from opening a single panel to putting it on a slide with its source.
+Preparing a journal club talk? You can spend an evening cropping figures, looking up an unfamiliar method, and trying to explain why Figure 6 follows Figure 5. Open your PDF in Reading Desk and work through those tasks beside the paper.
 
-[![Six panels. Where do I start? Play the 43-second tour](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[![Still cropping paper figures? Watch three workflows in Reading Desk.](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
-## Jump to a question
-
-| When you get stuck | What happens on screen |
+| When you get stuck | What you can do |
 | --- | --- |
-| Six panels. Which one should I look at? | [Open A, then F](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#focus) to see two views of the same cells. |
-| What does PCA mean in this paper? | [Select the acronym](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#context) to see its expansion and the definition on page 7. |
-| Where did the authors actually say that? | [Follow the caption back to the PDF](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#evidence). The sentence is highlighted on page 10. |
-| Do I have to explain the whole figure to ask when the cells were sampled? | [Ask beside the panel](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#ask). The source guide answers “0 days to 4 months” and links the caption. |
-| Which page did this slide come from? | [Open the exported PowerPoint slide](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#slide). Panel F, the speaking note and page 10 are together. |
+| **“I zoom, screenshot and crop every panel. The labels still look fuzzy on my slide.”** | Select the panel once. Save a PNG rendered from the source PDF or add it to a PowerPoint slide with the figure number, page and your speaking note. [Watch the export](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export) · [Inspect the actual 1243 × 1500 PNG](dist/media/tour/sample-panel.png) |
+| **“I opened five tabs to learn UMAP. What am I supposed to look for in these dots?”** | Read the method beside the plot and see how to compare local groups. Select PCA to find the authors’ definition, or ask about a detail and jump back to the cited passage. [Watch the method walkthrough](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#methods) |
+| **“I understand each figure on its own. How do I explain the paper as a whole?”** | Open the evidence map to see the research focus and figures in paper order. Follow a figure to its panels and the authors’ text, then choose the evidence you want to present. [Explore the map](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#story) |
 
-![Three details from the recording. The expansion of PCA, the answer about the sampling window and the actual exported slide.](dist/media/tour/details-en.webp)
+![An exported slide with a source, a UMAP explanation next to the figure, and the evidence map for the same paper.](dist/media/tour/details-en.webp)
 
-## Quick start
+## Start reading
 
-1. Download the source ZIP from the [latest release](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest) and extract it.
-2. Install Python 3.8 or later. On Windows, run `start.cmd`. On macOS or Linux, run `python3 preview.py` in the extracted directory.
-3. Open [Reading Desk](http://127.0.0.1:4187/), choose **English**, then open the sample paper or select your own PDF.
+**In your browser.** Open the reader and open the sample paper or select your own PDF. Reading, figure export and the source guide work without installing software or creating an account. The browser processes your PDF on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
-PDF processing and on-device translation run locally. Public literature search uses PubMed and Crossref. Optional model providers receive the text shown in the question panel. To enable DeepSeek or Qwen, set `DEEPSEEK_API_KEY` or `DASHSCOPE_API_KEY` (Beijing endpoint), then restart. A local Ollama model or a signed-in Codex CLI can also be used. The source guide works without a model account.
+**Portable Windows edition (x64).** Download the ZIP, extract the whole folder, then double-click **start.cmd**. Python is included. This edition also supports in-reader answers from model APIs and installed local tools. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
 
-See [third-party credits](THIRD-PARTY.md) for the sample paper and bundled components.
+## Ask questions
+
+- **Use the source guide** to ask about an excerpt and return to the page. For background literature, choose a public search. The web edition queries Crossref, and the local edition can also use PubMed.
+- **Already use a web AI chat?** Choose **Continue in a web AI chat**, copy your question and excerpts, then paste them into your preferred service. You decide what to send.
+- **Want an answer inside the local reader?** In the question panel, open **Answer and search settings → Connect a model**. Select DeepSeek or Qwen (Beijing), paste your provider’s API key and choose **Use key**. The key stays in the local service’s memory until removed or the reader service stops. API access and billing follow your provider.
+- **Already have Ollama or Codex CLI?** The local reader detects an available Ollama model or the installed Codex CLI. For Codex, sign in with your own account.
+
+To run the local service from source on macOS or Linux, use Python 3.8+ and run `python3 preview.py`. See [third-party credits](THIRD-PARTY.md) for the paper, figures and bundled components.

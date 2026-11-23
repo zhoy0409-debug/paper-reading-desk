@@ -9,3 +9,5 @@
 **Axis label recognition.** Tesseract.js, its WebAssembly core and English recognition data are credited in [dist/vendor/ocr/NOTICE.txt](dist/vendor/ocr/NOTICE.txt).
 
 **Presentation export.** PptxGenJS, JSZip and pako retain their notices and license texts in [dist/vendor/pptx](dist/vendor/pptx).
+
+**Portable Windows runtime.** The x64 ZIP includes the official CPython 3.14.10 embeddable distribution. Its license is included under runtime. [Python release and SHA-256](https://www.python.org/downloads/release/python-31410/)

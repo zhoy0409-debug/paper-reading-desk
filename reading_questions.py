@@ -51,7 +51,7 @@ def payload(data):
 
 def options():
     cli=shutil.which('codex.exe' if os.name=='nt' else 'codex')
-    available={key:bool(os.environ.get(entry[1])) for key,entry in providers.HOSTED.items()}
+    available={key:bool(providers.credential(key)) for key in providers.HOSTED}
     available.update(ollama=bool(providers.local_model()),chatgpt=bool(cli),evidence=True)
     return {'available':available,'automatic':next(k for k in ('deepseek','qwen','ollama','chatgpt','evidence') if available[k])}
 

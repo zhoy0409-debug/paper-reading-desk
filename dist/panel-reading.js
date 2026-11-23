@@ -263,7 +263,8 @@
     const display=/^=\s*\d/.test(printed)?'图中设定值为 '+printed.slice(1).trim():printed?'「'+printed+'」':'';
     const complete=text.match(/^.*?[。！？](?=\s|$)|^.*?\.(?=\s+[A-Z]|$)/u)?.[0];
     const narration=direct?direct.zh.split('。')[0]+'。':comparison?comparison.zh:conditions?focus.zh.split('。')[0]+'。':shortRead?(display&&!text?display+'，':'')+shortRead:complete||'';
-    return {rows,sources,narration};
+    const narrationEn=direct?.en||comparison?.en||(conditions?focus?.en:'')||interpretation?.en||complete||'';
+    return {rows,sources,narration,narrationEn};
   }
   function passages(rows,figure) {
     const number=figure.matchKey?.split(':')[1];const out=new Map();

@@ -221,7 +221,14 @@
       }
       stop();ui.syncPanels(next);save();PaperUI.set(msg,'已记录原页坐标。');
     };
-    function defaultText(f,p){return p?.reading?.narration||''}
+    function defaultText(f,p){
+      const reading=p?.reading, text=reading?.narration||'';
+      if(window.ReaderLanguage?.current!=='en'||!/[\u3400-\u9fff]/.test(text))return text;
+      return reading.narrationEn||reading.rows?.find(r=>r.zh===text&&r.enText)?.enText||'';
+    }
+    document.addEventListener('reader-language-change',()=>{
+      if(fig&&active&&record(fig).sentences[active]===undefined)caption.value=defaultText(fig,rawPanel());
+    });
     function previewCrop(box){
       preview.hidden=true;if(!ready||!box)return;
       const r=relative(box,basis);

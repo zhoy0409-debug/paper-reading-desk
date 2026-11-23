@@ -1,40 +1,33 @@
 {
-  "duration": 43.666666666666664,
+  "duration": 47.666666666666664,
   "chapters": [
     {
-      "key": "focus",
+      "key": "export",
       "start": 0.0,
-      "title": "Six panels. Where do I start?",
-      "answer": "Open A, then F, to compare two views of the same cells.",
-      "short": "Find one panel"
+      "title": "Still taking screenshots for every slide?",
+      "answer": "Save panel F straight from the PDF, then export a slide with its page number."
     },
     {
-      "key": "context",
-      "start": 7.416666666666667,
-      "title": "PCA again. What does it mean here?",
-      "answer": "Select the acronym to see its full name and where the authors define it on page 7.",
-      "short": "Look up a term"
+      "key": "methods",
+      "start": 15.333333333333334,
+      "title": "How do I read a plot made with an unfamiliar method?",
+      "answer": "Read how UMAP places neighbours, look up PCA in the paper and ask about sampling."
     },
     {
-      "key": "evidence",
-      "start": 16.416666666666668,
-      "title": "Where did the authors actually say that?",
-      "answer": "Open the caption in the PDF. The sentence is highlighted on page 10.",
-      "short": "Find the sentence"
-    },
-    {
-      "key": "ask",
-      "start": 25.0,
-      "title": "Do I have to explain the whole figure to ask one question?",
-      "answer": "Ask how long sampling lasted. The source guide finds the answer in the caption on page 10.",
-      "short": "Ask about this figure"
-    },
-    {
-      "key": "slide",
-      "start": 33.666666666666664,
-      "title": "Which page did this slide come from?",
-      "answer": "Add the panel and a speaking note. Open the slide to see the figure and page together.",
-      "short": "Take it to a talk"
+      "key": "story",
+      "start": 37.833333333333336,
+      "title": "I understand each figure. How do they fit together?",
+      "answer": "Start with the paper’s question, then follow a figure on the map back to its evidence."
     }
-  ]
+  ],
+  "aliases": {
+    "focus": 0.0,
+    "png": 5.166666666666667,
+    "slide": 9.75,
+    "method": 15.333333333333334,
+    "context": 20.083333333333332,
+    "ask": 26.083333333333332,
+    "evidence": 31.5,
+    "map": 37.833333333333336
+  }
 }
