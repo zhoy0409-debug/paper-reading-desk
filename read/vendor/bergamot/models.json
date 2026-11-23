@@ -1,0 +1,34 @@
+{
+  "enzh": {
+    "shortlist": {
+      "name": "./vendor/bergamot/lex.50.50.enzh.s2t.bin",
+      "expectedSha256Hash": "4a5e5827788060f1d718a8132b69440929387514a045796e9b77f935db68c055"
+    },
+    "trgvocab": {
+      "name": "./vendor/bergamot/trgvocab.enzh.spm",
+      "expectedSha256Hash": "aded6993c36e440284d11cec3f6b8aef9c0e43188a772d80be342a713adf223d"
+    },
+    "model": {
+      "name": "./vendor/bergamot/model.enzh.intgemm.alphas.bin",
+      "expectedSha256Hash": "f102e513798f5c5e61621e58b08d1c8aa535189a47befdef5613d5b058983fed"
+    },
+    "srcvocab": {
+      "name": "./vendor/bergamot/srcvocab.enzh.spm",
+      "expectedSha256Hash": "bd9b65504acc6d9726dd281f7defc2adb7c2c22d0688fe2f84697de25197c8c5"
+    }
+  },
+  "zhen": {
+    "vocab": {
+      "name": "./vendor/bergamot/vocab.zhen.spm",
+      "expectedSha256Hash": "dff594318ab7d8b7b60b844ab98ebe6b932ae8045fab15235404c787715965b3"
+    },
+    "model": {
+      "name": "./vendor/bergamot/model.zhen.intgemm.alphas.bin",
+      "expectedSha256Hash": "5cd149601802fc8a18124a1c1306144dbbedc058630c4ddb2d53aa76fa9c7c06"
+    },
+    "shortlist": {
+      "name": "./vendor/bergamot/lex.50.50.zhen.s2t.bin",
+      "expectedSha256Hash": "8524dd4c93ffd7f0ae7be32f77a7c14fea7cdbbebe34ea6ad0ec368d5ddd8b13"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "duration": 47.666666666666664,
+  "chapters": [
+    {
+      "key": "export",
+      "start": 0.0,
+      "title": "Still taking screenshots for every slide?",
+      "answer": "Save panel F straight from the PDF, then export a slide with its page number."
+    },
+    {
+      "key": "methods",
+      "start": 15.333333333333334,
+      "title": "How do I read a plot made with an unfamiliar method?",
+      "answer": "Read how UMAP places neighbours, look up PCA in the paper and ask about sampling."
+    },
+    {
+      "key": "story",
+      "start": 37.833333333333336,
+      "title": "I understand each figure. How do they fit together?",
+      "answer": "Start with the paper’s question, then follow a figure on the map back to its evidence."
+    }
+  ],
+  "aliases": {
+    "focus": 0.0,
+    "png": 5.166666666666667,
+    "slide": 9.75,
+    "method": 15.333333333333334,
+    "context": 20.083333333333332,
+    "ask": 26.083333333333332,
+    "evidence": 31.5,
+    "map": 37.833333333333336
+  }
+}

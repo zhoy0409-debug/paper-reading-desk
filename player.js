@@ -1,14 +1,16 @@
 (() => {
   'use strict';
   const params=new URLSearchParams(location.search);
-  const lang=params.get('lang')==='en'?'en':'zh', en=lang==='en';
+  const lang=['en','zh'].includes(params.get('lang'))?params.get('lang'):(/^zh/i.test(navigator.language)?'zh':'en'), en=lang==='en';
   const local=(zh,english)=>en?english:zh;
   const el=id=>document.getElementById(id);
   const embedded=params.get('embed')==='1';
   document.documentElement.classList.toggle('embed',embedded);
   document.documentElement.lang=en?'en':'zh-CN';
   document.title=local('操作演示 · 文献精读','Product tour · Reading Desk');
-  el('title').textContent=local('一张论文图，到底该怎么看？','Six panels. Where do I start?');
+  el('title').textContent=local('做文献汇报，还在逐张截图？','Still cropping paper figures for your slides?');
+  const reader=el('open-reader');reader.textContent=local('打开阅读器','Open the reader');
+  reader.href=(location.pathname.includes('/media/tour/')?'../../':'./read/')+'?lang='+lang;
   el('brand').textContent=local('文献精读','Reading Desk');
   el('credit').textContent=local('示例图源','Figure reproduced from');
   el('repo').textContent=local('打开项目','Open the project');
@@ -31,14 +33,14 @@
   const track=document.createElement('track');
   track.kind='captions';track.srclang=en?'en':'zh';track.label=en?'English':'中文';
   track.src='tour-'+lang+'.vtt';film.append(track);
-  let chapters=[],pending=null;
+  let chapters=[],aliases={},pending=null;
   function currentKey(){return location.hash.slice(1);}
   function updateLinks(){for(const code of ['zh','en'])el(code).href='?lang='+code+location.hash;}
   async function seek(key,play){
     await sourceReady;
-    const item=chapters.find(c=>c.key===key);if(!item)return;
+    const start=chapters.find(c=>c.key===key)?.start??(Object.hasOwn(aliases,key)?aliases[key]:undefined);if(!Number.isFinite(start))return;
     if(film.readyState<1){pending={key,play};film.preload='metadata';film.load();}
-    else film.currentTime=item.start;
+    else film.currentTime=start;
     if(play)film.play().catch(()=>{});
   }
   film.addEventListener('loadedmetadata',()=>{if(pending){const next=pending;pending=null;seek(next.key,next.play);}});
@@ -50,7 +52,7 @@
   addEventListener('hashchange',()=>{updateLinks();seek(currentKey(),false);});
   updateLinks();
   fetch('chapters-'+lang+'.json').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
-    chapters=data.chapters;
+    chapters=data.chapters;aliases=data.aliases||{};
     for(const c of chapters){
       const li=document.createElement('li'),a=document.createElement('a'),time=document.createElement('time'),body=document.createElement('span'),
         name=document.createElement('strong'),detail=document.createElement('small');

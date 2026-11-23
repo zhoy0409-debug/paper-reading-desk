@@ -6,3 +6,5 @@ footer{display:block;padding:25px 4px;font-size:13px;line-height:1.7;color:#5060
 .embed header,.embed h1,.embed footer{display:none}.embed main{width:100%;padding:0}.embed .screen{border-radius:0}.embed .screen video{max-height:65vh}.embed .chapters{padding:0 16px 16px}.embed h2{font-size:19px;margin:16px 0 8px}
 @media(min-width:850px){.embed .chapters ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.embed .chapters a{padding:8px}.embed .chapters small{display:none}}
 @media(max-width:620px){header{padding:12px 0}h1{margin:21px 0 14px}#repo{float:none;display:block;margin-top:12px}.chapters a{padding:12px 4px;gap:8px;grid-template-columns:39px 1fr 15px}}
+
+#open-reader{border:1px solid #9bae9f;margin-left:6px;font-weight:650;white-space:nowrap}
