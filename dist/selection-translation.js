@@ -24,6 +24,8 @@ function action(kind, label, accessibleLabel) {
   return button;
 }
 const run = action('translate', '译为中文', '译为中文 / Translate to Chinese');
+const listen = action('speak', '听英文', '听英文 / Listen in English');
+PaperUI.set(listen.lastElementChild,'听英文','Listen');
 const ask = action('ask', '问 AI', '就所选文字提问 / Ask AI');
 const close = action('close', '', '关闭 / Close translation toolbar');
 const output = document.createElement('p');
@@ -96,6 +98,13 @@ function hide() {
   notice.hidden = original.hidden = true;
   original.open = false;
 }
+listen.onclick = () => {
+  const sourceNode=activeRange?.startContainer;
+  const anchor=sourceNode?.nodeType===1 ? sourceNode : sourceNode?.parentElement;
+  const options={text:selected, sentence:EnglishPractice.selectionSentence(anchor,selected),origin:anchor};
+  if(anchor?.closest('.frw,.ea-explorer'))document.dispatchEvent(new CustomEvent('reader-practice-context',{detail:options}));
+  hide();getSelection()?.removeAllRanges();EnglishPractice.open(options);
+};
 ask.onclick = () => {
   const text = selected;
   hide();
@@ -162,6 +171,8 @@ function update() {
   const value = selection?.toString().trim();
   if (!value || !selection.rangeCount || !/[a-z\p{Script=Han}]/iu.test(value)) {hide(); return}
   const anchor = node?.nodeType === 1 ? node : node?.parentElement;
+  if(anchor?.closest('.english-practice') || document.querySelector('.english-practice[open]')){hide();return;}
+  listen.hidden=!/[a-z]/i.test(value) || /\p{Script=Han}/u.test(value) || value.length>900;
   const parent = anchor?.closest('dialog[open]') || document.body;
   if (popup.parentNode !== parent) parent.append(popup);
   activeRange = selection.getRangeAt(0).cloneRange();

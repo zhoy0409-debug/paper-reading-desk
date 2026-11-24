@@ -28,6 +28,14 @@
 
 </details>
 
+## 全英文汇报时，药名怎么念？
+
+选中英文药名或图注，点**听英文**。读图时也可以从**英文跟读**打开当前小图的英文讲解，先听整句，再按慢速跟读。想练答辩，点**查背景与练答辩**，所选术语和这张图的依据会带入提问框。
+
+[![英文跟读词卡。可分别听作者原声、慢放和英文汇报例句。](docs/guide/practice-zh.png)](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh&practice=abaucin)
+
+[听研究者 Jon Stokes 念 abaucin，再练一句汇报用语](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh&practice=abaucin)。作者原声取自美国化学会播客约 40:05，可重听或慢放。其他英文词句可用设备语音跟读，短词还可打开词典查发音。
+
 ## 读到陌生方法，能在原图旁弄懂吗？
 
 图 6F 的标签是 UMAP。先点小图看每个点代表什么、应当比较哪些点群，再选中图注里的取样描述追问「这些细胞的取样跨了多久？」。原文导读给出从第 0 天到第 4 个月的范围，点出处就能核对作者的原句。

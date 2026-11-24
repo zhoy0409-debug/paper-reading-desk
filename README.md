@@ -28,6 +28,14 @@ Select Figure 6F to save a PNG rendered from the original PDF. For a talk, add a
 
 </details>
 
+## How do I pronounce a term before journal club?
+
+Select an English term or passage and choose **Listen**. From any figure, **English practice** opens its available English explanation for normal or slow playback. To prepare for questions, choose **Explore background & rehearse** to draft an English question with the selected term and figure evidence.
+
+[![English practice card with the author recording and a journal-club speaking example.](docs/guide/practice-en.png)](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&practice=abaucin)
+
+[Hear Jon Stokes say *abaucin*, then rehearse a sentence for your talk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&practice=abaucin). The author clip starts around 40:05 in the ACS interview and supports slow replay. Other English words and sentences use device speech, with a dictionary lookup for short terms.
+
 ## What am I looking at, and where did the authors say that?
 
 Panel 6F is labelled UMAP. Open the panel to learn what each point represents and which groups to compare. Then select the sampling description in the caption and ask, “How long did sampling last?” The source guide finds the interval from day 0 to month 4 and takes you back to the authors’ sentence.

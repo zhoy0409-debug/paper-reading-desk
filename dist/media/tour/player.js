@@ -14,6 +14,9 @@
   const sample=el('try-elements');
   sample.textContent=local('亲手点图 8A 的横轴、图例和峰值','Try the x-axis, legend and peaks in panel 8A');
   sample.href=reader.href+'&sample=figure-8a';
+  const practice=el('try-practice');
+  practice.textContent=local('听研究者念 abaucin','Hear the author say abaucin');
+  practice.href=reader.href+'&practice=abaucin';
   if(embedded)sample.parentElement.hidden=true;
   el('brand').textContent=local('文献精读','Reading Desk');
   el('credit').textContent=local('示例图源','Figure reproduced from');
