@@ -16,7 +16,7 @@
 
 [![实际操作动图。选中 F 保存 PNG，把小图加入汇报后导出为带讲解和页码的幻灯片。](docs/guide/export-zh.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export)
 
-[看可暂停的取图演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export) · [看实际导出的 PNG（1243 × 1500）](dist/media/tour/sample-panel.png) · [下载可编辑的示例 PPTX](docs/guide/figure-6f-zh.pptx?raw=1)
+[看可暂停的取图演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export) · [看实际导出的 PNG（1243 × 1500）](dist/media/tour/sample-panel.png) · [下载可编辑的示例 PPTX](https://raw.githubusercontent.com/zhoy0409-debug/paper-reading-desk/refs/heads/main/docs/guide/figure-6f-zh.pptx)
 
 <details>
 <summary>裁边、改编号和组合多张小图</summary>

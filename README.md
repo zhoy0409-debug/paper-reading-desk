@@ -16,7 +16,7 @@ Select Figure 6F to save a PNG rendered from the original PDF. For a talk, add a
 
 [![Recorded workflow. Save panel F as a PNG, add it to the slide queue and export a slide with a note and page reference.](docs/guide/export-en.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export)
 
-[Watch with playback controls](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export) · [Inspect the exported PNG (1243 × 1500)](dist/media/tour/sample-panel.png) · [Download the editable sample slide](docs/guide/figure-6f-en.pptx?raw=1)
+[Watch with playback controls](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export) · [Inspect the exported PNG (1243 × 1500)](dist/media/tour/sample-panel.png) · [Download the editable sample slide](https://raw.githubusercontent.com/zhoy0409-debug/paper-reading-desk/refs/heads/main/docs/guide/figure-6f-en.pptx)
 
 <details>
 <summary>Adjust a crop, relabel panels or show two panels together</summary>
