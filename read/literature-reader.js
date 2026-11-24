@@ -299,13 +299,17 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  const plateInfo=add(plate,'figcaption');
  add(plateInfo,'small','Böhm, Berens & Kobak · Fig. 6 · PDF p.10');
  const sampleTitle=add(plateInfo,'cite','Attraction–Repulsion Spectrum in Neighbor Embeddings');sampleTitle.lang='en';
+ let linkedSample=null;
+ const sampleRequested=new URLSearchParams(location.search).get('sample')==='figure-8a';
  const tryPaper=action(plateInfo,'公开论文试读',async()=>{
   tryPaper.disabled=true;
   try{
    const response=await fetch('./media/2007.08902.pdf');
    if(!response.ok)throw Error();
    const blob=await response.blob();
-   enqueue([new File([blob],'2007.08902.pdf',{type:'application/pdf',lastModified:0})],'main');
+   const sample=new File([blob],'2007.08902.pdf',{type:'application/pdf',lastModified:0});
+   if(sampleRequested)linkedSample=sample;
+   enqueue([sample],'main');
   }catch{notice('文件读取失败，请选择本地主文。','warn')}
   finally{tryPaper.disabled=false}
  },'folio-open');
@@ -453,6 +457,9 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
     }
    }
    const initial={...stored.spot};
+   const linked=linkedSample===item.pdfFile && paper.figures.find(f=>f.matchKey==='F:8' && f.panels.some(p=>p.id==='a'));
+   if(linked){Object.assign(initial,{figure:linked.id,panel:'a',zoom:0,pageMode:false});linkedSample=null}
+
    if(dest?.id===item.hash&&dest.figure){initial.figure=dest.figure;initial.panel=dest.panel||''}
    PaperPanelDesk.restorePageBindings(paper,stored,initial,dest?.id===item.hash?dest:null);
    const addPage=n=>{const page=rawPage(n);
@@ -489,6 +496,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
     },
     onOpenSource:({figure,page,source})=>openSourcePage(item,page||source?.page||figure?.page)
    });
+   if(linked)host.querySelector('.frw-visual')?.scrollIntoView({block:'start'});
   }).catch(()=>{
    if(activeView!==viewKey)return;
    host.replaceChildren();
@@ -870,6 +878,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   });
  }
  try{if(window.PaperReadingEditions?.example&&new URLSearchParams(window.location?.search||'').get('demo')==='reading')showExample();
+ else if(sampleRequested && !PaperShelf.target())tryPaper.click();
  else shelf.restore().catch(()=>notice('本地缓存不可用，请选择 PDF。','warn'));
  window.addEventListener('hashchange',()=>{if(PaperShelf.target())shelf.restore()});
  }catch{}

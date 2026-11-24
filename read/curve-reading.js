@@ -84,7 +84,7 @@
   }
   function legend(all,words,crop){
     const candidates=[];
-    for(const seg of all.filter(p=>p.pts.length===2&&height(p.b)<.2&&inside(p.b,crop,1))){
+    for(const seg of all.filter(p=>p.pts.length>=2&&p.pts.length<=4&&height(p.b)<.2&&inside(p.b,crop,1))){
       const b=seg.b;
       const adjacent=words.filter(t=>inside(t,crop,1)&&t.x0>=b.x1-.4&&t.x0-b.x1<1.65*t.size&&
         Math.abs(t.base-t.size*.34-midY(b))<t.size*.45&&width(b)>=t.size*.75&&width(b)<=t.size*9)
@@ -310,5 +310,5 @@
     const side=band.hi-1>1-band.lo?['偏高','above']:['偏低','below'];
     return [when+'，偏离增幅最大的可见区段为 '+(c.k?'k = ':'')+band.from+'–'+band.to+'，在下格主要'+side[0]+'。',when+' · The largest increase in visible departure is in '+(c.k?'k = ':'')+band.from+'–'+band.to+', mainly '+side[1]+' one in the bottom frame.'];
   }
-  window.CurveReading={paths,detect,enrich,describe,contrast,overview};
+  window.CurveReading={paths,legend,ticksX,scaleY,detect,enrich,describe,contrast,overview};
 })();

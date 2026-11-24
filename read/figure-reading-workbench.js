@@ -245,7 +245,7 @@
       syncPanels:id=>{preparePanels();updateTabs();atlas?.syncPanels();selectPanel(id)},
       listPanels:()=>{preparePanels();updateTabs();atlas?.syncPanels()}
     });
-    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,histograms,desk,selectPanel,
+    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,histograms,desk,selectPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
     notes.querySelector('.pd-report')?.addEventListener('toggle',renderTarget);
     function preparePanels(){

@@ -11,7 +11,7 @@
       "key": "methods",
       "start": 15.333333333333334,
       "title": "How do I read a plot made with an unfamiliar method?",
-      "answer": "Read how UMAP places neighbours, look up PCA in the paper and ask about sampling."
+      "answer": "Click the axis, legend and peak in 8A. Then look up PCA in the single-cell figure and ask about its caption."
     },
     {
       "key": "story",

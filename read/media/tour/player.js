@@ -11,6 +11,10 @@
   el('title').textContent=local('做文献汇报，还在逐张截图？','Still cropping paper figures for your slides?');
   const reader=el('open-reader');reader.textContent=local('打开阅读器','Open the reader');
   reader.href=(location.pathname.includes('/media/tour/')?'../../':'./read/')+'?lang='+lang;
+  const sample=el('try-elements');
+  sample.textContent=local('亲手点图 8A 的横轴、图例和峰值','Try the x-axis, legend and peaks in panel 8A');
+  sample.href=reader.href+'&sample=figure-8a';
+  if(embedded)sample.parentElement.hidden=true;
   el('brand').textContent=local('文献精读','Reading Desk');
   el('credit').textContent=local('示例图源','Figure reproduced from');
   el('repo').textContent=local('打开项目','Open the project');
@@ -28,7 +32,7 @@
   });
   const film=el('film');
   film.poster='cover-'+lang+'.webp';
-  const movie='tour-'+lang+'.mp4';
+  const movie='tour-'+lang+'.mp4?v=031';
   // The bundled Python file server sends whole files. A local Blob lets a browser seek
   // to any chapter even when the server does not implement HTTP Range requests.
   const localHost=['localhost','127.0.0.1','[::1]'].includes(location.hostname);

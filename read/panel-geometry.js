@@ -2,7 +2,7 @@
   'use strict';
   // Letter anchors must form a readable alphabetical sequence in the figure lane.
   // Boxes are suggestions. The final row may include a shared key or scale.
-  function detect(cap, captions, words, lines, view, original) {
+  function detect(cap, captions, words, lines, view, original, axes=[]) {
     const W = view.width, H = view.height, bottom = cap.line.y0;
     const beside = captions.some(c => c !== cap && Math.abs(c.line.y0-bottom)<45);
     let left = beside && cap.line.x0>W*.43 ? W*.49 : 0;
@@ -58,6 +58,16 @@
       if(x1>x0+10 && y1>y0+10)panels.push({position:m.letter,label:m.letter.toUpperCase(),title,markerBox,
         rect:{x0,y0,x1,y1}});
     }));
+    // The panel letter may be printed inside the frame. Include the external
+    // y-axis of a leftmost panel when its title and tick column both line up.
+    for(const panel of panels){
+      const box=panel.rect, width=box.x1-box.x0;
+      if(panels.some(q=>q!==panel && q.rect.x0<box.x0 && Math.abs(q.rect.y0-box.y0)<margin))continue;
+      const probe={...box,x0:Math.max(0,box.x0-width*.22)};
+      const axis=axisIn(probe,axes,words);
+      const match=axis&&axes.find(a=>a.text===axis && a.x0>=probe.x0-1 && a.x0<box.x0 && a.y0>=box.y0 && a.y1<=box.y1);
+      if(match){box.x0=Math.max(0,match.x0-2);crop.x0=Math.min(crop.x0,box.x0)}
+    }
     return panels.length===seq.length?{crop,panels}:null;
   }
   function printedTitles(cap,captions,lines,view,words,objects) {

@@ -150,13 +150,7 @@
     ];
     const hit=pairs.find(([re])=>re.test(label));
     if(hit)return [label,label,hit[1],hit[2],page];
-    const src=sources.find(s=>s.kind==='小图图注'||s.kind.startsWith('组内共用图注'));
-    if(!src)return null;
-    const sentences=src.text.split(/(?<=[.!?])\s+(?=[A-Z])/);
-    const tokens=label.toLowerCase().match(/[a-z]{3,}/g)||[];
-    const excerpt=sentences.find(s=>tokens.some(t=>s.toLowerCase().includes(t)))||sentences[0];
-    const entry=[label,label,excerpt,excerpt,src.page];entry.localize=true;
-    return entry;
+    return null;
   }
   window.CompositePlate={locate,columnCaption,labelGuide};
 })();
