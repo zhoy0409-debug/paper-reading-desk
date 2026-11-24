@@ -49,7 +49,7 @@
 #literaturePane .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.frw-viewport .frw-plate{width:auto;max-width:100%;height:100%;max-height:25px;aspect-ratio:var(--figure-aspect)}
 #literaturePane .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.frw-viewport img{width:100%;height:100%;object-fit:fill}
 .rq-focused.source-shown .rq-focus,.rq-focused.source-folded .rq-focus,.rq-focused:has(.pd-drawing) .rq-focus{display:none}
-.frw-notes.rq-has-focus .pd-desk>canvas,.frw-notes.rq-has-focus .pd-desk>strong:first-child{display:none}
+.frw-notes.rq-has-focus .pd-desk>.pd-open-preview,.frw-notes.rq-has-focus .pd-desk>strong:first-child{display:none}
 #literaturePane .frw-explain:has(.panel-reading){background:transparent;border:0;padding:0}
 #literaturePane .frw-explain .panel-reading{border:0;background:transparent;padding-inline:0}
 #literaturePane .panel-reading dl{display:grid;gap:0}.panel-reading dt{padding-top:.55em}.panel-reading dl dd{padding:.25em 0 .65em;border-bottom:1px solid #dddeda}
@@ -145,7 +145,10 @@ main:has(.frw) .uploadHero h1 { font-size:clamp(28px,2.7vw,42px) }
 #literaturePane .rq-paths .rq-path:is(:hover,:focus-visible):after { background:var(--signal); border-color:var(--signal); color:var(--signal-ink) }
 #literaturePane .rq-path-menu>button { font-size:13px; margin-top:6px }
 #literaturePane .rq-has-focus .pd-desk>.pd-report,#literaturePane .rq-has-focus .pd-desk>.frw-more { font-size:13px; color:var(--muted) }
-#literaturePane .rq-has-focus .pd-desk:has(.pd-report[open])>canvas:not([hidden]) { display:block }
+#literaturePane .pd-open-preview { display:grid; justify-items:center; gap:5px; justify-self:center; max-width:100%; padding:6px; border:0; border-radius:6px; background:transparent; color:#285545; font:600 13px/1.4 var(--sans); cursor:zoom-in }
+#literaturePane .pd-open-preview:is(:hover,:focus-visible) { background:#eef3ee }
+#literaturePane .pd-open-preview[hidden],#literaturePane .rq-has-focus .pd-open-preview { display:none }
+#literaturePane .rq-has-focus .pd-desk:has(.pd-report[open])>.pd-open-preview:not([hidden]) { display:grid }
 #literaturePane .rq-turn { background:white; padding:16px 18px; border:1px solid var(--line); border-left:3px solid #58725c; border-radius:5px }
 #literaturePane .rq-turn h4 { font:680 20px/1.4 var(--sans); color:var(--ink) }
 #literaturePane .rq-ask textarea:focus { outline:2px solid #70866c; outline-offset:1px }
