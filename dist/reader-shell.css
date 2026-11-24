@@ -11,25 +11,25 @@ body .top h1 {font:inherit}
 .state {border-radius:12px;padding:11px 12px;background:#edf4fb;color:#244d70;border:1px solid #d7e7f5}
 .state.warn {background:var(--soft);color:#733b08;border-color:#eee0b8}
 .state b {display:block}
-.light {border:1px solid var(--line);border-radius:9px;background:white;color:#513482;padding:7px 9px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
-button:focus-visible,input:focus-visible {outline:3px solid #7851bd;outline-offset:3px}
+.light {border:1px solid var(--line);border-radius:9px;background:white;color:#1a543f;padding:7px 9px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+button:focus-visible,input:focus-visible {outline:3px solid #3d7a61;outline-offset:3px}
 .hint {font-size:14px}
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important} }
 [hidden] {display:none!important}
 .uploadShell {display:grid;gap:17px;max-width:1020px;margin:auto}
-.uploadZone {position:relative;background:linear-gradient(115deg,#faf7ff 0%,#fff 66%);border-style:dashed;padding:clamp(19px,4vw,32px)}
+.uploadZone {position:relative;background:linear-gradient(115deg,#f5faf8 0%,#fff 66%);border-style:dashed;padding:clamp(19px,4vw,32px)}
 .uploadZone h2,.recognition h2 {margin:0 0 7px}
-.uploadZone label.pick {display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:10px 17px;margin:14px 0 10px;background:#604194;color:#fff;font-weight:700;cursor:pointer}
-.pick:focus-within {outline:3px solid #7851bd;outline-offset:3px}
+.uploadZone label.pick {display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:10px 17px;margin:14px 0 10px;background:#27624c;color:#fff;font-weight:700;cursor:pointer}
+.pick:focus-within {outline:3px solid #3d7a61;outline-offset:3px}
 .uploadZone input[type=file] {position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
 .fileHint {font-size:14px}
-.entryDetails {margin-top:10px;border-top:1px solid #e2dced;padding-top:9px}
+.entryDetails {margin-top:10px;border-top:1px solid #d8e2dd;padding-top:9px}
 .entryDetails label,.question label {display:block;font-weight:650}
-.entryDetails textarea,.question input,.question select {display:block;width:100%;max-width:650px;border:1px solid #c4b9d8;border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);font:inherit}
-.entryDetails textarea:focus,.question input:focus,.question select:focus {outline:3px solid #7851bd;outline-offset:2px}
+.entryDetails textarea,.question input,.question select {display:block;width:100%;max-width:650px;border:1px solid #b1c5bb;border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);font:inherit}
+.entryDetails textarea:focus,.question input:focus,.question select:focus {outline:3px solid #3d7a61;outline-offset:2px}
 .entryDetails textarea {resize:vertical;margin:6px 0}
 .lineActions {display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}
-.primary {font:inherit;font-weight:650;cursor:pointer;background:#604194;color:white;border:1px solid #604194;padding:8px 14px;border-radius:10px}
+.primary {font:inherit;font-weight:650;cursor:pointer;background:#27624c;color:white;border:1px solid #27624c;padding:8px 14px;border-radius:10px}
 .question {margin-top:13px}
 .question small {display:block;margin-bottom:4px}
 .recognition {overflow-wrap:anywhere}
@@ -37,7 +37,7 @@ button:focus-visible,input:focus-visible {outline:3px solid #7851bd;outline-offs
 .statusline {margin-top:9px;font-size:14px}
 .statusline:empty {display:none}
 .statusline.error {color:#823819}
-.sourceBox {border:1px solid #e1d8eb;border-radius:14px;padding:13px;margin-top:12px;min-width:0;background:#fff}
+.sourceBox {border:1px solid #d4e0da;border-radius:14px;padding:13px;margin-top:12px;min-width:0;background:#fff}
 .sourceBox h3 {margin-bottom:4px}
 .sourceBox .light {margin-top:8px}
 .uploadShell small {font-size:13px}

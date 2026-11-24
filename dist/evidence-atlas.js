@@ -4,19 +4,19 @@
 .ea{margin:0;padding:20px clamp(15px,3cqi,34px) 19px;background:#f5f3ee;border-bottom:1px solid #dedad1;position:relative}
 .ea .ea-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .ea .ea-head h3{font-size:15px;letter-spacing:.03em;color:#32303b;font-weight:730}.ea .ea-head span{font-size:12px;color:#5d5766}
-.ea-canvas{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(145px,.85fr) minmax(0,1fr);align-items:stretch;gap:10px clamp(25px,5cqi,65px);border:1px solid #dfdad3;border-radius:17px;background:radial-gradient(ellipse at 50% 45%,#f2edf7,transparent 61%),#fbfaf7;padding:17px clamp(12px,3cqi,30px);overflow:hidden}
-.ea-lines{position:absolute;inset:0;height:100%;width:100%;z-index:-1;pointer-events:none}.ea-lines path{stroke:#aa9ab9;stroke-width:1.2;fill:none;opacity:.75}.ea-lines path.ea-selected{stroke:#624c87;stroke-width:2.6;opacity:1}
-.ea-root,.ea .ea-node{display:grid;align-content:center;gap:3px;text-align:left;border:1px solid #dad1e1;border-radius:10px;background:#fffcfa;padding:10px 12px;min-width:0;overflow-wrap:anywhere}
-.ea-root{background:#473956;color:#fffdf9;box-shadow:0 5px 22px #4937551a;border-color:#473956;min-height:72px;align-self:center;grid-column:2;grid-row:1 / span 2}
+.ea-canvas{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(145px,.85fr) minmax(0,1fr);align-items:stretch;gap:10px clamp(25px,5cqi,65px);border:1px solid #dfdad3;border-radius:17px;background:radial-gradient(ellipse at 50% 45%,#ebf1ee,transparent 61%),#fbfaf7;padding:17px clamp(12px,3cqi,30px);overflow:hidden}
+.ea-lines{position:absolute;inset:0;height:100%;width:100%;z-index:-1;pointer-events:none}.ea-lines path{stroke:#93a79e;stroke-width:1.2;fill:none;opacity:.75}.ea-lines path.ea-selected{stroke:#3c6352;stroke-width:2.6;opacity:1}
+.ea-root,.ea .ea-node{display:grid;align-content:center;gap:3px;text-align:left;border:1px solid #ced8d3;border-radius:10px;background:#fffcfa;padding:10px 12px;min-width:0;overflow-wrap:anywhere}
+.ea-root{background:#32453d;color:#fffdf9;box-shadow:0 5px 22px #30453c1a;border-color:#32453d;min-height:72px;align-self:center;grid-column:2;grid-row:1 / span 2}
 .ea-root small,.ea-node small{font-size:11px;font-weight:700;letter-spacing:.06em}.ea-root strong{font-size:15px;line-height:1.35}
 .ea-nodes{display:contents}
 .ea .ea-node{grid-row:var(--ea-row);grid-column:var(--ea-col);min-height:61px;font-size:13px;line-height:1.33;color:#37323f;transition:background .16s,border-color .16s,box-shadow .16s}
-.ea-node small{color:#655180}.ea .ea-node:hover{border-color:#9176ad;background:#f8f2fc}
-.ea .ea-node[aria-pressed=true]{background:#f1eaf8;border-color:#8166a0;box-shadow:0 2px 8px #624c8714,inset 3px 0 #8166a0}
+.ea-node small{color:#456456}.ea .ea-node:hover{border-color:#698d7d;background:#f0f6f3}
+.ea .ea-node[aria-pressed=true]{background:#e7f0eb;border-color:#587e6d;box-shadow:0 2px 8px #3c635214,inset 3px 0 #587e6d}
 .ea .ea-node strong{font-size:13px;font-weight:690;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-.ea .ea-toggle{border:0;background:transparent;color:#51436a;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:0 4px;font-size:12px}
+.ea .ea-toggle{border:0;background:transparent;color:#395247;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:0 4px;font-size:12px}
 .ea .ea-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px;color:#5d5766}
-.ea .ea-foot button{min-height:44px;padding:5px 12px;background:#fffefa;border:1px solid #dad1e1;border-radius:8px;color:#4e3b6a;font-size:13px;white-space:nowrap}
+.ea .ea-foot button{min-height:44px;padding:5px 12px;background:#fffefa;border:1px solid #ced8d3;border-radius:8px;color:#2f4e40;font-size:13px;white-space:nowrap}
 
 .ea .ea-language-loading,.ea .ea-language-retry{display:none}
 .ea:has(.ea-canvas [aria-busy=true]):not(:has(.ea-canvas [data-translation-retry])) .ea-language-loading{display:inline}
