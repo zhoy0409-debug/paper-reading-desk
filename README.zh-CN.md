@@ -1,32 +1,107 @@
 # 文献精读
 
-[English](README.md) · [直接打开阅读器](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh) · [一分钟宣传片](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html) · [观看操作演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
+[打开中文版](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh) · [下载 Windows 便携版](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [English](README.md)
 
-做一次文献汇报，时间常花在这些地方：为了把图放上 PPT，一张张放大、截图、裁边。遇见陌生的方法，查了半天资料还没回到原图。等每张图都看完，又得重新梳理作者为什么接着做下一个实验。
+准备组会时，最费时间的往往是三件事。图放进 PPT 后坐标字糊了，查完一个陌生方法又忘了自己在看哪组点，最后每张图都读过，却讲不清它们之间的关系。下面用同一篇公开论文演示怎样取图、在图旁追问，再把这张图放回全文里理解。
 
-[![播放一分钟宣传片：明天组会，图还没截好？](docs/film/poster-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html)
+[![播放一分钟宣传片。左侧是论文整图，右侧是选中的小图 F。](docs/film/poster-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html)
 
-[看一分钟宣传片](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html) · [按阅读问题浏览全部功能](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html#features)
+<a name="开始使用"></a>
 
-| 读论文时遇到的事 | 打开论文后可以怎么做 |
-| --- | --- |
-| **每张图都要单独截，放到 PPT 上字还是糊的。** | 点选小图，直接从原 PDF 裁出 PNG。也可以写一句讲解，连同图号、页码一起导出为 PowerPoint。[看取图过程](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export) · [打开实际导出的 1243 × 1500 小图](dist/media/tour/sample-panel.png) |
-| **为了看懂 UMAP 查了好几页资料，回来还是不知道这团点该怎么看。** | 小图旁就能读到方法原理和观察位置。遇到 PCA 可划词查本文全称，图注里的取样时间也可直接追问并回到出处。[看方法解读](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#methods) |
-| **单张图能看懂，轮到我汇报，却讲不清几张图是什么关系。** | 展开论文图谱，先看研究问题和各图在文中的位置，再点进一张图核对小图和作者的表述，挑出汇报要用的证据。[看图谱怎样串起全文](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#story) |
+第一次用，可以在阅读器点「公开论文试读」。也可以直接拖入自己的 PDF，文件由当前设备上的浏览器读取。[打开阅读器](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh)
 
-![同一篇论文的三个实际画面：带出处的幻灯片、小图旁的 UMAP 解读和论文图谱。](dist/media/tour/details-zh.webp)
+## 做 PPT 时，怎样直接取到清晰的小图？
 
-## 开始使用
+选中图 6F，就能从原 PDF 裁出 PNG。要在组会上讲这张图，可以写一句「颜色表示细胞的取样时间」，把小图加入汇报，再导出 PowerPoint。讲解、图号和来源页码会一起出现在幻灯片上。
 
-**网页直接用。** 打开阅读器，点「公开论文试读」，或选入自己的 PDF。读图、导出和原文导读都免安装、免账号。PDF 由你设备上的浏览器处理。[打开中文版](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh)
+[![实际操作动图。选中 F 保存 PNG，把小图加入汇报后导出为带讲解和页码的幻灯片。](docs/guide/export-zh.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export)
 
-**Windows x64 便携版。** 下载 ZIP，完整解压，双击 **start.cmd**。运行环境已随包附带。需要在阅读器内接入模型时使用这一版。自 0.3.0 起，右上角「版本更新」可以检查新版、下载安装并重启。0.2.2 及更早版本需要先从这里下载一次新版。[下载 Windows 便携版](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
+[看可暂停的取图演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#export) · [看实际导出的 PNG（1243 × 1500）](dist/media/tour/sample-panel.png) · [下载可编辑的示例 PPTX](docs/guide/figure-6f-zh.pptx?raw=1)
 
-## 怎么提问
+<details>
+<summary>裁边、改编号和组合多张小图</summary>
 
-- **直接问原文。** 划选文字，围绕当前小图提问，再从答案回到对应页。需要背景资料时可展开公开检索。网页版查询 Crossref，本机版还支持 PubMed。
-- **已有常用 AI 网页。** 点「用已有的网页版 AI 继续问」，复制问题和原文，再粘贴到自己使用的服务。
-- **想在本机阅读器里直接得到模型回答。** 展开「回答与检索设置 → 连接自己的模型」，选 DeepSeek 或通义千问（北京），粘贴相应的 API 密钥，点「使用密钥」后即可提问。密钥只存于本次服务进程内，可手动移除，关闭服务即清除。API 使用及计费由服务商管理。
-- **已安装 Ollama 或 Codex CLI。** 本机版可检测已有的 Ollama 模型和 Codex CLI。选择 Codex 时使用自己的已登录账号。
+- **校正边界。** 可以调整自动选区、撤销上一步，或回到原页新框一块区域。原图和图注分居两页时，界面分别标出页码。
+- **处理共享标注。** 可以把共用的图例、纵轴或组标题带进幻灯片，拆出的小图仍有解释数据所需的上下文。
+- **安排汇报。** 边读边把需要的小图加入清单，也可移除。同一幅图的两个小图可并排呈现。编号可沿用论文，也可为汇报重新编号并保留原图对应关系。
+- **区分讲稿和笔记。** 幻灯片标题和讲解可在 PowerPoint 中编辑，小图以图片插入。自己的疑问可另存为私人笔记。可以附上公开原文链接，示例幻灯片的出处直接打开 PDF 第 10 页。
 
-macOS 或 Linux 如需从源码运行本机服务，可用 Python 3.8 或更高版本运行 `python3 preview.py`。示例论文和组件的来源见[第三方资料说明](THIRD-PARTY.md)。
+</details>
+
+## 读到陌生方法，能在原图旁弄懂吗？
+
+图 6F 的标签是 UMAP。先点小图看每个点代表什么、应当比较哪些点群，再选中图注里的取样描述追问「这些细胞的取样跨了多久？」。原文导读给出从第 0 天到第 4 个月的范围，点出处就能核对作者的原句。
+
+[![实际操作动图。从当前图注提问，在图旁查看取样时间，再打开出处核对原句。](docs/guide/question-zh.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#ask)
+
+[看 UMAP 读图演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#methods) · [看划词追问与出处](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#ask)
+
+<details>
+<summary>点图上的轴、组名或标注，会看到什么？</summary>
+
+![图 6F 放大后的实际界面。连线从 UMAP 标注指向解释卡片，小图保留在视野内。](docs/guide/focus-zh.png)
+
+- **一处一点。** 点击已识别的图内元素，连线指向对应说明。点空白处或按 `Esc` 收起，也可以直接返回整图。
+- **按图型读。** 在支持的图中可以了解横纵轴和单位、颜色和图例、曲线与观测点的对应关系。病理精读示例还会带读者找组织结构，并从代表性视野转到损伤评分。
+- **弄清为什么这样设计。** 当原文给出线索时，可查看研究对象、分组、对照及干预先后。比如先干预后观察和先出现损伤再治疗，两个终点回答的问题不同。已覆盖的动物品系还可查看品系资料与同类研究。
+- **追问具体选择。** 想知道为什么选某个对照药、某个指标，可以从这张图查到方法、作者引用的文献或其他研究。讲解会标明依据来自哪里。
+- **划词有两个入口。** 可以只翻译所选文字，也可以带着图号和原文提问。查缩写时，能在本文找到的全称优先显示。帮助提示可用鼠标悬停、键盘聚焦或触屏点按查看。
+
+</details>
+
+<details>
+<summary>这次提问要查到哪里？</summary>
+
+从当前选段开始，按问题选择检索范围。
+
+```mermaid
+flowchart TD
+    Q["我在图旁有个疑问"] --> A["这句话指什么？"]
+    Q --> B["本文怎样分组？"]
+    Q --> C["同类研究为何这样设计？"]
+    A --> D["仅使用选段"]
+    B --> E["核对本文图注和正文页码"]
+    C --> F["查本文引文与公开文献"]
+```
+
+发送给模型前可核对或编辑选段，查看附带的出处及追问记录。公开检索支持修改主题词。已与本文参考文献表核对的条目，会标出引用关系。
+
+</details>
+
+## 每张图都看过了，怎样讲清全文？
+
+打开论文图谱，先读中心的研究问题或作者在摘要中的表述。点一条分支，找出这项结果对应的图，再展开到小图，回到原页核对。中文版会生成中文题名、分支和小图说明，随时可以切回英文看原文。
+
+[![v0.3.0 中文版实机截图。从摘要中的研究焦点连到四张按论文顺序排列的图，每张都标出图号和 PDF 页码。](docs/guide/map-zh.png)](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh)
+
+[看图谱操作演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#story) · [在中文版中试读](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh)
+
+<details>
+<summary>换一篇论文、添加补充材料或下次接着读</summary>
+
+- **导入新文献。** 主文支持 PDF、DOCX、TXT，也可粘贴正文或图注。补充材料、参考文献可分别指定角色。PDF 提供原图定位和裁切，扫描页可手动定位。
+- **选择读法。** 用图谱看全篇，用小图特写看细节，用原文索引按章节、图号或引用跳读。新论文从可识别的版面、图注和正文生成导览；逐图整理过的示例另有专门的方法与实验设计讲解。
+- **核对证据。** 小图专属图注和多图共用的段落分别标识。点出处进入 PDF 页，能匹配到原句时会标出所在行。
+- **保留阅读位置。** 在同一浏览器可重开已保存的论文、笔记和裁切位置。私人图谱可记录已核实的论文间引用、标题主题线索及自己补充的联系。
+- **复用查过的文献。** 本机浏览器保存已检索的公开书目。模型背景资料的 30 天间隔用于检查更新，书目在此后仍可查看。
+
+</details>
+
+<a name="怎么提问"></a>
+
+## 选择使用方式
+
+| 功能 | 网页版 | Windows x64 便携版 |
+| --- | --- | --- |
+| 开始阅读 | 打开网页即可，免安装、免账号 | 完整解压 ZIP，双击 `start.cmd`。已包含 Python |
+| 中文或英文图谱、小图特写、PNG 和 PPTX 导出、原文导读 | 支持 | 支持 |
+| 公开文献检索 | Crossref | PubMed、Crossref |
+| 沿用自己的 AI 网页 | 复制问题和原文，可打开 ChatGPT、DeepSeek、Claude 或 Gemini | 同样支持 |
+| 在阅读器内接模型回答 | 使用内置原文导读 | DeepSeek、通义千问（北京）、已安装的 Ollama，或已登录的 Codex CLI |
+| 获得新版 | 重新打开或刷新网页 | v0.3.0 起在「版本更新」中下载安装，再点「重启并应用」 |
+
+Windows 版可在「回答与检索设置 → 连接自己的模型」填写服务商 API 密钥。通过界面填写的密钥仅保存在本次服务进程内，可随时移除，费用按服务商规则计算。v0.2.2 及更早的便携版需先手动下载新版一次。[Windows 下载](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [发布说明](https://github.com/zhoy0409-debug/paper-reading-desk/releases)
+
+macOS 或 Linux 用户也可用 Python 3.8 或更高版本运行 `python3 preview.py` 启动本机服务。
+
+示例来自 Böhm、Berens 与 Kobak 关于邻域嵌入的公开论文。演示使用原图裁切并添加界面标注。[原论文](https://www.jmlr.org/papers/v23/21-0055.html) · [图源、许可与组件说明](THIRD-PARTY.md)

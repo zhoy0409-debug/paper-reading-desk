@@ -1,30 +1,107 @@
 # Reading Desk
 
-[简体中文](README.zh-CN.md) · [Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Watch the tour](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [简体中文](README.zh-CN.md)
 
-Preparing a journal club talk? You can spend an evening cropping figures, looking up an unfamiliar method, and trying to explain why Figure 6 follows Figure 5. Open your PDF in Reading Desk and work through those tasks beside the paper.
+Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up UMAP and lost track of which dots you were comparing. You know what each figure shows, but explaining why one follows another is harder. The walkthrough below uses one published paper to show how to take a panel, read it closely and place it in the paper’s argument.
 
-[![Still cropping paper figures? Watch three workflows in Reading Desk.](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[![Play the one-minute film. A six-panel figure opens to a close-up of panel F.](docs/film/poster-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html)
 
-| When you get stuck | What you can do |
-| --- | --- |
-| **“I zoom, screenshot and crop every panel. The labels still look fuzzy on my slide.”** | Select the panel once. Save a PNG rendered from the source PDF or add it to a PowerPoint slide with the figure number, page and your speaking note. [Watch the export](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export) · [Inspect the actual 1243 × 1500 PNG](dist/media/tour/sample-panel.png) |
-| **“I opened five tabs to learn UMAP. What am I supposed to look for in these dots?”** | Read the method beside the plot and see how to compare local groups. Select PCA to find the authors’ definition, or ask about a detail and jump back to the cited passage. [Watch the method walkthrough](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#methods) |
-| **“I understand each figure on its own. How do I explain the paper as a whole?”** | Open the evidence map to see the research focus and figures in paper order. Follow a figure to its panels and the authors’ text, then choose the evidence you want to present. [Explore the map](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#story) |
+<a name="start-reading"></a>
 
-![An exported slide with a source, a UMAP explanation next to the figure, and the evidence map for the same paper.](dist/media/tour/details-en.webp)
+Start with the public sample, or drop in your own PDF. Your browser reads the file on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
-## Start reading
+## How do I get a sharp panel onto my slide?
 
-**In your browser.** Open the reader and open the sample paper or select your own PDF. Reading, figure export and the source guide work without installing software or creating an account. The browser processes your PDF on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
+Select Figure 6F to save a PNG rendered from the original PDF. For a talk, add a line such as “Color identifies when the cells were sampled,” add the panel to your slide queue and export to PowerPoint. The figure number, page and speaking note travel with the image.
 
-**Portable Windows edition (x64).** Download the ZIP, extract the whole folder, then double-click **start.cmd**. Python is included. This edition also supports in-reader answers from model APIs and installed local tools. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip)
+[![Recorded workflow. Save panel F as a PNG, add it to the slide queue and export a slide with a note and page reference.](docs/guide/export-en.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export)
 
-## Ask questions
+[Watch with playback controls](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export) · [Inspect the exported PNG (1243 × 1500)](dist/media/tour/sample-panel.png) · [Download the editable sample slide](docs/guide/figure-6f-en.pptx?raw=1)
 
-- **Use the source guide** to ask about an excerpt and return to the page. For background literature, choose a public search. The web edition queries Crossref, and the local edition can also use PubMed.
-- **Already use a web AI chat?** Choose **Continue in a web AI chat**, copy your question and excerpts, then paste them into your preferred service. You decide what to send.
-- **Want an answer inside the local reader?** In the question panel, open **Answer and search settings → Connect a model**. Select DeepSeek or Qwen (Beijing), paste your provider’s API key and choose **Use key**. The key stays in the local service’s memory until removed or the reader service stops. API access and billing follow your provider.
-- **Already have Ollama or Codex CLI?** The local reader detects an available Ollama model or the installed Codex CLI. For Codex, sign in with your own account.
+<details>
+<summary>Adjust a crop, relabel panels or show two panels together</summary>
 
-To run the local service from source on macOS or Linux, use Python 3.8+ and run `python3 preview.py`. See [third-party credits](THIRD-PARTY.md) for the paper, figures and bundled components.
+- **Correct a boundary.** Adjust the detected crop, undo your edit or draw a new area on the PDF page. If a caption sits on a different page from its figure, the reader shows both page numbers.
+- **Bring the legend along.** Keep a shared legend, vertical axis or group heading with your panels so the audience can interpret them.
+- **Build a slide queue as you read.** Add or remove panels and place two from the same figure side by side. Keep the printed labels or assign new ones for the talk while retaining the original figure reference.
+- **Keep speaking notes and private notes separate.** Slide titles and speaking notes are editable in PowerPoint. Each panel is an image. You can attach a public source link. The sample slide links to page 10 of the paper.
+
+</details>
+
+## What am I looking at, and where did the authors say that?
+
+Panel 6F is labelled UMAP. Open the panel to learn what each point represents and which groups to compare. Then select the sampling description in the caption and ask, “How long did sampling last?” The source guide finds the interval from day 0 to month 4 and takes you back to the authors’ sentence.
+
+[![Recorded workflow. Ask a sampling question from the caption, read the answer beside the figure and open the source passage.](docs/guide/question-en.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#ask)
+
+[Watch the UMAP walkthrough](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#methods) · [Watch the question and source lookup](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#ask)
+
+<details>
+<summary>What happens when I select an axis, group or printed label?</summary>
+
+![The actual close-up of panel 6F. A line connects the selected UMAP label to a card with the source page and a follow-up action.](docs/guide/focus-en.png)
+
+- **Explore one element at a time.** On supported panels, select an axis, legend, group name or printed label to open its annotation. Click the background or press `Esc` to dismiss it, or return to the whole figure.
+- **Read different kinds of evidence.** Guides cover axis units, colors, line styles and the relationship between observations and fitted curves. A curated pathology example shows where to look on a section and how to compare the image with an injury score.
+- **Understand the design.** When the paper gives the details, see who or what was studied, which groups were compared and when treatment occurred relative to the event. For covered animal models, open a strain record or studies using the same model.
+- **Ask why a choice mattered.** Start from a comparator or outcome and look for a rationale in the methods, a paper the authors cited or another study. Each source can be inspected separately.
+- **Choose translation or a follow-up.** Select text for a translation or send a question along with the figure reference. For an acronym, the reader looks for its expansion in this paper. Help is available on hover, keyboard focus or tap.
+
+</details>
+
+<details>
+<summary>How much context should I use for a question?</summary>
+
+Start at the selected passage and choose the scope that fits your question.
+
+```mermaid
+flowchart TD
+    Q["A question beside the figure"] --> A["What does this phrase mean?"]
+    Q --> B["How were the groups defined?"]
+    Q --> C["How do other studies justify this choice?"]
+    A --> D["Use the selected passage"]
+    B --> E["Check this paper’s captions and text"]
+    C --> F["Search references and public literature"]
+```
+
+Review or edit the selection, supporting passages and follow-up history before sending them to a model. Public search terms are editable. Results matched to the paper’s bibliography are marked as cited.
+
+</details>
+
+## How do these figures fit the paper’s argument?
+
+Open the map at the research question or the authors’ statement of focus. Follow a branch to its figure, expand the available panels and return to the PDF to check the evidence. Switch to Chinese for translated paper titles, figure branches and panel descriptions, or back to English to check the wording.
+
+[![The live English evidence map in version 0.3.0. The study focus links to four figures in paper order, each labelled with its PDF page.](docs/guide/map-en.png)](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
+
+[Watch the map walkthrough](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#story) · [Explore the sample in English](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
+
+<details>
+<summary>Open another paper, add a supplement or pick up where you left off</summary>
+
+- **Import your paper.** Open PDF, DOCX or TXT, or paste text or a caption. Assign supplements and references separately. Use a PDF for figure crops. Scanned pages can be opened and selected manually.
+- **Choose a reading view.** Use the map for the whole paper, panel focus for one result, or the source index to navigate sections, figures and citations. Imported papers use their identifiable layouts, captions and passages. Curated editions also include dedicated method and design explanations.
+- **Verify a claim.** The reader labels panel-specific and shared captions separately. A source link opens the PDF page and highlights the matching line when it can be located.
+- **Resume reading.** Reopen saved papers, notes and crop positions in the same browser. The private cross-paper map distinguishes matched citations, title-based topic links and connections you record yourself.
+- **Reuse literature you looked up.** Public bibliographic records are saved in your browser. The 30-day interval for model-background literature controls when to check for updates. Saved records remain available afterwards.
+
+</details>
+
+<a name="ask-questions"></a>
+
+## Choose an edition
+
+| Capability | Web reader | Portable Windows x64 |
+| --- | --- | --- |
+| Start reading | Open the site. No installation or account required | Extract the ZIP and double-click `start.cmd`. Python is included |
+| English or Chinese maps, panel focus, PNG and PPTX export, source guide | Included | Included |
+| Public literature search | Crossref | PubMed and Crossref |
+| Continue in your usual AI chat | Copy the question and excerpts to ChatGPT, DeepSeek, Claude or Gemini | Same options |
+| Answers inside the reader | Built-in source guide | Also supports DeepSeek, Qwen (Beijing), an installed Ollama model or a signed-in Codex CLI |
+| Get updates | Reopen or refresh the site | From v0.3.0, open **Updates**, download the release and choose **Restart to apply** |
+
+In the Windows question panel, open **Answer and search settings → Connect a model** to enter a provider API key. Keys entered there stay in the service’s memory for the session and can be removed at any time. Provider billing applies. Users of v0.2.2 or earlier need to download the new edition once. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [Release notes](https://github.com/zhoy0409-debug/paper-reading-desk/releases)
+
+On macOS or Linux, the local service can also be run from source with Python 3.8+ and `python3 preview.py`.
+
+The walkthrough uses the open paper on neighbor embeddings by Böhm, Berens and Kobak. Figures are cropped and annotated in the reader. [Read the paper](https://www.jmlr.org/papers/v23/21-0055.html) · [Figure credits, licenses and bundled components](THIRD-PARTY.md)
