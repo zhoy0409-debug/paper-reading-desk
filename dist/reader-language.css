@@ -1,16 +1,16 @@
 /* Reading controls and secondary help share the same visual hierarchy in both editions. */
-header.top .reader-languages {display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid #d5dad3;border-radius:24px;background:#fff;color:#263529}
-header.top .reader-languages button {position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:46px;min-height:32px;margin:0;padding:3px 12px;border:0;border-radius:20px;background:transparent;color:#505b54;font:550 13px/1.35 var(--sans,system-ui);letter-spacing:0;cursor:pointer}
-header.top .reader-languages button[aria-pressed=true] {background:#283b30;color:#fff}
+header.top .reader-languages {display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);border-radius:24px;background:var(--surface);color:var(--accent-strong)}
+header.top .reader-languages button {position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:46px;min-height:32px;margin:0;padding:3px 12px;border:0;border-radius:20px;background:transparent;color:var(--muted);font:550 var(--fs-sm)/1.35 var(--sans,system-ui);letter-spacing:0;cursor:pointer}
+header.top .reader-languages button[aria-pressed=true] {background:var(--accent-strong);color:#fff}
 .reader-languages button:focus-visible,.reader-help:focus-visible {outline:2px solid #327757;outline-offset:2px}
 main .uploadHero h1:lang(zh-CN),main .folio-intake h2:lang(zh-CN) {letter-spacing:-.015em}
 #literaturePane :is(.frw-notes-top,.folio-intake) .reader-help,.reader-help {
   display:inline-grid;place-items:center;vertical-align:middle;width:28px;height:28px;min-width:28px;min-height:28px;
-  margin:0;padding:0;border:0;border-radius:50%;color:#657169;background:transparent;font:600 13px/1 var(--sans,system-ui);cursor:help
+  margin:0;padding:0;border:0;border-radius:50%;color:#657169;background:transparent;font:600 var(--fs-sm)/1 var(--sans,system-ui);cursor:help
 }
 .reader-help::before {content:"";position:absolute;width:17px;height:17px;border:1px solid #929d95;border-radius:50%;pointer-events:none}
-.reader-help:hover,.reader-help:focus-visible {color:#233e2c;background:#edf1eb}
-.reader-tip {position:fixed;z-index:2147483645;box-sizing:border-box;width:max-content;max-width:min(32ch,calc(100vw - 16px));padding:10px 13px;color:#fff;background:#2c3931;border-radius:8px;box-shadow:0 4px 16px #14281b20;font:400 13px/1.54 var(--sans,system-ui);overflow-wrap:anywhere}
+.reader-help:hover,.reader-help:focus-visible {color:var(--accent-strong);background:var(--wash)}
+.reader-tip {position:fixed;z-index:2147483645;box-sizing:border-box;width:max-content;max-width:min(32ch,calc(100vw - 16px));padding:10px 13px;color:#fff;background:#2c3931;border-radius:var(--r-m);box-shadow:0 4px 16px #14281b20;font:400 var(--fs-sm)/1.54 var(--sans,system-ui);overflow-wrap:anywhere}
 body .reader-tip[hidden] {display:none}
 .reader-title-row {display:flex;align-items:center;gap:7px}
 #literaturePane .reader-title-row>:is(h2,h3) {margin:0}
@@ -20,7 +20,7 @@ body .reader-tip[hidden] {display:none}
 #literaturePane .frw-panel-tab,#literaturePane .rq-tabs button {line-height:1.4}
 html[lang=en] #literaturePane :is(.ea-leaf,.rq-tabs button,.frw-steps button,.rq-next-panel) {overflow-wrap:break-word;white-space:normal}
 #literaturePane .pl-drop-main strong {line-height:1.4}
-#literaturePane .pl-drop-main small {margin:0;font-size:12px;font-weight:400}
+#literaturePane .pl-drop-main small {margin:0;font-size:var(--fs-s);font-weight:400}
 @media (max-width:520px) {header.top .reader-languages button {min-width:41px;padding:4px 8px}}
 
 #materialDrop .reader-title-row + .hint,#optionalDemo .evidence .reader-title-row + .hint,#materialDrop #supported {display:none}
@@ -29,7 +29,7 @@ html[lang=en] #literaturePane :is(.ea-leaf,.rq-tabs button,.frw-steps button,.rq
 #literaturePane .frw-steps button {min-height:32px}
 /* Hide fallback companion labels while the saved locale is being applied. */
 body :is(.ui-en,.rq-en),main .uploadHero h1>span[lang=en],header.top strong>span[lang=en] {display:none!important}
-main:has(.frw) > header.top {position:sticky;top:0;z-index:8;background:var(--paper,#f9f9f5);min-height:43px;padding:3px 0;box-sizing:border-box;border-bottom:1px solid var(--line)}
+main:has(.frw) > header.top {position:sticky;top:0;z-index:8;background:var(--paper,var(--paper));min-height:43px;padding:3px 0;box-sizing:border-box;border-bottom:1px solid var(--line)}
 #literaturePane .frw-figure-head {scroll-margin-top:54px}
 #literaturePane .ea-foot:has(>span[hidden]) {justify-content:flex-end}
 
@@ -48,12 +48,12 @@ main:has(.frw) > header.top {position:sticky;top:0;z-index:8;background:var(--pa
 }
 #literaturePane .rq-viewport .rq-sheet { margin-inline:auto }
 #literaturePane .rq-viewport.rq-magnified {
-  overflow:auto; max-height:58dvh; overscroll-behavior:contain; scrollbar-color:#8a9990 #eef1ec;
+  overflow:auto; max-height:58dvh; overscroll-behavior:contain; scrollbar-color:#8a9990 var(--surface-2);
 }
 #literaturePane .rq-viewport.rq-magnified .rq-sheet {
   width:min(200%,calc(106dvh * var(--rq-ratio))); max-width:none;
 }
-#literaturePane .rq-zoom[aria-pressed=true] { color:#20332c; background:#e6efe8; border-color:#e6efe8 }
+#literaturePane .rq-zoom[aria-pressed=true] { color:#20332c; background:var(--wash); border-color:var(--wash) }
 #literaturePane .rq-viewport:focus-visible { outline:2px solid #18776b; outline-offset:2px }
 @media(max-width:820px) {
   #literaturePane .rq-viewport.rq-magnified { max-height:50dvh }
@@ -79,9 +79,9 @@ main:has(.frw) > header.top {position:sticky;top:0;z-index:8;background:var(--pa
 #literaturePane .rq-locate[hidden] { display:none }
 
 .frw-notes:not([data-study-tab="read"]) .rq-paper-notes { display:none }
-#literaturePane .rq-source-note { min-width:0; max-width:100%; border:0; border-bottom:1px solid #dce2dd; margin:0; padding:0; background:transparent; border-radius:0 }
-#literaturePane .rq-source-note>summary { color:#285247; cursor:pointer; font-size:.88rem; line-height:1.45; font-weight:600; padding:9px 2px }
-#literaturePane .rq-quote-body { min-width:0; padding:8px 12px 10px; margin-bottom:6px; border-left:2px solid #7ba597; background:#f4f6f2 }
+#literaturePane .rq-source-note { min-width:0; max-width:100%; border:0; border-bottom:1px solid #dce2dd; margin:0; padding:0; background:transparent; border-radius:0}
+#literaturePane .rq-source-note>summary { color:var(--accent); cursor:pointer; font-size:.88rem; line-height:1.45; font-weight:600; padding:9px 2px }
+#literaturePane .rq-quote-body { min-width:0; padding:8px 12px 10px; margin-bottom:6px; border-left:2px solid #7ba597; background:var(--surface-2) }
 #literaturePane .rq-quote-meta { color:#50665d; font-size:.76rem; margin:0 0 6px }
 #literaturePane .rq-quote-body blockquote { margin:0; border:0; background:transparent; padding:0; max-height:13rem; overflow:auto; overflow-wrap:anywhere; color:#24342d; font-size:.94rem; line-height:1.55; text-align:start }
 #literaturePane .rq-quote-actions { display:flex; align-items:center; flex-wrap:wrap; gap:4px 12px; margin-top:8px }

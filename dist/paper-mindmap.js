@@ -20,7 +20,7 @@ const CSS = `
 .paper-map .pm-switch{background:white;border:1px solid var(--pm-border);border-radius:9px;color:#1c5842;padding:7px 11px;cursor:pointer;font-size:14px;text-decoration:none}
 .paper-map .pm-switch:hover{background:#ecf4f0}
 .paper-map .pm-layout{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(255px,.72fr);gap:13px}
-.paper-map .pm-graph{position:relative;isolation:isolate;border:1px solid #dee8e3;border-radius:20px;overflow:hidden;background:radial-gradient(ellipse at center,#ddece5 0%,#f0f7f3 30%,transparent 64%),linear-gradient(135deg,#fffaff,#f7f5fb);padding:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,.9fr) minmax(0,1fr);min-height:300px;gap:10px;min-width:0;align-items:stretch}
+.paper-map .pm-graph{position:relative;isolation:isolate;border:1px solid #dee8e3;border-radius:20px;overflow:hidden;background:radial-gradient(ellipse at center,#ddece5 0%,#f0f7f3 30%,transparent 64%),linear-gradient(135deg,#f9fdfb,#f4f7f5);padding:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,.9fr) minmax(0,1fr);min-height:300px;gap:10px;min-width:0;align-items:stretch}
 .paper-map .pm-graph::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#5884703b .7px,transparent .7px);background-size:14px 14px;z-index:-2;pointer-events:none;mask-image:radial-gradient(ellipse,#000,transparent 91%)}
 .paper-map .pm-svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1;overflow:visible;pointer-events:none}
 .paper-map .pm-svg path{fill:none;stroke:var(--edge);stroke-opacity:.57;stroke-width:2.05;vector-effect:non-scaling-stroke;stroke-linecap:round;transition:stroke-width .2s,stroke-opacity .2s}
@@ -50,7 +50,7 @@ const CSS = `
 .paper-map .pm-crumbs{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
 .paper-map .pm-crumb{border:1px solid #d3e1da;background:#fff;color:#2d5b48;border-radius:8px;padding:5px 7px;font-size:13px;cursor:pointer}
 .paper-map .pm-section h4{font-size:14px;margin-bottom:4px;color:#325546}
-.paper-map .pm-source-line{border-left:2px solid #8cab9d;padding:5px 8px;background:#faf7fc;color:#42554c;font-size:14px}
+.paper-map .pm-source-line{border-left:2px solid #8cab9d;padding:5px 8px;background:#f6f9f8;color:#42554c;font-size:14px}
 .paper-map .pm-source-line+.pm-source-line{margin-top:5px}
 .paper-map .pm-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px}
 .paper-map .pm-excerpt{font-size:14px;color:var(--pm-muted);border-left:2px solid #c1d7cc;padding-left:9px;margin:6px 0 0}
