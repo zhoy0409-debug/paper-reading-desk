@@ -179,7 +179,7 @@
     },hasText:()=>Boolean(draft.value),clear};
   }
 
-  function mount({notes,visual,img,session,histograms,desk,source,resetPanel,selectPanel}){
+  function mount({notes,visual,img,session,lookupTerm,histograms,desk,source,resetPanel,selectPanel}){
     const tabs=el('nav','rq-tabs'),primer=el('section','rq-primer'),ask=el('section','rq-ask');
     const viewer=el('section','rq-focus'),bar=el('div','rq-focus-bar'),label=el('strong'),stage=el('div','rq-stage'),
       viewport=el('div','rq-viewport'),sheet=el('div','rq-sheet'),canvas=el('canvas'),layer=el('div','rq-hits'),callout=el('article','rq-callout'),
@@ -439,7 +439,7 @@
     },true);
     viewport.addEventListener('scroll',drawWire,{passive:true});
     barActions.append(zoomButton,btn('返回整图','Full figure',goFull),pageButton);
-    bar.append(label,barActions);stage.append(viewport,wire,callout);viewport.append(sheet);sheet.append(canvas,layer);
+    bar.append(label,barActions);const shared=el('div','rq-shared-legend');shared.hidden=true;stage.append(viewport,shared,wire,callout);viewport.append(sheet);sheet.append(canvas,layer);
     const keys=el('details','rq-key-list'),keySummary=el('summary'),keyList=el('div');keys.append(keySummary,keyList);
     const tickNote=btn('右侧部分刻度在原页中也显示不全 · 核对原页','Clipped tick labels · View PDF',()=>source(figure.page));
     tickNote.className='rq-tick-note';tickNote.hidden=true;
@@ -452,25 +452,32 @@
     function drawWire(){
       if(!activeHit||callout.hidden)return;
       const r=stage.getBoundingClientRect(),a=activeHit.getBoundingClientRect(),b=callout.getBoundingClientRect();
-      const v=viewport.getBoundingClientRect();
+      const v=(shared.contains(activeHit)?shared:viewport).getBoundingClientRect();
       const left=Math.max(a.left,v.left),right=Math.min(a.right,v.right),top=Math.max(a.top,v.top),bottom=Math.min(a.bottom,v.bottom);
       const outside=right<=left||bottom<=top;
       locate.hidden=!outside;
       if(outside){path.removeAttribute('d');return}
-      const x=(left+right)/2-r.left,y=(top+bottom)/2-r.top,ex=b.left+16-r.left,ey=b.top-r.top;
+      const box=sheet.getBoundingClientRect();
+      const x=traceAnchor?box.left+traceAnchor[0]*box.width-r.left:(left+right)/2-r.left,y=traceAnchor?box.top+traceAnchor[1]*box.height-r.top:(top+bottom)/2-r.top,ex=b.left+16-r.left,ey=b.top-r.top;
       wire.setAttribute('viewBox','0 0 '+Math.max(1,r.width)+' '+Math.max(1,r.height));
-      path.setAttribute('d','M '+x+' '+y+' L '+x+' '+(ey-12)+' L '+ex+' '+ey);
+      const offset=ey-12;
+      if(!shared.hidden && !shared.contains(activeHit)){
+        const below=Math.min(offset,viewport.getBoundingClientRect().bottom-r.top+3);
+        path.setAttribute('d','M '+x+' '+y+' V '+below+' H '+ex+' V '+ey);
+      }else path.setAttribute('d','M '+x+' '+y+' V '+offset+' L '+ex+' '+ey);
     }
-    function showTip(b,entry,row){
+    let traceAnchor=null;
+    function showTip(b,entry,row,anchor=null){
+      if(entry.askOnly){
+        closeTip();openQuestion(entry[0],ReaderLanguage.choose('图中的「'+entry[0]+'」在这项比较中表示什么？','What does “'+entry[0]+'” represent in this comparison?'),row);return;
+      }
+      traceAnchor=anchor;
       activeHit?.setAttribute('aria-pressed','false');activeHit=b;b.setAttribute('aria-pressed','true');
-      const isolate=row&&figure?.raw.checkedIsolateTable&&row.match(/Row:\s*(HX-[RS]\d+)/i)?.[1];
-      if(isolate){
-        callout.replaceChildren(pair(el('h4'),isolate+' · 受测临床分离株',isolate+' · Clinical isolate tested'),pair(el('p'),'从左到右读这一行：菌株编号、物种、β-内酰胺酶基因，以及两种药的最低抑菌浓度。作者用近期临床分离株检验先前观察到的抗菌活性。','Read across the row for the isolate, species, β-lactamase genes and minimum inhibitory concentrations for the two drugs. The recent clinical isolates test whether the previously observed antibacterial activity is also seen here.'));
-      }else callout.replaceChildren(pair(el('h4'),entry[0],/Printed .*label/i.test(entry[1])?entry[0]:entry[1]),pair(el('p'),entry[2],entry[3]));
+      callout.replaceChildren(pair(el('h4'),entry[0],entry[1]),pair(el('p'),entry[2],entry[3]));
       if(entry.localize)PaperLanguageText.bind(callout.querySelector('p'),entry[3]);
       const actions=el('div','rq-actions');actions.append(locate);
-      if(entry[4])actions.append(btn('对照 p.'+entry[4],'Source · p.'+entry[4],()=>source(entry[4])));
-      actions.append(btn('继续追问','Ask a question',()=>openQuestion(row?entry[0]:[ReaderLanguage.choose(entry[0],entry[1]),ReaderLanguage.choose(entry[2],entry[3])].join('\n'),'',row)));
+      if(entry[4])actions.append(btn('对照 p.'+entry[4],'Source · p.'+entry[4],()=>source(entry[4],entry.quote)));
+      actions.append(btn('继续追问','Ask a question',()=>openQuestion([ReaderLanguage.choose(entry[0],entry[1]),ReaderLanguage.choose(entry[2],entry[3])].join('\n'),'',row)));
       if(entry.model)ModelReading.details(callout,entry.model);
       callout.append(actions);callout.hidden=false;wire.classList.remove('rq-draw');drawWire();
       requestAnimationFrame(()=>{wire.classList.add('rq-draw');drawWire()});
@@ -635,12 +642,39 @@
       const named=ordered.filter(s=>s.verified).slice(0,4);
       pathMenu.hidden=!named.length;long=false;updateLong();
       pair(keySummary,list.length?'图中可点的位置（'+list.length+'）':'本格尚无可定位的文字或标注',list.length?'Explore figure elements':'No verified hotspots');
-      for(const {entry,x,y,w,h,verified,row} of ordered){
-        const b=el('button','rq-hit');b.type='button';const printed=!verified && /Printed .*label/i.test(entry[1]);const hintEn=printed?entry[0]:entry[1];b.title=entry[0]+' / '+hintEn;b.setAttribute('aria-label',entry[0]+' / '+hintEn);b.setAttribute('aria-pressed','false');
-        Object.assign(b.style,{left:x*100+'%',top:y*100+'%',width:w*100+'%',height:h*100+'%'});
-        b.onclick=e=>{e.stopPropagation();showTip(b,entry,row)};layer.append(b);
-        const choose=()=>{keys.open=false;if(viewport.classList.contains('rq-magnified'))centerHit(b);showTip(b,entry,row);b.focus({preventScroll:true});viewer.scrollIntoView({block:'nearest'})};
-        keyList.append(btn(entry[0],hintEn,choose));
+      const ns='http://www.w3.org/2000/svg';
+      const strokes=document.createElementNS(ns,'svg');strokes.classList.add('rq-strokes');
+      strokes.setAttribute('viewBox','0 0 1000 1000');strokes.setAttribute('preserveAspectRatio','none');layer.append(strokes);
+      for(const {entry,x,y,w,h,row,trace,values,color,verified} of ordered){
+        const hintEn=entry.askOnly?'Ask about '+entry[1]:entry[1];
+        const b=trace?document.createElementNS(ns,'polyline'):el('button','rq-hit');
+        if(trace){
+          b.setAttribute('points',trace.map(pt=>pt.map(n=>(n*1000).toFixed(2)).join(',')).join(' '));
+          b.setAttribute('role','button');b.setAttribute('tabindex','0');b.style.setProperty('--series-color',color);
+          b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showTip(b,entry,row,trace[Math.floor(trace.length/2)])}});
+          strokes.append(b);
+        }else{
+          b.type='button';
+          Object.assign(b.style,{left:x*100+'%',top:y*100+'%',width:w*100+'%',height:h*100+'%'});
+          layer.append(b);
+        }
+        const titleZh=entry.askOnly?'询问「'+entry[0]+'」':entry[0];
+        const name=ReaderLanguage.choose(titleZh,hintEn);b.dataset.nameZh=titleZh;b.dataset.nameEn=hintEn;b.setAttribute('title',name);b.setAttribute('aria-label',name);b.setAttribute('aria-pressed','false');
+        b.onclick=e=>{
+          e.stopPropagation();const rect=sheet.getBoundingClientRect();
+          if(trace && values && FigureElements.reference(part?.raw.reading?.sources?.find(s=>s.kind==='小图图注')?.text)){
+            const x=(e.clientX-rect.left)/rect.width;
+            const i=trace.reduce((best,pt,j)=>Math.abs(pt[0]-x)<Math.abs(trace[best][0]-x)?j:best,0);
+            const v=values[i],selected=entry.slice();
+            const heightZh=v.y==null?'':'，距离相关性约为 '+v.y.toFixed(2),heightEn=v.y==null?'':', with distance correlation about '+v.y.toFixed(2);
+            selected[2]='点选处最近的数据点对应 ρ ≈ '+v.x+heightZh+'。'+entry[2];
+            selected[3]='The nearest plotted observation is at ρ ≈ '+v.x+heightEn+'. '+entry[3];
+            showTip(b,selected,row,trace[i]);return;
+          }
+          showTip(b,entry,row,trace?[(e.clientX-rect.left)/rect.width,(e.clientY-rect.top)/rect.height]:null);
+        };
+        const choose=()=>{keys.open=false;if(entry.askOnly){showTip(b,entry,row);return}if(viewport.classList.contains('rq-magnified'))centerHit(b);showTip(b,entry,row,trace?.[Math.floor(trace.length/2)]);b.focus({preventScroll:true});viewer.scrollIntoView({block:'nearest'})};
+        keyList.append(btn(titleZh,hintEn,choose));
         if(verified&&named.some(s=>s.entry===entry)){
           const jump=btn(entry[0],entry[1],choose);jump.className='rq-path';
           jump.onpointerenter=jump.onfocus=()=>b.classList.add('rq-preview');
@@ -663,7 +697,7 @@
         from={left:box.left+box.width*r.x,top:box.top+box.height*r.y,width:box.width*r.width,height:box.height*r.height};
         from.bottom=from.top+from.height;
       }
-      key=next;const current=++epoch;closeTip();setZoom(false);viewer.hidden=!on;visual.classList.toggle('rq-focused',on);notes.classList.toggle('rq-has-focus',on);
+      shared.replaceChildren();shared.hidden=true;key=next;const current=++epoch;closeTip();setZoom(false);viewer.hidden=!on;visual.classList.toggle('rq-focused',on);notes.classList.toggle('rq-has-focus',on);
       if(!on){apply([]);return}
       pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
@@ -723,17 +757,38 @@
             const head=words.filter(w=>!w.rotate&&w.y0<headerEnd+.014&&w.y1<Math.min(...cells.map(c=>c.y0))&&w.text.length>1&&w.text.length<76).sort((a,b)=>a.x0-b.x0);
             return (head.length?'Headers: '+[...new Set(head.map(w=>w.text))].join(' | ')+'\n':'')+'Row: '+cells.map(c=>c.text).join(' | ');
           }
-          for(const word of words){
+          const marks=session.chartMarks?.(f.page,pageBox,f.raw.matchKey)||[];
+          words=FigureElements.labels(words,f.caption);
+          const sharedKeys=session.chartLegend?.(f.page,f.raw.matchKey)||[];
+          if(sharedKeys.length && marks.some(m=>m.trace)){
+            shared.hidden=false;
+            const heading=pair(el('small'),'共用图例','Shared legend');shared.append(heading);
+            for(const item of sharedKeys){
+              const entry=FigureElements.explain({text:item.name},{caption:f.caption,reading:p.raw.reading,page:f.page,captionPage:f.raw.captionPage,series:true,estimate:marks.find(m=>m.peak&&m.text===item.name)?.estimate,axis:p.raw.axis});
+              const b=btn(item.name,item.name,()=>showTip(b,entry));b.setAttribute('aria-pressed','false');b.className='rq-series-key';
+              b.style.setProperty('--series-color',item.color);if(item.dash.length)b.classList.add('rq-dashed');
+              shared.append(b);
+            }
+          }
+          const items=marks.concat(words.filter(t=>!marks.some(m=>!m.peak&&!m.trace&&m.text===t.text&&Math.abs(m.y0-t.y0)<.022&&t.x0>=m.x0-.006&&t.x1<=m.x1+.006)));
+          for(const word of items){
             const t=word.text.trim();if((!/[\p{L}]{2}|\d+\s*h\b|[µμ]m/u.test(t)&&!(table&&/^[>≥<≤]?\s*\d/.test(t)))||t.length>82||hits.length>=60)continue;
-            const id=[t,word.x0.toFixed(2),word.y0.toFixed(2)].join('|');if(seen.has(id))continue;seen.add(id);
+            const id=[t,word.peak?1:word.trace?2:0,word.x0.toFixed(2),word.y0.toFixed(2)].join('|');if(seen.has(id))continue;seen.add(id);
             const x=Math.max(0,word.x0),y=Math.max(0,word.y0),w=Math.min(1,word.x1)-x,h=Math.min(1,word.y1)-y;
             if(w<=0||h<=0)continue;
-            const g=p.raw.reading, axis=g?.axis?.toLowerCase()===t.toLowerCase()&&g.rows.find(line=>line.en==='Vertical axis');
+            const g=p.raw.reading,row=rowFor(word);
             const strainLabel=ModelReading.strains(t).length || f.raw.animalCohorts?.some(c=>c.name.toLowerCase()===t.toLowerCase());
             const model=strainLabel?modelEntries(t)[0]:null;
-            const info=f.raw.rasterPlate&&CompositePlate.labelGuide(t,p.raw.reading?.sources,f.page);
-            const entry=model||info||[t,word.rotate?'Printed vertical label':'Printed label',axis?.zh||'这是本小图中可定位的原文标注「'+t+'」。可对照图注或就这个词提问。',axis?.enText||'The PDF text layer locates this label in this panel. Its interpretation can be checked against the caption.',f.page];
-            hits.push({x,y,w,h,entry,verified:!!model,priority:model?1:10,row:rowFor(word)});
+            let entry=model||FigureElements.explain(word,{caption:f.caption,reading:g,page:f.page,captionPage:f.raw.captionPage,words,row,lookupTerm,series:word.series,peak:word.peak,estimate:word.estimate||marks.find(m=>m.peak&&m.text===t)?.estimate,axis:g?.axis||p.raw.axis})||
+              (f.raw.rasterPlate && CompositePlate.labelGuide(t,g?.sources,f.page));
+            if(!entry){
+              if(word.series||!/[\p{L}]{2}/u.test(t))continue;
+              entry=[t,t,'',''];entry.askOnly=true;
+            }
+            if(word.trace && word.series){
+              entry[0]=entry[0].replace(/^图例 · /,'曲线 · ');entry[1]=entry[1].replace(/^Legend · /,'Curve · ');
+            }
+            hits.push({x,y,w,h,entry,trace:word.trace,values:word.values,color:word.color,verified:!entry.localize&&!entry.askOnly,priority:model?1:word.trace?15:word.peak?5:10,row});
           }
           tableRows=hits.filter(h=>h.row);apply([...fixed,...hits]);
         }catch{/* A raster-only panel still opens from its original pixels. */}
@@ -745,10 +800,14 @@
       if(viewport.classList.contains('rq-magnified')){setZoom(false);zoomButton.focus({preventScroll:true});return}
       goFull();
     }
-    stage.addEventListener('click',e=>{if(!e.target.closest('button,.rq-callout'))dismissLayer()});
+    stage.addEventListener('click',e=>{if(!e.target.closest('button,[role=button],.rq-callout'))dismissLayer()});
     const escape=e=>{if(e.key==='Escape'&&!viewer.hidden&&!visual.classList.contains('source-shown')&&!document.querySelector('dialog[open]')&&!e.target.closest('textarea,input')&&!document.querySelector('.local-translation:not([hidden])')){if(e.defaultPrevented)return;e.preventDefault();dismissLayer()}};
+    const refreshHitNames=()=>layer.querySelectorAll('[data-name-zh]').forEach(b=>{
+      const name=ReaderLanguage.choose(b.dataset.nameZh,b.dataset.nameEn);b.setAttribute('title',name);b.setAttribute('aria-label',name);
+    });
+    document.addEventListener('reader-language-change',refreshHitNames);
     document.addEventListener('keydown',escape);
-    return {render,destroy(){epoch++;conversation.clear();observer.disconnect();document.removeEventListener('reader-ask-selection',selected);document.removeEventListener('keydown',escape)}};
+    return {render,destroy(){document.removeEventListener('reader-language-change',refreshHitNames);epoch++;conversation.clear();observer.disconnect();document.removeEventListener('reader-ask-selection',selected);document.removeEventListener('keydown',escape)}};
   }
   window.ReadingQuestions={mount};
 })();

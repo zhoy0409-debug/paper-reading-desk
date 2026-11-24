@@ -13,14 +13,16 @@ def build(runtime, output):
     if hashlib.sha256(runtime.read_bytes()).hexdigest() != RUNTIME_SHA256:
         raise ValueError('Expected python-3.14.10-embed-amd64.zip from python.org')
     files = ['start.cmd', 'VERSION', 'portable_launcher.py', 'portable_update.py', 'preview.py', 'reading_questions.py', 'reading_providers.py',
-             'public_literature.py', 'THIRD-PARTY.md', 'README.md', 'README.zh-CN.md']
+             'public_literature.py', 'THIRD-PARTY.md', 'README.md', 'README.en.md', 'README.zh-CN.md']
     with ZipFile(runtime) as source, ZipFile(output, 'x', compression=ZIP_DEFLATED) as bundle:
         for name in source.namelist():
             data = source.read(name)
             if name == 'python314._pth':
                 data += b'\r\n..\r\n'
             bundle.writestr('Reading-Desk/runtime/' + name, data)
-        for path in [ROOT / name for name in files] + sorted((ROOT / 'dist').rglob('*')):
+        guide = sorted((ROOT / 'docs' / 'guide').glob('*'))
+        posters = sorted((ROOT / 'docs' / 'film').glob('poster-*.webp'))
+        for path in [ROOT / name for name in files] + sorted((ROOT / 'dist').rglob('*')) + guide + posters:
             if path.is_file():
                 bundle.write(path, 'Reading-Desk/' + path.relative_to(ROOT).as_posix())
 

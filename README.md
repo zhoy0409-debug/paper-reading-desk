@@ -36,12 +36,16 @@ Panel 6F is labelled UMAP. Open the panel to learn what each point represents an
 
 [Watch the UMAP walkthrough](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#methods) · [Watch the question and source lookup](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#ask)
 
+[![Four real clicks on panel 8A: the x-axis, y-axis, Fashion MNIST legend and MNIST peak.](docs/guide/elements-en.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&sample=figure-8a)
+
+[Try panel 8A yourself: x-axis, legend and curve maximum](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&sample=figure-8a)
+
 <details>
 <summary>What happens when I select an axis, group or printed label?</summary>
 
-![The actual close-up of panel 6F. A line connects the selected UMAP label to a card with the source page and a follow-up action.](docs/guide/focus-en.png)
+[View the still image](docs/guide/focus-en.png)
 
-- **Explore one element at a time.** On supported panels, select an axis, legend, group name or printed label to open its annotation. Click the background or press `Esc` to dismiss it, or return to the whole figure.
+- **Explore one element at a time.** In sample panel 8A, select the x-axis to read what ρ changes, a legend entry to identify its dataset, or a peak to find the setting that most closely matches UMAP for that dataset. Click the background or press `Esc` to dismiss it, or return to the whole figure.
 - **Read different kinds of evidence.** Guides cover axis units, colors, line styles and the relationship between observations and fitted curves. A curated pathology example shows where to look on a section and how to compare the image with an injury score.
 - **Understand the design.** When the paper gives the details, see who or what was studied, which groups were compared and when treatment occurred relative to the event. For covered animal models, open a strain record or studies using the same model.
 - **Ask why a choice mattered.** Start from a comparator or outcome and look for a rationale in the methods, a paper the authors cited or another study. Each source can be inspected separately.

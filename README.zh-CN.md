@@ -36,12 +36,16 @@
 
 [看 UMAP 读图演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#methods) · [看划词追问与出处](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh#ask)
 
+[![实际点击图 8A 的横轴、纵轴、Fashion MNIST 图例和 MNIST 最高点。](docs/guide/elements-zh.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh&sample=figure-8a)
+
+[在图 8A 亲手试：横轴、图例和曲线最高点](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh&sample=figure-8a)
+
 <details>
 <summary>点图上的轴、组名或标注，会看到什么？</summary>
 
-![图 6F 放大后的实际界面。连线从 UMAP 标注指向解释卡片，小图保留在视野内。](docs/guide/focus-zh.png)
+[查看静态截图](docs/guide/focus-zh.png)
 
-- **一处一点。** 点击已识别的图内元素，连线指向对应说明。点空白处或按 `Esc` 收起，也可以直接返回整图。
+- **一处一点。** 试读论文图 8A 中，点横轴看 ρ 如何改变近邻的吸引，点图例选一套数据，点曲线最高点看该数据在哪个设置下最接近 UMAP。点空白处或按 `Esc` 收起，也可以直接返回整图。
 - **按图型读。** 在支持的图中可以了解横纵轴和单位、颜色和图例、曲线与观测点的对应关系。病理精读示例还会带读者找组织结构，并从代表性视野转到损伤评分。
 - **弄清为什么这样设计。** 当原文给出线索时，可查看研究对象、分组、对照及干预先后。比如先干预后观察和先出现损伤再治疗，两个终点回答的问题不同。已覆盖的动物品系还可查看品系资料与同类研究。
 - **追问具体选择。** 想知道为什么选某个对照药、某个指标，可以从这张图查到方法、作者引用的文献或其他研究。讲解会标明依据来自哪里。

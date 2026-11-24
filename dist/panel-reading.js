@@ -192,7 +192,9 @@
     const candidates=methods.filter(([re])=>re.test(text));
     const panelMethod=candidates.length===1&&!/compared (?:with|to)|versus|\bwithout\b|\bnot\b|而非|未采用/i.test(text)?candidates[0]:null;
     const method=panelMethod||methods.find(([re])=>re.test(printed));
-    if(method)interpretation=pair(method[1],method[2]);
+    const refMethod=window.FigureElements?.reference(text);
+    if(refMethod)interpretation=FigureElements.distanceGuide(refMethod);
+    else if(method)interpretation=pair(method[1],method[2]);
     const direct=plainResult(text)||(!passage?.shared&&plainResult(passage?.text||''));
     const conditions=text.match(/^(.{3,110}?)\s+(?:in the presence of|in the absence of|with and without|before and after)\s+([^.;]{3,145})(?=[.;]|$)/i);
     if(conditions){

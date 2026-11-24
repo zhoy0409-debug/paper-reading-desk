@@ -390,7 +390,7 @@ async function scan(file,options={}){
   try{documentTitle=cleanTitle(await pdf.getMetadata());}catch{check();}
   const pageCap=clamp(Math.floor(Number(options?.maxPages)||DEFAULT_PAGES),1,MAX_PAGES);
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
-  const hubblePassages=[];
+  const hubblePassages=[], marksByFigure=new Map();
   let scannedPages=0, usedDrawings=0,unclaimed=null;
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
    check();scannedPages=pg;let page;
@@ -450,7 +450,7 @@ async function scan(file,options={}){
      const pair=hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
        window.PaperPanelGeometry?.pairedAxes(cap,here,axes,words,objects,viewport):null;
      const initial=hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null;
-     const grid=pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial);
+     const grid=pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes);
      const printed=window.PaperPanelGeometry?.printedTitles(cap,here,lines,viewport,words,objects)||[];
      if(!grid&&!pair)await window.PaperPanelGeometry?.includePrintedMargins(printed,page,viewport,pdfjs.AnnotationMode.DISABLE,words).catch(()=>{});
      let crop=grid?.crop||initial;
@@ -478,6 +478,21 @@ async function scan(file,options={}){
      const imagePage=plate?previous.pg:pg,imageView=plate?previous.viewport:viewport;
      if(plate)crop=plate.crop;
      const id=cap.matchKey+'@'+pg+':'+cap.anchor.line;
+     const figureKeys=!plate&&crop&&curvePaths.length?CurveReading.legend(curvePaths,words,crop):[];
+     let sharedLegend=null;
+     if(grid&&!stack&&!layers&&!plate&&curvePaths.length&&grid.panels.length>=2){
+      const keys=figureKeys;
+      const keyTop=Math.min(...keys.map(k=>k.box.y0));
+      const boxes=grid.panels.map(p=>p.rect);
+      const sameRow=boxes.every(b=>Math.abs(b.y0-boxes[0].y0)<4 && keyTop<b.y1 && keyTop>b.y0+h(b)*.55);
+      const supported=(box,key)=>curvePaths.some(t=>t.key===key.key&&t.pts.length>=5&&t.clip&&t.clip.y1<=keyTop-2&&t.b.x0>=box.x0-2&&t.b.x1<=box.x1+2&&w(t.b)>w(box)*.45);
+      if(keys.length>=2&&keys.length<=18 && new Set(keys.map(k=>k.key)).size===keys.length &&
+         sameRow && boxes.every(b=>keys.every(k=>supported(b,k))) &&
+         keys.some(k=>k.box.x0<boxes[0].x1) && keys.some(k=>k.box.x1>boxes[0].x1)){
+       sharedLegend=keys.map(k=>({name:k.name,color:k.color,dash:k.dash}));
+       for(const box of boxes)box.y1=keyTop-2;
+      }
+     }
      const panels=(layers?.panels??stack?.panels??plate?.panels??pair?.panels??grid?.panels??raster?.panels??[]).map(panel=>{
       const pId=id+':'+panel.position;
       internals.set(pId,{page:imagePage,crop:panel.rect});
@@ -505,6 +520,43 @@ async function scan(file,options={}){
       }
      }
      if(!plate&&crop&&curvePaths.length){
+      const keys=figureKeys;
+      const traces=curvePaths.filter(t=>t.pts.length>=5 && t.b.x0>=crop.x0-1 && t.b.x1<=crop.x1+1 &&
+        t.b.y0>=crop.y0-1 && t.b.y1<=crop.y1+1 && w(t.b)>w(crop)*.12 && keys.some(k=>k.key===t.key));
+      const marks=[];
+      for(const key of keys){
+       if(keys.some(k=>k.key===key.key&&k.name!==key.name) || !traces.some(t=>t.key===key.key))continue;
+       marks.push({text:key.name,box:key.box,series:true});
+      }
+      for(const t of traces){
+       const key=keys.find(k=>k.key===t.key);
+       if(keys.some(k=>k.key===key.key&&k.name!==key.name)||t.pts.length>1200)continue;
+       const pts=t.pts;
+       const visible=([x,y])=>!t.clip||(x>=t.clip.x0-.01&&x<=t.clip.x1+.01&&y>=t.clip.y0-.01&&y<=t.clip.y1+.01);
+       // Do not join pieces across a clipped section of a line.
+       const ticks=t.clip&&/log[- ]scale/i.test(cap.caption)?CurveReading.ticksX(words,t.clip):[];
+       const first=ticks[0],last=ticks.at(-1),scaleY=t.clip&&CurveReading.scaleY(words,t.clip);
+       const read=([x,y])=>first?{
+        x:Number((first.v*(last.v/first.v)**((x-first.x)/(last.x-first.x))).toPrecision(2)),
+        y:scaleY?Number(scaleY(y).toFixed(2)):null
+       }:null;
+       const runs=[[]];
+       for(const pt of pts){
+        if(visible(pt))runs.at(-1).push(pt);
+        else if(runs.at(-1).length)runs.push([]);
+       }
+       for(const trace of runs.filter(r=>r.length>=2)){
+        const ys=trace.map(pt=>pt[1]);
+        marks.push({text:key.name,series:true,trace,values:first?trace.map(read):null,color:t.color,box:{x0:trace[0][0],x1:trace.at(-1)[0],y0:Math.min(...ys),y1:Math.max(...ys)}});
+       }
+       if(/dots? mark (?:the )?maxim(?:um|a) of each curve/i.test(cap.caption)){
+        const best=pts.filter(pt=>Math.abs(pt[1]-t.b.y0)<.01);
+        if(best.length===1&&visible(best[0])){
+         const [x,y]=best[0];marks.push({text:key.name,series:true,peak:true,estimate:read(best[0]),box:{x0:x-2,y0:y-2,x1:x+2,y1:y+2}});
+        }
+       }
+      }
+      if(marks.length)marksByFigure.set(cap.matchKey+'@'+pg, {marks,view:viewport,sharedLegend});
       const vertical=text.items.filter(t=>t.str?.trim()&&t.transform&&Math.abs(t.transform[1])>10*Math.abs(t.transform[0]))
        .map(t=>({text:t.str,...boxFrom(mult(viewport.transform,t.transform),[0,-.2,t.width/Math.hypot(...t.transform.slice(0,2)),.9])}));
       const withAxes=!panels.length?CurveRatio.includeAxes(crop,vertical):crop;
@@ -595,6 +647,14 @@ async function scan(file,options={}){
    renderPage(page){
     if(!Number.isSafeInteger(page)||page<1||page>pdf.numPages)return Promise.reject(Error('PDF 页码不在范围内。'));
     return serialized(()=>paint(page,null));
+   },
+   chartLegend(n,figureKey){return marksByFigure.get(figureKey+'@'+n)?.sharedLegend||[]},
+   chartMarks(n,b,figureKey){
+    const data=marksByFigure.get(figureKey+'@'+n);if(!data)return [];
+    const {marks,view}=data,x=b.x*view.width,y=b.y*view.height,width=b.width*view.width,height=b.height*view.height;
+    return marks.filter(m=>m.box.x0>=x-1&&m.box.y0>=y-1&&m.box.x1<=x+width+1&&m.box.y1<=y+height+1)
+      .map(({box,text,series,peak,estimate,trace,values,color})=>({text,series,peak,estimate,color,values,x0:(box.x0-x)/width,x1:(box.x1-x)/width,y0:(box.y0-y)/height,y1:(box.y1-y)/height,
+        trace:trace?.map(([px,py])=>[(px-x)/width,(py-y)/height])}));
    },
    async chartText(n,b){
     check();const pg=await pdf.getPage(n),v=pg.getViewport({scale:1}),txt=await pg.getTextContent();
