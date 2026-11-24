@@ -156,6 +156,7 @@
       log.append(turn);turn.scrollIntoView({block:'nearest'});
       const short=['reported','background','uncertain'].map(k=>answer[k]?.zh||'').join('\n').trim();
       const english=['reported','background','uncertain'].map(k=>answer[k]?.en|| (answer[k]?.zh?PaperUI.english(answer[k].zh)||window.ReaderEnglish[answer[k].zh]||answer[k].zh:'')).filter(Boolean).join('\n');
+      if(english && !/\p{Script=Han}/u.test(english))turn.append(btn('听英文回答','Listen to the English answer',e=>EnglishPractice.open({sentence:english,scope:spot,origin:e.currentTarget})));
       if(short)history=[...history,{question:q,answer:ReaderLanguage.choose(short,english).slice(0,1800)}].slice(-4);
       previous.textContent=history.map(h=>h.question+'\n'+h.answer).join('\n\n');transcript.hidden=!history.length;
     }
@@ -477,6 +478,9 @@
       if(entry.localize)PaperLanguageText.bind(callout.querySelector('p'),entry[3]);
       const actions=el('div','rq-actions');actions.append(locate);
       if(entry[4])actions.append(btn('对照 p.'+entry[4],'Source · p.'+entry[4],()=>source(entry[4],entry.quote)));
+      if(entry[3])actions.append(btn('英文跟读','English practice',e=>EnglishPractice.open({
+        text:entry[1],sentence:entry[3],scope:selectionTag,origin:e.currentTarget,onAsk:(text,prompt)=>openQuestion(text,prompt,row)
+      })));
       actions.append(btn('继续追问','Ask a question',()=>openQuestion([ReaderLanguage.choose(entry[0],entry[1]),ReaderLanguage.choose(entry[2],entry[3])].join('\n'),'',row)));
       if(entry.model)ModelReading.details(callout,entry.model);
       callout.append(actions);callout.hidden=false;wire.classList.remove('rq-draw');drawWire();
@@ -503,6 +507,22 @@
     });
     tabs.setAttribute('aria-label','读图方式 / Reading modes');
     const lead=notes.querySelector('.frw-notes-top');lead.after(tabs,primer,ask);setTab('read');
+    function practiceContext(options){
+      const guide=part?.raw.reading;
+      const localCaption=guide?.sources?.find(s=>s.kind==='小图图注')?.text;
+      const passage=guide?.narrationEn || localCaption || (!part ? figure?.caption : '');
+      if(!options.sentence && passage){
+        options.sentence=EnglishPractice.sentenceOf(passage,options.text);
+        options.caption=!guide?.narrationEn;
+      }
+      options.scope=selectionTag;options.onAsk=(text,prompt)=>openQuestion(text,prompt);
+    }
+    const practice=btn('英文跟读','English practice',e=>{
+      const options={origin:e.currentTarget};practiceContext(options);EnglishPractice.open(options);
+    });
+    practice.className='ep-panel-button frw-inline';lead.append(practice);
+    const enrichPractice=e=>practiceContext(e.detail);
+    document.addEventListener('reader-practice-context',enrichPractice);
     function paperEvidence(row,excerpt){
       const out=[],seen=new Set();
       function put(kind,page,text){
@@ -807,7 +827,7 @@
     });
     document.addEventListener('reader-language-change',refreshHitNames);
     document.addEventListener('keydown',escape);
-    return {render,destroy(){document.removeEventListener('reader-language-change',refreshHitNames);epoch++;conversation.clear();observer.disconnect();document.removeEventListener('reader-ask-selection',selected);document.removeEventListener('keydown',escape)}};
+    return {render,destroy(){EnglishPractice.close();document.removeEventListener('reader-practice-context',enrichPractice);document.removeEventListener('reader-language-change',refreshHitNames);epoch++;conversation.clear();observer.disconnect();document.removeEventListener('reader-ask-selection',selected);document.removeEventListener('keydown',escape)}};
   }
   window.ReadingQuestions={mount};
 })();
