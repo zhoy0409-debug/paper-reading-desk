@@ -211,7 +211,7 @@
         desk?.save();
       },
       onFigure: id => selectFigure(id),
-      onPanel: id => selectPanel(id),
+      onPanel: id => readPanel(id),
       onDetail: () => { figTitle.focus({preventScroll:true}); figTitle.scrollIntoView({block:'start'}); }
     });
     if(atlas){
@@ -242,12 +242,12 @@
     const desk=options.desk&&global.PaperPanelDesk.mount(options.desk,{
       plate,img,notes,explain,boundary,more,pageMode:()=>pageMode,showFigure:()=>compare?.showFigure(),
       togglePage:()=>{compare?.showFigure();pageMode=!pageMode;cache.delete(active.id);wantedZoom=zoom;loadPicture();rememberSpot()},
-      syncPanels:id=>{preparePanels();updateTabs();atlas?.syncPanels();selectPanel(id)},
+      syncPanels:id=>{preparePanels();updateTabs();atlas?.syncPanels();readPanel(id)},
+      openPreview:id=>{readPanel(id);visual.scrollIntoView({block:'nearest'});},
       listPanels:()=>{preparePanels();updateTabs();atlas?.syncPanels()}
     });
-    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,histograms,desk,selectPanel,
+    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,histograms,desk,selectPanel:readPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
-    notes.querySelector('.pd-report')?.addEventListener('toggle',renderTarget);
     function preparePanels(){
       if(desk&&active)active.panels=desk.panelsFor(active.raw).map(p=>({...p,raw:p}));
     }
@@ -304,12 +304,21 @@
       if (tabs.hidden) return;
       for (const p of [null, ...active.panels.filter(p=>!p.raw?.markerParent)]) {
         const key = p?.id || '';
-        const button = btn(p?.label || '整图', () => selectPanel(p?.id), 'frw-panel-tab', p ? `小图 ${p.label}${p.title ? `：${p.title}` : ''}` : '查看整图说明');
+        const button = btn(p?.label || '整图', () => readPanel(p?.id), 'frw-panel-tab', p ? `小图 ${p.label}${p.title ? `：${p.title}` : ''}` : '查看整图说明');
         button.setAttribute('aria-pressed', String(p === panel));
         panelButtons.set(key, button); tabs.append(button);
       }
     }
 
+    function readPanel(panelId) {
+      if(!active)return;
+      desk?.cancelDrawing();
+      compare?.showFigure();
+      const reload=Boolean(pageMode && panelId);
+      if(reload)pageMode=false;
+      selectPanel(panelId);
+      if(reload)loadPicture();
+    }
     function selectPanel(panelId) {
       if (!active) return;
       panel = active.panels.find(p=>p.id === panelId) || null;
@@ -329,7 +338,7 @@
         const description=g?.rows.find(r=>r.role==='原文怎样描述这张图');
         const reading=g?.rows.find(r=>r.role==='怎么读');
         const shared=p.raw?.groupCaption;
-        const row=el('li'),jump=btn(p.label,()=>{selectPanel(p.id);notesTop.scrollIntoView({block:'nearest'});panelButtons.get(p.id)?.focus({preventScroll:true})},'frw-panel-jump');
+        const row=el('li'),jump=btn(p.label,()=>{readPanel(p.id);notesTop.scrollIntoView({block:'nearest'});panelButtons.get(p.id)?.focus({preventScroll:true})},'frw-panel-jump');
         jump.setAttribute('aria-label','阅读小图 '+p.label+' / Read panel '+p.label);
         const body=el('div'),tag=el('small'),copy=el('span');
         const line=g?.rows.find(r=>r.role==='结果说明什么')||reported||reading||description;
@@ -570,7 +579,7 @@
       const originalPlate=!customBox||sameBox(figureBox,customBox);
       if(markerPlots.length&&originalPlate){
         const controls=el('div','','marker-choices');
-        const choose=p=>{compare?.showFigure();selectPanel(p.id)};
+        const choose=p=>readPanel(p.id);
         const entries=markerPlots.map(p=>{
           const button=btn('',()=>choose(p),'frw-inline');
           const pos=p.raw.layerPosition||(p.raw.markerPosition==='top'?['上图','Upper plot']:['下图','Lower plot']);
@@ -653,7 +662,7 @@
           const switcher=el('div','','hist-conditions');
           switcher.setAttribute('role','group');switcher.setAttribute('aria-label','比较条件 / Compare conditions');
           for(const part of [...f.panels].sort((a,b)=>a.region.x-b.region.x)){
-            const b=btn(part.label+' · '+(part.printedTitle||part.title||part.label),()=>{selectPanel(part.id);explain.querySelector('.hist-conditions [aria-pressed=true]')?.focus({preventScroll:true})},'frw-inline');
+            const b=btn(part.label+' · '+(part.printedTitle||part.title||part.label),()=>{readPanel(part.id);explain.querySelector('.hist-conditions [aria-pressed=true]')?.focus({preventScroll:true})},'frw-inline');
             b.setAttribute('aria-pressed',String(part.id===p.id));switcher.append(b);
           }
           explain.append(switcher);
@@ -691,7 +700,7 @@
           button.setAttribute('aria-label','阅读原图 '+p.label+' / Read printed panel '+p.label);
           button.onclick=()=>{
             const focused=doc.activeElement===button;
-            selectPanel(p.id);
+            readPanel(p.id);
             if(focused)plotHits.querySelector('[data-printed-panel="'+p.id+'"]')?.focus({preventScroll:true});
           };
           return button;
@@ -870,8 +879,7 @@
       node.classList.toggle('frw-target-top', coords.y < .06);
     }
     function renderTarget() {
-      const editing=notes.querySelector('.pd-report')?.open;
-      questions?.render(active,panel,visiblePicture&&!editing&&!hasTrace&&!histogramFocus,viewAsset?.mode,objectUrl,zoom);
+      questions?.render(active,panel,visiblePicture&&!pageMode&&!hasTrace&&!histogramFocus,viewAsset?.mode,objectUrl);
       trace.style.display=hasTrace&&visiblePicture&&viewAsset?.mode==='figure'?'block':'none';
       const allowed = visiblePicture && (viewAsset?.mode === 'figure'||!!histogramFocus);
       plotHits.hidden=!allowed;
@@ -966,7 +974,7 @@
 
     function resetPicture() {
       visiblePicture = false; viewAsset = null;
-      questions?.render(active,panel,false,null,'',0);
+      questions?.render(active,panel,false,null,'');
       desk?.reset();
       closeDialog(false); modalImg.removeAttribute('src');
       img.onload = null; img.onerror = null; img.removeAttribute('src');
@@ -1072,7 +1080,7 @@
       if (!ids.length) return;
       const i = ids.indexOf(panel?.raw?.markerParent || panel?.id || '');
       const n = e.key === 'Home' ? 0 : e.key === 'End' ? ids.length-1 : (i + (e.key==='ArrowLeft'?-1:1) + ids.length) % ids.length;
-      e.preventDefault(); selectPanel(ids[n]); panelButtons.get(ids[n])?.focus();
+      e.preventDefault(); readPanel(ids[n]); panelButtons.get(ids[n])?.focus();
     });
     function setModel(next, evidenceOptions) {
       if (disposed) return;

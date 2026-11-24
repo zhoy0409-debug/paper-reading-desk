@@ -49,6 +49,8 @@
     const button=(label,fn)=>{const n=PaperUI.set(el('button'),label);n.type='button';n.onclick=fn;return n};
     const holder=el('div','','pd-desk');
     const preview=el('canvas');preview.setAttribute('aria-label','所选小图裁切预览');
+    const previewButton=button('',()=>{if(active)ui.openPreview(active)});previewButton.className='pd-open-preview';
+    PaperUI.set(previewButton,'打开小图特写','Open panel close-up');previewButton.prepend(preview);previewButton.hidden=true;
     const rawPreview=el('canvas');
     const numbering=el('fieldset','','pd-numbering'),numberTitle=el('legend');
     PaperUI.set(numberTitle,'小图编号 · 本篇汇报','Panel labels · this paper');numbering.append(numberTitle);
@@ -114,9 +116,9 @@
     const report=el('details','','pd-report'),reportTitle=el('summary'),reportBody=el('div','','pd-report-body');
     PaperUI.set(reportTitle,'裁切与汇报','Crop & present');
     reportBody.append(targetInfo,toolbar,numbering,sharedList,captionLabel,add,png,collection,exportButton);
-    report.append(reportTitle,reportBody);report.addEventListener('toggle',()=>{if(report.open)refresh()});
+    report.append(reportTitle,reportBody);report.addEventListener('toggle',()=>{if(!report.open && tool)stop();refresh()});
     caption.placeholder='写下这一小图支持的一句话 / Add an evidence-based takeaway';
-    holder.append(previewLabel,preview,ui.explain,ui.boundary,ui.more,report,manage,saveNode,msg);
+    holder.append(previewLabel,previewButton,ui.explain,ui.boundary,ui.more,report,manage,saveNode,msg);
     notes.append(holder);
     const overlay=el('div','','pd-overlay');plate.append(overlay);
     function save(){try{PaperShelf.persist(id,state);return true}catch{PaperUI.set(msg,'浏览器未能保存读图状态，请检查本地存储。');return false}}
@@ -230,7 +232,7 @@
       if(fig&&active&&record(fig).sentences[active]===undefined)caption.value=defaultText(fig,rawPanel());
     });
     function previewCrop(box){
-      preview.hidden=true;if(!ready||!box)return;
+      previewButton.hidden=preview.hidden=true;if(!ready||!box)return;
       const r=relative(box,basis);
       if(r.x<-.001||r.y<-.001||r.x+r.width>1.001||r.y+r.height>1.001){previewLabel.textContent+=' · 请切换原页查看完整区域';return}
       const w=r.width*img.naturalWidth,h=r.height*img.naturalHeight;
@@ -238,7 +240,7 @@
       rawPreview.width=Math.max(1,Math.round(w*scale));rawPreview.height=Math.max(1,Math.round(h*scale));
       rawPreview.getContext('2d').drawImage(img,r.x*img.naturalWidth,r.y*img.naturalHeight,w,h,0,0,rawPreview.width,rawPreview.height);
       const p=rawPanel(),surface=PaperPanelLabels.draw(rawPreview,p&&!drag?outputPlan(fig,p,box):null);
-      preview.width=surface.width;preview.height=surface.height;preview.getContext('2d').drawImage(surface,0,0);preview.hidden=false;
+      preview.width=surface.width;preview.height=surface.height;preview.getContext('2d').drawImage(surface,0,0);preview.hidden=false;previewButton.hidden=false;
     }
     function refresh(){
       if(!fig)return;
@@ -340,7 +342,7 @@
       },
       region(){const box=fig&&active&&boxFor(fig,active);return box?relative(box,basis):null},
       pageRegion(){return fig&&active?boxFor(fig,active):null},
-      isDrawing:()=>!!tool};
+      isDrawing:()=>!!tool,cancelDrawing(){if(tool){stop();refresh()}}};
   }
   window.PaperPanelDesk={mount,restorePageBindings};
 })();

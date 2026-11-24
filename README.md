@@ -38,6 +38,8 @@ Select an English term or passage and choose **Listen**. From any figure, **Engl
 
 ## What am I looking at, and where did the authors say that?
 
+Open a close-up from the figure, a panel letter or the crop thumbnail. Figure elements remain clickable while Crop & present is open. Drawing a boundary brings up the original image. Finish or cancel to resume the close-up.
+
 Panel 6F is labelled UMAP. Open the panel to learn what each point represents and which groups to compare. Then select the sampling description in the caption and ask, “How long did sampling last?” The source guide finds the interval from day 0 to month 4 and takes you back to the authors’ sentence.
 
 [![Recorded workflow. Ask a sampling question from the caption, read the answer beside the figure and open the source passage.](docs/guide/question-en.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#ask)

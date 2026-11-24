@@ -703,16 +703,34 @@
         }
       }
     }
-    async function render(f,p,ready,mode,src,scale){
+    function insideImage(box){
+      return box && box.width>.001 && box.height>.001 && box.x>=-.001 && box.y>=-.001 &&
+        box.x+box.width<1.001 && box.y+box.height<1.001;
+    }
+    async function paintPDFCrop(page,box,current){
+      const result=await session.renderRegion(page,box,{quality:'slide'});
+      if(current!==epoch || result?.mode!=='crop')return false;
+      const image=await createImageBitmap(result.blob);
+      try{
+        if(current!==epoch)return false;
+        canvas.width=image.width;canvas.height=image.height;
+        canvas.getContext('2d').drawImage(image,0,0);
+        return true;
+      }finally{image.close()}
+    }
+    async function render(f,p,ready,mode,src){
       const nextSelection=(f?.id||'')+'/'+(p?.id||'');
       if(nextSelection!==selectionTagKey){tableRows=[];selectionTagKey=nextSelection;figure=f;part=p;selectionTag=[f?.label,p?.label,'PDF p.'+f?.page].filter(Boolean).join(' · ');
         conversation.clear();setTab('read');basics();showThread();}
-      const r=p&&desk?.figurePanelRegion(f.raw,p.id),pageBox=p&&desk?.pageRegion();
-      const on=!!(ready&&p&&mode==='figure'&&r&&r.width>.001&&r.height>.001&&r.x>=-.001&&r.y>=-.001&&r.x+r.width<1.001&&r.y+r.height<1.001&&scale===0);
+      const figureRegion=p&&desk?.figurePanelRegion(f.raw,p.id),pageBox=p&&desk?.pageRegion();
+      // The crop and its annotations use the original pixels, independently of display zoom.
+      const r=mode==='page'?pageBox:figureRegion;
+      const inPreview=insideImage(r);
+      const on=Boolean(ready&&p&&src&&r&&(inPreview||insideImage(pageBox)));
       const next=on?JSON.stringify([nextSelection,r,src]):'';
       if(next===key)return;
       let from=null;
-      if(on&&!visual.classList.contains('rq-focused')){
+      if(on&&inPreview&&!visual.classList.contains('rq-focused')){
         const box=img.getBoundingClientRect();
         from={left:box.left+box.width*r.x,top:box.top+box.height*r.y,width:box.width*r.width,height:box.height*r.height};
         from.bottom=from.top+from.height;
@@ -721,15 +739,24 @@
       if(!on){apply([]);return}
       pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
-      const W=img.naturalWidth,H=img.naturalHeight;
-      canvas.width=Math.max(1,Math.round(W*r.width));canvas.height=Math.max(1,Math.round(H*r.height));
-      canvas.getContext('2d').drawImage(img,r.x*W,r.y*H,r.width*W,r.height*H,0,0,canvas.width,canvas.height);
+      if(inPreview){
+        const W=img.naturalWidth,H=img.naturalHeight;
+        canvas.width=Math.max(1,Math.round(W*r.width));canvas.height=Math.max(1,Math.round(H*r.height));
+        canvas.getContext('2d').drawImage(img,r.x*W,r.y*H,r.width*W,r.height*H,0,0,canvas.width,canvas.height);
+      }else{
+        // A manual boundary may extend beyond the detected figure while remaining on the PDF page.
+        apply([]);canvas.width=canvas.height=1;
+        const painted=await paintPDFCrop(f.page,pageBox,current).catch(()=>false);
+        if(current!==epoch)return;
+        if(!painted){key='';viewer.hidden=true;visual.classList.remove('rq-focused');notes.classList.remove('rq-has-focus');return}
+      }
       sheet.style.setProperty('--rq-ratio',canvas.width/canvas.height);stage.style.setProperty('--rq-original','url("'+src+'")');
       revealCrop(from);
       const checked=p.raw.checkedGuide&&f.raw.matchKey==='F:2';
       const bases=checked?ReadingPrimer.spots[p.id]||[]:[];
       const original=p.raw.region;
       const fixed=bases.map(s=>{
+        const r=figureRegion;
         const x=(original.x+s.x*original.width-r.x)/r.width,y=(original.y+s.y*original.height-r.y)/r.height;
         const endX=Math.min(1,x+s.w*original.width/r.width),endY=Math.min(1,y+s.h*original.height/r.height);
         const order=['stain','sham','air','tissue'];const rank=order.indexOf(s.id);return {verified:true,priority:rank<0?10:rank,entry:s.id==='mouse'?(modelEntries()[0]||ReadingPrimer.entries.mouse):ReadingPrimer.entries[s.id],x:Math.max(0,x),y:Math.max(0,y),w:endX-Math.max(0,x),h:endY-Math.max(0,y)};
@@ -744,19 +771,7 @@
         }
       }
       apply(fixed);
-      if(pageBox){
-        // The paper image is a fast preview. Repaint the PDF vectors at
-        // close-reading resolution while preserving the hotspot coordinates.
-        session.renderRegion(f.page,pageBox,{quality:'slide'}).then(async result=>{
-          if(current!==epoch||result?.mode!=='crop')return;
-          const image=await createImageBitmap(result.blob);
-          try{
-            if(current!==epoch)return;
-            canvas.width=image.width;canvas.height=image.height;
-            canvas.getContext('2d').drawImage(image,0,0);
-          }finally{image.close()}
-        }).catch(()=>{});
-      }
+      if(inPreview&&pageBox)paintPDFCrop(f.page,pageBox,current).catch(()=>{});
       if(!checked&&pageBox){
         try{
           let words=await session.chartText(f.page,pageBox);
@@ -821,7 +836,7 @@
       goFull();
     }
     stage.addEventListener('click',e=>{if(!e.target.closest('button,[role=button],.rq-callout'))dismissLayer()});
-    const escape=e=>{if(e.key==='Escape'&&!viewer.hidden&&!visual.classList.contains('source-shown')&&!document.querySelector('dialog[open]')&&!e.target.closest('textarea,input')&&!document.querySelector('.local-translation:not([hidden])')){if(e.defaultPrevented)return;e.preventDefault();dismissLayer()}};
+    const escape=e=>{if(e.key==='Escape'&&!desk.isDrawing()&&!viewer.hidden&&!visual.classList.contains('source-shown')&&!document.querySelector('dialog[open]')&&!e.target.closest('textarea,input')&&!document.querySelector('.local-translation:not([hidden])')){if(e.defaultPrevented)return;e.preventDefault();dismissLayer()}};
     const refreshHitNames=()=>layer.querySelectorAll('[data-name-zh]').forEach(b=>{
       const name=ReaderLanguage.choose(b.dataset.nameZh,b.dataset.nameEn);b.setAttribute('title',name);b.setAttribute('aria-label',name);
     });
