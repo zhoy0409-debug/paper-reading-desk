@@ -99,7 +99,7 @@
         if(n.x0-end>t.size*.55||label.length+n.text.length>72)break;
         label+=(n.x0-end>.18*t.size?' ':'')+n.text;end=n.x1;box=unite(box,n);
       }
-      candidates.push({name:label.trim(),key:seg.key,color:seg.color,dash:seg.dash,box});
+      candidates.push({name:label.trim(),key:seg.key,color:seg.color,dash:seg.dash,box,stroke:b});
     }
     return candidates;
   }
@@ -310,5 +310,5 @@
     const side=band.hi-1>1-band.lo?['偏高','above']:['偏低','below'];
     return [when+'，偏离增幅最大的可见区段为 '+(c.k?'k = ':'')+band.from+'–'+band.to+'，在下格主要'+side[0]+'。',when+' · The largest increase in visible departure is in '+(c.k?'k = ':'')+band.from+'–'+band.to+', mainly '+side[1]+' one in the bottom frame.'];
   }
-  window.CurveReading={paths,legend,ticksX,scaleY,detect,enrich,describe,contrast,overview};
+  window.CurveReading={paths,legend,colorNames,style,ticksX,scaleY,detect,enrich,describe,contrast,overview};
 })();

@@ -180,7 +180,7 @@
     },hasText:()=>Boolean(draft.value),clear};
   }
 
-  function mount({notes,visual,img,session,lookupTerm,histograms,desk,source,resetPanel,selectPanel}){
+  function mount({notes,visual,img,session,lookupTerm,findPassage,histograms,desk,source,resetPanel,selectPanel}){
     const tabs=el('nav','rq-tabs'),primer=el('section','rq-primer'),ask=el('section','rq-ask');
     const viewer=el('section','rq-focus'),bar=el('div','rq-focus-bar'),label=el('strong'),stage=el('div','rq-stage'),
       viewport=el('div','rq-viewport'),sheet=el('div','rq-sheet'),canvas=el('canvas'),layer=el('div','rq-hits'),callout=el('article','rq-callout'),
@@ -494,9 +494,7 @@
     let traceAnchor=null;
     function showTip(b,entry,row,anchor=null){
       enterAnimation?.finish();
-      if(entry.askOnly){
-        closeTip();openQuestion(entry[0],ReaderLanguage.choose('图中的「'+entry[0]+'」在这项比较中表示什么？','What does “'+entry[0]+'” represent in this comparison?'),row);return;
-      }
+      if(entry.lookup)entry=findPassage?.(entry[0],figure.page)||entry;
       traceAnchor=anchor;
       activeHit?.setAttribute('aria-pressed','false');activeHit=b;b.setAttribute('aria-pressed','true');
       callout.replaceChildren(pair(el('h4'),entry[0],entry[1]),pair(el('p'),entry[2],entry[3]));
@@ -695,7 +693,7 @@
       const strokes=document.createElementNS(ns,'svg');strokes.classList.add('rq-strokes');
       strokes.setAttribute('viewBox','0 0 1000 1000');strokes.setAttribute('preserveAspectRatio','none');layer.append(strokes);
       for(const {entry,x,y,w,h,row,trace,values,color,verified} of ordered){
-        const hintEn=entry.askOnly?'Ask about '+entry[1]:entry[1];
+        const hintEn=entry[1];
         const b=trace?document.createElementNS(ns,'polyline'):el('button','rq-hit');
         if(trace){
           b.setAttribute('points',trace.map(pt=>pt.map(n=>(n*1000).toFixed(2)).join(',')).join(' '));
@@ -704,10 +702,12 @@
           strokes.append(b);
         }else{
           b.type='button';
+          if(entry.symbol)b.classList.add('rq-legend-symbol');
+          if(entry.chartKey)b.classList.add('rq-legend-key');
           Object.assign(b.style,{left:x*100+'%',top:y*100+'%',width:w*100+'%',height:h*100+'%'});
           layer.append(b);
         }
-        const titleZh=entry.askOnly?'询问「'+entry[0]+'」':entry[0];
+        const titleZh=entry[0];
         const name=ReaderLanguage.choose(titleZh,hintEn);b.dataset.nameZh=titleZh;b.dataset.nameEn=hintEn;b.setAttribute('title',name);b.setAttribute('aria-label',name);b.setAttribute('aria-pressed','false');
         b.onclick=e=>{
           e.stopPropagation();const rect=canvas.getBoundingClientRect();
@@ -722,7 +722,7 @@
           }
           showTip(b,entry,row,trace?[(e.clientX-rect.left)/rect.width,(e.clientY-rect.top)/rect.height]:null);
         };
-        const choose=()=>{keys.open=false;if(entry.askOnly){showTip(b,entry,row);return}if(viewport.classList.contains('rq-magnified'))centerHit(b);showTip(b,entry,row,trace?.[Math.floor(trace.length/2)]);b.focus({preventScroll:true});viewer.scrollIntoView({block:'nearest'})};
+        const choose=()=>{keys.open=false;if(viewport.classList.contains('rq-magnified'))centerHit(b);showTip(b,entry,row,trace?.[Math.floor(trace.length/2)]);b.focus({preventScroll:true});viewer.scrollIntoView({block:'nearest'})};
         keyList.append(btn(titleZh,hintEn,choose));
         if(verified&&named.some(s=>s.entry===entry)){
           const jump=btn(entry[0],entry[1],choose);jump.className='rq-path';
@@ -736,15 +736,15 @@
       return box && box.width>.001 && box.height>.001 && box.x>=-.001 && box.y>=-.001 &&
         box.x+box.width<1.001 && box.y+box.height<1.001;
     }
-    async function paintPDFCrop(page,box,current){
-      const result=await session.renderRegion(page,box,{quality:'slide'});
+    async function paintPDFCrop(page,box,current,capture){
+      const result=await session.renderRegion(page,box,{quality:capture?'chart':'slide'});
       if(current!==epoch || result?.mode!=='crop')return false;
       const image=await createImageBitmap(result.blob);
       try{
         if(current!==epoch)return false;
         canvas.width=image.width;canvas.height=image.height;
         canvas.getContext('2d').drawImage(image,0,0);
-        return true;
+        return result;
       }finally{image.close()}
     }
     async function render(f,p,ready,mode,src){
@@ -768,6 +768,9 @@
       if(!on){apply([]);return}
       pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
+      const marks=pageBox?session.chartMarks?.(f.page,pageBox,f.raw.matchKey)||[]:[];
+      const capture=marks.some(m=>m.chart);
+      let fullResolution;
       if(inPreview){
         const W=img.naturalWidth,H=img.naturalHeight;
         canvas.width=Math.max(1,Math.round(W*r.width));canvas.height=Math.max(1,Math.round(H*r.height));
@@ -775,7 +778,7 @@
       }else{
         // A manual boundary may extend beyond the detected figure while remaining on the PDF page.
         apply([]);canvas.width=canvas.height=1;
-        const painted=await paintPDFCrop(f.page,pageBox,current).catch(()=>false);
+        const painted=fullResolution=await paintPDFCrop(f.page,pageBox,current,capture).catch(()=>false);
         if(current!==epoch)return;
         if(!painted){key='';viewer.hidden=true;visual.classList.remove('rq-focused');notes.classList.remove('rq-has-focus');return}
       }
@@ -800,15 +803,17 @@
         }
       }
       apply(fixed);
-      if(inPreview&&pageBox)paintPDFCrop(f.page,pageBox,current).catch(()=>{});
+      if(inPreview&&pageBox)fullResolution=paintPDFCrop(f.page,pageBox,current,capture).catch(()=>false);
       if(!checked&&pageBox){
         try{
           let words=await session.chartText(f.page,pageBox);
-          if(f.raw.rasterPlate&&histograms&&current===epoch){
+          if((f.raw.rasterPlate||words.filter(w=>/\p{L}{2}/u.test(w.text)).length<2)&&histograms&&current===epoch){
             const raster=await histograms.panelLabels(f.page,pageBox,()=>current===epoch).catch(()=>[]);
             words=words.concat(raster.filter(a=>!words.some(b=>a.text===b.text&&Math.abs(a.x0-b.x0)<.025&&Math.abs(a.y0-b.y0)<.025)));
           }
           if(current!==epoch)return;
+          marks.unshift(...words.filter(w=>w.chart));
+          words=words.filter(w=>!w.chart);
           const seen=new Set(),hits=[];
           // Join cells only inside a table with a verified units header and aligned rows.
           const table=words.some(w=>/clinical\s*isolates|\bisolates\b/i.test(w.text))&&words.some(w=>/\bMIC\b/.test(w.text));
@@ -821,7 +826,17 @@
             const head=words.filter(w=>!w.rotate&&w.y0<headerEnd+.014&&w.y1<Math.min(...cells.map(c=>c.y0))&&w.text.length>1&&w.text.length<76).sort((a,b)=>a.x0-b.x0);
             return (head.length?'Headers: '+[...new Set(head.map(w=>w.text))].join(' | ')+'\n':'')+'Row: '+cells.map(c=>c.text).join(' | ');
           }
-          const marks=session.chartMarks?.(f.page,pageBox,f.raw.matchKey)||[];
+          if(capture){
+            const painted=await fullResolution;
+            if(current!==epoch)return;
+            CartesianPanels.fitInk(marks,canvas,painted?.pixels);
+          }
+          if(!marks.some(m=>m.chart?.kind==='legend')){
+            await fullResolution;
+            if(current!==epoch)return;
+            const keys=PrintedLegend.samples(words,canvas,p.raw.axis||'');
+            marks.unshift(...keys);
+          }
           words=FigureElements.labels(words,f.caption);
           const sharedKeys=session.chartLegend?.(f.page,f.raw.matchKey)||[];
           if(sharedKeys.length && marks.some(m=>m.trace)){
@@ -834,25 +849,29 @@
               shared.append(b);
             }
           }
-          const items=marks.concat(words.filter(t=>!marks.some(m=>!m.peak&&!m.trace&&m.text===t.text&&Math.abs(m.y0-t.y0)<.022&&t.x0>=m.x0-.006&&t.x1<=m.x1+.006)));
+          const items=marks.concat(words.filter(t=>!marks.some(m=>m.chart && m.chart.kind!=='symbol' && m.text.includes(t.text.trim()) &&
+            Math.abs((m.y0+m.y1-t.y0-t.y1)/2)<Math.max(.004,t.y1-t.y0)*.55 && t.x0>=m.x0-.012 && t.x1<=m.x1+.012) && !marks.some(m=>!m.peak&&!m.trace&&m.text===t.text&&Math.abs(m.y0-t.y0)<.022&&t.x0>=m.x0-.006&&t.x1<=m.x1+.006)));
           for(const word of items){
-            const t=word.text.trim();if((!/[\p{L}]{2}|\d+\s*h\b|[µμ]m/u.test(t)&&!(table&&/^[>≥<≤]?\s*\d/.test(t)))||t.length>82||hits.length>=60)continue;
-            const id=[t,word.peak?1:word.trace?2:0,word.x0.toFixed(2),word.y0.toFixed(2)].join('|');if(seen.has(id))continue;seen.add(id);
+            const t=word.text.trim();if((!word.chart&&!/[\p{L}]{2}|\d+\s*h\b|[µμ]m/u.test(t)&&!/^p\s*[=<>≤≥]\s*0?\.\d+$/i.test(t)&&!(table&&/^[>≥<≤]?\s*\d/.test(t)))||t.length>82||hits.length>=90)continue;
+            const id=[t,word.chart?.kind,word.peak?1:word.trace?2:0,word.x0.toFixed(2),word.y0.toFixed(2)].join('|');if(seen.has(id))continue;seen.add(id);
             const x=Math.max(0,word.x0),y=Math.max(0,word.y0),w=Math.min(1,word.x1)-x,h=Math.min(1,word.y1)-y;
             if(w<=0||h<=0)continue;
             const g=p.raw.reading,row=rowFor(word);
             const strainLabel=ModelReading.strains(t).length || f.raw.animalCohorts?.some(c=>c.name.toLowerCase()===t.toLowerCase());
             const model=strainLabel?modelEntries(t)[0]:null;
-            let entry=model||FigureElements.explain(word,{caption:f.caption,reading:g,page:f.page,captionPage:f.raw.captionPage,words,row,lookupTerm,series:word.series,peak:word.peak,estimate:word.estimate||marks.find(m=>m.peak&&m.text===t)?.estimate,axis:g?.axis||p.raw.axis})||
+            let entry=(word.chart&&CartesianPanels.explanation(word,f.page))||model||FigureElements.explain(word,{caption:f.caption,reading:g,page:f.page,captionPage:f.raw.captionPage,words,row,lookupTerm,series:word.series,peak:word.peak,estimate:word.estimate||marks.find(m=>m.peak&&m.text===t)?.estimate,axis:g?.axis||p.raw.axis})||
               (f.raw.rasterPlate && CompositePlate.labelGuide(t,g?.sources,f.page));
             if(!entry){
               if(word.series||!/[\p{L}]{2}/u.test(t))continue;
-              entry=[t,t,'',''];entry.askOnly=true;
+              entry=FigureElements.passage(t,[...(g?.sources||[]),...(f.raw.authorPassages||[]),{text:f.caption,page:f.raw.captionPage||f.page}]);
+              if(!entry){entry=FigureElements.unresolved(t,f.page)}
             }
             if(word.trace && word.series){
               entry[0]=entry[0].replace(/^图例 · /,'曲线 · ');entry[1]=entry[1].replace(/^Legend · /,'Curve · ');
             }
-            hits.push({x,y,w,h,entry,trace:word.trace,values:word.values,color:word.color,verified:!entry.localize&&!entry.askOnly,priority:model?1:word.trace?15:word.peak?5:10,row});
+            if(word.chart?.kind==='symbol')entry.symbol=true;
+            if(word.chart?.kind==='symbol'||word.chart?.kind==='legend')entry.chartKey=true;
+            hits.push({x,y,w,h,entry,trace:word.trace,values:word.values,color:word.color,verified:!entry.localize&&!entry.lookup,priority:model?1:word.trace?15:word.peak?5:10,row});
           }
           tableRows=hits.filter(h=>h.row);apply([...fixed,...hits]);
         }catch{/* A raster-only panel still opens from its original pixels. */}

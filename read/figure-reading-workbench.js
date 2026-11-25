@@ -229,6 +229,7 @@
     const initialSpot=options.desk?.initial||{};
     let pageMode=false,wantedZoom=0;
     const histograms=options.desk&&global.HistogramReader?.create(options.desk.session,options.desk.state,()=>desk.save());
+    const figureClicks=options.desk&&global.FigureClicks?.mount({session:options.desk.session,histograms,plate,modalPlate,visual,modal,findPassage:options.findPassage});
     let histogramFocus=null;
     const plotHits=el('div','','hist-hit-layer');plate.append(plotHits);
     const svg=(name,attrs={})=>{const n=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n};
@@ -246,7 +247,7 @@
       openPreview:id=>{readPanel(id);visual.scrollIntoView({block:'nearest'});},
       listPanels:()=>{preparePanels();updateTabs();atlas?.syncPanels()}
     });
-    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,histograms,desk,selectPanel:readPanel,
+    const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,findPassage:options.findPassage,histograms,desk,selectPanel:readPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
     const lens=desk&&global.ReadingLens?.mount({workbench,body,notes,header,state:options.desk.state,paper:options.desk.paper,id:options.desk.id,
       save:()=>desk.save(),syncLine:(...a)=>desk.syncLine(...a),slideName:(...a)=>desk.slideName(...a),render:f=>options.renderFigure(f,false),select:id=>selectFigure(id)});
@@ -881,6 +882,7 @@
       node.classList.toggle('frw-target-top', coords.y < .06);
     }
     function renderTarget() {
+      figureClicks?.render(active,visiblePicture&&!pageMode&&!panel&&!histogramFocus,viewAsset?.mode,objectUrl);
       questions?.render(active,panel,visiblePicture&&!pageMode&&!hasTrace&&!histogramFocus,viewAsset?.mode,objectUrl);
       trace.style.display=hasTrace&&visiblePicture&&viewAsset?.mode==='figure'?'block':'none';
       const allowed = visiblePicture && (viewAsset?.mode === 'figure'||!!histogramFocus);
@@ -976,6 +978,7 @@
 
     function resetPicture() {
       visiblePicture = false; viewAsset = null;
+      figureClicks?.render(active,false,null,'');
       questions?.render(active,panel,false,null,'');
       desk?.reset();
       closeDialog(false); modalImg.removeAttribute('src');
@@ -1114,7 +1117,7 @@
       refreshSupplement(){if(active&&!panel)updateExplanation()},
       destroy() {
         if (disposed) return;
-        disposed = true; generation++; cache.clear(); studio?.destroy(); lens?.destroy(); questions?.destroy(); histograms?.destroy();compare?.destroy();resetPicture(); desk?.destroy(); atlas?.destroy(); workbench.remove();
+        disposed = true; generation++; cache.clear(); figureClicks?.destroy();studio?.destroy(); lens?.destroy(); questions?.destroy(); histograms?.destroy();compare?.destroy();resetPicture(); desk?.destroy(); atlas?.destroy(); workbench.remove();
       }
     };
   }

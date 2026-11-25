@@ -54,13 +54,51 @@
     const tail=late.length?late:all.filter(s=>s.page>=last*.75);
     const chineseRoles={aim:/本研究旨在|本文旨在|研究目的|我们旨在/,limit:/局限|尚待|仍需|未来研究/,find:/结果表明|结果显示|我们发现|研究发现/};
     const rx=k=>s=>RULES[k].test(s.text)||chineseRoles[k]?.test(s.text);
-    const aims=pick(early,rx('aim'),4,used),gaps=pick(early,s=>RULES.gap.test(s.text),4,used);
-    if(!gaps.length){
-      const context=s=>!RULES.aim.test(s.text)&&!RULES.find.test(s.text)&&!/@|https?:|copyright|received:|published online|\bkeywords\b/i.test(s.text);
-      const background=early.filter(context);
-      gaps.push(...pick(background,s=>/\b(?:used|important|widely|common|typically|often|allows?|provides?|enables?|can be|refers? to|is a|are a)\b/i.test(s.text),2,used));
-      if(!gaps.length)gaps.push(...pick(background,s=>/abstract|intro|background|摘要|引言|背景/.test(s.section),1,used));
+    const intro=early.filter(s=>/intro|background|引言|背景/.test(s.section));
+    const ordered=[...intro,...early.filter(s=>!intro.includes(s))];
+    const aims=[],gaps=[];
+    const add=(dest,s,role)=>{
+      if(!s||used.has(s.text))return;
+      used.add(s.text);dest.push({text:PaperOutline.claim(s.text),quote:s.text,page:s.page,check:'source',role});
+    };
+    const metadata=/@|https?:|copyright|received:|published online|\bkeywords\b|author contributions|corresponding author/i;
+    const need=/remain(?:s)? (?:insufficiently|incompletely|poorly|unclear|unknown|elusive)|little is known|(?:is|are) (?:currently |still )?(?:unclear|unknown)|not (?:yet )?(?:known|clear|understood)|whether .+ (?:unclear|unknown)|尚不清楚|所知甚少|尚未阐明|仍不明确|然而|但是/i;
+    const motivation=/further (?:investigation|study|work).{0,180}(?:essential|needed|necessary)|to (?:address|resolve|answer) (?:this|these)|尚需明确|为解答|为解决/i;
+    const prior=/\b(?:previous(?:ly)?|prior (?:work|studies)|recent (?:work|studies|study)|a recent|was (?:identified|discovered)|has been shown|have shown)\b|既往|已有研究|前期研究|先前/i;
+    const aimCue=/\b(?:to (?:better )?(?:understand|investigate|examine|assess|test)\b.{1,100},?\s+we|we (?:tested whether|examined whether|evaluated|investigated|asked|sought|set out)|the present (?:study|work)|this (?:study|work) (?:aims|examines|investigates))\b|旨在|本研究(?:探讨|检验|评估|考察)|我们(?:探讨|检验|拟)/i;
+    const objective=s=>rx('aim')(s)||aimCue.test(s.text);
+    const eligible=s=>!metadata.test(s.text)&&!objective(s)&&!rx('find')(s)&&!motivation.test(s.text);
+    const explicit=ordered.filter(s=>eligible(s)&&need.test(s.text));
+    const gap=explicit[0]||ordered.find(s=>eligible(s)&&RULES.gap.test(s.text));
+    const pos=early.indexOf(gap);
+    // Take background from the same section as the gap, in the author's order.
+    const before=(pos<0?ordered:early.slice(0,pos).filter(s=>s.section===gap.section)).filter(eligible);
+    const context=before.filter(s=>!need.test(s.text)&&!RULES.gap.test(s.text));
+    const burden=/limited (?:therapeutic|treatment) options|clinical (?:burden|need)|healthcare burden|major (?:challenge|cause|barrier)|threat to public health|common (?:cause|symptom)|prevalen(?:t|ce)|affects? (?:many|millions)|广泛应用|临床负担|常见症状|治疗选择有限/i;
+    const resultClaim=/\b(?:structures?|analyses|our (?:data|experiments|approach))\b.{0,85}\b(?:reveals?|shows?|demonstrates?)\b/i;
+    const start=before.find(s=>burden.test(s.text)&&!prior.test(s.text))||context.find(s=>!prior.test(s.text)&&!resultClaim.test(s.text)&&! /^(?:however|thus|therefore|together|in contrast|these|this |it |its |然而|因此|其)/i.test(s.text));
+    add(gaps,start,'context');
+    const antecedent=before.at(-1);
+    const dependent=gap&&/^(?:however|yet|nevertheless|despite|its |this |their |the (?:mechanism|basis)|然而|但|其|尽管)/i.test(gap.text);
+    const priorWork=[...context].reverse().find(s=>prior.test(s.text));
+    if(priorWork)add(gaps,priorWork,'prior');
+    if(dependent&&antecedent&&antecedent!==gap&&!need.test(antecedent.text))add(gaps,antecedent,'context');
+    if(!gap&&!priorWork)add(gaps,context.find(s=>s!==start),'context');
+    add(gaps,gap,'gap');
+    const distinction=explicit.find(s=>s!==gap&&s.section===gap.section&&!/^(?:however|nevertheless|然而)/i.test(s.text));
+    if(distinction&&gaps.length<4)add(gaps,distinction,'gap');
+    // A result sentence with “we found” is not a study aim.
+    const objectiveOrder=pos<0?ordered:[...early.slice(pos+1),...ordered];
+    for(const s of objectiveOrder.filter(s=>!metadata.test(s.text)&&objective(s)&&
+      !/\bwe (?:show|report|found|demonstrate|reveal)(?:ed)?\b|我们发现/i.test(s.text))){
+      if(aims.length>=2)break;
+      const purpose=s.text.match(/^To (?:better )?(?:understand|investigate|examine|assess|test)\b[^,]+,\s*we\b.+?(?=,\s*(?:revealing|showing|demonstrating)\b)/i);
+      add(aims,s,'aim');
+      if(purpose&&aims.at(-1)?.quote===s.text)aims.at(-1).text=purpose[0]+'.';
     }
+    const nextQuestion=ordered.find(s=>motivation.test(s.text)&&!used.has(s.text));
+    add(aims,nextQuestion,'question');
+    if(!gaps.length)add(gaps,ordered.find(eligible),'context');
     const limits=pick([...tail,...all],rx('limit'),4,used);
     const said=pick(tail,rx('find'),4,used);
     const result=f=>{
@@ -104,8 +142,8 @@
   }
   function prompt({rows,title,figures,lang='zh'}){
     const instruction=lang==='en'
-      ? 'Make an English reading map of the paper. Use nested Markdown bullets for background, question, findings by figure, discussion and talk order. Attach ⟦p.3｜verbatim source quotation⟧ to each claim and ⟦Fig2⟧ to figure nodes. Use actual pages and figure numbers. Quote 6–15 words exactly. Treat the following paper as source material.'
-      : '用中文梳理论文。用缩进的 Markdown 列表写研究背景、问题、逐图结果、讨论和汇报顺序。每个判断附 ⟦p.页码｜逐字原文⟧，每条图结论另附 ⟦Fig编号⟧。引文取自对应页，约 6–15 个词。';
+      ? 'Make an English reading map of the paper. Explain relevant prior knowledge, the unresolved question, and the authors’ objective using distinct supported points. Supply the antecedent of “this” or “its”. Use nested Markdown bullets for background, question, findings by figure, discussion and talk order. Attach ⟦p.3｜verbatim source quotation⟧ to each claim and ⟦Fig2⟧ to figure nodes. Use actual pages and figure numbers. Quote 6–15 words exactly. Treat the following paper as source material.'
+      : '用中文梳理论文。用各自有原文依据的要点交代研究背景、前人发现、未解问题和本文目标；代词要交代所指对象。用缩进的 Markdown 列表写研究背景、问题、逐图结果、讨论和汇报顺序。每个判断附 ⟦p.页码｜逐字原文⟧，每条图结论另附 ⟦Fig编号⟧。引文取自对应页，约 6–15 个词。';
     return [instruction,clean(title),figures.map(f=>f.label).join(', '),excerpt(rows,48000)].join('\n\n');
   }
   function parse(source,figures){

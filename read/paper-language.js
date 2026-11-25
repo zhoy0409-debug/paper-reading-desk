@@ -13,9 +13,28 @@
     const translator=await engine;
     return (await translator.translate({from,to:from==='en'?'zh':'en',text,html:false})).target.text;
   }
+  // Translate the prose in one piece. Restore each protected span only if its
+  // placeholder survives exactly once. Some models lose inline HTML alignment.
+  translate.withTerms=async(parts)=>{
+    const source=parts.map(p=>typeof p==='string'?p:p.original).join('');
+    const terms=[];let start=731401;
+    while(source.includes(String(start).slice(0,4)))start+=10000;
+    const masked=parts.map(p=>{
+      if(typeof p==='string')return p;
+      const id=String(start+terms.length);terms.push([id,p.value]);return ' '+id+' ';
+    }).join('');
+    if(!terms.length)return null;
+    let result=await translate(masked,'en');
+    for(const [id,value] of terms){
+      const pattern=new RegExp('(?<!\\d)'+id+'(?!\\d)','g');
+      if((result.match(pattern)||[]).length!==1)return null;
+      result=result.replace(pattern,()=>value);
+    }
+    return result;
+  };
   function chinese(source) {
     if(!cache.has(source)){
-      const job=import(new URL('scientific-translation.js?rev=studio-040',base)).then(async({mapChinese})=>{
+      const job=import(new URL('scientific-translation.js?rev=charts-042',base)).then(async({mapChinese})=>{
         if(!han.test(source))return mapChinese(source,translate);
         const parts=source.split(/([\u3400-\u9fff]+)/u);
         return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translate):part))).join('');

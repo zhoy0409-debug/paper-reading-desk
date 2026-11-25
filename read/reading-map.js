@@ -24,6 +24,14 @@
     const question=PaperOutline.claim(model.rootLabel||paper.title||'');
     function localTree(){
       const tree=ReadingMapData.local({rows,figures:raws,question,sections:paper.sections||[]});
+      if(raws.some(f=>f.editorGuide)){
+        for(const branch of tree.children.filter(b=>b.key==='background'||b.key==='aim')){
+          for(const node of branch.children){
+            const note=window.CheckedPanelGuides?.contextNote?.(node.quote);
+            if(note){node.zh=note;node.en=node.text}
+          }
+        }
+      }
       if(model.question&&model.questionEnglish){tree.zh=model.question;tree.en=model.questionEnglish}
       return tree;
     }
