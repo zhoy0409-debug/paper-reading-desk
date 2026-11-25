@@ -1,4 +1,4 @@
-import {selectionTranslation} from './scientific-translation.js?rev=charts-042';
+import {selectionTranslation} from './scientific-translation.js?rev=translation-043';
 
 const popup = document.createElement('section');
 popup.className = 'local-translation';

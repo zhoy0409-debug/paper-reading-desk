@@ -25,3 +25,7 @@ const source='Signal intensity increased by 18% in ROI.';
 const confirmed=await selectionTranslation(source,'en',async s=>s===source?'信号强度增加了 81%。':({'Signal intensity increased by':'信号强度增加了','in':'在'}[s]||s));
 assert.match(confirmed.text,/18%/);assert.match(confirmed.text,/ROI/);
 await assert.rejects(selectionTranslation('Selected measurements were repeated.','en',async s=>s));
+
+const chart='Figure 5: Comparison of AlphaNet and BetaNet top-5 accuracies (multi-crop testing) on the Sample test dataset as a function of training epochs (right) and trainable parameters (left).';
+const result=await selectionTranslation(chart,'en',unexpected);
+assert.match(result.text,/图 5.*AlphaNet.*BetaNet.*Sample 测试集.*Top-5 准确率（多裁剪测试）.*右图横轴为训练轮次，左图横轴为模型参数量/);
