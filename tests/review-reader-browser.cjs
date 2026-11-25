@@ -59,7 +59,8 @@ async function reviewFile(page) {
   try {
     let file,spot;
     for(const action of ['direct','early tap','switch while reading']){
-      const ctx=await browser.newContext({...devices['iPhone 13'],locale:'en-US'});
+      const desktop=action==='direct'&&browser.browserType().name()==='chromium';
+      const ctx=await browser.newContext(desktop?{viewport:{width:1440,height:920},hasTouch:true,locale:'en-US'}:{...devices['iPhone 13'],locale:'en-US'});
       let resume;
       const gate=new Promise(resolve=>{resume=resolve});
       try{
@@ -115,6 +116,10 @@ async function reviewFile(page) {
         }else{
           await note.waitFor({timeout:35000});
           assert.match(await note.locator('p').innerText(),/Copper conducts the sensor current/);
+          if(desktop){
+            const dock=await visual.locator('.st-dock').boundingBox(),card=await note.boundingBox();
+            assert(dock&&card&&dock.y>=card.y+card.height-1,'Zoom controls leave the explanation and its source link uncovered');
+          }
         }
         console.log('Review figure index, detached captions and '+action+' passed');
       }finally{resume();await ctx.close()}

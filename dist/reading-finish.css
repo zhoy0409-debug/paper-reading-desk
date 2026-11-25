@@ -171,6 +171,10 @@
 .figure-click-note{padding:12px 18px;border-left:3px solid var(--link,#345cea);background:var(--surface,#fff);color:var(--ink,#20232c)}
 .figure-click-note p{margin:.35em 0;line-height:1.55}
 .figure-click-note button{padding:.2em .55em}
+#literaturePane .frw-visual:not(.rq-focused):has(>.figure-click-note:not([hidden]))>.st-dock{
+  position:static;flex:none;align-self:center;transform:none;max-width:calc(100% - 24px);margin:6px 12px 0
+}
+#literaturePane .frw-visual>.figure-click-note:not([hidden]){max-height:35svh;overflow:auto}
 .frw-modal:has(>.figure-click-note:not([hidden])){grid-template-rows:auto minmax(0,1fr) auto}
 
 .rq-sheet .rq-legend-key{z-index:2}
