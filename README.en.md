@@ -8,13 +8,17 @@ Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up U
 
 <a name="start-reading"></a>
 
-Opening a paper collapses the upload controls into a compact bar above the figure map. Select a panel, then choose **Add to slides** and **Export PPTX** under **Crop & present**.
+Open a panel close-up and choose **Add to slides**. Its thumbnail appears in the **Slide basket** at the bottom of the reader.
 
 Start with the public sample, or drop in your own PDF. Your browser reads the file on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
 ## How do I get a sharp panel onto my slide?
 
-Select Figure 6F to save a PNG rendered from the original PDF. For a talk, add a line such as “Color identifies when the cells were sampled,” add the panel to your slide queue and export to PowerPoint. The figure number, page and speaking note travel with the image.
+Drag a card by its handle to change the presentation order. Type a speaking note beside its thumbnail, then choose **Export PPTX**. The deck follows the basket order, with editable notes below each image and links to the source page. Reopening the same PDF in the same browser restores your selections and notes.
+
+![Slide basket with two original panel thumbnails and editable speaking notes](docs/guide/basket-en.png)
+
+To save a single image, choose **Save panel PNG** under **Crop & present**.
 
 [![Recorded workflow. Save panel F as a PNG, add it to the slide queue and export a slide with a note and page reference.](docs/guide/export-en.gif)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en#export)
 
@@ -25,7 +29,7 @@ Select Figure 6F to save a PNG rendered from the original PDF. For a talk, add a
 
 - **Correct a boundary.** Adjust the detected crop, undo your edit or draw a new area on the PDF page. If a caption sits on a different page from its figure, the reader shows both page numbers.
 - **Bring the legend along.** Keep a shared legend, vertical axis or group heading with your panels so the audience can interpret them.
-- **Build a slide queue as you read.** Add or remove panels and place two from the same figure side by side. Keep the printed labels or assign new ones for the talk while retaining the original figure reference.
+- **Build a slide queue as you read.** Remove a panel with ×. To reorder with the keyboard, focus its drag handle and press the left or right arrow key. Adjacent panels from the same figure with matching shared annotations appear side by side, up to two per slide. Keep the printed labels or assign new ones for the talk while retaining the original figure reference.
 - **Keep speaking notes and private notes separate.** Slide titles and speaking notes are editable in PowerPoint. Each panel is an image. You can attach a public source link. The sample slide links to page 10 of the paper.
 
 </details>
