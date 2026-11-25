@@ -42,6 +42,7 @@ function calibrationPDF(scan = false) {
 }
 
 async function visibleOnScreen(node) {
+  await node.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   return node.evaluate(el => {
     const r = el.getBoundingClientRect();
     const x = Math.min(innerWidth - 1, Math.max(0, r.left + r.width / 2));

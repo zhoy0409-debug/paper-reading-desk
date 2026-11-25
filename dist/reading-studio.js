@@ -202,6 +202,15 @@
     fold.addEventListener('click',()=>{workbench.classList.toggle('st-wide');drawFold()});drawFold();visual.append(fold);
     const readTab=notes.querySelector('.rq-tabs [data-view="read"]');
     if(readTab){
+      function belowHeader(target){
+        // Mobile uses document scrolling. A nested figure viewport can also consume scrollIntoView.
+        const align=()=>{
+          const header=document.querySelector('header.top')?.getBoundingClientRect();
+          const distance=target.getBoundingClientRect().top-(header?.bottom||0)-8;
+          if(Math.abs(distance)>1)window.scrollBy({top:distance,behavior:'instant'});
+        };
+        align();requestAnimationFrame(align);
+      }
       const openReading=button('st-explain','看图解','Read explanation',()=>{
         ReadingGuide.context(true);
         if(visual.classList.contains('source-shown')||visual.classList.contains('source-folded'))compare.showFigure();
@@ -209,14 +218,14 @@
         if(workbench.classList.contains('lens-blind'))lens.revealCaption();
         readTab.click();
         readTab.focus({preventScroll:true});
-        if(matchMedia('(max-width:1000px)').matches)notes.scrollIntoView({block:'start',behavior:'instant'});
+        if(matchMedia('(max-width:1000px)').matches)belowHeader(notes);
         else notes.scrollTop=0;
       });
       openReading.setAttribute('aria-controls',notes.id);
       bar.querySelector('.frw-button').before(openReading);
       const backToImage=button('st-back-to-image','回到图','Back to figure',()=>{
         openReading.focus({preventScroll:true});
-        openReading.scrollIntoView({block:'start',inline:'nearest',behavior:'instant'});
+        belowHeader(bar);
       });
       readTab.parentNode.append(backToImage);
     }
