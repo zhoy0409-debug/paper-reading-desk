@@ -405,15 +405,16 @@ async function scan(file,options={}){
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
   const hubblePassages=[], marksByFigure=new Map();
   let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null;
+  const captionKey=cap=>cap.matchKey+'\n'+cap.caption.toLowerCase();
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
-   check();scannedPages=pg;let page;
+   check();scannedPages=pg;let page,here=[];
    const previous=unclaimed,priorCaption=captionTail;unclaimed=null;captionTail=null;
    try{
     page=await pdf.getPage(pg);
     const viewport=page.getViewport({scale:1});
-    const text=await page.getTextContent({disableNormalization:false});check();
+    const text=await PaperStoryDocuments.pageText(page);check();
     if(!text.items.some(x=>typeof x.str==='string'&&x.str.trim()))noTextPages.push(pg);
-    const lines=positions(text,viewport), here=captions(lines,viewport);
+    const lines=positions(text,viewport);here=captions(lines,viewport);
     if(priorCaption){
      const {cap,figure}=priorCaption;
      const more=CaptionFlow.nextPage(cap,lines,viewport);
@@ -469,7 +470,7 @@ async function scan(file,options={}){
     const words=positions(text,viewport,true),axes=verticalLabels(text,viewport);
     for(const cap of here){
      if(figures.length>=MAX_FIGURES)break;
-     const digest=cap.matchKey+'\n'+cap.caption.toLowerCase();
+     const digest=captionKey(cap);
      if(seen.has(digest)){
       const d=seen.get(digest);if(!d.duplicatePages.includes(pg)&&pg!==d.captionPage)d.duplicatePages.push(pg);
       continue;
@@ -637,7 +638,20 @@ async function scan(file,options={}){
      figures.push(figure);internals.set(id,{page:imagePage,crop});seen.set(digest,figure);
      if(cap.anchor.endY>viewport.height*.69&&CaptionFlow.headings(cap.caption).length)captionTail={cap,figure};
     }
-   }catch(e){check();failed.push(pg);}
+   }catch(e){
+    check();
+    if(!here.length)failed.push(pg);
+    // A layout detector can fail after a caption has been read. Keep that evidence and its source page.
+    for(const cap of here){
+     if(figures.length>=MAX_FIGURES)break;
+     const digest=captionKey(cap);
+     if(seen.has(digest))continue;
+     const id=cap.matchKey+'@'+pg+':'+cap.anchor.line;
+     const figure={id,matchKey:cap.matchKey,label:cap.label,page:pg,captionPage:pg,caption:cap.caption,
+      captionPartial:cap.partial,anchor:{page:pg,...cap.anchor},panels:[],pageBox:null,mode:'page',duplicatePages:[]};
+     figures.push(figure);internals.set(id,{page:pg,crop:null});seen.set(digest,figure);
+    }
+   }
    finally{if(page)try{page.cleanup();}catch{}}
   }
   for(const f of figures.filter(f=>f.singleHubble)){
@@ -697,7 +711,7 @@ async function scan(file,options={}){
     }
     activeRender=page.render(args);await activeRender.promise;activeRender=null;check();if(disposed)throw stop();
     if(glyphs&&paths.length){
-     const text=await page.getTextContent(),outlines=new Set();
+     const text=await PaperStoryDocuments.pageText(page),outlines=new Set();
      for(const fontName of Object.keys(text.styles)){
       const font=page.commonObjs.has(fontName)&&page.commonObjs.get(fontName);
       for(const glyph of Object.values(font?.compiledGlyphs||{}))outlines.add(glyph);
@@ -741,7 +755,7 @@ async function scan(file,options={}){
         trace:trace?.map(([px,py])=>[(px-x)/width,(py-y)/height])}));
    },
    async chartText(n,b){
-    check();const pg=await pdf.getPage(n),v=pg.getViewport({scale:1}),txt=await pg.getTextContent();
+    check();const pg=await pdf.getPage(n),v=pg.getViewport({scale:1}),txt=await PaperStoryDocuments.pageText(pg);
     const width=b.width*v.width,height=b.height*v.height,x=b.x*v.width,y=b.y*v.height;
     return positions(txt,v,true).concat(verticalLabels(txt,v).map(t=>({...t,rotate:true})))
       .filter(t=>t.x0>=x-1&&t.x1<=x+width+1&&t.y0>=y-1&&t.y1<=y+height+1)
@@ -750,7 +764,7 @@ async function scan(file,options={}){
    async locateExcerpt(n,quote){
     check();if(disposed)return null;
     const page=await pdf.getPage(n),view=page.getViewport({scale:1});
-    const lines=positions(await page.getTextContent(),view);
+    const lines=positions(await PaperStoryDocuments.pageText(page),view);
     const compact=t=>t.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
     const text=compact(quote),values=lines.map(l=>compact(l.text));
     // Match a unique sequence near the start of the cited passage, even mid-line.

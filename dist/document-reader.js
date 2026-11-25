@@ -20,6 +20,22 @@
       }
     };
   }
+  async function pageText(page) {
+    if (typeof globalThis.ReadableStream?.prototype[Symbol.asyncIterator] === 'function')
+      return page.getTextContent();
+    // Older WebKit supports reading a stream but cannot iterate it with for-await.
+    const reader = page.streamTextContent().getReader();
+    const text = {items:[], styles:Object.create(null), lang:null};
+    try {
+      while (true) {
+        const {done, value} = await reader.read();
+        if (done) return text;
+        text.lang ??= value.lang;
+        Object.assign(text.styles, value.styles);
+        text.items.push(...value.items);
+      }
+    } finally { reader.releaseLock(); }
+  }
   async function readPdf(file, ctx) {
     const pdfjs = await (library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href));
     pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
@@ -37,7 +53,7 @@
         let page;
         try {
           page = await pdf.getPage(n);
-          const data = await page.getTextContent({disableNormalization:false});
+          const data = await pageText(page);
           let line = '', prev, prevWidth=0, idx=0;
           function emit() { if (line.trim()) ctx.add('第 '+n+' 页 · 文字段 '+(++idx),line,{page:n}); line=''; }
           for (const x of data.items) {
@@ -168,5 +184,5 @@
     if(!ctx.records.length) ctx.warnings.push('没有可定位的正文文字。不会根据文件名生成解读。');
     return {facts,warnings:ctx.warnings,records:ctx.records};
   }
-  window.PaperStoryDocuments={read};
+  window.PaperStoryDocuments={read,pageText};
 })();

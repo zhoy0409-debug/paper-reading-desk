@@ -89,7 +89,7 @@ async function sharedSampleOnPhone(browser, lang) {
   } finally {await ctx.close();}
 }
 
-async function test(browser, mobile, scan = false) {
+async function test(browser, mobile, scan = false, unsupportedLayout = false) {
   const lang = mobile ? 'zh' : 'en';
   const ctx = await browser.newContext(mobile ? {...devices['iPhone 13'],locale:'zh-CN'} :
     {viewport:{width:1440,height:900},locale:'en-US'});
@@ -122,6 +122,12 @@ async function test(browser, mobile, scan = false) {
       const paper = await page.request.get(new URL('media/2007.08902.pdf', base).href);
       assert.equal(paper.status(),200);
       file = {name:'public-embedding-paper.pdf',mimeType:'application/pdf',buffer:await paper.body()};
+    }
+    if(unsupportedLayout){
+      await picker.waitFor({state:'attached'});
+      await page.evaluate(()=>{
+        window.CartesianPanels={...window.CartesianPanels,findPlots(){throw Error('Test unsupported plot layout')}};
+      });
     }
     await picker.setInputFiles(file);
     const action = mobile ? 'tap' : 'click';
@@ -163,9 +169,10 @@ async function test(browser, mobile, scan = false) {
       await page.locator('.rq-tabs button[data-view="basics"]').click();
       await open.click();assert.equal(await tab.getAttribute('aria-pressed'),'true');
     }
-    if (output) await page.screenshot({path:output+'-'+(scan?'page':lang)+'.png'});
+    if (output && !unsupportedLayout) await page.screenshot({path:output+'-'+(scan?'page':lang)+'.png'});
     assert.deepEqual(writes,[]);assert.deepEqual(errors,[]);
-    console.log((mobile?'Mobile':'Desktop')+' '+lang+' '+(scan?'page without captions':mobile?'ordinary upload and source':'public PDF upload, panel and axis')+' passed '+page.url());
+    const description=unsupportedLayout?'caption and source when cropping fails':scan?'page without captions':mobile?'ordinary upload and source':'public PDF upload, panel and axis';
+    console.log((mobile?'Mobile':'Desktop')+' '+lang+' '+description+' passed '+page.url());
   } catch (error) {
     console.error(lang,scan?'page':'figure',page.url(),await page.title(),
       await page.locator('body').innerText({timeout:3500}).then(s=>s.slice(0,260)).catch(()=>''),errors);
@@ -187,6 +194,7 @@ async function test(browser, mobile, scan = false) {
     await test(browser,true);
     if(!phoneOnly)await test(browser,false);
     await test(browser,true,true);
+    if(!phoneOnly)await test(browser,true,false,true);
     for(const lang of ['zh','en'])await sharedSampleOnPhone(browser,lang);
   }
   finally {await browser.close();}
