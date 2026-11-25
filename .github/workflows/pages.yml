@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'dist/**'
+      - 'VERSION'
+      - 'tests/figure-explanation-entry-browser.cjs'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -26,12 +28,24 @@ jobs:
         run: |
           mkdir -p _site/read _site/film
           cp -a dist/. _site/read/
+          cp VERSION _site/read/VERSION
           cp -a dist/media/tour/. _site/
           cp -a docs/film/. _site/film/
           test -s _site/read/index.html
           test -s _site/cover-en.webp
           test -s _site/cover-zh.webp
           test -s _site/film/en.html
+      - name: Test the reader at its public subpath
+        timeout-minutes: 8
+        run: |
+          npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.56.1
+          export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
+          node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium
+          python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
+          node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

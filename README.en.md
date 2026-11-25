@@ -1,8 +1,17 @@
 # Reading Desk
 
-[Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [简体中文](README.zh-CN.md)
+[Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [打开中文阅读器](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh) · [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [中文说明](README.zh-CN.md)
 
 Share the reader link above with your group. It opens without a GitHub account. Refresh the same address for the latest published version.
+
+**To read an explanation**, open a PDF, choose a figure thumbnail and select **Read explanation** beside the figure. The reading draws on the caption and passages that refer to the figure. On a phone, **Back to figure** returns to the same figure or panel. Open **Figure labels** to choose an identified axis or legend, or tap it on the image. These features run in the browser. For an image-only scan without a readable caption, the reader offers page viewing and manual cropping. [Try a labelled figure](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&sample=figure-8a)
+
+<details>
+<summary>See the two taps on a phone</summary>
+
+<p>Open <b>Read explanation</b> above the figure. Tap the horizontal axis to read what the exaggeration factor changes.</p>
+<p><img src="docs/guide/phone-entry-en.png" width="260" alt="Read explanation above panel A on a phone"> <img src="docs/guide/phone-axis-en.png" width="260" alt="The selected horizontal axis and its explanation of attraction between neighbours"></p>
+</details>
 
 Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up UMAP and lost track of which dots you were comparing. You know what each figure shows, but explaining why one follows another is harder. The walkthrough below uses one published paper to show how to take a panel, read it closely and place it in the paper’s argument.
 

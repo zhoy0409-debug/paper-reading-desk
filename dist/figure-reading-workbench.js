@@ -172,6 +172,7 @@
     const photoCaption = el('figcaption', '', 'frw-caption');
     visual.append(controls, view, photoCaption);
     const notes = el('section', '', 'frw-notes');
+    notes.id=id+'-reading';
     const notesTop = el('div', '', 'frw-notes-top');
     const notesTitle=el('div','','reader-title-row');
     notesTitle.append(ui('h3','这张图怎么看'),ReaderHints.create('选择小图可单独放大。点图中标注看解释，或选中图注文字翻译、追问。','Open a panel for a close-up. Select a figure label for an explanation, or highlight caption text to translate it or ask a question.','读图操作说明','Figure reading help'));notesTop.append(notesTitle);
@@ -229,7 +230,7 @@
     const initialSpot=options.desk?.initial||{};
     let pageMode=false,wantedZoom=0;
     const histograms=options.desk&&global.HistogramReader?.create(options.desk.session,options.desk.state,()=>desk.save());
-    const figureClicks=options.desk&&global.FigureClicks?.mount({session:options.desk.session,histograms,plate,modalPlate,visual,modal,findPassage:options.findPassage});
+    const figureClicks=options.desk&&global.FigureClicks?.mount({session:options.desk.session,histograms,plate,modalPlate,visual,modal,notes,findPassage:options.findPassage});
     let histogramFocus=null;
     const plotHits=el('div','','hist-hit-layer');plate.append(plotHits);
     const svg=(name,attrs={})=>{const n=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n};
@@ -753,19 +754,13 @@
           explain.append(btn(markerPage ? `核对原文第 ${markerPage} 页` : '核对原文', () => markerPage?inspectPage(markerPage):openSource(null,true), 'frw-inline'));
         }
       } else {
-        if(active.branchTitle){
-          explain.append(ui('strong','作者表述'),PaperLanguageText.bind(el('p'),active.branchTitle));
-          if(active.raw.findingPage)explain.append(btn('正文 p.'+active.raw.findingPage,()=>inspectPage(active.raw.findingPage,active.branchTitle),'frw-inline'));
-        }
-        explain.append(ui('strong', active.raw.editorGuide?'整图阅读':'原文数据 · 图注'));
-        const lead=active.caption.replace(/^(?:(?:extended data|supplementary)\s+)?(?:fig(?:ure)?\.?|图)\s*[a-z]*\d+\s*[.|:：]?\s*/i,'').split(/(?<=\.)\s+(?=[A-Z])|(?<=。)/u)[0];
-        const overview=el('p',active.raw.editorGuide?active.summary:lead||active.summary);
-        explain.append(overview);if(!active.raw.editorGuide)PaperLanguageText.bind(overview,overview.textContent);
+        if(active.raw.editorGuide)explain.append(ui('strong','整图阅读'),ui('p',active.summary));
+        else showFigureReading();
         if(active.panels.length)explain.append(panelOverview());
       }
       const restriction = panel?.raw?.reading?.kind==='checked'?'':panel?.boundary || active.boundary;
       const readouts=active.raw.readouts;
-      if(!panel?.raw?.reading?.kind && readouts && (readouts.measurement||readouts.comparison)){
+      if((panel||active.raw.editorGuide) && !panel?.raw?.reading?.kind && readouts && (readouts.measurement||readouts.comparison)){
         const extracts=el('div');
         for(const [title,value] of [['图中观测或测量',readouts.measurement],['比较对象或条件',readouts.comparison]]){
           if(value){extracts.append(ui('b',title),el('p',value))}
@@ -796,6 +791,45 @@
       }
       boundary.hidden = !restriction;
       if (restriction) boundary.append(panel&&!panel.boundary?PaperUI.set(el('b'),'整图证据边界','Figure-level scope'):ui('b','证据边界'), PaperUI.set(el('span'),restriction));
+    }
+
+    function showFigureReading(){
+      const f=active.raw,captionPage=f.captionPage||active.page;
+      const caption=(f.caption||'').replace(/^(?:(?:extended data|supplementary)\s+)?(?:fig(?:ure)?\.?|table|[图表])\s*[a-z]*\d+\s*[.|:：]?\s*/i,'').trim();
+      const used=new Set();
+      const normalize=text=>text.replace(/\s+/g,' ').replace(/[.!。；;]+$/,'').trim().toLowerCase();
+      function add(zh,en,text,page){
+        if(!text)return;
+        const key=normalize(text);
+        if(!key||[...used].some(prior=>prior.includes(key)))return;
+        used.add(key);
+        const section=el('section','','frw-reading-block'),head=el('div');
+        head.append(PaperUI.set(el('strong'),zh,en));
+        if(page){
+          const link=btn('',()=>inspectPage(page,text),'frw-inline');
+          head.append(PaperUI.set(link,'出处 p.'+page,'Source p.'+page));
+        }
+        section.append(head,PaperLanguageText.bind(el('p'),text));explain.append(section);
+      }
+      if(!caption && f.pageOnly){
+        explain.append(PaperUI.set(el('strong'),'这页可以怎样读','Reading this page'),
+          PaperUI.set(el('p'),'当前只识别到 PDF 原页。可在图旁点「框选小图」保留需要的区域。有文字层的 PDF 还能根据图注和正文生成图解。','Only the PDF page was located. Use Select panel beside the image to keep a region. A PDF with selectable captions and text also supports figure explanations.'));
+        return;
+      }
+      const lead=caption.split(/(?<=\.)\s+(?=[A-Z(])|(?<=。)/u)[0];
+      add('这张图展示什么','What the figure shows',!active.panels.length&&caption.length<=650?caption:lead,captionPage);
+      const guide=!active.panels.length&&global.PaperPanelReading?.wholeReading(caption);
+      if(guide){
+        const section=el('section','','frw-reading-block');
+        section.append(PaperUI.set(el('strong'),'怎么读','How to read it'),PaperUI.set(el('p'),guide.zh,guide.en));
+        explain.append(section);
+      }
+      const readouts=f.readouts||{};
+      add('比较了什么','What is compared',readouts.comparison,captionPage);
+      add('图中怎样测量','What was measured',readouts.measurement,captionPage);
+      const finding=f.authorPassages?.find(p=>p.text===f.branchTitle)||f.authorPassages?.[0];
+      if(finding)add('正文怎样解释这张图','How the authors describe it',finding.text,finding.page);
+      if(!explain.childElementCount)explain.append(PaperUI.set(el('p'),'打开 PDF 原页，可核对这张图所用的标注和图注。','Open the source PDF page to inspect the labels and caption.'));
     }
 
     function groupDetails(title, content, cls) {

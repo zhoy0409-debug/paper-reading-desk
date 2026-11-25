@@ -10,6 +10,15 @@ require('../dist/model-reading.js');
 require('../dist/reading-evidence.js');
 require('../dist/panel-geometry.js');
 
+function captionsBySide(caption) {
+  const figure = {id:'F:1',label:'Figure 1',page:1,caption,panels:[{position:'left'},{position:'right'}]};
+  return PaperFigureContext.modelFor({},[figure]).figures[0].panels.map(p=>p.captionPart);
+}
+assert.deepEqual(captionsBySide('Figure 1. Error as a function of model size (left) and prediction cost (right).'),
+  ['model size','prediction cost']);
+assert.deepEqual(captionsBySide('Figure 1. (left) Accuracy by group. (right) Error over time.'),
+  ['Accuracy by group.','Error over time.']);
+
 const chart={label:'left',axis:'Training error (%)',curveLabels:['10-layer','40-layer']};
 const withCaption=t=>PaperPanelReading.build({caption:t,page:1},chart,'',null);
 const reported=withCaption('Figure 3. The deeper model shows lower training error.');

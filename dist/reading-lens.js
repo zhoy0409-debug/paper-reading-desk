@@ -62,7 +62,8 @@
     const box=el('textarea');box.rows=1;box.maxLength=480;box.id='lens-say-'+Math.random().toString(36).slice(2,8);ask.htmlFor=box.id;
     box.placeholder='比较了谁？看哪个读数？变化朝哪边？ / Who is compared, on what readout, in which direction?';
     const actions=el('div','lens-actions');
-    const reveal=button('primary','揭开图注','Reveal caption',()=>{if(!active)return;entry(active).open=true;persist();drawCard();answer.focus({preventScroll:true})});
+    function revealCaption(){if(active){entry(active).open=true;persist();drawCard()}}
+    const reveal=button('primary','揭开图注','Reveal caption',()=>{revealCaption();answer.focus({preventScroll:true})});
     const hint=el('small');
     const answer=el('div','lens-answer');answer.tabIndex=-1;
     const quote=el('blockquote');quote.dataset.sourceText='';quote.lang='en';
@@ -202,7 +203,7 @@
     window.addEventListener('pagehide',flush);
 
     return {
-      thumb,
+      thumb,revealCaption,
       describe(id){const f=figures.find(f=>f.id===id);return {label:f?.label||'',title:blind&&!store[id]?.open?'':f?.title||''}},
       setModel(model){
         figures=globalThis.EvidenceAtlas?.inPaperOrder?.(model.figures)||model.figures;build();

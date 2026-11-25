@@ -207,7 +207,7 @@
       f.readouts={measurement,comparison};
       if(!paper.curated && cap){
         f.summary=clean(cap.replace(/^.*?\d+\s*[:.|：]?\s*/, '')).slice(0,470);
-        f.boundary='图注记录了本图展示的对象与条件。具体小图以图内标签和对应图注为准。';
+        f.boundary='';
       }
       const panelBody=PaperPanelReading.passages(rows,f);
       for(const p of f.panels)p.reading=PaperPanelReading.build(f,p,parts.get(p.id)||p.captionPart,panelBody.get(p.id));

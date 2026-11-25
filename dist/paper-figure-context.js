@@ -45,11 +45,19 @@ function explicitReferenceURL(text){
 }
 function sideCaption(caption,position){
  if(!/^(?:left|right)$/.test(position))return '';
- const tokens=Array.from(clean(caption).matchAll(/[(（]\s*(left|right|左侧|右侧|左|右)\s*[)）]/giu));
+ caption=clean(caption);
+ const tokens=Array.from(caption.matchAll(/[(（]\s*(left|right|左侧|右侧|左|右)\s*[)）]/giu));
  const keys={left:'left',right:'right','左侧':'left','右侧':'right','左':'left','右':'right'};
  const match=tokens.findIndex(x=>keys[x[1].toLowerCase()]===position);
  if(match<0)return '';
  const here=tokens[match];
+ // A trailing marker names the preceding quantity, e.g. "size (left) and cost (right)."
+ const last=tokens.at(-1);
+ if(tokens.length===2 && /^\s*(?:[.!?。！？]|$)/u.test(caption.slice(last.index+last[0].length))){
+  const fragment=caption.slice(match?tokens[match-1].index+tokens[match-1][0].length:0,here.index);
+  if(match)return clean(fragment.replace(/^[\s,;，；]*(?:(?:and|or|versus)\s+|和|与|以及)?/i,''));
+  return clean(fragment.replace(/^(?:(?:fig(?:ure)?\.?|图)\s*\w+\s*[.:|：]?\s*)/i,'').split(/\bas a function of\s+|\bplotted against\s+|作为横轴的|横轴为/i).at(-1));
+ }
  return clean(caption.slice(here.index+here[0].length,tokens[match+1]?.index??caption.length));
 }
 function linkedSection(rows,phrase){

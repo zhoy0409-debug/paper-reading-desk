@@ -47,6 +47,16 @@
     [/western blot|immunoblot|免疫印迹/i,'先按泳道找出样本，再看同一目标蛋白对应条带的位置与强弱。判断变化幅度时，要核对上样对照以及作者报告的定量。','Match lanes to samples, then compare bands for the same target. Check loading controls and reported quantification before judging the size of a change.'],
     [/micrograph|microscopy|显微图/i,'先用标尺确定实际大小，再按图例找同一通道和相同条件的视野。代表性视野能显示形态，组间差异的大小还要看多个样本的定量。','Use the scale bar and channel legend before comparing fields. A representative image shows morphology; group-level differences need sample-level measurements.']
   ];
+  function captionMethod(text){
+    const candidates=methods.filter(([re])=>re.test(text));
+    return candidates.length===1&&!/compared (?:with|to)|versus|\bwithout\b|\bnot\b|而非|未采用/i.test(text)?candidates[0]:null;
+  }
+  function wholeReading(caption){
+    const result=plainResult(caption);
+    if(result)return result;
+    const method=captionMethod(caption);
+    return method?pair(method[1],method[2]):null;
+  }
   function timeText(value,unit){return value+({day:'天',month:'个月',week:'周',hour:'小时',year:'年'}[unit.toLowerCase().replace(/s$/,'')]||unit)}
   function sharedData(cap) {
     const single=/single.cell RNA.seq|单细胞转录/i.test(cap);
@@ -189,8 +199,7 @@
     if(/^original(?: image)?\.?$/i.test(printed)&&/augmentation/i.test(cap)){
       focus=pair('这是变换前的原图，可用来逐一对照其他小图。选定一处边缘、一块纹理和一片背景，跟踪它们在各个处理后的变化。','Use the unmodified input as the reference. Follow one edge, one texture and one patch of background through the transformations.');
     }
-    const candidates=methods.filter(([re])=>re.test(text));
-    const panelMethod=candidates.length===1&&!/compared (?:with|to)|versus|\bwithout\b|\bnot\b|而非|未采用/i.test(text)?candidates[0]:null;
+    const panelMethod=captionMethod(text);
     const method=panelMethod||methods.find(([re])=>re.test(printed));
     const refMethod=window.FigureElements?.reference(text);
     if(refMethod)interpretation=FigureElements.distanceGuide(refMethod);
@@ -300,5 +309,5 @@
     }
     return out;
   }
-  window.PaperPanelReading={build,passages,micTable};
+  window.PaperPanelReading={build,passages,micTable,wholeReading};
 })();

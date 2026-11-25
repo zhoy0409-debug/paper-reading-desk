@@ -12,14 +12,14 @@
 
   const HOME=()=>[
     ['.st-start .pl-drop-main',t('从这里打开论文','Open a paper here'),t('选一篇 PDF，或把文件拖到窗口任意位置。文件只在本机读取。','Choose a PDF or drop one anywhere in the window. It stays on this device.')],
-    ['.st-sample',t('没有论文？先试读','No paper at hand?'),t('用一篇公开论文把功能走一遍。','Try everything with an open-access paper.')],
+    ['.st-sample',t('没有论文？先试读','No paper at hand?'),t('打开公开论文，试试读图和导出。','Open the public sample to try figure reading and export.')],
     ['.lens-recent',t('接着上次读','Pick up where you left off'),t('读过的论文会留在这里，连同进度。','Papers you opened stay here with your progress.')],
     ['.st-help',t('随时可以重看','Replay any time'),t('「怎么用」里有引导、快捷键和演示视频。','How to use has this tour, the shortcuts and a video.')]
   ];
   const READ=()=>[
-    ['.st .lens-track',t('论文的脉络在这里','The paper’s argument'),t('按论文顺序排好每张图在说什么。点一张，右边的图跟着换，它的小图自动展开。','What each figure says, in order. Choose one and the figure follows, with its panels open.')],
+    ['.st-explain',t('从这张图的解释开始','Start with the explanation'),t('点「看图解」读当前图的比较与出处。有可识别的坐标或图例时，可在「点读标注」中选一个，也可以直接点图。','Read explanation opens the current figure’s reading and sources. When labels are identified, choose one under Figure labels or tap it on the image.')],
+    ['.st .lens-track',t('换一张图','Choose a figure'),t('按原文顺序点选缩略图，原图和图解会一起切换。','Choose a thumbnail to switch the figure and its explanation together.')],
     ['.st-dock',t('放大某个小图','Zoom into a panel'),t('点字母，只看这一格；点「整图」回来。图里的文字和坐标也能点开解释。','Choose a letter to see one panel, or Full figure to return. Labels in the image can be clicked too.')],
-    ['.st .rq-tabs',t('在这里看解读','Read the explanation'),t('「读图」讲这张图，「读图基础」补背景，「划词追问」可以提问。','The figure explained, the basics behind it, and a place to ask.')],
     ['.st .lens-card',t('说一句，试试自己懂没懂','Say it in one line'),t('打开「盲读」会先盖住图注，写完再对照。写下的话会进讲稿。','Look first covers the caption until you have written your line. Lines become your script.')],
     ['.st-views',t('三个视图','Three views'),t('读图看细节；脑图梳理全文，图就在旁边；讲稿直接做成幻灯片。','Figures for detail, the map with the figure beside it, and slides for your talk.')],
     ['.st-back',t('不知道怎么回去？点这里','Lost? Go back here'),t('按钮上写着会回到哪里。按 Esc 或浏览器后退也一样。','The button names where it leads. Esc and browser Back work too.')],

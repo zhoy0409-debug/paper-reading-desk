@@ -448,7 +448,8 @@
     const keys=el('details','rq-key-list'),keySummary=el('summary'),keyList=el('div');keys.append(keySummary,keyList);
     const tickNote=btn('右侧部分刻度在原页中也显示不全 · 核对原页','Clipped tick labels · View PDF',()=>source(figure.page));
     tickNote.className='rq-tick-note';tickNote.hidden=true;
-    viewer.append(bar,stage,tickNote,keys);viewer.hidden=callout.hidden=true;visual.querySelector('.frw-caption').before(viewer);
+    keys.hidden=true;
+    viewer.append(bar,stage,tickNote);viewer.hidden=callout.hidden=true;visual.querySelector('.frw-caption').before(viewer);
     const locate=btn('定位图中标注','Locate on figure',()=>{
       if(activeHit){centerHit(activeHit);activeHit.focus({preventScroll:true});drawWire()}
     });
@@ -488,9 +489,8 @@
         const area=stage.getBoundingClientRect(),note=callout.getBoundingClientRect();
         const delta=Math.min(note.top-area.top-10,Math.max(0,note.bottom-area.bottom+10));
         if(delta)stage.scrollBy({top:delta,behavior:'instant'});
-      }else if(matchMedia('(max-width:1000px)').matches){
-        callout.scrollIntoView({block:'nearest',behavior:'instant'});
       }
+      if(matchMedia('(max-width:1000px)').matches)callout.scrollIntoView({block:'nearest',behavior:'instant'});
     }
     let traceAnchor=null;
     function showTip(b,entry,row,anchor=null){
@@ -513,24 +513,24 @@
     function closeTip(){activeHit?.setAttribute('aria-pressed','false');activeHit=null;callout.hidden=true;locate.hidden=true;path.removeAttribute('d');wire.classList.remove('rq-draw')}
     function setTab(to){
       notes.dataset.studyTab=to;
-      for(const [index,b] of Array.from(tabs.children).entries()){
+      for(const [index,b] of Array.from(tabs.querySelectorAll('[data-view]')).entries()){
         const active=b.dataset.view===to;b.setAttribute('aria-pressed',String(active));
         if(active)tabs.style.setProperty('--rq-tab',index);
       }
       primer.hidden=to!=='basics';ask.hidden=to!=='ask';
     }
-    for(const [mode,zh,en] of [['read','读图','Read'],['basics','读图基础','Basics'],['ask','划词追问','Ask a question']]){
+    for(const [mode,zh,en] of [['read','图解','Explanation'],['basics','读图基础','Basics'],['ask','划词追问','Ask a question']]){
       const b=btn(zh,en,()=>{setTab(mode);if(mode==='ask'){if(!conversation.hasText())conversation.open((part?.raw.reading?.sources?.find(s=>s.kind==='小图图注')?.text||figure?.caption||'').slice(0,3200),selectionTag,'',paperEvidence());ask.scrollIntoView({block:'nearest'})}});b.dataset.view=mode;tabs.append(b);
     }
     tabs.addEventListener('keydown',e=>{
       if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
-      const options=Array.from(tabs.children),current=options.indexOf(document.activeElement);
+      const options=Array.from(tabs.querySelectorAll('[data-view]')),current=options.indexOf(document.activeElement);
       if(current<0)return;
       const i=e.key==='Home'?0:e.key==='End'?options.length-1:(current+(e.key==='ArrowRight'?1:-1)+options.length)%options.length;
       e.preventDefault();options[i].focus();options[i].click();
     });
     tabs.setAttribute('aria-label','读图方式 / Reading modes');
-    const lead=notes.querySelector('.frw-notes-top');lead.after(tabs,primer,ask);setTab('read');
+    const lead=notes.querySelector('.frw-notes-top');lead.after(tabs,keys,primer,ask);setTab('read');
     function practiceContext(options){
       const guide=part?.raw.reading;
       const localCaption=guide?.sources?.find(s=>s.kind==='小图图注')?.text;
@@ -690,7 +690,9 @@
       const ordered=[...list].sort((a,b)=>(a.priority??10)-(b.priority??10));
       const named=ordered.filter(s=>s.verified).slice(0,4);
       pathMenu.hidden=!named.length;long=true;updateLong();
-      pair(keySummary,list.length?'图中可点的位置（'+list.length+'）':'本格尚无可定位的文字或标注',list.length?'Explore figure elements':'No verified hotspots');
+      const explained=ordered.filter(s=>!s.entry.lookup);
+      keys.hidden=!explained.length;
+      pair(keySummary,'点读标注（'+explained.length+'）','Figure labels ('+explained.length+')');
       const ns='http://www.w3.org/2000/svg';
       const strokes=document.createElementNS(ns,'svg');strokes.classList.add('rq-strokes');
       strokes.setAttribute('viewBox','0 0 1000 1000');strokes.setAttribute('preserveAspectRatio','none');layer.append(strokes);
@@ -724,8 +726,8 @@
           }
           showTip(b,entry,row,trace?[(e.clientX-rect.left)/rect.width,(e.clientY-rect.top)/rect.height]:null);
         };
-        const choose=()=>{keys.open=false;if(viewport.classList.contains('rq-magnified'))centerHit(b);showTip(b,entry,row,trace?.[Math.floor(trace.length/2)]);b.focus({preventScroll:true});viewer.scrollIntoView({block:'nearest'})};
-        keyList.append(btn(titleZh,hintEn,choose));
+        const choose=()=>{keys.open=false;if(viewport.classList.contains('rq-magnified'))centerHit(b);showTip(b,entry,row,trace?.[Math.floor(trace.length/2)]);b.focus({preventScroll:true})};
+        if(!entry.lookup)keyList.append(btn(titleZh,hintEn,choose));
         if(verified&&named.some(s=>s.entry===entry)){
           const jump=btn(entry[0],entry[1],choose);jump.className='rq-path';
           jump.onpointerenter=jump.onfocus=()=>b.classList.add('rq-preview');

@@ -163,3 +163,41 @@
 .frw-modal:has(>.figure-click-note:not([hidden])){grid-template-rows:auto minmax(0,1fr) auto}
 
 .rq-sheet .rq-legend-key{z-index:2}
+
+#literaturePane .frw.st .compare-bar>.st-explain{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  flex:none;min-height:38px;padding:0 13px;border:0;border-radius:9px;
+  background:var(--link);color:#fff;font:650 14px/1.2 var(--sans);white-space:nowrap;
+}
+#literaturePane .st-explain:hover{filter:brightness(.92)}
+#literaturePane .frw.st .rq-tabs>.st-back-to-image{display:none}
+#literaturePane .frw.st.has-ea .frw-notes:is([data-study-tab=read])>details:is(.figure-label-list,.rq-key-list):not([hidden]){
+  display:block;order:0;margin:0;padding:0;background:none;border:0;border-bottom:1px solid var(--line);
+  max-height:none;overflow:visible;
+}
+#literaturePane .frw-notes:not([data-study-tab=read])>:is(.figure-label-list,.rq-key-list),
+#literaturePane .frw-notes>:is(.figure-label-list,.rq-key-list)[hidden]{display:none!important}
+#literaturePane .frw.st .frw-notes>:is(.figure-label-list,.rq-key-list)>summary{min-height:44px;color:var(--link)}
+#literaturePane .frw-notes>:is(.figure-label-list,.rq-key-list)>div{
+  display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px;max-height:30dvh;
+  overflow:auto;margin:0;padding:2px 2px 10px;
+}
+#literaturePane .frw-notes>:is(.figure-label-list,.rq-key-list)>div>button{
+  min-height:36px;max-width:100%;padding:6px 10px;border:1px solid var(--line);
+  border-radius:8px;background:var(--surface-2);color:var(--ink);text-align:start;overflow-wrap:anywhere;
+}
+#literaturePane .frw-reading-block+ .frw-reading-block{margin-top:12px}
+#literaturePane .frw-reading-block>div{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+#literaturePane .frw-reading-block .frw-inline{white-space:nowrap}
+@media(max-width:1000px){
+  #literaturePane .frw.st.has-ea .compare-bar{justify-content:flex-start;gap:6px;scroll-margin-top:var(--bar)}
+  #literaturePane .frw.st.has-ea .compare-bar>div:first-child{flex:1 0 100%;margin:0 0 2px}
+  #literaturePane .frw.st.has-ea .compare-bar>.frw-button{min-height:40px;padding:0 9px}
+  #literaturePane .frw.st .compare-bar>.st-explain{min-height:42px}
+  #literaturePane .frw.st.has-ea .frw-notes{scroll-margin-block-start:var(--bar);height:auto}
+  #literaturePane .frw.st.has-ea .rq-tabs{gap:clamp(8px,3vw,18px)}
+  #literaturePane .frw.st.has-ea .rq-tabs>.st-back-to-image{display:inline-flex;align-items:center;gap:4px;margin-inline-start:auto;color:var(--link);font-size:13px}
+  #literaturePane .frw.st .rq-tabs>button{white-space:nowrap}
+  #literaturePane .frw.st .rq-callout,#literaturePane .frw.st .figure-click-note{scroll-margin-top:calc(var(--bar) + 8px)}
+  #literaturePane .frw.st .st-dock:has(.frw-panel-tabs[hidden]){display:none}
+}

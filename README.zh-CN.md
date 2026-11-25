@@ -4,6 +4,15 @@
 
 把上面的「打开中文版」分享给同学即可直接使用，无需 GitHub 账号。新版发布后，刷新同一网址即可打开新版。
 
+**想看图解**，打开 PDF，选一张缩略图，点原图旁的「看图解」。这里会列出图注中能找到的比较、测量，以及正文中提到这张图的段落，可点页码核对。手机上点「回到图」就会回到刚才那张图或小图。有可识别的坐标或图例时，直接点图，或从「点读标注」里选。以上操作在浏览器里即可完成。纯扫描页没有可读图注时，可以查看原页、手动框选取图。[用一张真实论文图试试点读](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh&sample=figure-8a)
+
+<details>
+<summary>看手机上的两步实拍</summary>
+
+<p>在图上方点「看图解」。再点横轴，就能看到夸大系数怎样影响近邻之间的吸引力。</p>
+<p><img src="docs/guide/phone-entry-zh.png" width="260" alt="手机上小图 A 上方的看图解按钮"> <img src="docs/guide/phone-axis-zh.png" width="260" alt="点中横轴后，连线指向夸大系数的中文解释"></p>
+</details>
+
 准备组会时，最费时间的往往是三件事。图放进 PPT 后坐标字糊了，查完一个陌生方法又忘了自己在看哪组点，最后每张图都读过，却讲不清它们之间的关系。下面用同一篇公开论文演示怎样取图、在图旁追问，再把这张图放回全文里理解。
 
 [![播放新版 60 秒操作演示，从点读坐标轴到导出整套讲稿。](dist/media/tour/cover-zh.webp?v=044)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)

@@ -153,7 +153,7 @@
   function startPage(root){
     const intake=root.querySelector('.folio-intake'),plate=root.querySelector('.folio-example'),open=root.querySelector('.folio-open');
     if(!intake||!plate)return;
-    intake.querySelector('h2')&&PaperUI.set(intake.querySelector('h2'),'读懂论文里的每一张图','Understand every figure in a paper');
+    intake.querySelector('h2')&&PaperUI.set(intake.querySelector('h2'),'从图读懂一篇论文','Read a paper through its figures');
     const lead=ui('p','st-lead','打开一篇 PDF，逐图看懂、核对原文，再整理成组会讲稿。文件只在本机读取。','Open a PDF, work through its figures, check them against the text and build your journal-club script. Files stay on this device.');
     intake.querySelector('.reader-title-row')?.after(lead);
     const picker=intake.querySelector('.pl-primary-picker');
@@ -169,8 +169,8 @@
     // Real steps of the workflow, in order.
     const steps=el('ol','st-steps');
     for(const [path,zh,en,zhText,enText] of [
-      ['M6 3h8l4 4v14H6zM14 3v4h4M12 18v-6m-3 3 3-3 3 3','打开论文','Open a paper','自动找出每一张图和它的图注。','Every figure is found and matched to its caption.'],
-      ['M4 5h16v12H4zM8 13l3-4 3 3 2-2 2 3M9 21h6','逐图读懂','Read each figure','放大小图，点坐标和图例看解释，再回原文核对。','Zoom into panels, click axes and legends, check the source.'],
+      ['M6 3h8l4 4v14H6zM14 3v4h4M12 18v-6m-3 3 3-3 3 3','打开论文','Open a paper','按图号找到原图和对应图注。','Find numbered figures and their captions.'],
+      ['M4 5h16v12H4zM8 13l3-4 3 3 2-2 2 3M9 21h6','看图解','Read the explanation','选一张图，点「看图解」。想读坐标或图例，可选「点读标注」。','Choose a figure and select Read explanation. Open Figure labels to explore its axes and legend.'],
       ['M5 4h14v10H9l-4 4zM9 8h6M9 11h4','整理讲稿','Build your script','每张图写一句，自动成为幻灯片讲解。','One line per figure becomes your speaking note.']]){
       const li=el('li');
       const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');
@@ -200,6 +200,26 @@
     const fold=el('button','st-fold');fold.type='button';
     function drawFold(){const w=workbench.classList.contains('st-wide');fold.textContent=w?'‹':'›';fold.setAttribute('aria-label',w?'展开解读 / Show explanation':'收起解读 / Hide explanation');fold.setAttribute('aria-expanded',String(!w))}
     fold.addEventListener('click',()=>{workbench.classList.toggle('st-wide');drawFold()});drawFold();visual.append(fold);
+    const readTab=notes.querySelector('.rq-tabs [data-view="read"]');
+    if(readTab){
+      const openReading=button('st-explain','看图解','Read explanation',()=>{
+        ReadingGuide.context(true);
+        if(visual.classList.contains('source-shown')||visual.classList.contains('source-folded'))compare.showFigure();
+        workbench.classList.remove('st-wide');drawFold();
+        if(workbench.classList.contains('lens-blind'))lens.revealCaption();
+        readTab.click();
+        readTab.focus({preventScroll:true});
+        if(matchMedia('(max-width:1000px)').matches)notes.scrollIntoView({block:'start',behavior:'instant'});
+        else notes.scrollTop=0;
+      });
+      openReading.setAttribute('aria-controls',notes.id);
+      bar.querySelector('.frw-button').before(openReading);
+      const backToImage=button('st-back-to-image','回到图','Back to figure',()=>{
+        openReading.focus({preventScroll:true});
+        bar.scrollIntoView({block:'start',behavior:'instant'});
+      });
+      readTab.parentNode.append(backToImage);
+    }
     for(const [b,zh,en] of [[tools.children[0],'缩小','Zoom out'],[tools.children[2],'放大','Zoom in'],[tools.children[3],'全屏看图','Full screen']])if(b)b.dataset.tip=t(zh,en);
     const undo=[ReadingGuide.slide(tabs,'[aria-pressed=true]'),ReadingGuide.slide(notes.querySelector('.rq-tabs'),'[aria-pressed=true]')];
     const track=q('.lens-track');if(track)undo.push(ReadingGuide.peek(track,id=>lens?.describe(id)||{label:'',title:''}));

@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   // Same normalized coordinates on the original figure and the expanded viewer.
-  function mount({session,histograms,plate,modalPlate,visual,modal,findPassage}){
+  function mount({session,histograms,plate,modalPlate,visual,modal,notes,findPassage}){
     const layers=[plate,modalPlate].map(parent=>{
       const layer=document.createElement('div');layer.className='figure-click-layer';parent.append(layer);return layer;
     });
@@ -10,6 +10,9 @@
       if(parent===visual)visual.querySelector('.frw-caption').before(card);else modal.append(card);
       return card;
     });
+    const choices=document.createElement('details'),summary=document.createElement('summary'),list=document.createElement('div');
+    choices.className='figure-label-list';choices.hidden=true;
+    choices.append(summary,list);notes.append(choices);
     let key='',run=0,marks=[],figure=null;
     function close(){
       for(const layer of layers)for(const button of layer.querySelectorAll('[aria-pressed=true]'))button.setAttribute('aria-pressed','false');
@@ -32,6 +35,7 @@
       card.hidden=false;card.scrollIntoView({block:'nearest',behavior:'instant'});
     }
     function draw(){
+      list.replaceChildren();choices.open=false;
       for(const [i,layer] of layers.entries()){
         const buttons=marks.map(m=>{
           const entry=m.entry||CartesianPanels.explanation(m,figure.page);
@@ -39,10 +43,21 @@
           if(m.chart?.kind==='symbol')b.classList.add('rq-legend-symbol');
           b.title=ReaderLanguage.choose(entry[0],entry[1]);b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed','false');
           Object.assign(b.style,{left:100*m.x0+'%',top:100*m.y0+'%',width:100*(m.x1-m.x0)+'%',height:100*(m.y1-m.y0)+'%'});
-          b.onclick=e=>{e.stopPropagation();select(m,b,i)};return b;
+          b.onclick=e=>{e.stopPropagation();select(m,b,i)};
+          if(i===0&&!entry.lookup&&m.chart?.kind!=='tick'){
+            const control=document.createElement('button');control.type='button';
+            const plot=figure.panels.length>1&&m.chart?.kind!=='x'&&m.chart?.context?.xName;
+            const suffix=plot?' · '+plot:'';
+            PaperUI.set(control,entry[0]+suffix,entry[1]+suffix);
+            control.onclick=()=>{choices.open=false;b.focus({preventScroll:true});b.click()};
+            list.append(control);
+          }
+          return b;
         });
         layer.replaceChildren(...buttons);layer.hidden=!buttons.length;
       }
+      const count=list.childElementCount;
+      choices.hidden=!count;PaperUI.set(summary,'点读标注（'+count+'）','Figure labels ('+count+')');
     }
     const escape=e=>{if(e.key==='Escape'&&cards.some(c=>!c.hidden)){close();e.preventDefault()}};
     const dismiss=e=>{if(!e.target.closest('.figure-click-layer button,.figure-click-note'))close()};
