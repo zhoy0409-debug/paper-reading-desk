@@ -8,6 +8,8 @@ Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up U
 
 <a name="start-reading"></a>
 
+Opening a paper collapses the upload controls into a compact bar above the figure map. Select a panel, then choose **Add to slides** and **Export PPTX** under **Crop & present**.
+
 Start with the public sample, or drop in your own PDF. Your browser reads the file on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
 ## How do I get a sharp panel onto my slide?
