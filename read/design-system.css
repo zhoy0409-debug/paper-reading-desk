@@ -1,0 +1,175 @@
+/* Reading Desk design system.
+   One place for colour, shape, type and the shared controls.
+   Loaded after every other stylesheet; module styles should use these tokens
+   instead of new literal values. */
+
+:root{
+  /* Colour: paper, ink and one reading green */
+  --paper:#f9f9f5;        /* page */
+  --surface:#fffefa;      /* cards, controls */
+  --surface-2:#f2f4ee;    /* quiet fills, hover */
+  --wash:#e8efe7;         /* selected / accent tint */
+  --ink:#20241f;          /* body text */
+  --ink-2:#394238;        /* secondary headings */
+  --muted:#575d55;        /* supporting text (AA on paper) */
+  --faint:#7d857b;        /* meta labels only */
+  --line:#d7dad1;         /* rules, card borders */
+  --line-strong:#b8c6b9;  /* control borders */
+  --accent:#294d3e;       /* primary actions, links */
+  --accent-strong:#1d3a2f;/* primary hover */
+  --accent-mid:#3d7a61;   /* focus ring, markers */
+  --accent-line:#b6cfc2;  /* accent borders on light */
+  --signal:#dcf59a; --signal-ink:#26320f;
+  --warn-wash:#fff8e9; --warn-line:#efd8a9; --warn-ink:#713d0a;
+  --night:#172d26; --night-2:#20383a;           /* paper map panel */
+  --night-ink:#e5ede8; --night-muted:#b8d6cb; --night-accent:#9be9d6;
+  --soft:var(--warn-wash); --plum:var(--accent); /* legacy aliases */
+
+  /* Shape */
+  --r-s:4px;    /* controls, chips, inputs */
+  --r-m:10px;   /* cards, popovers */
+  --r-l:16px;   /* large panels */
+  --r-pill:999px;
+
+  /* Type */
+  --fs-xs:11px; --fs-s:12px; --fs-sm:13px; --fs-m:14px; --fs-body:15px; --fs-l:18px; --fs-xl:24px;
+  --sans:"Segoe UI","Microsoft YaHei UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  --serif:Georgia,"Source Han Serif SC","Noto Serif CJK SC","Noto Serif SC","Songti SC",SimSun,serif;
+
+  /* Controls */
+  --control-h:32px;
+  --focus-ring:2px solid var(--accent-mid);
+}
+
+/* Focus: one ring everywhere */
+:where(button,summary,a,input,select,textarea,label.pick,[tabindex]):focus-visible{outline:var(--focus-ring);outline-offset:2px}
+#literaturePane :is(button,summary,a,input,select,textarea,[tabindex]):focus-visible,
+#literaturePane .pick:focus-within{outline:var(--focus-ring);outline-offset:2px}
+
+/* ---------- Buttons: primary, secondary, quiet ---------- */
+#literaturePane :is(.light,.frw-button,.frw-inline,.ea-explore,.ea-foot button,.pd-tools button,.pd-report-body>button,.pd-label-tools button,.ps-library button,.pd-desk>button,.lineActions button){
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:var(--control-h);padding:4px 12px;
+  border:1px solid var(--line-strong);border-radius:var(--r-s);
+  background:var(--surface);color:var(--ink);
+  font:560 var(--fs-sm)/1.25 var(--sans);letter-spacing:0;text-decoration:none;
+  box-shadow:none;cursor:pointer;white-space:nowrap;
+  transition:background-color .15s,border-color .15s,color .15s}
+#literaturePane :is(.light,.frw-button,.frw-inline,.ea-explore,.ea-foot button,.pd-tools button,.pd-report-body>button,.pd-label-tools button,.ps-library button,.pd-desk>button,.lineActions button):hover:not(:disabled){
+  border-color:var(--accent-mid);background:var(--wash);color:var(--accent-strong)}
+#literaturePane :is(.light,.frw-button,.frw-inline,.pd-tools button,.pd-report-body>button):is([aria-pressed=true],[aria-current=true]){
+  background:var(--accent);border-color:var(--accent);color:#fff}
+
+#literaturePane :is(.primary,.frw-primary,.pd-report-body>.pd-add-slide,.pd-report-body>.pd-export){
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:var(--control-h);padding:4px 14px;
+  border:1px solid var(--accent);border-radius:var(--r-s);
+  background:var(--accent);color:#fff!important;
+  font:650 var(--fs-sm)/1.25 var(--sans);cursor:pointer;box-shadow:none}
+#literaturePane :is(.primary,.frw-primary,.pd-report-body>.pd-add-slide,.pd-report-body>.pd-export):hover:not(:disabled){
+  background:var(--accent-strong);border-color:var(--accent-strong)}
+
+#literaturePane :is(.light,.primary,.frw-button,.frw-inline,.pd-tools button,.pd-report-body>button,.lineActions button):disabled{
+  opacity:.45;cursor:not-allowed}
+
+#literaturePane :is(.ea-toggle){
+  min-height:0;padding:2px 0;border:0;border-radius:0;background:none;
+  color:var(--accent);font:560 var(--fs-s)/1.3 var(--sans);
+  text-decoration:underline;text-decoration-color:var(--accent-line);text-underline-offset:4px;cursor:pointer}
+#literaturePane .ea-toggle:hover{text-decoration-color:currentColor}
+
+/* Buttons on the dark figure bar keep their light-on-dark look, with the shared shape */
+#literaturePane .rq-bar-actions button{border-radius:var(--r-s);min-height:30px;font-size:var(--fs-s)}
+/* Segmented choices keep their pill or tab shape but share the control radius */
+#literaturePane .frw-panel-tab{border-radius:var(--r-s)}
+
+/* Inputs */
+#literaturePane :is(textarea,select,input[type=text],input[type=number],input[type=url],input[type=search],.pl-q){
+  border:1px solid var(--line-strong);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:inherit}
+#literaturePane :is(textarea,select,input[type=text],input[type=number],input[type=url],input[type=search]):focus{border-color:var(--accent-mid)}
+
+/* ---------- Disclosures: one chevron, two sizes ---------- */
+#literaturePane details>summary{list-style:none;cursor:pointer}
+#literaturePane details>summary::-webkit-details-marker{display:none}
+#literaturePane details>summary::before{
+  content:"";display:inline-block;flex:none;box-sizing:border-box;
+  width:.42em;height:.42em;margin:0 .6em .14em .08em;padding:0;
+  border:solid currentColor;border-width:0 1.6px 1.6px 0;border-radius:0;background:none;
+  transform:rotate(-45deg);transition:transform .16s ease;opacity:.72;vertical-align:middle}
+#literaturePane details[open]>summary::before{transform:rotate(45deg);margin-bottom:.3em}
+#literaturePane .frw-main details>summary{font:600 var(--fs-m)/1.45 var(--sans);color:var(--accent)}
+#literaturePane .frw-main details details>summary,
+#literaturePane .frw-main :is(.rq-key-list,.rq-full-caption,.rq-options,.access-keys,.access-web,.rq-source-preview,.panel-sources)>summary{font-size:var(--fs-sm)}
+/* Map panel: the abstract toggle must be readable on the dark ground */
+#literaturePane .ea-root details>summary{color:var(--night-muted);font-size:var(--fs-s)}
+#literaturePane .ea-root details>summary:hover{color:var(--night-ink)}
+
+/* ---------- Report tools: one row of actions ---------- */
+#literaturePane .pd-desk .pd-tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-start}
+#literaturePane .pd-report-body{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+#literaturePane .pd-report-body>:not(button){flex:1 1 100%;min-width:0}
+#literaturePane .pd-report-body>.pd-slide-target{justify-content:flex-start;gap:10px}
+#literaturePane .pd-report-body>button{margin:0}
+
+/* ---------- Loaded paper: intake collapses into one bar ---------- */
+#literaturePane .pl-reader.pl-loaded{display:flex;flex-direction:row;flex-wrap:wrap;align-items:stretch;gap:0}
+#literaturePane .pl-reader.pl-loaded>*{flex:1 1 100%;min-width:0}
+#literaturePane .pl-reader.pl-loaded>:is(.uploadZone,.recognition,.ps-library){
+  margin:0;padding:10px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+#literaturePane .pl-reader.pl-loaded>.uploadZone{order:0;flex:1 1 520px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
+#literaturePane .pl-reader.pl-loaded>.recognition{order:1;flex:0 0 auto;padding-inline-start:18px}
+#literaturePane .pl-reader.pl-loaded>.ps-library{order:2;flex:0 0 auto;padding-inline-start:18px}
+#literaturePane .pl-reader.pl-loaded>:is(.recognition,.ps-library)[open]{order:3;flex:1 1 100%;padding-inline-start:0}
+#literaturePane .pl-reader.pl-loaded>.pl-target{order:5}
+#literaturePane .pl-reader.pl-loaded>:is(.recognition,.ps-library)>summary{font:600 var(--fs-m)/1.3 var(--sans);color:var(--accent);min-height:var(--control-h);display:flex;align-items:center;white-space:nowrap}
+
+/* the status line leads the bar */
+#literaturePane .pl-reader.pl-loaded .pl-feedback{order:-1;flex:1 1 260px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;min-height:var(--control-h);margin:0;padding:0;border:0;background:none}
+#literaturePane .pl-reader.pl-loaded>.uploadZone:has(details[open]){align-items:flex-start}
+#literaturePane .pl-reader.pl-loaded .pl-feedback[data-state=ready] .pl-progress,
+#literaturePane .pl-reader.pl-loaded .pl-go:has(select[hidden]){display:none}
+#literaturePane .pl-reader.pl-loaded .pl-feedback-hint{margin:0;font-size:var(--fs-sm);color:var(--muted);line-height:1.45}
+#literaturePane .pl-reader.pl-loaded .pl-feedback[data-state=warn]{padding:6px 10px;border:1px solid var(--warn-line);border-radius:var(--r-s);background:var(--warn-wash)}
+
+/* file actions sit on the right */
+#literaturePane .pl-reader.pl-loaded .folio-opening{display:block;margin:0}
+#literaturePane .pl-reader.pl-loaded .folio-intake{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
+#literaturePane .pl-reader.pl-loaded>.uploadZone :is(.folio-example,.intake-intro,.fileHint,.folio-intake h2,.reader-title-row){display:none}
+#literaturePane .pl-reader.pl-loaded .pl-primary-picker{margin:0;display:flex}
+#literaturePane .pl-reader.pl-loaded>.uploadZone label.pick{margin:0}
+body:has(.pl-loaded) #literaturePane{margin-top:10px}
+#literaturePane .pl-reader.pl-loaded label.pl-drop-main{display:inline-flex;align-items:center;
+  min-height:var(--control-h);padding:4px 12px;flex-direction:row;
+  border:1px solid var(--line-strong);border-radius:var(--r-s);background:var(--surface);color:var(--ink)}
+#literaturePane .pl-reader.pl-loaded label.pl-drop-main:hover{border-color:var(--accent-mid);background:var(--wash)}
+#literaturePane .pl-reader.pl-loaded label.pl-drop-main strong{font:560 var(--fs-sm)/1.25 var(--sans);color:inherit}
+#literaturePane .pl-reader.pl-loaded label.pl-drop-main small,#literaturePane .pl-reader.pl-loaded label.pl-drop-main::after{display:none}
+#literaturePane .pl-reader.pl-loaded .folio-intake>details{margin:0;padding:0;border:0}
+#literaturePane .pl-reader.pl-loaded .folio-intake>details>summary{font:600 var(--fs-m)/1.3 var(--sans);color:var(--accent);min-height:var(--control-h);display:flex;align-items:center}
+#literaturePane .pl-reader.pl-loaded .folio-intake>details[open]{flex:1 1 100%;padding-bottom:8px}
+
+/* the workbench label stays as a focus target only; view switches move beside the issue line */
+#literaturePane .pl-reader.pl-loaded .pl-figure-target>.pl-reader-top>p{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#literaturePane .pl-reader.pl-loaded .pl-figure-target>.pl-reader-top{
+  justify-content:flex-end;margin:0;padding:10px 0 0;border:0}
+#literaturePane .pl-reader.pl-loaded .pl-reader-top .lineActions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0}
+#literaturePane .pl-reader.pl-loaded .pl-reader-top details{position:relative}
+#literaturePane .pl-reader.pl-loaded .pl-reader-top details>summary{
+  min-height:var(--control-h);display:flex;align-items:center;padding:0 4px;font:600 var(--fs-sm)/1.25 var(--sans);color:var(--accent)}
+#literaturePane .pl-reader.pl-loaded .pl-reader-top details[open]{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+@media (min-width:1100px){
+  #literaturePane .pl-reader.pl-loaded .pl-figure-target{position:relative}
+  #literaturePane .pl-reader.pl-loaded .pl-figure-target>.pl-reader-top{position:absolute;top:12px;right:0;z-index:3;padding:0}
+  #literaturePane .pl-reader.pl-loaded .pl-figure-target .frw-head{padding-right:min(380px,30%)}
+  #literaturePane .pl-reader.pl-loaded .pl-reader-top details[open]>:not(summary){position:relative}
+}
+@media (max-width:700px){
+  #literaturePane .pl-reader.pl-loaded>.uploadZone{flex-basis:100%}
+  #literaturePane .pl-reader.pl-loaded>:is(.recognition,.ps-library){padding-inline-start:0;padding-inline-end:18px;border-bottom:0}
+}
+
+/* Plain links inherit the reading green; styled links keep their own rules */
+:where(#literaturePane) a:not([class]){color:var(--accent);text-decoration-color:var(--accent-line);text-underline-offset:3px}
+:where(#literaturePane) a:not([class]):hover{text-decoration-color:currentColor}

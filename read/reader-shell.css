@@ -3,42 +3,42 @@ body {margin:0; font:16px/1.65 system-ui,"Microsoft YaHei",sans-serif}
 main {margin:auto}
 h1,h2,h3,h4,p {margin:0}
 h2 {font-size:1.45rem;line-height:1.3}
-body .top {display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:14px}
+body .top {display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:var(--fs-m)}
 body .top h1 {font:inherit}
 #literaturePane {margin:clamp(18px,3vw,40px) auto 0}
-.card {background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(14px,2vw,20px);min-width:0}
+.card {background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:clamp(14px,2vw,20px);min-width:0}
 [hidden] {display:none!important}
-.state {border-radius:12px;padding:11px 12px;background:#edf4fb;color:#244d70;border:1px solid #d7e7f5}
-.state.warn {background:var(--soft);color:#733b08;border-color:#eee0b8}
+.state {border-radius:var(--r-m);padding:11px 12px;background:var(--surface-2);color:#244d70;border:1px solid #d7e7f5}
+.state.warn {background:var(--soft);color:var(--warn-ink);border-color:#eee0b8}
 .state b {display:block}
-.light {border:1px solid var(--line);border-radius:9px;background:white;color:#513482;padding:7px 9px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
-button:focus-visible,input:focus-visible {outline:3px solid #7851bd;outline-offset:3px}
-.hint {font-size:14px}
+.light {border:1px solid var(--line);border-radius:var(--r-m);background:white;color:#1a543f;padding:7px 9px;font:inherit;font-size:var(--fs-m);cursor:pointer;white-space:nowrap}
+button:focus-visible,input:focus-visible {outline:3px solid var(--accent-mid);outline-offset:3px}
+.hint {font-size:var(--fs-m)}
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important} }
 [hidden] {display:none!important}
 .uploadShell {display:grid;gap:17px;max-width:1020px;margin:auto}
-.uploadZone {position:relative;background:linear-gradient(115deg,#faf7ff 0%,#fff 66%);border-style:dashed;padding:clamp(19px,4vw,32px)}
+.uploadZone {position:relative;background:linear-gradient(115deg,var(--paper) 0%,var(--surface) 66%);border-style:dashed;padding:clamp(19px,4vw,32px)}
 .uploadZone h2,.recognition h2 {margin:0 0 7px}
-.uploadZone label.pick {display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:10px 17px;margin:14px 0 10px;background:#604194;color:#fff;font-weight:700;cursor:pointer}
-.pick:focus-within {outline:3px solid #7851bd;outline-offset:3px}
+.uploadZone label.pick {display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r-m);padding:10px 17px;margin:14px 0 10px;background:#27624c;color:#fff;font-weight:700;cursor:pointer}
+.pick:focus-within {outline:3px solid var(--accent-mid);outline-offset:3px}
 .uploadZone input[type=file] {position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
-.fileHint {font-size:14px}
-.entryDetails {margin-top:10px;border-top:1px solid #e2dced;padding-top:9px}
+.fileHint {font-size:var(--fs-m)}
+.entryDetails {margin-top:10px;border-top:1px solid #d8e2dd;padding-top:9px}
 .entryDetails label,.question label {display:block;font-weight:650}
-.entryDetails textarea,.question input,.question select {display:block;width:100%;max-width:650px;border:1px solid #c4b9d8;border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);font:inherit}
-.entryDetails textarea:focus,.question input:focus,.question select:focus {outline:3px solid #7851bd;outline-offset:2px}
+.entryDetails textarea,.question input,.question select {display:block;width:100%;max-width:650px;border:1px solid var(--line-strong);border-radius:var(--r-m);padding:9px 11px;background:var(--surface);color:var(--ink);font:inherit}
+.entryDetails textarea:focus,.question input:focus,.question select:focus {outline:3px solid var(--accent-mid);outline-offset:2px}
 .entryDetails textarea {resize:vertical;margin:6px 0}
 .lineActions {display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}
-.primary {font:inherit;font-weight:650;cursor:pointer;background:#604194;color:white;border:1px solid #604194;padding:8px 14px;border-radius:10px}
+.primary {font:inherit;font-weight:650;cursor:pointer;background:#27624c;color:white;border:1px solid #27624c;padding:8px 14px;border-radius:var(--r-m)}
 .question {margin-top:13px}
 .question small {display:block;margin-bottom:4px}
 .recognition {overflow-wrap:anywhere}
 .recognition .state {margin-top:12px}
-.statusline {margin-top:9px;font-size:14px}
+.statusline {margin-top:9px;font-size:var(--fs-m)}
 .statusline:empty {display:none}
 .statusline.error {color:#823819}
-.sourceBox {border:1px solid #e1d8eb;border-radius:14px;padding:13px;margin-top:12px;min-width:0;background:#fff}
+.sourceBox {border:1px solid var(--line);border-radius:var(--r-l);padding:13px;margin-top:12px;min-width:0;background:var(--surface)}
 .sourceBox h3 {margin-bottom:4px}
 .sourceBox .light {margin-top:8px}
-.uploadShell small {font-size:13px}
+.uploadShell small {font-size:var(--fs-sm)}
 .viewerHint {padding:16px;color:var(--muted)}

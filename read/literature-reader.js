@@ -151,22 +151,22 @@ function mount(container){
 .pl-reader .pl-source{padding:9px 11px;border:1px solid var(--line,#dbddec);border-radius:11px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .pl-reader .pl-open{flex:1 1 220px;text-align:left;min-width:0;overflow-wrap:anywhere}
 .pl-reader label.pl-role{font-size:13px;display:inline-flex;gap:5px;align-items:center}
-.pl-reader select,.pl-reader .pl-q{font:inherit;color:inherit;border:1px solid #c4b9d8;border-radius:8px;background:#fff;padding:5px 8px}
+.pl-reader select,.pl-reader .pl-q{font:inherit;color:inherit;border:1px solid #b1c5bb;border-radius:8px;background:#fff;padding:5px 8px}
 .pl-reader details>summary{cursor:pointer}
 .pl-reader .pl-nav,.pl-reader .pl-links{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
 .pl-reader .pl-heading{margin-top:12px}
-.pl-reader .pl-anchor{font-size:.88em;font-weight:650;color:#593d82}
-.pl-reader blockquote{margin:4px 0 0;padding:7px 10px;border-inline-start:3px solid #d9c9ed;background:#faf8fd;white-space:pre-wrap}
+.pl-reader .pl-anchor{font-size:.88em;font-weight:650;color:#295946}
+.pl-reader blockquote{margin:4px 0 0;padding:7px 10px;border-inline-start:3px solid #c1d7cc;background:#f7faf8;white-space:pre-wrap}
 .pl-reader .pl-excerpt{margin-top:11px}
 .pl-reader .pl-context{max-height:420px;overflow:auto}
 .pl-reader .pl-nav button,.pl-reader .pl-open{max-width:100%}
-.pl-reader button[aria-pressed=true]{background:#f0e8fa;border-color:#7954a5}
+.pl-reader button[aria-pressed=true]{background:#e4efea;border-color:#3e765f}
 .pl-reader .pl-q{width:100%;max-width:620px}
 .pl-reader .pl-gap{margin-top:9px}
-.pl-reader [tabindex="-1"]:focus-visible{outline:2px solid #7851bd;outline-offset:4px}
+.pl-reader [tabindex="-1"]:focus-visible{outline:2px solid #3d7a61;outline-offset:4px}
 .pl-reader .pl-pickers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:8px;margin:11px 0}
-.pl-reader label.pl-drop{display:flex;position:relative;flex-direction:column;align-items:flex-start;gap:3px;margin:0;background:white;color:var(--ink,#242a3f);border:1px dashed #baa8d6;border-radius:11px;padding:10px 12px;min-height:76px}
-.pl-reader .pl-drop:hover,.pl-reader .pl-drop.pl-drag{background:#f2eafa;border-color:#7851bd}
+.pl-reader label.pl-drop{display:flex;position:relative;flex-direction:column;align-items:flex-start;gap:3px;margin:0;background:white;color:var(--ink,#242a3f);border:1px dashed #9dbaac;border-radius:11px;padding:10px 12px;min-height:76px}
+.pl-reader .pl-drop:hover,.pl-reader .pl-drop.pl-drag{background:#e6f1ec;border-color:#3d7a61}
 .pl-reader .pl-drop small{font-weight:400}
 .pl-reader .pl-reader-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .pl-reader .pl-reader-top p{font-size:.88em;color:var(--muted,#565c71)}
@@ -190,15 +190,15 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
 .pl-reader .pl-figure-loading{display:grid;align-content:center;gap:10px;min-height:230px;padding:24px;border:1px solid #cfd7da;border-radius:12px;background:#fafaf8;color:#263739}
 .pl-reader .pl-figure-loading h3{font-size:1.25em}
 .pl-reader .pl-primary-picker{margin-bottom:8px}
-.pl-reader label.pl-drop-main{min-height:68px;border:1px solid #7352ab;background:#f0eafa;justify-content:center;padding:11px 14px;color:#50337f}
+.pl-reader label.pl-drop-main{min-height:68px;border:1px solid #38755d;background:#e6f0eb;justify-content:center;padding:11px 14px;color:#1a523d}
 .pl-reader .pl-drop-main strong{font-size:17px}
-.pl-reader .pl-primary-picker input:focus-visible,.pl-reader .pl-drop:focus-within{outline:3px solid #7851bd;outline-offset:3px}
-.pl-reader .pl-feedback{border:1px solid #dfd5ee;border-radius:12px;background:#fbf9ff;padding:10px 12px;margin-bottom:10px;overflow-wrap:anywhere}
+.pl-reader .pl-primary-picker input:focus-visible,.pl-reader .pl-drop:focus-within{outline:3px solid #3d7a61;outline-offset:3px}
+.pl-reader .pl-feedback{border:1px solid #cfdfd7;border-radius:12px;background:#f8fbf9;padding:10px 12px;margin-bottom:10px;overflow-wrap:anywhere}
 .pl-reader .pl-feedback[data-state=warn]{background:#fff8e9;border-color:#efd8a9;color:#713d0a}
-.pl-reader .pl-feedback[data-state=ready]{border-color:#cfc0e3}
+.pl-reader .pl-feedback[data-state=ready]{border-color:#b8cec3}
 .pl-reader .pl-progress{font-weight:650;line-height:1.48;font-size:15px}
 .pl-reader .pl-feedback-hint{font-size:14px;margin-top:5px}
-.pl-reader .pl-feedback progress{display:block;width:min(190px,100%);height:6px;accent-color:#7451a8;margin-top:8px}
+.pl-reader .pl-feedback progress{display:block;width:min(190px,100%);height:6px;accent-color:#38755c;margin-top:8px}
 .pl-reader .pl-go{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px}
 .pl-reader .pl-go select{min-width:0;max-width:100%}
 .pl-reader .pl-go button{min-height:42px}
@@ -214,16 +214,16 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  titleRow.append(intakeTitle,ReaderHints.create('可拖入 PDF、DOCX 或 TXT。文件在此浏览器读取。扫描件可按页查看，也可粘贴图注。','Drop a PDF, DOCX or TXT file. Files open in this browser. For scans, view a page or paste a caption.','文件格式与打开方式','File formats and opening options'));
  const primaryPicker=add(intake,'div',undefined,'pl-pickers pl-primary-picker');
  const support=add(intake,'details',undefined,'entryDetails pl-support');
- addUI(support,'summary','选填：补充材料、参考文献和知识资料');
+ const supportSummary=addUI(support,'summary','选填：补充材料、参考文献和知识资料');
  const optionalPickers=add(support,'div',undefined,'pl-pickers');
- let primaryInput;
+ let primaryInput,primaryTitle;
  for(const [role,title,note] of [
   ['main','选择主文','先选一篇论文（PDF、DOCX 或 TXT），支持拖入'],
   ['supplement','补充材料 · 选填','可同时添加多份'],
   ['related','参考文献／知识资料 · 选填','可同时添加多份']
  ]){
   const label=add(role==='main'?primaryPicker:optionalPickers,'label',undefined,'pick pl-drop'+(role==='main'?' pl-drop-main':''));label.htmlFor=id+'-'+role;
-  addUI(label,'strong',title); if(role==='main')add(label,'small','PDF · DOCX · TXT');
+  const strong=addUI(label,'strong',title); if(role==='main'){primaryTitle=strong;add(label,'small','PDF · DOCX · TXT');}
   const input=add(label,'input');input.id=id+'-'+role;input.type='file';input.multiple=role!=='main';
   input.accept='.pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain';
   input.setAttribute('aria-describedby',id+'-formats '+id+'-progress');
@@ -249,7 +249,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  },'light pl-fallback');openUnparsed.hidden=true;
  const formats=addUI(intake,'p','支持有文字层的 PDF、DOCX、TXT。扫描 PDF 目前不做 OCR；可粘贴正文或图注。','muted fileHint');formats.id=id+'-formats'; formats.hidden=true;
  const paste=add(intake,'details',undefined,'entryDetails');
- addUI(paste,'summary','没有可读文件？粘贴原文');
+ const pasteSummary=addUI(paste,'summary','没有可读文件？粘贴原文');
  const labelText=addUI(paste,'label','粘贴正文、图注或参考文献');labelText.htmlFor=id+'-paste';
  const textarea=add(paste,'textarea');textarea.id=id+'-paste';textarea.rows=5;textarea.maxLength=MAX_TEXT;textarea.autocomplete='off';
  const pasteActions=add(paste,'div',undefined,'lineActions');
@@ -315,7 +315,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  },'folio-open');
  intake.append(feedback);
  const overview=add(mountBox,'details',undefined,'card recognition');overview.hidden=true;
- addUI(overview,'summary','本次阅读材料 · 管理文件和角色');
+ const overviewSummary=addUI(overview,'summary','本次阅读材料 · 管理文件和角色');
  const overviewText=add(overview,'p',undefined,'muted');
  const files=add(overview,'div',undefined,'pl-overview');
  const question=add(overview,'details',undefined,'entryDetails');
@@ -324,6 +324,22 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  const qField=add(question,'input',undefined,'pl-q');qField.id=id+'-question';qField.type='text';qField.maxLength=230;qField.autocomplete='off';
  qField.placeholder='例如，这张图在比较什么？';
  const reader=add(mountBox,'section',undefined,'card personalTree pl-target');reader.id=id+'-results';reader.hidden=true;reader.setAttribute('aria-label','论文原文目录与依据');
+ // Once a paper is open, the intake collapses into one bar with short labels.
+ const barLabels=[
+  [()=>primaryTitle,'选择主文',['换一篇论文','Open another paper']],
+  [()=>pasteSummary,'没有可读文件？粘贴原文',['粘贴原文','Paste text']],
+  [()=>supportSummary,'选填：补充材料、参考文献和知识资料',['补充材料','Add materials']],
+  [()=>overviewSummary,'本次阅读材料 · 管理文件和角色',['本次阅读材料','Files in this reading']]
+ ];
+ let barState=null;
+ function syncLoaded(){
+  const on=!reader.hidden&&!exampleMode&&!!currentMain();
+  if(on===barState)return;
+  barState=on;
+  mountBox.classList.toggle('pl-loaded',on);
+  for(const [node,full,[short,english]] of barLabels){const el=node();if(el)on?PaperUI.set(el,short,english):PaperUI.set(el,full);}
+ }
+ if(typeof MutationObserver==='function')new MutationObserver(syncLoaded).observe(reader,{attributes:true,attributeFilter:['hidden']});
  const items=[], crossContexts=[];
  let serial=0,pasted=0,activeDoc=null,activeSection=-1,loaded=PAGE,pending=0,queue=Promise.resolve();
  let readMode='map',mapHandle=null,figureHandle=null,viewKey=0,exampleMode=false;
@@ -797,6 +813,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   if(unmatched.length)addUI(parent,'p','未能唯一匹配本文件的编号引用：'+unmatched.join('、')+'。','muted pl-gap');
  }
  function render(refreshReader=true){
+  if(typeof queueMicrotask==='function')queueMicrotask(()=>syncLoaded());
   intake.hidden=exampleMode;
   overview.hidden=exampleMode||!items.length;
   if(exampleMode){
