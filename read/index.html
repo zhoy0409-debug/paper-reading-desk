@@ -6,82 +6,102 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="从论文原图出发，逐格读图、核对原文与追问。">
 <title>文献精读</title>
-<link rel="stylesheet" href="./reader-shell.css?rev=ds-1">
-<link rel="stylesheet" href="./reading-desk.css?rev=ds-1">
-<link rel="stylesheet" href="./folio.css?rev=ds-1">
-<link rel="stylesheet" href="./reading-focus.css?rev=ds-1">
-<link rel="stylesheet" href="./reader-language.css?rev=ds-1">
-<link rel="stylesheet" href="./portable-update.css?rev=ds-1">
-<link rel="stylesheet" href="./english-practice.css?rev=ds-1">
-<link rel="stylesheet" href="./design-system.css?rev=ds-1">
-<link rel="stylesheet" href="./slide-basket.css?rev=basket-035">
-<link rel="stylesheet" href="./reading-lens.css?rev=notes-1">
+<link rel="stylesheet" href="./reader-shell.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-desk.css?rev=studio-040">
+<link rel="stylesheet" href="./folio.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-focus.css?rev=studio-040">
+<link rel="stylesheet" href="./reader-language.css?rev=studio-040">
+<link rel="stylesheet" href="./portable-update.css?rev=studio-040">
+<link rel="stylesheet" href="./english-practice.css?rev=studio-040">
+<link rel="stylesheet" href="./design-system.css?rev=studio-040">
+<link rel="stylesheet" href="./slide-basket.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-lens.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-studio.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-map.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-deck.css?rev=studio-040">
+<link rel="stylesheet" href="./reading-finish.css?rev=studio-040">
 </head>
 <body>
 <main>
 <header class="top"><h1><strong><i class="folio-mark" aria-hidden="true"></i>文献精读 <span lang="en">Reading Desk</span></strong></h1><div class="reader-languages" data-language-switch role="group" aria-label="界面语言"><button type="button" lang="zh-CN" data-locale="zh" aria-pressed="true">中文</button><button type="button" lang="en" data-locale="en" aria-pressed="false">English</button></div></header>
 <div id="literaturePane"></div>
 </main>
-<script src="./reading-ui.js"></script>
-<script src="./paper-source-notes.js?rev=source-notes-1"></script>
-<script src="./reader-copy.js?v=model-1"></script>
-<script src="./reader-language.js?v=access-2"></script>
-<script defer src="./portable-update.js"></script>
-<script src="./reader-hints.js?v=1"></script>
-<script src="./tiff-reader.js"></script>
-<script src="./document-reader.js?rev=source-reading-2"></script>
-<script src="./paper-mindmap.js?rev=ds-1"></script>
-<script src="./paper-reading-editions.js?rev=model-1"></script>
-<script src="./panel-geometry.js?rev=031"></script>
-<script src="./dual-axis.js"></script>
-<script src="./marked-plots.js"></script>
-<script src="./stacked-plots.js"></script>
-<script src="./curve-reading.js?rev=031"></script>
-<script src="./curve-ratio.js"></script>
-<script src="./mixed-axes.js"></script>
-<script src="./hubble-reading.js"></script>
-<script src="./residual-reading.js?rev=source-reading-2"></script>
-<script src="./english-practice.js?v=032"></script>
-<script type="module" src="./selection-translation.js?rev=voice-032"></script>
-<script src="./paper-language.js?rev=map-030"></script>
-<script src="./composite-plate.js?rev=031"></script>
-<script src="./side-caption.js?rev=1"></script>
-<script src="./paper-figure-extractor.js?rev=lens-036"></script>
-<script src="./model-reading.js?rev=access-2"></script>
-<script src="./paper-figure-context.js?rev=model-1"></script>
-<script src="./evidence-atlas.js?rev=ds-1"></script>
+<script src="./reading-ui.js?rev=studio-040"></script>
+<script src="./paper-source-notes.js?rev=studio-040"></script>
+<script src="./reader-copy.js?rev=studio-040"></script>
+<script src="./reader-language.js?rev=studio-040"></script>
+<script defer src="./portable-update.js?rev=studio-040"></script>
+<script src="./reader-hints.js?rev=studio-040"></script>
+<script src="./tiff-reader.js?rev=studio-040"></script>
+<script src="./document-reader.js?rev=studio-040"></script>
+<script src="./paper-mindmap.js?rev=studio-040"></script>
+<script src="./paper-reading-editions.js?rev=studio-040"></script>
+<script src="./panel-geometry.js?rev=studio-040"></script>
+<script src="./dual-axis.js?rev=studio-040"></script>
+<script src="./marked-plots.js?rev=studio-040"></script>
+<script src="./stacked-plots.js?rev=studio-040"></script>
+<script src="./curve-reading.js?rev=studio-040"></script>
+<script src="./curve-ratio.js?rev=studio-040"></script>
+<script src="./mixed-axes.js?rev=studio-040"></script>
+<script src="./hubble-reading.js?rev=studio-040"></script>
+<script src="./residual-reading.js?rev=studio-040"></script>
+<script src="./english-practice.js?rev=studio-040"></script>
+<script type="module" src="./selection-translation.js?rev=studio-040"></script>
+<script src="./paper-language.js?rev=studio-040"></script>
+<script src="./composite-plate.js?rev=studio-040"></script>
+<script src="./side-caption.js?rev=studio-040"></script>
+<script src="./paper-figure-extractor.js?rev=studio-040"></script>
+<script src="./model-reading.js?rev=studio-040"></script>
+<script src="./paper-figure-context.js?rev=studio-040"></script>
+<script src="./evidence-atlas.js?rev=studio-040"></script>
 <script src="./vendor/pptx/pptxgen.bundle.js"></script>
-<script src="./local-shelf.js?rev=map-030"></script>
-<script src="./figure-elements.js?rev=031"></script>
-<script src="./panel-reading.js?rev=031"></script>
-<script src="./histogram-evidence.js"></script>
-<script src="./histogram-matrix.js"></script>
-<script src="./open-histograms.js"></script>
-<script src="./binning-reading.js"></script>
-<script src="./histogram-grid.js"></script>
-<script src="./histogram-axes.js"></script>
-<script src="./histogram-reader.js?rev=import-021"></script>
-<script src="./checked-panel-guides.js?rev=details-1123a"></script>
-<script src="./study-design.js?rev=reader-tour-1"></script>
-<script src="./reading-evidence.js?rev=import-021"></script>
-<script src="./panel-labels.js"></script>
-<script src="./talk-export.js?rev=access-2"></script>
-<script src="./slide-basket.js?rev=basket-035"></script>
-<script src="./reading-line-notes.js?rev=1"></script>
-<script src="./panel-desk.js?rev=notes-1"></script>
-<script defer src="./reading-motion.js"></script>
-<script src="./source-pane.js?rev=source-notes-1"></script>
-<script src="./reading-primer.js?rev=focus-033"></script>
-<script src="./reader-access.js"></script>
-<script src="./reading-questions.js?rev=basket-035"></script>
-<script src="./reading-lens.js?rev=notes-1"></script>
-<script src="./figure-reading-workbench.js?rev=notes-1"></script>
-<script src="./literature-reader.js?rev=ds-1"></script>
+<script src="./local-shelf.js?rev=studio-040"></script>
+<script src="./figure-elements.js?rev=studio-040"></script>
+<script src="./panel-reading.js?rev=studio-040"></script>
+<script src="./histogram-evidence.js?rev=studio-040"></script>
+<script src="./histogram-matrix.js?rev=studio-040"></script>
+<script src="./open-histograms.js?rev=studio-040"></script>
+<script src="./binning-reading.js?rev=studio-040"></script>
+<script src="./histogram-grid.js?rev=studio-040"></script>
+<script src="./histogram-axes.js?rev=studio-040"></script>
+<script src="./histogram-reader.js?rev=studio-040"></script>
+<script src="./checked-panel-guides.js?rev=studio-040"></script>
+<script src="./study-design.js?rev=studio-040"></script>
+<script src="./reading-evidence.js?rev=studio-040"></script>
+<script src="./panel-labels.js?rev=studio-040"></script>
+<script src="./talk-export.js?rev=studio-040"></script>
+<script src="./slide-basket.js?rev=studio-040"></script>
+<script src="./reading-line-notes.js?rev=studio-040"></script>
+<script src="./panel-desk.js?rev=studio-040"></script>
+<script defer src="./reading-motion.js?rev=studio-040"></script>
+<script src="./source-pane.js?rev=studio-040"></script>
+<script src="./reading-primer.js?rev=studio-040"></script>
+<script src="./reader-access.js?rev=studio-040"></script>
+<script src="./reading-questions.js?rev=studio-040"></script>
+<script src="./reading-lens.js?rev=studio-040"></script>
+<script src="./paper-citations.js?rev=studio-040"></script>
+<script src="./paper-outline.js?rev=studio-040"></script>
+<script src="./reading-literature.js?rev=studio-040"></script>
+<script src="./reading-thread.js?rev=studio-040"></script>
+<script src="./reading-map-data.js?rev=studio-040"></script>
+<script src="./reading-map-layout.js?rev=studio-040"></script>
+<script src="./reading-map-node.js?rev=studio-040"></script>
+<script src="./reading-map-view.js?rev=studio-040"></script>
+<script src="./reading-map.js?rev=studio-040"></script>
+<script src="./reading-deck-store.js?rev=studio-040"></script>
+<script src="./reading-deck-export.js?rev=studio-040"></script>
+<script src="./reading-deck-talk.js?rev=studio-040"></script>
+<script src="./reading-deck.js?rev=studio-040"></script>
+<script src="./reading-guide.js?rev=studio-040"></script>
+<script src="./reading-studio.js?rev=studio-040"></script>
+<script src="./figure-reading-workbench.js?rev=studio-040"></script>
+<script src="./literature-reader.js?rev=studio-040"></script>
 <script>
   const readerPane = document.getElementById('literaturePane');
   if (window.PaperLiterature) {
     window.PaperLiterature.mount(readerPane);
     window.ReadingLens?.startPage(readerPane);
+    window.ReadingStudio?.start(readerPane);
   } else {
     const note = document.createElement('p');
     note.setAttribute('role','alert');

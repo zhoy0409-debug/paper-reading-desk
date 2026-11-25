@@ -34,8 +34,8 @@
     if(e.key==='Escape' && !document.fullscreenElement)window.frameElement?.closest('dialog')?.close();
   });
   const film=el('film');
-  film.poster='cover-'+lang+'.webp';
-  const movie='tour-'+lang+'.mp4?v=031';
+  film.poster='cover-'+lang+'.webp?v=040';
+  const movie='tour-'+lang+'.mp4?v=040';
   // The bundled Python file server sends whole files. A local Blob lets a browser seek
   // to any chapter even when the server does not implement HTTP Range requests.
   const localHost=['localhost','127.0.0.1','[::1]'].includes(location.hostname);
@@ -45,7 +45,7 @@
     : Promise.resolve(film.src=movie);
   const track=document.createElement('track');
   track.kind='captions';track.srclang=en?'en':'zh';track.label=en?'English':'中文';
-  track.src='tour-'+lang+'.vtt';film.append(track);
+  track.default=true;track.src='tour-'+lang+'.vtt?v=040';film.append(track);
   let chapters=[],aliases={},pending=null;
   function currentKey(){return location.hash.slice(1);}
   function updateLinks(){for(const code of ['zh','en'])el(code).href='?lang='+code+location.hash;}
@@ -64,7 +64,7 @@
   film.addEventListener('timeupdate',mark);
   addEventListener('hashchange',()=>{updateLinks();seek(currentKey(),false);});
   updateLinks();
-  fetch('chapters-'+lang+'.json').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
+  fetch('chapters-'+lang+'.json?v=040').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
     chapters=data.chapters;aliases=data.aliases||{};
     for(const c of chapters){
       const li=document.createElement('li'),a=document.createElement('a'),time=document.createElement('time'),body=document.createElement('span'),

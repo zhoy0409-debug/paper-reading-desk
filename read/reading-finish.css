@@ -1,0 +1,90 @@
+/* Final material: ink-black actions, one blue for "you are here", Noto Sans SC where the system has it. */
+:root{
+  --link:#2f5bea;
+  --accent:#171a21; --accent-strong:#2c313c; --accent-mid:#2f5bea; --accent-line:#cfd5e2; --wash:#eef2fd;
+  --paper:#f3f4f7;
+  --sans:"Segoe UI Variable Text","Noto Sans SC","Segoe UI","HarmonyOS Sans SC","MiSans","PingFang SC","Microsoft YaHei UI",system-ui,sans-serif;
+  --focus-ring:2px solid #2f5bea;
+}
+.st-crumbs button:hover,.st-back:hover,#literaturePane :is(.st-sample,.st-watch):hover{color:var(--link)}
+.st-back:hover{border-color:var(--accent-line)}
+#literaturePane .rq-tabs.gd-slide::before{background:var(--link)}
+.gd-hole{box-shadow:0 0 0 2px #fff,0 0 0 5px var(--link),0 0 0 200vmax #11141cad}
+.st-basket{display:none!important}
+.st-views button b{display:inline-grid;place-items:center;min-width:18px;height:18px;margin-left:6px;padding:0 4px;border-radius:9px;background:var(--link);color:#fff;font:650 11px/1 var(--sans)}.st-views button b:empty{display:none}
+#literaturePane .frw.st:not([data-view=read])>.slide-basket{display:none}
+#literaturePane .frw.st[data-view=read]>.slide-basket:not([hidden]){display:block}
+.slide-basket .basket-toggle{pointer-events:auto}.slide-basket .basket-chevron{display:inline}
+.slide-basket .basket-story{border:1px solid var(--line);background:white;color:var(--ink);padding:4px 12px}
+@media(min-width:1001px){
+  #literaturePane .frw.st[data-view=read]:has(>.slide-basket:not([hidden])){grid-template-rows:minmax(0,1fr) auto}
+  #literaturePane .frw.st[data-view=read]>.slide-basket{position:static;grid-column:1/-1;grid-row:2;transform:none;width:100%;border-radius:0;border-top:1px solid var(--line);box-shadow:none}
+}
+@media(max-width:1000px){
+  #literaturePane .frw.st[data-view=read]:has(>.slide-basket:not([hidden])){padding-bottom:var(--basket-space)}
+  .slide-basket .basket-header{gap:4px;flex-wrap:wrap}
+  .slide-basket .basket-story,.slide-basket .basket-export{padding-inline:8px}
+}
+#literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main{background:var(--ink);box-shadow:0 10px 26px #171a2133}
+#literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main:is(:hover,.pl-drag){background:#2c313c;box-shadow:0 16px 34px #171a2140}
+#literaturePane .folio-intake h2{font-weight:650;letter-spacing:-.025em}
+#literaturePane :is(.primary,.frw-primary,.rq-ask>button:not(.ct-link)){background:var(--ink)!important;border-color:var(--ink);color:#fff!important}
+#literaturePane :is(.primary,.frw-primary,.rq-ask>button):hover:not(:disabled){background:#2c313c!important}
+
+/* Close-up: the whole figure stays behind frosted glass, the panel floats on it */
+#literaturePane .frw.st.has-ea .rq-focus{background:#e9ecf1}
+#literaturePane .frw.st.has-ea .rq-focus-bar{position:relative;z-index:3;background:#ffffffb8;backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-color:#ffffff80}
+#literaturePane .frw.st.has-ea .rq-stage{position:relative;padding:26px 26px 92px}
+#literaturePane .frw.st.has-ea .rq-stage::before{display:block;inset:0;z-index:-1;background:linear-gradient(#f3f5f9b0,#eceff4b0),var(--rq-original) center/contain no-repeat;filter:blur(7px) saturate(1.1);transform:scale(1.03)}
+#literaturePane .frw.st.has-ea .rq-sheet{padding:14px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px #ffffff,0 30px 80px #171a2133;width:min(86%,calc((100dvh - 360px) * var(--rq-ratio)))}
+#literaturePane .frw.st.has-ea .rq-focus-bar .rq-add-slide:not(:disabled){background:var(--ink)}
+@media(min-width:1001px){
+  /* the whole figure as a small locator, with the panel outlined */
+  #literaturePane .frw.st.has-ea .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.frw-viewport{visibility:visible!important;display:grid;position:absolute;z-index:4;left:44px;right:auto;top:auto;bottom:44px;width:168px;height:auto;min-height:0;max-height:132px;margin:0;padding:7px;border-radius:13px;background:#ffffffe0;backdrop-filter:blur(14px);box-shadow:0 0 0 1px #fff,0 12px 34px #171a2126;overflow:hidden;cursor:pointer;transition:transform .22s var(--ease),box-shadow .2s;pointer-events:auto;opacity:1}
+  #literaturePane .frw.st.has-ea .rq-focused>.frw-viewport:hover{transform:scale(1.06);transform-origin:left bottom;box-shadow:0 0 0 2px var(--link),0 16px 40px #171a2133}
+  #literaturePane .frw.st.has-ea .rq-focused:not(.source-shown):not(:has(.pd-drawing))>.frw-viewport .frw-plate{width:100%!important;height:auto;max-height:118px;aspect-ratio:var(--figure-aspect);animation:none}
+  #literaturePane .frw.st.has-ea .rq-focused>.frw-viewport img{width:100%;height:100%;object-fit:contain}
+  #literaturePane .frw.st.has-ea .rq-focused>.frw-viewport .frw-target{border:2px solid var(--link);border-radius:4px;background:#2f5bea1f}
+}
+
+/* Inspector: explanation, literature, background, then the rest */
+#literaturePane .frw.st.has-ea .rq-chain{order:1;padding:18px 0 0}
+#literaturePane .frw.st.has-ea .rq-path-menu{order:2;padding:4px 0 10px}
+#literaturePane .frw.st.has-ea .rq-path-menu>button{display:none}
+#literaturePane .frw.st.has-ea .rq-path-menu>h4{margin:0 0 4px;font:650 15px/1.5 var(--sans);color:var(--ink)}
+#literaturePane .frw.st.has-ea .rq-paths button{min-height:42px;padding:6px 10px;margin:0 -10px;width:calc(100% + 20px);border:0;border-radius:10px;background:none;font:500 14px/1.45 var(--sans);transition:background-color .15s}
+#literaturePane .frw.st.has-ea .rq-paths button:hover{background:var(--surface-2)}
+#literaturePane .frw.st.has-ea .rq-paper-notes{order:4}
+#literaturePane .frw.st.has-ea .st-more{order:5}
+#literaturePane .frw.st.has-ea .pd-desk{order:1;padding:20px 0 14px}
+#literaturePane .frw.st.has-ea .rq-ask{gap:12px}
+#literaturePane .rq-ask label{font:600 15px/1.5 var(--sans);color:var(--ink)}
+#literaturePane .rq-ask textarea{margin-top:8px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:12px;font:400 15px/1.6 var(--sans);min-height:96px}
+#literaturePane .rq-ask>button:not(.ct-link){order:-1;height:42px;padding:0 20px;border:0;border-radius:11px;font:600 15px/1 var(--sans)}
+#literaturePane .rq-ask>label:first-of-type{order:-2}
+#literaturePane .rq-ask .rq-log{order:-3}
+#literaturePane .frw.st.has-ea :is(blockquote,.rq-primer blockquote){border:0;border-radius:12px;padding:12px 14px;background:var(--surface-2);font:400 14px/1.7 var(--sans)}
+#literaturePane .frw.st.has-ea .rq-primer h4{font:650 15px/1.5 var(--sans)}
+/* A paper stays on screen while its library is open in the drawer */
+.pl-loaded.ps-library-open>section.pl-target{display:block!important}
+
+/* Look first is a switch */
+#literaturePane .frw.st.has-ea .lens-switch{position:relative;height:30px;padding:0 0 0 46px;border:0;background:none!important;color:var(--ink-2)!important;font:550 13px/1 var(--sans);border-radius:8px}
+#literaturePane .frw.st.has-ea .lens-switch::before{content:"";position:absolute;left:0;top:4px;width:38px;height:22px;border-radius:11px;background:#cfd5e0;transition:background-color .28s}
+#literaturePane .frw.st.has-ea .lens-switch::after{content:"";position:absolute;left:2px;top:6px;width:18px;height:18px;border-radius:9px;background:#fff;box-shadow:0 1px 3px #171a2140;transition:left .28s var(--ease)}
+#literaturePane .frw.st.has-ea .lens-switch[aria-pressed=true]::before{background:var(--link)}
+#literaturePane .frw.st.has-ea .lens-switch[aria-pressed=true]::after{left:18px}
+.lens-verdict{position:relative}
+.rm-dot{position:absolute;left:50%;top:50%;width:5px;height:5px;margin:-2.5px;border-radius:50%;background:var(--link);pointer-events:none}
+.rm-ripple{position:absolute;border-radius:50%;background:currentColor;pointer-events:none}
+:is(.th-panel,.dk-add>button,.mm-ai,.st-helpmenu button,.ct-more,.rq-paths button,.st-tools .light){position:relative;overflow:hidden}
+[data-reading-down]{transform:scale(.94)!important}
+@media(prefers-reduced-motion:reduce){[data-reading-down]{transform:none!important}}
+
+#literaturePane .mm-ai{color:#fff!important}
+#literaturePane .frw.st.has-ea .rq-sheet{width:min(86%,calc((100dvh - 420px) * var(--rq-ratio)))}
+#literaturePane .frw.st.has-ea .rq-stage{scrollbar-width:thin}
+#literaturePane .frw.st.has-ea .rq-stage{overflow:hidden auto}
+#literaturePane .frw.st.has-ea .rq-sheet{width:min(86%,calc((100dvh - 470px) * var(--rq-ratio)))}
+@media(min-width:1001px){#literaturePane .rq-focused>.st-dock{left:auto;right:44px;transform:none;max-width:calc(100% - 270px)}}
+#literaturePane .frw.st[data-view=map] .compare-bar h3{font-size:16px}

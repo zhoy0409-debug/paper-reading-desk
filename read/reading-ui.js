@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const labels = new Map(Object.entries({
-    '读一篇论文':'Read a paper','选择主文':'Open a paper','先选一篇论文（PDF、DOCX 或 TXT），支持拖入':'Drop a PDF, DOCX or TXT here',
+    '读一篇论文':'Read a paper','选择主文':'Open a paper','打开 PDF 论文':'Open a PDF','先选一篇论文（PDF、DOCX 或 TXT），支持拖入':'Drop a PDF, DOCX or TXT here',
     '在本机浏览器读取文件。':'Your files are read in this browser.',
     '补充材料 · 选填':'Supplements · optional','参考文献／知识资料 · 选填':'References · optional','可同时添加多份':'Select multiple files',
     '选填：补充材料、参考文献和知识资料':'Add supplements and references','没有可读文件？粘贴原文':'Paste source text',
