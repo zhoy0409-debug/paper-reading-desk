@@ -34,17 +34,84 @@
 /* Close-up: the whole figure stays behind frosted glass, the panel floats on it */
 #literaturePane .frw.st.has-ea .rq-focus{background:#e9ecf1}
 #literaturePane .frw.st.has-ea .rq-focus-bar{position:relative;z-index:3;background:#ffffffb8;backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-color:#ffffff80}
-#literaturePane .frw.st.has-ea .rq-stage{position:relative;padding:26px 26px 92px}
+#literaturePane .frw.st.has-ea .rq-stage{
+  position:relative;
+  padding:clamp(12px,2vw,26px);
+  overflow:hidden auto;
+  scrollbar-width:thin;
+  grid-template-columns:minmax(0,1fr);
+  grid-auto-rows:max-content;
+  justify-content:stretch;
+  align-content:safe center;
+}
+#literaturePane .rq-stage:focus-visible{outline:2px solid var(--link);outline-offset:-2px}
 #literaturePane .frw.st.has-ea .rq-stage::before{display:block;inset:0;z-index:-1;background:linear-gradient(#f3f5f9b0,#eceff4b0),var(--rq-original) center/contain no-repeat;filter:blur(7px) saturate(1.1);transform:scale(1.03)}
-#literaturePane .frw.st.has-ea .rq-sheet{padding:14px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px #ffffff,0 30px 80px #171a2133;width:min(86%,calc((100dvh - 360px) * var(--rq-ratio)))}
+#literaturePane .frw.st.has-ea .rq-sheet{--sheet-pad:14px;padding:var(--sheet-pad);border-radius:16px;background:#fff;box-shadow:0 0 0 1px #ffffff,0 30px 80px #171a2133;width:min(90%,calc(clamp(210px,48dvh,540px) * var(--rq-ratio)))}
 #literaturePane .frw.st.has-ea .rq-focus-bar .rq-add-slide:not(:disabled){background:var(--ink)}
-@media(min-width:1001px){
-  /* the whole figure as a small locator, with the panel outlined */
-  #literaturePane .frw.st.has-ea .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.frw-viewport{visibility:visible!important;display:grid;position:absolute;z-index:4;left:44px;right:auto;top:auto;bottom:44px;width:168px;height:auto;min-height:0;max-height:132px;margin:0;padding:7px;border-radius:13px;background:#ffffffe0;backdrop-filter:blur(14px);box-shadow:0 0 0 1px #fff,0 12px 34px #171a2126;overflow:hidden;cursor:pointer;transition:transform .22s var(--ease),box-shadow .2s;pointer-events:auto;opacity:1}
-  #literaturePane .frw.st.has-ea .rq-focused>.frw-viewport:hover{transform:scale(1.06);transform-origin:left bottom;box-shadow:0 0 0 2px var(--link),0 16px 40px #171a2133}
-  #literaturePane .frw.st.has-ea .rq-focused:not(.source-shown):not(:has(.pd-drawing))>.frw-viewport .frw-plate{width:100%!important;height:auto;max-height:118px;aspect-ratio:var(--figure-aspect);animation:none}
-  #literaturePane .frw.st.has-ea .rq-focused>.frw-viewport img{width:100%;height:100%;object-fit:contain}
-  #literaturePane .frw.st.has-ea .rq-focused>.frw-viewport .frw-target{border:2px solid var(--link);border-radius:4px;background:#2f5bea1f}
+#literaturePane .frw.st.has-ea .rq-hits{inset:var(--sheet-pad)}
+#literaturePane .frw.st.has-ea .rq-hit{border-radius:3px}
+#literaturePane .frw.st.has-ea .rq-hit:is(:hover,:focus-visible,[aria-pressed=true],.rq-preview){
+  outline:1.5px solid var(--link);outline-offset:1.5px;background:#2f5bea0c;
+}
+#literaturePane .frw.st.has-ea .rq-wire path{stroke:var(--link);stroke-width:1.25;stroke-linejoin:round}
+#literaturePane .frw.st .rq-viewport.rq-magnified{overscroll-behavior-y:auto}
+#literaturePane .frw.st.has-ea .rq-viewport.rq-magnified .rq-sheet{width:min(200%,calc(106dvh * var(--rq-ratio)))}
+
+/* Keep navigation in its own row, outside the scrolling image and annotation. */
+#literaturePane .frw.st.has-ea .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.st-dock{
+  position:static;
+  transform:none;
+  align-self:center;
+  min-width:0;
+  max-width:calc(100% - 24px);
+  margin:8px var(--nav-inset,12px) 8px 0;
+}
+#literaturePane .frw.st.has-ea .frw-visual.rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing)){
+  display:grid;
+  grid-template:"head head" auto "panel panel" minmax(0,1fr) "locator tabs" auto / auto minmax(0,1fr);
+  --nav-inset:28px;
+  padding-bottom:10px;
+}
+#literaturePane .frw-visual.rq-focused::after{display:none}
+#literaturePane .rq-focused>.compare-bar{grid-area:head}
+#literaturePane .rq-focused>.rq-focus{grid-area:panel}
+#literaturePane .rq-focused>.st-dock{grid-area:tabs;justify-self:end}
+#literaturePane .frw.st.has-ea .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.frw-viewport{
+  grid-area:locator;
+  position:static;
+  visibility:visible!important;
+  display:grid;
+  place-items:center;
+  width:88px;
+  height:54px;
+  min-height:0;
+  max-height:none;
+  margin:8px 10px 8px var(--nav-inset);
+  padding:3px;
+  overflow:hidden;
+  border-radius:8px;
+  background:white;
+}
+#literaturePane .frw.st.has-ea .rq-focused:not(.source-shown):not(:has(.pd-drawing))>.frw-viewport .frw-plate{
+  width:min(100%,calc(48px * var(--figure-aspect)))!important;
+  height:auto;
+  max-height:none;
+  aspect-ratio:var(--figure-aspect);
+  animation:none;
+}
+#literaturePane .frw.st.has-ea .rq-focused>.frw-viewport img{width:100%;height:auto}
+#literaturePane .frw.st.has-ea .rq-focused>.frw-viewport .frw-target{border:1.5px solid var(--link);border-radius:2px;background:#2f5bea1f}
+@media(max-width:1000px){
+  #literaturePane .frw.st.has-ea .frw-visual.rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing)){
+    --nav-inset:12px;
+    grid-template-rows:auto auto auto;
+  }
+  #literaturePane .frw.st.has-ea .rq-focused:not(.source-shown,.source-folded):not(:has(.pd-drawing))>.frw-viewport{width:56px;height:42px}
+  #literaturePane .frw.st.has-ea .rq-focused:not(.source-shown):not(:has(.pd-drawing))>.frw-viewport .frw-plate{width:min(100%,calc(36px * var(--figure-aspect)))!important}
+  #literaturePane .frw.st.has-ea .rq-focused>.rq-focus{flex:none;min-height:0}
+  #literaturePane .frw.st.has-ea .rq-stage{flex:none;overflow:clip}
+  #literaturePane .frw.st.has-ea .rq-callout{scroll-margin-block:calc(var(--bar,56px) + 8px) 12px}
+  #literaturePane .frw.st:has(>.slide-basket:not([hidden])) .rq-callout{scroll-margin-bottom:var(--basket-space)}
 }
 
 /* Inspector: explanation, literature, background, then the rest */
@@ -82,9 +149,4 @@
 @media(prefers-reduced-motion:reduce){[data-reading-down]{transform:none!important}}
 
 #literaturePane .mm-ai{color:#fff!important}
-#literaturePane .frw.st.has-ea .rq-sheet{width:min(86%,calc((100dvh - 420px) * var(--rq-ratio)))}
-#literaturePane .frw.st.has-ea .rq-stage{scrollbar-width:thin}
-#literaturePane .frw.st.has-ea .rq-stage{overflow:hidden auto}
-#literaturePane .frw.st.has-ea .rq-sheet{width:min(86%,calc((100dvh - 470px) * var(--rq-ratio)))}
-@media(min-width:1001px){#literaturePane .rq-focused>.st-dock{left:auto;right:44px;transform:none;max-width:calc(100% - 270px)}}
 #literaturePane .frw.st[data-view=map] .compare-bar h3{font-size:16px}

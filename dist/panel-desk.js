@@ -70,7 +70,9 @@
     custom.oninput=()=>{labelEdits().label=custom.value;save();refresh()};
     const previewLabel=el('strong'),msg=el('p','','pd-status');msg.setAttribute('role','status');
     const toolbar=el('div','','pd-tools'),sharedList=el('div','','pd-shared');
-    const edit=button('校正边界',()=>arm('panel'));
+    const edit=button('校正边界',()=>crop(fig,active));
+    const redraw=button('',()=>arm('panel'));
+    PaperUI.set(redraw,'重新框选边界','Redraw panel bounds');
     const newPanel=button('手动框选小图',()=>arm('new'));
     const legend=button('框选共用图例／坐标轴／标尺',()=>arm('shared'));
     const undo=button('撤销边界',undoLast);
@@ -79,7 +81,7 @@
     const name=el('input');name.placeholder='图内标签 / Panel label';name.maxLength=60;name.setAttribute('aria-label','新区域名称');
     const moreTools=el('details','','pd-extra-tools'),moreTitle=el('summary');
     PaperUI.set(moreTitle,'其他框选工具','More selection tools');
-    const moreBody=el('div','','pd-tools');moreBody.append(newPanel,legend);
+    const moreBody=el('div','','pd-tools');moreBody.append(redraw,newPanel,legend);
     moreTools.append(moreTitle,moreBody);
     toolbar.append(edit,undo,sourceMode,moreTools,cancel,name);
     const caption=el('textarea');caption.rows=2;caption.maxLength=480;caption.setAttribute('aria-label','可导出的讲解一句话 / Slide narration');
@@ -93,6 +95,14 @@
       save(); refresh(); basket.reveal(k); changed();
     }
     const add=button('加入汇报',addCurrent);add.className='pd-add-slide';
+    const focusCrop=button('',()=>crop(fig,active));
+    PaperUI.set(focusCrop,'调整裁切','Adjust crop');
+    focusCrop.className='rq-crop';
+    const newCrop=button('',()=>crop(fig,active));
+    newCrop.className='pd-source-crop';
+    const sourceBar=plate.closest('.frw-visual')?.querySelector('.compare-bar');
+    sourceBar?.append(newCrop);
+    let cropDialog=null;
     const focusAdd=button('加入汇报',addCurrent);focusAdd.className='rq-add-slide';
     const targetInfo=el('div','','pd-slide-target'),targetThumb=el('img'),targetName=el('strong');
     targetThumb.alt='';targetInfo.append(targetThumb,targetName);
@@ -123,6 +133,7 @@
     const overlay=el('div','','pd-overlay');plate.append(overlay);
     const basket = SlideBasket.mount(ui.workbench, {
       describe, session, exportPpt,
+      crop(k){const item=describe(k);crop(item.figure,item.id)},
       move(k, to) {
         const from = state.queue.indexOf(k);
         if (from < 0 || to < 0 || to >= state.queue.length || from === to) return;
@@ -171,10 +182,34 @@
     function save(){try{PaperShelf.persist(id,state);return true}catch{PaperUI.set(msg,'浏览器未能保存读图状态，请检查本地存储。');return false}}
     function record(f){return state.figures[f.id] ||= newRecord(f.page)}
     function originalBox(f){return f.verifiedRegion||f.pageBox||full}
-    function boxFor(f,pid){
-      const rec=record(f);if(rec.boxes[pid])return rec.boxes[pid];
+    function boxFor(f,pid){return record(f).boxes[pid]||detectedBox(f,pid)}
+    function detectedBox(f,pid){
       const p=f.panels.find(p=>p.id===pid);return p?.region&&f.mode!=='page'?transform(p.region,originalBox(f)):
         p?.region&&f.verifiedRegion?transform(p.region,originalBox(f)):null;
+    }
+    function crop(f,pid){
+      if(!f||cropDialog?.open)return;
+      const p=pid&&panelsFor(f).find(panel=>panel.id===pid);
+      const initial=p?boxFor(f,pid):null;
+      const automatic=p?detectedBox(f,pid):null;
+      const title=f.label+(p?' · '+p.label:'')+' · '+ReaderLanguage.choose(p?'调整裁切':'框选小图',p?'Adjust crop':'Select a panel');
+      cropDialog=PanelCrop.open({host:ui.workbench,session,page:f.page,title,context:originalBox(f),initial,automatic,commit(box){
+        const matches=other=>other&&['x','y','width','height'].every(k=>Math.abs(other[k]-box[k])<1e-8);
+        if(matches(initial))return;
+        const rec=record(f);
+        snapshot(f,pid);
+        let next=pid;
+        if(!p){
+          next='manual-'+crypto.randomUUID();
+          rec.extra.push({id:next,label:ReaderLanguage.choose('手选区域 ','Crop ')+(rec.extra.length+1),title:'手动框选',page:f.page});
+        }
+        if(matches(automatic))delete rec.boxes[next];
+        else rec.boxes[next]=box;
+        save();
+        if(fig===f && active===pid)ui.syncPanels(next);
+        else refresh();
+        changed();
+      }});
     }
     function panelsFor(f){
       const rec=record(f);
@@ -213,9 +248,9 @@
         }finally{bitmap.close()}
       }catch(e){msg.textContent=e.message}finally{mark.disabled=false}
     }
-    function snapshot(){
-      const stack=history[fig.id] ||= [],{boxes,extra,shared,gridLegends={},gridLayouts={}}=record(fig);
-      stack.push({bounds:structuredClone({boxes,extra,shared,gridLegends,gridLayouts}),active});if(stack.length>12)stack.shift();
+    function snapshot(f=fig,selected=active){
+      const stack=history[f.id] ||= [],{boxes,extra,shared,gridLegends={},gridLayouts={}}=record(f);
+      stack.push({bounds:structuredClone({boxes,extra,shared,gridLegends,gridLayouts}),active:selected});if(stack.length>12)stack.shift();
     }
     function undoLast(){const last=history[fig?.id]?.pop();if(!last)return;
       Object.assign(record(fig),last.bounds);
@@ -313,7 +348,9 @@
           thumb.getContext('2d').drawImage(preview,0,0,thumb.width,thumb.height);targetThumb.src=thumb.toDataURL();
         }
       }
-      edit.disabled=!ready||!active;legend.disabled=newPanel.disabled=sourceMode.disabled=!ready;
+      focusCrop.disabled=!ready||!active;newCrop.disabled=!ready;
+      PaperUI.set(newCrop,p?'调整裁切':'框选小图',p?'Adjust crop':'Select a panel');
+      redraw.disabled=edit.disabled=!ready||!active;legend.disabled=newPanel.disabled=sourceMode.disabled=!ready;
       cancel.hidden=!tool;name.hidden=!['new','shared'].includes(tool);
       PaperUI.set(sourceMode,ui.pageMode()?'返回整图范围':'从原页框选');
       sharedList.replaceChildren();
@@ -391,7 +428,7 @@
       syncQueue(){save();refresh();changed()},
       removeSlide(k){dropSlide(k);save();refresh();changed()},
       renderPanel(k){const i=describe(k);return PaperPanelLabels.rendered(session,i.figure,i.box,i.recipe)},
-      focusAdd,syncLine,slideName:(fid,pid)=>describe(key(fid,pid)).name,destroy(){document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
+      focusCrop,focusAdd,syncLine,slideName:(fid,pid)=>describe(key(fid,pid)).name,destroy(){cropDialog?.close();document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
       image(mode){basis=mode==='figure'?originalBox(fig):full;ready=true;refresh()},
       spot(f,p,zoom,pageMode){state.spot={figure:f.id,panel:p||'',page:f.page,zoom,pageMode};save()},
       figurePanelRegion(f,id){

@@ -388,6 +388,10 @@
       zoomButton.focus({preventScroll:true});zoomButton.click();
     },{passive:false});
     zoomButton.setAttribute('aria-pressed','false');
+    stage.tabIndex=0;
+    stage.setAttribute('role','region');
+    function nameStage(){stage.setAttribute('aria-label',ReaderLanguage.choose('小图与元素解释','Panel and annotation'))}
+    nameStage();
     viewport.setAttribute('role','region');
     viewport.setAttribute('aria-label','小图细节 / Panel detail');
     function centerHit(hit){
@@ -439,7 +443,7 @@
       ignoreDragClick=false;e.stopPropagation();e.preventDefault();
     },true);
     viewport.addEventListener('scroll',drawWire,{passive:true});
-    barActions.append(desk.focusAdd,zoomButton,btn('返回整图','Full figure',goFull),pageButton);
+    barActions.append(desk.focusAdd,zoomButton,btn('返回整图','Full figure',goFull),pageButton,desk.focusCrop);
     bar.append(label,barActions);const shared=el('div','rq-shared-legend');shared.hidden=true;stage.append(viewport,shared,wire,callout);viewport.append(sheet);sheet.append(canvas,layer);
     const keys=el('details','rq-key-list'),keySummary=el('summary'),keyList=el('div');keys.append(keySummary,keyList);
     const tickNote=btn('右侧部分刻度在原页中也显示不全 · 核对原页','Clipped tick labels · View PDF',()=>source(figure.page));
@@ -449,26 +453,47 @@
       if(activeHit){centerHit(activeHit);activeHit.focus({preventScroll:true});drawWire()}
     });
     locate.className='rq-locate';locate.hidden=true;
-    const observer=new ResizeObserver(()=>drawWire());observer.observe(stage);
+    const observer=new ResizeObserver(()=>drawWire());observer.observe(stage);observer.observe(callout);observer.observe(sheet);
     function drawWire(){
       if(!activeHit||callout.hidden)return;
-      const r=stage.getBoundingClientRect(),a=activeHit.getBoundingClientRect(),b=callout.getBoundingClientRect();
+      const r=wire.getBoundingClientRect(),a=activeHit.getBoundingClientRect(),b=callout.getBoundingClientRect();
       const v=(shared.contains(activeHit)?shared:viewport).getBoundingClientRect();
       const left=Math.max(a.left,v.left),right=Math.min(a.right,v.right),top=Math.max(a.top,v.top),bottom=Math.min(a.bottom,v.bottom);
       const outside=right<=left||bottom<=top;
       locate.hidden=!outside;
       if(outside){path.removeAttribute('d');return}
-      const box=sheet.getBoundingClientRect();
-      const x=traceAnchor?box.left+traceAnchor[0]*box.width-r.left:(left+right)/2-r.left,y=traceAnchor?box.top+traceAnchor[1]*box.height-r.top:(top+bottom)/2-r.top,ex=b.left+16-r.left,ey=b.top-r.top;
+      const box=canvas.getBoundingClientRect();
+      const x=traceAnchor?box.left+traceAnchor[0]*box.width-r.left:(left+right)/2-r.left;
+      const y=traceAnchor?box.top+traceAnchor[1]*box.height-r.top:(top+bottom)/2-r.top;
+      const ey=b.top-r.top,ex=b.left+16-r.left;
       wire.setAttribute('viewBox','0 0 '+Math.max(1,r.width)+' '+Math.max(1,r.height));
+      if(!traceAnchor && layer.contains(activeHit) && shared.hidden){
+        const onLeft=x+r.left<(box.left+box.right)/2;
+        const start=(onLeft?left-2:right+2)-r.left;
+        const side=onLeft?Math.max(v.left,box.left-6):Math.min(v.right,box.right+6);
+        const lane=side-r.left;
+        path.setAttribute('d','M '+start+' '+y+' H '+lane+' V '+ey);
+        return;
+      }
       const offset=ey-12;
       if(!shared.hidden && !shared.contains(activeHit)){
         const below=Math.min(offset,viewport.getBoundingClientRect().bottom-r.top+3);
         path.setAttribute('d','M '+x+' '+y+' V '+below+' H '+ex+' V '+ey);
       }else path.setAttribute('d','M '+x+' '+y+' V '+offset+' L '+ex+' '+ey);
     }
+    function revealTip(){
+      // Reveal the start of a long note. Keep its remaining paragraphs in the same scroll area.
+      if(stage.scrollHeight>stage.clientHeight && getComputedStyle(stage).overflowY==='auto'){
+        const area=stage.getBoundingClientRect(),note=callout.getBoundingClientRect();
+        const delta=Math.min(note.top-area.top-10,Math.max(0,note.bottom-area.bottom+10));
+        if(delta)stage.scrollBy({top:delta,behavior:'instant'});
+      }else if(matchMedia('(max-width:1000px)').matches){
+        callout.scrollIntoView({block:'nearest',behavior:'instant'});
+      }
+    }
     let traceAnchor=null;
     function showTip(b,entry,row,anchor=null){
+      enterAnimation?.finish();
       if(entry.askOnly){
         closeTip();openQuestion(entry[0],ReaderLanguage.choose('图中的「'+entry[0]+'」在这项比较中表示什么？','What does “'+entry[0]+'” represent in this comparison?'),row);return;
       }
@@ -484,7 +509,7 @@
       actions.append(btn('继续追问','Ask a question',()=>openQuestion([ReaderLanguage.choose(entry[0],entry[1]),ReaderLanguage.choose(entry[2],entry[3])].join('\n'),'',row)));
       if(entry.model)ModelReading.details(callout,entry.model);
       callout.append(actions);callout.hidden=false;wire.classList.remove('rq-draw');drawWire();
-      requestAnimationFrame(()=>{wire.classList.add('rq-draw');drawWire()});
+      requestAnimationFrame(()=>{if(activeHit!==b||callout.hidden)return;revealTip();wire.classList.add('rq-draw');drawWire()});
     }
     function closeTip(){activeHit?.setAttribute('aria-pressed','false');activeHit=null;callout.hidden=true;locate.hidden=true;path.removeAttribute('d');wire.classList.remove('rq-draw')}
     function setTab(to){
@@ -685,7 +710,7 @@
         const titleZh=entry.askOnly?'询问「'+entry[0]+'」':entry[0];
         const name=ReaderLanguage.choose(titleZh,hintEn);b.dataset.nameZh=titleZh;b.dataset.nameEn=hintEn;b.setAttribute('title',name);b.setAttribute('aria-label',name);b.setAttribute('aria-pressed','false');
         b.onclick=e=>{
-          e.stopPropagation();const rect=sheet.getBoundingClientRect();
+          e.stopPropagation();const rect=canvas.getBoundingClientRect();
           if(trace && values && FigureElements.reference(part?.raw.reading?.sources?.find(s=>s.kind==='小图图注')?.text)){
             const x=(e.clientX-rect.left)/rect.width;
             const i=trace.reduce((best,pt,j)=>Math.abs(pt[0]-x)<Math.abs(trace[best][0]-x)?j:best,0);
@@ -739,7 +764,7 @@
         from={left:box.left+box.width*r.x,top:box.top+box.height*r.y,width:box.width*r.width,height:box.height*r.height};
         from.bottom=from.top+from.height;
       }
-      shared.replaceChildren();shared.hidden=true;key=next;const current=++epoch;closeTip();setZoom(false);viewer.hidden=!on;visual.classList.toggle('rq-focused',on);notes.classList.toggle('rq-has-focus',on);
+      stage.scrollTop=0;shared.replaceChildren();shared.hidden=true;key=next;const current=++epoch;closeTip();setZoom(false);viewer.hidden=!on;visual.classList.toggle('rq-focused',on);notes.classList.toggle('rq-has-focus',on);
       if(!on){apply([]);return}
       pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
@@ -841,9 +866,12 @@
     }
     stage.addEventListener('click',e=>{if(!e.target.closest('button,[role=button],.rq-callout'))dismissLayer()});
     const escape=e=>{if(e.key==='Escape'&&!desk.isDrawing()&&!viewer.hidden&&!visual.classList.contains('source-shown')&&!document.querySelector('dialog[open]')&&!e.target.closest('textarea,input')&&!document.querySelector('.local-translation:not([hidden])')){if(e.defaultPrevented)return;e.preventDefault();dismissLayer()}};
-    const refreshHitNames=()=>layer.querySelectorAll('[data-name-zh]').forEach(b=>{
-      const name=ReaderLanguage.choose(b.dataset.nameZh,b.dataset.nameEn);b.setAttribute('title',name);b.setAttribute('aria-label',name);
-    });
+    const refreshHitNames=()=>{
+      nameStage();
+      for(const b of layer.querySelectorAll('[data-name-zh]')){
+        const name=ReaderLanguage.choose(b.dataset.nameZh,b.dataset.nameEn);b.setAttribute('title',name);b.setAttribute('aria-label',name);
+      }
+    };
     document.addEventListener('reader-language-change',refreshHitNames);
     document.addEventListener('keydown',escape);
     return {render,destroy(){EnglishPractice.close();document.removeEventListener('reader-practice-context',enrichPractice);document.removeEventListener('reader-language-change',refreshHitNames);epoch++;conversation.clear();observer.disconnect();document.removeEventListener('reader-ask-selection',selected);document.removeEventListener('keydown',escape)}};

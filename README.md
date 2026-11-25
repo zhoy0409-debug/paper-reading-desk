@@ -16,7 +16,11 @@ Start with the public sample, or drop in your own PDF. Your browser reads the fi
 
 ## How does a figure fit into the argument and into my talk?
 
-On desktop, the paper outline, original figure and explanation share one screen. Open a panel for a close-up. A locator shows where it sits in the whole figure. Select an axis, legend or scale bar to read its explanation.
+Choose **Adjust crop** in a panel or **Crop** on a slide-basket card. Drag an edge or corner to include the axis, legend or scale bar. Apply the crop to update its preview and export.
+
+![The crop editor on the public sample paper. Drag its handles to include labels and axes.](docs/guide/crop-en.webp)
+
+On desktop, the paper outline, original figure and explanation share one screen. Open a panel for a close-up. A thumbnail below the reading area marks the current panel in the whole figure. Select an axis, legend or scale bar to bring its explanation into view. Scroll through the note to reach its source and follow-up actions.
 
 ![A public paper’s mind map alongside its original figure](docs/guide/studio-map-en.webp)
 

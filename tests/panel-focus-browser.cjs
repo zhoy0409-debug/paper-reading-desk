@@ -43,7 +43,8 @@ async function check(page, base, pdf) {
   assert.match(await callout.innerText(),/假处理|sham/i);
   await panel('E').click();
 
-  const correct = report.getByRole('button',{name:'校正边界',exact:true});
+  await report.locator('.pd-extra-tools > summary').click();
+  const correct = report.getByRole('button',{name:'重新框选边界',exact:true});
   await correct.click();
   await page.locator('.pd-drawing:visible').waitFor();
   assert.equal(await focus.count(),0);

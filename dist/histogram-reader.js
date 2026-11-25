@@ -117,7 +117,10 @@
         for(const word of l.words){
           const b=word.bbox,prev=lines.at(-1);
           if(prev&&b.x0-prev.x1<(b.y1-b.y0)*1.25){
-            prev.text+=' '+word.text;prev.x1=b.x1;prev.conf=Math.min(prev.conf,word.confidence);
+            prev.text+=' '+word.text;
+            prev.x0=Math.min(prev.x0,b.x0);prev.x1=Math.max(prev.x1,b.x1);
+            prev.y0=Math.min(prev.y0,b.y0);prev.y1=Math.max(prev.y1,b.y1);
+            prev.conf=Math.min(prev.conf,word.confidence);
           }else lines.push({...b,text:word.text,conf:word.confidence});
         }
         return lines;
@@ -436,20 +439,59 @@
       }).catch(()=>{if(!closed&&mine===version)uncertain()});
     }
     // Most vertical chart labels read from bottom to top. Rotate only the two margins.
-    async function verticalLabels(canvas,isCurrent){
+    // A rotated µ may be read as y. Only reuse a unit when the printed suffix also matches.
+    function matchedExtent(canvas,horizontal,strip,line){
+      const candidate=/^([xy]):(\d+)\((\d+(?:\.\d+)?)[µμuy]m\)$/i.exec(line.text.replace(/\s/g,''));
+      if(!candidate)return null;
+      const ref=horizontal.find(l=>{
+        const m=/^([xy]):(\d+)\((\d+(?:\.\d+)?)[µμu]m\)$/i.exec(l.text.replace(/\s/g,''));
+        return l.conf>=65 && m && m[1].toLowerCase()!==candidate[1].toLowerCase() && m[2]===candidate[2] && m[3]===candidate[3];
+      });
+      if(!ref)return null;
+      const width=160,height=28;
+      function mask(source,b){
+        const c=document.createElement('canvas');c.width=width;c.height=height;
+        const ctx=c.getContext('2d');ctx.drawImage(source,b.x0,b.y0,b.x1-b.x0,b.y1-b.y0,0,0,width,height);
+        return ctx.getImageData(0,0,width,height).data;
+      }
+      const a=mask(canvas,ref),b=mask(strip,line);
+      let best=0;
+      for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){
+        let common=0,total=0,unitCommon=0,unitTotal=0;
+        for(let y=2;y<height-2;y++)for(let x=32;x<width-2;x++){
+          const inkA=a[4*(y*width+x)]<140,inkB=b[4*((y+dy)*width+x+dx)]<140;
+          if(inkA||inkB)total++;
+          if(inkA&&inkB)common++;
+          if(x>=width*.76){if(inkA||inkB)unitTotal++;if(inkA&&inkB)unitCommon++}
+        }
+        if(total>80&&unitTotal>24)best=Math.max(best,Math.min(common/total,unitCommon/unitTotal));
+      }
+      return best>=.68?candidate[1]+':'+candidate[2]+'('+candidate[3]+' µm)':null;
+    }
+    async function verticalLabels(canvas,horizontal,isCurrent){
       const labels=[];
       const band=Math.max(1,Math.ceil(canvas.width*.15));
       const strip=document.createElement('canvas');strip.width=canvas.height;strip.height=band;
       const ctx=strip.getContext('2d');
       try{
         for(const start of [0,canvas.width-band]){
-          if(!isCurrent())break;
-          ctx.setTransform(0,1,-1,0,canvas.height,-start);
-          ctx.drawImage(canvas,0,0);
-          for(const line of await ocrLines(strip)){
-            if(line.conf<70||line.x1-line.x0<(line.y1-line.y0)*2.1||!/[a-z]{2}/i.test(line.text))continue;
-            labels.push({text:line.text.trim(),rotate:true,x0:(start+line.y0)/canvas.width,x1:(start+line.y1)/canvas.width,
-              y0:1-line.x1/canvas.height,y1:1-line.x0/canvas.height});
+          for(const down of (start?[true,false]:[false,true])){
+            if(!isCurrent())return labels;
+            if(down)ctx.setTransform(0,-1,1,0,0,start+band);
+            else ctx.setTransform(0,1,-1,0,canvas.height,-start);
+            ctx.drawImage(canvas,0,0);
+            const found=[];
+            for(const line of await ocrLines(strip)){
+              if(line.x1-line.x0<(line.y1-line.y0)*2.1||!/[a-zµμ]{2}/i.test(line.text))continue;
+              const text=line.conf>=70?line.text.trim():matchedExtent(canvas,horizontal,strip,line);
+              if(!text)continue;
+              found.push({text,rotate:true,
+                x0:(down?start+band-line.y1:start+line.y0)/canvas.width,
+                x1:(down?start+band-line.y0:start+line.y1)/canvas.width,
+                y0:down?line.x0/canvas.height:1-line.x1/canvas.height,
+                y1:down?line.x1/canvas.height:1-line.x0/canvas.height});
+            }
+            if(found.length){labels.push(...found);break}
           }
         }
       }finally{strip.width=strip.height=0}
@@ -470,8 +512,8 @@
           const lines=await ocrLines(c);
           const labels=lines.filter(l=>l.conf>=65&&/[\p{L}]{2}|[µμ]m|\d+\s*h\b/u.test(l.text))
             .map(l=>({text:l.text.trim(),x0:l.x0/c.width,x1:l.x1/c.width,y0:l.y0/c.height,y1:l.y1/c.height}));
-          const axisLike=lines.some(l=>/\b(?:time|frequency|intensity|score|voltage|distance|probability|concentration)\b/i.test(l.text));
-          if(axisLike&&isCurrent())labels.push(...await verticalLabels(c,isCurrent));
+          const axisLike=lines.some(l=>/^\s*x\s*[:：]\s*\d/i.test(l.text)||/\b(?:time|frequency|intensity|score|voltage|distance|probability|concentration)\b/i.test(l.text));
+          if(axisLike&&isCurrent())labels.push(...await verticalLabels(c,lines,isCurrent));
           if(!isCurrent())return [];
           labelCache.set(key,labels);if(labelCache.size>64)labelCache.delete(labelCache.keys().next().value);
           return labels;

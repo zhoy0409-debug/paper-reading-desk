@@ -139,6 +139,13 @@
     }finally{canvas.width=canvas.height=0}
   }
   function labelGuide(label,sources=[],page){
+    const extent=label.match(/^\s*([xy])\s*[:：]\s*\d+\s*\(\s*(\d+(?:\.\d+)?)\s*[µμu]m\s*\)\s*$/i);
+    if(extent){
+      const horizontal=extent[1].toLowerCase()==='x',length=extent[2]+' µm';
+      const zh=horizontal?'横向箭头从视野左边指向右边。括号里的 '+length+' 是整幅图像在这个方向上的宽度。':'纵向箭头标出视野从上到下的范围。括号里的 '+length+' 是整幅图像在这个方向上的高度。';
+      const en='The '+(horizontal?'horizontal':'vertical')+' arrow spans the field of view. The '+length+' in parentheses is the physical '+(horizontal?'width':'height')+' of the image.';
+      return [label,label,zh,en,page];
+    }
     const pairs=[
       [/\btime\b|\b\d+\s*(?:h|hr|min|s)\b/i,'时间标记。先看标注的单位，再沿时间轴读出观测的先后顺序。','Read the time unit first, then follow the order of observations along the timeline.'],
       [/\d\s*[µμu]m\b(?![²2])/i,'比例尺标的是图上这段线对应的实际长度，可用来估计同一幅图中结构的大小。','The scale bar gives the physical length of the marked segment. Compare structures against it within this image.'],
