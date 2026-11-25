@@ -13,6 +13,7 @@ const terminology=[
   ['Klebsiella pneumoniae','肺炎克雷伯菌'],['Bacteroides vulgatus','普通拟杆菌'],['Bacteroides thetaiotaomicron','多形拟杆菌'],['Bacteroides fragilis','脆弱拟杆菌'],
   ['scanning electron microscopy','扫描电子显微镜'],['transmission electron microscopy','透射电子显微镜'],['wild-type','野生型'],
   ['murine lung infection model','小鼠肺部感染模型'],['murine pneumonia model','小鼠肺炎模型'],['lipoprotein trafficking','脂蛋白转运'],
+  ['single-crop testing','单裁剪测试'],['multi-crop testing','多裁剪测试'],['learned parameters','模型参数量'],['FLOPs','浮点运算次数（FLOPs）'],
   ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],['abaucin','abaucin']
 ];
 const exactNames=new Map(terminology);
@@ -79,6 +80,26 @@ export function sentences(text){
     if(out.length&&/(?:\b[A-Z]|\bFig|\bet al)\.$/.test(out.at(-1)))out[out.length-1]+=' '+s;else out.push(s);return out;
   },[]);
 }
+// Parenthesized panel positions describe different variables. Translate each association
+// separately so a missing qualifier cannot silently transfer a variable to the other panel.
+function comparisonCaption(body){
+  const panels=body.match(/^(.+?)\s+as a function of\s+(.+?)\s+\((left|right)\)\s+and\s+(.+?)\s+\((left|right)\)[.]?$/i);
+  if(!panels||panels[3].toLowerCase()===panels[5].toLowerCase())return null;
+  const metric=panels[1].match(/^Comparison of (?:the )?([\w.-]+) and ([\w.-]+)\s+(top[- ](\d+)\s+(error rates?|accurac(?:y|ies)))(?:\s*\((single|multi)[- ]crop testing\))?\s+on (?:the )?([\w.-]+)\s+(validation|test|training)\s+(?:data\s*set|set)$/i);
+  if(!metric)return null;
+  function variable(value){
+    if(/^(?:learned|trainable|model) parameters$|^(?:the )?number of (?:learned |trainable |model )?parameters$/i.test(value))return '模型参数量';
+    if(/^FLOPs(?: during test[- ]time| at inference)?$/i.test(value))return (/\b(?:test|inference)\b/i.test(value)?'推理时的':'')+'浮点运算次数（FLOPs）';
+    if(/^(?:training )?epochs?$/i.test(value))return '训练轮次';
+    return null;
+  }
+  const first=variable(panels[2]),second=variable(panels[4]);
+  if(!first||!second)return null;
+  const dataset={validation:'验证集',test:'测试集',training:'训练集'}[metric[8].toLowerCase()];
+  const crop=metric[6]?'（'+(metric[6].toLowerCase()==='single'?'单':'多')+'裁剪测试）':'';
+  const side=s=>s.toLowerCase()==='left'?'左图':'右图';
+  return '比较 '+metric[1]+' 和 '+metric[2]+' 在 '+metric[7]+' '+dataset+'上的 Top-'+metric[4]+(/^error/i.test(metric[5])?' 错误率':' 准确率')+crop+'。'+side(panels[3])+'横轴为'+first+'，'+side(panels[5])+'横轴为'+second+'。';
+}
 export async function translatePassage(original,from,translate){
   if(from!=='en')return {text:await translate(original,from),warnings:[]};
   const lines=[],warnings=[];
@@ -89,6 +110,8 @@ export async function translatePassage(original,from,translate){
     if(exact){lines.push(exact[1]);continue}
     const fig=s.match(/^(?:Fig(?:ure)?\.?)\s*([S\d]+[a-z]?)\s*(?:[|.:]\s*)?/i);
     const body=fig?s.slice(fig[0].length):s;
+    const parallel=comparisonCaption(body);
+    if(parallel){lines.push((fig?'图 '+fig[1]+'　':'')+parallel);continue}
     const keys=[...new Set([...body.matchAll(/\b(?:[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|[Aa]baucin)\b/g)].map(m=>m[0]))];
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
     const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells');
@@ -105,11 +128,14 @@ export async function translatePassage(original,from,translate){
     }
     if(/\bresiduals?\b/i.test(body)&&/\b(?:cosmolog\w*|Hubble|best[- ]fit|distance modul\w*)\b/i.test(body))
       result=result.replace(/残余物|残留物|残余量/g,'残差').replace(/最适合的宇宙学(?!模型)/g,'最佳拟合宇宙学模型');
+    if(/\b(?:single|multi)[- ]crop testing\b/i.test(body))
+      result=result.replace(/单(?:一)?作物测试/g,'单裁剪测试').replace(/多(?:种)?作物测试/g,'多裁剪测试');
+    const missingSide=['left','right'].some((side,i)=>new RegExp('\\('+side+'\\)','i').test(body)&&!result.includes(i?'右':'左'));
     const numbers=body.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
     const resultNumbers=result.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
     const equalNumbers=numbers.map(n=>n.replace(/\s/g,'')).sort().join('|')===resultNumbers.map(n=>n.replace(/\s/g,'')).sort().join('|');
     const panelRefs=s=>Array.from(s.matchAll(/\(([a-z])\)|[（(]([a-z])[)）]|(?:图|小图)\s*([a-z])\b/gi),m=>(m[1]||m[2]||m[3]).toLowerCase()).sort().join(',');
-    if(!equalNumbers||keys.some(k=>!result.includes(k))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
+    if(missingSide||!equalNumbers||keys.some(k=>!result.includes(k))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
       panelRefs(body)!==panelRefs(result)||(/\b(?:not|no|without)\b/i.test(body)&&!/[无不未没非]/.test(result))){
       warnings.push(s);result=body+(terms.length?'\n'+terms.map(([en,zh])=>en+' · '+zh).join('　'):'');
     }
@@ -122,8 +148,9 @@ export async function translatePassage(original,from,translate){
 export async function mapChinese(source,translate){
   const han=/[\u3400-\u9fff]/u;
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
+  names.set('(left)','（左图）');names.set('(right)','（右图）');
   const escaped=[...names.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[\-\/\\^$*+?.()|[\]{}]/g,'\\$&'));
-  const technical=/\b[A-Z]\.\s+[a-z]{3,}\b|\b[A-Z]\d+[A-Z]\b|\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
+  const technical=/\((?:left|right)\)|\b[A-Z]\.\s+[a-z]{3,}\b|\b[A-Z]\d+[A-Z]\b|\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
   const pattern=escaped.map(v=>v.replace(/[a-z]/gi,c=>'['+c.toUpperCase()+c.toLowerCase()+']')).join('|');
   const anchors=new RegExp(pattern+'|'+technical.source,'g');
   async function protectedSentence(s){

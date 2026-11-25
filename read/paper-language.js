@@ -34,7 +34,7 @@
   };
   function chinese(source) {
     if(!cache.has(source)){
-      const job=import(new URL('scientific-translation.js?rev=charts-042',base)).then(async({mapChinese})=>{
+      const job=import(new URL('scientific-translation.js?rev=translation-043',base)).then(async({mapChinese})=>{
         if(!han.test(source))return mapChinese(source,translate);
         const parts=source.split(/([\u3400-\u9fff]+)/u);
         return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translate):part))).join('');
