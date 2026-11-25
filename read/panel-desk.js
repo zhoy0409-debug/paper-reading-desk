@@ -84,18 +84,17 @@
     toolbar.append(edit,undo,sourceMode,moreTools,cancel,name);
     const caption=el('textarea');caption.rows=2;caption.maxLength=480;caption.setAttribute('aria-label','可导出的讲解一句话 / Slide narration');
     const captionLabel=PaperUI.set(el('label'),'讲解一句话');captionLabel.append(caption);
-    const add=button('加入汇报',()=>{
-      const k=key(fig.id,active);if(state.queue.includes(k))return;
-      state.queue.push(k);save();refresh();
-      const mark=document.createElementNS('http://www.w3.org/2000/svg','svg');
-      mark.setAttribute('viewBox','0 0 20 20');mark.setAttribute('aria-hidden','true');mark.classList.add('pd-added-check');
-      const path=document.createElementNS(mark.namespaceURI,'path');path.setAttribute('d','M3 10l4.5 4.5L17 5');path.setAttribute('pathLength','1');
-      mark.append(path);add.prepend(mark);
-    });add.classList.add('pd-add-slide');
+    function addCurrent() {
+      if (!fig || !active || !boxFor(fig, active)) return;
+      const k = key(fig.id, active);
+      if (state.queue.includes(k)) return;
+      state.queue.push(k);
+      save(); refresh(); basket.reveal(k);
+    }
+    const add=button('加入汇报',addCurrent);add.className='pd-add-slide';
+    const focusAdd=button('加入汇报',addCurrent);focusAdd.className='rq-add-slide';
     const targetInfo=el('div','','pd-slide-target'),targetThumb=el('img'),targetName=el('strong');
     targetThumb.alt='';targetInfo.append(targetThumb,targetName);
-    const collection=el('details');const trayHead=el('summary');collection.append(trayHead);
-    const tray=el('div');collection.append(tray);
     const exportButton=button('导出 PPTX',exportPpt);exportButton.className='pd-export';
     const png=button('保存小图 PNG',async()=>{
       if(!active||png.disabled)return;
@@ -115,12 +114,44 @@
     manage.append(noteLabel,urlLabel);
     const report=el('details','','pd-report'),reportTitle=el('summary'),reportBody=el('div','','pd-report-body');
     PaperUI.set(reportTitle,'裁切与汇报','Crop & present');
-    reportBody.append(targetInfo,toolbar,numbering,sharedList,captionLabel,add,png,collection,exportButton);
+    reportBody.append(targetInfo,toolbar,numbering,sharedList,captionLabel,add,png,exportButton);
     report.append(reportTitle,reportBody);report.addEventListener('toggle',()=>{if(!report.open && tool)stop();refresh()});
     caption.placeholder='写下这一小图支持的一句话 / Add an evidence-based takeaway';
     holder.append(previewLabel,previewButton,ui.explain,ui.boundary,ui.more,report,manage,saveNode,msg);
     notes.append(holder);
     const overlay=el('div','','pd-overlay');plate.append(overlay);
+    const basket = SlideBasket.mount(ui.workbench, {
+      describe, session, exportPpt,
+      move(k, to) {
+        const from = state.queue.indexOf(k);
+        if (from < 0 || to < 0 || to >= state.queue.length || from === to) return;
+        state.queue.splice(from, 1); state.queue.splice(to, 0, k);
+        save(); refresh();
+      },
+      remove(k) {
+        state.queue = state.queue.filter(item => item !== k);
+        save(); refresh();
+      },
+      edit(k, text) {
+        const [fid, pid] = JSON.parse(k);
+        if (state.figures[fid]) state.figures[fid].sentences[pid] = text;
+        if (fig?.id === fid && active === pid) caption.value = text;
+        save();
+      }
+    });
+    function describe(k) {
+      const [fid, pid] = JSON.parse(k), figure = paper.figures.find(f => f.id === fid);
+      const panel = figure && panelsFor(figure).find(p => p.id === pid);
+      const box = panel && boxFor(figure, pid);
+      const rec = figure && record(figure);
+      const label = panel?.sourcePanel || panel?.label || pid;
+      return {
+        figure, id:pid, label, name:(figure?.label || fid) + ' · ' + label, box,
+        recipe:box ? outputPlan(figure, panel, box) : null,
+        shared:[...(rec?.shared || []), ...(panel?.gridShared || []), ...(rec?.gridLegends?.[panel?.gridGroup] || [])],
+        sentence:rec?.sentences[pid] ?? defaultText(figure, panel), publicUrl:state.publicUrl ?? paper.publicUrl
+      };
+    }
     function save(){try{PaperShelf.persist(id,state);return true}catch{PaperUI.set(msg,'浏览器未能保存读图状态，请检查本地存储。');return false}}
     function record(f){return state.figures[f.id] ||= newRecord(f.page)}
     function originalBox(f){return f.verifiedRegion||f.pageBox||full}
@@ -228,9 +259,7 @@
       if(window.ReaderLanguage?.current!=='en'||!/[\u3400-\u9fff]/.test(text))return text;
       return reading.narrationEn||reading.rows?.find(r=>r.zh===text&&r.enText)?.enText||'';
     }
-    document.addEventListener('reader-language-change',()=>{
-      if(fig&&active&&record(fig).sentences[active]===undefined)caption.value=defaultText(fig,rawPanel());
-    });
+    document.addEventListener('reader-language-change',refresh);
     function previewCrop(box){
       previewButton.hidden=preview.hidden=true;if(!ready||!box)return;
       const r=relative(box,basis);
@@ -274,29 +303,33 @@
       sharedList.replaceChildren();
       for(const s of r.shared)sharedList.append(button(s.label+' ×',()=>{snapshot();r.shared=r.shared.filter(v=>v!==s);save();refresh()}));
       captionLabel.hidden=!p;caption.value=r.sentences[active]??defaultText(fig,p);
-      add.disabled=!b;PaperUI.set(add,state.queue.includes(key(fig.id,active))?'已加入汇报':'加入汇报');
-      note.value=state.notes[key(fig.id,active)]||'';pub.value=state.publicUrl??paper.publicUrl??'';
-      tray.replaceChildren();PaperUI.set(trayHead,'汇报图件（'+state.queue.length+'）','Slide queue · '+state.queue.length);
-      for(const k of state.queue){
-        const [fid,pid]=JSON.parse(k),f=paper.figures.find(f=>f.id===fid),p=f&&panelsFor(f).find(p=>p.id===pid);
-        const row=el('div');row.append(el('span',(f?.label||'图件')+' · '+(p?.label||'边界待补')),button('移除',()=>{state.queue=state.queue.filter(s=>s!==k);save();refresh()}));tray.append(row);
+      const selected = state.queue.includes(key(fig.id, active));
+      for (const control of [focusAdd, add]) {
+        control.disabled = !b || selected;
+        PaperUI.set(control, selected ? '已加入汇报' : '加入汇报', selected ? 'Added to slides' : 'Add to slides');
       }
+      note.value=state.notes[key(fig.id,active)]||'';pub.value=state.publicUrl??paper.publicUrl??'';
+      basket.sync(state.queue,pending);
       exportButton.disabled=!state.queue.length||pending;
     }
-    caption.oninput=()=>{if(fig&&active){record(fig).sentences[active]=caption.value;save()}};
+    caption.oninput=()=>{if(fig&&active){record(fig).sentences[active]=caption.value;basket.setNote(key(fig.id,active),caption.value);save()}};
     note.oninput=()=>{state.notes[key(fig.id,active)]=note.value;save()};
     pub.onchange=()=>{try{const raw=pub.value.trim();if(raw&&!['http:','https:'].includes(new URL(raw).protocol))throw Error();state.publicUrl=raw;save()}catch{PaperUI.set(msg,'来源链接需为完整的 HTTP 或 HTTPS 地址。');pub.value=state.publicUrl??paper.publicUrl??''}};
     async function exportPpt(){
-      if(pending)return;pending=true;exportButton.disabled=true;PaperUI.set(msg,'正在从原 PDF 裁图并生成 PPTX…');
-      try{
-        const items=state.queue.map(k=>{const [fid,pid]=JSON.parse(k),f=paper.figures.find(f=>f.id===fid),p=f&&panelsFor(f).find(p=>p.id===pid),box=p&&boxFor(f,pid);
-          if(!box)throw Error('汇报中有已撤销或缺少边界的小图，请移除或重新框选。');
-          const recipe=outputPlan(f,p,box);
-          if(recipe&&!recipe.known)throw Error(f.label+' · '+p.label+'：请标出旧编号，或确认裁切内没有旧编号。 / Locate the printed label.');
-          return {figure:f,id:pid,label:p.sourcePanel||p.label,box,recipe,shared:[...record(f).shared,...(p.gridShared||[]),...(record(f).gridLegends?.[p.gridGroup]||[])],sentence:record(f).sentences[pid]??defaultText(f,p),publicUrl:state.publicUrl??paper.publicUrl};
-        });
-        await PaperTalk.build({paper,session,fileId:id,items});PaperUI.set(msg,'已导出 '+items.length+' 张独立小图。',items.length+' independent panels exported.');
-      }catch(e){PaperUI.set(msg,e.message||'导出未完成。')}finally{pending=false;refresh()}
+      if(pending || !state.queue.length)return;
+      pending=true;exportButton.disabled=true;basket.sync(state.queue,true);basket.message('');
+      PaperUI.set(msg,'正在从原 PDF 裁图并生成 PPTX…');
+      try {
+        const items = state.queue.map(describe);
+        for (const item of items) {
+          if (!item.box) throw Error(ReaderLanguage.choose('请移除或重新框选缺少边界的小图：','Remove or redraw the missing crop: ') + item.name);
+          if (item.recipe && !item.recipe.known) throw Error(item.name + ReaderLanguage.choose('：请在编号设置中标出旧编号。', ': locate the printed label in panel label settings.'));
+        }
+        await PaperTalk.build({paper,session,fileId:id,items});
+        PaperUI.set(msg,'已导出 '+items.length+' 张独立小图。',items.length+' independent panels exported.');
+        basket.message(ReaderLanguage.choose('已导出','Exported'));
+      } catch(e) { PaperUI.set(msg,e.message || '导出未完成。'); basket.message(msg.textContent); }
+      finally { pending=false;refresh(); }
     }
     function gridQueued(gridKey){
       const p=record(fig).extra.find(q=>q.gridKey===gridKey);
@@ -333,7 +366,7 @@
       if(!layout||![layout.rows,layout.cols].every(n=>Number.isInteger(n)&&n>=1&&n<=32)||layout.rows*layout.cols>120||layout.rows*layout.cols<2||!layout.box?.width||!layout.box?.height)return null;
       return {rows:layout.rows,cols:layout.cols,rect:relative(layout.box,parent)};
     }
-    return {panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
+    return {focusAdd,destroy(){document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
       image(mode){basis=mode==='figure'?originalBox(fig):full;ready=true;refresh()},
       spot(f,p,zoom,pageMode){state.spot={figure:f.id,panel:p||'',page:f.page,zoom,pageMode};save()},
       figurePanelRegion(f,id){

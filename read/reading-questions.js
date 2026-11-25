@@ -439,7 +439,7 @@
       ignoreDragClick=false;e.stopPropagation();e.preventDefault();
     },true);
     viewport.addEventListener('scroll',drawWire,{passive:true});
-    barActions.append(zoomButton,btn('返回整图','Full figure',goFull),pageButton);
+    barActions.append(desk.focusAdd,zoomButton,btn('返回整图','Full figure',goFull),pageButton);
     bar.append(label,barActions);const shared=el('div','rq-shared-legend');shared.hidden=true;stage.append(viewport,shared,wire,callout);viewport.append(sheet);sheet.append(canvas,layer);
     const keys=el('details','rq-key-list'),keySummary=el('summary'),keyList=el('div');keys.append(keySummary,keyList);
     const tickNote=btn('右侧部分刻度在原页中也显示不全 · 核对原页','Clipped tick labels · View PDF',()=>source(figure.page));

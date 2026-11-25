@@ -240,7 +240,7 @@
     const manualHistograms=options.desk&&(options.desk.state.manualHistograms ||= {});
     const compare=options.desk&&global.PaperSourcePane.mount(visual,options.desk.session,n=>openSource({page:n}));
     const desk=options.desk&&global.PaperPanelDesk.mount(options.desk,{
-      plate,img,notes,explain,boundary,more,pageMode:()=>pageMode,showFigure:()=>compare?.showFigure(),
+      workbench,plate,img,notes,explain,boundary,more,pageMode:()=>pageMode,showFigure:()=>compare?.showFigure(),
       togglePage:()=>{compare?.showFigure();pageMode=!pageMode;cache.delete(active.id);wantedZoom=zoom;loadPicture();rememberSpot()},
       syncPanels:id=>{preparePanels();updateTabs();atlas?.syncPanels();readPanel(id)},
       openPreview:id=>{readPanel(id);visual.scrollIntoView({block:'nearest'});},
@@ -1110,7 +1110,7 @@
       refreshSupplement(){if(active&&!panel)updateExplanation()},
       destroy() {
         if (disposed) return;
-        disposed = true; generation++; cache.clear(); questions?.destroy(); histograms?.destroy();compare?.destroy();resetPicture(); atlas?.destroy(); workbench.remove();
+        disposed = true; generation++; cache.clear(); questions?.destroy(); histograms?.destroy();compare?.destroy();resetPicture(); desk?.destroy(); atlas?.destroy(); workbench.remove();
       }
     };
   }

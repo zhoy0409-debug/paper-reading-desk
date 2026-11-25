@@ -615,7 +615,8 @@ async function scan(file,options={}){
     const rw=w(region),rh=h(region);
     if(!Number.isFinite(rw)||!Number.isFinite(rh)||rw<=.2||rh<=.2)throw Error('原页尺寸无法预览。');
     const desired=quality==='slide'?Math.min(12,Math.max(2.25,1500/Math.max(rw,rh))):crop?2.25:1.7;
-    const scale=Math.min(desired,Math.sqrt(3400000/(rw*rh)),2100/Math.max(rw,rh));
+    const target=quality==='thumbnail'?230/Math.max(rw,rh):desired;
+    const scale=Math.min(target,Math.sqrt(3400000/(rw*rh)),2100/Math.max(rw,rh));
     const width=Math.max(1,Math.ceil(rw*scale)),height=Math.max(1,Math.ceil(rh*scale));
     canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
     const ctx=canvas.getContext('2d',{alpha:false,willReadFrequently:!!crop});if(!ctx)throw Error('当前浏览器无法生成图片。');
