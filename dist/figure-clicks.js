@@ -35,7 +35,7 @@
       card.hidden=false;card.scrollIntoView({block:'nearest',behavior:'instant'});
     }
     function draw(){
-      list.replaceChildren();choices.open=false;
+      list.replaceChildren();
       for(const [i,layer] of layers.entries()){
         const buttons=marks.map(m=>{
           const entry=m.entry||CartesianPanels.explanation(m,figure.page);
@@ -66,6 +66,7 @@
     async function render(f,enabled,mode,url){
       const next=enabled&&f&&url?[f.id,mode,url].join('|'):'';
       if(next===key)return;
+      if(f?.id!==figure?.id)choices.open=false;
       key=next;const current=++run;marks=[];figure=f;close();draw();
       if(!next)return;
       const bounds=(mode==='figure'&&f.raw.verifiedRegion)||f.raw.pageBox||(f.raw.pageOnly?{x:0,y:0,width:1,height:1}:null);

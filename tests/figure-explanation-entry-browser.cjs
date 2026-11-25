@@ -1,6 +1,6 @@
 // Exercise the same actions a first-time reader can take, with no account or model backend.
 const assert = require('node:assert/strict');
-const { chromium, devices } = require('playwright-core');
+const { chromium, webkit, devices } = require('playwright-core');
 
 const base = new URL(process.argv[2] || 'http://127.0.0.1:8174/');
 const viaReadme = process.argv.includes('--github');
@@ -126,6 +126,7 @@ async function test(browser, mobile, scan = false) {
     const action = mobile ? 'tap' : 'click';
     const open = page.getByRole('button',{name:mobile?'看图解':'Read explanation',exact:true});
     await open.waitFor({timeout:100000});
+    await page.locator('.frw-visual .frw-plate img:visible, .frw-visual .rq-sheet canvas:visible').first().waitFor({timeout:35000});
     // Dismiss the first-use tour as a reader can. Later checks must not depend on seeing a tour.
     if (await page.locator('.gd-card').isVisible()) await page.keyboard.press('Escape');
     await open[action]();
@@ -167,15 +168,24 @@ async function test(browser, mobile, scan = false) {
   } catch (error) {
     console.error(lang,scan?'page':'figure',page.url(),await page.title(),
       await page.locator('body').innerText({timeout:3500}).then(s=>s.slice(0,260)).catch(()=>''),errors);
+    const action=page.locator('.st-explain');
+    if(await action.count())console.error('Figure control',await action.evaluate(el=>{
+      const r=el.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+12;
+      return {top:r.top,left:r.left,width:r.width,height:r.height,window:[innerWidth,innerHeight],
+        covering:document.elementFromPoint(x,y)?.outerHTML.slice(0,190)};
+    }));
     throw error;
   } finally {await ctx.close();}
 }
 
 (async()=>{
   const channel=process.env.READER_BROWSER_CHANNEL||(process.platform==='win32'?'msedge':'chromium');
-  const browser=await chromium.launch({channel});
+  const phoneOnly=process.env.READER_BROWSER==='webkit';
+  const browser=phoneOnly?await webkit.launch():await chromium.launch({channel});
   try {
-    for(const [mobile,scan] of [[true,false],[false,false],[true,true]])await test(browser,mobile,scan);
+    await test(browser,true);
+    if(!phoneOnly)await test(browser,false);
+    await test(browser,true,true);
     for(const lang of ['zh','en'])await sharedSampleOnPhone(browser,lang);
   }
   finally {await browser.close();}

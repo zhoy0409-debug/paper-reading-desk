@@ -686,7 +686,7 @@
       toggleLong.setAttribute('aria-expanded',String(long));
     }
     function apply(list){
-      layer.replaceChildren();keyList.replaceChildren();menuList.replaceChildren();keys.open=false;
+      layer.replaceChildren();keyList.replaceChildren();menuList.replaceChildren();
       const ordered=[...list].sort((a,b)=>(a.priority??10)-(b.priority??10));
       const named=ordered.filter(s=>s.verified).slice(0,4);
       pathMenu.hidden=!named.length;long=true;updateLong();
@@ -753,7 +753,7 @@
     }
     async function render(f,p,ready,mode,src){
       const nextSelection=(f?.id||'')+'/'+(p?.id||'');
-      if(nextSelection!==selectionTagKey){tableRows=[];selectionTagKey=nextSelection;figure=f;part=p;selectionTag=[f?.label,p?.label,'PDF p.'+f?.page].filter(Boolean).join(' · ');
+      if(nextSelection!==selectionTagKey){keys.open=false;tableRows=[];selectionTagKey=nextSelection;figure=f;part=p;selectionTag=[f?.label,p?.label,'PDF p.'+f?.page].filter(Boolean).join(' · ');
         conversation.clear();setTab('read');basics();showThread();}
       const figureRegion=p&&desk?.figurePanelRegion(f.raw,p.id),pageBox=p&&desk?.pageRegion();
       // The crop and its annotations use the original pixels, independently of display zoom.

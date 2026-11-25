@@ -216,7 +216,7 @@
       bar.querySelector('.frw-button').before(openReading);
       const backToImage=button('st-back-to-image','回到图','Back to figure',()=>{
         openReading.focus({preventScroll:true});
-        bar.scrollIntoView({block:'start',behavior:'instant'});
+        openReading.scrollIntoView({block:'start',inline:'nearest',behavior:'instant'});
       });
       readTab.parentNode.append(backToImage);
     }

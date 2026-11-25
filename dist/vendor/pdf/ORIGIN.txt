@@ -1,2 +1,2 @@
-Mozilla PDF.js pdfjs-dist 5.6.205; Apache-2.0. Only local, packaged files are used.
+Mozilla PDF.js pdfjs-dist 5.6.205, Apache-2.0. The reader and worker come from legacy/build in the official npm package. Both run locally.
 The JavaScript JPEG 2000 fallback in wasm/ is from the same pdfjs-dist release. Its license notices are included alongside it.

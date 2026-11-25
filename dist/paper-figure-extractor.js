@@ -383,8 +383,8 @@ async function scan(file,options={}){
  if(file.size>MAX_FILE)throw Error('原图提取只支持 64 MiB 以内的 PDF；请选择原文相关页面的副本。');
  const bytes=new Uint8Array(await file.arrayBuffer());check();
  if(!/%PDF-\d/.test(new TextDecoder('latin1').decode(bytes.subarray(0,1024))))throw Error('没有找到 PDF 文件头。');
- const pdfjs=await (library ||= import(new URL('pdf.min.mjs',base).href).catch(e=>{library=null;throw e;}));check();
- pdfjs.GlobalWorkerOptions.workerSrc=new URL('pdf.worker.min.mjs',base).href;
+ const pdfjs=await (library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href).catch(e=>{library=null;throw e;}));check();
+ pdfjs.GlobalWorkerOptions.workerSrc=new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
  const task=pdfjs.getDocument({data:bytes,cMapUrl:new URL('cmaps/',base).href,cMapPacked:true,
    standardFontDataUrl:new URL('standard_fonts/',base).href,wasmUrl:new URL('wasm/',base).href,useWasm:false,
    isEvalSupported:false,disableFontFace:true,useSystemFonts:false,enableXfa:false,

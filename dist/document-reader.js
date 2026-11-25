@@ -21,8 +21,8 @@
     };
   }
   async function readPdf(file, ctx) {
-    const pdfjs = await (library ||= import(new URL('pdf.min.mjs',base).href));
-    pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdf.worker.min.mjs',base).href;
+    const pdfjs = await (library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href));
+    pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
     const task = pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer()),
       cMapUrl:new URL('cmaps/',base).href,cMapPacked:true,
       standardFontDataUrl:new URL('standard_fonts/',base).href,wasmUrl:new URL('wasm/',base).href,useWasm:false,

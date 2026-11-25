@@ -40,12 +40,13 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.56.1
           export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
-          node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium
+          node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium webkit
           python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
           node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
+          READER_BROWSER=webkit node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

@@ -193,7 +193,7 @@
   #literaturePane .frw.st.has-ea .compare-bar{justify-content:flex-start;gap:6px;scroll-margin-top:var(--bar)}
   #literaturePane .frw.st.has-ea .compare-bar>div:first-child{flex:1 0 100%;margin:0 0 2px}
   #literaturePane .frw.st.has-ea .compare-bar>.frw-button{min-height:40px;padding:0 9px}
-  #literaturePane .frw.st .compare-bar>.st-explain{min-height:42px}
+  #literaturePane .frw.st .compare-bar>.st-explain{min-height:42px;scroll-margin-block-start:calc(var(--bar,56px) + 3rem)}
   #literaturePane .frw.st.has-ea .frw-notes{scroll-margin-block-start:var(--bar);height:auto}
   #literaturePane .frw.st.has-ea .rq-tabs{gap:clamp(8px,3vw,18px)}
   #literaturePane .frw.st.has-ea .rq-tabs>.st-back-to-image{display:inline-flex;align-items:center;gap:4px;margin-inline-start:auto;color:var(--link);font-size:13px}
