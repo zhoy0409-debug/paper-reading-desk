@@ -249,7 +249,7 @@
     const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,histograms,desk,selectPanel:readPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
     const lens=desk&&global.ReadingLens?.mount({workbench,body,notes,header,state:options.desk.state,paper:options.desk.paper,id:options.desk.id,
-      save:()=>desk.save(),render:f=>options.renderFigure(f,false),select:id=>selectFigure(id)});
+      save:()=>desk.save(),syncLine:(...a)=>desk.syncLine(...a),slideName:(...a)=>desk.slideName(...a),render:f=>options.renderFigure(f,false),select:id=>selectFigure(id)});
     function preparePanels(){
       if(desk&&active)active.panels=desk.panelsFor(active.raw).map(p=>({...p,raw:p}));
     }

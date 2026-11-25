@@ -34,6 +34,14 @@ To save a single image, choose **Save panel PNG** under **Crop & present**.
 
 </details>
 
+## Can I explain each figure before reading its caption?
+
+Pick a figure in the strip above the image and turn on **Look first**. The caption, figure title and notes are covered. Write one line, choose **Reveal caption**, and mark whether you got it. If a figure has to be shown as a full page, its printed caption stays visible and the reader says so.
+
+**Storyboard** lays out every figure with your lines, estimates the time to read them aloud and saves them as Markdown. **Rehearse** shows one figure at a time with a timer and keeps your line hidden until you press the space bar.
+
+When you add a panel to the slide basket, your line becomes its speaking note. It stays in step until you edit the note by hand. Notes you typed are never overwritten. Press `?` in the reader for keyboard shortcuts.
+
 ## How do I pronounce a term before journal club?
 
 Select an English term or passage and choose **Listen**. From any figure, **English practice** opens its available English explanation for normal or slow playback. To prepare for questions, choose **Explore background & rehearse** to draft an English question with the selected term and figure evidence.
