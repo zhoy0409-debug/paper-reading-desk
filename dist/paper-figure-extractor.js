@@ -450,18 +450,21 @@ async function scan(file,options={}){
      const pair=hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
        window.PaperPanelGeometry?.pairedAxes(cap,here,axes,words,objects,viewport):null;
      const initial=hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null;
-     const grid=pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes);
-     const printed=window.PaperPanelGeometry?.printedTitles(cap,here,lines,viewport,words,objects)||[];
+     let grid=pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes);
+     // Nothing above the caption: the figure may be printed beside it.
+     const beside=!pair&&!initial&&objects.length?window.SideCaption?.locate(cap,here,lines,objects,viewport,verticalLabels(text,viewport,true))||null:null;
+     if(beside)grid=window.SideCaption.panels(cap,beside,words,lines,viewport,axes);
+     const printed=beside?[]:window.PaperPanelGeometry?.printedTitles(cap,here,lines,viewport,words,objects)||[];
      if(!grid&&!pair)await window.PaperPanelGeometry?.includePrintedMargins(printed,page,viewport,pdfjs.AnnotationMode.DISABLE,words).catch(()=>{});
-     let crop=grid?.crop||initial;
+     let crop=grid?.crop||initial||beside;
      for(const p of printed)if(p.rect)crop=crop?unite(crop,p.rect):p.rect;
-     const stack=await MarkedPlots.locate(cap,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+     const stack=!beside&&await MarkedPlots.locate(cap,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(stack)crop=stack.crop;
-     const layers=!stack&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+     const layers=!stack&&!beside&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(layers)crop=layers.crop;
      let plate=null;
      let raster=null;
-     if(!grid&&!pair&&!stack&&!layers&&!printed.some(p=>p.rect)&&here.length===1&&cap.line.y0>viewport.height*.22){
+     if(!grid&&!beside&&!pair&&!stack&&!layers&&!printed.some(p=>p.rect)&&here.length===1&&cap.line.y0>viewport.height*.22){
        raster=await window.CompositePlate?.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
        check();if(raster)crop=raster.crop;
      }
@@ -511,7 +514,7 @@ async function scan(file,options={}){
      }
      const figure={id,rasterPlate:Boolean(raster||plate?.raster),matchKey:cap.matchKey,label:cap.label,layerStack:layers?{rows:layers.rows,horizontal:layers.horizontal,ticks:layers.ticks,shared:normalized(layers.shared,{x0:0,y0:0,x1:imageView.width,y1:imageView.height})}:null,markedStack:stack?{first:stack.first,rows:stack.rows}:null,
       page:imagePage,captionPage:pg,caption:cap.caption,captionPartial:cap.partial,anchor:{page:pg,...cap.anchor},panels,pageBox:crop?normalized(crop,{x0:0,y0:0,x1:imageView.width,y1:imageView.height}):null,mode:crop?'crop':'page',duplicatePages:[],
-      reason:plate?'前页图内编号与本页图注编号吻合，已定位跨页图版。':crop?'按明确图注和紧邻版面选取的原文区域。':'已定位图注，图形范围待核对。'};
+      reason:plate?'前页图内编号与本页图注编号吻合，已定位跨页图版。':beside?'图注排在图的侧边，按同一水平带内的图形选取的原文区域。':crop?'按明确图注和紧邻版面选取的原文区域。':'已定位图注，图形范围待核对。'};
      if(!plate&&!pair&&/\bhistograms?\b/i.test(cap.caption)){
       const open=window.OpenHistograms?.locate(cap,here,words,verticalLabels(text,viewport,true),lines,objects,viewport);
       if(open&&await window.OpenHistograms.confirmInk(page,open,pdfjs.AnnotationMode.DISABLE).catch(()=>{open.cells.forEach(c=>c.edgeCheck=true);return !open.needsPixels})){

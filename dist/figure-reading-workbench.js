@@ -217,7 +217,7 @@
     if(atlas){
       workbench.classList.add('has-ea');
       const back=btn('',()=>atlas.returnToSelection(),'frw-inline frw-map-back');
-      steps.prepend(PaperUI.set(back,'↑ 回到图谱','Back to map'));
+      steps.prepend(PaperUI.set(back,'回到图谱','Back to map'));
     }
     workbench.append(body, empty, modal); container.append(workbench);
 
@@ -248,6 +248,8 @@
     });
     const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,histograms,desk,selectPanel:readPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
+    const lens=desk&&global.ReadingLens?.mount({workbench,body,notes,header,state:options.desk.state,paper:options.desk.paper,id:options.desk.id,
+      save:()=>desk.save(),render:f=>options.renderFigure(f,false),select:id=>selectFigure(id)});
     function preparePanels(){
       if(desk&&active)active.panels=desk.panelsFor(active.raw).map(p=>({...p,raw:p}));
     }
@@ -1028,7 +1030,7 @@
           if(pic.mode==='page'&&!pageMode&&!current.raw.pageOnly&&current.raw.caption){
             PaperUI.set(modeLabel,'图注所在页 · 图像待定位','Caption page · figure unlocated');
           }else PaperUI.set(modeLabel,pic.mode === 'figure' ? '原文图像' : '原文整页');
-          expand.disabled = false;zoom=wantedZoom;setZoom();desk?.image(pic.mode);renderTarget();
+          expand.disabled = false;zoom=wantedZoom;setZoom();desk?.image(pic.mode);lens?.picture(pic.mode);renderTarget();
         };
         img.onerror = () => { if (!stale()) { cache.delete(current.id); failPicture('浏览器没有打开这张原图，可重试或直接核对 PDF。', true); } };
         img.src = objectUrl;
@@ -1061,7 +1063,7 @@
       sourceButton.hidden = !sourceAvailable(f, null);
       PaperUI.set(sourceButton,f.page ? `打开原文 p.${f.page}` : '打开原文',f.page?'Open PDF · p.'+f.page:undefined);
       announcement.textContent = '';
-      updateTabs();selectPanel(null);fillMore();loadPicture();
+      updateTabs();selectPanel(null);fillMore();loadPicture();lens?.select(f);
       return true;
     }
     groups.addEventListener('keydown', e=>{
@@ -1091,7 +1093,7 @@
       PaperLanguageText.bind(title,model.title); if(model.takeaway)PaperLanguageText.bind(takeaway,model.takeaway);else{PaperLanguageText.clear(takeaway);takeaway.textContent=''}
       takeaway.hidden = !model.takeaway;
       empty.hidden=Boolean(model.figures.length); body.hidden=!empty.hidden;
-      addRail(); atlas?.setModel(model);
+      addRail(); atlas?.setModel(model); lens?.setModel(model);
       if (model.figures.length) {
         const desired=previousId||initialSpot.figure;
         selectFigure(model.figures.some(f=>f.id===desired)?desired:(atlas?.first()||model.figures[0].id),true);
@@ -1110,7 +1112,7 @@
       refreshSupplement(){if(active&&!panel)updateExplanation()},
       destroy() {
         if (disposed) return;
-        disposed = true; generation++; cache.clear(); questions?.destroy(); histograms?.destroy();compare?.destroy();resetPicture(); desk?.destroy(); atlas?.destroy(); workbench.remove();
+        disposed = true; generation++; cache.clear(); lens?.destroy(); questions?.destroy(); histograms?.destroy();compare?.destroy();resetPicture(); desk?.destroy(); atlas?.destroy(); workbench.remove();
       }
     };
   }
