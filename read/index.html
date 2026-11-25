@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="./english-practice.css?rev=ds-1">
 <link rel="stylesheet" href="./design-system.css?rev=ds-1">
 <link rel="stylesheet" href="./slide-basket.css?rev=basket-035">
+<link rel="stylesheet" href="./reading-lens.css?rev=lens-1">
 </head>
 <body>
 <main>
@@ -44,7 +45,8 @@
 <script type="module" src="./selection-translation.js?rev=voice-032"></script>
 <script src="./paper-language.js?rev=map-030"></script>
 <script src="./composite-plate.js?rev=031"></script>
-<script src="./paper-figure-extractor.js?rev=basket-035"></script>
+<script src="./side-caption.js?rev=1"></script>
+<script src="./paper-figure-extractor.js?rev=lens-036"></script>
 <script src="./model-reading.js?rev=access-2"></script>
 <script src="./paper-figure-context.js?rev=model-1"></script>
 <script src="./evidence-atlas.js?rev=ds-1"></script>
@@ -71,12 +73,14 @@
 <script src="./reading-primer.js?rev=focus-033"></script>
 <script src="./reader-access.js"></script>
 <script src="./reading-questions.js?rev=basket-035"></script>
-<script src="./figure-reading-workbench.js?rev=basket-035"></script>
+<script src="./reading-lens.js?rev=lens-1"></script>
+<script src="./figure-reading-workbench.js?rev=lens-036"></script>
 <script src="./literature-reader.js?rev=ds-1"></script>
 <script>
   const readerPane = document.getElementById('literaturePane');
   if (window.PaperLiterature) {
     window.PaperLiterature.mount(readerPane);
+    window.ReadingLens?.startPage(readerPane);
   } else {
     const note = document.createElement('p');
     note.setAttribute('role','alert');
