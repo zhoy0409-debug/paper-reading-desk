@@ -12,7 +12,7 @@
     return node;
   }
 
-  function mount(host, {describe, move, remove, edit, exportPpt, session}) {
+  function mount(host, {describe, move, remove, edit, crop, exportPpt, session}) {
     const t = (zh, en) => window.ReaderLanguage.choose(zh, en);
     const dock = element('section', 'slide-basket');
     const header = element('div', 'basket-header');
@@ -113,7 +113,8 @@
         (cards.get(keys[index] || keys[index - 1])?.del || host.querySelector('.rq-add-slide'))?.focus({preventScroll:true});
       });
       del.textContent = '×';
-      const row = element('div', 'basket-card-head'); row.append(grip, ordinal, name, del);
+      const adjust=button('basket-crop',()=>crop(key));
+      const row = element('div', 'basket-card-head'); row.append(grip, ordinal, name, adjust, del);
       const thumb = element('canvas','basket-thumb'), fallback = element('small', 'basket-missing');
       fallback.hidden = true;
       thumb.setAttribute('aria-hidden','true');
@@ -122,7 +123,7 @@
       note.oninput = () => { status.textContent = ''; edit(key, note.value); };
       const body = element('div','basket-card-body'); body.append(thumb, fallback, note); node.append(row, body);
       visible.observe(node);
-      return {node, grip, ordinal, name, del, thumb, fallback, note};
+      return {node, grip, ordinal, name, adjust, del, thumb, fallback, note};
     }
 
     async function drawThumbnail(card) {
@@ -164,6 +165,8 @@
         const label = item.name;
         card.ordinal.textContent = String(index + 1);
         card.name.textContent = label;
+        card.adjust.textContent=t('裁切','Crop');
+        card.adjust.setAttribute('aria-label',t('调整裁切 ','Adjust crop for ')+label);
         card.grip.title = t('拖动排序，或用左右方向键移动', 'Drag to reorder, or use the left and right arrow keys');
         card.grip.setAttribute('aria-label', t('调整顺序 ','Reorder ') + label);
         card.del.setAttribute('aria-label', t('移除 ','Remove ') + label);
