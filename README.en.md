@@ -2,9 +2,11 @@
 
 [Open the reader](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en) · [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [简体中文](README.zh-CN.md)
 
+Share the reader link above with your group. It opens without a GitHub account. Refresh the same address for the latest published version.
+
 Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up UMAP and lost track of which dots you were comparing. You know what each figure shows, but explaining why one follows another is harder. The walkthrough below uses one published paper to show how to take a panel, read it closely and place it in the paper’s argument.
 
-[![Play the 60-second walkthrough from clicking an axis to exporting the complete slide deck.](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[![Play the 60-second walkthrough from clicking an axis to exporting the complete slide deck.](dist/media/tour/cover-en.webp?v=044)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
 [Watch by chapter](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en) · [Watch the narrated introduction](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html)
 

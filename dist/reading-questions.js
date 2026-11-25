@@ -476,10 +476,11 @@
         return;
       }
       const offset=ey-12;
+      const startY=traceAnchor?y:(ey>=y?bottom+2:top-2)-r.top;
       if(!shared.hidden && !shared.contains(activeHit)){
         const below=Math.min(offset,viewport.getBoundingClientRect().bottom-r.top+3);
-        path.setAttribute('d','M '+x+' '+y+' V '+below+' H '+ex+' V '+ey);
-      }else path.setAttribute('d','M '+x+' '+y+' V '+offset+' L '+ex+' '+ey);
+        path.setAttribute('d','M '+x+' '+startY+' V '+below+' H '+ex+' V '+ey);
+      }else path.setAttribute('d','M '+x+' '+startY+' V '+offset+' L '+ex+' '+ey);
     }
     function revealTip(){
       // Reveal the start of a long note. Keep its remaining paragraphs in the same scroll area.
@@ -622,7 +623,8 @@
       for(const id of ids)if(id!=='mouse')primerEntry(P.entries[id]);
       if(!isChecked||ids.includes('mouse'))for(const entry of modelEntries())primerEntry(entry);
       if(!ids.length){
-        const caption=part?.raw.reading?.sources?.find(s=>s.kind==='小图图注');
+        const captions=part?.raw.reading?.sources||[];
+        const caption=captions.find(s=>s.kind==='小图图注')||captions.find(s=>s.en?.startsWith('Shared panel caption'));
         const printed=part?.raw.printedTitle?.trim();
         const specific=caption?.text||printed;
         const raw=specific||figure?.caption;
@@ -769,7 +771,7 @@
       pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
       const marks=pageBox?session.chartMarks?.(f.page,pageBox,f.raw.matchKey)||[]:[];
-      const capture=marks.some(m=>m.chart);
+      const capture=marks.some(m=>m.chart||m.trace);
       let fullResolution;
       if(inPreview){
         const W=img.naturalWidth,H=img.naturalHeight;
@@ -826,10 +828,12 @@
             const head=words.filter(w=>!w.rotate&&w.y0<headerEnd+.014&&w.y1<Math.min(...cells.map(c=>c.y0))&&w.text.length>1&&w.text.length<76).sort((a,b)=>a.x0-b.x0);
             return (head.length?'Headers: '+[...new Set(head.map(w=>w.text))].join(' | ')+'\n':'')+'Row: '+cells.map(c=>c.text).join(' | ');
           }
+          words=FigureElements.labels(words,f.caption);
           if(capture){
             const painted=await fullResolution;
             if(current!==epoch)return;
             CartesianPanels.fitInk(marks,canvas,painted?.pixels);
+            if(marks.some(m=>m.trace))CartesianPanels.fitInk(words,canvas,painted?.pixels,true);
           }
           if(!marks.some(m=>m.chart?.kind==='legend')){
             await fullResolution;
@@ -837,7 +841,6 @@
             const keys=PrintedLegend.samples(words,canvas,p.raw.axis||'');
             marks.unshift(...keys);
           }
-          words=FigureElements.labels(words,f.caption);
           const sharedKeys=session.chartLegend?.(f.page,f.raw.matchKey)||[];
           if(sharedKeys.length && marks.some(m=>m.trace)){
             shared.hidden=false;

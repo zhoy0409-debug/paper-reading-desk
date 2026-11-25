@@ -51,3 +51,9 @@ const bg=outline.children.find(n=>n.key==='background').children,aims=outline.ch
 assert.deepEqual(bg.map(n=>n.role),['context','prior','gap']);
 assert.deepEqual(aims.map(n=>n.role),['aim']);
 for(const n of [...bg,...aims])assert(context.some(s=>s.page===n.page&&s.text===n.quote));
+
+const reporting=[{text:'Introduction',page:2},
+ {text:'We hypothesized that the detector would respond differently to the two light sources.',page:2},
+ {text:'Here we find that the detector responds strongly under both experimental conditions.',page:2}];
+const goals=D.local({rows:reporting,figures:[],sections:[],question:'Light'}).children.find(n=>n.key==='aim');
+assert.deepEqual(goals.children.map(n=>n.quote),[reporting[1].text]);

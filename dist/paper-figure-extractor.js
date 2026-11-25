@@ -70,6 +70,19 @@ function positions(content,viewport,raw=false){
   }
  }
  for(const line of out)line.text=norm(line.text);
+ // PDF.js can place the power of ten on a separate baseline inside an otherwise
+ // complete line. Use the actual adjacent text run to restore its printed value.
+ for(const base of points.filter(p=>/\b10$/.test(p.text.trim()))){
+  const power=points.find(t=>/^[−+-]?\d{1,2}$/.test(t.text.trim())&&t.size<base.size*.83&&
+    Math.abs(t.x0-base.x1)<base.size*.4&&base.base-t.base>base.size*.18&&base.base-t.base<base.size*.75);
+  if(!power)continue;
+  const line=out.find(l=>Math.abs(l.base-base.base)<1&&l.x0<=base.x0+1&&l.x1>=base.x1-1);
+  if(!line)continue;
+  const value=norm(base.text),s=line.captionText||line.text,at=s.indexOf(value);
+  if(at<0||s.indexOf(value,at+1)>=0)continue;
+  const raised='⁰¹²³⁴⁵⁶⁷⁸⁹',exponent=Array.from(power.text.trim(),c=>/\d/.test(c)?raised[+c]:c==='+'?'⁺':'⁻').join('');
+  line.captionText=s.slice(0,at+value.length)+exponent+s.slice(at+value.length);
+ }
  return out.filter(x=>x.text);
 }
 const CAP = /^(?:(?:(Extended\s+Data|Supplementary|Supplemental)\s+)?(Fig(?:ure)?s?\.?)\s*([sS]?\s*\d{1,3})|((?:扩展数据|补充|附)?图)\s*([sS]?\s*\d{1,3}))(?=\s*(?:[.:：|｜]|[—–-]\s)|\s+(?:(?:posterior|prior|empirical|observed|simulated|normalized|normalised|marginal|frequency|density)\s+){0,2}histograms?\s+(?:of|for|showing)\b)/iu;
@@ -391,16 +404,30 @@ async function scan(file,options={}){
   const pageCap=clamp(Math.floor(Number(options?.maxPages)||DEFAULT_PAGES),1,MAX_PAGES);
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
   const hubblePassages=[], marksByFigure=new Map();
-  let scannedPages=0, usedDrawings=0,unclaimed=null;
+  let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null;
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
    check();scannedPages=pg;let page;
-   const previous=unclaimed;unclaimed=null;
+   const previous=unclaimed,priorCaption=captionTail;unclaimed=null;captionTail=null;
    try{
     page=await pdf.getPage(pg);
     const viewport=page.getViewport({scale:1});
     const text=await page.getTextContent({disableNormalization:false});check();
     if(!text.items.some(x=>typeof x.str==='string'&&x.str.trim()))noTextPages.push(pg);
     const lines=positions(text,viewport), here=captions(lines,viewport);
+    if(priorCaption){
+     const {cap,figure}=priorCaption;
+     const more=CaptionFlow.nextPage(cap,lines,viewport);
+     if(more){
+      const boundary=figure.caption.length;
+      figure.caption+=' '+more;
+      figure.captionPartial=!/[.!?。！？)]$/.test(more);
+      figure.captionPanelPages={...figure.captionPanelPages};
+      for(const mark of CaptionFlow.headings(figure.caption)){
+       if(mark.at>boundary)for(const id of mark.ids)figure.captionPanelPages[id]=pg;
+      }
+      captionTail={figure,cap:{...cap,caption:figure.caption,anchor:{endY:lines.filter(l=>more.endsWith(l.text)).at(-1)?.y1||0}}};
+     }
+    }
     if(lines.some(l=>/^Table\s+\d+\b/i.test(l.text))&&!(page.rotate%360)){
      tables.push(...DualAxis.readTables(positions(text,viewport,true),pg,viewport));
     }
@@ -608,6 +635,7 @@ async function scan(file,options={}){
       }
      }
      figures.push(figure);internals.set(id,{page:imagePage,crop});seen.set(digest,figure);
+     if(cap.anchor.endY>viewport.height*.69&&CaptionFlow.headings(cap.caption).length)captionTail={cap,figure};
     }
    }catch(e){check();failed.push(pg);}
    finally{if(page)try{page.cleanup();}catch{}}

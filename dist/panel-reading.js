@@ -94,7 +94,7 @@
     const source=(kind,en,value,page)=>{if(value&&!sources.some(s=>s.text===value&&s.page===page))sources.push({kind,en,text:value,page})};
     const row=(role,en,content)=>{if(content)rows.push({role,en,zh:content.zh,enText:content.en})};
     source('图内标注','Printed label',printed,figure.page);
-    const captionPage=figure.captionPage||figure.page;
+    const captionPage=figure.captionPanelPages?.[p.id]||figure.captionPage||figure.page;
     source('小图图注','Panel caption',text,captionPage);
     const group=p.groupCaption;
     if(group)source('组内共用图注 · '+group.label,'Shared panel caption · '+group.label,group.text,captionPage);

@@ -135,7 +135,7 @@ async function check(page, base, pdf, screenshots) {
   assert(await page.locator('.rq-ask:visible').count());
   assert.deepEqual(errors,[]);
 }
-module.exports={check};
+module.exports={check,checkWordFrame};
 if(require.main===module)(async()=>{
   const browser=await chromium.launch({channel:'msedge'});
   try {

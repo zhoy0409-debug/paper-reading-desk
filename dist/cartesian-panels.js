@@ -175,13 +175,13 @@
   }
   // PDF text matrices bound the font em, not the ink. Read the final crop's
   // pixels once and use the dominant ink colour to exclude crossing curves.
-  function fitInk(marks,canvas,textMask){
+  function fitInk(marks,canvas,textMask,printedLabels=false){
     const W=canvas.width,H=canvas.height;
     if(W<10||H<10)return;
     const artwork=canvas.getContext('2d').getImageData(0,0,W,H).data;
-    for(const m of marks.filter(m=>m.chart)){
-      const symbol=m.chart.kind==='symbol', vertical=m.chart.kind==='y';
-      const data=!symbol&&textMask?.width===W&&textMask.height===H?textMask.data:artwork;
+    for(const m of marks.filter(m=>m.chart||printedLabels&&textMask&&m.text)){
+      const symbol=m.chart?.kind==='symbol', vertical=m.chart?m.chart.kind==='y':m.rotate;
+      let data=!symbol&&textMask?.width===W&&textMask.height===H?textMask.data:artwork;
       const em=(vertical?(m.x1-m.x0)*W:(m.y1-m.y0)*H);
       const pad=Math.max(1,Math.min(3,em*.07));
       const l=Math.max(0,Math.floor(W*m.x0-pad)),r=Math.min(W,Math.ceil(W*m.x1+pad));
@@ -196,6 +196,20 @@
       }
       for(let y=t;y<b;y++)for(let x=l;x<r;x++){
         const k=key(4*(y*W+x));if(k)colors.set(k,(colors.get(k)||0)+1);
+      }
+      // Some PDFs convert lettering to ordinary vector paths. Its PDF text
+      // box still locates the word, but the separate glyph layer is empty.
+      // On a light plot margin, fit the box to the printed strokes instead.
+      if(!colors.size&&printedLabels&&data!==artwork){
+        data=artwork;
+        let paper=0,ink=0;
+        for(let y=t;y<b;y++)for(let x=l;x<r;x++){
+          const i=4*(y*W+x);
+          if(Math.min(data[i],data[i+1],data[i+2])>235)paper++;
+          if(key(i)==='gray')ink++;
+        }
+        const area=(b-t)*(r-l);
+        if(paper>area*.5&&ink>area*.025)colors.set('gray',ink);
       }
       const target=[...colors].sort((a,b)=>b[1]-a[1])[0]?.[0];
       if(!target)continue;

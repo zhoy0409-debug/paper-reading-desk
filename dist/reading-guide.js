@@ -114,7 +114,10 @@
   function auto(kind){
     clearTimeout(pendingTour);
     if(seen()[kind])return;
-    pendingTour=setTimeout(()=>{if((kind==='read')===!!document.querySelector('.pl-reader.pl-loaded')&&!seen()[kind])tour(kind)},kind==='read'?1400:700);
+    pendingTour=setTimeout(()=>{
+      if(window.getSelection()?.isCollapsed===false||document.querySelector('.local-translation:not([hidden]),.rq-callout:not([hidden])'))return;
+      if((kind==='read')===!!document.querySelector('.pl-reader.pl-loaded')&&!seen()[kind])tour(kind);
+    },kind==='read'?1400:700);
   }
 
   /* A selection that slides: the container draws one marker and moves it to the pressed child. */

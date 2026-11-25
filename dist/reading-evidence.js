@@ -112,6 +112,16 @@
       const cap=clean(f.caption);
       const {groups,individual,explicit:markedParts}=groupedParts(cap);
       const parts=markedParts||panelParts(individual,groups);
+      // Printed runs also cover captions with no punctuation between panels and
+      // lower-case pairs such as “b, c”. Preserve the entire paragraph for selection.
+      const sections=globalThis.CaptionFlow?.panelSections(cap);
+      for(const [id,s] of sections||[]){
+        if(s.ids.length>1){
+          parts.delete(id);
+          groups.set(id,{label:s.ids.join(', ').toUpperCase(),text:s.text});
+        }
+        else if(!groups.has(id))parts.set(id,s.text);
+      }
       const found=new Set(f.panels.map(p=>p.id));
       const explicit=new Set([...groups.keys(),...parts.keys()]);
       const captionSequence=explicit.has('a')&&explicit.has('b');
@@ -119,6 +129,7 @@
         if(captionSequence&&!found.has(id)&&
           (id==='a'||explicit.has(String.fromCharCode(id.charCodeAt(0)-1))))f.panels.push({id,label:id.toUpperCase(),page:f.captionPage||f.page});
       }
+      if(f.panels.length>found.size&&f.panels.every(p=>/^[a-z]$/.test(p.id)))f.panels.sort((a,b)=>a.id.localeCompare(b.id));
       for(const p of f.panels){
         p.groupCaption=groups.get(p.id);
         const part=parts.get(p.id);

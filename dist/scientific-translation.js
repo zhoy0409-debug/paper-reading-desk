@@ -14,6 +14,12 @@ const terminology=[
   ['scanning electron microscopy','扫描电子显微镜'],['transmission electron microscopy','透射电子显微镜'],['wild-type','野生型'],
   ['murine lung infection model','小鼠肺部感染模型'],['murine pneumonia model','小鼠肺炎模型'],['lipoprotein trafficking','脂蛋白转运'],
   ['single-crop testing','单裁剪测试'],['multi-crop testing','多裁剪测试'],['learned parameters','模型参数量'],['FLOPs','浮点运算次数（FLOPs）'],
+  ['Staphylococcus aureus','金黄色葡萄球菌'],['S. aureus','金黄色葡萄球菌'],['impetigo','脓疱疮'],
+  ['atopic dermatitis','特应性皮炎'],['pruriceptors','瘙痒感受神经元'],['pruriceptor','瘙痒感受神经元'],
+  ['pruritic conditions','瘙痒性疾病'],['eczematous lesions','湿疹样皮损'],['itchy lesions','伴瘙痒的皮损'],
+  ['nonlesional skin','非皮损皮肤'],['non-lesional skin','非皮损皮肤'],['lesional skin','皮损皮肤'],
+  ['skin swabs','皮肤拭子'],['host-directed therapy','宿主靶向治疗'],
+  ['outer membrane vesicles','外膜囊泡'],['cytotoxicity','细胞毒性'],
   ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],['abaucin','abaucin']
 ];
 const exactNames=new Map(terminology);
@@ -76,9 +82,61 @@ function assay(sentence){
 }
 export function sentences(text){
   // Only split completed sentences. A genus initial, figure abbreviation or decimal is internal.
-  return normalizeSelection(text).replace(/\bFigs\.\s*(?=\d)/gi,'Figures ').replace(/\bFig\.\s*(?=\d)/gi,'Figure ').split(/(?<!\b[A-Z])(?<!\bFig)(?<=[.!?])\s+(?=[A-Z])/).reduce((out,s)=>{
+  return normalizeSelection(text).replace(/\bFigs\.\s*(?=\d)/gi,'Figures ').replace(/\bFig\.\s*(?=\d)/gi,'Figure ').split(/(?<!\b[A-Z])(?<!\bFig)(?<=[.!?])\s+(?=[A-Z]|n\s*=)/).reduce((out,s)=>{
     if(out.length&&/(?:\b[A-Z]|\bFig|\bet al)\.$/.test(out.at(-1)))out[out.length-1]+=' '+s;else out.push(s);return out;
   },[]);
+}
+// These caption constructions bind the population to its specimen, or a readout
+// to its assay and comparison. Identifiers are copied from the source sentence.
+function quantitativeCaption(sentence){
+  const repeats=sentence.match(/^n\s*=\s*(\d+)\s+independent (experiments|replicates)\.?$/i);
+  if(repeats)return '独立'+(repeats[2].toLowerCase()==='experiments'?'实验':'重复')+'次数（n）为 '+repeats[1]+'。';
+  const samples=sentence.match(/^(?:Quantification|Measurement) of ([\w.-]+ (?:mRNA|DNA|RNA|protein)) (?:from|in) (skin swabs|skin biopsies|tissue samples) from (?:healthy (?:human subjects|participants|controls|volunteers)) (?:or|and) (non[- ]?lesional|lesional) and (non[- ]?lesional|lesional) skin from (.+?) patients\s*\(n\s*=\s*(\d+(?:\s*[-–]\s*\d+)?) per group\)\.?$/i);
+  if(samples){
+    const [,target,material,first,second,patients,count]=samples;
+    const sample={'skin swabs':'皮肤拭子','skin biopsies':'皮肤活检标本','tissue samples':'组织标本'}[material.toLowerCase()];
+    const site=s=>/^non/i.test(s)?'非皮损皮肤':'皮损皮肤';
+    return '定量测定'+sample+'中的 '+target.replace(/ protein$/i,' 蛋白')+'。样本分别来自健康受试者的皮肤、'+patients+' 患者的'+site(first)+'和'+site(second)+'（每组 n = '+count.replace(/\s*[-–]\s*/,'–')+'）。';
+  }
+  const assay=sentence.match(/^(?:Quantification|Measurement) of (.+?) (mRNA|protein) levels by ([\w-]+) in ([A-Za-z][\w.-]*) cells (infected with|exposed to) ([A-Za-z][\w.-]*(?:\s+[\w.-]+)?)\s*\((\d+(?:\.\d+)?)\s+(hpi|h)\) (with or without|without|with) ([A-Za-z][\w.-]*) treatment\s*\((\d+(?:\.\d+)?)\s*([μµu]M|nM|mM|[μµu]g\/mL)\)\.?$/i);
+  if(assay){
+    const [,names,measure,method,cells,exposure,agent,time,unit,contrast,compound,amount,concentration]=assay;
+    const genes=names.split(/,\s*(?:and\s+)?|\s+and\s+/i);
+    if(!genes.every(v=>/^[A-Za-z0-9][\w.-]*$/.test(v)))return null;
+    const value=amount+' '+concentration.replace(/^[µu]/,'μ'),drug=value+' '+compound;
+    const groups=contrast.toLowerCase()==='with or without'?'比较经 '+drug+' 处理和未经该药处理的两组':contrast.toLowerCase()==='without'?'细胞未经 '+drug+' 处理':'细胞经 '+drug+' 处理';
+    const subject=exactNames.get(agent)||agent;
+    const readout=measure.toLowerCase()==='protein'?'蛋白':measure;
+    return '采用 '+method+' 定量测定 '+cells+' 细胞中 '+genes.join('、')+' 的 '+readout+' 水平。细胞'+(exposure.toLowerCase()==='infected with'?'感染':'接触')+subject+'后 '+time+' h'+(unit.toLowerCase()==='hpi'?'（hpi）':'')+'进行测定，'+groups+'。';
+  }
+  return null;
+}
+// Keep definitions and hypotheses grammatical when several scientific terms in
+// the same clause would otherwise be translated as disconnected fragments.
+function clinicalStatement(sentence){
+  const terms=new Map([...terminology.map(([key,value])=>[key.toLowerCase(),value]),
+    ['skin disease','皮肤病'],['skin disorder','皮肤疾病'],['contagious skin infection','传染性皮肤感染'],
+    ['skin damage','皮肤损伤'],['tissue damage','组织损伤'],['inflammation','炎症'],['pain','疼痛'],
+    ['itch','瘙痒'],['sensory neurons','感觉神经元'],['specific microbes','特定微生物'],
+    ['mechanical stimuli','机械刺激'],['heat','热刺激'],['itchy, eczematous lesions','伴瘙痒的湿疹样皮损']]);
+  const lookup=s=>terms.get(s.toLowerCase());
+  const body=sentence.replace(/\s+\d+(?:[–,-]\d+)*\s*\.$/,'.');
+  const definition=body.match(/^(.+?)(?: \(([A-Z][\w-]*)\))? is an? (.+?) characterized by (.+?)\.$/i);
+  if(definition){
+    const [,name,abbr,type,feature]=definition;
+    if([name,type,feature].every(lookup))return lookup(name)+(abbr?'（'+abbr+'）':'')+'是一种'+lookup(type)+'，其特征是'+lookup(feature)+'。';
+  }
+  const cause=body.match(/^(.+?) is (?:also )?a leading cause of (.+?), an? (.+?) characterized by (.+?)\.$/i);
+  if(cause&&cause.slice(1).every(lookup)){
+    const [,agent,condition,type,symptom]=cause.map((s,i)=>i?lookup(s):s);
+    return agent+'是引起'+condition+'的主要原因之一。'+condition+'是一种'+type+'，典型表现为'+symptom+'。';
+  }
+  const hypothesis=body.match(/^We hypothesi[sz]ed that (.+?) (?:may\s*be|might be|could be) activated (?:following|after) exposure to (.+?), resulting in (.+?) that (?:drives|causes) (.+?)\.$/i);
+  if(hypothesis&&hypothesis.slice(1).every(lookup)){
+    const [,cells,stimulus,response,outcome]=hypothesis.map((s,i)=>i?lookup(s):s);
+    return '作者推测，接触'+stimulus+'可能激活'+cells+'，由此引发的'+response+'会进一步造成'+outcome+'。';
+  }
+  return null;
 }
 // Parenthesized panel positions describe different variables. Translate each association
 // separately so a missing qualifier cannot silently transfer a variable to the other panel.
@@ -104,7 +162,7 @@ export async function translatePassage(original,from,translate){
   if(from!=='en')return {text:await translate(original,from),warnings:[]};
   const lines=[],warnings=[];
   for(const s of sentences(original)){
-    const checked=microscopyCaption(s)||assay(s);
+    const checked=microscopyCaption(s)||quantitativeCaption(s)||clinicalStatement(s)||assay(s);
     if(checked){lines.push(checked);continue}
     const exact=terminology.find(([en])=>s.toLowerCase()===en.toLowerCase());
     if(exact){lines.push(exact[1]);continue}
@@ -112,9 +170,9 @@ export async function translatePassage(original,from,translate){
     const body=fig?s.slice(fig[0].length):s;
     const parallel=comparisonCaption(body);
     if(parallel){lines.push((fig?'图 '+fig[1]+'　':'')+parallel);continue}
-    const keys=[...new Set([...body.matchAll(/\b(?:[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|[Aa]baucin)\b/g)].map(m=>m[0]))];
+    const keys=[...new Set([...body.matchAll(/\b(?:q(?:RT-)?PCR|mRNA|[A-Z]\d+[\w-]*|[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|[Aa]baucin)\b/g)].map(m=>m[0]))];
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
-    const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells');
+    const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells').replace(/\bmaybe (?=activated\b)/gi,'may be ');
     let result=body?await translate(prepared,from):'';
     if(/remain(?:s)? (?:insufficiently|poorly|incompletely) characteri[sz]ed[.!]?$/i.test(body))
       result=result.replace(/(?:仍然|仍|还)?不足[。.]?$/,'尚未得到充分研究。');
@@ -145,12 +203,12 @@ export async function translatePassage(original,from,translate){
 }
 // A scientific sentence can lose a number or identifier during translation.
 // Retry with protected spans, then run the same factual checks again.
-export async function mapChinese(source,translate){
+export async function mapChinese(source,translate,{keepLatinNames=false}={}){
   const han=/[\u3400-\u9fff]/u;
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
   names.set('(left)','（左图）');names.set('(right)','（右图）');
   const escaped=[...names.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[\-\/\\^$*+?.()|[\]{}]/g,'\\$&'));
-  const technical=/\((?:left|right)\)|\b[A-Z]\.\s+[a-z]{3,}\b|\b[A-Z]\d+[A-Z]\b|\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
+  const technical=/\((?:left|right)\)|\b[A-Z]\.\s+[a-z]{3,}\b|\b(?:q(?:RT-)?PCR|mRNA|[A-Z]\d+[\w-]*)\b|\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
   const pattern=escaped.map(v=>v.replace(/[a-z]/gi,c=>'['+c.toUpperCase()+c.toLowerCase()+']')).join('|');
   const anchors=new RegExp(pattern+'|'+technical.source,'g');
   async function protectedSentence(s){
@@ -188,7 +246,13 @@ export async function mapChinese(source,translate){
       }
     }
     if(result.warnings.length||!han.test(result.text))throw Error('Translation needs another reading');
-    parts.push(result.text);
+    let localized=result.text.trim();
+    for(const [name,zh] of terminology){
+      if(keepLatinNames||!/^(?:[A-Z][a-z]+|[A-Z]\.) [a-z]+$/.test(name)||localized.includes(zh))continue;
+      localized=localized.replaceAll(name,zh);
+    }
+    if(/\bOMVs\b/.test(s)&&/\b(?:outer membrane vesicles|bacteri\w*|(?:A\.|Acinetobacter) baumannii|(?:E\.|Escherichia) coli)\b/i.test(s)&&!localized.includes('外膜囊泡'))localized=localized.replace(/\bOMVs\b/g,'外膜囊泡（OMVs）');
+    parts.push(localized.replace(/(?<=[\u3400-\u9fff]),\s*(?=[\u3400-\u9fff])/g,'，'));
   }
   return parts.join(' ');
 }
@@ -205,6 +269,6 @@ export async function selectionTranslation(text,from,translate){
   if(term&&term[0]===term[1])return {text:term[1],lang:'en',name:true};
   const abbreviation={SEM:'扫描电子显微镜（SEM）',TEM:'透射电子显微镜（TEM）',MIC:'最低抑菌浓度（MIC）'};
   if(abbreviation[original])return {text:abbreviation[original],lang:'zh-CN',name:false};
-  const result=await mapChinese(original,translate);
+  const result=await mapChinese(original,translate,{keepLatinNames:true});
   return {text:result,lang:'zh-CN',name:false};
 }

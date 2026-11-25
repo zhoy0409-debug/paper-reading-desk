@@ -29,3 +29,10 @@ await assert.rejects(selectionTranslation('Selected measurements were repeated.'
 const chart='Figure 5: Comparison of AlphaNet and BetaNet top-5 accuracies (multi-crop testing) on the Sample test dataset as a function of training epochs (right) and trainable parameters (left).';
 const result=await selectionTranslation(chart,'en',unexpected);
 assert.match(result.text,/图 5.*AlphaNet.*BetaNet.*Sample 测试集.*Top-5 准确率（多裁剪测试）.*右图横轴为训练轮次，左图横轴为模型参数量/);
+
+const cohort=await selectionTranslation('Measurement of ABC1 protein in skin biopsies from healthy volunteers and lesional and non-lesional skin from PSO patients (n=8-11 per group)', 'en', unexpected);
+assert.match(cohort.text,/活检.*ABC1 蛋白.*健康.*PSO 患者的皮损皮肤和非皮损皮肤.*每组 n = 8–11/);
+const expression=await selectionTranslation('Measurement of M1 and M2 mRNA levels by qRT-PCR in B24 cells exposed to light (4 h) with or without CX91 treatment (8 nM). n = 7 independent experiments.', 'en', unexpected);
+assert.match(expression.text,/qRT-PCR.*B24.*M1、M2.*4 h.*8 nM CX91.*未经.*7/);
+const hypothesis=await selectionTranslation('We hypothesized that sensory neurons might be activated after exposure to mechanical stimuli, resulting in pain that causes tissue damage.','en',unexpected);
+assert.match(hypothesis.text,/推测.*机械刺激.*感觉神经元.*疼痛.*组织损伤/);

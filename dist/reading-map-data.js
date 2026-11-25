@@ -5,7 +5,7 @@
   'use strict';
   const clean=s=>String(s??'').replace(/\s+/g,' ').replace(/(\p{Ll})-\s+(?=\p{Ll})/gu,'$1').trim();
   const STOP=/^(?:references|bibliography|acknowledg(?:e)?ments?|参考文献|致谢)$/i;
-  const BREAK=/(?<!\b(?:et al|Fig|Figs|Eq|Sec|e\.g|i\.e|cf|vs|Dr|No|approx|\p{Lu}))[.!?](?=\s+[\p{Lu}(])|[。！？]/u;
+  const BREAK=/(?<!\b(?:et al|Fig|Figs|Eq|Sec|e\.g|i\.e|cf|vs|Dr|No|approx|\p{Lu}))[.!?](?=\s+(?:[\p{Lu}(]|\d+(?:\.\d+)?\s*%))|[。！？]/u;
   function bodyOf(rows){const end=rows.findIndex(r=>STOP.test(clean(r.text)));return end<0?rows:rows.slice(0,end)}
   // Lines joined back into paragraphs, then split into sentences that keep their page.
   function sentences(rows){
@@ -77,20 +77,23 @@
     const burden=/limited (?:therapeutic|treatment) options|clinical (?:burden|need)|healthcare burden|major (?:challenge|cause|barrier)|threat to public health|common (?:cause|symptom)|prevalen(?:t|ce)|affects? (?:many|millions)|广泛应用|临床负担|常见症状|治疗选择有限/i;
     const resultClaim=/\b(?:structures?|analyses|our (?:data|experiments|approach))\b.{0,85}\b(?:reveals?|shows?|demonstrates?)\b/i;
     const start=before.find(s=>burden.test(s.text)&&!prior.test(s.text))||context.find(s=>!prior.test(s.text)&&!resultClaim.test(s.text)&&! /^(?:however|thus|therefore|together|in contrast|these|this |it |its |然而|因此|其)/i.test(s.text));
-    add(gaps,start,'context');
+    const pluralContext=gap&&/\b(?:these|such) (?:[\w-]+ ){0,2}(?:conditions|diseases|disorders|phenomena)\b/i.test(gap.text);
+    const definition=pluralContext&&before.slice(-6).find(s=>/\bis (?:an? |one of ).*\bcharacteri[sz]ed by\b/i.test(s.text));
+    add(gaps,definition||start,'context');
     const antecedent=before.at(-1);
     const dependent=gap&&/^(?:however|yet|nevertheless|despite|its |this |their |the (?:mechanism|basis)|然而|但|其|尽管)/i.test(gap.text);
     const priorWork=[...context].reverse().find(s=>prior.test(s.text));
     if(priorWork)add(gaps,priorWork,'prior');
     if(dependent&&antecedent&&antecedent!==gap&&!need.test(antecedent.text))add(gaps,antecedent,'context');
     if(!gap&&!priorWork)add(gaps,context.find(s=>s!==start),'context');
+    if(gaps.length<2)add(gaps,ordered.find(s=>eligible(s)&&/\brequires? (?:a |an )?(?:better |clear |detailed |deeper )?understanding of\b/i.test(s.text)),'context');
     add(gaps,gap,'gap');
     const distinction=explicit.find(s=>s!==gap&&s.section===gap.section&&!/^(?:however|nevertheless|然而)/i.test(s.text));
     if(distinction&&gaps.length<4)add(gaps,distinction,'gap');
     // A result sentence with “we found” is not a study aim.
     const objectiveOrder=pos<0?ordered:[...early.slice(pos+1),...ordered];
     for(const s of objectiveOrder.filter(s=>!metadata.test(s.text)&&objective(s)&&
-      !/\bwe (?:show|report|found|demonstrate|reveal)(?:ed)?\b|我们发现/i.test(s.text))){
+      !/\bwe (?:also |further )?(?:find|found|show(?:ed)?|report(?:ed)?|demonstrate[ds]?|reveal(?:ed)?)\b|我们发现/i.test(s.text))){
       if(aims.length>=2)break;
       const purpose=s.text.match(/^To (?:better )?(?:understand|investigate|examine|assess|test)\b[^,]+,\s*we\b.+?(?=,\s*(?:revealing|showing|demonstrating)\b)/i);
       add(aims,s,'aim');
@@ -104,7 +107,7 @@
     const result=f=>{
       const kids=[];
       for(const a of (f.questionAims||[]).slice(0,1))kids.push({text:PaperOutline.claim(a.text),quote:a.text,page:a.page,check:'source',role:'why'});
-      const panels=[...PaperOutline.panelText(f.caption)].map(([l,v])=>({text:v.text,quote:v.text,page:f.captionPage||f.page,check:'source',panel:l.toUpperCase()}));
+      const panels=[...PaperOutline.panelText(f.caption)].map(([l,v])=>({text:v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase()}));
       kids.push(...panels);
       for(const p of (f.authorPassages||[]).slice(0,2))kids.push({text:PaperOutline.claim(p.text),quote:p.text,page:p.page,check:'source',role:'found'});
       return {...(f.evidenceStep?{zh:f.title,en:f.evidenceStep[0]}:{}),text:PaperOutline.title(f.caption,f.label)||f.title||f.label,fig:f.id,page:f.page,children:kids};

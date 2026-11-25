@@ -34,7 +34,7 @@
     if(e.key==='Escape' && !document.fullscreenElement)window.frameElement?.closest('dialog')?.close();
   });
   const film=el('film');
-  film.poster='cover-'+lang+'.webp?v=040';
+  film.poster='cover-'+lang+'.webp?v=044';
   const movie='tour-'+lang+'.mp4?v=040';
   // The bundled Python file server sends whole files. A local Blob lets a browser seek
   // to any chapter even when the server does not implement HTTP Range requests.

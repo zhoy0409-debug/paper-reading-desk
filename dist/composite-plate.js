@@ -28,9 +28,11 @@
     }
     const a=column(line),b=column(beside[0]);
     if(a.length<2||b.length<2)return;
-    const text=[...a,...b].map(l=>l.text).join(' ').replace(/(\p{Ll})-\s+(\p{Ll})/gu,'$1$2');
+    const text=[...a,...b].map(l=>l.captionText||l.text).join(' ').replace(/\b(non|two|single|double|heat)-\s+(?=\p{Ll})/gu,'$1-').replace(/(\p{Ll})-\s+(\p{Ll})/gu,'$1$2');
     const letters=series(text);
-    if(!letters.has('A')||letters.size<2||!/[.!?)][”"]?$/.test(b.at(-1).text))return;
+    const lower=globalThis.CaptionFlow?.headings(text)||[];
+    const continuedSeries=lower.length>=3&&lower.some(m=>m.at>=a.map(l=>l.text).join(' ').length);
+    if((!letters.has('A')||letters.size<2)&&!continuedSeries||!/[.!?)][”"]?$/.test(b.at(-1).text))return;
     return {text,endY:Math.max(a.at(-1).y1,b.at(-1).y1)};
   }
   const size=20;

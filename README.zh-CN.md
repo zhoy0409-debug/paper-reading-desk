@@ -2,9 +2,11 @@
 
 [打开中文版](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh) · [下载 Windows 便携版](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [English](README.md)
 
+把上面的「打开中文版」分享给同学即可直接使用，无需 GitHub 账号。新版发布后，刷新同一网址即可打开新版。
+
 准备组会时，最费时间的往往是三件事。图放进 PPT 后坐标字糊了，查完一个陌生方法又忘了自己在看哪组点，最后每张图都读过，却讲不清它们之间的关系。下面用同一篇公开论文演示怎样取图、在图旁追问，再把这张图放回全文里理解。
 
-[![播放新版 60 秒操作演示，从点读坐标轴到导出整套讲稿。](dist/media/tour/cover-zh.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
+[![播放新版 60 秒操作演示，从点读坐标轴到导出整套讲稿。](dist/media/tour/cover-zh.webp?v=044)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh)
 
 [看分段演示](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=zh) · [看配音宣传片](https://zhoy0409-debug.github.io/paper-reading-desk/film/zh.html)
 
