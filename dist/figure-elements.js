@@ -169,20 +169,36 @@
   }
   // Search the paper on demand when a label was not defined in its own figure.
   function paperPassages(sections){
-    const pages=new Map(),cache=new Map();
+    const sources=[],cache=new Map();
+    const searchable=text=>' '+folded(text).replace(/[^\p{L}\p{N}]+/gu,' ').trim()+' ';
     for(const section of sections||[]){
       if(section.key==='references')continue;
-      for(const row of section.rows||[]){
-        if(row.heading||!row.page||!row.text)continue;
-        if(!pages.has(row.page))pages.set(row.page,[]);
-        pages.get(row.page).push(row.text);
+      let page,lines=[],caption=false,headingTail=false;
+      function flush(){
+        const text=clean(lines.join(' '));lines=[];
+        for(const sentence of text.split(/(?<=[.!?])\s+(?=[A-Z(])|(?<=。)/u)){
+          if(sentence.length>=20&&sentence.length<=450)sources.push({page,text:sentence,index:searchable(sentence)});
+        }
       }
+      for(const row of section.rows||[]){
+        if(row.page!==page){flush();page=row.page;caption=false;headingTail=false}
+        if(!page||!row.text)continue;
+        if(row.heading||row.fig||/^\d+(?:\.\d+)*\s+[A-Z][^.!?]{4,100}$/.test(row.text)){
+          flush();caption=/^(?:fig(?:ure)?\.?|table|图|表)\s*S?\d+\s*$/iu.test(row.text);
+          headingTail=!row.fig&&!caption;continue;
+        }
+        if(headingTail&&/^[a-z][a-z -]{1,53}$/.test(row.text))continue;
+        headingTail=false;
+        if(caption){caption=!/[.!?。！？]\s*$/.test(row.text);continue}
+        lines.push(row.text);
+      }
+      flush();
     }
-    const sources=Array.from(pages,([page,lines])=>({page,text:lines.join(' ')}));
     return (term,page)=>{
       const key=page+'|'+folded(term);
       if(!cache.has(key)){
-        const relevant=sources.filter(s=>contains(s.text,term)).sort((a,b)=>Math.abs(a.page-page)-Math.abs(b.page-page));
+        const needle=searchable(term);
+        const relevant=sources.filter(s=>s.index.includes(needle)).sort((a,b)=>Math.abs(a.page-page)-Math.abs(b.page-page));
         cache.set(key,evidence(term,relevant)||passage(term,relevant)||null);
       }
       return cache.get(key);
@@ -192,5 +208,18 @@
     const entry=[term,term,'已读出标注「'+term+'」，其在本图中的含义待核对。','The label reads “'+term+'”. Its meaning in this figure is unconfirmed.',page];
     entry.lookup=true;return entry;
   }
-  window.FigureElements={labels,reference,distanceGuide,explain,passage,paperPassages,unresolved};
+  function labelPassage(label,sources,lookup,page){
+    const direct=lookup?.(label,page)||passage(label,sources);
+    if(direct)return direct;
+    // A diagram can wrap "SDF-1 expression" or a kinase's action across lines.
+    // Only use a shorter match if there is one unambiguous named term in the label.
+    const tokens=[...new Set((label.match(/[A-Za-zΑ-Ωα-ω][A-Za-zΑ-Ωα-ω\d]*(?:[-‐‑][A-Za-zΑ-Ωα-ω\d]+)*/gu)||[])
+      .filter(t=>t.length>=3&&t.length<=26&&(/[A-Z].*[A-Z\d]|\d|[Α-Ωα-ω]/u.test(t))&&t!==label))];
+    if(tokens.length!==1)return null;
+    const term=tokens[0],matched=lookup?.(term,page)||passage(term,sources);
+    if(!matched)return null;
+    const entry=[label+' · '+term,label+' · '+term,matched[2],matched[3],matched[4]];
+    entry.localize=matched.localize;entry.quote=matched.quote;return entry;
+  }
+  window.FigureElements={labels,reference,distanceGuide,explain,passage,paperPassages,unresolved,labelPassage};
 })();

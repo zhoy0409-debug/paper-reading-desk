@@ -449,7 +449,8 @@
     const tickNote=btn('右侧部分刻度在原页中也显示不全 · 核对原页','Clipped tick labels · View PDF',()=>source(figure.page));
     tickNote.className='rq-tick-note';tickNote.hidden=true;
     keys.hidden=true;
-    viewer.append(bar,stage,tickNote);viewer.hidden=callout.hidden=true;visual.querySelector('.frw-caption').before(viewer);
+    const pointProgress=FigureClicks.feedback();
+    viewer.append(bar,pointProgress.node,stage,tickNote);viewer.hidden=callout.hidden=true;visual.querySelector('.frw-caption').before(viewer);
     const locate=btn('定位图中标注','Locate on figure',()=>{
       if(activeHit){centerHit(activeHit);activeHit.focus({preventScroll:true});drawWire()}
     });
@@ -494,12 +495,13 @@
     }
     let traceAnchor=null;
     function showTip(b,entry,row,anchor=null){
+      pointProgress.cancelTap();
       enterAnimation?.finish();
       if(entry.lookup)entry=findPassage?.(entry[0],figure.page)||entry;
       traceAnchor=anchor;
       activeHit?.setAttribute('aria-pressed','false');activeHit=b;b.setAttribute('aria-pressed','true');
       callout.replaceChildren(pair(el('h4'),entry[0],entry[1]),pair(el('p'),entry[2],entry[3]));
-      if(entry.localize)PaperLanguageText.bind(callout.querySelector('p'),entry[3]);
+      if(entry.localize)PaperLanguageText.bind(callout.querySelector('p'),entry[3],{showSource:true});
       const actions=el('div','rq-actions');actions.append(locate);
       if(entry[4])actions.append(btn('对照 p.'+entry[4],'Source · p.'+entry[4],()=>source(entry[4],entry.quote)));
       if(entry[3])actions.append(btn('英文跟读','English practice',e=>EnglishPractice.open({
@@ -686,6 +688,7 @@
       toggleLong.setAttribute('aria-expanded',String(long));
     }
     function apply(list){
+      const selected=activeHit&&layer.contains(activeHit)&&!callout.hidden?{name:activeHit.getAttribute('aria-label'),left:activeHit.style.left,top:activeHit.style.top}:null;
       layer.replaceChildren();keyList.replaceChildren();menuList.replaceChildren();
       const ordered=[...list].sort((a,b)=>(a.priority??10)-(b.priority??10));
       const named=ordered.filter(s=>s.verified).slice(0,4);
@@ -713,6 +716,7 @@
         }
         const titleZh=entry[0];
         const name=ReaderLanguage.choose(titleZh,hintEn);b.dataset.nameZh=titleZh;b.dataset.nameEn=hintEn;b.setAttribute('title',name);b.setAttribute('aria-label',name);b.setAttribute('aria-pressed','false');
+        if(selected&&selected.name===name&&selected.left===b.style.left&&selected.top===b.style.top){activeHit=b;b.setAttribute('aria-pressed','true');requestAnimationFrame(drawWire)}
         b.onclick=e=>{
           e.stopPropagation();const rect=canvas.getBoundingClientRect();
           if(trace && values && FigureElements.reference(part?.raw.reading?.sources?.find(s=>s.kind==='小图图注')?.text)){
@@ -769,7 +773,9 @@
         from.bottom=from.top+from.height;
       }
       stage.scrollTop=0;shared.replaceChildren();shared.hidden=true;key=next;const current=++epoch;closeTip();setZoom(false);viewer.hidden=!on;visual.classList.toggle('rq-focused',on);notes.classList.toggle('rq-has-focus',on);
+      pointProgress.clear();
       if(!on){apply([]);return}
+      pointProgress.begin();
       pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
       const marks=pageBox?session.chartMarks?.(f.page,pageBox,f.raw.matchKey)||[]:[];
@@ -784,7 +790,7 @@
         apply([]);canvas.width=canvas.height=1;
         const painted=fullResolution=await paintPDFCrop(f.page,pageBox,current,capture).catch(()=>false);
         if(current!==epoch)return;
-        if(!painted){key='';viewer.hidden=true;visual.classList.remove('rq-focused');notes.classList.remove('rq-has-focus');return}
+        if(!painted){pointProgress.clear();key='';viewer.hidden=true;visual.classList.remove('rq-focused');notes.classList.remove('rq-has-focus');return}
       }
       sheet.style.setProperty('--rq-ratio',canvas.width/canvas.height);stage.style.setProperty('--rq-original','url("'+src+'")');
       revealCrop(from);
@@ -807,12 +813,26 @@
         }
       }
       apply(fixed);
+      if(fixed.length)pointProgress.update(fixed.length,false);
       if(inPreview&&pageBox)fullResolution=paintPDFCrop(f.page,pageBox,current,capture).catch(()=>false);
       if(!checked&&pageBox){
         try{
           let words=await session.chartText(f.page,pageBox);
+          if(current!==epoch)return;
+          const sources=[...(p.raw.reading?.sources||[]),...(f.raw.authorPassages||[]),{text:f.caption,page:f.raw.captionPage||f.page}];
+          const quick=items=>{
+            if(current!==epoch)return;
+            const ready=[];
+            for(const w of items.slice(0,90)){
+              const entry=w.chart?CartesianPanels.explanation(w,f.page):FigureElements.explain(w,{caption:f.caption,reading:p.raw.reading,page:f.page,words:items,lookupTerm})||
+                FigureElements.labelPassage(w.text,sources,findPassage,f.page);
+              if(entry&&w.x1>w.x0&&w.y1>w.y0)ready.push({x:w.x0,y:w.y0,w:w.x1-w.x0,h:w.y1-w.y0,entry});
+            }
+            if(ready.length){apply([...fixed,...ready]);pointProgress.update(fixed.length+ready.length,false)}
+          };
+          quick(marks.filter(m=>m.chart).concat(words));
           if((f.raw.rasterPlate||words.filter(w=>/\p{L}{2}/u.test(w.text)).length<2)&&histograms&&current===epoch){
-            const raster=await histograms.panelLabels(f.page,pageBox,()=>current===epoch).catch(()=>[]);
+            const raster=await histograms.panelLabels(f.page,pageBox,()=>current===epoch,{onLabels:quick}).catch(()=>[]);
             words=words.concat(raster.filter(a=>!words.some(b=>a.text===b.text&&Math.abs(a.x0-b.x0)<.025&&Math.abs(a.y0-b.y0)<.025)));
           }
           if(current!==epoch)return;
@@ -868,7 +888,8 @@
               (f.raw.rasterPlate && CompositePlate.labelGuide(t,g?.sources,f.page));
             if(!entry){
               if(word.series||!/[\p{L}]{2}/u.test(t))continue;
-              entry=FigureElements.passage(t,[...(g?.sources||[]),...(f.raw.authorPassages||[]),{text:f.caption,page:f.raw.captionPage||f.page}]);
+              entry=FigureElements.labelPassage(t,sources,findPassage,f.page);
+              if(!entry&&f.raw.review&&f.raw.rasterPlate)continue;
               if(!entry){entry=FigureElements.unresolved(t,f.page)}
             }
             if(word.trace && word.series){
@@ -879,8 +900,9 @@
             hits.push({x,y,w,h,entry,trace:word.trace,values:word.values,color:word.color,verified:!entry.localize&&!entry.lookup,priority:model?1:word.trace?15:word.peak?5:10,row});
           }
           tableRows=hits.filter(h=>h.row);apply([...fixed,...hits]);
-        }catch{/* A raster-only panel still opens from its original pixels. */}
+        }catch{/* Previously recognised labels remain usable. */}
       }
+      if(current===epoch)pointProgress.update(layer.querySelectorAll('button.rq-hit,polyline[role=button]').length,true);
     }
     let selectionTagKey='';
     function dismissLayer(){
@@ -888,7 +910,11 @@
       if(viewport.classList.contains('rq-magnified')){setZoom(false);zoomButton.focus({preventScroll:true});return}
       goFull();
     }
-    stage.addEventListener('click',e=>{if(!e.target.closest('button,[role=button],.rq-callout'))dismissLayer()});
+    stage.addEventListener('click',e=>{
+      if(e.target.closest('button,[role=button],.rq-callout'))return;
+      if(sheet.contains(e.target)&&pointProgress.capture(e,layer))return;
+      dismissLayer();
+    });
     const escape=e=>{if(e.key==='Escape'&&!desk.isDrawing()&&!viewer.hidden&&!visual.classList.contains('source-shown')&&!document.querySelector('dialog[open]')&&!e.target.closest('textarea,input')&&!document.querySelector('.local-translation:not([hidden])')){if(e.defaultPrevented)return;e.preventDefault();dismissLayer()}};
     const refreshHitNames=()=>{
       nameStage();

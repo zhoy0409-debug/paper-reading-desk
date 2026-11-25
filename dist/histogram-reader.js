@@ -537,18 +537,25 @@
       return result.filter(k=>accepted.some(s=>s.text===k.text&&Math.abs(s.y0-k.y0)<s.y1-s.y0));
     }
     const labelCache=new Map();
-    function panelLabels(page,box,isCurrent){
+    function panelLabels(page,box,isCurrent,{canvas,onLabels}={}){
       const key=JSON.stringify([page,box]);
       if(labelCache.has(key))return Promise.resolve(labelCache.get(key));
       const job=chain.then(async()=>{
         if(closed||!isCurrent())return [];
-        const pic=await session.renderRegion(page,box,{quality:'slide'});
-        if(!isCurrent()||pic.mode!=='crop')return [];
-        const bitmap=await createImageBitmap(pic.blob);
-        const c=document.createElement('canvas');c.width=bitmap.width;c.height=bitmap.height;
+        let c=canvas;
+        if(!c){
+          const pic=await session.renderRegion(page,box,{quality:'slide'});
+          if(!isCurrent()||pic.mode!=='crop')return [];
+          const bitmap=await createImageBitmap(pic.blob);
+          c=document.createElement('canvas');c.width=bitmap.width;c.height=bitmap.height;
+          try{c.getContext('2d').drawImage(bitmap,0,0)}finally{bitmap.close()}
+        }
         try{
-          c.getContext('2d').drawImage(bitmap,0,0);
           let lines=await ocrLines(c,false,true);
+          if(!isCurrent())return [];
+          const asLabels=lines=>lines.filter(l=>l.conf>=65&&(l.category||/[\p{L}]{2}|[µμ]m|\d+\s*h\b/u.test(l.text)||/^p\s*[=<>≤≥]\s*0?\.\d+$/i.test(l.text)))
+            .map(l=>({text:l.text.trim(),...(l.category&&/^\d+$/.test(l.text)?{chart:{kind:'category',context:{axes:[],caption:''}}}:{}),x0:l.x0/c.width,x1:l.x1/c.width,y0:l.y0/c.height,y1:l.y1/c.height}));
+          onLabels?.(asLabels(lines));
           if(lines.filter(l=>l.conf>=65&&/\p{L}{2}/u.test(l.text)).length<3){
             const mask=document.createElement('canvas');mask.width=c.width;mask.height=c.height;
             const ctx=mask.getContext('2d',{willReadFrequently:true});
@@ -560,8 +567,7 @@
             if(coloured){ctx.putImageData(pix,0,0);lines=lines.concat(await ocrLines(mask,false,true))}
             mask.width=mask.height=0;
           }
-          const labels=lines.filter(l=>l.conf>=65&&(l.category||/[\p{L}]{2}|[µμ]m|\d+\s*h\b/u.test(l.text)||/^p\s*[=<>≤≥]\s*0?\.\d+$/i.test(l.text)))
-            .map(l=>({text:l.text.trim(),...(l.category&&/^\d+$/.test(l.text)?{chart:{kind:'category',context:{axes:[],caption:''}}}:{}),x0:l.x0/c.width,x1:l.x1/c.width,y0:l.y0/c.height,y1:l.y1/c.height}));
+          const labels=asLabels(lines);
           const axisLike=lines.some(l=>l.category||/^(?:female|male|combined|mock)\b/i.test(l.text)||/^\s*x\s*[:：]\s*\d/i.test(l.text)||/\b(?:time|frequency|intensity|score|voltage|distance|probability|concentration)\b/i.test(l.text));
           if(axisLike&&isCurrent())labels.push(...await verticalLabels(c,lines,isCurrent));
           if(!isCurrent())return [];
@@ -572,7 +578,7 @@
           unique.push(...outlined);
           labelCache.set(key,unique);if(labelCache.size>64)labelCache.delete(labelCache.keys().next().value);
           return unique;
-        }finally{bitmap.close();c.width=c.height=0}
+        }finally{if(!canvas)c.width=c.height=0}
       });
       chain=job.catch(()=>{});return job;
     }

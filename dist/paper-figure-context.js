@@ -78,14 +78,19 @@ function linkedSection(rows,phrase){
  }
  return {...match,refs:[...refs]};
 }
+function isReview(rows){
+ const frontRows=rows.filter(r=>r.page===1||!r.page).slice(0,180);
+ return frontRows.some(r=>/^(?:(?:article\s+)?type\s*[:：]?\s*)?(?:(?:narrative|systematic|scoping|mini|literature)[ -]?)?review(?: article)?$|^(?:文献综述|系统综述|综述)$/i.test(clean(r.text)))||
+  /\b(?:in this review[, ]+we\b|this (?:systematic |scoping |narrative )?review (?:summari[sz]es|examines|discusses|explores|synthesi[sz]es|focuses|covers|provides|aims)\b)|本综述(?:总结|探讨|介绍|梳理|旨在)/i.test(frontRows.map(r=>r.text).join(' '));
+}
 function modelFor(item,found){
  const m=item?.model||{}, rows=Array.isArray(m.rows)?m.rows:[];
- const animalCohorts=window.ModelReading?.paperContext(m)||[];
+ const animalCohorts=window.ModelReading?.paperContext(m)||[],genre=isReview(rows);
  const front=rows.filter(r=>!r.page||r.page===1).slice(0,28).map(r=>clean(r.text)).join(' ');
  const curated=/\b10\.1038\/s41467-026-75428-4\b/i.test(front)&&/conformational\s+hijacking/i.test(front)&&/loldf/i.test(front);
  const groups=new Map();
  const records=[];
- for(const f of (Array.isArray(found)?found:[]).slice(0,40)){
+ for(const f of (Array.isArray(found)?found:[]).slice(0,55)){
   if(!f||!Number.isInteger(f.page)||f.page<1)continue;
   const n=figureNumber(f.label||f.id);
   const typ=/\btable\b|表/i.test(String(f.label))?'T':'F';
@@ -134,7 +139,7 @@ function modelFor(item,found){
   const mainLink=precise?exchange+suffix:undefined;
   const splitHeading=panels.length===2&&panels.every(p=>/^(?:left|right)$/.test(p.id)&&!p.title.startsWith('分图 '))?
     panels.map(p=>p.title).join(' / '):'';
-  const figure={...f,animalCohorts,id:f.id,label,editorGuide:Boolean(precise),evidenceStep:precise?evidenceSteps[n]:null,title:precise?.title||splitHeading||captionTitle(caption,label),caption, page, panels,
+  const figure={...f,review:genre,animalCohorts,id:f.id,label,editorGuide:Boolean(precise),evidenceStep:precise?evidenceSteps[n]:null,title:precise?.title||splitHeading||captionTitle(caption,label),caption, page, panels,
     summary:precise?.summary||'已从你上传的 PDF 定位到这张图及图注。请沿原图核对实际比较对象。',
     boundary:precise ? precise.boundary : '这一步定位原图和原文，不自动把图注解释成科学结论。',
     references:[...refs,...knowledge],source:{label:'PDF 图注',location:trace.location,page:captionPage,href:mainLink}};
@@ -152,5 +157,5 @@ function modelFor(item,found){
    title:'结构图不是录像',src:'./media/structure-explainer.mp4',poster:'./media/structure-explainer-poster.jpg',
    figureIds:records.filter(x=>figureNumber(x.label)==='3').map(x=>x.id)}:undefined};
 }
-window.PaperFigureContext=Object.freeze({modelFor,arxivID,captionTitle});
+window.PaperFigureContext=Object.freeze({modelFor,arxivID,captionTitle,isReview});
 })();

@@ -6,6 +6,7 @@ on:
       - 'dist/**'
       - 'VERSION'
       - 'tests/figure-explanation-entry-browser.cjs'
+      - 'tests/review-reader-browser.cjs'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -36,7 +37,7 @@ jobs:
           test -s _site/cover-zh.webp
           test -s _site/film/en.html
       - name: Test the reader at its public subpath
-        timeout-minutes: 8
+        timeout-minutes: 12
         run: |
           npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.56.1
           export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
@@ -47,6 +48,8 @@ jobs:
           curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
           node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
+          node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/
+          READER_BROWSER=webkit node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

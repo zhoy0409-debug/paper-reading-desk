@@ -2,12 +2,10 @@
 'use strict';
 
 // Local PDF.js scan. The PDF is never URL-addressed, uploaded, or interpreted as a claim.
-const base = new URL('./vendor/pdf/', document.currentScript.src);
 const MB = 1024 * 1024;
 const MAX_FILE = 64 * MB, MAX_PAGES = 54, DEFAULT_PAGES = 34, MAX_FIGURES = 55;
 const MAX_GRAPHIC_PAGES = 18, MAX_TEXT_ITEMS = 6500, MAX_OPS = 35000, MAX_GRAPHICS = 850;
 const UNIT = [1,0,0,1,0,0];
-let library;
 
 const stop = () => new DOMException('已取消读取 PDF。','AbortError');
 const clamp = (x,a,b) => Math.max(a,Math.min(x,b));
@@ -96,15 +94,33 @@ function capHead(text){
 }
 function captions(lines,p){
  const found=[];
+ // Some journals put the number in its own small heading above the caption.
+ // Check the neighbouring prose and typography before admitting a bare figure reference.
+ const detached=new Map(),heads=new Map();
+ for(const line of lines){
+  const explicit=capHead(line.text);
+  if(explicit){heads.set(line,explicit);continue}
+  if(!/^(?:(?:(?:extended data|supplementary|supplemental)\s+)?fig(?:ure)?\.?\s*|(?:扩展数据|补充|附)?图\s*)s?\s*\d{1,3}$/iu.test(line.text))continue;
+  const body=lines.find(t=>t.base>line.base+2&&t.base-line.base<=Math.max(15,line.size*2.5)&&
+   Math.abs(t.x0-line.x0)<=Math.max(5,line.size*.9)&&t.size>=line.size*.70&&t.size<=line.size*1.65&&
+   t.text.length>=12&&/[\p{L}]{2}/u.test(t.text)&&!/^\s*(?:fig(?:ure)?\.?\s*\d|table\s*\d|references\b|[图表]\s*\d)/iu.test(t.text));
+  if(!body)continue;
+  const separate=body.font!==line.font||Math.abs(body.size-line.size)>line.size*.10;
+  const preceding=lines.some(t=>t.base<line.base&&line.base-t.base<line.size*2&&
+   Math.abs(t.x0-line.x0)<line.size&&t.text.length>12);
+  if(!separate&&(preceding||!/[.!?。！？]$/.test(body.text)))continue;
+  const name=capHead(line.text+'.');
+  if(name){heads.set(line,{...name,label:line.text});detached.set(line,body)}
+ }
  // A wrapped sentence can put its figure reference at the beginning of a line.
  const wrapped=new Set();
- for(const line of lines.filter(l=>capHead(l.text))){
+ for(const line of heads.keys()){
   const previous=lines.findLast(l=>l.base<line.base-2&&line.base-l.base<=line.size*1.65&&
    Math.abs(l.x0-line.x0)<line.size&&close(l.size,line.size,line.size*.15));
   if(previous&&/\b(?:in|see|as in|shown in|used in|of|from|compare with)\s*$/i.test(previous.text))wrapped.add(line);
  }
  for(let idx=0;idx<lines.length;idx++){
-  const line=lines[idx], name=capHead(line.text);
+  const line=lines[idx], name=heads.get(line);
   if(!name||wrapped.has(line))continue;
   const chunks=[line.text];
   let firstExtent=line;
@@ -113,9 +129,12 @@ function captions(lines,p){
     close(t.size,line.size,line.size*.2)&&!capHead(t.text));
    if(onRow.length===1){chunks[0]+=' '+onRow[0].text;firstExtent={...line,x1:onRow[0].x1,text:chunks[0]}}
   }
-  let prev=firstExtent, endY=line.y1;
+  const body=detached.get(line);
+  if(body)chunks.push(body.captionText||body.text);
+  let prev=body||firstExtent, endY=prev.y1;
   for(let k=1;k<=16;k++){
-   const captionSize=x=>close(x.size,line.size,Math.max(1.1,line.size*.18))||close(x.bodySize,line.size,Math.max(.6,line.size*.10));
+   const size=(body||line).size;
+   const captionSize=x=>close(x.size,size,Math.max(1.1,size*.18))||close(x.bodySize,size,Math.max(.6,size*.10));
    // A small-caps figure number and the following caption can use different
    // fonts. Continue an unfinished sentence at the size of its actual prose.
    const continuesProse=x=>line.bodySize&&!/[.!?。！？]$/.test(prev.text)&&
@@ -130,7 +149,7 @@ function captions(lines,p){
     if(neighbour&&neighbour.base-prev.base<=prev.size*2.6&&Math.abs(neighbour.x0-line.x0)<line.size&&
        DualAxis.explicitSides([...chunks,neighbour.text].join(' ')).length===2)next=neighbour;
    }
-   if(!next||(!wrapped.has(next)&&(capHead(next.text)||
+   if(!next||(!wrapped.has(next)&&(heads.has(next)||
       /^(?:fig(?:ure)?\b|table\b|图\s*\d|表\s*\d|references$|results$|discussion$|methods$|摘要$|结果$|讨论$|方法$)/iu.test(next.text)))||
       !(captionSize(next)||continuesProse(next)))break;
    if(chunks.join(' ').length+next.text.length>2400)break;
@@ -191,7 +210,8 @@ function captions(lines,p){
   const columns=window.CompositePlate?.columnCaption(line,lines,p);
   const caption=columns?.text||chunks.join(' ');
   if(columns)endY=columns.endY;
-  found.push({...name,caption,partial:!/[.!?。！？][”")\]]?$/.test(caption),line,anchor:{x:line.x0,y:line.y0,endY,line:idx+1}});
+  const captionLine=body?{...line,x1:Math.max(line.x1,body.x1)}:line;
+  found.push({...name,caption,partial:!/[.!?。！？][”")\]]?$/.test(caption),line:captionLine,anchor:{x:line.x0,y:line.y0,endY,line:idx+1}});
  }
  return found;
 }
@@ -381,19 +401,13 @@ async function scan(file,options={}){
  check();
  if(!file||typeof file.arrayBuffer!=='function'||!Number.isFinite(file.size)||file.size<6)throw Error('请选择一个可打开的 PDF 文件。');
  if(file.size>MAX_FILE)throw Error('原图提取只支持 64 MiB 以内的 PDF；请选择原文相关页面的副本。');
- const bytes=new Uint8Array(await file.arrayBuffer());check();
- if(!/%PDF-\d/.test(new TextDecoder('latin1').decode(bytes.subarray(0,1024))))throw Error('没有找到 PDF 文件头。');
- const pdfjs=await (library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href).catch(e=>{library=null;throw e;}));check();
- pdfjs.GlobalWorkerOptions.workerSrc=new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
- const task=pdfjs.getDocument({data:bytes,cMapUrl:new URL('cmaps/',base).href,cMapPacked:true,
-   standardFontDataUrl:new URL('standard_fonts/',base).href,wasmUrl:new URL('wasm/',base).href,useWasm:false,
-   isEvalSupported:false,disableFontFace:true,useSystemFonts:false,enableXfa:false,
-   disableAutoFetch:true,disableStream:true,disableRange:true,stopAtErrors:false});
+ const source=options.pdfSource||await PaperStoryDocuments.openPdf(file);
+ const {pdfjs,task}=source;
  let disposed=false, activeRender=null, queue=Promise.resolve();
  async function destroy(){
   if(disposed)return;disposed=true;signal?.removeEventListener('abort',abort);
   if(activeRender)try{activeRender.cancel();}catch{}
-  await task.destroy().catch(()=>{});
+  await source.destroy();
  }
  function abort(){void destroy();}
  signal?.addEventListener('abort',abort,{once:true});if(signal?.aborted)abort();
@@ -401,10 +415,11 @@ async function scan(file,options={}){
   const pdf=await task.promise;check();
   let documentTitle='';
   try{documentTitle=cleanTitle(await pdf.getMetadata());}catch{check();}
-  const pageCap=clamp(Math.floor(Number(options?.maxPages)||DEFAULT_PAGES),1,MAX_PAGES);
+  const pageCap=options.allPages?pdf.numPages:clamp(Math.floor(Number(options.maxPages)||DEFAULT_PAGES),1,MAX_PAGES);
+  const graphicLimit=options.allPages?MAX_FIGURES:MAX_GRAPHIC_PAGES;
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
   const hubblePassages=[], marksByFigure=new Map();
-  let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null;
+  let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null,lastYield=performance.now();
   const captionKey=cap=>cap.matchKey+'\n'+cap.caption.toLowerCase();
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
    check();scannedPages=pg;let page,here=[];
@@ -412,7 +427,7 @@ async function scan(file,options={}){
    try{
     page=await pdf.getPage(pg);
     const viewport=page.getViewport({scale:1});
-    const text=await PaperStoryDocuments.pageText(page);check();
+    const text=await source.text(page);check();
     if(!text.items.some(x=>typeof x.str==='string'&&x.str.trim()))noTextPages.push(pg);
     const lines=positions(text,viewport);here=captions(lines,viewport);
     if(priorCaption){
@@ -458,7 +473,7 @@ async function scan(file,options={}){
      continue;
     }
     let objects=[],curvePaths=[];
-    if(usedDrawings<MAX_GRAPHIC_PAGES&&((page.rotate??0)%360===0)&&text.items.length<=MAX_TEXT_ITEMS){
+    if(usedDrawings<graphicLimit&&((page.rotate??0)%360===0)&&text.items.length<=MAX_TEXT_ITEMS){
      usedDrawings++;
      try{
       const list=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
@@ -502,7 +517,7 @@ async function scan(file,options={}){
        raster=await window.CompositePlate?.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
        check();if(raster)crop=raster.crop;
      }
-     if(!crop&&previous&&cap===here[0]&&cap.line.y0<viewport.height*.16&&usedDrawings<MAX_GRAPHIC_PAGES){
+     if(!crop&&previous&&cap===here[0]&&cap.line.y0<viewport.height*.16&&usedDrawings<graphicLimit){
       let earlier;
       try{
        earlier=await pdf.getPage(previous.pg);usedDrawings++;
@@ -652,7 +667,11 @@ async function scan(file,options={}){
      figures.push(figure);internals.set(id,{page:pg,crop:null});seen.set(digest,figure);
     }
    }
-   finally{if(page)try{page.cleanup();}catch{}}
+   finally{
+    if(page)try{page.cleanup();}catch{}
+    if(!signal?.aborted)options.onProgress?.({page:pg,total:Math.min(pageCap,pdf.numPages),figures:figures.length});
+    if(performance.now()-lastYield>48){await new Promise(done=>setTimeout(done,0));lastYield=performance.now()}
+   }
   }
   for(const f of figures.filter(f=>f.singleHubble)){
    f.singleHubble.story=hubblePassages.find(p=>p.key===f.matchKey);
@@ -711,7 +730,7 @@ async function scan(file,options={}){
     }
     activeRender=page.render(args);await activeRender.promise;activeRender=null;check();if(disposed)throw stop();
     if(glyphs&&paths.length){
-     const text=await PaperStoryDocuments.pageText(page),outlines=new Set();
+     const text=await source.text(page),outlines=new Set();
      for(const fontName of Object.keys(text.styles)){
       const font=page.commonObjs.has(fontName)&&page.commonObjs.get(fontName);
       for(const glyph of Object.values(font?.compiledGlyphs||{}))outlines.add(glyph);
@@ -734,17 +753,17 @@ async function scan(file,options={}){
   }
   return {
    figures,unlabelledPages,noTextPages,scannedPages,totalPages:pdf.numPages,documentTitle,warnings,
-   render(figureOrId,{forcePage=false}={}){
+   render(figureOrId,{forcePage=false,quality='screen'}={}){
     const id=typeof figureOrId==='string'?figureOrId:figureOrId?.id, ref=internals.get(id);
     if(!ref)return Promise.reject(Error('无法定位这张图的原文页。'));
     return serialized(async()=>{
-     if(!forcePage&&ref.crop){const cropped=await paint(ref.page,ref.crop);if(cropped)return cropped;}
-     return paint(ref.page,null);
+     if(!forcePage&&ref.crop){const cropped=await paint(ref.page,ref.crop,quality);if(cropped)return cropped;}
+     return paint(ref.page,null,quality);
     });
    },
-   renderPage(page){
+   renderPage(page,{quality='screen'}={}){
     if(!Number.isSafeInteger(page)||page<1||page>pdf.numPages)return Promise.reject(Error('PDF 页码不在范围内。'));
-    return serialized(()=>paint(page,null));
+    return serialized(()=>paint(page,null,quality));
    },
    chartLegend(n,figureKey){return marksByFigure.get(figureKey+'@'+n)?.sharedLegend||[]},
    chartMarks(n,b,figureKey){
@@ -755,7 +774,7 @@ async function scan(file,options={}){
         trace:trace?.map(([px,py])=>[(px-x)/width,(py-y)/height])}));
    },
    async chartText(n,b){
-    check();const pg=await pdf.getPage(n),v=pg.getViewport({scale:1}),txt=await PaperStoryDocuments.pageText(pg);
+    check();const pg=await pdf.getPage(n),v=pg.getViewport({scale:1}),txt=await source.text(pg);
     const width=b.width*v.width,height=b.height*v.height,x=b.x*v.width,y=b.y*v.height;
     return positions(txt,v,true).concat(verticalLabels(txt,v).map(t=>({...t,rotate:true})))
       .filter(t=>t.x0>=x-1&&t.x1<=x+width+1&&t.y0>=y-1&&t.y1<=y+height+1)
@@ -764,7 +783,7 @@ async function scan(file,options={}){
    async locateExcerpt(n,quote){
     check();if(disposed)return null;
     const page=await pdf.getPage(n),view=page.getViewport({scale:1});
-    const lines=positions(await PaperStoryDocuments.pageText(page),view);
+    const lines=positions(await source.text(page),view);
     const compact=t=>t.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
     const text=compact(quote),values=lines.map(l=>compact(l.text));
     // Match a unique sequence near the start of the cited passage, even mid-line.

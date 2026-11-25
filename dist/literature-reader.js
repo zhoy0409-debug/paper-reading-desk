@@ -382,7 +382,10 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   if(!item?.pdfFile||!window.PaperFigureExtractor?.scan||item.figureJob)return;
   const abort=typeof AbortController!=='undefined'?new AbortController():null;
   item.figureAbort=abort;
-  item.figureJob=Promise.resolve().then(()=>window.PaperFigureExtractor.scan(item.pdfFile,{maxPages:42,signal:abort?.signal})).then(session=>{
+  const review=window.PaperFigureContext?.isReview(item.model.rows);
+  item.figureJob=Promise.resolve().then(()=>window.PaperFigureExtractor.scan(item.pdfFile,{maxPages:42,allPages:review,pdfSource:item.pdfSource,signal:abort?.signal,
+   onProgress:progress=>{item.figureProgress=progress;item.onFigureProgress?.(progress)}
+  })).then(session=>{
    if(!items.includes(item)){session.destroy();return {problem:'已移除这份文献。'};}
    item.figureSession=session;
    return {session};
@@ -409,7 +412,14 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   const progress=add(host,'div',undefined,'pl-figure-loading');
   addUI(progress,'h3','正在定位论文原图');
   addUI(progress,'p','从主文里找图注和原页。附件可以稍后再加。','muted');
-  const activity=add(progress,'progress');activity.setAttribute('aria-label','正在定位原图');
+  const activity=add(progress,'progress');activity.setAttribute('aria-label',ReaderLanguage.choose('图目录进度','Figure indexing progress'));
+  const count=add(progress,'small');
+  item.onFigureProgress=({page,total,figures})=>{
+   if(activeView!==viewKey)return;
+   activity.max=total;activity.value=page;
+   PaperUI.set(count,'已检查 '+page+' / '+total+' 页，找到 '+figures+' 幅图','Checked '+page+' of '+total+' pages · '+figures+' figures');
+  };
+  if(item.figureProgress)item.onFigureProgress(item.figureProgress);
   item.figureJob.then(async result=>{
    if(activeView!==viewKey||!items.includes(item))return;
    const session=result.session;
@@ -491,9 +501,10 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    const pagePick=add(rawNav,'input');pagePick.type='number';pagePick.min='1';pagePick.max=String(session.totalPages);pagePick.value=String(initial.page||1);pagePick.setAttribute('aria-label','原 PDF 页码');
    action(rawNav,'读取这一页',()=>{const n=Number(pagePick.value);if(Number.isInteger(n)&&n>=1&&n<=session.totalPages)figureHandle?.selectFigure(addPage(n));else pagePick.reportValidity()});
    if(session.warnings?.length)add(rawNav,'p',session.warnings.join(' '),'muted');
-   try{await PaperShelf.remember(item.hash,item.pdfFile)}catch{
-    addUI(header,'p','此浏览器未能缓存 PDF。重新打开时需重新选择同一文件。','muted');
-   }
+   item.onFigureProgress=null;
+   PaperShelf.remember(item.hash,item.pdfFile).catch(()=>{
+    if(activeView===viewKey)addUI(header,'p','此浏览器未能缓存 PDF。重新打开时需重新选择同一文件。','muted');
+   });
    if(activeView!==viewKey)return;
    if(dest?.id===item.hash)history.replaceState(null,'',location.pathname);
    figureHandle=window.FigureReadingWorkbench.mount(host,{
@@ -509,9 +520,9 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
      return found.length===1?found[0]:null;
     },
     model:paper,lesson:paper.lesson,desk:{paper,session,file:item.pdfFile,id:item.hash,state:stored,initial},
-    renderFigure:async(figure,forcePage)=>{
-     const image=forcePage||figure.pageOnly||figure.openPage?await session.renderPage(figure.page):
-       figure.verifiedRegion?await session.renderRegion(figure.page,figure.verifiedRegion):await session.render(figure.id);
+    renderFigure:async(figure,forcePage,quality='screen')=>{
+     const image=forcePage||figure.pageOnly||figure.openPage?await session.renderPage(figure.page,{quality}):
+       figure.verifiedRegion?await session.renderRegion(figure.page,figure.verifiedRegion,{quality}):await session.render(figure.id,{quality});
      return {...image,mode:image.mode==='crop'?'figure':'page',sourceLabel:'PDF 第 '+image.page+' 页'+(figure.verifiedRegion&&image.mode==='crop'?(figure.openHistogram?' · 按原图刻度定位 / Located by axis ticks':' · 已核对该版本版面'):'')};
     },
     onOpenSource:({figure,page,source})=>openSourcePage(item,page||source?.page||figure?.page)
@@ -598,7 +609,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  const revoke = item=>{
   if(item?.pdfUrl){window.URL.revokeObjectURL(item.pdfUrl);item.pdfUrl='';}
-  item?.figureAbort?.abort();item?.figureSession?.destroy?.();
+  item?.figureAbort?.abort();item?.figureSession?.destroy?.();item?.pdfSource?.destroy();
  };
  window.addEventListener('pagehide',event=>{if(!event.persisted)for(const item of items)revoke(item);});
  function currentMain(){return items.find(d=>d.role==='main'&&!d.problem);}
@@ -655,7 +666,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  function pushItem(name,result,key,role,problem='',pdfFile=null){
   const model=extract(result||{});
-  const item={id:++serial,name,key,model,problem,pdfFile,pdfUrl:'',role:role==='main'?'unset':role,
+  const item={id:++serial,name,key,model,problem,pdfFile,pdfSource:result?.pdfSource,pdfUrl:'',role:role==='main'?'unset':role,
    warnings:listOf(result?.warnings).map(x=>typeof x==='string'?x:x?.message).filter(Boolean).slice(0,8)};
   if(!problem&&!model.rows.length&&!pdfFile)item.problem='没有读到可用的文字，可能没有文字层。可选有文字层的 PDF、DOCX，或粘贴一段原文。';
   items.push(item);
@@ -700,7 +711,8 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
       }else{
        const parser=window.PaperStoryDocuments;
        if(!parser?.read)throw Error('文件读取器未能加载。可先粘贴原文。');
-       result=await parser.read(file,{maxRecords:MAX_RECORDS,maxChars:MAX_TEXT});
+       result=await parser.read(file,{maxRecords:MAX_RECORDS,maxChars:MAX_TEXT,keepPdf:role==='main'&&Boolean(window.PaperFigureExtractor),
+        onProgress:(page,total)=>notice('正在读取正文 · 第 '+page+' / '+total+' 页','loading',role,'Reading the text · page '+page+' of '+total)});
       }
       const beforeMain=currentMain();
       const {item,change}=pushItem(name,result,key,role,'',/.pdf$/i.test(file.name)?file:null);

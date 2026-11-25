@@ -61,36 +61,38 @@
     if(!binding)return;
     const {source}=binding;
     clearTimeout(binding.timer);
-    delete el.dataset.translationRetry;
+    delete el.dataset.translationRetry;delete el.dataset.sourcePending;
     const revision=binding.revision=(binding.revision||0)+1;
     const current=()=>bindings.get(el)===binding&&binding.revision===revision;
     if(ReaderLanguage.current==='en'||!needsText(source)||identifier(source)){
       el.textContent=ReaderLanguage.current==='zh'?(identifier(source)||source):source;el.lang=ReaderLanguage.current==='zh'?'zh-CN':'en';el.removeAttribute('aria-busy');return;
     }
     if(ready.has(source)){el.textContent=ready.get(source);el.lang='zh-CN';el.removeAttribute('aria-busy');return;}
-    el.lang='zh-CN';el.textContent='正在生成中文…';el.setAttribute('aria-busy','true');
+    el.lang=binding.showSource?'en':'zh-CN';el.textContent=binding.showSource?source:'正在生成中文…';el.setAttribute('aria-busy','true');
+    if(binding.showSource)el.dataset.sourcePending='原文 · 正在译为中文';
     binding.timer=setTimeout(()=>{if(current()&&el.isConnected)el.dataset.translationRetry='slow'},45000);
     chinese(source).then(value=>{
       if(current()&&ReaderLanguage.current==='zh'&&el.isConnected){
-        delete el.dataset.translationRetry;
+        delete el.dataset.translationRetry;delete el.dataset.sourcePending;
         el.textContent=value;el.lang=/[\u3400-\u9fff]/u.test(value)?'zh-CN':'en';
       }
     }).catch(()=>{if(current()&&ReaderLanguage.current==='zh'){
-      el.textContent='中文解读待重试';el.dataset.translationRetry='error';
+      el.textContent=binding.showSource?source:'中文解读待重试';el.dataset.translationRetry='error';
+      if(binding.showSource)el.dataset.sourcePending='原文 · 中文待重试';
     }}).finally(()=>{
       if(current()){clearTimeout(binding.timer);el.removeAttribute('aria-busy')}
     });
   }
-  function bind(el,source) {
+  function bind(el,source,{showSource=false}={}) {
     if(!el||!source)return el;
-    clear(el);el.textContent=ReaderLanguage.current==='zh'&&needsText(source)?identifier(source)||ready.get(source)||'正在生成中文…':source;delete el.dataset.sourceText;
-    bindings.set(el,{source});el.dataset.paperTranslation='';
+    clear(el);el.textContent=ReaderLanguage.current==='zh'&&needsText(source)?identifier(source)||ready.get(source)||(showSource?source:'正在生成中文…'):source;delete el.dataset.sourceText;
+    bindings.set(el,{source,showSource});el.dataset.paperTranslation='';
     queueMicrotask(()=>{if(el.isConnected&&bindings.get(el)?.source===source)refresh(el)});
     return el;
   }
   function clear(el){
     clearTimeout(bindings.get(el)?.timer);bindings.delete(el);
-    delete el.dataset.translationRetry;delete el.dataset.paperTranslation;el.removeAttribute('aria-busy');
+    delete el.dataset.translationRetry;delete el.dataset.paperTranslation;delete el.dataset.sourcePending;el.removeAttribute('aria-busy');
   }
   function retry(){
     const pending=[...document.querySelectorAll('[data-paper-translation]')].filter(el=>el.hasAttribute('aria-busy')||el.hasAttribute('data-translation-retry'));

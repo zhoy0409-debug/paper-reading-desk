@@ -36,24 +36,43 @@
       }
     } finally { reader.releaseLock(); }
   }
-  async function readPdf(file, ctx) {
-    const pdfjs = await (library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href));
+  async function openPdf(file) {
+    const [buffer,pdfjs] = await Promise.all([file.arrayBuffer(),library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href).catch(e=>{library=null;throw e})]);
+    if(!/%PDF-\d/.test(new TextDecoder('latin1').decode(buffer.slice(0,1024))))throw Error('没有找到 PDF 文件头。');
     pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
-    const task = pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer()),
+    const task = pdfjs.getDocument({data:new Uint8Array(buffer),
       cMapUrl:new URL('cmaps/',base).href,cMapPacked:true,
       standardFontDataUrl:new URL('standard_fonts/',base).href,wasmUrl:new URL('wasm/',base).href,useWasm:false,
       isEvalSupported:false,disableFontFace:true,useSystemFonts:false,
       enableXfa:false,stopAtErrors:false});
+    const textCache=new Map();
+    let retained=0,closed=false;
+    async function text(page){
+      const n=page.pageNumber;
+      if(textCache.has(n))return textCache.get(n);
+      const data=await pageText(page);
+      if(!closed && !textCache.has(n) && data.items.length<=6500){
+        while(textCache.size && retained+data.items.length>36000){
+          const oldest=textCache.keys().next().value;retained-=textCache.get(oldest).items.length;textCache.delete(oldest);
+        }
+        textCache.set(n,data);retained+=data.items.length;
+      }
+      return data;
+    }
+    return {task,pdfjs,text,async destroy(){if(closed)return;closed=true;textCache.clear();await task.destroy().catch(()=>{})}};
+  }
+  async function readPdf(file, ctx, options) {
+    const source=await openPdf(file);
     try {
-      const pdf = await task.promise;
-      let pagesRead = 0;
+      const pdf = await source.task.promise;
+      let pagesRead = 0,lastReport=0;
       const empty = [], failed = [];
       for (let n=1; n <= Math.min(pdf.numPages,80) && !ctx.full; n++) {
         pagesRead = n;
         let page;
         try {
           page = await pdf.getPage(n);
-          const data = await pageText(page);
+          const data = await source.text(page);
           let line = '', prev, prevWidth=0, idx=0;
           function emit() { if (line.trim()) ctx.add('第 '+n+' 页 · 文字段 '+(++idx),line,{page:n}); line=''; }
           for (const x of data.items) {
@@ -71,15 +90,20 @@
           if (!idx) empty.push(n);
         } catch (_) { failed.push(n); }
         finally { if(page) page.cleanup(); }
+        const now=performance.now();
+        if(options.onProgress&&(n===1||now-lastReport>=160)){
+          options.onProgress(n,Math.min(pdf.numPages,80));lastReport=now;
+        }
       }
       if (empty.length) ctx.warnings.push('未提取到文字的页：'+empty.join('、')+'。扫描、图片中的文字和图形本身暂不识别。');
       if (failed.length) ctx.warnings.push('无法读取的页：'+failed.join('、')+'。其他页仍可用。');
       if (pagesRead < pdf.numPages || ctx.full) ctx.warnings.push('此预览只整理了前 '+pagesRead+' 页中可读取的部分，不代表全文。');
+      if(options.keepPdf)ctx.pdfSource=source;
       return ['PDF 共 '+pdf.numPages+' 页','已检查前 '+pagesRead+' 页的文字层'];
     } catch (e) {
       if (e?.name === 'PasswordException') throw new Error('这个 PDF 有密码保护。可改用你已有的未加密副本。');
       throw new Error('无法读取这个 PDF。请确认文件可以正常打开，或试用可复制文字的版本。');
-    } finally { await task.destroy().catch(()=>{}); }
+    } finally { if(!ctx.pdfSource)await source.destroy(); }
   }
   function docEntry(data) {
     const dv = new DataView(data), length = data.byteLength, bytes = new Uint8Array(data);
@@ -170,7 +194,7 @@
     if(file.size>maxSize*MB)throw Error('此格式的本地读取上限为 '+maxSize+' MiB，可选相关章节的副本。');
     const ctx=context(options);
     let facts;
-    if(ext==='pdf') facts=await readPdf(file,ctx);
+    if(ext==='pdf') facts=await readPdf(file,ctx,options);
     else if(ext==='docx') facts=await readWord(file,ctx);
     else if(ext==='doc') throw Error('旧版 .doc 暂不支持，另存为 .docx 或 PDF 后即可读取。');
     else if(ext==='txt') {
@@ -182,7 +206,7 @@
       facts=['TXT 文本'];
     } else throw Error('当前可读取 PDF、DOCX 或 TXT 的文字。');
     if(!ctx.records.length) ctx.warnings.push('没有可定位的正文文字。不会根据文件名生成解读。');
-    return {facts,warnings:ctx.warnings,records:ctx.records};
+    return {facts,warnings:ctx.warnings,records:ctx.records,...(ctx.pdfSource?{pdfSource:ctx.pdfSource}:{})};
   }
-  window.PaperStoryDocuments={read,pageText};
+  window.PaperStoryDocuments={read,pageText,openPdf};
 })();

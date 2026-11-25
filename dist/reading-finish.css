@@ -154,6 +154,17 @@
 /* Keep thin samples clickable around their true painted outline. */
 .rq-hit.rq-legend-symbol::before{content:"";position:absolute;inset:-3px 0}
 .figure-click-layer{position:absolute;inset:0;z-index:4;pointer-events:none}
+.figure-point-status{flex:none;display:flex;align-items:center;gap:.48em;margin:0 28px 6px;color:#455362;font:500 12px/1.5 var(--sans,system-ui);min-height:18px}
+.figure-point-status[hidden],.source-shown>.figure-point-status,.rq-focused>.figure-point-status{display:none!important}
+.figure-point-status::before{content:"";width:6px;height:6px;border-radius:50%;background:#7d8793}
+.figure-point-status[data-state=loading]::before{background:#345cea;animation:figure-reading-pulse 1.2s ease-in-out infinite alternate}
+.figure-point-status[data-state=ready]::before{background:#36735c}
+.rq-focus>.figure-point-status{margin:4px 16px}
+.frw-modal-head>.figure-point-status{flex:1 1 9em;margin:0 6px}
+[data-source-pending]::before{content:attr(data-source-pending);display:block;margin-bottom:3px;color:#566272;font:500 12px/1.5 var(--sans,system-ui)}
+@keyframes figure-reading-pulse{to{opacity:.32}}
+@media(prefers-reduced-motion:reduce){.figure-point-status[data-state=loading]::before{animation:none}}
+@media(max-width:680px){.figure-point-status{margin-inline:16px}}
 .figure-click-layer .rq-hit{position:absolute;pointer-events:auto;margin:0;padding:0;min-width:0;min-height:0;border:0;border-radius:2px;background:transparent}
 .figure-click-layer .rq-hit:is(:hover,:focus-visible,[aria-pressed=true]){outline:1.5px solid var(--link,#345cea);outline-offset:1px;background:#345cea0c}
 .frw-visual:has(.pd-drawing) .figure-click-layer{display:none}

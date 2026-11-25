@@ -230,7 +230,7 @@
     const initialSpot=options.desk?.initial||{};
     let pageMode=false,wantedZoom=0;
     const histograms=options.desk&&global.HistogramReader?.create(options.desk.session,options.desk.state,()=>desk.save());
-    const figureClicks=options.desk&&global.FigureClicks?.mount({session:options.desk.session,histograms,plate,modalPlate,visual,modal,notes,findPassage:options.findPassage});
+    const figureClicks=options.desk&&global.FigureClicks?.mount({session:options.desk.session,histograms,plate,modalPlate,visual,modal,notes,findPassage:options.findPassage,openSource:inspectPage});
     let histogramFocus=null;
     const plotHits=el('div','','hist-hit-layer');plate.append(plotHits);
     const svg=(name,attrs={})=>{const n=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n};
@@ -251,7 +251,7 @@
     const questions=desk&&global.ReadingQuestions?.mount({notes,visual,img,session:options.desk.session,lookupTerm:options.lookupTerm,findPassage:options.findPassage,histograms,desk,selectPanel:readPanel,
       source:inspectPage,resetPanel:()=>{compare?.showFigure();selectPanel(null)}});
     const lens=desk&&global.ReadingLens?.mount({workbench,body,notes,header,state:options.desk.state,paper:options.desk.paper,id:options.desk.id,
-      save:()=>desk.save(),syncLine:(...a)=>desk.syncLine(...a),slideName:(...a)=>desk.slideName(...a),render:f=>options.renderFigure(f,false),select:id=>selectFigure(id)});
+      save:()=>desk.save(),syncLine:(...a)=>desk.syncLine(...a),slideName:(...a)=>desk.slideName(...a),render:f=>options.renderFigure(f,false,'thumbnail'),select:id=>selectFigure(id)});
     function preparePanels(){
       if(desk&&active)active.panels=desk.panelsFor(active.raw).map(p=>({...p,raw:p}));
     }
@@ -817,7 +817,7 @@
         return;
       }
       const lead=caption.split(/(?<=\.)\s+(?=[A-Z(])|(?<=。)/u)[0];
-      add('这张图展示什么','What the figure shows',!active.panels.length&&caption.length<=650?caption:lead,captionPage);
+      add(f.review?'这张综述图归纳了什么':'这张图展示什么',f.review?'What this review figure summarizes':'What the figure shows',!active.panels.length&&caption.length<=650?caption:lead,captionPage);
       const guide=!active.panels.length&&global.PaperPanelReading?.wholeReading(caption);
       if(guide){
         const section=el('section','','frw-reading-block');
