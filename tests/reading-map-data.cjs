@@ -57,3 +57,31 @@ const reporting=[{text:'Introduction',page:2},
  {text:'Here we find that the detector responds strongly under both experimental conditions.',page:2}];
 const goals=D.local({rows:reporting,figures:[],sections:[],question:'Light'}).children.find(n=>n.key==='aim');
 assert.deepEqual(goals.children.map(n=>n.quote),[reporting[1].text]);
+
+const reviewRows=[
+  {page:1,text:'Downloaded from: https://example.org'},
+  {page:1,text:'(article starts on next page)'},
+  {page:2,text:'Department of Engineering, Example University'},
+  {page:2,text:'Optical sensors measure illumination across a broad range of wavelengths.'},
+  {page:2,text:'Recent evidence demonstrates that the sensors respond to weak light.'},
+  {page:2,text:'This review examines how detector materials govern the light response.'},
+  {page:2,text:'Furthermore, it discusses possible uses in machine vision, while addressing technical barriers including drift and noise.'},
+  {page:2,text:'KEYWORDS'},
+  {page:2,text:'COPYRIGHT'},
+  {page:2,text:'No use, distribution or reproduction is permitted which does not comply with these terms.'},
+  {page:3,text:'However, when a sensor is damaged, its reported output decreases significantly.'}
+];
+const review=D.local({rows:reviewRows,figures:[],sections:[],question:'Sensors',review:true});
+const background=review.children.find(n=>n.key==='background').children;
+const scope=review.children.find(n=>n.key==='aim').children;
+assert.deepEqual(background.map(n=>n.role),['context','prior','challenge']);
+assert.deepEqual(scope.map(n=>n.role),['reviewAim','scope']);
+assert.equal(scope[1].text,'This review discusses possible uses in machine vision.');
+assert.equal(background[2].text,'Technical barriers include drift and noise.');
+for(const n of [...background,...scope])assert(reviewRows.some(r=>r.text===n.quote&&r.page===n.page));
+assert.doesNotMatch(D.excerpt(reviewRows),/permitted|these terms|Downloaded from/);
+const observation={page:1,text:'However, a sensor exposed to more daylight produces a larger signal.'};
+for(const review of [true,false]){
+  const tree=D.local({review,rows:[...body.slice(0,1),reviewRows[3],observation],figures:[],sections:[],question:'Daylight'});
+  assert(!tree.children.flatMap(n=>n.children).some(n=>n.role==='gap'&&n.quote===observation.text));
+}

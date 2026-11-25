@@ -2,10 +2,20 @@
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
 export function normalizeSelection(text){
   return text.replace(/\u00ad/g,'').replace(/(\b[A-Z]{2,8}-)\s+(?=[A-Z0-9])/g,'$1')
+    .replace(/\b([A-Z][A-Z\d]*\d)\s*\/\s*(?=[A-Z][A-Z\d]*\d\b)/g,'$1/')
     .replace(/\b(vul)-\s+(gatus)\b|\b(experi)-\s+(ments?)\b/gi,(_,a,b,c,d)=>(a||c)+(b||d))
     .replace(/-\s+(?=producing\b|resistant\b|susceptible\b)/gi,'-').replace(/\s+/g,' ').trim();
 }
 const terminology=[
+  ['osteogenesis','成骨作用'],['osteoclastogenesis','破骨细胞形成'],['osteoporosis','骨质疏松症'],['osteoarthritis','骨关节炎'],
+  ['osteoblasts','成骨细胞'],['osteoclasts','破骨细胞'],['bone resorption','骨吸收'],['bone remodeling','骨重塑'],
+  ['skeletal homeostasis','骨稳态'],['bone homeostasis','骨稳态'],['bone microenvironment','骨微环境'],
+  ['bone remodeling and regeneration','骨重塑和骨再生'],['inflammatory bone loss','炎症性骨丢失'],['tissue regeneration','组织再生'],
+  ['multiple myeloma','多发性骨髓瘤'],['bone metastasis','骨转移'],['chemokine','趋化因子'],
+  ['receptor redundancy','受体冗余'],['context-dependent specificity','情境依赖的特异性'],['in vivo validation','体内验证'],
+  ['limited in vivo validation','体内验证有限'],['canonical pathways','经典通路'],['cellular communication','细胞间通讯'],
+  ['translational barriers','转化障碍'],['graph kernels','图核'],['graph kernel','图核'],
+  ['graph classification','图分类'],['classification tasks on graphs','图分类任务'],['graph features','图特征'],['kernel-based','基于核方法的'],
   ['extended-spectrum β-lactamase','超广谱 β-内酰胺酶'],['clinical isolates','临床分离株'],
   ['Gram-negative pathogens','革兰阴性病原菌'],['gut commensal bacteria','肠道共生菌'],
   ['carbapenem-resistant','耐碳青霉烯类'],['carbapenem-susceptible','对碳青霉烯类敏感的'],
@@ -174,6 +184,18 @@ export async function translatePassage(original,from,translate){
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
     const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells').replace(/\bmaybe (?=activated\b)/gi,'may be ');
     let result=body?await translate(prepared,from):'';
+    // Correct unambiguous terminology in the complete translation before trying
+    // placeholders. This preserves the verb and its dependent clauses.
+    const variants=[
+      ['canonical pathways',/(?:佳能|规范)(?:通路|途径)/g,'经典通路'],
+      ['cellular communication',/细胞(?:间)?通信/g,'细胞间通讯'],
+      ['bone microenvironment',/骨骼微环境/g,'骨微环境'],
+      ['limited in vivo validation',/有限的体内验证/g,'体内验证有限'],
+      ['context-dependent specificity',/上下文依赖性特异性/g,'情境依赖的特异性'],
+      ['inflammatory bone loss',/炎症性骨质流失/g,'炎症性骨丢失']
+    ];
+    for(const [source,variant,term] of variants)if(terms.some(([en])=>en===source))result=result.replace(variant,term);
+    if(/\bintersects? with\b/i.test(body)&&/\bpathways?\b/i.test(body))result=result.replace(/相交(?=[，,。]|以)/g,'发生交叉作用');
     if(/remain(?:s)? (?:insufficiently|poorly|incompletely) characteri[sz]ed[.!]?$/i.test(body))
       result=result.replace(/(?:仍然|仍|还)?不足[。.]?$/,'尚未得到充分研究。');
     if(/\bTimer probe\b/.test(body))result=result.replace(/定时器探针/g,'Timer 探针');
@@ -188,6 +210,10 @@ export async function translatePassage(original,from,translate){
       result=result.replace(/残余物|残留物|残余量/g,'残差').replace(/最适合的宇宙学(?!模型)/g,'最佳拟合宇宙学模型');
     if(/\b(?:single|multi)[- ]crop testing\b/i.test(body))
       result=result.replace(/单(?:一)?作物测试/g,'单裁剪测试').replace(/多(?:种)?作物测试/g,'多裁剪测试');
+    if(/\bcontributing to the pathogenesis of\b/i.test(body))
+      result=result.replace(/(?:促成|导致)了([^。！？]{2,150})的发病机制/g,'参与$1的发病过程');
+    if(/\bintegrating\b.+\bwith the processes of\b/i.test(body))
+      result=result.replace(/将([^。！？]{2,100}?)与([^。！？]{2,70}?)的过程相结合/g,'将$1与$2联系起来');
     const missingSide=['left','right'].some((side,i)=>new RegExp('\\('+side+'\\)','i').test(body)&&!result.includes(i?'右':'左'));
     const numbers=body.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
     const resultNumbers=result.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
@@ -252,7 +278,10 @@ export async function mapChinese(source,translate,{keepLatinNames=false}={}){
       localized=localized.replaceAll(name,zh);
     }
     if(/\bOMVs\b/.test(s)&&/\b(?:outer membrane vesicles|bacteri\w*|(?:A\.|Acinetobacter) baumannii|(?:E\.|Escherichia) coli)\b/i.test(s)&&!localized.includes('外膜囊泡'))localized=localized.replace(/\bOMVs\b/g,'外膜囊泡（OMVs）');
-    parts.push(localized.replace(/(?<=[\u3400-\u9fff]),\s*(?=[\u3400-\u9fff])/g,'，'));
+    parts.push(localized.replace(/(?<=[\u3400-\u9fff]),\s*|\s+,\s*|,\s+(?=[A-Z\u3400-\u9fff])/g,'，')
+      .replace(/\s+([，。、；：）])/g,'$1').replace(/([（，、])\s+/g,'$1')
+      .replace(/(?<=[\u3400-\u9fff])\s*[-–]\s*(?=[\u3400-\u9fff])/g,'–')
+      .replace(/\bNF-kB\b/g,'NF-κB').replace(/\bWnt\/b-catenin\b/g,'Wnt/β-catenin'));
   }
   return parts.join(' ');
 }

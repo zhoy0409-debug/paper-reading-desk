@@ -23,7 +23,7 @@
 
     const question=PaperOutline.claim(model.rootLabel||paper.title||'');
     function localTree(){
-      const tree=ReadingMapData.local({rows,figures:raws,question,sections:paper.sections||[]});
+      const tree=ReadingMapData.local({rows,figures:raws,question,sections:paper.sections||[],review:PaperFigureContext.isReview(rows)});
       if(raws.some(f=>f.editorGuide)){
         for(const branch of tree.children.filter(b=>b.key==='background'||b.key==='aim')){
           for(const node of branch.children){

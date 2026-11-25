@@ -37,7 +37,8 @@
     }
     if(n.role){
       const r=el('i','mm-role');
-      const roles={context:['研究背景','Context'],prior:['前人发现','Previous work'],gap:['待解问题','Open question'],
+      const roles={context:['研究背景','Context'],prior:['已有证据','Prior evidence'],gap:['待解问题','Open question'],challenge:['研究难点','Challenge'],
+        reviewAim:['综述目的','Review aim'],scope:['讨论范围','Scope'],translationBarrier:['转化难点','Translational barrier'],
         aim:['研究目的','Objective'],question:['具体问题','Specific question'],why:['为什么做','Why'],found:['作者的说法','Authors say']};
       PaperUI.set(r,...(roles[n.role]||roles.found));body.append(r);
     }

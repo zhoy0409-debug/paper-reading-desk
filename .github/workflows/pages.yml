@@ -7,6 +7,8 @@ on:
       - 'VERSION'
       - 'tests/figure-explanation-entry-browser.cjs'
       - 'tests/review-reader-browser.cjs'
+      - 'tests/reading-map-data.cjs'
+      - 'tests/map-language.mjs'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -46,6 +48,8 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
+          node tests/reading-map-data.cjs
+          node tests/map-language.mjs
           node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
           node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/

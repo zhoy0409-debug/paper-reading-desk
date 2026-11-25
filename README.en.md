@@ -8,6 +8,8 @@ Share the reader link above with your group. It opens without a GitHub account. 
 
 For reviews, the sidebar lists diagrams by their published figure numbers. If labels are embedded in the image, the reader shows its progress. Tap a label while it is being read and its explanation opens when the label is recognized.
 
+Open **Mind map** to see the review’s background, what the authors set out to cover, and any questions or barriers they identify. Select the page number beside a point to check the passage.
+
 <details>
 <summary>See the two taps on a phone</summary>
 
