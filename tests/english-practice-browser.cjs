@@ -6,6 +6,7 @@ async function check(base) {
   const browser = await chromium.launch({channel:'msedge'});
   try {
     const page = await browser.newPage();
+    await page.addInitScript(()=>localStorage.setItem('reading-desk.guide.v1','{"read":1,"home":1}'));
     const url = new URL(base);
     url.search = 'lang=zh&practice=abaucin';
     await page.goto(url.href);

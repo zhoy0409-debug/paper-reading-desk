@@ -15,11 +15,11 @@
   }
   function chinese(source) {
     if(!cache.has(source)){
-      const job=import(new URL('scientific-translation.js?rev=map-030',base)).then(async({mapChinese})=>{
+      const job=import(new URL('scientific-translation.js?rev=studio-040',base)).then(async({mapChinese})=>{
         if(!han.test(source))return mapChinese(source,translate);
         const parts=source.split(/([\u3400-\u9fff]+)/u);
         return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translate):part))).join('');
-      });
+      }).then(value=>value.replace(/(?:近邻|邻居)\s*嵌入/g,'邻域嵌入').replace(/([\u3400-\u9fff])\s+(?=[\u3400-\u9fff])/gu,'$1'));
       cache.set(source,job);
       job.then(value=>{
         ready.set(source,value);if(ready.size>256)ready.delete(ready.keys().next().value);
@@ -87,5 +87,5 @@
     refresh(el);
   }));
   addEventListener('pagehide',e=>{if(!e.persisted){engine?.then(v=>v.delete()).catch(()=>{});engine=null;cache.clear()}});
-  window.PaperLanguageText={bind,clear,translate,retry};
+  window.PaperLanguageText={bind,clear,translate,chinese,retry};
 })();

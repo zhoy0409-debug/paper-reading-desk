@@ -40,3 +40,14 @@ assert.equal(N.offer(s,'F').kind,'none');
 assert.equal(N.offer(make('Line',{},[]),'F').kind,'none');
 assert.equal(N.offer({},'F').kind,'none');
 console.log('PASS line to note, follow, hand edits kept, removal and reuse.');
+
+{
+  const decks=require('../dist/reading-deck-store.js');
+  const keys=['A','B'].map(letter=>JSON.stringify(['fig',letter]));
+  const [first,second]=keys.map(key=>decks.slide('panel',{key,figure:'fig'}));
+  const custom=decks.slide('text',{body:'Notes for the audience'});
+  const slides=[first,custom,second];
+  assert.equal(decks.merge(slides,keys.slice().reverse()),true);
+  assert.deepEqual(slides,[second,custom,first]);
+  assert.equal(decks.merge(slides,keys.slice().reverse()),false);
+}

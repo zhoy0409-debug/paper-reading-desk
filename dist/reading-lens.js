@@ -49,7 +49,7 @@
     const blindButton=button('lens-switch','盲读','Look first',()=>setBlind(!blind));
     blindButton.title='先看图，写一句再揭开图注（B） / Look and write before the caption (B)';
     const storyButton=button('lens-tool','故事板','Storyboard',()=>openStory());
-    const mapButton=button('lens-tool','图谱 ↓','Map ↓',()=>workbench.querySelector('.ea')?.scrollIntoView({block:'start'}));
+    const mapButton=button('lens-tool','图谱 ↓','Map ↓',()=>workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'map'})));
     const helpButton=button('lens-key','?','?',()=>openHelp());helpButton.setAttribute('aria-label','快捷键 / Keyboard shortcuts');
     tools.append(tally,blindButton,storyButton,mapButton,helpButton);
     strip.append(track,tools);header.after(strip);
@@ -59,7 +59,7 @@
     // One-line reading card
     const card=el('section','lens-card');card.setAttribute('aria-label','我的一句话 / My one line');
     const ask=el('label','lens-ask');
-    const box=el('textarea');box.rows=2;box.maxLength=480;box.id='lens-say-'+Math.random().toString(36).slice(2,8);ask.htmlFor=box.id;
+    const box=el('textarea');box.rows=1;box.maxLength=480;box.id='lens-say-'+Math.random().toString(36).slice(2,8);ask.htmlFor=box.id;
     box.placeholder='比较了谁？看哪个读数？变化朝哪边？ / Who is compared, on what readout, in which direction?';
     const actions=el('div','lens-actions');
     const reveal=button('primary','揭开图注','Reveal caption',()=>{if(!active)return;entry(active).open=true;persist();drawCard();answer.focus({preventScroll:true})});
@@ -180,104 +180,11 @@
       workbench.append(d);return d;
     }
 
-    // Storyboard
-    function markdown(){
-      const lines=['# '+(paper.title||''),''];
-      for(const f of ordered())lines.push('## '+f.label+(f.page?' (PDF p.'+f.page+')':''),'',said(f)||'—','');
-      return lines.join('\n');
-    }
-    function openStory(){
-      persist();
-      const d=dialog('lens-story','故事板 / Storyboard');
-      const top=el('header'),titles=el('div'),sum=el('p');
-      titles.append(ui('h2','','故事板','Storyboard'),sum);
-      const controls=el('div','lens-story-actions');
-      const message=el('span','lens-message');message.setAttribute('role','status');
-      const rehearse=button('primary','开始试讲','Rehearse',()=>{d.close();openRehearsal()});
-      const copy=button('light','复制讲稿','Copy script',async()=>{
-        try{await navigator.clipboard.writeText(markdown());PaperUI.set(message,'已复制','Copied')}
-        catch{PaperUI.set(message,'浏览器没有允许复制，请改用下载','Copy was blocked. Download instead')}
-      });
-      const down=button('light','下载 Markdown','Download Markdown',()=>{
-        const a=el('a');a.href=URL.createObjectURL(new Blob([markdown()],{type:'text/markdown;charset=utf-8'}));
-        a.download='reading-story.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-      });
-      controls.append(message,copy,down,rehearse,button('light','关闭','Close',()=>d.close()));
-      top.append(titles,controls);
-      const list=el('ol','lens-board');
-      const total=()=>{
-        const all=ordered(),n=all.filter(said).length,s=all.reduce((t,f)=>t+seconds(said(f)),0);
-        PaperUI.set(sum,n+' / '+all.length+' 张图有一句话，连着念约 '+clock(s),n+' of '+all.length+' figures have a line. About '+clock(s)+' read aloud');
-      };
-      for(const f of ordered()){
-        const li=el('li'),open=el('button','lens-plate');open.type='button';open.setAttribute('aria-label','打开 '+f.label+' / Open '+f.label);
-        open.addEventListener('click',()=>{d.close();select(f.id)});
-        const img=el('img');img.alt='';open.append(img);
-        if(thumbs.has(f.id))img.src=thumbs.get(f.id);
-        const meta=el('div','lens-board-meta');meta.append(el('b','',f.label),el('span','',f.page?'p.'+f.page:''));
-        const verdict=VERDICTS.find(v=>v[0]===store[f.id]?.verdict);
-        if(verdict){const tag=ui('i','lens-tag',verdict[1],verdict[2]);tag.dataset.verdict=verdict[0];meta.append(tag)}
-        const line=el('textarea');line.rows=3;line.maxLength=480;line.value=store[f.id]?.say||'';
-        line.setAttribute('aria-label',f.label+' 的一句话 / One line for '+f.label);line.placeholder='还没写 / Not written yet';
-        const join=el('div','lens-link');
-        const drawJoin=()=>linkInto(join,f,()=>{line.value=store[f.id]?.say||'';persist();total();drawJoin()});drawJoin();
-        line.addEventListener('input',()=>{entry(f).say=line.value;syncLine(f.id);drawJoin();mark(f);total();drawTally();clearTimeout(timer);timer=setTimeout(persist,250)});
-        li.append(open,meta,line,join);list.append(li);
-      }
-      d.addEventListener('close',()=>{persist();drawCard()});
-      d.append(top,list);total();d.showModal();
-      (async()=>{for(const [i,f] of ordered().entries()){
-        if(!d.isConnected)return;
-        try{const data=await thumb(f),img=list.children[i]?.querySelector('img');if(img)img.src=data}catch{}
-      }})();
-    }
-
-    // Rehearsal: the figure alone on a dark table. The line stays covered until asked for.
-    function openRehearsal(){
-      const all=ordered();if(!all.length)return;
-      const d=dialog('lens-rehearse','试讲 / Rehearsal');
-      let i=0,shown=false,url='',ticket=0;
-      const begun=performance.now();
-      const top=el('header'),name=el('b'),count=el('span'),time=el('time','','0:00');
-      const stage=el('div','lens-stage'),img=el('img');stage.append(img);
-      const foot=el('footer'),line=el('p');line.setAttribute('aria-live','polite');
-      const prev=button('','← 上一图','← Previous',()=>go(-1)),next=button('','下一图 →','Next →',()=>go(1));
-      const peek=button('lens-peek','看我的一句话','Show my line',()=>{shown=!shown;drawLine()});
-      top.append(name,count,time,button('','结束试讲','End',()=>d.close()));
-      foot.append(line,prev,peek,next);d.append(top,stage,foot);
-      function drawLine(){
-        const text=said(all[i]);
-        if(!shown)PaperUI.set(line,'对着图，用自己的话讲','Explain the figure in your own words');
-        else if(text)line.textContent=text;
-        else PaperUI.set(line,'这张图还没写一句话','No line written for this figure');
-        line.classList.toggle('lens-shown',shown&&!!text);
-        PaperUI.set(peek,shown?'盖住':'看我的一句话',shown?'Cover':'Show my line');
-      }
-      async function draw(){
-        const f=all[i],t=++ticket;shown=false;drawLine();
-        name.textContent=f.label;count.textContent=(i+1)+' / '+all.length;
-        prev.disabled=i===0;next.disabled=i===all.length-1;
-        img.alt=f.label;img.hidden=!thumbs.has(f.id);if(thumbs.has(f.id))img.src=thumbs.get(f.id);
-        try{
-          const image=await render(f.raw);
-          if(t!==ticket||!d.isConnected)return;
-          const old=url;url=URL.createObjectURL(image.blob);img.src=url;img.hidden=false;if(old)URL.revokeObjectURL(old);
-        }catch{}
-      }
-      function go(n){if(all[i+n]){i+=n;draw()}}
-      d.addEventListener('keydown',e=>{
-        if(e.key==='ArrowRight')go(1);else if(e.key==='ArrowLeft')go(-1);
-        else if(e.key===' '&&!e.target.closest('button')){shown=!shown;drawLine()}else return;
-        e.preventDefault();
-      });
-      const tick=setInterval(()=>{time.textContent=clock((performance.now()-begun)/1000)},500);
-      d.addEventListener('close',()=>{clearInterval(tick);ticket++;if(url)URL.revokeObjectURL(url)});
-      stage.tabIndex=-1;draw();d.showModal();stage.focus();
-    }
+    function openStory(){workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'story'}))}
 
     function openHelp(){
       const d=dialog('lens-help','快捷键 / Keyboard shortcuts'),rows=el('dl');
-      for(const [key,zh,en] of [['J / K','下一图 / 上一图','Next / previous figure'],['B','盲读开关','Toggle look first'],['S','故事板','Storyboard'],['R','试讲','Rehearse'],['?','快捷键','This list']]){
+      for(const [key,zh,en] of [['J / K','下一图 / 上一图','Next / previous figure'],['B','盲读开关','Toggle look first'],['S','讲稿','Script'],['R','试讲','Rehearse'],['?','快捷键','This list']]){
         rows.append(el('dt','',key),ui('dd','',zh,en));
       }
       d.append(ui('h2','','快捷键','Keyboard shortcuts'),rows,button('light','关闭','Close',()=>d.close()));d.showModal();
@@ -285,9 +192,9 @@
     function step(n){const f=figures[figures.indexOf(active)+n];if(f)select(f.id)}
     function onKey(e){
       if(e.ctrlKey||e.metaKey||e.altKey||e.isComposing||e.defaultPrevented)return;
-      if(!workbench.isConnected||!workbench.offsetParent||document.querySelector('dialog[open]'))return;
+      if(!workbench.isConnected||!workbench.getClientRects().length||globalThis.ReadingGuide?.active()||document.querySelector('dialog[open]'))return;
       if(e.target.closest?.('input,textarea,select,[contenteditable=true]'))return;
-      const run={j:()=>step(1),k:()=>step(-1),b:()=>setBlind(!blind),s:openStory,r:openRehearsal,'?':openHelp}[e.key.toLowerCase()];
+      const run={j:()=>step(1),k:()=>step(-1),b:()=>setBlind(!blind),s:openStory,r:()=>workbench.dispatchEvent(new Event('studio-talk')),'?':openHelp}[e.key.toLowerCase()];
       if(run){e.preventDefault();run()}
     }
     document.addEventListener('keydown',onKey);
@@ -295,6 +202,8 @@
     window.addEventListener('pagehide',flush);
 
     return {
+      thumb,
+      describe(id){const f=figures.find(f=>f.id===id);return {label:f?.label||'',title:blind&&!store[id]?.open?'':f?.title||''}},
       setModel(model){
         figures=globalThis.EvidenceAtlas?.inPaperOrder?.(model.figures)||model.figures;build();
         recall(id,{title:paper.title||'',total:ordered().length,said:ordered().filter(said).length});

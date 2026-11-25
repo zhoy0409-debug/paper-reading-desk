@@ -182,7 +182,7 @@
       title.textContent = t('汇报篮','Slide basket');
       count.textContent = String(keys.length);
       dock.setAttribute('aria-label', title.textContent);
-      download.textContent = busy ? t('正在导出…','Exporting…') : t('导出 PPTX','Export PPTX');
+      download.textContent = busy ? t('正在导出…','Exporting…') : t('导出所选图','Export selected figures');
       download.disabled = busy || !keys.length;
       layout();
     }

@@ -5,24 +5,24 @@
 
 :root{
   /* Colour: paper, ink and one reading green */
-  --paper:#f9f9f5;        /* page */
-  --surface:#fffefa;      /* cards, controls */
-  --surface-2:#f2f4ee;    /* quiet fills, hover */
-  --wash:#e8efe7;         /* selected / accent tint */
-  --ink:#20241f;          /* body text */
-  --ink-2:#394238;        /* secondary headings */
-  --muted:#575d55;        /* supporting text (AA on paper) */
-  --faint:#7d857b;        /* meta labels only */
-  --line:#d7dad1;         /* rules, card borders */
-  --line-strong:#b8c6b9;  /* control borders */
-  --accent:#294d3e;       /* primary actions, links */
-  --accent-strong:#1d3a2f;/* primary hover */
-  --accent-mid:#3d7a61;   /* focus ring, markers */
-  --accent-line:#b6cfc2;  /* accent borders on light */
-  --signal:#dcf59a; --signal-ink:#26320f;
+  --paper:#f6f7f8;        /* page */
+  --surface:#fcfcfd;      /* cards, controls */
+  --surface-2:#f0f1f2;    /* quiet fills, hover */
+  --wash:#e9eaed;         /* selected / accent tint */
+  --ink:#1f2124;          /* body text */
+  --ink-2:#383b42;        /* secondary headings */
+  --muted:#525660;        /* supporting text (AA on paper) */
+  --faint:#767c8a;        /* meta labels only */
+  --line:#d2d4d9;         /* rules, card borders */
+  --line-strong:#b9bdc5;  /* control borders */
+  --accent:#333843;       /* primary actions, links */
+  --accent-strong:#262931;/* primary hover */
+  --accent-mid:#2a418d;   /* focus ring, markers */
+  --accent-line:#bcc0c9;  /* accent borders on light */
+  --signal:#a7b6e8; --signal-ink:#1c1f25;
   --warn-wash:#fff8e9; --warn-line:#efd8a9; --warn-ink:#713d0a;
-  --night:#172d26; --night-2:#20383a;           /* paper map panel */
-  --night-ink:#e5ede8; --night-muted:#b8d6cb; --night-accent:#9be9d6;
+  --night:#1e2126; --night-2:#282b32;           /* paper map panel */
+  --night-ink:#e7e8eb; --night-muted:#c0c4ce; --night-accent:#9fafe5;
   --soft:var(--warn-wash); --plum:var(--accent); /* legacy aliases */
 
   /* Shape */

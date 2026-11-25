@@ -3,11 +3,14 @@ const assert = require('node:assert/strict');
 const {chromium} = require('playwright-core');
 
 async function check(page, base, pdf) {
+  await page.addInitScript(()=>localStorage.setItem('reading-desk.guide.v1','{"read":1,"home":1}'));
+  const entry=new URL(base);entry.searchParams.set('lang','zh');
+  page.setDefaultTimeout(20000);
   const errors = [];
   page.on('pageerror', error=>errors.push(error.message));
-  await page.goto(base);
+  await page.goto(entry.href);
   await page.locator('input[type=file][id$="-main"]').setInputFiles(pdf);
-  const figure = page.locator('.ea-node').nth(1);
+  const figure = page.locator('.lens-cell').nth(1);
   await figure.waitFor({timeout:90000});
   await figure.click();
   const preview = page.locator('.pd-open-preview');
@@ -23,8 +26,9 @@ async function check(page, base, pdf) {
     const box = await canvas.boundingBox();
     await page.mouse.click(box.x+box.width*x,box.y+box.height*y);
   }
+  await page.locator('.st-more > summary').click();
   await summary.click();
-  await page.locator('.frw-controls .frw-toolbar button').filter({hasText:/^\+$/}).click();
+  await page.locator('.st-dock .frw-toolbar button').filter({hasText:/^\+$/}).click();
   await page.locator('button[data-printed-panel=e]').click();
   assert.match(await focus.locator('.rq-focus-bar').innerText(),/2.*E/);
   for (const [x,y,title] of [[.48,.19,/CRAB/],[.18,.27,/vehicle/],[.40,.27,/abaucin/],[.57,.27,/美罗培南/],[.79,.27,/哌拉西林/],[.18,.50,/第一张/],[.39,.50,/第二张/],[.58,.50,/第三张/],[.80,.50,/第四张/],[.50,.71,/尺子/]]) {

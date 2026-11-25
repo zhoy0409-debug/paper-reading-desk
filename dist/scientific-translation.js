@@ -78,7 +78,7 @@ export async function translatePassage(original,from,translate){
     if(exact){lines.push(exact[1]);continue}
     const fig=s.match(/^(?:Fig(?:ure)?\.?)\s*([S\d]+[a-z]?)\s*(?:[|.:]\s*)?/i);
     const body=fig?s.slice(fig[0].length):s;
-    const keys=[...new Set([...body.matchAll(/\b(?:[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|abaucin)\b/g)].map(m=>m[0]))];
+    const keys=[...new Set([...body.matchAll(/\b(?:[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|[Aa]baucin)\b/g)].map(m=>m[0]))];
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
     const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells');
     let result=body?await translate(prepared,from):'';
@@ -111,7 +111,8 @@ export async function mapChinese(source,translate){
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
   const escaped=[...names.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[\-\/\\^$*+?.()|[\]{}]/g,'\\$&'));
   const technical=/\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
-  const anchors=new RegExp(escaped.join('|')+'|'+technical.source,'g');
+  const pattern=escaped.map(v=>v.replace(/[a-z]/gi,c=>'['+c.toUpperCase()+c.toLowerCase()+']')).join('|');
+  const anchors=new RegExp(pattern+'|'+technical.source,'g');
   async function protectedSentence(s){
     const pieces=[];let end=0;
     async function prose(value){

@@ -1,22 +1,22 @@
 (function (global) {
   'use strict';
   const css = `
-.ea{margin:0;padding:20px clamp(15px,3cqi,34px) 19px;background:#f5f3ee;border-bottom:1px solid #dedad1;position:relative}
+.ea{margin:0;padding:20px clamp(15px,3cqi,34px) 19px;background:#f1f1f2;border-bottom:1px solid #d4d6db;position:relative}
 .ea .ea-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .ea .ea-head h3{font-size:15px;letter-spacing:.03em;color:#32303b;font-weight:730}.ea .ea-head span{font-size:12px;color:#5d5766}
-.ea-canvas{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(145px,.85fr) minmax(0,1fr);align-items:stretch;gap:10px clamp(25px,5cqi,65px);border:1px solid #dfdad3;border-radius:17px;background:radial-gradient(ellipse at 50% 45%,#ebf1ee,transparent 61%),#fbfaf7;padding:17px clamp(12px,3cqi,30px);overflow:hidden}
-.ea-lines{position:absolute;inset:0;height:100%;width:100%;z-index:-1;pointer-events:none}.ea-lines path{stroke:#93a79e;stroke-width:1.2;fill:none;opacity:.75}.ea-lines path.ea-selected{stroke:#3c6352;stroke-width:2.6;opacity:1}
-.ea-root,.ea .ea-node{display:grid;align-content:center;gap:3px;text-align:left;border:1px solid #ced8d3;border-radius:10px;background:#fffcfa;padding:10px 12px;min-width:0;overflow-wrap:anywhere}
-.ea-root{background:#32453d;color:#fffdf9;box-shadow:0 5px 22px #30453c1a;border-color:#32453d;min-height:72px;align-self:center;grid-column:2;grid-row:1 / span 2}
+.ea-canvas{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(145px,.85fr) minmax(0,1fr);align-items:stretch;gap:10px clamp(25px,5cqi,65px);border:1px solid #d6d8dc;border-radius:17px;background:radial-gradient(ellipse at 50% 45%,#edeeef,transparent 61%),#f9f9f9;padding:17px clamp(12px,3cqi,30px);overflow:hidden}
+.ea-lines{position:absolute;inset:0;height:100%;width:100%;z-index:-1;pointer-events:none}.ea-lines path{stroke:#9399a7;stroke-width:1.2;fill:none;opacity:.75}.ea-lines path.ea-selected{stroke:#454b5a;stroke-width:2.6;opacity:1}
+.ea-root,.ea .ea-node{display:grid;align-content:center;gap:3px;text-align:left;border:1px solid #cfd2d7;border-radius:10px;background:#fffcfa;padding:10px 12px;min-width:0;overflow-wrap:anywhere}
+.ea-root{background:#363941;color:#fcfcfc;box-shadow:0 5px 22px #3538401a;border-color:#363941;min-height:72px;align-self:center;grid-column:2;grid-row:1 / span 2}
 .ea-root small,.ea-node small{font-size:11px;font-weight:700;letter-spacing:.06em}.ea-root strong{font-size:15px;line-height:1.35}
 .ea-nodes{display:contents}
 .ea .ea-node{grid-row:var(--ea-row);grid-column:var(--ea-col);min-height:61px;font-size:13px;line-height:1.33;color:#37323f;transition:background .16s,border-color .16s,box-shadow .16s}
-.ea-node small{color:#456456}.ea .ea-node:hover{border-color:#698d7d;background:#f0f6f3}
-.ea .ea-node[aria-pressed=true]{background:#e7f0eb;border-color:#587e6d;box-shadow:0 2px 8px #3c635214,inset 3px 0 #587e6d}
+.ea-node small{color:#4a505f}.ea .ea-node:hover{border-color:#6b758b;background:#f2f3f4}
+.ea .ea-node[aria-pressed=true]{background:#eaebed;border-color:#5d6579;box-shadow:0 2px 8px #454b5a14,inset 3px 0 #5d6579}
 .ea .ea-node strong{font-size:13px;font-weight:690;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-.ea .ea-toggle{border:0;background:transparent;color:#395247;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:0 4px;font-size:12px}
+.ea .ea-toggle{border:0;background:transparent;color:#3e424d;text-decoration:underline;text-underline-offset:4px;min-height:44px;padding:0 4px;font-size:12px}
 .ea .ea-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px;color:#5d5766}
-.ea .ea-foot button{min-height:44px;padding:5px 12px;background:#fffefa;border:1px solid #ced8d3;border-radius:8px;color:#2f4e40;font-size:13px;white-space:nowrap}
+.ea .ea-foot button{min-height:44px;padding:5px 12px;background:#fcfcfd;border:1px solid #cfd2d7;border-radius:8px;color:#373b46;font-size:13px;white-space:nowrap}
 
 .ea .ea-language-loading,.ea .ea-language-retry{display:none}
 .ea:has(.ea-canvas [aria-busy=true]):not(:has(.ea-canvas [data-translation-retry])) .ea-language-loading{display:inline}

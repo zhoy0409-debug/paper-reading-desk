@@ -4,7 +4,9 @@
 
 Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up UMAP and lost track of which dots you were comparing. You know what each figure shows, but explaining why one follows another is harder. The walkthrough below uses one published paper to show how to take a panel, read it closely and place it in the paper’s argument.
 
-[![Play the one-minute film. A six-panel figure opens to a close-up of panel F.](docs/film/poster-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html)
+[![Play the 60-second walkthrough from clicking an axis to exporting the complete slide deck.](dist/media/tour/cover-en.webp)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+
+[Watch by chapter](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en) · [Watch the narrated introduction](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html)
 
 <a name="start-reading"></a>
 
@@ -12,9 +14,21 @@ Open a panel close-up and choose **Add to slides**. Its thumbnail appears in the
 
 Start with the public sample, or drop in your own PDF. Your browser reads the file on your device. [Open Reading Desk](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en)
 
+## How does a figure fit into the argument and into my talk?
+
+On desktop, the paper outline, original figure and explanation share one screen. Open a panel for a close-up. A locator shows where it sits in the whole figure. Select an axis, legend or scale bar to read its explanation.
+
+![A public paper’s mind map alongside its original figure](docs/guide/studio-map-en.webp)
+
+**Map** organizes the background, research question and figure evidence from the text and captions. Select a page number to check a quotation. With a connected model, the Windows edition can generate an outline directly. The web edition accepts outlines from other AI chats and checks their quotations against the PDF.
+
+Choose **Edit deck** in the basket to work with the same panels, order and notes in a full presentation. Insert your own pictures or text slides, edit the slide body and speaker notes separately, rehearse and choose **Export slide deck**.
+
+![Slide editor showing the sequence, slide body and separate speaker notes](docs/guide/studio-deck-en.webp)
+
 ## How do I get a sharp panel onto my slide?
 
-Drag a card by its handle to change the presentation order. Type a speaking note beside its thumbnail, then choose **Export PPTX**. The deck follows the basket order, with editable notes below each image and links to the source page. Reopening the same PDF in the same browser restores your selections and notes.
+Drag a card by its handle to change the presentation order. Type a speaking note beside its thumbnail, then choose **Export selected figures**. The deck follows the basket order, with editable notes below each image and links to the source page. Reopening the same PDF in the same browser restores your selections and notes.
 
 ![Slide basket with two original panel thumbnails and editable speaking notes](docs/guide/basket-en.png)
 
@@ -36,9 +50,9 @@ To save a single image, choose **Save panel PNG** under **Crop & present**.
 
 ## Can I explain each figure before reading its caption?
 
-Pick a figure in the strip above the image and turn on **Look first**. The caption, figure title and notes are covered. Write one line, choose **Reveal caption**, and mark whether you got it. If a figure has to be shown as a full page, its printed caption stays visible and the reader says so.
+Pick a figure in the paper outline and turn on **Look first**. The caption, figure title and notes are covered. Write one line, choose **Reveal caption**, and mark whether you got it. If a figure has to be shown as a full page, its printed caption stays visible and the reader says so.
 
-**Storyboard** lays out every figure with your lines, estimates the time to read them aloud and saves them as Markdown. **Rehearse** shows one figure at a time with a timer and keeps your line hidden until you press the space bar.
+Open **Slides** to arrange and rehearse the deck. Rehearsal has a timer and notes you can reveal on demand.
 
 When you add a panel to the slide basket, your line becomes its speaking note. It stays in step until you edit the note by hand. Notes you typed are never overwritten. Press `?` in the reader for keyboard shortcuts.
 

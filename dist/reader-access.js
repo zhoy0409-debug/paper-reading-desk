@@ -92,6 +92,7 @@
   }
   window.ReaderAccess={local,search,connections,webChat,
     options:()=>local?localAPI('reading-options'):Promise.resolve({automatic:'evidence',available:{evidence:true}}),
+    outline:(body,signal)=>localAPI('reading-outline',body,signal),
     ask:async(body,signal)=>{
       if(local)return localAPI('reading-question',body,signal);
       const result=body.searchPublic?await search(body.query,signal):{literature:[],search:{status:'off'}};

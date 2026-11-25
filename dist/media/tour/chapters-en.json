@@ -1,33 +1,51 @@
 {
-  "duration": 47.666666666666664,
+  "duration": 60,
   "chapters": [
     {
-      "key": "export",
-      "start": 0.0,
-      "title": "Still taking screenshots for every slide?",
-      "answer": "Save panel F straight from the PDF, then export a slide with its page number."
+      "key": "overview",
+      "start": 0,
+      "title": "Where does this figure fit?",
+      "answer": "Select Figure 8 in the outline and see the original alongside the reading."
     },
     {
       "key": "methods",
-      "start": 15.333333333333334,
-      "title": "How do I read a plot made with an unfamiliar method?",
-      "answer": "Click the axis, legend and peak in 8A. Then look up PCA in the single-cell figure and ask about its caption."
+      "start": 6,
+      "title": "What does this axis mean?",
+      "answer": "Open panel A, click the horizontal axis and follow the line to its explanation."
+    },
+    {
+      "key": "export",
+      "start": 16,
+      "title": "Which panels belong in the talk?",
+      "answer": "Collect A and B in the slide basket, add notes and drag them into order."
     },
     {
       "key": "story",
-      "start": 37.833333333333336,
-      "title": "I understand each figure. How do they fit together?",
-      "answer": "Start with the paper’s question, then follow a figure on the map back to its evidence."
+      "start": 25,
+      "title": "How do the figures build an argument?",
+      "answer": "Open the mind map. Current figure brings the branch for the figure beside it into view."
+    },
+    {
+      "key": "deck",
+      "start": 37,
+      "title": "How do the panels become a slide deck?",
+      "answer": "Open Slides and edit the text on the slide. Speaker notes have a separate field."
+    },
+    {
+      "key": "rehearse",
+      "start": 50,
+      "title": "Need a cue during rehearsal?",
+      "answer": "Rehearse, reveal the notes when needed, then export the complete PowerPoint."
     }
   ],
   "aliases": {
-    "focus": 0.0,
-    "png": 5.166666666666667,
-    "slide": 9.75,
-    "method": 15.333333333333334,
-    "context": 20.083333333333332,
-    "ask": 26.083333333333332,
-    "evidence": 31.5,
-    "map": 37.833333333333336
+    "focus": 6,
+    "png": 16,
+    "slide": 56,
+    "method": 6,
+    "context": 6,
+    "ask": 6,
+    "evidence": 25,
+    "map": 25
   }
 }

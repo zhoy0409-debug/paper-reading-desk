@@ -127,7 +127,7 @@
         const from = state.queue.indexOf(k);
         if (from < 0 || to < 0 || to >= state.queue.length || from === to) return;
         state.queue.splice(from, 1); state.queue.splice(to, 0, k);
-        save(); refresh();
+        save(); refresh(); changed();
       },
       remove(k) {
         dropSlide(k);
@@ -382,7 +382,16 @@
       if(!layout||![layout.rows,layout.cols].every(n=>Number.isInteger(n)&&n>=1&&n<=32)||layout.rows*layout.cols>120||layout.rows*layout.cols<2||!layout.box?.width||!layout.box?.height)return null;
       return {rows:layout.rows,cols:layout.cols,rect:relative(layout.box,parent)};
     }
-    return {focusAdd,syncLine,slideName:(fid,pid)=>describe(key(fid,pid)).name,destroy(){document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
+    return {describe,
+      setSentence(k,text){
+        const [fid,pid]=JSON.parse(k);if(!state.figures[fid])return;
+        state.figures[fid].sentences[pid]=text;basket.setNote(k,text);ReadingLineNotes.edited(state,fid,pid);
+        if(fig?.id===fid&&active===pid)caption.value=text;
+      },
+      syncQueue(){save();refresh();changed()},
+      removeSlide(k){dropSlide(k);save();refresh();changed()},
+      renderPanel(k){const i=describe(k);return PaperPanelLabels.rendered(session,i.figure,i.box,i.recipe)},
+      focusAdd,syncLine,slideName:(fid,pid)=>describe(key(fid,pid)).name,destroy(){document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
       image(mode){basis=mode==='figure'?originalBox(fig):full;ready=true;refresh()},
       spot(f,p,zoom,pageMode){state.spot={figure:f.id,panel:p||'',page:f.page,zoom,pageMode};save()},
       figurePanelRegion(f,id){

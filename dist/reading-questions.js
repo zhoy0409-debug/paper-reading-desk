@@ -554,7 +554,11 @@
       setTab('ask');const opened=document.querySelector('.ea-explorer[open]');if(opened)opened.close();
       notes.scrollIntoView({block:'nearest'});conversation.open(excerpt.slice(0,3200),selectionTag,prompt,paperEvidence(row,excerpt));
     }
-    const selected=e=>openQuestion(e.detail.text,'');
+    const selected=e=>{
+      const studio=notes.closest('.frw.st');
+      if(studio?.dataset.view==='map')studio.dispatchEvent(new CustomEvent('studio-view',{detail:'read'}));
+      openQuestion(e.detail.text,'');
+    };
     document.addEventListener('reader-ask-selection',selected);
     function primerEntry(entry){
       const d=el('details','rq-basic');d.append(pair(el('summary'),entry[0],entry[1]),pair(el('p'),entry[2],entry[3]));
@@ -660,7 +664,7 @@
       layer.replaceChildren();keyList.replaceChildren();menuList.replaceChildren();keys.open=false;
       const ordered=[...list].sort((a,b)=>(a.priority??10)-(b.priority??10));
       const named=ordered.filter(s=>s.verified).slice(0,4);
-      pathMenu.hidden=!named.length;long=false;updateLong();
+      pathMenu.hidden=!named.length;long=true;updateLong();
       pair(keySummary,list.length?'图中可点的位置（'+list.length+'）':'本格尚无可定位的文字或标注',list.length?'Explore figure elements':'No verified hotspots');
       const ns='http://www.w3.org/2000/svg';
       const strokes=document.createElementNS(ns,'svg');strokes.classList.add('rq-strokes');

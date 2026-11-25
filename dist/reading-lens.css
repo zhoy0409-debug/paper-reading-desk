@@ -1,5 +1,5 @@
 /* Light table. Crop marks are the one motif: the drop target and the current frame. */
-:root{--table:#14211c;--table-2:#1d2f28;--table-ink:#e8eee9;--table-muted:#9db3a8}
+:root{--table:#181a1d;--table-2:#22252a;--table-ink:#eaeaec;--table-muted:#9fa4b1}
 .lens-home{display:inline-flex;align-items:center;gap:10px;border:0;background:none;padding:2px;color:inherit;font:650 var(--fs-m)/1.3 var(--sans);letter-spacing:.025em;cursor:pointer}
 .lens-home span{font-family:var(--serif);font-weight:400}
 
@@ -16,7 +16,7 @@
 #literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main{--n:26px;
   min-height:clamp(190px,20vw,290px);padding:26px 30px;border:0;border-radius:0;align-items:center;
   background-color:var(--wash);color:var(--accent-strong);transition:background-color .2s}
-#literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main:is(:hover,.pl-drag){--n:44px;background-color:#dfeadf}
+#literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main:is(:hover,.pl-drag){--n:44px;background-color:#e2e4e7}
 #literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main strong{font:600 clamp(24px,2.3vw,32px)/1.2 var(--serif);color:inherit}
 #literaturePane .pl-reader:not(.pl-loaded) label.pl-drop-main small{color:var(--muted)}
 .lens-recent{margin:clamp(26px,4vw,48px) 0 26px}
@@ -34,7 +34,7 @@
 .lens-recent li:is(:hover,:focus-within) .lens-forget{opacity:1}
 @media(hover:none){.lens-forget{opacity:1}}
 .pl-reader:is(.pl-loaded,.ps-library-open) .lens-recent{display:none}
-.lens-veil{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#f9f9f5eb;pointer-events:none}
+.lens-veil{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#f6f7f8eb;pointer-events:none}
 .lens-veil strong{--n:40px;display:grid;place-items:center;width:min(560px,80vw);height:min(340px,56vh);font:600 34px/1.2 var(--serif);color:var(--accent-strong)}
 
 /* ---------- Figure first ---------- */
@@ -94,7 +94,7 @@
 /* ---------- Storyboard, rehearsal, help ---------- */
 .lens-story,.lens-help{border:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}
 .lens-story{width:min(1240px,94vw);max-width:none;height:min(900px,92vh);max-height:none;overflow:auto}
-:is(.lens-story,.lens-help)::backdrop{background:#14211cc7}
+:is(.lens-story,.lens-help)::backdrop{background:#181a1dc7}
 .lens-story>header{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:18px 26px;background:var(--paper);border-bottom:1px solid var(--line)}
 .lens-story h2,.lens-help h2{font:600 24px/1.25 var(--serif)}
 .lens-story header p{font-size:var(--fs-sm);color:var(--muted)}
@@ -113,12 +113,12 @@
 .lens-rehearse>header{display:flex;align-items:center;gap:16px;padding:14px 24px;font-size:var(--fs-body)}
 .lens-rehearse>header>span{color:var(--table-muted);font-variant-numeric:tabular-nums}
 .lens-rehearse time{margin-left:auto;font:400 26px/1 var(--serif);font-variant-numeric:tabular-nums}
-.lens-rehearse button{min-height:36px;padding:5px 14px;border:1px solid #486256;border-radius:var(--r-s);background:var(--table-2);color:var(--table-ink);font:560 var(--fs-m)/1.25 var(--sans);cursor:pointer}
+.lens-rehearse button{min-height:36px;padding:5px 14px;border:1px solid #4c515e;border-radius:var(--r-s);background:var(--table-2);color:var(--table-ink);font:560 var(--fs-m)/1.25 var(--sans);cursor:pointer}
 .lens-rehearse button:hover:not(:disabled){border-color:var(--night-accent)}.lens-rehearse button:disabled{opacity:.35}
 #literaturePane .lens-rehearse button:focus-visible{outline-color:var(--night-accent)}
 #literaturePane .lens-rehearse .lens-stage:focus{outline:0}
 .lens-stage{display:grid;place-items:center;grid-template:minmax(0,1fr)/minmax(0,1fr);min-height:0;padding:0 24px}
-.lens-stage img{display:block;max-width:100%;max-height:100%;min-height:0;object-fit:contain;background:#fff;padding:18px;box-shadow:0 0 90px #f4fff722}
+.lens-stage img{display:block;max-width:100%;max-height:100%;min-height:0;object-fit:contain;background:#fff;padding:18px;box-shadow:0 0 90px #f9f9fa22}
 .lens-rehearse>footer{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;gap:10px;padding:18px 24px}
 .lens-rehearse>footer p{font:400 clamp(17px,1.7vw,23px)/1.45 var(--serif);color:var(--table-muted);max-height:5.8em;overflow:auto}
 .lens-rehearse>footer p.lens-shown{color:var(--table-ink)}

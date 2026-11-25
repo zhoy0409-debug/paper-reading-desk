@@ -4,15 +4,18 @@ const path = require('node:path');
 const {chromium} = require('playwright-core');
 
 async function check(page, url, pdf, output) {
+  await page.addInitScript(()=>localStorage.setItem('reading-desk.guide.v1','{"read":1,"home":1}'));
+  const entry=new URL(url);entry.searchParams.set('lang','zh');
+  page.setDefaultTimeout(20000);
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   const loadPaper = async () => {
-    await page.goto(url);
+    await page.goto(entry.href);
     await page.locator('input[type=file][id$="-main"]').setInputFiles(pdf);
-    await page.locator('.ea-node').nth(1).waitFor({timeout:90000});
+    await page.locator('.lens-cell').nth(1).waitFor({timeout:90000});
   };
   await loadPaper();
-  await page.locator('.ea-node').nth(1).click();
+  await page.locator('.lens-cell').nth(1).click();
   const dock = page.locator('.slide-basket');
   const names = () => dock.locator('.basket-name').allTextContents();
   const cards = dock.locator('.basket-card');
@@ -48,7 +51,7 @@ async function check(page, url, pdf, output) {
   await cards.nth(1).locator('.basket-grip').press('ArrowLeft');
   assert.deepEqual(await names(),expected);
   await page.locator('[data-locale=en]').click();
-  assert.equal(await dock.locator('.basket-export').innerText(),'Export PPTX');
+  assert.equal(await dock.locator('.basket-export').innerText(),'Export selected figures');
   assert.equal(await cards.first().locator('textarea').inputValue(),notes.E);
   await page.setViewportSize({width:390,height:800});
   const rect = await dock.boundingBox();
