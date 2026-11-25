@@ -80,6 +80,8 @@ function linkedSection(rows,phrase){
 }
 function isReview(rows){
  const frontRows=rows.filter(r=>r.page===1||!r.page).slice(0,180);
+ const title=frontRows.slice(0,14).map(r=>clean(r.text)).join('\n').split(/\babstract\b|摘要/i)[0];
+ if(/(?:^|[:：–—-])\s*(?:an?\s+)?(?:systematic|scoping|narrative|integrative|literature)\s+review\b/im.test(title))return true;
  return frontRows.some(r=>/^(?:(?:article\s+)?type\s*[:：]?\s*)?(?:(?:narrative|systematic|scoping|mini|literature)[ -]?)?review(?: article)?$|^(?:文献综述|系统综述|综述)$/i.test(clean(r.text)))||
   /\b(?:in this review[, ]+we\b|this (?:systematic |scoping |narrative )?review (?:summari[sz]es|examines|discusses|explores|synthesi[sz]es|focuses|covers|provides|aims)\b)|本综述(?:总结|探讨|介绍|梳理|旨在)/i.test(frontRows.map(r=>r.text).join(' '));
 }

@@ -227,7 +227,11 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   const input=add(label,'input');input.id=id+'-'+role;input.type='file';input.multiple=role!=='main';
   input.accept='.pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain';
   input.setAttribute('aria-describedby',id+'-formats '+id+'-progress');
-  if(role==='main')primaryInput=input;
+  if(role==='main'){
+   primaryInput=input;
+   const prepare=()=>window.PaperStoryDocuments?.preparePdf?.().catch(()=>{});
+   for(const event of ['pointerdown','click','dragenter'])label.addEventListener(event,prepare,{once:true});
+  }
   const take=list=>{const selected=Array.from(list||[]);enqueue(role==='main'?selected.slice(0,1):selected,role);};
   input.addEventListener('change',()=>{take(input.files);input.value='';});
   label.addEventListener('dragover',event=>{event.preventDefault();label.classList.add('pl-drag');});

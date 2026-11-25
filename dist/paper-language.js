@@ -2,9 +2,17 @@
 (() => {
   'use strict';
   const base=new URL('.',document.currentScript.src);
-  let engine;
+  let engine,labelStartup;
+  // Give the first interactive image a head start on the much larger translation model.
+  function prioritizeLabels(ready){
+    if(engine||labelStartup)return;
+    let timer;
+    const deadline=new Promise(resolve=>{timer=setTimeout(resolve,12000)});
+    labelStartup=Promise.race([ready.catch(()=>{}),deadline]).finally(()=>{clearTimeout(timer);labelStartup=null});
+  }
   const cache=new Map(),ready=new Map(),bindings=new WeakMap();
   async function translate(text,from) {
+    if(!engine&&labelStartup)await labelStartup;
     if(!engine){
       engine=import(new URL('vendor/bergamot/translator.js',base)).then(({BatchTranslator})=>
         new BatchTranslator({registryUrl:new URL('vendor/bergamot/models.json',base).href,workers:1,downloadTimeout:150000,cacheSize:0,useNativeIntGemm:false}));
@@ -108,5 +116,5 @@
     refresh(el);
   }));
   addEventListener('pagehide',e=>{if(!e.persisted){engine?.then(v=>v.delete()).catch(()=>{});engine=null;cache.clear()}});
-  window.PaperLanguageText={bind,clear,translate,chinese,retry};
+  window.PaperLanguageText={bind,clear,translate,chinese,retry,prioritizeLabels};
 })();

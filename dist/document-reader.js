@@ -36,10 +36,14 @@
       }
     } finally { reader.releaseLock(); }
   }
+  const workerURL=new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
+  function preparePdf(){
+    return library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href).catch(e=>{library=null;throw e});
+  }
   async function openPdf(file) {
-    const [buffer,pdfjs] = await Promise.all([file.arrayBuffer(),library ||= import(new URL('pdf.min.mjs?build=5.6.205-legacy',base).href).catch(e=>{library=null;throw e})]);
+    const [buffer,pdfjs] = await Promise.all([file.arrayBuffer(),preparePdf()]);
     if(!/%PDF-\d/.test(new TextDecoder('latin1').decode(buffer.slice(0,1024))))throw Error('没有找到 PDF 文件头。');
-    pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdf.worker.min.mjs?build=5.6.205-legacy',base).href;
+    pdfjs.GlobalWorkerOptions.workerSrc = workerURL;
     const task = pdfjs.getDocument({data:new Uint8Array(buffer),
       cMapUrl:new URL('cmaps/',base).href,cMapPacked:true,
       standardFontDataUrl:new URL('standard_fonts/',base).href,wasmUrl:new URL('wasm/',base).href,useWasm:false,
@@ -208,5 +212,5 @@
     if(!ctx.records.length) ctx.warnings.push('没有可定位的正文文字。不会根据文件名生成解读。');
     return {facts,warnings:ctx.warnings,records:ctx.records,...(ctx.pdfSource?{pdfSource:ctx.pdfSource}:{})};
   }
-  window.PaperStoryDocuments={read,pageText,openPdf};
+  window.PaperStoryDocuments={read,pageText,openPdf,preparePdf};
 })();

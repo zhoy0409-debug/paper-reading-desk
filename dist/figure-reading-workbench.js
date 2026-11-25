@@ -230,6 +230,11 @@
     const initialSpot=options.desk?.initial||{};
     let pageMode=false,wantedZoom=0;
     const histograms=options.desk&&global.HistogramReader?.create(options.desk.session,options.desk.state,()=>desk.save());
+    const firstFigure=model.figures.find(f=>f.id===initialSpot.figure)||model.figures[0];
+    if(!initialSpot.pageMode&&firstFigure?.raw.rasterPlate&&histograms){
+      const preparing=histograms.prepareLabels().catch(()=>{});
+      global.PaperLanguageText?.prioritizeLabels(preparing);
+    }
     const figureClicks=options.desk&&global.FigureClicks?.mount({session:options.desk.session,histograms,plate,modalPlate,visual,modal,notes,findPassage:options.findPassage,openSource:inspectPage});
     let histogramFocus=null;
     const plotHits=el('div','','hist-hit-layer');plate.append(plotHits);

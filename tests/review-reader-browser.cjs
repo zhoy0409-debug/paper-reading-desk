@@ -29,8 +29,8 @@ async function reviewFile(page) {
     const i=pageNumber===2?0:pageNumber===46?1:-1;
     let resources='/Font << /F1 3 0 R /F2 4 0 R >>', commands='';
     if(pageNumber===1)commands=[
-      text(55,717,18,'F2','Materials in sensing systems'),text(55,685,12,'F2','Review Article'),
-      text(55,640,11,'F1','This review summarizes material choices for sensing systems.'),
+      text(55,717,18,'F2','Materials in sensing systems: a scoping review'),
+      text(55,640,11,'F1','We summarize material choices for sensing systems.'),
       text(55,572,10,'F1','The previous publication describes its other materials in'),
       text(55,559,10,'F1','Figure 91'),text(55,546,10,'F1','An ordinary paragraph continues the discussion.')
     ].join('\n');
@@ -65,6 +65,19 @@ async function reviewFile(page) {
       try{
         const page=await ctx.newPage();
         if(!file)file=await reviewFile(page);
+        const checkDownloads=action==='direct'&&browser.browserType().name()==='chromium';
+        const requests=new Set();let serial=false;
+        if(checkDownloads){
+          let both;
+          const paired=new Promise(resolve=>{both=resolve});
+          await ctx.route(/\/ocr\/(?:eng\.traineddata\.gz|tesseract-core-lstm\.wasm\.js)$/,async route=>{
+            requests.add(new URL(route.request().url()).pathname);
+            if(requests.size===2)both();
+            let timer;
+            await Promise.race([paired,new Promise(resolve=>{timer=setTimeout(()=>{serial=true;resolve()},8000)})]);
+            clearTimeout(timer);await route.continue();
+          });
+        }
         if(action!=='direct')await page.route('**/ocr/tesseract.esm.min.js',async route=>{await gate;await route.continue()});
         await page.addLocatorHandler(page.locator('.gd-layer .gd-skip:visible'),b=>b.tap());
         await page.goto(url.href,{waitUntil:'domcontentloaded'});
@@ -78,6 +91,7 @@ async function reviewFile(page) {
         if(action==='direct'){
           const copper=layer.getByRole('button',{name:/^Copper/i}).first();
           await copper.waitFor({timeout:35000});
+          if(checkDownloads)assert(requests.size===2&&!serial,'Fetch the dictionary and runtime concurrently');
           spot=await copper.evaluate(b=>({x:(parseFloat(b.style.left)+parseFloat(b.style.width)/2)/100,
             y:(parseFloat(b.style.top)+parseFloat(b.style.height)/2)/100}));
           await copper.tap();

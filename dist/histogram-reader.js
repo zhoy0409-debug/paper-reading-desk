@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const vendor=new URL('./vendor/ocr/',document.currentScript.src),file=n=>new URL(n,vendor).href;
+  const workerURL=new URL('./figure-ocr-worker.js?rev=reader-047',document.currentScript.src).href;
   const midX=b=>(b.x0+b.x1)/2,midY=b=>(b.y0+b.y1)/2;
   const num=/^[−-]?\d+(?:[.,]\d+)?$/;
   // Detect closed plotting frames from continuous ink, independently of the caption.
@@ -100,7 +101,7 @@
       if(!creating){
         creating=import(file('tesseract.esm.min.js')).then(async({default:ocr})=>{
           if(closed)throw Error('Closed');
-          const w=await ocr.createWorker('eng',1,{workerPath:file('worker.min.js'),corePath:file('tesseract-core-lstm.wasm.js'),
+          const w=await ocr.createWorker('eng',1,{workerPath:workerURL,corePath:file('tesseract-core-lstm.wasm.js'),
             langPath:vendor.href,workerBlobURL:false,cacheMethod:'none'});
           if(closed){await w.terminate();throw Error('Closed')}
           worker=w;await w.setParameters({tessedit_pageseg_mode:'11'});return w;
@@ -582,7 +583,7 @@
       });
       chain=job.catch(()=>{});return job;
     }
-    return {show,reset,panelLabels,destroy(){closed=true;reset();cache.clear();previews.clear();worker?.terminate()}};
+    return {show,reset,panelLabels,prepareLabels:getWorker,destroy(){closed=true;reset();cache.clear();previews.clear();worker?.terminate()}};
   }
   window.HistogramReader={create};
 })();
