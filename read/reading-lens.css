@@ -141,3 +141,6 @@
 .pl-reader:not(.pl-loaded) .lens-recent{order:1}
 .pl-reader:not(.pl-loaded):has(.lens-recent)>.ps-library{order:2}
 #literaturePane .frw.lens-blind :is(.frw-map-back,.lens-tools button:nth-of-type(3)){display:none}
+.lens-link{min-width:0;overflow-wrap:anywhere}.lens-link small{color:var(--accent);font-size:var(--fs-s)}
+.lens-link .lens-quiet{text-align:left}
+.lens-board li{grid-template-rows:auto auto auto 1fr}

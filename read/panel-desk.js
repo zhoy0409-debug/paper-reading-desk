@@ -89,7 +89,8 @@
       const k = key(fig.id, active);
       if (state.queue.includes(k)) return;
       state.queue.push(k);
-      save(); refresh(); basket.reveal(k);
+      ReadingLineNotes.add(state, fig.id, active);
+      save(); refresh(); basket.reveal(k); changed();
     }
     const add=button('加入汇报',addCurrent);add.className='pd-add-slide';
     const focusAdd=button('加入汇报',addCurrent);focusAdd.className='rq-add-slide';
@@ -129,16 +130,31 @@
         save(); refresh();
       },
       remove(k) {
-        state.queue = state.queue.filter(item => item !== k);
-        save(); refresh();
+        dropSlide(k);
+        save(); refresh(); changed();
       },
       edit(k, text) {
         const [fid, pid] = JSON.parse(k);
         if (state.figures[fid]) state.figures[fid].sentences[pid] = text;
+        ReadingLineNotes.edited(state, fid, pid);
         if (fig?.id === fid && active === pid) caption.value = text;
-        save();
+        save(); changed();
       }
     });
+    function changed() { ui.workbench.dispatchEvent(new Event('reading-basket-change')); }
+    function dropSlide(k) {
+      const [fid, pid] = JSON.parse(k);
+      ReadingLineNotes.removed(state, fid, pid);
+      state.queue = state.queue.filter(item => item !== k);
+    }
+    // The figure's one-line reading changed, or was sent to a queued panel.
+    function syncLine(fid, fill) {
+      const target = fill && ReadingLineNotes.add(state, fid, fill) ? fill : ReadingLineNotes.follow(state, fid);
+      if (!target) return;
+      const k = key(fid, target), text = describe(k).sentence;
+      basket.setNote(k, text);
+      if (fig?.id === fid && active === target) caption.value = text;
+    }
     function describe(k) {
       const [fid, pid] = JSON.parse(k), figure = paper.figures.find(f => f.id === fid);
       const panel = figure && panelsFor(figure).find(p => p.id === pid);
@@ -312,7 +328,7 @@
       basket.sync(state.queue,pending);
       exportButton.disabled=!state.queue.length||pending;
     }
-    caption.oninput=()=>{if(fig&&active){record(fig).sentences[active]=caption.value;basket.setNote(key(fig.id,active),caption.value);save()}};
+    caption.oninput=()=>{if(fig&&active){record(fig).sentences[active]=caption.value;ReadingLineNotes.edited(state,fig.id,active);basket.setNote(key(fig.id,active),caption.value);save();changed()}};
     note.oninput=()=>{state.notes[key(fig.id,active)]=note.value;save()};
     pub.onchange=()=>{try{const raw=pub.value.trim();if(raw&&!['http:','https:'].includes(new URL(raw).protocol))throw Error();state.publicUrl=raw;save()}catch{PaperUI.set(msg,'来源链接需为完整的 HTTP 或 HTTPS 地址。');pub.value=state.publicUrl??paper.publicUrl??''}};
     async function exportPpt(){
@@ -366,7 +382,7 @@
       if(!layout||![layout.rows,layout.cols].every(n=>Number.isInteger(n)&&n>=1&&n<=32)||layout.rows*layout.cols>120||layout.rows*layout.cols<2||!layout.box?.width||!layout.box?.height)return null;
       return {rows:layout.rows,cols:layout.cols,rect:relative(layout.box,parent)};
     }
-    return {focusAdd,destroy(){document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
+    return {focusAdd,syncLine,slideName:(fid,pid)=>describe(key(fid,pid)).name,destroy(){document.removeEventListener('reader-language-change',refresh);basket.destroy()},panelsFor,save,gridQueued,queueGrid,drawGridLegend,gridLegends,drawLayout,gridLayout,reset(){ready=false;stop();refresh()},select(f,p){if(fig!==f||active!==p)stop();fig=f;active=p||'';refresh()},
       image(mode){basis=mode==='figure'?originalBox(fig):full;ready=true;refresh()},
       spot(f,p,zoom,pageMode){state.spot={figure:f.id,panel:p||'',page:f.page,zoom,pageMode};save()},
       figurePanelRegion(f,id){

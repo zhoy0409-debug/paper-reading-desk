@@ -33,7 +33,7 @@
   }
 
   function mount(ctx){
-    const {workbench,body,notes,header,state,save,render,select,paper,id}=ctx;
+    const {workbench,body,notes,header,state,save,syncLine,slideName,render,select,paper,id}=ctx;
     const store=state.lens||={};
     const entry=f=>store[f.id]||={};
     let figures=[],active=null,blind=read(BLIND,false)===true,fullPage=false,disposed=false,timer=0;
@@ -59,7 +59,7 @@
     // One-line reading card
     const card=el('section','lens-card');card.setAttribute('aria-label','我的一句话 / My one line');
     const ask=el('label','lens-ask');
-    const box=el('textarea');box.rows=2;box.maxLength=400;box.id='lens-say-'+Math.random().toString(36).slice(2,8);ask.htmlFor=box.id;
+    const box=el('textarea');box.rows=2;box.maxLength=480;box.id='lens-say-'+Math.random().toString(36).slice(2,8);ask.htmlFor=box.id;
     box.placeholder='比较了谁？看哪个读数？变化朝哪边？ / Who is compared, on what readout, in which direction?';
     const actions=el('div','lens-actions');
     const reveal=button('primary','揭开图注','Reveal caption',()=>{if(!active)return;entry(active).open=true;persist();drawCard();answer.focus({preventScroll:true})});
@@ -74,13 +74,26 @@
     const hide=button('lens-quiet','收起图注','Hide caption',()=>{entry(active).open=false;persist();drawCard();box.focus({preventScroll:true})});
     actions.append(reveal,hint);
     answer.append(ui('h4','','作者图注','Authors’ caption'),quote,verdicts,hide);
-    card.append(ask,box,actions,answer);notes.prepend(card);
+    const link=el('div','lens-link');
+    card.append(ask,box,link,actions,answer);notes.prepend(card);
     box.addEventListener('input',()=>{
       if(!active)return;
-      const f=active;entry(f).say=box.value;mark(f);drawTally();
+      const f=active;entry(f).say=box.value;syncLine(f.id);mark(f);drawTally();drawLink();
       clearTimeout(timer);timer=setTimeout(persist,250);
     });
 
+    // Slide note for this figure: shows the sync, or one action to copy text across.
+    function linkInto(host,f,done){
+      const o=ReadingLineNotes.offer(state,f.id);
+      host.replaceChildren();host.hidden=o.kind==='none';
+      if(host.hidden)return;
+      const name=slideName(f.id,o.panel);
+      if(o.kind==='synced')host.append(ui('small','','已同步到汇报篮：'+name,'Synced to the slide basket: '+name));
+      else if(o.kind==='fill')host.append(button('lens-quiet','填入汇报篮讲解：'+name,'Use as slide note: '+name,()=>{syncLine(f.id,o.panel);done()}));
+      else host.append(button('lens-quiet','用汇报篮里的讲解：'+name,'Use the slide note: '+name,()=>{entry(f).say=o.text;mark(f);drawTally();done()}));
+    }
+    function drawLink(){if(active)linkInto(link,active,()=>{persist();drawCard()})}
+    workbench.addEventListener('reading-basket-change',drawLink);
     function persist(){
       clearTimeout(timer);timer=0;save();
       recall(id,{total:ordered().length,said:ordered().filter(said).length},true);
@@ -95,6 +108,7 @@
       workbench.classList.toggle('lens-blind',covered);
       PaperUI.set(ask,!covered?'用一句话说这张图':fullPage?'先别读图注。这张图在说什么？':'图注已盖住。这张图在说什么？',!covered?'This figure in one line':fullPage?'Skip the caption. What does this figure show?':'The caption is covered. What does this figure show?');
       if(box.value!==(e.say||''))box.value=e.say||'';
+      drawLink();
       actions.hidden=!!e.open;answer.hidden=!e.open;
       reveal.disabled=!caption;
       if(covered&&fullPage)PaperUI.set(hint,'现在是整页显示，页面上印有图注','The full page is shown, with its printed caption');
@@ -203,10 +217,12 @@
         const meta=el('div','lens-board-meta');meta.append(el('b','',f.label),el('span','',f.page?'p.'+f.page:''));
         const verdict=VERDICTS.find(v=>v[0]===store[f.id]?.verdict);
         if(verdict){const tag=ui('i','lens-tag',verdict[1],verdict[2]);tag.dataset.verdict=verdict[0];meta.append(tag)}
-        const line=el('textarea');line.rows=3;line.maxLength=400;line.value=store[f.id]?.say||'';
+        const line=el('textarea');line.rows=3;line.maxLength=480;line.value=store[f.id]?.say||'';
         line.setAttribute('aria-label',f.label+' 的一句话 / One line for '+f.label);line.placeholder='还没写 / Not written yet';
-        line.addEventListener('input',()=>{entry(f).say=line.value;mark(f);total();drawTally();clearTimeout(timer);timer=setTimeout(persist,250)});
-        li.append(open,meta,line);list.append(li);
+        const join=el('div','lens-link');
+        const drawJoin=()=>linkInto(join,f,()=>{line.value=store[f.id]?.say||'';persist();total();drawJoin()});drawJoin();
+        line.addEventListener('input',()=>{entry(f).say=line.value;syncLine(f.id);drawJoin();mark(f);total();drawTally();clearTimeout(timer);timer=setTimeout(persist,250)});
+        li.append(open,meta,line,join);list.append(li);
       }
       d.addEventListener('close',()=>{persist();drawCard()});
       d.append(top,list);total();d.showModal();
