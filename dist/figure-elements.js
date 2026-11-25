@@ -111,6 +111,17 @@
       return card('UMAP · 单细胞布局','UMAP · Single-cell layout','这里每个点代表一个细胞。UMAP 把基因表达特征相近的细胞放在邻近位置。'+(/time points/i.test(caption)?'对照图例的取样时间，可以看哪些时期的细胞在图中相邻。':''),
         'Each point is a cell. UMAP places cells with similar expression profiles near one another. '+(/time points/i.test(caption)?'Use the sampling-time legend to see which stages lie near each other.':''),captionPage);
     }
+    if(/^(female|male|combined)$/i.test(t)&&/\bfemale\b/i.test(caption+' '+words.map(v=>v.text).join(' '))){
+      const group={female:['雌性','female animals'],male:['雄性','male animals'],combined:['合并雌雄两组','both sexes pooled']}[t.toLowerCase()];
+      const human=/\b(participants|patients|volunteers)\b/i.test(caption)&&!/\b(mice|mouse|rats?)\b/i.test(caption);
+      return card(t,t,'本列汇总'+(human?group[0].replace('雌性','女性').replace('雄性','男性').replace('雌雄','男女'):group[0])+'的数据。沿纵轴读这一列各条件的测量值。','This category summarizes '+(human?group[1].replace('animals','participants'):group[1])+'. Read the vertical axis to compare the conditions in this category.');
+    }
+    if(/^relative expression$/i.test(t))return card(t,t,'纵轴表示相对于参照条件的表达水平。比较各组在同一尺度上的读数，读数越高，相对表达越高。','This axis measures expression relative to a reference condition. A higher value means higher relative expression.');
+    if(/^mock$/i.test(t))return card(t,t,'Mock 是模拟处理对照，经历相应的对照操作，为比较实验处理后的读数提供基线。','Mock is the procedural control. Its measurement provides a baseline for comparing the experimental condition.');
+    if(/^(no scratch|scratch)$/i.test(t))return card(t,t,/^no/i.test(t)?'No scratch 标出未抓挠条件的数据。与 Scratch 组比较，可读出两种条件下指标的差异。':'Scratch 标出抓挠条件的数据。与 No scratch 组对读，观察抓挠条件下指标的变化。',/^no/i.test(t)?'No scratch identifies measurements under the no-scratching condition. Compare them with Scratch.':'Scratch identifies measurements under the scratching condition. Compare them with No scratch.');
+    if(/^bouts of scratching$/i.test(t))return card(t,t,'纵轴计数观察期内出现了多少阵抓挠行为。读数越高，记录到的抓挠阵次越多。','This axis counts scratching bouts during the observation period. Higher values mean more bouts.');
+    if(/^spontaneous itch$/i.test(t))return card(t,t,'这个标题指自发性瘙痒。图中用观察到的抓挠行为来量化这一表现。','Spontaneous itch is the outcome. The figure uses observed scratching behavior to quantify it.');
+    if(/^p\s*[=<>≤≥]\s*0?\.\d+$/i.test(t))return card(t,t,'这是图中标出的比较所对应的 P 值。它衡量在零假设及检验假定成立时，得到至少如此极端结果的概率。','This is the P value for the indicated comparison. Under the null hypothesis and test assumptions, it is the probability of a result at least this extreme.');
     const iteration=t.match(/^iter(?:ation)?s?\.?\s*(?:\(\s*1e(\d)\s*\))?$/i);
     if (iteration) {
       const n=iteration[1] && 10**Number(iteration[1]);
@@ -147,5 +158,39 @@
     }
     return evidence(t,sources.filter(s=>!/Printed|Full figure caption/.test(s.en||'')).concat({text:caption,page:captionPage}));
   }
-  window.FigureElements={labels,reference,distanceGuide,explain};
+  function passage(term,sources){
+    for(const source of sources){
+      const quote=clean(source.text).split(/(?<=[.!?])\s+(?=[A-Z(])|(?<=。)/u)
+        .find(line=>line.length>=24&&line.length<=450&&contains(line,term));
+      if(!quote)continue;
+      const entry=[term+' · 原文说明',term+' · In the paper',quote,quote,source.page];
+      entry.quote=quote;entry.localize=true;return entry;
+    }
+  }
+  // Search the paper on demand when a label was not defined in its own figure.
+  function paperPassages(sections){
+    const pages=new Map(),cache=new Map();
+    for(const section of sections||[]){
+      if(section.key==='references')continue;
+      for(const row of section.rows||[]){
+        if(row.heading||!row.page||!row.text)continue;
+        if(!pages.has(row.page))pages.set(row.page,[]);
+        pages.get(row.page).push(row.text);
+      }
+    }
+    const sources=Array.from(pages,([page,lines])=>({page,text:lines.join(' ')}));
+    return (term,page)=>{
+      const key=page+'|'+folded(term);
+      if(!cache.has(key)){
+        const relevant=sources.filter(s=>contains(s.text,term)).sort((a,b)=>Math.abs(a.page-page)-Math.abs(b.page-page));
+        cache.set(key,evidence(term,relevant)||passage(term,relevant)||null);
+      }
+      return cache.get(key);
+    };
+  }
+  function unresolved(term,page){
+    const entry=[term,term,'已读出标注「'+term+'」，其在本图中的含义待核对。','The label reads “'+term+'”. Its meaning in this figure is unconfirmed.',page];
+    entry.lookup=true;return entry;
+  }
+  window.FigureElements={labels,reference,distanceGuide,explain,passage,paperPassages,unresolved};
 })();

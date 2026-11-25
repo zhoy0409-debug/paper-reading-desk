@@ -11,6 +11,8 @@ const terminology=[
   ['carbapenem-resistant','耐碳青霉烯类'],['carbapenem-susceptible','对碳青霉烯类敏感的'],
   ['Acinetobacter baumannii','鲍曼不动杆菌'],['A. baumannii','鲍曼不动杆菌'],['Escherichia coli','大肠埃希菌'],['E. coli','大肠埃希菌'],
   ['Klebsiella pneumoniae','肺炎克雷伯菌'],['Bacteroides vulgatus','普通拟杆菌'],['Bacteroides thetaiotaomicron','多形拟杆菌'],['Bacteroides fragilis','脆弱拟杆菌'],
+  ['scanning electron microscopy','扫描电子显微镜'],['transmission electron microscopy','透射电子显微镜'],['wild-type','野生型'],
+  ['murine lung infection model','小鼠肺部感染模型'],['murine pneumonia model','小鼠肺炎模型'],['lipoprotein trafficking','脂蛋白转运'],
   ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],['abaucin','abaucin']
 ];
 const exactNames=new Map(terminology);
@@ -34,6 +36,15 @@ function subject(s){
     return (/^extended/i.test(m[1])?'产超广谱 β-内酰胺酶（ESBL）的':/resistant/i.test(m[1])?'耐碳青霉烯类的':'对碳青霉烯类敏感的')+taxon(m[2])+'（'+m[3].replace(/,\s*/g,'，')+'）';
   });
   return bacteria.every(Boolean)?bacteria.join('，以及'):null;
+}
+// Caption noun phrases bind a modality, two subjects and an optional treatment contrast.
+function microscopyCaption(sentence){
+  const match=sentence.match(/^(?:Representative\s+)?(scanning electron microscopy|transmission electron microscopy|fluorescence microscopy|confocal microscopy)(?:\s*\(([A-Z]{2,6})\))?\s+(?:images?|micrographs?) of (?:the )?wild[- ]type ([A-Z][a-z]*\.?\s+[a-z][a-z-]+) and (?:the )?corresponding ([A-Za-z][\w.-]*(?:\s+and\s+[A-Za-z][\w.-]*)?) mutant strains?(?: (with or without|with|without) ([\w-]+) treatment)?[.]?$/i);
+  if(!match)return null;
+  const [,method,abbr,species,variants,condition,drug]=match;
+  const name={'scanning electron microscopy':'扫描电子显微镜','transmission electron microscopy':'透射电子显微镜','fluorescence microscopy':'荧光显微镜','confocal microscopy':'共聚焦显微镜'}[method.toLowerCase()];
+  const exposure=!condition?'':condition.toLowerCase()==='with or without'?'，比较经 '+drug+' 处理和未经该药处理两种条件':condition.toLowerCase()==='without'?'，样本未经 '+drug+' 处理':'，样本经 '+drug+' 处理';
+  return '这组'+name+(abbr?'（'+abbr+'）':'')+'图像展示了野生型 '+species+' 及相应的 '+variants.replace(/\s+and\s+/i,' 和 ')+' 突变株'+exposure+'。';
 }
 function assay(sentence){
   const quantitative=sentence.match(/^(?:The )?(?:MIC|minimum inhibitory concentration) of ([\w-]+) (?:against|for) ([A-Z][a-z]*\.? [a-z]+)(?: \(([^()]+)\))? was (<?=?|>?=?|[≤≥])?\s*(\d+(?:\.\d+)?(?:[–-]\d+(?:\.\d+)?)?)\s*([μµu]g\/mL|mg\/L)\.?$/i);
@@ -72,7 +83,7 @@ export async function translatePassage(original,from,translate){
   if(from!=='en')return {text:await translate(original,from),warnings:[]};
   const lines=[],warnings=[];
   for(const s of sentences(original)){
-    const checked=assay(s);
+    const checked=microscopyCaption(s)||assay(s);
     if(checked){lines.push(checked);continue}
     const exact=terminology.find(([en])=>s.toLowerCase()===en.toLowerCase());
     if(exact){lines.push(exact[1]);continue}
@@ -82,11 +93,13 @@ export async function translatePassage(original,from,translate){
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
     const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells');
     let result=body?await translate(prepared,from):'';
+    if(/remain(?:s)? (?:insufficiently|poorly|incompletely) characteri[sz]ed[.!]?$/i.test(body))
+      result=result.replace(/(?:仍然|仍|还)?不足[。.]?$/,'尚未得到充分研究。');
     if(/\bTimer probe\b/.test(body))result=result.replace(/定时器探针/g,'Timer 探针');
     if(/\blog[- ]posterior\b/i.test(body))result=result.replace(/日志后部|对数后部/g,'对数后验');
     if(/\b(?:imaging|image[- ]based|analysis|processing|data) pipeline\b/i.test(body))result=result.replace(/管道/g,'分析流程');
     // Translators often spell out standard abbreviations. Keep the original token searchable as well.
-    const expanded={TB:'结核病',DNA:'脱氧核糖核酸',RNA:'核糖核酸',MRI:'磁共振成像',ATP:'三磷酸腺苷',PCR:'聚合酶链式反应'};
+    const expanded={SEM:'扫描电子显微镜',TEM:'透射电子显微镜',TB:'结核病',DNA:'脱氧核糖核酸',RNA:'核糖核酸',MRI:'磁共振成像',ATP:'三磷酸腺苷',PCR:'聚合酶链式反应'};
     for(const k of keys){
       if(expanded[k]&&!result.includes(k)&&result.includes(expanded[k]))result=result.replace(expanded[k],expanded[k]+'（'+k+'）');
     }
@@ -110,7 +123,7 @@ export async function mapChinese(source,translate){
   const han=/[\u3400-\u9fff]/u;
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
   const escaped=[...names.keys()].sort((a,b)=>b.length-a.length).map(s=>s.replace(/[\-\/\\^$*+?.()|[\]{}]/g,'\\$&'));
-  const technical=/\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
+  const technical=/\b[A-Z]\.\s+[a-z]{3,}\b|\b[A-Z]\d+[A-Z]\b|\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
   const pattern=escaped.map(v=>v.replace(/[a-z]/gi,c=>'['+c.toUpperCase()+c.toLowerCase()+']')).join('|');
   const anchors=new RegExp(pattern+'|'+technical.source,'g');
   async function protectedSentence(s){
@@ -131,12 +144,40 @@ export async function mapChinese(source,translate){
   const parts=[];
   for(const s of sentences(source)){
     let result=await translatePassage(s,'en',translate);
-    if(result.warnings.length){
-      const localized=await protectedSentence(s);
-      result=await translatePassage(s,'en',async()=>localized);
+    if(result.warnings.length||!han.test(result.text)){
+      if(translate.withTerms){
+        const pieces=[];let end=0;
+        for(const match of s.matchAll(anchors)){
+          pieces.push(s.slice(end,match.index),{original:match[0],value:names.get(match[0].toLowerCase())||match[0]});
+          end=match.index+match[0].length;
+        }
+        pieces.push(s.slice(end));
+        const aligned=await translate.withTerms(pieces);
+        if(aligned&&han.test(aligned))result=await translatePassage(s,'en',async()=>aligned);
+      }
+      if(result.warnings.length||!han.test(result.text)){
+        const localized=await protectedSentence(s);
+        result=await translatePassage(s,'en',async()=>localized);
+      }
     }
     if(result.warnings.length||!han.test(result.text))throw Error('Translation needs another reading');
     parts.push(result.text);
   }
   return parts.join(' ');
+}
+
+// A successful English passage must display Chinese. Proper names can remain in Latin script.
+export async function selectionTranslation(text,from,translate){
+  const original=normalizeSelection(text);
+  if(from!=='en'){
+    const result=String(await translate(original,from)).trim();
+    if(!result||result===original||!/[\p{Script=Latin}]/u.test(result))throw Error('No English translation');
+    return {text:result,lang:'en',name:false};
+  }
+  const term=terminology.find(([en])=>en.toLowerCase()===original.toLowerCase());
+  if(term&&term[0]===term[1])return {text:term[1],lang:'en',name:true};
+  const abbreviation={SEM:'扫描电子显微镜（SEM）',TEM:'透射电子显微镜（TEM）',MIC:'最低抑菌浓度（MIC）'};
+  if(abbreviation[original])return {text:abbreviation[original],lang:'zh-CN',name:false};
+  const result=await mapChinese(original,translate);
+  return {text:result,lang:'zh-CN',name:false};
 }

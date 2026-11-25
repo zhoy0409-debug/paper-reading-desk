@@ -1,4 +1,4 @@
-import {translatePassage} from './scientific-translation.js?rev=import-021';
+import {selectionTranslation} from './scientific-translation.js?rev=charts-042';
 
 const popup = document.createElement('section');
 popup.className = 'local-translation';
@@ -197,20 +197,23 @@ function update() {
 
 async function translate(){
   if(!selected||run.disabled)return;
-  ignore=true;const id=++request,text=selected,from=source;
+  const id=++request,text=selected,from=source;
   if(text.length>8000){PaperUI.set(output,'每次最多选择 8000 个字符。','Select up to 8,000 characters at a time.');return}
-  delete output.dataset.sourceText;run.disabled=true;PaperUI.set(output,'正在本机翻译…','Translating on this device…');
+  ignore=true;delete output.dataset.sourceText;run.disabled=true;PaperUI.set(output,'正在本机翻译…','Translating on this device…');
   try{
-    const result=await translatePassage(text,from,PaperLanguageText.translate);
-    if(request===id){
-      output.textContent=result.text;output.lang=from==='en'?'zh-CN':'en';output.dataset.sourceText='';
-      quote.textContent=text;original.hidden=false;notice.hidden=!result.warnings.length;
-      if(result.warnings.length)PaperUI.set(notice,'未通过术语或数值核对的句子保留原文。','Sentences that failed terminology or number checks are shown in the source language.');
-      translateLabel('已翻译', 'On-device translation');
-      schedulePlace();
-    }
+    const result=await selectionTranslation(text,from,PaperLanguageText.translate);
+    if(request!==id)return;
+    output.textContent=result.text;output.lang=result.lang;output.dataset.sourceText='';
+    quote.textContent=text;original.hidden=false;notice.hidden=!result.name;
+    if(result.name)PaperUI.set(notice,'这个名称在中文文献中保留原拼写。','The name keeps its original spelling in Chinese.');
+    translateLabel(result.name?'保留原名':'已翻译',result.name?'Original name':'Translated');
+    schedulePlace();
   }catch{
-    if(request===id){run.disabled=false;PaperUI.set(output,'本机翻译未完成，可重试。','Translation failed. Select Translate to retry.')}
+    if(request!==id)return;
+    run.disabled=false;ignore=false;
+    translateLabel('重试翻译','Retry translation');
+    PaperUI.set(output,'未能生成可核对的译文，请重试。','Could not verify the translation. Please retry.');
+    quote.textContent=text;original.hidden=false;notice.hidden=true;schedulePlace();
   }
 }
 

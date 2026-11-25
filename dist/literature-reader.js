@@ -247,7 +247,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   const file=items.find(d=>d.problem&&d.pdfFile);
   if(file)openLocalPaper(file,1);
  },'light pl-fallback');openUnparsed.hidden=true;
- const formats=addUI(intake,'p','支持有文字层的 PDF、DOCX、TXT。扫描 PDF 目前不做 OCR；可粘贴正文或图注。','muted fileHint');formats.id=id+'-formats'; formats.hidden=true;
+ const formats=addUI(intake,'p','支持 PDF、DOCX、TXT。扫描件可按页看图，阅读器会识别可辨认的图例。','muted fileHint');formats.id=id+'-formats'; formats.hidden=true;
  const paste=add(intake,'details',undefined,'entryDetails');
  const pasteSummary=addUI(paste,'summary','没有可读文件？粘贴原文');
  const labelText=addUI(paste,'label','粘贴正文、图注或参考文献');labelText.htmlFor=id+'-paste';
@@ -447,7 +447,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
      panel.boundary='此区域对应出版社这一版 PDF 的 3A；结构快照不提供时间先后。';
     }
    }
-   const rawPage=n=>({id:'page-only-'+n,label:'原页',title:'PDF 第 '+n+' 页',page:n,summary:'原页手动定位。请按实际图内标签框选需要的区域。',panels:[],references:[],pageOnly:true});
+   const rawPage=n=>({id:'page-only-'+n,label:'原页',title:'PDF 第 '+n+' 页',page:n,caption:'',summary:'原页手动定位。请按实际图内标签框选需要的区域。',panels:[],references:[],pageOnly:true});
    if(session&&!paper.figures.length)paper.figures=[rawPage(1)];
    host.replaceChildren();
    if(!session||!paper.figures.length){
@@ -498,6 +498,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    if(dest?.id===item.hash)history.replaceState(null,'',location.pathname);
    figureHandle=window.FigureReadingWorkbench.mount(host,{
     lookupTerm: PaperSourceNotes.lookupFor(item.model.sections),
+    findPassage: FigureElements.paperPassages(item.model.sections),
     lookupSupplement(query){
      const found=[];
      for(const doc of items.filter(d=>d.role==='supplement'&&d.pdfFile&&!d.problem)){

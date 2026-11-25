@@ -37,7 +37,9 @@
     }
     if(n.role){
       const r=el('i','mm-role');
-      PaperUI.set(r,n.role==='why'?'为什么做':'作者的说法',n.role==='why'?'Why':'Authors say');body.append(r);
+      const roles={context:['研究背景','Context'],prior:['前人发现','Previous work'],gap:['待解问题','Open question'],
+        aim:['研究目的','Objective'],question:['具体问题','Specific question'],why:['为什么做','Why'],found:['作者的说法','Authors say']};
+      PaperUI.set(r,...(roles[n.role]||roles.found));body.append(r);
     }
     if(n.fig)body.append(tap('mm-fig',name(n.fig),()=>figure(n.fig)));
     if(n.panel)body.append(tap('mm-fig',n.panel,()=>panel(n.parent?.fig,n.panel)));

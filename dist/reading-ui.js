@@ -9,7 +9,7 @@
     '粘贴正文、图注或参考文献':'Paste text, captions or references','加入这份原文':'Add text',
     '主文':'Main paper','补充材料':'Supplement','参考文献／知识资料':'Reference material',
     '选好主文后，会在这里显示读取进度。':'Reading progress will appear here.',
-    '支持有文字层的 PDF、DOCX、TXT。扫描 PDF 目前不做 OCR；可粘贴正文或图注。':'Text-based PDF, DOCX and TXT. For a scan, select a page or paste the caption.',
+    '支持 PDF、DOCX、TXT。扫描件可按页看图，阅读器会识别可辨认的图例。':'Open a PDF, DOCX or TXT file. For scans, select a page to explore legible chart legends.',
     '查看阅读结果':'Open reading desk','改用粘贴原文':'Paste text instead','先看原始 PDF 页':'Open the original PDF',
     '本次阅读材料 · 管理文件和角色':'Manage files and roles','记录我想先弄懂的问题（选填）':'Add a reading question','我的阅读问题':'My question',
     '仅作当前阅读的便签，不会拿它推断论文的科学问题。':'A personal prompt for this reading session.',

@@ -24,6 +24,10 @@ On desktop, the paper outline, original figure and explanation share one screen.
 
 ![A public paper’s mind map alongside its original figure](docs/guide/studio-map-en.webp)
 
+The map links background, prior findings, open questions and aims to the pages that support them. Select an English caption and choose **Translate to Chinese**. Expand the source to compare the wording, identifiers and numbers.
+
+![An English figure caption translated into Chinese, with the original text one click away](docs/guide/selection-zh.webp)
+
 **Map** organizes the background, research question and figure evidence from the text and captions. Select a page number to check a quotation. With a connected model, the Windows edition can generate an outline directly. The web edition accepts outlines from other AI chats and checks their quotations against the PDF.
 
 Choose **Edit deck** in the basket to work with the same panels, order and notes in a full presentation. Insert your own pictures or text slides, edit the slide body and speaker notes separately, rehearse and choose **Export slide deck**.
@@ -71,6 +75,10 @@ Select an English term or passage and choose **Listen**. From any figure, **Engl
 ## What am I looking at, and where did the authors say that?
 
 Open a close-up from the figure, a panel letter or the crop thumbnail. Figure elements remain clickable while Crop & present is open. Drawing a boundary brings up the original image. Finish or cancel to resume the close-up.
+
+Open either chart in a side-by-side comparison. Click an axis for its quantity and scale, or click the legend sample or its name to identify the series. On dual-axis charts, the explanation identifies the matching scale. Try uploading [DenseNet, Figure 3](https://arxiv.org/pdf/1608.06993#page=6) or [Deep Networks with Stochastic Depth, Figure 4](https://arxiv.org/pdf/1603.09382#page=9), then check the same label after zooming or adjusting the crop.
+
+![Click the blue legend entry in an uploaded raster chart to read what the intervention group represents.](docs/guide/click-legend-en.webp)
 
 Panel 6F is labelled UMAP. Open the panel to learn what each point represents and which groups to compare. Then select the sampling description in the caption and ask, “How long did sampling last?” The source guide finds the interval from day 0 to month 4 and takes you back to the authors’ sentence.
 

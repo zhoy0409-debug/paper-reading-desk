@@ -447,10 +447,11 @@ async function scan(file,options={}){
       const d=seen.get(digest);if(!d.duplicatePages.includes(pg)&&pg!==d.captionPage)d.duplicatePages.push(pg);
       continue;
      }
-     const pair=hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
+     const charts=window.CartesianPanels?.findPlots(cap,here,words,axes,objects,viewport);
+     const pair=!charts&&hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
        window.PaperPanelGeometry?.pairedAxes(cap,here,axes,words,objects,viewport):null;
-     const initial=hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null;
-     let grid=pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes);
+     const initial=charts?.crop||(hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null);
+     let grid=charts|| (pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes));
      // Nothing above the caption: the figure may be printed beside it.
      const beside=!pair&&!initial&&objects.length?window.SideCaption?.locate(cap,here,lines,objects,viewport,verticalLabels(text,viewport,true))||null:null;
      if(beside)grid=window.SideCaption.panels(cap,beside,words,lines,viewport,axes);
@@ -458,13 +459,18 @@ async function scan(file,options={}){
      if(!grid&&!pair)await window.PaperPanelGeometry?.includePrintedMargins(printed,page,viewport,pdfjs.AnnotationMode.DISABLE,words).catch(()=>{});
      let crop=grid?.crop||initial||beside;
      for(const p of printed)if(p.rect)crop=crop?unite(crop,p.rect):p.rect;
-     const stack=!beside&&await MarkedPlots.locate(cap,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+     const stack=!charts&&!beside&&await MarkedPlots.locate(cap,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(stack)crop=stack.crop;
-     const layers=!stack&&!beside&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+     const layers=!charts&&!stack&&!beside&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(layers)crop=layers.crop;
      let plate=null;
      let raster=null;
-     if(!grid&&!beside&&!pair&&!stack&&!layers&&!printed.some(p=>p.rect)&&here.length===1&&cap.line.y0>viewport.height*.22){
+     const embedded=!charts&&!beside&&!pair&&!stack&&!layers&&CompositePlate.adjacentImage(objects,cap,lines,viewport);
+     if(embedded && !grid){
+       raster=await CompositePlate.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE,embedded,words).catch(()=>null);
+       crop=raster?.crop||crop||embedded;
+       check();
+     }else if(!grid&&!beside&&!pair&&!stack&&!layers&&!printed.some(p=>p.rect)&&here.length===1&&cap.line.y0>viewport.height*.22){
        raster=await window.CompositePlate?.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
        check();if(raster)crop=raster.crop;
      }
@@ -483,7 +489,7 @@ async function scan(file,options={}){
      const id=cap.matchKey+'@'+pg+':'+cap.anchor.line;
      const figureKeys=!plate&&crop&&curvePaths.length?CurveReading.legend(curvePaths,words,crop):[];
      let sharedLegend=null;
-     if(grid&&!stack&&!layers&&!plate&&curvePaths.length&&grid.panels.length>=2){
+     if(grid&&!charts&&!stack&&!layers&&!plate&&curvePaths.length&&grid.panels.length>=2){
       const keys=figureKeys;
       const keyTop=Math.min(...keys.map(k=>k.box.y0));
       const boxes=grid.panels.map(p=>p.rect);
@@ -512,7 +518,7 @@ async function scan(file,options={}){
        panels.push({...label,id:pId,bbox:label.rect?normalized(label.rect,crop):null});
       }
      }
-     const figure={id,rasterPlate:Boolean(raster||plate?.raster),matchKey:cap.matchKey,label:cap.label,layerStack:layers?{rows:layers.rows,horizontal:layers.horizontal,ticks:layers.ticks,shared:normalized(layers.shared,{x0:0,y0:0,x1:imageView.width,y1:imageView.height})}:null,markedStack:stack?{first:stack.first,rows:stack.rows}:null,
+     const figure={id,rasterPlate:Boolean(raster||plate?.raster||embedded&&!words.some(t=>t.x0>embedded.x0&&t.x1<embedded.x1&&t.y0>embedded.y0&&t.y1<embedded.y1)),matchKey:cap.matchKey,label:cap.label,layerStack:layers?{rows:layers.rows,horizontal:layers.horizontal,ticks:layers.ticks,shared:normalized(layers.shared,{x0:0,y0:0,x1:imageView.width,y1:imageView.height})}:null,markedStack:stack?{first:stack.first,rows:stack.rows}:null,
       page:imagePage,captionPage:pg,caption:cap.caption,captionPartial:cap.partial,anchor:{page:pg,...cap.anchor},panels,pageBox:crop?normalized(crop,{x0:0,y0:0,x1:imageView.width,y1:imageView.height}):null,mode:crop?'crop':'page',duplicatePages:[],
       reason:plate?'前页图内编号与本页图注编号吻合，已定位跨页图版。':beside?'图注排在图的侧边，按同一水平带内的图形选取的原文区域。':crop?'按明确图注和紧邻版面选取的原文区域。':'已定位图注，图形范围待核对。'};
      if(!plate&&!pair&&/\bhistograms?\b/i.test(cap.caption)){
@@ -522,7 +528,7 @@ async function scan(file,options={}){
        if(!panels.some(p=>p.bbox)||b&&q.x>=b.x&&q.y>=b.y&&q.x+q.width<=b.x+b.width&&q.y+q.height<=b.y+b.height)figure.openHistogram=open;
       }
      }
-     if(!plate&&crop&&curvePaths.length){
+     if(!plate&&crop&&(curvePaths.length||charts)){
       const keys=figureKeys;
       const traces=curvePaths.filter(t=>t.pts.length>=5 && t.b.x0>=crop.x0-1 && t.b.x1<=crop.x1+1 &&
         t.b.y0>=crop.y0-1 && t.b.y1<=crop.y1+1 && w(t.b)>w(crop)*.12 && keys.some(k=>k.key===t.key));
@@ -558,6 +564,12 @@ async function scan(file,options={}){
          const [x,y]=best[0];marks.push({text:key.name,series:true,peak:true,estimate:read(best[0]),box:{x0:x-2,y0:y-2,x1:x+2,y1:y+2}});
         }
        }
+      }
+      if(charts){
+        // Repeated legend colours have local meaning within each panel.
+        const chartLabels=charts.panels.flatMap(p=>CartesianPanels.chartMarks(p,curvePaths,cap.caption));
+        const genericTraces=marks.filter(m=>m.trace || m.peak);
+        marks.splice(0,marks.length,...genericTraces,...chartLabels);
       }
       if(marks.length)marksByFigure.set(cap.matchKey+'@'+pg, {marks,view:viewport,sharedLegend});
       const vertical=text.items.filter(t=>t.str?.trim()&&t.transform&&Math.abs(t.transform[1])>10*Math.abs(t.transform[0]))
@@ -617,7 +629,8 @@ async function scan(file,options={}){
     const unit=page.getViewport({scale:1}), region=crop||{x0:0,y0:0,x1:unit.width,y1:unit.height};
     const rw=w(region),rh=h(region);
     if(!Number.isFinite(rw)||!Number.isFinite(rh)||rw<=.2||rh<=.2)throw Error('原页尺寸无法预览。');
-    const desired=quality==='slide'?Math.min(12,Math.max(2.25,1500/Math.max(rw,rh))):crop?2.25:1.7;
+    const capture=quality==='chart';
+    const desired=quality==='slide'||capture?Math.min(12,Math.max(2.25,1500/Math.max(rw,rh))):crop?2.25:1.7;
     const target=quality==='thumbnail'?230/Math.max(rw,rh):desired;
     const scale=Math.min(target,Math.sqrt(3400000/(rw*rh)),2100/Math.max(rw,rh));
     const width=Math.max(1,Math.ceil(rw*scale)),height=Math.max(1,Math.ceil(rh*scale));
@@ -625,10 +638,49 @@ async function scan(file,options={}){
     const ctx=canvas.getContext('2d',{alpha:false,willReadFrequently:!!crop});if(!ctx)throw Error('当前浏览器无法生成图片。');
     const args={canvasContext:ctx,canvas,viewport:page.getViewport({scale}),annotationMode:pdfjs.AnnotationMode.DISABLE,background:'#ffffff'};
     if(crop)args.transform=[1,0,0,1,-crop.x0*scale,-crop.y0*scale];
+    let glyphs;
+    const paths=[];
+    if(capture){
+     const textCanvas=document.createElement('canvas');textCanvas.width=width;textCanvas.height=height;
+     glyphs=textCanvas.getContext('2d',{alpha:false,willReadFrequently:true});
+     glyphs.fillStyle='white';glyphs.fillRect(0,0,width,height);glyphs.fillStyle='black';
+     // Mirror glyphs while PDF.js draws them, using its actual embedded font,
+     // character mapping and transforms. Curves and markers stay on the main canvas.
+     for(const method of ['fillText','strokeText']){
+      const draw=ctx[method].bind(ctx);
+      ctx[method]=(...args)=>{
+       glyphs.setTransform(ctx.getTransform());glyphs.font=ctx.font;glyphs.textAlign=ctx.textAlign;
+       glyphs.textBaseline=ctx.textBaseline;glyphs.direction=ctx.direction;glyphs.lineWidth=ctx.lineWidth;
+       glyphs[method](...args);return draw(...args);
+      };
+     }
+     // Embedded fonts can paint characters as cached Path2D outlines.
+     for(const method of ['fill','stroke']){
+      const draw=ctx[method].bind(ctx);
+      ctx[method]=(...args)=>{
+       if(args[0] instanceof Path2D){
+        const transform=ctx.getTransform();
+        if(transform.e>=-200&&transform.e<width+200&&transform.f>=-200&&transform.f<height+200)
+         paths.push({method,args,transform,lineWidth:ctx.lineWidth});
+       }
+       return draw(...args);
+      };
+     }
+    }
     activeRender=page.render(args);await activeRender.promise;activeRender=null;check();if(disposed)throw stop();
+    if(glyphs&&paths.length){
+     const text=await page.getTextContent(),outlines=new Set();
+     for(const fontName of Object.keys(text.styles)){
+      const font=page.commonObjs.has(fontName)&&page.commonObjs.get(fontName);
+      for(const glyph of Object.values(font?.compiledGlyphs||{}))outlines.add(glyph);
+     }
+     for(const draw of paths)if(outlines.has(draw.args[0])){
+      glyphs.setTransform(draw.transform);glyphs.lineWidth=draw.lineWidth;glyphs[draw.method](...draw.args);
+     }
+    }
     if(crop&&!hasContent(ctx,width,height))return null;
     const blob=await toPNG(canvas);check();if(disposed)throw stop();
-    return {blob,width,height,mode:crop?'crop':'page',page:pageNumber};
+    return {blob,width,height,mode:crop?'crop':'page',page:pageNumber,pixels:glyphs?.getImageData(0,0,width,height)};
    }finally{
     activeRender=null;
     if(canvas)canvas.width=canvas.height=0;
@@ -657,7 +709,7 @@ async function scan(file,options={}){
     const data=marksByFigure.get(figureKey+'@'+n);if(!data)return [];
     const {marks,view}=data,x=b.x*view.width,y=b.y*view.height,width=b.width*view.width,height=b.height*view.height;
     return marks.filter(m=>m.box.x0>=x-1&&m.box.y0>=y-1&&m.box.x1<=x+width+1&&m.box.y1<=y+height+1)
-      .map(({box,text,series,peak,estimate,trace,values,color})=>({text,series,peak,estimate,color,values,x0:(box.x0-x)/width,x1:(box.x1-x)/width,y0:(box.y0-y)/height,y1:(box.y1-y)/height,
+      .map(({box,text,series,peak,estimate,trace,values,color,chart})=>({text,series,peak,estimate,color,values,chart,x0:(box.x0-x)/width,x1:(box.x1-x)/width,y0:(box.y0-y)/height,y1:(box.y1-y)/height,
         trace:trace?.map(([px,py])=>[(px-x)/width,(py-y)/height])}));
    },
    async chartText(n,b){

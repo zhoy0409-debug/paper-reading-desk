@@ -36,4 +36,11 @@ assert.equal(explain({text:'sample size'},{page:2,caption:'',reading:{sources:te
 assert.equal(explain({text:'Time (min)'},{page:2,caption:''})[2].includes('分钟'),true);
 assert.match(explain({text:'20 µm'},{page:2,caption:'Micrograph with a scale bar.'})[2],/40 µm/);
 assert.equal(explain({text:'20 µm'},{page:2,caption:'Applied displacement.'}),null);
+const lookup=FigureElements.paperPassages([
+ {key:'results',rows:[{page:2,text:'We recorded travel time for each visit.'},{page:6,text:'Travel time is the interval between departure and arrival.'}]},
+ {key:'references',rows:[{page:1,text:'Novel label denotes a citation title.'}]}
+]);
+assert.equal(lookup('travel time',2)[4],6);
+assert.match(lookup('travel time',2).quote,/between departure and arrival/);
+assert.equal(lookup('novel label',1),null);
 console.log('PASS element-specific cards, label geometry, method roles, matched evidence, units and table columns.');

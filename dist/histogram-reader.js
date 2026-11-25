@@ -107,7 +107,7 @@
         }).catch(e=>{creating=null;throw e});
       }return creating;
     }
-    async function ocrLines(canvas,digits=false){
+    async function ocrLines(canvas,digits=false,labelsOnly=false){
       const w=await getWorker();
       await w.setParameters({tessedit_pageseg_mode:digits?'6':'11',tessedit_char_whitelist:digits?'0123456789.-,':''});
       const {data}=await w.recognize(canvas,{}, {blocks:true});
@@ -115,7 +115,12 @@
         // Sparse OCR sometimes joins two titles on the same line. Split at a large gutter.
         const lines=[];
         for(const word of l.words){
+          // A colour key often becomes an isolated low-confidence OCR glyph.
+          // Keep its pixels for hit testing, but do not merge it into the series name.
+          if(labelsOnly&&word.confidence<65&&!/[\p{L}\p{N}]{2}/u.test(word.text))continue;
           const b=word.bbox,prev=lines.at(-1);
+          const numericPeer=labelsOnly&&prev&&/^(?:mock|control|vehicle|baseline|WT)$/i.test(prev.text)&&/^\d{3,8}$/.test(word.text);
+          if(numericPeer){prev.category=true;lines.push({...b,text:word.text,conf:word.confidence,category:true});continue}
           if(prev&&b.x0-prev.x1<(b.y1-b.y0)*1.25){
             prev.text+=' '+word.text;
             prev.x0=Math.min(prev.x0,b.x0);prev.x1=Math.max(prev.x1,b.x1);
@@ -470,7 +475,7 @@
     }
     async function verticalLabels(canvas,horizontal,isCurrent){
       const labels=[];
-      const band=Math.max(1,Math.ceil(canvas.width*.15));
+      const band=Math.max(1,Math.ceil(canvas.width*.22));
       const strip=document.createElement('canvas');strip.width=canvas.height;strip.height=band;
       const ctx=strip.getContext('2d');
       try{
@@ -497,6 +502,40 @@
       }finally{strip.width=strip.height=0}
       return labels;
     }
+    async function readOutlinedKeys(canvas,isCurrent){
+      const boxes=PrintedLegend.outlinedKeys(canvas);
+      if(!boxes.length)return [];
+      const W=canvas.width,H=canvas.height,worker=await getWorker(),result=[];
+      const ctx=canvas.getContext('2d',{willReadFrequently:true}),pix=ctx.getImageData(0,0,W,H).data;
+      await worker.setParameters({tessedit_pageseg_mode:'7',tessedit_char_whitelist:''});
+      for(const b of boxes){
+        if(!isCurrent())break;
+        const x0=Math.min(W,b.r+2),yt=Math.max(0,Math.floor(b.t-b.h*.17)),yb=Math.min(H,Math.ceil(b.b+b.h*.17));
+        let first=-1,last=-1;
+        for(let x=x0;x<Math.min(W,b.r+b.h*13);x++){
+          let ink=0;for(let y=yt;y<yb;y++){const k=4*(y*W+x);if(Math.max(pix[k],pix[k+1],pix[k+2])<145)ink++}
+          if(ink){if(first<0)first=x;last=x}
+          if((last<0?x-b.r:x-last)>b.h*.65)break;
+        }
+        if(first<0||last-first<3)continue;
+        const region=document.createElement('canvas'),scale=Math.max(1,Math.min(4,36/b.h)),pad=10;
+        region.width=Math.ceil((last-first+1)*scale)+2*pad;region.height=Math.ceil((yb-yt)*scale)+2*pad;
+        const g=region.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,region.width,region.height);
+        g.drawImage(canvas,first,yt,last-first+1,yb-yt,pad,pad,(last-first+1)*scale,(yb-yt)*scale);
+        const {data}=await worker.recognize(region,{}, {blocks:true});region.width=region.height=0;
+        const line=data.blocks?.[0]?.paragraphs?.[0]?.lines?.[0],name=line?.text.trim(),bb=line?.bbox;
+        if(!bb||line.confidence<56||!name||name.length>68||!/[\p{L}]{2}/u.test(name))continue;
+        const chart={name,color:b.open?'#222222':b.color,open:b.open,swatch:true,solidBox:true,context:{axes:[],yName:'',caption:''}};
+        result.push({text:name,x0:(first+(bb.x0-pad)/scale)/W,x1:(first+(bb.x1-pad)/scale)/W,y0:(yt+(bb.y0-pad)/scale)/H,y1:(yt+(bb.y1-pad)/scale)/H,chart:{...chart,kind:'legend'}},
+          {text:name,x0:b.l/W,x1:b.r/W,y0:b.t/H,y1:b.b/H,chart:{...chart,kind:'symbol'}});
+      }
+      // Reject lone apparent keys inside the plot when their supposed partner has no legible name.
+      const symbols=result.filter(k=>k.chart.kind==='symbol');
+      const accepted=symbols.filter(a=>symbols.some(b=>b!==a&&b.text!==a.text&&
+        Math.abs(a.x0-b.x0)<(a.x1-a.x0)*.2&&Math.abs((a.x1-a.x0)-(b.x1-b.x0))<(a.x1-a.x0)*.25&&
+        Math.abs(a.y0-b.y0)<(a.y1-a.y0)*3.8&&Math.abs(a.y0-b.y0)>(a.y1-a.y0)*.8));
+      return result.filter(k=>accepted.some(s=>s.text===k.text&&Math.abs(s.y0-k.y0)<s.y1-s.y0));
+    }
     const labelCache=new Map();
     function panelLabels(page,box,isCurrent){
       const key=JSON.stringify([page,box]);
@@ -509,14 +548,30 @@
         const c=document.createElement('canvas');c.width=bitmap.width;c.height=bitmap.height;
         try{
           c.getContext('2d').drawImage(bitmap,0,0);
-          const lines=await ocrLines(c);
-          const labels=lines.filter(l=>l.conf>=65&&/[\p{L}]{2}|[µμ]m|\d+\s*h\b/u.test(l.text))
-            .map(l=>({text:l.text.trim(),x0:l.x0/c.width,x1:l.x1/c.width,y0:l.y0/c.height,y1:l.y1/c.height}));
-          const axisLike=lines.some(l=>/^\s*x\s*[:：]\s*\d/i.test(l.text)||/\b(?:time|frequency|intensity|score|voltage|distance|probability|concentration)\b/i.test(l.text));
+          let lines=await ocrLines(c,false,true);
+          if(lines.filter(l=>l.conf>=65&&/\p{L}{2}/u.test(l.text)).length<3){
+            const mask=document.createElement('canvas');mask.width=c.width;mask.height=c.height;
+            const ctx=mask.getContext('2d',{willReadFrequently:true});
+            ctx.drawImage(c,0,0);
+            const pix=ctx.getImageData(0,0,mask.width,mask.height),a=pix.data;let coloured=0;
+            for(let i=0;i<a.length;i+=4)if(Math.max(a[i],a[i+1],a[i+2])-Math.min(a[i],a[i+1],a[i+2])>40){
+              a[i]=a[i+1]=a[i+2]=255;coloured++;
+            }
+            if(coloured){ctx.putImageData(pix,0,0);lines=lines.concat(await ocrLines(mask,false,true))}
+            mask.width=mask.height=0;
+          }
+          const labels=lines.filter(l=>l.conf>=65&&(l.category||/[\p{L}]{2}|[µμ]m|\d+\s*h\b/u.test(l.text)||/^p\s*[=<>≤≥]\s*0?\.\d+$/i.test(l.text)))
+            .map(l=>({text:l.text.trim(),...(l.category&&/^\d+$/.test(l.text)?{chart:{kind:'category',context:{axes:[],caption:''}}}:{}),x0:l.x0/c.width,x1:l.x1/c.width,y0:l.y0/c.height,y1:l.y1/c.height}));
+          const axisLike=lines.some(l=>l.category||/^(?:female|male|combined|mock)\b/i.test(l.text)||/^\s*x\s*[:：]\s*\d/i.test(l.text)||/\b(?:time|frequency|intensity|score|voltage|distance|probability|concentration)\b/i.test(l.text));
           if(axisLike&&isCurrent())labels.push(...await verticalLabels(c,lines,isCurrent));
           if(!isCurrent())return [];
-          labelCache.set(key,labels);if(labelCache.size>64)labelCache.delete(labelCache.keys().next().value);
-          return labels;
+          const outlined=await readOutlinedKeys(c,isCurrent);
+          if(!isCurrent())return [];
+          const covers=(a,b)=>Math.min(a.x1,b.x1)>Math.max(a.x0,b.x0)&&Math.min(a.y1,b.y1)>Math.max(a.y0,b.y0);
+          const unique=labels.filter((v,i)=>!(v.rotate&&outlined.some(w=>covers(w,v)))&&!labels.slice(0,i).some(w=>v.text===w.text&&Math.abs(v.x0-w.x0)<.006&&Math.abs(v.y0-w.y0)<.006));
+          unique.push(...outlined);
+          labelCache.set(key,unique);if(labelCache.size>64)labelCache.delete(labelCache.keys().next().value);
+          return unique;
         }finally{bitmap.close();c.width=c.height=0}
       });
       chain=job.catch(()=>{});return job;

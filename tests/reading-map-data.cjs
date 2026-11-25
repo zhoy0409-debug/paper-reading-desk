@@ -38,3 +38,16 @@ const excerpt=D.excerpt(longPaper);
 assert.ok(excerpt.includes('[p.1]')&&excerpt.includes('[p.95]')&&excerpt.length<19500);
 const zh=D.local({rows:[{page:1,text:'引言'},{page:1,text:'邻域嵌入是一类用于展示高维数据结构的降维方法。'}],figures:[],sections:[],question:'问题'});
 assert.equal(zh.children[0].key,'background');
+
+const context=[
+  {page:1,text:'Previous measurements are summarized in the database of published observations.'},
+  {page:1,text:'Optical sensors provide a common means of recording light across many wavelengths.'},
+  {page:2,text:'A recent study identified a new sensor for measuring short pulses of light.'},
+  {page:2,text:'However, its performance and calibration remain insufficiently characterized.'},
+  {page:2,text:'In this study, we evaluated the sensor against a calibrated optical reference.'}
+];
+const outline=D.local({rows:context,figures:[],sections:[],question:'Sensors'});
+const bg=outline.children.find(n=>n.key==='background').children,aims=outline.children.find(n=>n.key==='aim').children;
+assert.deepEqual(bg.map(n=>n.role),['context','prior','gap']);
+assert.deepEqual(aims.map(n=>n.role),['aim']);
+for(const n of [...bg,...aims])assert(context.some(s=>s.page===n.page&&s.text===n.quote));
