@@ -17,7 +17,7 @@ Open **Paper & tools → Export to Obsidian** to save a Markdown note with the p
 
 Select a detected panel letter or side label to add that panel to your slide basket. For a group of curves or a diagram, use **Select a panel** to draw the region you want to present. The exported note keeps your crop and links back to its PDF page.
 
-After reading another paper in the same browser, **Read panel** in an earlier note returns to its original crop. On another device or after clearing browser data, choose the same PDF when prompted.
+After reading another paper in the same browser, **Read panel** in an earlier note returns to its original crop. Take the note folder and its attachments to another device to view the cropped images and PDF pages in Obsidian. The reader stores manual crop settings in the original browser.
 
 On a phone, open the **⋯** menu to find the export. You can also reach it where you write private panel notes. This note links directly to page 12 of the source PDF and displays the panels in the order selected. [Source paper](https://arxiv.org/abs/2007.08902)
 
