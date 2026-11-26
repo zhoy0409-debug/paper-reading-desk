@@ -152,6 +152,26 @@ async function check() {
     const revisit=await ctx.newPage();await revisit.goto(jump[1],{waitUntil:'domcontentloaded'});
     await revisit.locator('.lens-cell[aria-current="true"][data-figure="page-only-12"]').waitFor({state:'attached',timeout:120000});
     assert.equal(await revisit.locator('[data-locale="'+lang+'"]').getAttribute('aria-pressed'),'true');
+    if(!webkitRun){
+      // Older releases saved a File, which on newer browsers also has a bytes() method.
+      await revisit.evaluate(async()=>{
+        const database=await new Promise((resolve,reject)=>{
+          const request=indexedDB.open('paper-tree.v9.files');
+          request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+        });
+        try{
+          await new Promise((resolve,reject)=>{
+            const tx=database.transaction('pdf','readwrite'),store=tx.objectStore('pdf'),read=store.get('recent');
+            read.onsuccess=()=>{
+              const {id,file}=read.result;store.put(new File([file.bytes],file.name,{type:'application/pdf'}),id);
+            };
+            tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error);
+          });
+        }finally{database.close()}
+      });
+      await revisit.goto(jump[1],{waitUntil:'domcontentloaded'});
+      await revisit.locator('.lens-cell[aria-current="true"][data-figure="page-only-12"]').waitFor({state:'attached',timeout:120000});
+    }
     console.log('PASS '+engine.name()+' '+lang+' upload, Markdown, selected order, PDF page, image pixels, personal notes, optional attachments'+(webkitRun?'':', vault write and edit preservation'));
   }finally{await browser.close()}
 }

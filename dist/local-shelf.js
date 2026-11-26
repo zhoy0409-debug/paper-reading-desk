@@ -43,7 +43,7 @@
     return url.href;
   }
   async function restoreFile(record){
-    if(record?.bytes)return new File([record.bytes],record.name,{type:record.type,lastModified:record.lastModified});
+    if(record?.bytes instanceof ArrayBuffer)return new File([record.bytes],record.name,{type:record.type,lastModified:record.lastModified});
     if(!(record instanceof Blob))return null;
     // Older records may still have a name and a size after access to their file expired.
     try{if(!/%PDF-\d/.test(await record.slice(0,1024).text()))return null}catch{return null}
