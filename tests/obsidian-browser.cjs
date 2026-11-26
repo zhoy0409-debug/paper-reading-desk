@@ -134,6 +134,21 @@ async function check() {
     assert.notEqual(light.files[0].split('/')[0],files.files[0].split('/')[0],'Extracting again preserves previous vault edits');
     const jump=light.markdown.match(/\]\((https?:[^)\s]+[?&]figure=page-only-12[^)\s]*)\)/);
     assert(jump,'A text-only note has a source-page link that can be opened in the reader.');
+    const cachedHash=await page.evaluate(async()=>{
+      const database=await new Promise((resolve,reject)=>{
+        const request=indexedDB.open('paper-tree.v9.files');
+        request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+      });
+      try{
+        const cached=await new Promise((resolve,reject)=>{
+          const request=database.transaction('pdf').objectStore('pdf').get('recent');
+          request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+        });
+        const hash=await crypto.subtle.digest('SHA-256',cached.file.bytes);
+        return Array.from(new Uint8Array(hash),v=>v.toString(16).padStart(2,'0')).join('');
+      }finally{database.close()}
+    });
+    assert.equal(cachedHash,files.pdf,'A new tab has its own readable copy of the original PDF.');
     const revisit=await ctx.newPage();await revisit.goto(jump[1],{waitUntil:'domcontentloaded'});
     await revisit.locator('.lens-cell[aria-current="true"][data-figure="page-only-12"]').waitFor({state:'attached',timeout:120000});
     assert.equal(await revisit.locator('[data-locale="'+lang+'"]').getAttribute('aria-pressed'),'true');

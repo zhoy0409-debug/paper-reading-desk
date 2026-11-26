@@ -42,40 +42,37 @@
     if(window.ReaderLanguage)url.searchParams.set('lang',ReaderLanguage.current);
     return url.href;
   }
-  function restoreFile(record){
+  async function restoreFile(record){
     if(record?.bytes)return new File([record.bytes],record.name,{type:record.type,lastModified:record.lastModified});
-    if(record instanceof Blob && !record.name)return new File([record],'paper.pdf',{type:record.type||'application/pdf'});
-    return record;
+    if(!(record instanceof Blob))return null;
+    // Older records may still have a name and a size after access to their file expired.
+    try{if(!/%PDF-\d/.test(await record.slice(0,1024).text()))return null}catch{return null}
+    return record.name ? record : new File([record],'paper.pdf',{type:record.type||'application/pdf'});
   }
   async function fileFor(id){
-    const saved=await get('pdf',id); if(saved)return restoreFile(saved);
+    const saved=await restoreFile(await get('pdf',id)); if(saved)return saved;
     const last=await get('pdf',recent); return last?.id===id?restoreFile(last.file):null;
   }
-  async function storePdf(file,write){
-    try{await write(file)}
-    catch(error){
-      if(['QuotaExceededError','SecurityError','NotAllowedError'].includes(error.name))throw error;
-      // Some WebKit stores can clone ArrayBuffers but reject File objects.
-      await write({bytes:await file.arrayBuffer(),name:file.name,type:file.type,lastModified:file.lastModified});
-    }
+  async function pdfRecord(file){
+    // Keep a self-contained copy, including after the OS picker or original tab closes.
+    return {bytes:await file.arrayBuffer(),name:file.name,type:file.type,lastModified:file.lastModified};
   }
   async function remember(id,file){
-    await storePdf(file,record=>transaction(['pdf','papers'],'readwrite',tx=>{
+    const record=await pdfRecord(file);
+    await transaction(['pdf','papers'],'readwrite',tx=>{
       const pdf=tx.objectStore('pdf');
       pdf.put({id,file:record},recent);
       const saved=tx.objectStore('papers').getKey(id);
-      saved.onsuccess=()=>{if(saved.result!==undefined){
-        const existing=pdf.getKey(id);
-        existing.onsuccess=()=>{if(existing.result===undefined)pdf.put(record,id)};
-      }};
-    }));
+      saved.onsuccess=()=>{if(saved.result!==undefined)pdf.put(record,id)};
+    });
     sessionStorage.setItem(viewKey,id);
   }
   async function save(id,file,paper){
     const entry={id,title:paper.title,name:file.name,identifier:paper.identifier,refs:paper.bibliography||''};
-    await storePdf(file,record=>transaction(['pdf','papers'],'readwrite',tx=>{
+    const record=await pdfRecord(file);
+    await transaction(['pdf','papers'],'readwrite',tx=>{
       tx.objectStore('pdf').put(record,id); tx.objectStore('papers').put(entry,id);
-    }));
+    });
     window.dispatchEvent(new Event('paper-shelf-change'));
   }
   function citations(a,b){
