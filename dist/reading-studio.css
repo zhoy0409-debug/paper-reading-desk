@@ -480,3 +480,14 @@ html:not(.st-loaded) body{background:none;min-height:100vh}
 }
 #literaturePane .frw.st.has-ea.lens-blind .st-card-head{flex-direction:column-reverse;align-items:flex-start;gap:16px}
 @media(max-width:1000px){.gd-peek{display:none}}
+.obs-dialog{box-sizing:border-box;width:min(430px,calc(100vw - 28px));max-height:calc(100dvh - 32px);overflow:auto}
+.obs-dialog h2{margin:0 54px 8px 0;font:650 21px/1.35 var(--sans);letter-spacing:normal}
+.obs-dialog p{margin:8px 0;line-height:1.55}
+.obs-dialog .obs-options{display:grid;gap:10px;margin:18px 0}
+.obs-dialog .obs-options label{display:flex;align-items:center;gap:9px;margin:0;font:500 14px/1.45 var(--sans);cursor:pointer}
+.obs-dialog .obs-options input{width:16px;height:16px;flex:none;margin:0;accent-color:var(--accent)}
+.obs-dialog .obs-actions{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px}
+.obs-dialog .obs-actions button{min-height:38px;padding:6px 13px;border-radius:8px}
+.obs-dialog .obs-status,.obs-dialog>a{overflow-wrap:anywhere;font-size:14px}
+.obs-dialog .obs-status:empty{display:none}
+.obs-dialog>a~button:not([hidden]){margin-inline-start:10px}

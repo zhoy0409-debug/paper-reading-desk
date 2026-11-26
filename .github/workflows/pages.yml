@@ -9,6 +9,7 @@ on:
       - 'tests/review-reader-browser.cjs'
       - 'tests/reading-map-data.cjs'
       - 'tests/map-language.mjs'
+      - 'tests/obsidian-browser.cjs'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -54,6 +55,8 @@ jobs:
           READER_BROWSER=webkit node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
           node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/
+          node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
+          READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site

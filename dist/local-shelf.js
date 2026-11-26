@@ -39,29 +39,43 @@
   function link(id,figure,panel,page){
     const url=new URL(location.pathname,location.origin);
     url.search=new URLSearchParams({paper:id,figure,panel:panel||'',page:String(page)}).toString();
+    if(window.ReaderLanguage)url.searchParams.set('lang',ReaderLanguage.current);
     return url.href;
   }
+  function restoreFile(record){
+    if(record?.bytes)return new File([record.bytes],record.name,{type:record.type,lastModified:record.lastModified});
+    if(record instanceof Blob && !record.name)return new File([record],'paper.pdf',{type:record.type||'application/pdf'});
+    return record;
+  }
   async function fileFor(id){
-    const saved=await get('pdf',id); if(saved)return saved;
-    const last=await get('pdf',recent); return last?.id===id?last.file:null;
+    const saved=await get('pdf',id); if(saved)return restoreFile(saved);
+    const last=await get('pdf',recent); return last?.id===id?restoreFile(last.file):null;
+  }
+  async function storePdf(file,write){
+    try{await write(file)}
+    catch(error){
+      if(['QuotaExceededError','SecurityError','NotAllowedError'].includes(error.name))throw error;
+      // Some WebKit stores can clone ArrayBuffers but reject File objects.
+      await write({bytes:await file.arrayBuffer(),name:file.name,type:file.type,lastModified:file.lastModified});
+    }
   }
   async function remember(id,file){
-    await transaction(['pdf','papers'],'readwrite',tx=>{
+    await storePdf(file,record=>transaction(['pdf','papers'],'readwrite',tx=>{
       const pdf=tx.objectStore('pdf');
-      pdf.put({id,file},recent);
+      pdf.put({id,file:record},recent);
       const saved=tx.objectStore('papers').getKey(id);
       saved.onsuccess=()=>{if(saved.result!==undefined){
         const existing=pdf.getKey(id);
-        existing.onsuccess=()=>{if(existing.result===undefined)pdf.put(file,id)};
+        existing.onsuccess=()=>{if(existing.result===undefined)pdf.put(record,id)};
       }};
-    });
+    }));
     sessionStorage.setItem(viewKey,id);
   }
   async function save(id,file,paper){
     const entry={id,title:paper.title,name:file.name,identifier:paper.identifier,refs:paper.bibliography||''};
-    await transaction(['pdf','papers'],'readwrite',tx=>{
-      tx.objectStore('pdf').put(file,id); tx.objectStore('papers').put(entry,id);
-    });
+    await storePdf(file,record=>transaction(['pdf','papers'],'readwrite',tx=>{
+      tx.objectStore('pdf').put(record,id); tx.objectStore('papers').put(entry,id);
+    }));
     window.dispatchEvent(new Event('paper-shelf-change'));
   }
   function citations(a,b){

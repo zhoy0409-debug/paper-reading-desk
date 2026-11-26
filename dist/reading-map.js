@@ -121,7 +121,8 @@
         view.mark(now);draw();
       }else view.layout();
     }
-    return {show,mark(id){now=id;view?.mark(id)},destroy(){view?.destroy();host.remove()}};
+    return {show,overview:()=>localTree().children.filter(branch=>branch.key==='background'||branch.key==='aim'),
+      mark(id){now=id;view?.mark(id)},destroy(){view?.destroy();host.remove()}};
   }
   window.ReadingMap=Object.freeze({mount});
 })();

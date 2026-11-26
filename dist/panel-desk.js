@@ -122,7 +122,9 @@
     const noteLabel=PaperUI.set(el('label'),'私人笔记／未核实推断 · 仅本机');const note=el('textarea');note.rows=2;note.maxLength=6000;noteLabel.append(note);
     const urlLabel=PaperUI.set(el('label'),'公开原文链接（选填）');const pub=el('input');pub.type='url';pub.placeholder='https://…';urlLabel.append(pub);
     const saveNode=button('保存到私人图谱',async()=>{try{await PaperShelf.save(id,file,paper);PaperUI.set(msg,'已保存论文、读图位置和笔记，可从私人图谱重开。')}catch{PaperUI.set(msg,'保存失败，请检查浏览器存储空间。')}});
-    manage.append(noteLabel,urlLabel);
+    const toObsidian=button('',()=>ui.workbench.dispatchEvent(new CustomEvent('reading-export-obsidian')));
+    PaperUI.set(toObsidian,'导出到 Obsidian','Export to Obsidian');
+    manage.append(noteLabel,urlLabel,toObsidian);
     const report=el('details','','pd-report'),reportTitle=el('summary'),reportBody=el('div','','pd-report-body');
     PaperUI.set(reportTitle,'裁切与汇报','Crop & present');
     reportBody.append(targetInfo,toolbar,numbering,sharedList,captionLabel,add,png,exportButton);

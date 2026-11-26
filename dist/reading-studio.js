@@ -265,6 +265,20 @@
     const occasional=ctx.host?.parentElement?.querySelector('.pl-reader-top .lineActions');
     shell?.tools.replaceChildren();
     if(occasional)shell?.tools.append(occasional);
+    let obsidianDialog;
+    if(shell) {
+      function openObsidian(){
+        if(obsidianDialog?.open)return;
+        const {file,id,session}=ctx.pdf;
+        const caller=document.activeElement;
+        obsidianDialog=ReadingObsidian.open({paper,state,desk:panelDesk,file,id,session,host:workbench,overview:map.overview,
+          restoreFocus:()=>{(caller?.isConnected&&!caller.closest('[inert]')?caller:document.querySelector('.st-menu'))?.focus({preventScroll:true})}});
+      }
+      const exportNote=button('light st-obsidian','导出到 Obsidian','Export to Obsidian',openObsidian);
+      shell.tools.prepend(exportNote);
+      workbench.addEventListener('reading-export-obsidian',openObsidian);
+      undo.push(()=>{workbench.removeEventListener('reading-export-obsidian',openObsidian);if(obsidianDialog?.open)obsidianDialog.close()});
+    }
     const keys=q('.lens-key');if(keys&&shell){PaperUI.set(keys,'快捷键','Keyboard shortcuts');keys.classList.add('light');shell.tools.append(keys)}
     const leave=e=>{if(e.target.closest('button'))shell.closeDrawer(false)};
     shell?.tools.addEventListener('click',leave);

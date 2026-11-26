@@ -1148,7 +1148,7 @@
       else resetPicture();
     }
     setModel(options.model);
-    const studio=desk&&global.ReadingStudio?.mount({workbench,visual,notes,title,figIndex,headingText,tabs,tools,steps,compare,lens,host:container,wholeFigure:()=>readPanel(),model,desk,state:options.desk.state,paper:options.desk.paper,
+    const studio=desk&&global.ReadingStudio?.mount({workbench,visual,notes,title,figIndex,headingText,tabs,tools,steps,compare,lens,host:container,wholeFigure:()=>readPanel(),model,desk,state:options.desk.state,paper:options.desk.paper,pdf:options.desk,
       save:()=>desk.save(),select:id=>selectFigure(id),render:f=>options.renderFigure(f,false),source:(page,text)=>inspectPage(page,text)});
     return {
       setModel,

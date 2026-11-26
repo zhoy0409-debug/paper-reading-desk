@@ -10,6 +10,17 @@ For reviews, the sidebar lists diagrams by their published figure numbers. If la
 
 Open **Mind map** to see the review’s background, what the authors set out to cover, and any questions or barriers they identify. Select the page number beside a point to check the passage.
 
+Open **Paper & tools → Export to Obsidian** to save a Markdown note with the paper’s background and aims, figure captions, your notes and the slide basket in order. Include the PDF for offline page links and the selected crops for inline images. Choose your vault folder in a supported desktop browser, or extract the downloaded ZIP into your vault. Each export has its own folder, so later exports preserve your edits in Obsidian. The export runs locally without a plugin or API key.
+
+<details>
+<summary>See a reading note opened in Obsidian</summary>
+
+On a phone, open the **⋯** menu to find the export. You can also reach it where you write private panel notes. This note links directly to page 12 of the source PDF and displays the panels in the order selected. [Source paper](https://arxiv.org/abs/2007.08902)
+
+![Obsidian displaying panel B with links to the source page and reader](docs/guide/obsidian-en.png)
+
+</details>
+
 <details>
 <summary>See the two taps on a phone</summary>
 
