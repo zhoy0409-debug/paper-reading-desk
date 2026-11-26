@@ -168,12 +168,12 @@
       basket.setNote(k, text);
       if (fig?.id === fid && active === target) caption.value = text;
     }
-    function describe(k) {
+    function describe(k,lang=ReaderLanguage.current) {
       const [fid, pid] = JSON.parse(k), figure = paper.figures.find(f => f.id === fid);
       const panel = figure && panelsFor(figure).find(p => p.id === pid);
       const box = panel && boxFor(figure, pid);
       const rec = figure && record(figure);
-      const label = panel?.sourcePanel || panel?.label || pid;
+      const label = PaperUI.panelLabel(panel?.sourcePanel || panel?.label || pid,lang);
       return {
         figure, id:pid, label, name:(figure?.label || fid) + ' · ' + label, box,
         recipe:box ? outputPlan(figure, panel, box) : null,
@@ -194,7 +194,7 @@
       const p=pid&&panelsFor(f).find(panel=>panel.id===pid);
       const initial=p?boxFor(f,pid):null;
       const automatic=p?detectedBox(f,pid):null;
-      const title=f.label+(p?' · '+p.label:'')+' · '+ReaderLanguage.choose(p?'调整裁切':'框选小图',p?'Adjust crop':'Select a panel');
+      const title=f.label+(p?' · '+PaperUI.panelLabel(p.label,ReaderLanguage.current):'')+' · '+ReaderLanguage.choose(p?'调整裁切':'框选小图',p?'Adjust crop':'Select a panel');
       cropDialog=PanelCrop.open({host:ui.workbench,session,page:f.page,title,context:originalBox(f),initial,automatic,commit(box){
         const matches=other=>other&&['x','y','width','height'].every(k=>Math.abs(other[k]-box[k])<1e-8);
         if(matches(initial))return;
@@ -339,8 +339,8 @@
         PaperUI.set(labelStatus,recipe.known?'预览与导出使用同一编号。':'需标出旧编号，或确认它在裁切范围外。',recipe.known?'Preview and export use the same label.':'Mark the old label or confirm it is outside the crop.');
       }
       png.hidden=!p;png.disabled=!ready||!b||recipe?.known===false;
-      const previewTitle=p?'小图 '+p.label+' · '+(b?(savedManual?'手动边界':'自动边界 · 待核对'):'待框选'):'整图 · 选择小图或手动框选';
-      PaperUI.set(previewLabel,previewTitle,p?'Panel '+p.label+' · '+(b?(savedManual?'manual bounds':'estimated bounds'):'draw bounds'):undefined);
+      const previewTitle=p?PaperUI.panelTitle(p.label,'zh')+' · '+(b?(savedManual?'手动边界':'自动边界 · 待核对'):'待框选'):'整图 · 选择小图或手动框选';
+      PaperUI.set(previewLabel,previewTitle,p?PaperUI.panelTitle(p.label,'en')+' · '+(b?(savedManual?'manual bounds':'estimated bounds'):'draw bounds'):undefined);
       previewCrop(b);outlines();undo.disabled=!history[fig.id]?.length;
       if(report.open){
         PaperUI.set(targetName,p?fig.label+' · '+(p.sourcePanel||p.label)+' · 原图第 '+fig.page+' 页':'请先选择或框出汇报小图',p?'Slide source · PDF p.'+fig.page:'Select or draw a panel');
@@ -375,7 +375,7 @@
       pending=true;exportButton.disabled=true;basket.sync(state.queue,true);basket.message('');
       PaperUI.set(msg,'正在从原 PDF 裁图并生成 PPTX…');
       try {
-        const items = state.queue.map(describe);
+        const items = state.queue.map(k=>describe(k));
         for (const item of items) {
           if (!item.box) throw Error(ReaderLanguage.choose('请移除或重新框选缺少边界的小图：','Remove or redraw the missing crop: ') + item.name);
           if (item.recipe && !item.recipe.known) throw Error(item.name + ReaderLanguage.choose('：请在编号设置中标出旧编号。', ': locate the printed label in panel label settings.'));

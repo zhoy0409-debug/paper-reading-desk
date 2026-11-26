@@ -88,6 +88,10 @@
     '文件读取失败，请选择本地主文。':'Could not open the paper. Choose a local file.'
   }));
   function english(value) {
+    if(value==='左图')return 'Left panel';
+    if(value==='右图')return 'Right panel';
+    const crop=typeof value==='string'&&value.match(/^手选区域 (\d+)$/);
+    if(crop)return 'Crop '+crop[1];
     if(labels.has(value))return labels.get(value);
     const p=typeof value==='string' && value.match(/^(正文 p\.|核对原文第 )(\d+)(?: 页)?$/);
     if(p)return 'Source text · p.'+p[2];
@@ -100,5 +104,17 @@
     node.append(' ', en);
     return node;
   }
-  window.PaperUI = {set, english};
+  function panelLabel(value,lang) {
+    if(lang==='en')return /^(?:左图|右图|手选区域 \d+)$/.test(value)?english(value):value;
+    if(value==='Left panel')return '左图';
+    if(value==='Right panel')return '右图';
+    const crop=typeof value==='string'&&value.match(/^Crop (\d+)$/);
+    return crop?'手选区域 '+crop[1]:value;
+  }
+  function panelTitle(value,lang) {
+    const label=panelLabel(value,lang);
+    if(/^(?:左图|右图|Left panel|Right panel|(?:手选区域|Crop) \d+)$/.test(label))return label;
+    return (lang==='en'?'Panel ':'小图 ')+label;
+  }
+  window.PaperUI = {set, english, panelLabel, panelTitle};
 })();

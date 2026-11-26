@@ -776,7 +776,7 @@
       pointProgress.clear();
       if(!on){apply([]);return}
       pointProgress.begin();
-      pair(label,f.label+' · '+p.label+'　小图特写',f.label+' · '+p.label+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
+      pair(label,f.label+' · '+PaperUI.panelLabel(p.label,'zh')+'　小图特写',f.label+' · '+PaperUI.panelLabel(p.label,'en')+'　Panel focus');pair(pageButton,'原文 p.'+f.page,'PDF p.'+f.page);
       tickNote.hidden=!p.raw.partialTicks;
       const marks=pageBox?session.chartMarks?.(f.page,pageBox,f.raw.matchKey)||[]:[];
       const capture=marks.some(m=>m.chart||m.trace);
@@ -807,7 +807,7 @@
         const marker=p.raw.markerBox,entrySource=p.raw.reading?.sources?.find(s=>s.kind==='小图图注'||s.kind.startsWith('组内共用图注'));
         const x=(marker.x-pageBox.x)/pageBox.width,y=(marker.y-pageBox.y)/pageBox.height;
         if(entrySource&&x>=0&&y>=0&&x<1&&y<1){
-          const entry=['小图 '+p.label,'Panel '+p.label,entrySource.text,entrySource.text,entrySource.page];
+          const entry=[PaperUI.panelTitle(p.label,'zh'),PaperUI.panelTitle(p.label,'en'),entrySource.text,entrySource.text,entrySource.page];
           entry.localize=true;
           fixed.push({x,y,w:Math.min(1-x,marker.width/pageBox.width+.012),h:Math.min(1-y,marker.height/pageBox.height+.012),entry,priority:0});
         }

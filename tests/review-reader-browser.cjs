@@ -32,12 +32,15 @@ async function reviewFile(page) {
       text(55,717,18,'F2','Materials in sensing systems: a scoping review'),
       text(55,640,11,'F1','We summarize material choices for sensing systems.'),
       text(55,572,10,'F1','The previous publication describes its other materials in'),
-      text(55,559,10,'F1','Figure 91'),text(55,546,10,'F1','An ordinary paragraph continues the discussion.')
+      text(55,559,10,'F1','Figure 91'),text(55,546,10,'F1','An ordinary paragraph continues the discussion.'),
+      text(55,500,10,'F1','Figure 86 shows how a different material performed in the cited paper.')
     ].join('\n');
     if(i>=0){
       resources+=' /XObject << /Plate '+imageIds[i]+' 0 R >>';
-      commands=['q 432 0 0 192 60 365 cm /Plate Do Q',text(60,346,9,'F2','FIGURE '+(i+1)),
-        text(60,333,10,'F1',figures[i][2])].join('\n');
+      const heading=i===1
+        ? [text(60,346,9,'F2','Fig. 2'),text(85,346,9,'F1',figures[i][2])]
+        : [text(60,346,9,'F2','FIGURE 1'),text(60,333,10,'F1',figures[i][2])];
+      commands=['q 432 0 0 192 60 365 cm /Plate Do Q',...heading].join('\n');
     }
     const body=add(stream(commands));
     kids.push(add('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 550 770] /Resources << '+resources+' >> /Contents '+body+' 0 R >>'));

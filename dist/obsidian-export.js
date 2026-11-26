@@ -54,7 +54,7 @@
     if (includePdf) assets.push({name:pdfName,blob:file});
     const addText = (heading,text) => { if (plain(text)) lines.push('', '**'+heading+'**', '', plain(text)); };
     const notes = groupedNotes(state);
-    const queue = (state.queue || []).map(key => ({key,item:desk.describe(key)}));
+    const queue = (state.queue || []).map(key => ({key,item:desk.describe(key,lang)}));
     const basketKeys = new Set(queue.map(entry => entry.key));
     function figureLabel(figure) {
       const label = plain(figure.label) || figure.id;
@@ -87,7 +87,7 @@
         figureLines.push('', '**'+t('原文图注','Original caption')+'**'+citation, '', '> '+literal(figure.caption));
       }
       if (plain(myLine)) figureLines.push('', '**'+t('我的一句话','My takeaway')+'**', '', plain(myLine));
-      const panelName = panel => panel ? literal(desk.describe(JSON.stringify([figure.id,panel])).label || panel)+' · ' : '';
+      const panelName = panel => panel ? literal(desk.describe(JSON.stringify([figure.id,panel]),lang).label || panel)+' · ' : '';
       for (const {panel,text} of comments) figureLines.push('', '**'+panelName(panel)+t('我的笔记','My note')+'**', '', plain(text));
       for (const [panel,text] of scripts) figureLines.push('', '**'+panelName(panel)+t('讲解','Speaking note')+'**', '', plain(text));
     }

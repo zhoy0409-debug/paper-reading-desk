@@ -6,6 +6,7 @@ const MB = 1024 * 1024;
 const MAX_FILE = 64 * MB, MAX_PAGES = 54, DEFAULT_PAGES = 34, MAX_FIGURES = 55;
 const MAX_GRAPHIC_PAGES = 18, MAX_TEXT_ITEMS = 6500, MAX_OPS = 35000, MAX_GRAPHICS = 850;
 const UNIT = [1,0,0,1,0,0];
+const bareFigureNumber=/^(?:(?:(?:extended data|supplementary|supplemental)\s+)?fig(?:ure)?\.?\s*|(?:扩展数据|补充|附)?图\s*)s?\s*\d{1,3}$/iu;
 
 const stop = () => new DOMException('已取消读取 PDF。','AbortError');
 const clamp = (x,a,b) => Math.max(a,Math.min(x,b));
@@ -62,7 +63,11 @@ function positions(content,viewport,raw=false){
    if(!line||p.x0-line.x1>Math.min(12,Math.max(4,p.size*.95))||p.x0<line.x1-Math.max(18,p.size*1.7)){
     line={...p};out.push(line);continue;
    }
-   const space=/\s$/.test(line.text)||/^\s/.test(p.text)?'':p.x0-line.x1>Math.max(.7,p.size*.09)?' ':'';
+   // Some publishers distinguish the number from its caption by typeface alone.
+   // Record the printed boundary before merging the two PDF text runs.
+   const typedCaption=bareFigureNumber.test(line.text.trim())&&line.font!==p.font&&/^\s*[\p{L}(]/u.test(p.text);
+   if(typedCaption)line.figurePrefix=line.text.trim();
+   const space=/\s$/.test(line.text)||/^\s/.test(p.text)?'':typedCaption||p.x0-line.x1>Math.max(.7,p.size*.09)?' ':'';
    line.text+=space+p.text;line.x1=Math.max(line.x1,p.x1);line.y0=Math.min(line.y0,p.y0);line.y1=Math.max(line.y1,p.y1);
    if(p.text.trim().length>=4)line.bodySize=Math.max(line.bodySize||line.size,p.size);
   }
@@ -98,9 +103,12 @@ function captions(lines,p){
  // Check the neighbouring prose and typography before admitting a bare figure reference.
  const detached=new Map(),heads=new Map();
  for(const line of lines){
-  const explicit=capHead(line.text);
+  const explicit=capHead(line.text)||(line.figurePrefix&&capHead(line.figurePrefix+'.'));
   if(explicit){heads.set(line,explicit);continue}
-  if(!/^(?:(?:(?:extended data|supplementary|supplemental)\s+)?fig(?:ure)?\.?\s*|(?:扩展数据|补充|附)?图\s*)s?\s*\d{1,3}$/iu.test(line.text))continue;
+  if(!bareFigureNumber.test(line.text))continue;
+  const beside=lines.find(t=>t!==line&&Math.abs(t.base-line.base)<line.size*.25&&t.x0>=line.x1-1&&
+   t.x0-line.x1<line.size*2.5&&t.font!==line.font&&t.text.length>=6&&/^[\p{L}(]/u.test(t.text));
+  if(beside){heads.set(line,capHead(line.text+'.'));detached.set(line,beside);continue}
   const body=lines.find(t=>t.base>line.base+2&&t.base-line.base<=Math.max(15,line.size*2.5)&&
    Math.abs(t.x0-line.x0)<=Math.max(5,line.size*.9)&&t.size>=line.size*.70&&t.size<=line.size*1.65&&
    t.text.length>=12&&/[\p{L}]{2}/u.test(t.text)&&!/^\s*(?:fig(?:ure)?\.?\s*\d|table\s*\d|references\b|[图表]\s*\d)/iu.test(t.text));

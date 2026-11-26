@@ -116,7 +116,8 @@
       const node = ui('button', title, cls);
       node.type = 'button';
       if (aria) {
-        const second=PaperUI.english(aria)||(aria.startsWith('小图 ')?'Panel '+aria.slice(3).split('：')[0]:'');
+        const panel=aria.startsWith('小图 ')?aria.slice(3).split('：')[0]:'';
+        const second=PaperUI.english(aria)||(panel?PaperUI.panelTitle(panel,'en'):'');
         node.setAttribute('aria-label',second?aria+' / '+second:aria);
       }
       node.addEventListener('click', handler);
@@ -716,7 +717,7 @@
         }));
       }
       if (panel) {
-        const panelHeading=PaperUI.set(el('strong'),'小图 '+panel.label,'Panel '+panel.label);
+        const panelHeading=PaperUI.set(el('strong'),PaperUI.panelTitle(panel.label,'zh'),PaperUI.panelTitle(panel.label,'en'));
         const title=panel.raw?.reading?.title;
         if(title)panelHeading.append(' · ',PaperUI.set(el('span'),title[0],title[1]));
         else if(panel.title && panel.title!=='分图 '+panel.label && panel.title!=='图注原文' && !panel.raw?.reading?.sources.some(s=>s.kind==='小图图注'))panelHeading.append(' · '+panel.title);

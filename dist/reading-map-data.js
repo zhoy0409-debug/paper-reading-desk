@@ -36,14 +36,14 @@
     };
     for(const r of articleRows(rows)){
       const t=clean(r.text);
-      if(publicationLine.test(t)){flush();continue}
+      if(publicationLine.test(t)||/^\(?\s*(?:received|accepted|submitted|revised)\s+(?=\d|[A-Z][a-z]+\s+\d)/i.test(t)){flush();continue}
       if(/^(?:key\s*words?\b|关键词)\s*[:：]?/i.test(t)){
         flush();
         // Some journals end the abstract with Keywords but omit the Abstract heading.
         if(r.page<=3&&!section)for(const s of out)if(s.page===r.page&&!s.section)s.section='abstract';
         section='body';continue;
       }
-      const head=t.match(/^(?:\d{1,2}(?:\.\d{1,2})*\.?\s+)?(abstract|introduction|background|related work|materials and methods|methods?|results and discussion|results?|discussion(?: and conclusions?)?|conclusions?|limitations?|摘要|背景|引言|方法|结果|讨论|结论)\s*\.?$/i);
+      const head=t.match(/^(?:(?:\d{1,2}(?:\.\d{1,2})*\.?|[IVXLCDM]+\.)\s+)?(abstract|introduction|background|related work|materials and methods|methods?|results and discussion|results?|discussion(?: and conclusions?)?|conclusions?|limitations?|摘要|背景|引言|方法|结果|讨论|结论)\s*\.?$/i);
       if(head||r.heading){flush();if(head)section=head[1].toLowerCase();page=r.page;continue}
       if(r.fig){flush();continue}
       if(r.page!==page)flush();
@@ -128,7 +128,8 @@
     const prior=/\b(?:previous(?:ly)?|prior (?:work|studies)|recent (?:work|studies|study)|a recent|was (?:identified|discovered)|has been shown|have shown)\b|既往|已有研究|前期研究|先前/i;
     const aimCue=/\b(?:to (?:better )?(?:understand|investigate|examine|assess|test)\b.{1,100},?\s+we|we (?:tested whether|examined whether|evaluated|investigated|asked|sought|set out)|the present (?:study|work)|this (?:study|work) (?:aims|examines|investigates))\b|旨在|本研究(?:探讨|检验|评估|考察)|我们(?:探讨|检验|拟)/i;
     const objective=s=>rx('aim')(s)||aimCue.test(s.text);
-    const eligible=s=>!metadata.test(s.text)&&!objective(s)&&!rx('find')(s)&&!motivation.test(s.text);
+    const reportedFinding=/\bwe (?:here )?report (?:the |a |an |our )?(?:(?:first|direct|new) )*(?:detection|observation|measurement|discovery|evidence)\b|我们(?:首次)?报告.{0,25}(?:观测|发现|测量)/i;
+    const eligible=s=>!metadata.test(s.text)&&!objective(s)&&!rx('find')(s)&&!motivation.test(s.text)&&!reportedFinding.test(s.text);
     const explicit=ordered.filter(s=>eligible(s)&&need.test(s.text));
     const gap=explicit[0]||ordered.find(s=>eligible(s)&&RULES.gap.test(s.text));
     const pos=early.indexOf(gap);
@@ -163,14 +164,16 @@
     const nextQuestion=ordered.find(s=>motivation.test(s.text)&&!used.has(s.text));
     add(aims,nextQuestion,'question');
     if(!gaps.length)add(gaps,ordered.find(eligible),'context');
-    return {background:gaps,aims};
+    const findings=[];
+    if(!aims.length)add(findings,ordered.find(s=>!metadata.test(s.text)&&reportedFinding.test(s.text)),'found');
+    return {background:gaps,aims,findings};
   }
   function local({rows,figures,question,sections,review=false}){
     const all=sentences(rows),used=new Set(),last=Math.max(1,...all.map(s=>s.page));
     const early=all.filter(s=>/abstract|intro|background|摘要|引言|背景/.test(s.section)||!s.section&&s.page<=Math.max(2,last*.15));
     const late=all.filter(s=>/discussion|conclusion|limitation|讨论|结论/.test(s.section));
     const tail=late.length?late:all.filter(s=>s.page>=last*.75);
-    const {background:gaps,aims}=review?reviewOverview(early,used):studyOverview(early,used);
+    const {background:gaps,aims,findings=[]}=review?reviewOverview(early,used):studyOverview(early,used);
     const limits=pick([...tail,...all],rx('limit'),4,used);
     const said=pick(tail,rx('find'),4,used);
     const result=f=>{
@@ -186,6 +189,7 @@
     const tops=[
       {key:'background',zh:review?'综述背景与问题':'研究背景与问题',en:review?'Review background and questions':'Background and problem',children:gaps},
       {key:'aim',zh:review?'综述目的与范围':'研究目的',en:review?'Review aims and scope':'Aims',children:aims},
+      {key:'finding',zh:'作者报告的发现',en:'Reported finding',children:findings},
       {key:'results',zh:review?'综述主题与图解':'结果',en:review?'Review topics and figures':'Results',children:results},
       {key:'discussion',zh:'讨论',en:'Discussion',children:said},
       {key:'limits',zh:'不足与展望',en:'Limits and outlook',children:limits},

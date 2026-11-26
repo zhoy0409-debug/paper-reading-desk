@@ -25,7 +25,7 @@
     function localTree(){
       const tree=ReadingMapData.local({rows,figures:raws,question,sections:paper.sections||[],review:PaperFigureContext.isReview(rows)});
       if(raws.some(f=>f.editorGuide)){
-        for(const branch of tree.children.filter(b=>b.key==='background'||b.key==='aim')){
+        for(const branch of tree.children.filter(isOverview)){
           for(const node of branch.children){
             const note=window.CheckedPanelGuides?.contextNote?.(node.quote);
             if(note){node.zh=note;node.en=node.text}
@@ -121,7 +121,8 @@
         view.mark(now);draw();
       }else view.layout();
     }
-    return {show,overview:()=>localTree().children.filter(branch=>branch.key==='background'||branch.key==='aim'),
+    function isOverview(branch){return ['background','aim','finding'].includes(branch.key)}
+    return {show,overview:()=>localTree().children.filter(isOverview),
       mark(id){now=id;view?.mark(id)},destroy(){view?.destroy();host.remove()}};
   }
   window.ReadingMap=Object.freeze({mount});

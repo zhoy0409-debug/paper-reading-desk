@@ -1,6 +1,21 @@
 const assert=require('node:assert/strict');
 globalThis.PaperOutline=require('../dist/paper-outline.js');
 const D=require('../dist/reading-map-data.js');
+const dated=[
+  'Surveying distant astronomical sources', 'A. Author and the Survey Collaboration',
+  '(Received 21 January 2016; published 11 February 2016)',
+  'Multiple observatories collected independent astronomical measurements of this event.',
+  'I. INTRODUCTION','Previous optical measurements provided the first independent source positions.',
+  'II. RESULTS','The new observations resolved the differences between earlier measurements.'
+].map(text=>({text,page:1}));
+const datedSentences=D.sentences(dated);
+assert(datedSentences.some(s=>s.text.startsWith('Multiple observatories')&&!s.text.includes('Received')));
+assert(datedSentences.some(s=>s.section==='introduction'&&s.text.startsWith('Previous optical')));
+assert(!datedSentences.some(s=>/Received|Survey Collaboration/.test(s.text)));
+const observational=[...dated.slice(0,6),{text:'In this report, we report the first direct observation of a distant astronomical event.',page:1}];
+const observed=D.local({rows:observational,figures:[],sections:[],question:''});
+assert(!observed.children.some(b=>b.key==='aim'));
+assert.equal(observed.children.find(b=>b.key==='finding').children[0].page,1);
 const figs=[{id:'f2',matchKey:'F:2',label:'Figure 2',caption:'Figure 2: Mouse model. (a) Survival curves of mice. (b) Lung burden after treatment.',page:4,authorPassages:[],questionAims:[]}];
 const md=`# 脑图
 - **研究背景** ⟦p.1｜Infections caused by this pathogen are difficult to treat⟧
