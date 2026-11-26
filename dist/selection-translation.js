@@ -24,6 +24,9 @@ function action(kind, label, accessibleLabel) {
   return button;
 }
 const run = action('translate', '译为中文', '译为中文 / Translate to Chinese');
+const online = action('online', '百度翻译', '用百度翻译打开选段 / Open selection in Baidu Translate');
+online.firstElementChild.remove();
+PaperUI.set(online.lastElementChild,'百度翻译','Baidu Translate');
 const listen = action('speak', '听英文', '听英文 / Listen in English');
 PaperUI.set(listen.lastElementChild,'听英文','Listen');
 const ask = action('ask', '问 AI', '就所选文字提问 / Ask AI');
@@ -104,6 +107,22 @@ listen.onclick = () => {
   const options={text:selected, sentence:EnglishPractice.selectionSentence(anchor,selected),origin:anchor};
   if(anchor?.closest('.frw,.ea-explorer'))document.dispatchEvent(new CustomEvent('reader-practice-context',{detail:options}));
   hide();getSelection()?.removeAllRanges();EnglishPractice.open(options);
+};
+online.onclick = () => {
+  if (!selected) return;
+  const url = new URL('https://fanyi.baidu.com/mtpe-individual/multimodal');
+  url.searchParams.set('lang',source==='en'?'en2zh':'zh2en');
+  url.searchParams.set('query',selected);
+  if (url.href.length <= 7000) {
+    window.open(url.href,'_blank','noopener,noreferrer');
+    return;
+  }
+  const copied = navigator.clipboard?.writeText(selected);
+  window.open(url.origin,'_blank','noopener,noreferrer');
+  Promise.resolve(copied).then(()=>{
+    if(copied)PaperUI.set(output,'选段已复制，可粘贴到百度翻译。','Selection copied. Paste it into Baidu Translate.');
+    else PaperUI.set(output,'请复制所选段落，粘贴到百度翻译。','Copy the selection and paste it into Baidu Translate.');
+  },()=>PaperUI.set(output,'请复制所选段落，粘贴到百度翻译。','Copy the selection and paste it into Baidu Translate.'));
 };
 ask.onclick = () => {
   const text = selected;

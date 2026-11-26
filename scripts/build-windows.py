@@ -2,7 +2,9 @@
 import argparse
 import hashlib
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from zipfile import ZIP_DEFLATED, ZipFile
+from web_assets import assemble
 
 ROOT = Path(__file__).resolve().parents[1]
 # https://www.python.org/downloads/release/python-31410/
@@ -14,7 +16,9 @@ def build(runtime, output):
         raise ValueError('Expected python-3.14.10-embed-amd64.zip from python.org')
     files = ['start.cmd', 'VERSION', 'portable_launcher.py', 'portable_update.py', 'preview.py', 'reading_questions.py', 'reading_providers.py',
              'public_literature.py', 'THIRD-PARTY.md', 'README.md', 'README.en.md', 'README.zh-CN.md']
-    with ZipFile(runtime) as source, ZipFile(output, 'x', compression=ZIP_DEFLATED) as bundle:
+    with TemporaryDirectory() as staging, ZipFile(runtime) as source, ZipFile(output, 'x', compression=ZIP_DEFLATED) as bundle:
+        web = Path(staging) / 'dist'
+        assemble(web)
         for name in source.namelist():
             data = source.read(name)
             if name == 'python314._pth':
@@ -22,9 +26,12 @@ def build(runtime, output):
             bundle.writestr('Reading-Desk/runtime/' + name, data)
         guide = sorted((ROOT / 'docs' / 'guide').glob('*'))
         posters = sorted((ROOT / 'docs' / 'film').glob('poster-*.webp'))
-        for path in [ROOT / name for name in files] + sorted((ROOT / 'dist').rglob('*')) + guide + posters:
+        for path in [ROOT / name for name in files] + guide + posters:
             if path.is_file():
                 bundle.write(path, 'Reading-Desk/' + path.relative_to(ROOT).as_posix())
+        for path in sorted(web.rglob('*')):
+            if path.is_file():
+                bundle.write(path, 'Reading-Desk/dist/' + path.relative_to(web).as_posix())
 
 
 if __name__ == '__main__':

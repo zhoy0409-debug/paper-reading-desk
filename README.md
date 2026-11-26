@@ -4,6 +4,10 @@
 
 Share the reader link above with your group. It opens without a GitHub account. Refresh the same address for the latest published version.
 
+Select text and choose **Baidu Translate** to translate the selection in a new tab. Publication search accepts a PMID and links to a web search for the same terms. These options need no API key in Reading Desk.
+
+For full-page plates with a legend on a different page, the reader shows both page numbers. References such as “Figure 3A” and “Figures 3A and 3B” link the figure to the passages that discuss it.
+
 **To read an explanation**, open a PDF, choose a figure thumbnail and select **Read explanation** beside the figure. The reading draws on the caption and passages that refer to the figure. On a phone, **Back to figure** returns to the same figure or panel. Open **Figure labels** to choose an identified axis or legend, or tap it on the image. These features run in the browser. For an image-only scan without a readable caption, the reader offers page viewing and manual cropping. [Try a labelled figure](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&sample=figure-8a)
 
 For reviews, the sidebar lists diagrams by their published figure numbers. If labels are embedded in the image, the reader shows its progress. Tap a label while it is being read and its explanation opens when the label is recognized.
@@ -179,7 +183,7 @@ Open the map at the research question or the authors’ statement of focus. Foll
 | --- | --- | --- |
 | Start reading | Open the site. No installation or account required | Extract the ZIP and double-click `start.cmd`. Python is included |
 | English or Chinese maps, panel focus, PNG and PPTX export, source guide | Included | Included |
-| Public literature search | Crossref | PubMed and Crossref |
+| Public literature search | Crossref, Europe PMC and PubMed lookup by PMID | PubMed and Crossref |
 | Continue in your usual AI chat | Copy the question and excerpts to ChatGPT, DeepSeek, Claude or Gemini | Same options |
 | Answers inside the reader | Built-in source guide | Also supports DeepSeek, Qwen (Beijing), an installed Ollama model or a signed-in Codex CLI |
 | Get updates | Reopen or refresh the site | From v0.3.0, open **Updates**, download the release and choose **Restart to apply** |

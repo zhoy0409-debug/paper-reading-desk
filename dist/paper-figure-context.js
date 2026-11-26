@@ -24,8 +24,10 @@ const clean=s=>String(s||'').replace(/\s+/g,' ').trim();
 const cut=(s,n)=>clean(s).length>n?clean(s).slice(0,n-1)+'…':clean(s);
 const figureNumber=s=>clean(s).match(/(?:(?:Fig(?:ure)?\.?|Table)\s*|[图表]\s*)?((?:ED|S)?\d{1,3}[a-z]?)\s*$/i)?.[1]?.toUpperCase()||'';
 const captionTitle=(caption,label)=>{
- const tail=clean(caption).replace(/^(?:extended data |supplementary )?(?:Fig(?:ure)?\.?|Table|[图表])\s*(?:[Ss]\s*)?\d{1,3}[a-z]?\s*[|.:：–—-]?\s*/i,'');
+ const tail=clean(caption).replace(/^(?:extended data |supplement(?:al|ary) )?(?:Fig(?:ure)?\.?|Table|[图表])\s*(?:[Ss]\s*)?\d{1,3}[a-z]?\s*[|.:：–—-]?\s*/i,'');
  if(!tail)return label;
+ const heading=tail.match(/^(.{5,400}?)\s+\([Aa](?:\s*(?:and|[-–—,])\s*[A-Za-z])*\)\s+(?=\p{L})/u);
+ if(heading)return heading[1];
  const stop=tail.match(/[.。](?=\s|$)/);
  const first=stop&&stop.index>18?tail.slice(0,stop.index):tail;
  return (first===tail?tail:tail.slice(0,stop.index+1))||label;
@@ -142,7 +144,7 @@ function modelFor(item,found){
   const mainLink=precise?exchange+suffix:undefined;
   const splitHeading=panels.length===2&&panels.every(p=>/^(?:left|right)$/.test(p.id)&&!p.title.startsWith('分图 '))?
     panels.map(p=>p.title).join(' / '):'';
-  const figure={...f,review:genre,animalCohorts,id:f.id,label,editorGuide:Boolean(precise),evidenceStep:precise?evidenceSteps[n]:null,title:precise?.title||splitHeading||captionTitle(caption,label),caption, page, panels,
+  const figure={...f,review:genre,animalCohorts,id:f.id,label,editorGuide:Boolean(precise),evidenceStep:precise?evidenceSteps[n]:null,title:precise?.title||(f.printedTitle&&captionTitle(f.printedTitle,label))||splitHeading||captionTitle(caption,label),caption, page, panels,
     summary:precise?.summary||'已从你上传的 PDF 定位到这张图及图注。请沿原图核对实际比较对象。',
     boundary:precise ? precise.boundary : '这一步定位原图和原文，不自动把图注解释成科学结论。',
     references:[...refs,...knowledge],source:{label:'PDF 图注',location:trace.location,page:captionPage,href:mainLink}};

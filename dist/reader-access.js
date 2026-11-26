@@ -9,28 +9,63 @@
     if(!res.ok)throw Error('Reading service unavailable');
     return res.json();
   }
-  async function search(query,signal){
-    if(local)return localAPI('literature-search',{query},signal);
-    const empty=status=>({literature:[],search:{status,query,count:0}});
-    if(!query.trim())return empty('no_query');
-    const url=new URL('https://api.crossref.org/works');
-    url.search=new URLSearchParams({'query.bibliographic':query.slice(0,120),rows:'5',select:'DOI,title,published,abstract'});
+  async function fetchIndex(url,signal,format='json'){
     const controller=new AbortController();
     const abort=()=>controller.abort();
     if(signal?.aborted)abort();else signal?.addEventListener('abort',abort,{once:true});
-    const timer=setTimeout(abort,8000);
+    const timer=setTimeout(abort,5000);
     try{
-      const res=await fetch(url,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer'});if(!res.ok)throw Error();
-      const json=await res.json();const literature=[];
-      for(const item of json.message.items){
-        if(!/^10\.\d{4,9}\//i.test(item.DOI)||!item.title?.[0])continue;
-        const plain=s=>String(s||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
-        literature.push({id:'L'+(literature.length+1),title:plain(item.title[0]).slice(0,350),url:'https://doi.org/'+item.DOI,
-          year:item.published?.['date-parts']?.[0]?.[0]||'',abstract:plain(item.abstract).slice(0,1600)});
-      }
-      return {literature,search:{query,count:literature.length,status:literature.length?'ok':'no_results'}};
-    }catch(err){if(signal?.aborted)throw err;return empty('unavailable');}
-    finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);}
+      const res=await fetch(url,{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer'});
+      if(!res.ok)throw Error('Index unavailable');
+      return await (format==='xml'?res.text():res.json());
+    }finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);}
+  }
+  const plain=s=>String(s||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+  async function crossref(query,signal){
+    const url=new URL('https://api.crossref.org/works');
+    url.search=new URLSearchParams({'query.bibliographic':query,rows:'5',select:'DOI,title,published,abstract'});
+    const json=await fetchIndex(url,signal);
+    return json.message.items.filter(i=>/^10\.\d{4,9}\//i.test(i.DOI)&&i.title?.[0]).map(i=>({
+      title:plain(i.title[0]).slice(0,350),url:'https://doi.org/'+i.DOI,year:i.published?.['date-parts']?.[0]?.[0]||'',abstract:plain(i.abstract).slice(0,1600)
+    }));
+  }
+  async function europePMC(query,signal,pmid){
+    const url=new URL('https://www.ebi.ac.uk/europepmc/webservices/rest/search');
+    url.search=new URLSearchParams({query:pmid?'EXT_ID:'+pmid+' AND SRC:MED':query,format:'json',resultType:'core',pageSize:'5'});
+    const json=await fetchIndex(url,signal);
+    return json.resultList.result.filter(i=>i.title&&/^\d+$/.test(i.pmid)&&(!pmid||i.pmid===pmid)).map(i=>({
+      title:plain(i.title).slice(0,350),url:'https://pubmed.ncbi.nlm.nih.gov/'+i.pmid+'/',year:i.pubYear||'',abstract:plain(i.abstractText).slice(0,1600)
+    }));
+  }
+  async function pubmedRecord(query,signal,pmid){
+    const url=new URL('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi');
+    url.search=new URLSearchParams({db:'pubmed',id:pmid,retmode:'xml'});
+    const source=await fetchIndex(url,signal,'xml');
+    const xml=new DOMParser().parseFromString(source,'application/xml');
+    if(xml.querySelector('parsererror'))throw Error('Invalid PubMed record');
+    const citation=xml.querySelector('PubmedArticle > MedlineCitation');
+    if(citation?.querySelector(':scope > PMID')?.textContent!==pmid)return [];
+    const article=citation.querySelector(':scope > Article');
+    const title=article?.querySelector('ArticleTitle')?.textContent.trim();
+    if(!title)return [];
+    return [{title,url:'https://pubmed.ncbi.nlm.nih.gov/'+pmid+'/',year:article.querySelector('PubDate Year')?.textContent||'',
+      abstract:Array.from(article.querySelectorAll('Abstract > AbstractText'),p=>p.textContent).join(' ').slice(0,1600)}];
+  }
+  async function search(query,signal){
+    query=query.trim().slice(0,120);
+    const result=(status,records=[])=>({literature:records.map((entry,index)=>({...entry,id:'L'+(index+1)})),search:{status,query,count:records.length}});
+    if(!query)return result('no_query');
+    const pmid=query.match(/^(?:PMID\s*[:：]?\s*|https?:\/\/pubmed\.ncbi\.nlm\.nih\.gov\/)?(\d{5,9})\/?$/i)?.[1];
+    if(local&&!pmid)return localAPI('literature-search',{query},signal);
+    let responded=false;
+    for(const lookup of pmid?[pubmedRecord,europePMC]:[crossref,europePMC]){
+      try{
+        const records=await lookup(query,signal,pmid);
+        if(records.length)return result('ok',records);
+        responded=true;
+      }catch(err){if(signal?.aborted)throw err;}
+    }
+    return result(responded?'no_results':'unavailable');
   }
   function connections(container,provider,updated){
     if(!local){
@@ -90,7 +125,11 @@
     };
     container.append(d);
   }
-  window.ReaderAccess={local,search,connections,webChat,
+  function scholarURL(query){
+    const base=window.ReaderLanguage?.current==='en'?'https://scholar.google.com/scholar?q=':'https://xueshu.baidu.com/s?wd=';
+    return base+encodeURIComponent(query);
+  }
+  window.ReaderAccess={local,search,scholarURL,connections,webChat,
     options:()=>local?localAPI('reading-options'):Promise.resolve({automatic:'evidence',available:{evidence:true}}),
     outline:(body,signal)=>localAPI('reading-outline',body,signal),
     ask:async(body,signal)=>{

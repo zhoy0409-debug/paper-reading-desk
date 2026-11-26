@@ -84,12 +84,19 @@
       if(!record||!/^https:\/\/(?:doi\.org|pubmed\.ncbi\.nlm\.nih\.gov)\//i.test(record.url))return null;
       const a=el('a');a.dataset.sourceText='';a.href=record.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=record.title+(record.year?' ('+record.year+')':'');return a;
     }
+    function searchOnWeb(host,query){
+      if(!query)return;
+      const a=pair(el('a'),'去百度学术检索','Search Google Scholar');
+      a.href=ReaderAccess.scholarURL(query);a.target='_blank';a.rel='noopener noreferrer';host.append(a);
+    }
     function publications(host,data){
       host.replaceChildren();
       if(!data?.search||data.search.status==='off')return;
       const records=data.literature||[];
       if(!records.length){
-        host.textContent=({unavailable:'公开索引暂时无响应，可继续阅读本文出处。',no_results:'这组检索词没有返回相关摘要，可在设置中调整主题词。',no_query:'填写公开主题词即可查询文献。'})[data.search.status]||'';savedPublications(host,data.search.query,records);return;
+        const message={unavailable:['公开索引暂时无响应。','The publication index is unavailable.'],no_results:['未找到匹配的文献。','No publications matched this search.'],no_query:['请填写检索词。','Enter a search term.']}[data.search.status];
+        if(message)host.append(pair(el('p'),...message));
+        searchOnWeb(host,data.search.query);savedPublications(host,data.search.query,records);return;
       }
       const d=el('details');d.append(pair(el('summary'),'查看检索文献（'+records.length+'）',''));
       for(const r of records){
@@ -97,7 +104,7 @@
         const block=el('article');if(r.cited)block.append(pair(el('strong'),'本文所引 · 已核对书目',''));
         block.append(a);if(r.abstract){const more=el('details'),p=el('p');p.dataset.sourceText='';p.textContent=r.abstract;more.append(pair(el('summary'),'查看摘要',''),p);block.append(more)}d.append(block);
       }
-      host.append(d);savedPublications(host,data.search.query,records);
+      host.append(d);searchOnWeb(host,data.search.query);savedPublications(host,data.search.query,records);
     }
     async function savedPublications(host,query,records){
       if(!query)return;
@@ -115,7 +122,8 @@
     }
     async function findPublic(){
       const q=(topic.value.trim()||suggestedQuery);if(!q){lookState.textContent='请填写公开检索词。';topic.focus();return}
-      lookupController?.abort();const active=new AbortController();lookupController=active;lookState.textContent='正在检索公开文献…';
+      lookupController?.abort();const active=new AbortController();lookupController=active;
+      lookState.replaceChildren(pair(el('p'),'正在检索公开文献…','Searching publications…'));searchOnWeb(lookState,q);
       try{
         const data=await ReaderAccess.search(q,active.signal);
         if(!active.signal.aborted){publications(lookState,data);const d=lookState.querySelector('details');if(d)d.open=true}

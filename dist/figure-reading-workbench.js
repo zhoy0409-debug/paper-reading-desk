@@ -1097,7 +1097,7 @@
         ? (global.PaperFigureContext?.captionTitle(f.caption,f.label)||detailedTitle) : detailedTitle || f.label;
       PaperLanguageText.clear(figTitle);
       if(f.raw.evidenceStep) { PaperUI.set(figTitle,figTitle.textContent,f.raw.evidenceStep[0]);figTitle.removeAttribute('lang'); }
-      else { figTitle.lang=/[㐀-鿿]/u.test(figTitle.textContent)?'zh-CN':'en';PaperLanguageText.bind(figTitle,figTitle.textContent); }
+      else { figTitle.lang=/[㐀-鿿]/u.test(figTitle.textContent)?'zh-CN':'en';PaperLanguageText.bind(figTitle,figTitle.textContent,{showSource:true}); }
       figMeta.textContent = [model.sourceLabel, f.page ? `PDF 第 ${f.page} 页` : ''].filter(Boolean).join(' · ');
       if(f.raw.captionPage&&f.raw.captionPage!==f.page){
         PaperUI.set(figMeta,'图像第 '+f.page+' 页 · 图注第 '+f.raw.captionPage+' 页','Figure p.'+f.page+' · Caption p.'+f.raw.captionPage);

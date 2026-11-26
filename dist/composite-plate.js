@@ -126,6 +126,12 @@
     const preceding=lines.filter(l=>l.text.length>65&&l.y1<=image.y0&&l.x1>image.x0&&l.x0<image.x1);
     return {x0:Math.max(0,image.x0-pad),x1:Math.min(view.width,image.x1+pad),y0:Math.max(0,image.y0-pad,...preceding.map(l=>l.y1+2)),y1:Math.min(c.y0-2,image.y1+pad)};
   }
+  function standaloneImage(objects,{viewport:view,lines}){
+    const images=objects.filter(o=>o.kind==='image'&&o.x1-o.x0>view.width*.4&&o.y1-o.y0>view.height*.28&&
+      o.x0>=0&&o.y0>=0&&o.x1<=view.width+1&&o.y1<=view.height+1);
+    if(images.length!==1||lines.some(l=>l.text.length>75&&l.y0>view.height*.08&&l.y1<view.height*.92))return null;
+    return images[0];
+  }
   function textSequence(words,box){
     const letters=words.filter(w=>/^[a-t]$/i.test(w.text.trim())&&w.x0>=box.x0-9&&w.x1<=box.x1+3&&w.y0>=box.y0-9&&w.y1<=box.y1+1);
     const sequences=[];
@@ -146,6 +152,26 @@
   }
   async function locate(page,view,lines,cap,previous,annotationMode,box=null,words=[]){
     const expected=series(cap.caption);
+    for(const m of cap.caption.matchAll(/\(([A-T])(?:\s*(?:and|,|[-–—])\s*([A-T]))?\)/g)){
+      expected.add(m[1]);if(m[2])expected.add(m[2]);
+    }
+    // A, B down the left with C spanning both rows cannot be split on a row grid.
+    // Match a consistent set of printed panel labels, then measure the whole plate's ink.
+    let irregular;
+    if(!box&&!previous&&expected.has('A')&&expected.has('B')&&expected.has('C')){
+      const labels=words.filter(w=>expected.has(w.text.trim())&&w.y0>view.height*.05&&w.y1<cap.line.y0);
+      for(const a of labels.filter(w=>w.text.trim()==='A')){
+        const peers=labels.filter(w=>w.font===a.font&&Math.abs(w.size-a.size)<a.size*.13);
+        const letters=new Set(peers.map(w=>w.text.trim()));
+        if(letters.size<4||letters.size!==peers.length||!['A','B','C'].every(c=>letters.has(c)))continue;
+        const ordered=peers.slice().sort((a,b)=>a.text.trim().localeCompare(b.text.trim()));
+        if(!ordered.some((l,i)=>i&&l.y1<ordered[i-1].y0-2*a.size))continue;
+        const top=Math.min(...peers.map(l=>l.y0));
+        if(Math.max(...peers.map(l=>l.x1))-Math.min(...peers.map(l=>l.x0))<view.width*.30||
+           cap.line.y0-top<view.height*.22||lines.some(l=>l.y0>=top&&l.y1<cap.line.y0&&l.text.length>70))continue;
+        irregular={top};break;
+      }
+    }
     const textMarks=box&&textSequence(words,box);
     const lower=box&&/(?:[.;:]\s+|\()a(?:\)|[.])?\s+(?=[A-Z])/u.test(cap.caption);
     if(box){
@@ -157,7 +183,7 @@
     if(!textMarks&&(!expected.has('A')||expected.size<2))return;
     const upper=previous?view.height*.92:cap.line.y0;
     const prose=lines.filter(l=>l.y0<upper&&l.text.length>52&&l.x1-l.x0>view.width*.21);
-    const top=box?box.y0:previous?view.height*.045:Math.max(view.height*.045,...prose.map(l=>l.y1+1));
+    const top=box?box.y0:irregular?Math.max(0,irregular.top-6):previous?view.height*.045:Math.max(view.height*.045,...prose.map(l=>l.y1+1));
     const bottom=box?box.y1:previous?Math.min(upper,...prose.filter(l=>l.y0>top+15).map(l=>l.y0-2)):upper-2;
     if(bottom-top<view.height*.15)return;
     const scale=Math.min(2.8,2000/view.width,2500/view.height),v=page.getViewport({scale}),canvas=document.createElement('canvas');canvas.width=Math.ceil(v.width);canvas.height=Math.ceil(v.height);
@@ -166,6 +192,16 @@
       const W=canvas.width, H=Math.min(canvas.height,Math.floor(bottom*scale)), data=ctx.getImageData(0,0,W,H).data,gray=new Uint8Array(W*H);
       let left=W,right=0,low=0;
       const xMin=Math.max(0,Math.floor(box?box.x0*scale:.035*W)),xMax=Math.min(W,Math.ceil(box?box.x1*scale:W*.965));
+      if(irregular){
+        let high=H;
+        for(let y=Math.ceil(top*scale);y<H;y++)for(let x=xMin;x<xMax;x++){
+          const k=(y*W+x)*4;
+          if(Math.min(data[k],data[k+1],data[k+2])>=195)continue;
+          left=Math.min(left,x);right=Math.max(right,x);high=Math.min(high,y);low=y;
+        }
+        if(right-left>W*.4&&bottom-low/scale<30)return {crop:{x0:left/scale-2,y0:high/scale-2,x1:(right+1)/scale+2,y1:Math.min(bottom,(low+1)/scale+2)},panels:[]};
+        return;
+      }
       for(let y=Math.max(0,Math.ceil(top*scale));y<H;y++)for(let x=xMin;x<xMax;x++){
         const i=y*W+x,k=i*4;if(Math.max(data[k],data[k+1],data[k+2])<154)gray[i]=1;
       }
@@ -174,7 +210,7 @@
       if(!seq)return;
       // Captions can continue on the next page. Extend only with matching
       // printed letters of the same size in reading order.
-      if(box&&!textMarks&&!lower){
+      if(box&&!previous&&!textMarks&&!lower){
         for(const letter of alphabet.slice(seq.length)){
           const next=new Set(['A',letter]);
           const extended=chain(marks,next);
@@ -220,5 +256,5 @@
     if(hit)return [label,label,hit[1],hit[2],page];
     return null;
   }
-  window.CompositePlate={locate,columnCaption,labelGuide,adjacentImage};
+  window.CompositePlate={locate,columnCaption,labelGuide,adjacentImage,standaloneImage};
 })();

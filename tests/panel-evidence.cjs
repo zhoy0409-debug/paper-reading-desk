@@ -1,6 +1,9 @@
 // Small attribution cases which are difficult to isolate in a published PDF.
 const assert = require('node:assert/strict');
 global.window = global;
+require('../dist/literature-reader.js');
+assert.deepEqual(PaperLiterature.figureMentions('Figures 3A, 3B and S4C.'),['F:3','F:3A','F:3B','F:S4','F:S4C']);
+assert.deepEqual(PaperLiterature.figureMentions('Extended Data Fig. 3 and Supplemental Fig. 30A.'),['F:ED3','F:S30','F:S30A']);
 require('../dist/panel-reading.js');
 require('../dist/panel-labels.js');
 require('../dist/paper-figure-context.js');

@@ -278,17 +278,25 @@
     const narrationEn=direct?.en||comparison?.en||(conditions?focus?.en:'')||interpretation?.en||complete||'';
     return {rows,sources,narration,narrationEn};
   }
+  function sourceSentences(rows,i){
+    const {page}=rows[i];
+    let start=i,end=i;
+    const boundary=r=>r.page!==page||r.fig||r.heading;
+    // A single line of scientific text can contain dozens of PDF runs (superscripts,
+    // genotypes and signs). Use sentence boundaries, not the number of runs, to stop.
+    while(start>0&&i-start<180&&!boundary(rows[start-1])&&!/[.!?。]$/.test(rows[start-1].text))start--;
+    while(end+1<rows.length&&end-i<180&&!boundary(rows[end+1])&&!/[.!?。]$/.test(rows[end].text))end++;
+    return tidy(rows.slice(start,end+1).map(r=>r.text).join(' '))
+      .split(/(?<=[。!?])\s*|(?<!\b(?:Fig|Figs|Eq|Eqs|Dr|vs)\.)(?<=\.)\s+(?=[A-Z(])/u)
+      .filter(s=>s.length>=15&&!/[\u0000-\u0008\u000b-\u001f\ufffd]/u.test(s));
+  }
   function passages(rows,figure) {
     const number=figure.matchKey?.split(':')[1];const out=new Map();
     if(!/^[A-Z]*\d+$/.test(number||''))return out;
     const ref=new RegExp('(?:\\bFig(?:ure)?s?\\.?\\s*|图\\s*)'+number+'(?:\\s*\\(([a-z])\\)|([a-z])\\b)','gi');
     for(let i=0;i<rows.length;i++){
       const r=rows[i];if(r.fig||!r.mentions?.some(k=>k===figure.matchKey||(k.startsWith(figure.matchKey)&&/^[A-Z]$/.test(k.slice(figure.matchKey.length)))))continue;
-      let start=i,end=i;
-      while(start>0&&i-start<7&&rows[start-1].page===r.page&&!rows[start-1].fig&&!rows[start-1].heading&&!/[.!?。]$/.test(rows[start-1].text))start--;
-      while(end+1<rows.length&&end-i<7&&rows[end+1].page===r.page&&!rows[end+1].fig&&!rows[end+1].heading&&!/[.!?。]$/.test(rows[end].text))end++;
-      const para=tidy(rows.slice(start,end+1).map(x=>x.text).join(' '));
-      for(const sentence of para.split(/(?<=[。!?])\s*|(?<=\.)\s+(?=[A-Z])/u)){
+      for(const sentence of sourceSentences(rows,i)){
         const hits=[...sentence.matchAll(ref)];
         if(hits.length!==1||sentence.length<20||sentence.length>700)continue;
         const m=hits[0],tail=sentence.slice(m.index+m[0].length);
@@ -300,7 +308,7 @@
           if(/[-–—]/.test(extra[1])&&last>first){for(let c=first+1;c<=last;c++)ids.push(String.fromCharCode(c))}
           else ids.push(extra[2].toLowerCase());
         }
-        if(ids.some(k=>!figure.panels.some(p=>p.id===k))||/^\s*(?:[-–—]|,\s*\d|\bor\b)/i.test(tail.slice(list.length)))continue;
+        if(ids.some(k=>!figure.panels.some(p=>p.id===k))||/^\s*(?:[-–—]|,\s*[sS]?\d|\b(?:or|and)\s+[sS]?\d)/i.test(tail.slice(list.length)))continue;
         // Different figure or table references in the same sentence can refer to another measurement.
         const remaining=sentence.slice(0,m.index)+' '+tail;
         if(/(?:\b(?:fig(?:ure)?s?|tables?)\.?\s*\d|[图表]\s*\d)/i.test(remaining))continue;
@@ -309,5 +317,5 @@
     }
     return out;
   }
-  window.PaperPanelReading={build,passages,micTable,wholeReading};
+  window.PaperPanelReading={build,passages,sourceSentences,micTable,wholeReading};
 })();

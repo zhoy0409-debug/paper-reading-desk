@@ -140,15 +140,11 @@
       }
       // Keep complete source sentences from paragraphs which actually mention this figure.
       const hits=[];
-      const pattern=new RegExp('(?:Fig(?:ure)?s?\\.?\\s*|图\\s*)'+String(f.matchKey?.split(':')[1]||'').replace(/[^a-z0-9]/gi,'')+'(?:[a-z]\\b|\\b)','gi');
-      for(let i=0;i<rows.length;i++){
+      const linked=s=>window.PaperLiterature.figureMentions(s).includes(f.matchKey);
+      for(let i=0;i<(refStart<0?rows.length:refStart);i++){
         const row=rows[i];
         if(row.fig||!row.mentions?.includes(f.matchKey))continue;
-        let start=i,end=i;
-        while(start>0 && i-start<6 && rows[start-1].page===row.page && !rows[start-1].fig && !rows[start-1].heading && !/[.!?。]$/.test(rows[start-1].text))start--;
-        while(end+1<rows.length && end-i<6 && rows[end+1].page===row.page && !rows[end+1].fig && !rows[end+1].heading && !/[.!?。]$/.test(rows[end].text))end++;
-        const para=clean(rows.slice(start,end+1).map(r=>r.text).join(' '));
-        const sentence=sentences(para).find(s=>s.length>=30&&[...s.matchAll(pattern)].some(m=>!/(?:supp(?:lement(?:al|ary)?)?\.?|extended\s+data|appendix|补充|扩展)\s*$/i.test(s.slice(0,m.index))));
+        const sentence=PaperPanelReading.sourceSentences(rows,i).find(s=>s.length>=30&&linked(s)&&!hits.some(h=>h.text===s));
         if(sentence&&!hits.some(h=>h.text===sentence))hits.push({text:sentence,page:row.page});
         if(hits.length>=3)break;
       }
@@ -160,9 +156,13 @@
         const row=rows[i];
         if(row.fig||!row.mentions?.includes(f.matchKey))continue;
         let start=i,end=i;
-        while(start>0&&i-start<24&&rows[start-1].page===row.page&&!rows[start-1].heading&&!rows[start-1].fig)start--;
+        while(start>0&&i-start<8&&rows[start-1].page===row.page&&!rows[start-1].heading&&!rows[start-1].fig&&
+          !rows[start-1].mentions?.some(key=>key.startsWith('F:')&&key.replace(/(?<=\d)[A-Z]$/,'')!==f.matchKey))start--;
         while(end+1<rows.length&&end-i<5&&rows[end+1].page===row.page&&!rows[end+1].heading&&!rows[end+1].fig)end++;
-        const nearby=clean(rows.slice(start,end+1).map(v=>v.text).join(' '));
+        const statements=sentences(rows.slice(start,end+1).map(v=>v.text).join(' '));
+        const cited=statements.findIndex(linked);
+        if(cited<0)continue;
+        const nearby=statements.slice(Math.max(0,cited-1),cited+1).join(' ');
         const why=nearby.match(/(?:\bTo (?:assess|evaluate|determine|examine|test|investigate|compare|establish|distinguish|verify|validate)\b[^.!?]{8,260},\s*we\b[^.!?]{6,320}[.!?]|(?:为了|为检验|为评估)[^。]{10,220}。)/i)?.[0];
         if(why&&!aims.some(a=>a.text===why))aims.push({page:row.page,text:why});
       }

@@ -24,12 +24,12 @@ const inline = value => normal(value).replace(/\s+/g,' ');
 const bounded = (value,n) => value.length>n ? value.slice(0,n)+'…' : value;
 const listOf = value => Array.isArray(value) ? value : [];
 const capRe = /^(?:(?:supplementary\s+|extended data\s+)?(fig(?:ure)?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)|((?:补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?))(?=\s*[.:：|｜]|\s+[—–-]\s)/iu;
-const mentionRe = /(?:(\bsupplementary\s+|\bextended data\s+)?\b(fig(?:ure)?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)(?![\w])|((?:补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?)(?![\da-z]))/giu;
+const mentionRe = /(?:(\bsupplement(?:al|ary)\s+|\bextended data\s+)?\b(fig(?:ure)?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)(?![\w])|((?:扩展数据|补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?)(?![\da-z]))/giu;
 function figureKey(type,id,prefix=''){
  const kind=/table|表/i.test(type) ? 'T' : 'F';
  let tag=id.replace(/\s+/g,'').toUpperCase();
- if (/extended/i.test(prefix)) tag='ED'+tag;
- if (/supplementary|补充/i.test(prefix+type) && !tag.startsWith('S')) tag='S'+tag;
+ if (/extended|扩展/i.test(prefix+type)) tag='ED'+tag;
+ if (/supplement(?:ary|al)|补充/i.test(prefix+type) && !tag.startsWith('S')) tag='S'+tag;
  return kind+':'+tag;
 }
 const figureLabel = key => (key.startsWith('T:')?'表 ':'图 ')+key.slice(2);
@@ -40,7 +40,25 @@ function captionKey(str){
 }
 function figureMentions(str){
  const out=new Set();
- for (const m of str.matchAll(mentionRe)) { out.add(figureKey(m[2]||m[4],m[3]||m[5],m[1])); if(out.size>=18)break; }
+ for(const m of str.matchAll(mentionRe)){
+  const type=m[2]||m[4],prefix=m[1]||'',number=m[3]||m[5];
+  const add=id=>{
+   const key=figureKey(type,id,prefix);
+   out.add(key.replace(/(?<=\d)[A-Z]$/,''));out.add(key);
+  };
+  add(number);
+  let rest=str.slice(m.index+m[0].length);
+  const panel=rest.match(/^\s*\(([A-Za-z])\)/);
+  if(panel&&!/[a-z]$/i.test(number)){add(number+panel[1]);rest=rest.slice(panel[0].length)}
+  // Only plural references introduce a list of further figure numbers.
+  if(/s\.?$/i.test(type)){
+   for(let n=0;n<16;n++){
+    const next=rest.match(/^\s*(?:,\s*(?:and\s+)?|and\s+|[–—-])\s*(S?\d{1,3}[a-z]?)(?![\w%]|\.\d|\s*(?:%|mg\b|mm\b|µm\b|Hz\b))/i);
+    if(!next)break;
+    add(next[1]);rest=rest.slice(next[0].length);
+   }
+  }
+ }
  return Array.from(out);
 }
 function detectHeading(str, heading){
@@ -920,5 +938,5 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  window.addEventListener('hashchange',()=>{if(PaperShelf.target())shelf.restore()});
  }catch{}
 }
-window.PaperLiterature = Object.freeze({mount});
+window.PaperLiterature = Object.freeze({mount,figureMentions});
 })();

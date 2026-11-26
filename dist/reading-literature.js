@@ -51,7 +51,7 @@
     const look=button('ct-link','查摘要','Find abstract',()=>abstract(e,look,box,foot));
     look.title=t('会把题名发送到公开文献库查询','Sends the title to a public literature service');
     const a=e.url?ui('a','ct-link','原文链接','Open paper'):ui('a','ct-link','学术搜索','Search Scholar');
-    a.href=e.url||'https://scholar.google.com/scholar?q='+encodeURIComponent((e.title||e.text).slice(0,180));a.target='_blank';a.rel='noopener noreferrer';
+    a.href=e.url||ReaderAccess.scholarURL((e.title||e.text).slice(0,180));a.target='_blank';a.rel='noopener noreferrer';
     foot.append(look,a);
     if(e.page)foot.append(button('ct-link','文献表 p.'+e.page,'Reference list p.'+e.page,()=>open(e.page,e.text.slice(0,60))));
     box.append(foot);
