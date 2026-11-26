@@ -163,6 +163,8 @@ async function check() {
     assert.equal(await revisit.locator('[data-locale="'+lang+'"]').getAttribute('aria-pressed'),'true');
     if(!webkitRun){
       // Older releases saved a File, which on newer browsers also has a bytes() method.
+      // The reader shows the figure while its recent-paper copy is still being saved.
+      await revisit.waitForFunction(id=>sessionStorage.getItem('paper-tree.v9.active')===id,new URL(jump[1]).searchParams.get('paper'));
       await revisit.evaluate(async()=>{
         const database=await new Promise((resolve,reject)=>{
           const request=indexedDB.open('paper-tree.v9.files');

@@ -6,7 +6,7 @@ const MB = 1024 * 1024;
 const MAX_FILE = 64 * MB, MAX_PAGES = 54, DEFAULT_PAGES = 34, MAX_FIGURES = 55;
 const MAX_GRAPHIC_PAGES = 18, MAX_TEXT_ITEMS = 6500, MAX_OPS = 35000, MAX_GRAPHICS = 850;
 const UNIT = [1,0,0,1,0,0];
-const bareFigureNumber=/^(?:(?:(?:extended data|supplementary|supplemental)\s+)?fig(?:ure)?\.?\s*|(?:扩展数据|补充|附)?图\s*)s?\s*\d{1,3}$/iu;
+const bareFigureNumber=/^(?:(?:(?:extended data|supplementary|supplemental)\s+)?fig(?:ur[ea])?\.?\s*|(?:扩展数据|补充|附)?图\s*)s?\s*\d{1,3}$/iu;
 
 const stop = () => new DOMException('已取消读取 PDF。','AbortError');
 const clamp = (x,a,b) => Math.max(a,Math.min(x,b));
@@ -38,14 +38,17 @@ function verticalLabels(content,view,includeTicks=false){
  }
  return labels;
 }
-function positions(content,viewport,raw=false){
+function positions(content,viewport,raw=false,visibleFonts=null){
  const points = [], V = viewport.transform;
  for(let i=0;i<Math.min(content.items.length,MAX_TEXT_ITEMS);++i){
   const item=content.items[i];if(typeof item.str!=='string'||!item.str.trim()||!numArray(item.transform,6))continue;
   const T=mult(V,item.transform), size=Math.max(3,Math.min(140,Math.abs(item.height||0)||Math.hypot(T[2],T[3])));
   if(Math.abs(T[1])>Math.max(1,Math.abs(T[0])*.13))continue; // upright text only; page still viewable
   const dx=Math.max(Math.abs(item.width)||0,size*.25);
-  points.push({text:item.str,font:item.fontName,x0:T[4],x1:T[4]+dx,y0:T[5]-size*.91,y1:T[5]+size*.21,base:T[5],size});
+  const point={text:item.str,font:item.fontName,x0:T[4],x1:T[4]+dx,y0:T[5]-size*.91,y1:T[5]+size*.21,base:T[5],size};
+  const boxes=visibleFonts?.get(point.font);
+  if(boxes&&!boxes.some(b=>point.x1>b.x0&&point.x0<b.x1&&point.base>=b.y0-1&&point.y0<=b.y1+1))continue;
+  points.push(point);
  }
  points.sort((a,b)=>a.base-b.base||a.x0-b.x0);
  if(raw)return points;
@@ -60,15 +63,28 @@ function positions(content,viewport,raw=false){
   row.sort((a,b)=>a.x0-b.x0);
   let line=null;
   for(const p of row){
-   if(!line||p.x0-line.x1>Math.min(12,Math.max(4,p.size*.95))||p.x0<line.x1-Math.max(18,p.size*1.7)){
+   const heading=line&&line.font===p.font&&(/^(?:fig(?:ur[ea])?\.?|图)$/iu.test(line.text.trim())&&/^\d{1,3}[.:]/.test(p.text.trim())||
+     /^(?:fig(?:ur[ea])?\.?|图)\s*\d{1,3}[.:]/iu.test(line.text));
+   const joinGap=heading?Math.min(22,p.size*2):Math.min(12,Math.max(4,p.size*.95));
+   if(!line||p.x0-line.x1>joinGap||p.x0<line.x1-Math.max(18,p.size*1.7)){
     line={...p};out.push(line);continue;
    }
    // Some publishers distinguish the number from its caption by typeface alone.
    // Record the printed boundary before merging the two PDF text runs.
    const typedCaption=bareFigureNumber.test(line.text.trim())&&line.font!==p.font&&/^\s*[\p{L}(]/u.test(p.text);
    if(typedCaption)line.figurePrefix=line.text.trim();
-   const space=/\s$/.test(line.text)||/^\s/.test(p.text)?'':typedCaption||p.x0-line.x1>Math.max(.7,p.size*.09)?' ':'';
-   line.text+=space+p.text;line.x1=Math.max(line.x1,p.x1);line.y0=Math.min(line.y0,p.y0);line.y1=Math.max(line.y1,p.y1);
+   // A text run can repaint the last glyph of the preceding run (e.g. "Fig. 2" + "2.").
+   // Only collapse text that actually occupies the same space on the page.
+   let addition=p.text;
+   const over=line.x1-p.x0;
+   if(over>1&&line.font===p.font&&Math.abs(line.base-p.base)<.6&&p.text.length){
+    const advance=(p.x1-p.x0)/p.text.length;
+    for(let k=Math.min(12,Math.round(over/advance)+1,p.text.length);k>0;k--){
+     if(line.text.endsWith(p.text.slice(0,k))&&Math.abs(k*advance-over)<Math.max(.9,advance*.44)){addition=p.text.slice(k);break}
+    }
+   }
+   const space=/\s$/.test(line.text)||/^\s/.test(addition)?'':typedCaption||p.x0-line.x1>Math.max(.7,p.size*.09)?' ':'';
+   line.text+=space+addition;line.x1=Math.max(line.x1,p.x1);line.y0=Math.min(line.y0,p.y0);line.y1=Math.max(line.y1,p.y1);
    if(p.text.trim().length>=4){
     line.bodySize=Math.max(line.bodySize||line.size,p.size);
     if(typedCaption)line.proseFont=p.font;
@@ -91,7 +107,7 @@ function positions(content,viewport,raw=false){
  }
  return out.filter(x=>x.text);
 }
-const CAP = /^(?:(?:(Extended\s+Data|Supplementary|Supplemental)\s+)?(Fig(?:ure)?s?\.?)\s*([sS]?\s*\d{1,3})|((?:扩展数据|补充|附)?图)\s*([sS]?\s*\d{1,3}))(?=\s*(?:[.:：|｜]|[—–-]\s)|\s+(?:(?:posterior|prior|empirical|observed|simulated|normalized|normalised|marginal|frequency|density)\s+){0,2}histograms?\s+(?:of|for|showing)\b)/iu;
+const CAP = /^(?:(?:(Extended\s+Data|Supplementary|Supplemental)\s+)?(Fig(?:ur[ea])?s?\.?)\s*([sS]?\s*\d{1,3})|((?:扩展数据|补充|附)?图)\s*([sS]?\s*\d{1,3}))(?=\s*(?:[.:：|｜]|[—–-]\s)|\s+(?:(?:posterior|prior|empirical|observed|simulated|normalized|normalised|marginal|frequency|density)\s+){0,2}histograms?\s+(?:of|for|showing)\b)/iu;
 function capHead(text){
  const m=norm(text).replace(/^((?:Fig(?:ure)?\.?)\s*[sS]?\d{1,3})\s*\((?:colou?r online|online colou?r)\)(?=\s*[.:])/i,'$1').match(CAP);
  if(!m)return null;
@@ -111,11 +127,15 @@ function captionRun(line,words){
   const gap=word.x0-right;
   if(gap>line.size*1.2)break;
   if(text&&gap>line.size*.09&&!/^\s/.test(word.text)&&!/\s$/.test(text))text+=' ';
-  text+=word.text;right=Math.max(right,word.x1);hasScript||=raised(word);
+  const below=raised(word)&&word.base-line.base>line.size*.12;
+  const sub='₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ';
+  const plain='0123456789+-=()aehijklmnoprstuvx';
+  text+=below?Array.from(word.text,c=>sub[plain.indexOf(c)]||c).join(''):word.text;
+  right=Math.max(right,word.x1);hasScript||=raised(word);
  }
  return hasScript&&right>=line.x1-1?norm(text):line.captionText||line.text;
 }
-function captions(lines,p,words){
+function captions(lines,p,words,headingStyles){
  const found=[];
  // Some journals put the number in its own small heading above the caption.
  // Check the neighbouring prose and typography before admitting a bare figure reference.
@@ -123,9 +143,17 @@ function captions(lines,p,words){
  for(const line of lines){
   const explicit=capHead(line.text)||(line.figurePrefix&&capHead(line.figurePrefix+'.'));
   if(explicit){heads.set(line,explicit);continue}
+  const unpunctuated=line.text.match(/^((?:Figure|Figura)\s+[Ss]?\d{1,3})\s+(?=[\p{Lu}])/u);
+  if(unpunctuated){
+   const bodyText=lines.filter(t=>t!==line&&t.text.length>=48&&t.font!==line.font&&t.size>=line.size*1.06);
+   const followsBody=lines.some(t=>t.font===line.font&&t.text.length>25&&Math.abs(t.x0-line.x0)<line.size&&
+    t.base<line.base&&line.base-t.base<line.size*1.65);
+   const known=headingStyles?.has(line.font+'/'+line.size.toFixed(1));
+   if((bodyText.length>=2||known)&&!followsBody){heads.set(line,{...capHead(unpunctuated[1]+'.'),typographicHeading:true});continue}
+  }
   if(!bareFigureNumber.test(line.text))continue;
   const beside=lines.find(t=>t!==line&&Math.abs(t.base-line.base)<line.size*.25&&t.x0>=line.x1-1&&
-   t.x0-line.x1<line.size*2.5&&t.font!==line.font&&t.text.length>=6&&/^[\p{L}(]/u.test(t.text));
+   t.x0-line.x1<line.size*2.5&&(t.font!==line.font||/^图/.test(line.text)&&/^\p{Script=Han}/u.test(t.text))&&t.text.length>=6&&/^[\p{L}(]/u.test(t.text));
   if(beside){heads.set(line,capHead(line.text+'.'));detached.set(line,beside);continue}
   const body=lines.find(t=>t.base>line.base+2&&t.base-line.base<=Math.max(15,line.size*2.5)&&
    Math.abs(t.x0-line.x0)<=Math.max(5,line.size*.9)&&t.size>=line.size*.70&&t.size<=line.size*1.65&&
@@ -142,13 +170,13 @@ function captions(lines,p,words){
  const wrapped=new Set();
  for(const line of heads.keys()){
   const previous=lines.findLast(l=>l.base<line.base-2&&line.base-l.base<=line.size*1.65&&
-   Math.abs(l.x0-line.x0)<line.size&&close(l.size,line.size,line.size*.15));
-  if(previous&&/\b(?:in|see|as in|shown in|used in|of|from|compare with)\s*$/i.test(previous.text))wrapped.add(line);
+   l.x0>=line.x0-line.size&&l.x0<line.x0+line.size*3&&close(l.size,line.size,line.size*.15));
+  if(previous&&/\b(?:in|see|as in|shown in|used in|of|from|according to|compare with|supplementary|supplemental|extended data)\s*$/i.test(previous.text))wrapped.add(line);
  }
  for(let idx=0;idx<lines.length;idx++){
   const line=lines[idx], name=heads.get(line);
   if(!name||wrapped.has(line))continue;
-  const chunks=[line.text];
+  const chunks=[captionRun(line,words)];
   let firstExtent=line;
   if(/^fig(?:ure)?\.?\s*[sS]?\d+\s*(?:\((?:colou?r online|online colou?r)\))?\s*[.:]$/i.test(line.text)){
    const onRow=lines.filter(t=>t!==line&&Math.abs(t.base-line.base)<line.size*.22&&t.x0>=line.x1&&t.x0-line.x1<line.size*4&&
@@ -177,7 +205,7 @@ function captions(lines,p,words){
        DualAxis.explicitSides([...chunks,neighbour.text].join(' ')).length===2)next=neighbour;
    }
    if(!next||(!wrapped.has(next)&&(heads.has(next)||
-      /^(?:fig(?:ure)?\b|table\b|图\s*\d|表\s*\d|references$|results$|discussion$|methods$|摘要$|结果$|讨论$|方法$)/iu.test(next.text)))||
+      /^(?:fig(?:ur[ea])?\b|table\b|图\s*\d|表\s*\d|references$|results$|discussion$|methods$|摘要$|结果$|讨论$|方法$)/iu.test(next.text)))||
       !(captionSize(next)||continuesProse(next)))break;
    const collected=chunks.join(' ');
    if(collected.length+next.text.length>10000)break;
@@ -248,18 +276,99 @@ function captions(lines,p,words){
  }
  return found;
 }
+// A placed PDF can expose text from its entire source page in getTextContent,
+// even though only a small rectangle of that page is painted in this article.
+function formFontBounds(list,ops,V){
+ if(list.fnArray.length>MAX_OPS||!list.fnArray.includes(ops.paintFormXObjectBegin))return null;
+ const fonts=new Map(),stack=[];
+ let matrix=UNIT,clip=null,font=null;
+ for(let i=0;i<list.fnArray.length;i++){
+  const op=list.fnArray[i],a=list.argsArray[i];
+  if(op===ops.save||op===ops.paintFormXObjectBegin){
+   stack.push([matrix,clip,font]);
+   if(op===ops.paintFormXObjectBegin){
+    if(numArray(a?.[0],6))matrix=mult(matrix,a[0]);
+    if(numArray(a?.[1],4)){
+     const b=boxFrom(mult(V,matrix),a[1]);
+     clip=clip?{x0:Math.max(clip.x0,b.x0),y0:Math.max(clip.y0,b.y0),x1:Math.min(clip.x1,b.x1),y1:Math.min(clip.y1,b.y1)}:b;
+    }
+   }
+  }else if(op===ops.restore||op===ops.paintFormXObjectEnd){if(stack.length)[matrix,clip,font]=stack.pop()}
+  else if(op===ops.transform&&numArray(a,6))matrix=mult(matrix,a);
+  else if(op===ops.setFont)font=a[0];
+  else if(op===ops.showText&&font){
+   if(!clip)fonts.set(font,null);
+   else if(fonts.get(font)!==null){
+    const boxes=fonts.get(font)||[];
+    if(!boxes.includes(clip))boxes.push(clip);
+    fonts.set(font,boxes);
+   }
+  }
+ }
+ return [...fonts.values()].some(Boolean)?fonts:null;
+}
+const legendPointer=s=>/^(?:(?:figure|fig\.?)\s*\d+\s*[|.:–—-]\s*)?\(?\s*(?:figure\s*)?(?:caption|legend)\s*(?:continues\s*)?on\s*(?:the\s*)?(?:next|following)\s*page[.)]*$|^图注(?:见|在)下页[。.]?$/i.test(norm(s));
+function isNumberedPointer(cap,lines){
+ if(legendPointer(cap.line.text))return true;
+ if(!/^[^|.:]{1,22}[|.:]$/.test(cap.line.text.trim()))return false;
+ return lines.some(l=>l!==cap.line&&Math.abs(l.base-cap.line.base)<2&&l.x0>=cap.line.x1-1&&
+   l.x0-cap.line.x1<5*cap.line.size&&legendPointer(l.text));
+}
+function topCaptionImage(cap,all,objects,view){
+ const {line,anchor}=cap;
+ const candidates=objects.filter(b=>b.kind==='image'&&w(b)>view.width*.20&&h(b)>view.height*.055&&
+  Math.abs(line.x0-b.x0)<Math.min(40,view.width*.08)&&line.x0<b.x1&&
+  b.y0>=anchor.endY-2&&b.y0-anchor.endY<Math.max(12,line.size*1.7)&&
+  !all.some(c=>c!==cap&&c.line.y0>=anchor.endY&&c.line.y0<b.y1&&overlap(c.line.x0,c.line.x1,b.x0,b.x1)>12));
+ if(candidates.length!==1)return null;
+ const b=candidates[0];
+ const above=objects.find(a=>a.kind==='image'&&Math.abs(a.x0-b.x0)<15&&w(a)>w(b)*.7&&
+   line.y0-a.y1>=-2&&line.y0-a.y1<b.y0-anchor.endY+2);
+ // With images on both sides, use an upper image already owned by an earlier heading.
+ if(above&&!all.some(c=>c!==cap&&c.anchor.endY<=above.y0+2&&above.y0-c.anchor.endY<16&&Math.abs(c.line.x0-line.x0)<16))return null;
+ return b;
+}
+function oneCaptionPerNumber(caps,objects,view){
+ const best=new Map();
+ function rank(c){
+  if(c.caption.length<=c.label.length+3)return -4;
+  if(topCaptionImage(c,caps,objects,view))return 6;
+  const near=objects.some(b=>b.kind==='image'&&w(b)>view.width*.18&&h(b)>view.height*.04&&
+   c.line.y0-b.y1>=-2&&c.line.y0-b.y1<22&&overlap(c.line.x0,c.line.x1,b.x0,b.x1)>12);
+  return (near?3:0)+(c.printedTitle?1:0);
+ }
+ for(const c of caps){
+  const prior=best.get(c.matchKey);
+  // Chinese and English versions of a bilingual legend describe the same figure.
+  if(prior&&/^图/.test(prior.label)&&/^fig/i.test(c.label)&&Math.abs(prior.line.x0-c.line.x0)<24&&
+    c.line.y0-prior.anchor.endY<36)continue;
+  if(!prior||rank(c)>rank(prior))best.set(c.matchKey,c);
+ }
+ return [...best.values()].sort((a,b)=>a.line.y0-b.line.y0||a.line.x0-b.line.x0);
+}
 function drawings(list,ops,V){
  if(list.fnArray.length>MAX_OPS)return [];
  const paints=new Set([ops.stroke,ops.closeStroke,ops.fill,ops.eoFill,ops.fillStroke,ops.eoFillStroke,ops.closeFillStroke,ops.closeEOFillStroke]);
  const rast=new Set([ops.paintImageXObject,ops.paintInlineImageXObject,ops.paintImageMaskXObject]);
- const output=[], stack=[];
- let T=UNIT, opacity=1;
+ const output=[],stack=[],forms=[],formStack=[];
+ let T=UNIT, opacity=1,form=null;
  const push=()=>stack.push([T,opacity]);
  const pop=()=>{if(stack.length)[T,opacity]=stack.pop();};
  const add=(m,b,kind,path,stroke=false)=>{
-  if(output.length>=MAX_GRAPHICS||opacity<.03)return;
+  if((output.length>=MAX_GRAPHICS&&!form)||opacity<.03)return;
   const q=boxFrom(mult(V,m),b);
   if(!Object.values(q).every(Number.isFinite))return;
+  if(form){
+   const r=form.rect;
+   if(q.x1<r.x0||q.x0>r.x1||q.y1<r.y0||q.y0>r.y1)return;
+   q.x0=Math.max(q.x0,r.x0);q.x1=Math.min(q.x1,r.x1);
+   q.y0=Math.max(q.y0,r.y0);q.y1=Math.min(q.y1,r.y1);
+   if(kind==='image'||w(q)>1||h(q)>1){
+    form.paints++;if(kind==='image')form.tiles++;
+    form.ink=form.ink?unite(form.ink,q):q;
+   }
+  }
+  if(output.length>=MAX_GRAPHICS)return;
   let barRect;
   if(path&&path.length===13&&path[0]===0&&path[3]===1&&path[6]===1&&path[9]===1&&path[12]===4&&
      ((path[2]===path[5]&&path[4]===path[7]&&path[8]===path[11]&&path[10]===path[1])||
@@ -279,15 +388,23 @@ function drawings(list,ops,V){
   if(op===ops.save)push();
   else if(op===ops.restore)pop();
   else if(op===ops.transform&&numArray(a,6))T=mult(T,a);
-  else if(op===ops.paintFormXObjectBegin){push();if(numArray(a[0],6))T=mult(T,a[0]);}
-  else if(op===ops.paintFormXObjectEnd)pop();
+  else if(op===ops.paintFormXObjectBegin){
+   push();formStack.push(form);if(numArray(a[0],6))T=mult(T,a[0]);
+   if(numArray(a[1],4)){
+    const r=boxFrom(mult(V,T),a[1]),outer=form?.rect;
+    const rect=outer?{x0:Math.max(r.x0,outer.x0),x1:Math.min(r.x1,outer.x1),y0:Math.max(r.y0,outer.y0),y1:Math.min(r.y1,outer.y1)}:r;
+    form={rect,tiles:0,paints:0,ink:null};forms.push(form);
+   }
+  }
+  else if(op===ops.paintFormXObjectEnd){pop();form=formStack.pop()}
   else if(op===ops.setGState&&Array.isArray(a[0])){
    for(const s of a[0])if(Array.isArray(s)&&s[0]==='ca'&&Number.isFinite(s[1]))opacity=s[1];
   }
   else if(rast.has(op))add(T,[0,0,1,1],'image');
   else if(op===ops.constructPath&&paints.has(a[0])&&numArray(a[2],4))add(T,a[2],'vec',a[1]?.length===1?a[1][0]:null,a[0]===ops.stroke);
  }
- return output.length>=MAX_GRAPHICS?[]:output;
+ const placed=forms.filter(f=>f.ink&&(f.tiles>=4||f.paints>=12)&&area(f.ink)>=area(f.rect)*.45).map(f=>({...f.rect,kind:'image',placedForm:true}));
+ return output.length>=MAX_GRAPHICS?placed:output.concat(placed);
 }
 function columnAt(lines,cap,W){
  const useful=lines.filter(l=>l.text.length>=16&&w(l)>W*.105);
@@ -451,7 +568,7 @@ async function scan(file,options={}){
   const pageCap=options.allPages?pdf.numPages:clamp(Math.floor(Number(options.maxPages)||DEFAULT_PAGES),1,MAX_PAGES);
   const graphicLimit=options.allPages?MAX_FIGURES:MAX_GRAPHIC_PAGES;
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
-  const hubblePassages=[], marksByFigure=new Map();
+  const hubblePassages=[], marksByFigure=new Map(),headingStyles=new Set();
   let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null,lastYield=performance.now();
   const captionKey=cap=>cap.matchKey+'\n'+cap.caption.toLowerCase();
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
@@ -462,7 +579,17 @@ async function scan(file,options={}){
     const viewport=page.getViewport({scale:1});
     const text=await source.text(page);check();
     if(!text.items.some(x=>typeof x.str==='string'&&x.str.trim()))noTextPages.push(pg);
-    const words=positions(text,viewport,true),lines=positions(text,viewport);here=captions(lines,viewport,words);
+    let words=positions(text,viewport,true),lines=positions(text,viewport);here=captions(lines,viewport,words,headingStyles);
+    let displayList;
+    if(here.length&&usedDrawings<graphicLimit&&!(page.rotate%360)&&text.items.length<=MAX_TEXT_ITEMS){
+     try{
+      displayList=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
+      const visible=formFontBounds(displayList,pdfjs.OPS,viewport.transform);
+      if(visible){words=positions(text,viewport,true,visible);lines=positions(text,viewport,false,visible);here=captions(lines,viewport,words,headingStyles)}
+     }catch{check()}
+    }
+    const pointers=here.filter(c=>isNumberedPointer(c,lines));
+    if(pointers.length)here=here.filter(c=>!pointers.includes(c));
     if(priorCaption){
      const {cap,figure}=priorCaption;
      const more=CaptionFlow.nextPage(cap,lines,viewport);
@@ -500,48 +627,68 @@ async function scan(file,options={}){
      }
     }
     hubblePassages.push(...HubbleReading.evidence(lines,pg));
+    if((!here.length||pointers.length===1)&&!(page.rotate%360)&&text.items.length<=MAX_TEXT_ITEMS)
+     unclaimed={pg,lines,viewport,words,axes:verticalLabels(text,viewport),legendKey:pointers.length===1?pointers[0].matchKey:null};
     if(!here.length){
      unlabelledPages.push(pg);
-     if(!(page.rotate%360)&&text.items.length<=MAX_TEXT_ITEMS)unclaimed={pg,lines,viewport,words,axes:verticalLabels(text,viewport)};
      continue;
     }
     let objects=[],curvePaths=[];
     if(usedDrawings<graphicLimit&&((page.rotate??0)%360===0)&&text.items.length<=MAX_TEXT_ITEMS){
      usedDrawings++;
      try{
-      const list=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
+      const list=displayList||await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
       objects=drawings(list,pdfjs.OPS,viewport.transform);
       if(list.fnArray.length<=MAX_OPS)curvePaths=CurveReading.paths(list,pdfjs.OPS,viewport.transform,{mult,at,boxFrom});
      }
      catch{check();}
     }
+    here=oneCaptionPerNumber(here,objects,viewport);
+    for(const c of here)if(c.typographicHeading)headingStyles.add(c.line.font+'/'+c.line.size.toFixed(1));
     const axes=verticalLabels(text,viewport);
     for(const cap of here){
      if(figures.length>=MAX_FIGURES)break;
-     const digest=captionKey(cap);
-     if(seen.has(digest)){
-      const d=seen.get(digest);if(!d.duplicatePages.includes(pg)&&pg!==d.captionPage)d.duplicatePages.push(pg);
-      continue;
+     const continuation=cap.caption.match(/^(?:fig(?:ur[ea])?\.?|图)\s*[sS]?\d+\s*[.:]?\s*[(（](?:continued|cont\.?|续)[)）][.:]?\s*(.*)$/iu);
+     if(continuation){
+      const prior=figures.findLast(f=>f.matchKey===cap.matchKey&&f.captionPage===pg-1);
+      if(prior){
+       const extra=continuation[1].trim();
+       if(extra&&!prior.caption.includes(extra)){
+        prior.caption+=' '+extra;
+        prior.captionPanelPages={...prior.captionPanelPages};
+        for(const mark of CaptionFlow.headings(extra))for(const id of mark.ids)prior.captionPanelPages[id]=pg;
+       }
+       continue;
+      }
      }
-     const charts=window.CartesianPanels?.findPlots(cap,here,words,axes,objects,viewport);
-     const pair=!charts&&hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
+     const digest=captionKey(cap);
+     const repeated=seen.get(digest);
+     if(repeated){
+      if(!repeated.duplicatePages.includes(pg)&&pg!==repeated.captionPage)repeated.duplicatePages.push(pg);
+      if(repeated.mode==='crop'||pg===repeated.captionPage)continue;
+     }
+     const placed=objects.filter(b=>b.placedForm&&w(b)>viewport.width*.20&&h(b)>viewport.height*.07&&
+       cap.line.y0-b.y1>=-3&&cap.line.y0-b.y1<18&&Math.abs(b.x0-cap.line.x0)<30);
+     const fixedArt=placed.length===1?placed[0]:topCaptionImage(cap,here,objects,viewport);
+     const charts=!fixedArt&&window.CartesianPanels?.findPlots(cap,here,words,axes,objects,viewport);
+     const pair=!fixedArt&&!charts&&hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
        window.PaperPanelGeometry?.pairedAxes(cap,here,axes,words,objects,viewport):null;
-     const initial=charts?.crop||(hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null);
-     let grid=charts|| (pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes));
+     const initial=fixedArt||charts?.crop||(hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null);
+     let grid=charts|| (fixedArt||pair?null:window.PaperPanelGeometry?.detect(cap,here,words,lines,viewport,initial,axes));
      // Nothing above the caption: the figure may be printed beside it.
      const beside=!pair&&!initial&&objects.length?window.SideCaption?.locate(cap,here,lines,objects,viewport,verticalLabels(text,viewport,true))||null:null;
      if(beside)grid=window.SideCaption.panels(cap,beside,words,lines,viewport,axes);
-     const printed=beside?[]:window.PaperPanelGeometry?.printedTitles(cap,here,lines,viewport,words,objects)||[];
+     const printed=fixedArt||beside?[]:window.PaperPanelGeometry?.printedTitles(cap,here,lines,viewport,words,objects)||[];
      if(!grid&&!pair)await window.PaperPanelGeometry?.includePrintedMargins(printed,page,viewport,pdfjs.AnnotationMode.DISABLE,words).catch(()=>{});
      let crop=grid?.crop||initial||beside;
      for(const p of printed)if(p.rect)crop=crop?unite(crop,p.rect):p.rect;
-     const stack=!charts&&!beside&&await MarkedPlots.locate(cap,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+     const stack=!fixedArt&&!charts&&!beside&&await MarkedPlots.locate(cap,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(stack)crop=stack.crop;
-     const layers=!charts&&!stack&&!beside&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
+     const layers=!fixedArt&&!charts&&!stack&&!beside&&await StackedPlots.locate(cap,crop,objects,words,page,viewport,pdfjs.AnnotationMode.DISABLE).catch(()=>null);
      if(layers)crop=layers.crop;
      let plate=null;
      let raster=null;
-     const embedded=!charts&&!beside&&!pair&&!stack&&!layers&&CompositePlate.adjacentImage(objects,cap,lines,viewport);
+     const embedded=fixedArt||!charts&&!beside&&!pair&&!stack&&!layers&&CompositePlate.adjacentImage(objects,cap,lines,viewport);
      if(embedded && !grid){
        raster=await CompositePlate.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE,embedded,words).catch(()=>null);
        crop=raster?.crop||crop||embedded;
@@ -550,9 +697,8 @@ async function scan(file,options={}){
        raster=await window.CompositePlate?.locate(page,viewport,lines,cap,false,pdfjs.AnnotationMode.DISABLE,null,words).catch(()=>null);
        check();if(raster)crop=raster.crop;
      }
-     const nextLegend=previous&&here.length===1&&previous.lines.some(l=>
-       /^(?:\(?\s*(?:figure)?(?:caption|legend)(?:continues)?on(?:the)?(?:next|following)page[.)]*|图注(?:见|在)下页[。.]?)$/i.test(l.text.replace(/\s/g,'')));
-     if(previous&&cap===here[0]&&(nextLegend||!crop&&cap.line.y0<viewport.height*.16)&&usedDrawings<graphicLimit){
+     const nextLegend=previous&&(previous.legendKey?previous.legendKey===cap.matchKey:here.length===1&&previous.lines.some(l=>legendPointer(l.text)));
+     if(previous&&(nextLegend||!previous.legendKey&&cap===here[0]&&!crop&&cap.line.y0<viewport.height*.16)&&usedDrawings<graphicLimit){
       let earlier;
       try{
        earlier=await pdf.getPage(previous.pg);usedDrawings++;
@@ -568,7 +714,12 @@ async function scan(file,options={}){
      }
      const imagePage=plate?previous.pg:pg,imageView=plate?previous.viewport:viewport;
      if(plate)crop=plate.crop;
-     const id=cap.matchKey+'@'+pg+':'+cap.anchor.line;
+     else if(here.length===1&&!fixedArt&&!beside&&crop)
+      crop=await CompositePlate.completeTop(page,viewport,lines,cap,crop,pdfjs.AnnotationMode.DISABLE).catch(()=>crop);
+     // A list of legends can precede the illustrated pages. Preserve the
+     // original card and its saved selections, then attach the actual artwork.
+     if(repeated&&!crop)continue;
+     const id=repeated?.id||cap.matchKey+'@'+pg+':'+cap.anchor.line;
      const figureKeys=!plate&&crop&&curvePaths.length?CurveReading.legend(curvePaths,words,crop):[];
      let sharedLegend=null;
      if(grid&&!charts&&!stack&&!layers&&!plate&&curvePaths.length&&grid.panels.length>=2){
@@ -689,7 +840,11 @@ async function scan(file,options={}){
        }
       }
      }
-     figures.push(figure);internals.set(id,{page:imagePage,crop});seen.set(digest,figure);
+     if(repeated){
+      figure.duplicatePages=[...new Set([repeated.captionPage,...repeated.duplicatePages])].filter(p=>p!==pg);
+      figures[figures.indexOf(repeated)]=figure;
+     }else figures.push(figure);
+     internals.set(id,{page:imagePage,crop});seen.set(digest,figure);
      if(cap.anchor.endY>viewport.height*.69&&CaptionFlow.headings(cap.caption).length)captionTail={cap,figure};
     }
    }catch(e){

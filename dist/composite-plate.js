@@ -132,6 +132,36 @@
     if(images.length!==1||lines.some(l=>l.text.length>75&&l.y0>view.height*.08&&l.y1<view.height*.92))return null;
     return images[0];
   }
+  // Typeset vector plates can consist of hundreds of small shapes. The crop seeded
+  // at the legend may span the last rows only. Walk contiguous bands of printed ink
+  // upwards, stopping at body paragraphs, another caption or a gap between figures.
+  async function completeTop(page,view,lines,cap,crop,annotationMode){
+    const W=view.width,H=view.height;
+    if(!crop||crop.x1-crop.x0<W*.5||crop.y0<H*.16||cap.line.y0<H*.48||
+       Math.abs(cap.line.y0-crop.y1)>40||crop.y1-crop.y0<H*.19)return crop;
+    const lane=lines.filter(l=>l.y0>=H*.048&&l.y0<crop.y0&&l.x1>crop.x0&&l.x0<crop.x1);
+    const prose=lane.some((l,i)=>/^(?:(?:fig(?:ur[ea])?\.?|table|[图表])\s*\d+)/iu.test(l.text)||
+      l.text.length>=40&&lane.slice(i+1).some(t=>t.text.length>=36&&t.font===l.font&&
+       Math.abs(t.x0-l.x0)<l.size&&t.base-l.base>l.size*.8&&t.base-l.base<l.size*1.8));
+    if(prose)return crop;
+    const scale=Math.min(1,720/W),v=page.getViewport({scale}),canvas=document.createElement('canvas');
+    canvas.width=Math.ceil(v.width);canvas.height=Math.ceil(v.height);
+    try{
+      const ctx=canvas.getContext('2d',{willReadFrequently:true});
+      await page.render({canvas,canvasContext:ctx,viewport:v,annotationMode,background:'#fff'}).promise;
+      const left=Math.max(0,Math.floor(crop.x0*scale)),right=Math.min(canvas.width,Math.ceil(crop.x1*scale));
+      const upper=Math.max(0,Math.floor(H*.048*scale)),lower=Math.min(canvas.height,Math.ceil((crop.y0+8)*scale));
+      const width=right-left,data=ctx.getImageData(left,upper,width,lower-upper).data;
+      let blank=0,top=lower,inkRows=0;
+      for(let row=lower-1;row>=upper;row--){
+        let ink=0;
+        for(let x=0;x<width;x++){const i=((row-upper)*width+x)*4;if(Math.min(data[i],data[i+1],data[i+2])<198&&++ink>=3)break}
+        if(ink>=3){top=row;inkRows++;blank=0}
+        else if(++blank>Math.max(18,scale*H*.042))break;
+      }
+      return inkRows>=10&&top/scale<crop.y0-10?{...crop,y0:Math.max(0,top/scale-3)}:crop;
+    }finally{canvas.width=canvas.height=0}
+  }
   function textSequence(words,box){
     const letters=words.filter(w=>/^[a-t]$/i.test(w.text.trim())&&w.x0>=box.x0-9&&w.x1<=box.x1+3&&w.y0>=box.y0-9&&w.y1<=box.y1+1);
     const sequences=[];
@@ -256,5 +286,5 @@
     if(hit)return [label,label,hit[1],hit[2],page];
     return null;
   }
-  window.CompositePlate={locate,columnCaption,labelGuide,adjacentImage,standaloneImage};
+  window.CompositePlate={locate,columnCaption,labelGuide,adjacentImage,standaloneImage,completeTop};
 })();

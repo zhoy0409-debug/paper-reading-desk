@@ -667,6 +667,7 @@
       }
       if(scope){
         const f=active.raw,p=panel?.raw,box=p?desk.pageRegion():f.pageBox;
+        if(!p&&!manual)showFigureReading(true);
         const parent=box||{x:0,y:0,width:1,height:1},layoutId=JSON.stringify([f.page,p?.id||'',parent]);
         if(scope.peers?.length){
           const switcher=el('div','','hist-conditions');
@@ -799,9 +800,9 @@
       if (restriction) boundary.append(panel&&!panel.boundary?PaperUI.set(el('b'),'整图证据边界','Figure-level scope'):ui('b','证据边界'), PaperUI.set(el('span'),restriction));
     }
 
-    function showFigureReading(){
+    function showFigureReading(leadOnly=false){
       const f=active.raw,captionPage=f.captionPage||active.page;
-      const caption=(f.caption||'').replace(/^(?:(?:extended data|supplementary)\s+)?(?:fig(?:ure)?\.?|table|[图表])\s*[a-z]*\d+\s*[.|:：]?\s*/i,'').trim();
+      const caption=(f.caption||'').replace(/^(?:(?:extended data|supplementary)\s+)?(?:fig(?:ur[ea])?\.?|table|[图表])\s*[a-z]*\d+\s*[.|:：–—-]?\s*/i,'').trim();
       const used=new Set();
       const normalize=text=>text.replace(/\s+/g,' ').replace(/[.!。；;]+$/,'').trim().toLowerCase();
       function add(zh,en,text,page){
@@ -822,8 +823,10 @@
           PaperUI.set(el('p'),'当前只识别到 PDF 原页。可在图旁点「框选小图」保留需要的区域。有文字层的 PDF 还能根据图注和正文生成图解。','Only the PDF page was located. Use Select panel beside the image to keep a region. A PDF with selectable captions and text also supports figure explanations.'));
         return;
       }
-      const lead=caption.split(/(?<=\.)\s+(?=[A-Z(])|(?<=。)/u)[0];
+      const sentences=caption.split(/(?<=\.)\s+(?=[A-Z(])|(?<=。)/u);
+      const lead=sentences[0].length<60&&sentences[1]?.length<=350?sentences.slice(0,2).join(' '):sentences[0];
       add(f.review?'这张综述图归纳了什么':'这张图展示什么',f.review?'What this review figure summarizes':'What the figure shows',!active.panels.length&&caption.length<=650?caption:lead,captionPage);
+      if(leadOnly)return;
       const guide=!active.panels.length&&global.PaperPanelReading?.wholeReading(caption);
       if(guide){
         const section=el('section','','frw-reading-block');

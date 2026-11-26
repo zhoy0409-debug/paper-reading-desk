@@ -22,11 +22,11 @@ const evidenceSteps={
 };
 const clean=s=>String(s||'').replace(/\s+/g,' ').trim();
 const cut=(s,n)=>clean(s).length>n?clean(s).slice(0,n-1)+'…':clean(s);
-const figureNumber=s=>clean(s).match(/(?:(?:Fig(?:ure)?\.?|Table)\s*|[图表]\s*)?((?:ED|S)?\d{1,3}[a-z]?)\s*$/i)?.[1]?.toUpperCase()||'';
+const figureNumber=s=>clean(s).match(/(?:(?:Fig(?:ur[ea])?\.?|Table)\s*|[图表]\s*)?((?:ED|S)?\d{1,3}[a-z]?)\s*$/i)?.[1]?.toUpperCase()||'';
 const captionTitle=(caption,label)=>{
- const tail=clean(caption).replace(/^(?:extended data |supplement(?:al|ary) )?(?:Fig(?:ure)?\.?|Table|[图表])\s*(?:[Ss]\s*)?\d{1,3}[a-z]?\s*[|.:：–—-]?\s*/i,'');
+ const tail=clean(caption).replace(/^(?:extended data |supplement(?:al|ary) )?(?:Fig(?:ur[ea])?\.?|Table|[图表])\s*(?:[Ss]\s*)?\d{1,3}[a-z]?\s*[|.:：–—-]?\s*/i,'');
  if(!tail)return label;
- const heading=tail.match(/^(.{5,400}?)\s+\([Aa](?:\s*(?:and|[-–—,])\s*[A-Za-z])*\)\s+(?=\p{L})/u);
+ const heading=tail.match(/^(.{5,400}?)\s+\([Aa](?:\s*(?:and|[-–—,])\s*[A-Za-z])*\)\s+(?=[\p{Lu}\p{Script=Han}])/u);
  if(heading)return heading[1];
  const stop=tail.match(/[.。](?=\s|$)/);
  const first=stop&&stop.index>18?tail.slice(0,stop.index):tail;

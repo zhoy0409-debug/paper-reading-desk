@@ -23,8 +23,8 @@ const normal = value => String(value ?? '').replace(/\r\n?/g,'\n').trim();
 const inline = value => normal(value).replace(/\s+/g,' ');
 const bounded = (value,n) => value.length>n ? value.slice(0,n)+'…' : value;
 const listOf = value => Array.isArray(value) ? value : [];
-const capRe = /^(?:(?:supplementary\s+|extended data\s+)?(fig(?:ure)?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)|((?:补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?))(?=\s*[.:：|｜]|\s+[—–-]\s)/iu;
-const mentionRe = /(?:(\bsupplement(?:al|ary)\s+|\bextended data\s+)?\b(fig(?:ure)?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)(?![\w])|((?:扩展数据|补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?)(?![\da-z]))/giu;
+const capRe = /^(?:(?:supplementary\s+|extended data\s+)?(fig(?:ur[ea])?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)|((?:补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?))(?=\s*[.:：|｜]|\s+[—–-]\s)/iu;
+const mentionRe = /(?:(\bsupplement(?:al|ary)\s+|\bextended data\s+)?\b(fig(?:ur[ea])?s?\.?|tables?)\s*([sS]?\s*\d{1,3}[a-z]?)(?![\w])|((?:扩展数据|补充)?[图表])\s*([sS]?\s*\d{1,3}[a-z]?)(?![\da-z]))/giu;
 function figureKey(type,id,prefix=''){
  const kind=/table|表/i.test(type) ? 'T' : 'F';
  let tag=id.replace(/\s+/g,'').toUpperCase();

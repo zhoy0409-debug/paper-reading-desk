@@ -8,6 +8,8 @@ Select text and choose **Baidu Translate** to translate the selection in a new t
 
 For full-page plates with a legend on a different page, the reader shows both page numbers. References such as “Figure 3A” and “Figures 3A and 3B” link the figure to the passages that discuss it.
 
+The cross-journal upload audit covers 46 PDFs from 38 journals. It checks printed figure numbers, caption and image pages, automatic crops, and the source visible when you open a figure explanation. [See the results by paper](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.md)
+
 **To read an explanation**, open a PDF, choose a figure thumbnail and select **Read explanation** beside the figure. The reading draws on the caption and passages that refer to the figure. On a phone, **Back to figure** returns to the same figure or panel. Open **Figure labels** to choose an identified axis or legend, or tap it on the image. These features run in the browser. For an image-only scan without a readable caption, the reader offers page viewing and manual cropping. [Try a labelled figure](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&sample=figure-8a)
 
 For reviews, the sidebar lists diagrams by their published figure numbers. If labels are embedded in the image, the reader shows its progress. Tap a label while it is being read and its explanation opens when the label is recognized.
