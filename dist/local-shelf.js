@@ -57,13 +57,22 @@
     // Keep a self-contained copy, including after the OS picker or original tab closes.
     return {bytes:await file.arrayBuffer(),name:file.name,type:file.type,lastModified:file.lastModified};
   }
-  async function remember(id,file){
+  async function keepForNote(id,file){
+    const existing=await transaction(['pdf'],'readonly',tx=>tx.objectStore('pdf').getKey(id));
+    if(existing!==undefined)return;
+    const copy=await pdfRecord(file);
+    await transaction(['pdf'],'readwrite',tx=>tx.objectStore('pdf').put(copy,id));
+  }
+  async function remember(id,file,fromNote=false){
     const record=await pdfRecord(file);
     await transaction(['pdf','papers'],'readwrite',tx=>{
       const pdf=tx.objectStore('pdf');
       pdf.put({id,file:record},recent);
-      const saved=tx.objectStore('papers').getKey(id);
-      saved.onsuccess=()=>{if(saved.result!==undefined)pdf.put(record,id)};
+      if(fromNote)pdf.put(record,id);
+      else{
+        const saved=tx.objectStore('papers').getKey(id);
+        saved.onsuccess=()=>{if(saved.result!==undefined)pdf.put(record,id)};
+      }
     });
     sessionStorage.setItem(viewKey,id);
   }
@@ -160,5 +169,5 @@
       const dest=target();const id=dest?.id||sessionStorage.getItem(viewKey);if(id)await open(id);
     }};
   }
-  window.PaperShelf={fingerprint,state,persist,link,target,remember,save,mount};
+  window.PaperShelf={fingerprint,state,persist,link,target,remember,keepForNote,save,mount};
 })();

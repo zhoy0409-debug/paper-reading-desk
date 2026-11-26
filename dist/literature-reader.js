@@ -506,7 +506,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    action(rawNav,'读取这一页',()=>{const n=Number(pagePick.value);if(Number.isInteger(n)&&n>=1&&n<=session.totalPages)figureHandle?.selectFigure(addPage(n));else pagePick.reportValidity()});
    if(session.warnings?.length)add(rawNav,'p',session.warnings.join(' '),'muted');
    item.onFigureProgress=null;
-   PaperShelf.remember(item.hash,item.pdfFile).catch(()=>{
+   PaperShelf.remember(item.hash,item.pdfFile,dest?.id===item.hash).catch(()=>{
     if(activeView===viewKey)addUI(header,'p','此浏览器未能缓存 PDF。重新打开时需重新选择同一文件。','muted');
    });
    if(activeView!==viewKey)return;

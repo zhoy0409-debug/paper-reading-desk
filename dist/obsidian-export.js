@@ -206,6 +206,8 @@
       try {
         const root=direct?await window.showDirectoryPicker({id:'reading-desk-obsidian',mode:'readwrite'}):null;
         const pack=await build(ctx,{lang,includePdf:pdf.checked,includeImages:!!images?.checked},s=>status.textContent=s,controller.signal);
+        const cached=await PaperShelf.keepForNote(ctx.id,ctx.file).then(()=>true,()=>false);
+        controller.signal.throwIfAborted();
         if(root){
           status.textContent=t('正在写入笔记库…','Writing to the vault…');
           const path=await saveVault(root,pack,controller.signal);
@@ -227,6 +229,7 @@
           }
           status.textContent=t('把下载的 ZIP 解压到 Obsidian 库中，打开里面的 .md 笔记。','Extract the downloaded ZIP into your Obsidian vault and open the .md note.');
         }
+        if(!cached)status.append(t(' 此浏览器未能保留原文。下次从笔记回到阅读器时，请重新选择这份 PDF。',' This browser could not keep a local copy. Select the original PDF when reopening a reader link.'));
       }catch(error){
         if(error.name==='AbortError')status.textContent=t('已取消。','Canceled.');
         else if(['SecurityError','NotAllowedError'].includes(error.name))status.textContent=t('可以重新选择允许写入的库，或下载笔记包。','Choose a writable vault or download the note bundle.');

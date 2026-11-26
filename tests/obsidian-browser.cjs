@@ -144,7 +144,16 @@ async function check() {
           const request=database.transaction('pdf').objectStore('pdf').get('recent');
           request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
         });
-        const hash=await crypto.subtle.digest('SHA-256',cached.file.bytes);
+        const byId=await new Promise((resolve,reject)=>{
+          const request=database.transaction('pdf').objectStore('pdf').get(cached.id);
+          request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+        });
+        if(!(byId?.bytes instanceof ArrayBuffer))throw Error('Returning to an exported note requires its paper after the recent paper changes.');
+        await new Promise((resolve,reject)=>{
+          const tx=database.transaction('pdf','readwrite');tx.objectStore('pdf').delete('recent');
+          tx.oncomplete=resolve;tx.onabort=tx.onerror=()=>reject(tx.error);
+        });
+        const hash=await crypto.subtle.digest('SHA-256',byId.bytes);
         return Array.from(new Uint8Array(hash),v=>v.toString(16).padStart(2,'0')).join('');
       }finally{database.close()}
     });
