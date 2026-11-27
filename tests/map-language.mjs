@@ -25,3 +25,4 @@ const nervous='The two canonical pathways intersect with each other to coordinat
 const translated=await mapChinese(nervous,async()=>'两条佳能通路相交，以协调细胞通信。');
 assert.match(translated,/经典通路发生交叉作用，以协调细胞间通讯/);
 assert.match(await mapChinese('The review identified limited in vivo validation.',async()=>'该综述指出了有限的体内验证。'),/体内验证有限/);
+assert.match(await mapChinese('Conformational hijacking of lipoprotein transporter LolDF enables precision antimicrobial activity against Acinetobacter baumannii',known),/劫持脂蛋白转运蛋白 LolDF 的构象.*鲍曼不动杆菌.*精准抗菌作用/);

@@ -12,6 +12,8 @@ const terminology=[
   ['exaggeration parameter','夸大系数'],['kNN graph neighbors','kNN 图上的近邻点'],
   ['t-distributed stochastic neighbor embedding','t 分布随机邻域嵌入'],['immune adaptation','免疫适应'],
   ['neural stem and progenitor cells','神经干细胞和祖细胞'],['neurorepair','神经修复'],
+  ['conformational hijacking','构象劫持'],['lipoprotein transporter','脂蛋白转运蛋白'],
+  ['precision antimicrobial activity','精准抗菌作用'],
   ['attraction','吸引力'],['repulsion','排斥力'],['stroke','卒中'],
   ['distance correlations','距离相关性'],
   ['chemokine signaling networks','趋化因子信号网络'],['skeletal disorders','骨骼疾病'],
@@ -179,6 +181,8 @@ function comparisonCaption(body){
 async function academicAim(s,translate){
   const phrase=text=>/^(?:[A-Z][A-Z\d/-]*|pH|t-SNE|kNN)$/.test(text)?text:mapChinese(text,translate);
   const spaced=text=>/^[a-z\d]/i.test(text)?' '+text:text;
+  const mechanism=s.match(/^Conformational hijacking of (.+?) ([A-Z][A-Za-z\d-]+) enables (.+?) against\s*([A-Z][a-z.]+ [a-z]+)[.]?$/i);
+  if(mechanism)return '通过劫持'+(await phrase(mechanism[1]))+' '+mechanism[2]+' 的构象，实现对'+(await phrase(mechanism[4]))+'的'+(await phrase(mechanism[3]))+'。';
   const compared=s.match(/^We compared (.+?) embeddings and (.+?) embeddings using (.+?) across values of ([A-Za-zα-ωΑ-Ω]+)\.$/i);
   if(compared)return '在不同的 '+compared[4]+' 取值下，用'+(await phrase(compared[3]))+'比较 '+compared[1].replace(/\s*&\s*/g,'、')+' 的嵌入结果与 '+compared[2]+' 的嵌入结果。';
   const balance=s.match(/^How does the balance between (.+?) and (.+?) shape (.+?)\?$/i);

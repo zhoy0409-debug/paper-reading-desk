@@ -224,7 +224,8 @@
     const {background:gaps,aims,findings=[]}=review?reviewOverview(early,used):studyOverview(early,used);
     defineTerms(aims,early);
     const limits=pick(tail,rx('limit'),4,used);
-    const said=pick(tail,rx('find'),4,used);
+    const interpretation=s=>rx('find')(s)||/\b(?:differs? (?:from|markedly from)|in contrast with|our (?:study|work|analysis) (?:provides|establishes|explains)|this (?:finding|comparison) (?:explains|supports))\b|有别于|不同之处在于/i.test(s.text);
+    const said=pick(tail,interpretation,4,used);
     const figureHeading=f=>PaperOutline.title(f.title||f.printedTitle||f.caption,f.label)||f.label;
     const result=f=>{
       const kids=[],panels=[];

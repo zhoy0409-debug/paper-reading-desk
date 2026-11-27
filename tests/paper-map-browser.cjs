@@ -80,6 +80,10 @@ async function check(browser,sample){
     });
     const zh=await root.innerText();
     assert.match(zh,sample.zh);
+    if(sample.file===abaucin){
+      await page.waitForFunction(()=>/LolDF 的构象.*鲍曼不动杆菌/.test(document.querySelector('.st-crumbs .st-paper')?.textContent||''),null,{timeout:30000});
+      assert(await page.locator('.mm-d1[data-map-branch=discussion]').count(),'The paper discusses how its mechanism differs from earlier work');
+    }
     const zhAims=await page.locator('[data-map-branch=aim] .mm-text').allTextContents();
     assert(!zhAims.includes(zh));
     assert.deepEqual(errors,[]);
