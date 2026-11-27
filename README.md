@@ -25,7 +25,7 @@ Preparing a journal club talk? Open a paper, click a figure label to see what it
 
 For questions about a method or a group, start with the paper’s own caption and text. You can also search the literature or enter your own DeepSeek or Qwen API key to ask a model inside the reader. Confirming a model request uses your own provider account.
 
-The web address stays the same as updates are published. On Windows, you can also unzip the portable edition and double-click `start.cmd`. Python is included.
+The web address stays the same as updates are published. On Windows, unzip the portable edition and double-click `start.cmd`. Python is included. Open **Updates** beside the language switch to install a new version. If an older copy is missing this control, close it and open the latest ZIP in a new folder.
 
 [English user guide](README.en.md) · [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [PDF checks across 38 journals](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.md)
 
@@ -56,6 +56,6 @@ The web address stays the same as updates are published. On Windows, you can als
 
 想弄清某个方法或分组的依据，可以先看本篇图注和正文，也可以继续检索相关文献。需要模型回答时，可在「划词追问」填入自己的 DeepSeek 或通义千问 API Key，确认发送后使用自己的模型额度。
 
-网页版更新后，刷新原来的网址即可。Windows 便携版已包含 Python，解压后双击 `start.cmd` 就能打开。
+网页版更新后，刷新原来的网址即可。Windows 便携版已包含 Python，解压后双击 `start.cmd` 即可打开。点语言切换旁的「版本更新」就能下载安装新版。旧版如果看不到这个入口，关闭旧版，把最新包解压到新文件夹后打开即可。
 
 [中文使用指南](README.zh-CN.md) · [下载 Windows 便携版](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [查看 38 种期刊的 PDF 实测结果](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.zh-CN.md)

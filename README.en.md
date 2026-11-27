@@ -192,7 +192,7 @@ Open the map at the research question or the authors’ statement of focus. Foll
 | Public literature search | Crossref, Europe PMC and PubMed lookup by PMID | PubMed and Crossref |
 | Continue in your usual AI chat | Copy the question and excerpts to ChatGPT, DeepSeek, Claude or Gemini | Same options |
 | Answers inside the reader | Source guide, or your own DeepSeek or Qwen (Beijing) API key | Same options, plus Ollama and a signed-in Codex CLI |
-| Get updates | Reopen or refresh the site | From v0.3.0, open **Updates**, download the release and choose **Restart to apply** |
+| Get updates | Reopen or refresh the site | Open **Updates** beside the language switch, choose **Download and install**, then **Restart to apply**. If an older copy lacks the button, close it, unzip the latest release into a new folder and run `start.cmd` |
 
 In **Ask AI**, select **DeepSeek** or **Qwen** under **Answer service**. Enter your key under **Use your own API key**, then choose **Use this key**. Review the excerpts, confirm and send your question. The browser calls the selected provider directly. Each model request uses your own provider account. The web key is cleared on refresh or when the tab closes. In the Windows edition a key entered here lasts until the reader service exits. You can remove it sooner in the same panel.
 

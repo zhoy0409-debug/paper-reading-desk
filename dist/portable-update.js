@@ -14,7 +14,9 @@
   const panel=document.createElement('details');panel.className='portable-update';
   const summary=document.createElement('summary'),box=document.createElement('div'),status=document.createElement('p'),button=document.createElement('button');
   box.className='portable-update-box';status.setAttribute('role','status');button.type='button';
-  box.append(status,button);panel.append(summary,box);header.insertBefore(panel,header.querySelector('[data-language-switch]'));
+  box.append(status,button);panel.append(summary,box);
+  const languages=header.querySelector('[data-language-switch]');
+  if(languages)languages.before(panel);else header.append(panel);
   const phases={
     idle:['检查更新','Check for updates'],checking:['正在检查新版…','Checking for updates…'],
     current:['已是最新版','Up to date'],available:['有新版本','Update available'],

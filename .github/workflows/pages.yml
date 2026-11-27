@@ -14,6 +14,7 @@ on:
       - 'tests/caption-flow.cjs'
       - 'tests/subject-glossary-browser.cjs'
       - 'tests/translation-transfer.mjs'
+      - 'tests/portable-update-browser.cjs'
       - 'tests/paper-map-browser.cjs'
       - 'tests/tour-media.py'
       - 'tests/fixtures/tour-scenes.json'
@@ -87,6 +88,7 @@ jobs:
           python3 tests/tour-media.py
           node tests/paper-map-browser.cjs http://127.0.0.1:8174/read/
           node tests/subject-glossary-browser.cjs http://127.0.0.1:8174/read/
+          node tests/portable-update-browser.cjs http://127.0.0.1:8174/read/
           node tests/panel-evidence.cjs
           node tests/figure-elements.cjs
           node tests/public-search.cjs

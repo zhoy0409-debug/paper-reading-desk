@@ -43,7 +43,10 @@
       if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();list[(at+(e.key==='ArrowDown'?1:-1)+list.length)%list.length].focus()}
     });
     document.body.append(helpMenu);
-    right.append(basket,menu,help,languages);
+    right.append(basket,menu,help);
+    const updates=top.querySelector('.portable-update');
+    if(updates)right.append(updates);
+    right.append(languages);
     top.append(back,crumbs,views,right);
 
     const drawer=el('aside','st-drawer');drawer.setAttribute('aria-label','论文与工具 / Paper and tools');drawer.tabIndex=-1;drawer.inert=true;
