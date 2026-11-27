@@ -585,9 +585,10 @@ function pairedCrop(cap,lines,objects,viewport,otherCaptions){
 function normalized(rect,region){
  return {x:(rect.x0-region.x0)/w(region),y:(rect.y0-region.y0)/h(region),width:w(rect)/w(region),height:h(rect)/h(region)};
 }
+const journalIssueLine=/\bvol(?:ume)?\.?\s*\d+\s*[,·|]\s*(?:no\.?|issue)\s*\d+|第\s*\d+\s*卷\s*[,，·]?\s*第\s*\d+\s*期/i;
 function cleanTitle(meta){
  const title=norm(meta?.metadata?.get?.('dc:title')||meta?.info?.Title||'');
- if(title.length<6||title.length>250||/^(?:untitled|document|manuscript|microsoft word)$/i.test(title)||/\.pdf$/i.test(title))return '';
+ if(title.length<6||title.length>250||journalIssueLine.test(title)||/^(?:untitled|document|manuscript|microsoft word)$/i.test(title)||/\.pdf$/i.test(title))return '';
  return title;
 }
 function toPNG(canvas){
@@ -665,7 +666,8 @@ async function scan(file,options={}){
     }
     if(pg===1&&!documentTitle){
      const pool=lines.filter(l=>l.y0>viewport.height*.035&&l.y0<viewport.height*.42&&
-      l.text.length>16&&l.text.length<210&&!/https?:|@|doi:|copyright|journal of|submitted/i.test(l.text));
+      (l.text.length>16||(l.text.match(/\p{Script=Han}/gu)||[]).length>=8)&&l.text.length<210&&
+      !journalIssueLine.test(l.text)&&!/https?:|@|doi:|copyright|journal of|submitted/i.test(l.text));
      pool.sort((a,b)=>b.size-a.size||a.y0-b.y0);
      if(pool.length){
       const first=pool[0], parts=[first.text];

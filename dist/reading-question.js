@@ -7,6 +7,7 @@
   const terms=s=>new Set((s.toLowerCase().match(/[a-z][a-z0-9-]{2,}/g)||[]).filter(w=>! /^(the|and|how|for|with|study|using|effect|role|from|this|that|different|what|between|evidence)$/.test(w)));
   const overlap=(a,b)=>[...terms(a)].filter(t=>terms(b).has(t)).length;
   const lower=s=>/^[A-Z][a-z]+\s+[A-Z][a-z]+(?:\s|$)/.test(s)?s.replace(/\b[A-Z][a-z]+\b/g,w=>w.toLowerCase()):s;
+  const midSentence=s=>s.replace(/^(?:A|An|The|Single|Image|Optical|Thermal|Clinical|Cellular|Neuronal|Pharyngeal|Molecular|Structural|Physical|Mechanical)\b/,w=>w.toLowerCase());
   const verbs={instructs:'instruct',drives:'drive',mediates:'mediate',influences:'influence',affects:'affect',shapes:'shape',
     regulates:'regulate',controls:'control',modulates:'modulate',promotes:'promote',supports:'support',inhibits:'inhibit',governs:'govern',predicts:'predict'};
   function direct(clause){
@@ -22,12 +23,22 @@
     if(/[?？]$/.test(t)&&t.length>14&&t.length<=220&&!/^(?:(?:how|why) (?:does|is) (?:this|it) (?:work|possible)|这是为什么)[?？]$/i.test(t))return t;
     let m;
     if(han(t)){
-      const c=t.replace(/^(?:本研究|本文|我们)(?:旨在|的目的在于|探讨|考察|检验|比较|评估|研究了)\s*/,'');
+      const c=t.replace(/^(?:本研究|本文|我们)(?:的(?:主要)?目的(?:是|在于)|旨在|试图)?(?:探讨|阐明|考察|检验|比较|评估|明确|研究了)?\s*/,'');
+      if(/如何|为何|为什么|能否|是否/.test(c))return c.replace(/[？?]$/,'')+'？';
+      if(m=c.match(/^(.+?)对(.+?)的(?:作用|影响)机制(?:研究|分析)?$/))return m[1]+'通过什么机制作用于'+m[2]+'？';
+      if(m=c.match(/^(.+?)在(.+?)中的(?:作用机制|机制)(?:研究|分析)?$/))return m[1]+'在'+m[2]+'中通过什么机制发挥作用？';
+      if(m=c.match(/^(.{2,28}?(?:法|模型))研究(.+的.+)$/))return '用'+m[1]+'能怎样描述'+m[2]+'？';
       if(m=c.match(/^(.+?)对(.+?)的(?:影响|作用|效果)(?:研究|分析)?$/))return m[1]+'对'+m[2]+'有何影响？';
-      if(m=c.match(/^(.+?)在(.+?)中的(?:作用|机制)(?:研究)?$/))return m[1]+'在'+m[2]+'中起什么作用？';
+      if(m=c.match(/^(.+?)在(.+?)中的作用(?:研究)?$/))return m[1]+'在'+m[2]+'中起什么作用？';
       if(m=c.match(/^(.+?)(?:与|和)(.+?)的(?:关系|关联|相关性)(?:研究|分析)?$/))return m[1]+'与'+m[2]+'有何关联？';
-      if(/如何|为何|为什么|能否|是否/.test(c)&&c!==t)return c+'？';
       return '';
+    }
+    if(m=t.match(/^(.+?) (?:under|over)estimat(?:e|es|ed) (.+?) (?:compared (?:with|to)|relative to) (.+)$/i))
+      return 'How do '+midSentence(m[1])+' and '+m[3]+' compare when estimating '+m[2]+'?';
+    if(m=t.match(/^(?:(.{2,70}?) )?mechanisms? (governing|underlying|driving|regulating|mediating) (.+)$/i)){
+      const verb={governing:'govern',underlying:'underlie',driving:'drive',regulating:'regulate',mediating:'mediate'}[m[2].toLowerCase()];
+      const qualifier=m[1]?midSentence(m[1])+' ':'';
+      return 'What '+qualifier+'mechanisms '+verb+' '+m[3]+'?';
     }
     if(m=t.match(/^(?:the )?(?:effects?|efficacy|impact|influence) of (.+?) (?:on|against) (.+)$/i))return 'What effect does '+m[1]+' have on '+m[2]+'?';
     if(m=t.match(/^(?:the )?(?:association|relationship|correlation) between (.+?) and (.+)$/i))return 'What is the association between '+m[1]+' and '+m[2]+'?';

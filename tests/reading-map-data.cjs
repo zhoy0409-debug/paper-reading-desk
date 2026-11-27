@@ -128,6 +128,10 @@ assert.equal(central('The effect of daylight on sleep duration').text,'What effe
 assert.equal(central('Association between daylight exposure and sleep duration').text,'What is the association between daylight exposure and sleep duration?');
 assert.equal(central('Optical detection','We compared red sensors with blue sensors under low light.').text,'How do red sensors and blue sensors compare under low light?');
 assert.equal(central('Sensitivity to light','We investigate why light affects silicon but not glass.').text,'Why does light affect silicon but not glass?');
+assert.equal(central('Optical mechanisms governing colour perception').text,'What optical mechanisms govern colour perception?');
+assert.equal(central('Image sensors underestimate peak intensity compared to photon counters').text,'How do image sensors and photon counters compare when estimating peak intensity?');
+assert.equal(central('物理学实验','本研究旨在探讨光照对材料电阻的作用机制。').text,'光照通过什么机制作用于材料电阻？');
+assert.equal(central('积分法研究光束的近场分布').text,'用积分法能怎样描述光束的近场分布？');
 assert.equal(central('Predicting electricity demand using temperature readings').text,'Can temperature readings predict electricity demand?');
 assert.equal(central('两种材料的光学性质','本研究探讨光照对聚合物薄膜的影响。').text,'光照对聚合物薄膜有何影响？');
 assert(Q.resolve({title:'Report 032',rows:[]}).unresolved);

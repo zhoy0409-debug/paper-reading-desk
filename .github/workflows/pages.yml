@@ -57,7 +57,14 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.65.1
           export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
-          node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium webkit
+          # The browser libraries and FFmpeg come from Ubuntu's signed archives.
+          mkdir -p "$RUNNER_TEMP/reader-apt-sources"
+          for source in /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.list; do
+            if [ -f "$source" ]; then cp "$source" "$RUNNER_TEMP/reader-apt-sources/"; fi
+          done
+          printf 'Dir::Etc::sourceparts "%s";\nAcquire::Retries "3";\n' "$RUNNER_TEMP/reader-apt-sources" > "$RUNNER_TEMP/reader-apt.conf"
+          sudo env APT_CONFIG="$RUNNER_TEMP/reader-apt.conf" "$(command -v node)" "$NODE_PATH/playwright-core/cli.js" install-deps chromium webkit
+          node "$NODE_PATH/playwright-core/cli.js" install chromium webkit
           python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
           server_pid=$!
           openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj '/CN=localhost' -addext 'subjectAltName=IP:127.0.0.1,DNS:localhost' -keyout "$RUNNER_TEMP/reader.key" -out "$RUNNER_TEMP/reader.crt" 2>/dev/null
@@ -68,8 +75,7 @@ jobs:
           node tests/reading-map-data.cjs
           node tests/map-language.mjs
           if ! command -v ffmpeg >/dev/null; then
-            sudo apt-get update -qq
-            sudo apt-get install -y ffmpeg
+            sudo apt-get -c "$RUNNER_TEMP/reader-apt.conf" install -y ffmpeg
           fi
           python3 tests/tour-media.py
           node tests/paper-map-browser.cjs http://127.0.0.1:8174/read/

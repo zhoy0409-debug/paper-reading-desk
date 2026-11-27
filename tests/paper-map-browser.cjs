@@ -1,4 +1,4 @@
-// Upload the published JMLR PDF and, when supplied, the original Neuron paper and Frontiers review.
+// Upload original papers. READER_MAP_CORPUS can point to the downloaded journal-layout PDFs.
 const assert=require('node:assert/strict');
 const path=require('node:path');
 const {chromium}=require('playwright-core');
@@ -13,12 +13,26 @@ const samples=[
   {file:abaucin,title:'Conformational hijacking of lipoprotein transporter LolDF enables precision antimicrobial activity against Acinetobacter baumannii',
     aim:/abaucin|LolDF/i,figure:1,question:/abaucin.*LolDF.*A\. baumannii.*E\. coli.*susceptible\?/i,zh:/Abaucin.*LolDF.*鲍曼不动杆菌.*受测大肠杆菌.*？/}
 ].filter(s=>s.file);
+if(process.env.READER_MAP_CORPUS){
+  const corpus=[
+    ['PMC11634064',/pharyngeal neuronal mechanisms.*sour taste.*Drosophila melanogaster\?/i],
+    ['PMC11704610',/single-cell RNA sequencing algorithms.*single-molecule RNA imaging.*estimating changes in transcriptional noise\?/i],
+    ['PMC11660854',/effect.*active break intervention.*nonspecific low back pain among young people\?/i],
+    ['aps-beam',/用虚源法.*广义抛物光束的近场传输？/,'zh'],
+    ['PMC11686177',/polymer membrane.*improve hole extraction and ion blocking.*solar cells\?/i],
+    ['PMC8692484',/optical coherence tomography.*monitor.*ablation/i],
+    ['PMC8692591',/activity patterns.*predict changes in glycemic control.*prediabetes\?/i]
+  ];
+  for(const [id,question,lang='en'] of corpus){
+    samples.push({file:path.join(process.env.READER_MAP_CORPUS,id+'.pdf'),figure:1,question,lang,corpus:id});
+  }
+}
 
 async function check(browser,sample){
   const page=await browser.newPage({viewport:{width:1600,height:1000}});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   try{
-    await page.goto(new URL('?lang=en',url).href);
+    await page.goto(new URL('?lang='+(sample.lang||'en'),url).href);
     await page.addLocatorHandler(page.locator('.gd-skip:visible'),b=>b.click());
     await page.locator('input[id$="-main"]').first().setInputFiles(sample.file);
     await page.locator('.lens-cell[data-figure^="F:'+sample.figure+'@"]').first().click({timeout:120000});
@@ -27,6 +41,16 @@ async function check(browser,sample){
     await root.waitFor();
     const original=await root.innerText();
     assert.match(original,sample.question);
+    if(sample.corpus){
+      const title=await page.locator('.st-crumbs .st-paper').innerText();
+      if(sample.lang==='zh')assert.equal(title,'虚源法研究广义抛物光束的近场传输');
+      const source=page.locator('[data-map-root] .mm-page').first();
+      await source.focus();await source.press('Enter');
+      await page.locator('.compare-mark:visible').waitFor({timeout:15000});
+      assert.deepEqual(errors,[]);
+      console.log(JSON.stringify({paper:sample.corpus,question:original,source:await source.textContent()}));
+      return;
+    }
     assert.equal((await page.locator('.st-crumbs .st-paper').innerText()).replace(/[‐‑–—]/g,'-'),sample.title);
     assert.notEqual(original,sample.title);
     const coreLinks=page.locator('[data-map-root] .mm-page');
