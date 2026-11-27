@@ -11,6 +11,8 @@ on:
       - 'tests/reading-map-data.cjs'
       - 'tests/map-language.mjs'
       - 'tests/scientific-translation.mjs'
+      - 'tests/selection-engine-browser.cjs'
+      - 'tests/fixtures/translation-selection.pdf'
       - 'tests/caption-flow.cjs'
       - 'tests/subject-glossary-browser.cjs'
       - 'tests/translation-transfer.mjs'
@@ -82,6 +84,8 @@ jobs:
           node tests/caption-flow.cjs
           node tests/scientific-translation.mjs
           node tests/translation-transfer.mjs
+          node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/
+          READER_BROWSER=webkit node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/ --healthy
           if ! command -v ffmpeg >/dev/null; then
             sudo apt-get -c "$RUNNER_TEMP/reader-apt.conf" install -y ffmpeg
           fi

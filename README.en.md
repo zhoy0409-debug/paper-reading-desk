@@ -64,7 +64,7 @@ On desktop, the paper outline, original figure and explanation share one screen.
 
 ![The JMLR paper’s central question, background and two objectives with their original page numbers](docs/guide/studio-map-en.webp)
 
-The map links background, prior findings, open questions and aims to the pages that support them. Select an English caption and choose **Translate to Chinese**. Expand the source to compare the wording, identifiers and numbers.
+The map links background, prior findings, open questions and aims to the pages that support them. Select an English caption and choose **Translate to Chinese**. Expand the source to compare the wording, identifiers and numbers. If a model download or source check fails, the popup keeps your passage and lets you retry it in place. [See the verification results](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/selection-translation-0.4.18.md).
 
 ![An English figure caption translated into Chinese, with the original text one click away](docs/guide/selection-zh.webp)
 

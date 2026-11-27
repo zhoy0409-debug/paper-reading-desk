@@ -21,6 +21,8 @@ Preparing a journal club talk? Open a paper, click a figure label to see what it
 
 **Reading in Chinese?** The upload screen suggests a subject glossary. You can choose another field or add your own terms. The glossaries distinguish a drug’s delivery vehicle from a vehicle in a traffic study. If one map entry fails to translate, use its retry button to continue where you were.
 
+To translate a passage, select the English text and choose **Translate to Chinese**. Expand the original to check a compound name, number or figure reference. If a download or a source check fails, the popup explains why and lets you retry that selection.
+
 <a name="ask-questions"></a>
 
 For questions about a method or a group, start with the paper’s own caption and text. You can also search the literature or enter your own DeepSeek or Qwen API key to ask a model inside the reader. Confirming a model request uses your own provider account.
@@ -51,6 +53,8 @@ The web address stays the same as updates are published. On Windows, unzip the p
 [看这篇论文的研究目的](docs/guide/studio-map-zh.webp) · [看图 8 和支持它的原文证据](docs/guide/studio-map-figure-zh.webp)
 
 **同一个词，在你的专业里怎么译？** 上传时可自动识别学科，也可手选或补充自己的术语。药物实验里的 *vehicle control* 译为「溶媒对照」。脑图里遇到某条中文没加载出来，点它旁边的「重试此处」，就能留在原位置继续读。
+
+划选一段英文，点「译为中文」，可展开原文核对化合物名称、数字和图号。遇到下载中断或译文核对失败，弹框会说明原因，可在原处只重试这段文字。
 
 <a name="怎么提问"></a>
 

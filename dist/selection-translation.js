@@ -43,7 +43,7 @@ definition.className = 'rq-term-definition'; definition.hidden = true;
 popup.append(actions, definition, output, notice, original);
 document.body.append(popup);
 
-let selected = '', source = '', request = 0, ignore = false, timer;
+let selected = '', source = '', request = 0, timer;
 let activeRange, frame, settle;
 // A gloss is keyed to the verified expansion, since the same initials can mean different things.
 const glosses = new Map([
@@ -93,7 +93,6 @@ function hide() {
   popup.hidden = true;
   selected = ''; definition.replaceChildren(); definition.hidden = true;
   activeRange = null;
-  ignore = false;
   request++;
   output.textContent = '';
   notice.hidden = original.hidden = true;
@@ -181,12 +180,33 @@ function schedulePlace() {
   cancelAnimationFrame(frame);
   frame = requestAnimationFrame(place);
 }
+function selectedText(selection){
+  const range=selection.getRangeAt(0);
+  const excerpt=node=>(node.nodeType===1?node:node.parentElement)?.closest('.pl-excerpt > blockquote');
+  const first=excerpt(range.startContainer),last=excerpt(range.endContainer);
+  if(!first||!last||first===last||first.parentElement.parentElement!==last.parentElement.parentElement)
+    return selection.toString().trim();
+  // The source index displays each PDF line next to its own page link. Only
+  // the intersecting source text belongs to a multi-line selection.
+  const lines=[];
+  for(let item=first.parentElement;item;item=item.nextElementSibling){
+    const quote=item.querySelector(':scope > blockquote');
+    if(!quote)continue;
+    const part=range.cloneRange();
+    part.selectNodeContents(quote);
+    if(quote===first)part.setStart(range.startContainer,range.startOffset);
+    if(quote===last)part.setEnd(range.endContainer,range.endOffset);
+    lines.push(part.toString());
+    if(quote===last)break;
+  }
+  return lines.join('\n').trim();
+}
 function update() {
   const selection = getSelection(), node = selection?.anchorNode;
-  if (ignore || popup.contains(node)) return;
+  if (popup.contains(node)) return;
   if (selection?.isCollapsed && popup.contains(document.activeElement)) return;
-  const value = selection?.toString().trim();
-  if (!value || !selection.rangeCount || !/[a-z\p{Script=Han}]/iu.test(value)) {hide(); return}
+  const value = selection?.rangeCount && selectedText(selection);
+  if (!value || !/[a-z\p{Script=Han}]/iu.test(value)) {hide(); return}
   const anchor = node?.nodeType === 1 ? node : node?.parentElement;
   if(anchor?.closest('.english-practice') || document.querySelector('.english-practice[open]')){hide();return;}
   listen.hidden=!/[a-z]/i.test(value) || /\p{Script=Han}/u.test(value) || value.length>900;
@@ -196,6 +216,10 @@ function update() {
   if (value !== selected) {
     request++;
     output.textContent = '';
+    output.removeAttribute('lang');
+    delete output.dataset.sourceText;
+    delete popup.dataset.translationStage;
+    delete popup.dataset.translationState;
     run.disabled = false;
     original.hidden = notice.hidden = true;
     original.open = false;
@@ -205,18 +229,33 @@ function update() {
   showDefinition(anchor, value);
   selected = value;
   source = /\p{Script=Han}/u.test(value) ? 'zh' : 'en';
-  if (!run.disabled) translateLabel(source === 'en' ? '译为中文' : '译为英文', source === 'en' ? 'Translate to Chinese' : 'Translate to English');
+  if (!run.disabled && popup.dataset.translationState!=='error') translateLabel(source === 'en' ? '译为中文' : '译为英文', source === 'en' ? 'Translate to Chinese' : 'Translate to English');
   popup.hidden = false;
   place();
   clearTimeout(settle);
   settle = setTimeout(schedulePlace, 350);
 }
 
+const failures={
+  model:['翻译模型配置不完整或模型加载失败。','The translation model is missing or could not be loaded.'],
+  download:['翻译资源下载失败。请检查网络，然后重试此选段。','A translation resource could not be downloaded. Check your connection and retry this selection.'],
+  integrity:['翻译资源未通过 SHA-256 校验。请重试此选段。','A translation file could not be verified with SHA-256. Retry this selection.'],
+  worker:['翻译 Worker 或 WASM 初始化失败。请重试此选段。','The translation Worker or WASM runtime could not start. Retry this selection.'],
+  timeout:['此选段翻译超时，可单独重试。','Translation timed out. Retry this selection.'],
+  empty:['翻译引擎没有返回译文，可单独重试。','The translation engine returned no text. Retry this selection.'],
+  facts:['译文中的数值、单位、图号或标识符与原文不一致。','A number, unit, figure reference or identifier differs from the selection.'],
+  terms:['译文中的专业名称未能与原文对应。','A scientific term could not be matched to the selection.'],
+  validation:['译文未通过原文核对，可单独重试。','The translation did not pass the source checks. Retry this selection.'],
+  translate:['翻译引擎处理此选段时出错，可单独重试。','The engine could not translate this selection. Retry this selection.']
+};
 async function translate(){
   if(!selected||run.disabled)return;
   const id=++request,text=selected,from=source;
   if(text.length>8000){PaperUI.set(output,'每次最多选择 8000 个字符。','Select up to 8,000 characters at a time.');return}
-  ignore=true;delete output.dataset.sourceText;run.disabled=true;PaperUI.set(output,'正在本机翻译…','Translating on this device…');
+  delete popup.dataset.translationStage;popup.dataset.translationState='pending';
+  delete output.dataset.sourceText;output.removeAttribute('lang');run.disabled=true;
+  quote.textContent=text;original.hidden=false;notice.hidden=true;
+  PaperUI.set(output,'正在本机翻译…','Translating on this device…');
   try{
     const anchor=activeRange?.startContainer.parentElement;
     const context=EnglishPractice.selectionSentence(anchor,text)||anchor?.textContent||'';
@@ -224,15 +263,19 @@ async function translate(){
     const result=await selectionTranslation(text,from,PaperLanguageText.translate,{field:PaperLanguageText.field,context});
     if(request!==id)return;
     output.textContent=result.text;output.lang=result.lang;output.dataset.sourceText='';
+    popup.dataset.translationState=result.name?'name':'translated';
     quote.textContent=text;original.hidden=false;notice.hidden=!result.name;
     if(result.name)PaperUI.set(notice,'这个名称在中文文献中保留原拼写。','The name keeps its original spelling in Chinese.');
     translateLabel(result.name?'保留原名':'已翻译',result.name?'Original name':'Translated');
     schedulePlace();
-  }catch{
+  }catch(error){
+    PaperLanguageText.report(error,'selection');
     if(request!==id)return;
-    run.disabled=false;ignore=false;
+    run.disabled=false;popup.dataset.translationState='error';
+    popup.dataset.translationStage=error.stage||'translate';
     translateLabel('重试翻译','Retry translation');
-    PaperUI.set(output,'未能生成可核对的译文，请重试。','Could not verify the translation. Please retry.');
+    const key=error.stage==='validation'&&['facts','terms'].includes(error.reason)?error.reason:error.stage;
+    PaperUI.set(output,...(failures[key]||failures.translate));
     quote.textContent=text;original.hidden=false;notice.hidden=true;schedulePlace();
   }
 }
@@ -249,7 +292,7 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     e.stopPropagation();
     hide();
-  } else if (e.shiftKey && e.key.startsWith('Arrow')) ignore = false;
+  }
 }, true);
 new ResizeObserver(schedulePlace).observe(popup);
 window.addEventListener('resize', schedulePlace);

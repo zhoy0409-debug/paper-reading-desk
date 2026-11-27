@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {translatePassage,selectionTranslation} from '../dist/scientific-translation.js';
+import {translatePassage,selectionTranslation,normalizeSelection} from '../dist/scientific-translation.js';
 import {fields,resolveField,fieldTerms,customGlossary} from '../dist/discipline-glossary.js';
 const unexpected=()=>{throw Error('A deterministic scientific construction fell through')};
 for(const [source,checks] of [
@@ -67,3 +67,29 @@ const wrong=async ()=>'车辆控制显示稳定的反应。';
 wrong.withTerms=async parts=>'观察到'+parts.find(p=>typeof p!=='string').value+'的反应稳定。';
 assert.match((await selectionTranslation(sentence,'en',wrong,{field:'medicine'})).text,/溶媒对照/);
 console.log('PASS field-specific and personal glossaries, context-dependent abbreviations, and panel readouts.');
+
+assert.equal(normalizeSelection('tri ﬂuoromethyl-\nphenyl, piperi\u00ad\ndine, benzo-\nxazine'),'trifluoromethyl-phenyl, piperidine, benzoxazine');
+assert.equal(normalizeSelection('well-\nknown; T-4; 5–10 µg/mL'),'well-known; T-4; 5–10 µg/mL');
+assert.equal((await selectionTranslation('Abaucin','en',unexpected)).text,'Abaucin');
+for(const output of ['', '   ', null, undefined]){
+  for(const [source,from] of [['A light passed through glass.','en'],['玻璃','zh']])
+    await assert.rejects(selectionTranslation(source,from,async()=>output),e=>e.stage==='empty');
+}
+const concentration='The concentration was 0.25 mg/mL (Fig. 2c).';
+for(const wrong of ['浓度为 0.25 µg/mL（图 2c）。','浓度为 0.25 mg/mL（图 2b）。','浓度为 0.52 mg/mL（图 2c）。']){
+  const rejected=await translatePassage(concentration,'en',async()=>wrong);
+  assert.deepEqual(rejected.issues,['facts']);assert(rejected.warnings.length);
+  assert.match(rejected.text,/0\.25 mg\/mL/);
+}
+const scientific='The chemical groups include piperidine.';
+assert.deepEqual((await translatePassage(scientific,'en',async()=>'这些化学基团包括吡啶。')).issues,['terms']);
+const chemistry=customGlossary('trifluoromethyl-phenyl = 三氟甲基苯基');
+const chemicalGroup='The molecule includes a trifluoromethyl-phenyl group.';
+const aligned=async()=>'该分子含有未识别基团。';
+aligned.withTerms=async parts=>'该分子含有'+parts.find(p=>typeof p==='object').value+'。';
+assert.equal((await selectionTranslation(chemicalGroup,'en',aligned,{field:chemistry})).text,'该分子含有三氟甲基苯基基团。');
+for(const source of ['Figure 2: See glass.','See (Fig. 3b).'])
+  await assert.rejects(selectionTranslation(source,'en',async text=>text),e=>e.stage==='validation');
+const network=Object.assign(new Error('missing file',{cause:new TypeError('fetch failed')}),{stage:'download'});
+await assert.rejects(selectionTranslation('We provide a unified account of climate dynamics.','en',async()=>{throw network}),e=>e===network);
+console.log('PASS empty output, wrong scientific names, mismatched units, figures and quantities, PDF line breaks and original error identity.');

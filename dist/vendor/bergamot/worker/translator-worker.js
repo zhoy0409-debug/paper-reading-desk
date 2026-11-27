@@ -240,22 +240,35 @@ class BergamotTranslatorWorker {
     loadModule() {
         return new Promise(async (resolve, reject) => {
             try {
-                const response = await self.fetch(new URL('./bergamot-translator-worker.wasm', self.location));
+                const url = new URL('./bergamot-translator-worker.wasm', self.location);
+                let response;
+                try {
+                    response = await self.fetch(url);
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                } catch (cause) {
+                    throw Object.assign(new Error('Could not download ' + url, {cause}), {stage:'download'});
+                }
 
                 Object.assign(Module, {
                     instantiateWasm: (info, accept) => {
                         try {
-                            WebAssembly.instantiateStreaming(response, {
+                            const imports = {
                                 ...info,
                                 'wasm_gemm': this.options.useNativeIntGemm
                                     ? this.linkNativeIntGemm(info)
                                     : this.linkFallbackIntGemm(info)
-                            }).then(({instance}) => accept(instance)).catch(reject);
+                            };
+                            const isWasm = response.headers.get('Content-Type')?.split(';')[0].trim() === 'application/wasm';
+                            const compiled = isWasm && WebAssembly.instantiateStreaming
+                                ? WebAssembly.instantiateStreaming(response, imports)
+                                : response.arrayBuffer().then(bytes => WebAssembly.instantiate(bytes, imports));
+                            compiled.then(({instance}) => accept(instance)).catch(reject);
                         } catch (err) {
                             reject(err);
                         }
                         return {};
                     },
+                    onAbort: reason => reject(new Error('Bergamot WASM aborted: ' + reason)),
                     onRuntimeInitialized: () => {
                         resolve(Module);
                     }
@@ -307,6 +320,10 @@ class BergamotTranslatorWorker {
      * }} buffers
      */ 
     loadTranslationModel({from, to}, buffers) {
+        const valid = data => data instanceof ArrayBuffer && data.byteLength > 0;
+        if (!valid(buffers?.model) || !valid(buffers.shortlist) || !Array.isArray(buffers.vocabs)
+                || ![1, 2].includes(buffers.vocabs.length) || !buffers.vocabs.every(valid))
+            throw Object.assign(new Error(`Invalid buffers for ${from}->${to}: expected model, shortlist and vocabulary`), {stage:'model'});
         // This because service_bindings.cpp:prepareVocabsSmartMemories :(
         const uniqueVocabs = buffers.vocabs.filter((vocab, index, vocabs) => {
             return !vocabs.slice(0, index).includes(vocab);
@@ -442,11 +459,17 @@ class BergamotTranslatorWorker {
  *  stack: string?
  * }}
  */
-function cloneError(error) {
+function cloneError(error, seen = new Set()) {
+    if (!error || typeof error !== 'object') return {message:String(error)};
+    if (seen.has(error)) return {message:'Circular error cause'};
+    seen.add(error);
     return {
         name: error.name,
-        message: error.message,
-        stack: error.stack
+        message: error.message || String(error),
+        stack: error.stack,
+        stage: error.stage,
+        reason: error.reason,
+        cause: error.cause === undefined ? undefined : cloneError(error.cause, seen)
     };
 }
 

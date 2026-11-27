@@ -284,7 +284,7 @@
     }
     const keys=q('.lens-key');if(keys&&shell){PaperUI.set(keys,'快捷键','Keyboard shortcuts');keys.classList.add('light');shell.tools.append(keys)}
     const leave=e=>{if(e.target.closest('button'))shell.closeDrawer(false)};
-    shell?.tools.addEventListener('click',leave);
+    shell?.tools.addEventListener('click',leave,true);
 
     const count=q('.basket-count');
     q('.basket-export')?.before(button('basket-story','编辑讲稿','Edit deck',()=>show('story')));
@@ -338,7 +338,7 @@
       show,
       destroy(){
         alive=false;for(const m of watchers)m.disconnect();for(const f of undo)f();
-        shell?.tools.removeEventListener('click',leave);shell?.tools.replaceChildren();
+        shell?.tools.removeEventListener('click',leave,true);shell?.tools.replaceChildren();
         if(bench===mine)bench=null;
         queueMicrotask(()=>shell?.draw());
       }

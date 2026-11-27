@@ -1,3 +1,7 @@
+function translationError(stage, message, cause, reason) {
+    return Object.assign(new Error(message, {cause}), {name:'TranslationError', stage, reason});
+}
+
 /**
  * @typedef {Object} TranslationRequest
  * @property {String} from
@@ -88,6 +92,7 @@ export class CancelledError extends Error {}
          */
         this.buffers = new Map();
         this.fileBuffers = new Map();
+        this.failedFiles = new Set();
 
         /**
          * @type {string?}
@@ -116,7 +121,14 @@ export class CancelledError extends Error {}
      * @return {Promise<{worker:Worker, exports:Proxy<TranslationWorker>}>}
      */
     async loadWorker() {
-        const worker = new Worker(new URL('./worker/translator-worker.js', import.meta.url));
+        const workerUrl = new URL('./worker/translator-worker.js', import.meta.url);
+        workerUrl.search = new URL(import.meta.url).search;
+        let worker;
+        try {
+            worker = new Worker(workerUrl);
+        } catch (cause) {
+            throw translationError('worker', 'Could not start the translation Worker', cause);
+        }
 
         /**
          * Incremental counter to derive request/response ids from.
@@ -129,55 +141,79 @@ export class CancelledError extends Error {}
          */
         const pending = new Map();
         let failure;
+        const fail = error => {
+            if (failure) return;
+            failure = error;
+            for (const request of pending.values()) {
+                clearTimeout(request.timer);
+                request.reject(error);
+            }
+            pending.clear();
+            worker.terminate();
+        };
+        function restore(wire) {
+            if (!wire || typeof wire !== 'object') return wire;
+            const error = Object.assign(new Error(wire.message), wire);
+            if (wire.cause !== undefined) error.cause = restore(wire.cause);
+            return error;
+        }
 
         // Function to send requests
         const call = (name, ...args) => new Promise((accept, reject) => {
             if (failure) { reject(failure); return; }
             const id = ++serial;
+            const translating = name === 'translate';
+            const timeout = translating ? this.options.translationTimeout ?? 120000 : this.options.workerTimeout ?? 150000;
+            const timer = setTimeout(() => fail(translationError(translating ? 'timeout' : 'worker',
+                `Worker ${name} did not respond within ${timeout} ms`)), timeout);
             pending.set(id, {
                 accept,
                 reject,
+                timer,
                 callsite: { // for debugging which call caused the error
-                    message: `${name}(${args.map(arg => String(arg)).join(', ')})`,
+                    message: name,
                     stack: new Error().stack
                 }
             });
-            worker.postMessage({id, name, args});
+            try {
+                worker.postMessage({id, name, args});
+            } catch (cause) {
+                fail(translationError('worker', `Could not send ${name} to the Worker`, cause));
+            }
         });
 
         // … receive responses
         worker.addEventListener('message', function({data: {id, result, error}}) {
-            if (!pending.has(id)) {
-                console.debug('Received message with unknown id:', arguments[0]);
-                throw new Error(`BergamotTranslator received response from worker to unknown call '${id}'`);
-            }
+            if (!pending.has(id)) return;
 
-            const {accept, reject, callsite} = pending.get(id);
+            const {accept, reject, callsite, timer} = pending.get(id);
+            clearTimeout(timer);
             pending.delete(id);
 
-            if (error !== undefined)
-                reject(Object.assign(new Error(), error, {
-                    message: error.message + ` (response to ${callsite.message})`,
-                    stack: error.stack ? `${error.stack}\n${callsite.stack}` : callsite.stack
-                }));
-            else
+            if (error !== undefined) {
+                const cause = restore(error);
+                const stage = cause.stage || ({translate:'translate',loadTranslationModel:'model'}[callsite.message] || 'worker');
+                const wrapped = translationError(stage, `Worker ${callsite.message}: ${cause.message}`, cause, cause.reason);
+                wrapped.stack += '\n' + callsite.stack;
+                reject(wrapped);
+                // An exception in native code can leave this WASM instance unusable.
+                fail(wrapped);
+            } else
                 accept(result);
         });
 
         // … and general errors
         worker.addEventListener('error', event => {
-            failure = new Error(event.message || 'Translation worker failed to load');
-            for (const request of pending.values()) request.reject(failure);
-            pending.clear();
-            this.onerror(failure);
+            fail(translationError('worker', event.message || 'Translation Worker failed', event.error));
         });
+        worker.addEventListener('messageerror', () => fail(translationError('worker', 'Could not decode a Worker response')));
 
         // Await initialisation. This will also nicely error out if the WASM
         // runtime fails to load.
         try {
             await call('initialize', this.options);
         } catch (error) {
-            worker.terminate();
+            if (!failure) worker.terminate();
             throw error;
         }
 
@@ -219,12 +255,33 @@ export class CancelledError extends Error {}
      * }>}
      */
     async loadModelRegistery() {
-        const response = await fetch(this.registryUrl, {credentials: 'omit'});
-        if (!response.ok) throw new Error('Translation model index returned HTTP ' + response.status);
-        const registry = await response.json();
+        let registry;
+        const bytes = await this.fetch(this.registryUrl);
+        try {
+            registry = JSON.parse(new TextDecoder().decode(bytes));
+            if (!registry || Array.isArray(registry) || typeof registry !== 'object' || !Object.keys(registry).length)
+                throw new TypeError('Expected a nonempty model registry');
+        } catch (cause) {
+            throw translationError('model', 'Invalid translation model registry', cause);
+        }
 
         // Add 'from' and 'to' keys for each model.
         return Array.from(Object.entries(registry), ([key, files]) => {
+            if (!files || typeof files !== 'object') throw translationError('model', 'Invalid model entry: ' + key);
+            if (!files.model || !(files.shortlist ?? files.lex) || !(files.vocab || (files.srcvocab && files.trgvocab)))
+                throw translationError('model', 'Missing model, shortlist or vocabulary for ' + key);
+            for (const [part, file] of Object.entries(files)) {
+                if (part === 'config') continue;
+                if (!file?.name || !/^[a-f0-9]{64}$/i.test(file.expectedSha256Hash))
+                    throw translationError('model', `Missing filename or SHA-256 for ${key}/${part}`);
+                // Older shipped indices spell paths relative to the reader. All assets
+                // are beside this manifest, including in subpath and portable installs.
+                try {
+                    file.name = new URL(file.name.replace(/^\.\/vendor\/bergamot\//, ''), this.registryUrl).href;
+                } catch (cause) {
+                    throw translationError('model', 'Invalid model resource URL', cause);
+                }
+            }
             return {
                 from: key.substring(0, 2),
                 to: key.substring(2, 4),
@@ -254,7 +311,7 @@ export class CancelledError extends Error {}
             this.buffers.set(key, promise);
 
             // But if loading fails, remove the promise again so we can try again later
-            promise.catch(err => this.buffers.delete(key))
+            promise.catch(() => { if (this.buffers.get(key) === promise) this.buffers.delete(key); });
         }
 
         return this.buffers.get(key);
@@ -281,16 +338,15 @@ export class CancelledError extends Error {}
         const entries = (await this.registry).filter(model => model.from == from && model.to == to);
 
         if (!entries.length)
-            throw new Error(`No model for '${from}' -> '${to}'`);
+            throw translationError('model', `No model for '${from}' -> '${to}'`);
 
         const files = entries[0].files;
-
         const buffers = Object.fromEntries(await Promise.all(Object.entries(files).map(async ([part, file]) => {
             if (!file?.name) return [part, null];
             try {
                 return [part, await this.fetchModelFile(file, options)];
             } catch (cause) {
-                throw new Error(`Could not fetch ${file.name} for ${from}->${to} model`, {cause});
+                throw translationError(cause.stage || 'download', `Could not load ${part} for ${from}->${to}: ${file.name}`, cause);
             }
         })));
 
@@ -303,7 +359,11 @@ export class CancelledError extends Error {}
         else if (buffers.trgvocab && buffers.srcvocab)
             vocabs = [buffers.srcvocab, buffers.trgvocab]
         else
-            throw new Error(`Could not identify vocab files for ${from}->${to} model among: ${Array.from(Object.keys(files)).join(' ')}`);
+            throw translationError('model', `Missing vocabulary for ${from}->${to}`);
+
+        const shortlist = buffers.shortlist ?? buffers.lex;
+        if (![buffers.model, shortlist, ...vocabs].every(buffer => buffer instanceof ArrayBuffer && buffer.byteLength > 0))
+            throw translationError('model', `Empty model, shortlist or vocabulary for ${from}->${to}`);
 
         let config = {};
 
@@ -325,9 +385,9 @@ export class CancelledError extends Error {}
         // a more descriptive 'shortlist'.
         return {
             model: buffers.model,
-            shortlist: buffers.lex,
+            shortlist,
             vocabs,
-            qualityModel: buffers.qualityModel,
+            qualityModel: buffers.qualityModel ?? null,
             config
         };
     }
@@ -337,10 +397,13 @@ export class CancelledError extends Error {}
         const key = file.expectedSha256Hash;
         if (!key || options?.signal) return this.fetch(file.name, key, options);
         if (!this.fileBuffers.has(key)) {
-            const job = this.fetch(file.name, key, options);
+            const job = this.fetch(file.name, key, this.failedFiles?.has(key) ? {...options, cache:'reload'} : options);
             this.fileBuffers.set(key, job);
-            job.catch(() => {
-                if (this.fileBuffers.get(key) === job) this.fileBuffers.delete(key);
+            job.then(() => this.failedFiles?.delete(key), () => {
+                if (this.fileBuffers.get(key) === job) {
+                    this.fileBuffers.delete(key);
+                    this.failedFiles?.add(key);
+                }
             });
         }
         return this.fileBuffers.get(key);
@@ -374,17 +437,14 @@ export class CancelledError extends Error {}
 
             const options = {
                 credentials: 'omit',
+                cache: extra?.cache || (url === this.registryUrl ? 'no-cache' : 'default'),
                 signal: controller.signal,
             };
 
-            const streaming = checksum && globalThis.crypto?.subtle && typeof TransformStream === 'function';
-            if (checksum && !streaming && typeof window !== 'undefined')
-                options.integrity = 'sha256-' + this.hexToBase64(checksum);
             const response = await fetch(url, options);
             if (!response.ok) throw new Error('Translation resource returned HTTP ' + response.status);
-            if (!streaming) return await response.arrayBuffer();
             let bytes = 0;
-            const chunks = response.body?.pipeThrough(new TransformStream({
+            const chunks = typeof TransformStream === 'function' && response.body?.pipeThrough(new TransformStream({
                 transform: (chunk, output) => {
                     active();
                     bytes += chunk.byteLength;
@@ -393,12 +453,37 @@ export class CancelledError extends Error {}
                 }
             }));
             const data = await (chunks ? new Response(chunks) : response).arrayBuffer();
-            const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
-            if (Array.from(digest, b => b.toString(16).padStart(2, '0')).join('') !== checksum.toLowerCase())
-                throw new Error('Translation resource checksum mismatch');
+            if (checksum && globalThis.crypto?.subtle) {
+                let digest;
+                try {
+                    digest = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
+                } catch (cause) {
+                    throw translationError('integrity', 'Could not compute SHA-256 for ' + url, cause);
+                }
+                if (Array.from(digest, b => b.toString(16).padStart(2, '0')).join('') !== checksum.toLowerCase())
+                    throw translationError('integrity', 'Translation resource checksum mismatch: ' + url);
+            } else if (checksum) {
+                // Some browsers expose fetch integrity but not SubtleCrypto on HTTP.
+                // Verify the bytes already downloaded so a digest fault and a dropped
+                // connection stay distinguishable, without another network request.
+                if (!('integrity' in Request.prototype))
+                    throw translationError('integrity', 'This browser cannot verify model files');
+                const blob = URL.createObjectURL(new Blob([data]));
+                try {
+                    const verified = await fetch(blob, {integrity:'sha256-' + this.hexToBase64(checksum)});
+                    if (!verified.ok) throw new Error('Integrity verification failed');
+                } catch (cause) {
+                    throw translationError('integrity', 'Translation resource checksum mismatch: ' + url, cause);
+                } finally {
+                    URL.revokeObjectURL(blob);
+                }
+            }
             this.onprogress?.(url, data.byteLength, true);
             return data;
 
+        } catch (cause) {
+            if (cause.stage) throw cause;
+            throw translationError('download', `Could not download ${url}: ${cause.message}`, cause);
         } finally {
             if (timeout)
                 clearTimeout(timeout);
@@ -440,8 +525,11 @@ export class CancelledError extends Error {}
         // multiple calls to `getModels` that ask for the same model will
         // return the same promise, and the actual lookup is only done once.
         // The lookup is async because we need to await `this.registry`
-        if (!this.models.has(key))
-            this.models.set(key, this.findModels(from, to));
+        if (!this.models.has(key)) {
+            const lookup = this.findModels(from, to);
+            this.models.set(key, lookup);
+            lookup.catch(() => { if (this.models.get(key) === lookup) this.models.delete(key); });
+        }
 
         return this.models.get(key);
     }
@@ -472,7 +560,7 @@ export class CancelledError extends Error {}
         if (outbound.length && inbound.length)
             return [outbound[0], inbound[0]];
 
-        throw new Error(`No model available to translate from '${from}' to '${to}'`);
+        throw translationError('model', `No model available to translate from '${from}' to '${to}'`);
     }
 }
 
@@ -590,7 +678,7 @@ export class BatchTranslator {
                         for (const batch of this.queue.splice(0))
                             batch.requests.forEach(({reject}) => reject(e));
                     }
-                    this.onerror(new Error(`Could not initialise translation worker: ${e.message}`));
+                    this.onerror(e);
                 }
             }
 
@@ -612,7 +700,6 @@ export class BatchTranslator {
                 batch.requests.forEach(({reject}) => reject(e));
             }
             if (worker.failed?.()) {
-                worker.worker.terminate();
                 this.workers.splice(this.workers.indexOf(worker), 1);
             } else {
                 worker.idle = true;
@@ -750,6 +837,8 @@ export class BatchTranslator {
                 qualityScores: !!qualityScores
             }))
         });
+        if (!Array.isArray(responses) || responses.length !== batch.requests.length)
+            throw translationError('empty', 'Bergamot returned an incomplete translation batch');
 
         // Responses are in! Connect them back to their requests and call their
         // callbacks.

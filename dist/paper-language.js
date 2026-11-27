@@ -9,14 +9,25 @@
       if(!pending){
         const url=new URL(file,base);
         if(attempt)url.searchParams.set('retry',attempt);
-        pending=import(url).catch(error=>{pending=null;attempt++;throw error});
+        pending=import(url).catch(cause=>{
+          pending=null;attempt++;
+          throw Object.assign(new Error('Could not load '+url.pathname,{cause}),{stage:'download'});
+        });
       }
       return pending;
     };
   }
   const glossary=loadModule('discipline-glossary.js?rev=0416');
-  const science=loadModule('scientific-translation.js?rev=reader-0416');
-  const runtime=loadModule('vendor/bergamot/translator.js?rev=0416b');
+  const science=loadModule('scientific-translation.js?rev=0418');
+  const runtime=loadModule('vendor/bergamot/translator.js?rev=0418');
+  const logged=new WeakSet();
+  function report(error,context){
+    if(error instanceof Error){
+      if(logged.has(error))return;
+      logged.add(error);
+    }
+    console.error('[Reading Desk · '+context+' · '+(error?.stage||'translate')+']',error);
+  }
   // Give the first interactive image a head start on the much larger translation model.
   function prioritizeLabels(ready){
     if(engine||labelStartup)return;
@@ -44,7 +55,10 @@
       const active=engine;active.catch(()=>{if(engine===active)engine=null});
     }
     const translator=await engine;
-    return (await translator.translate({from,to:from==='en'?'zh':'en',text,html:false,priority})).target.text;
+    const response=await translator.translate({from,to:from==='en'?'zh':'en',text,html:false,priority});
+    if(typeof response?.target?.text!=='string'||!response.target.text.trim())
+      throw Object.assign(new Error('Bergamot returned no translation'),{stage:'empty'});
+    return response.target.text;
   }
   // Translate the prose in one piece. Restore each protected span only if its
   // placeholder survives exactly once. Some models lose inline HTML alignment.
@@ -58,6 +72,7 @@
     }).join('');
     if(!terms.length)return null;
     let result=await translate(masked,'en',priority);
+    if(parts.some(p=>typeof p==='string'&&/[a-z]{2}/i.test(p))&&!han.test(result))return null;
     for(const [id,value] of terms){
       const pattern=new RegExp('(?<!\\d)'+id+'(?!\\d)','g');
       if((result.match(pattern)||[]).length!==1)return null;
@@ -66,7 +81,7 @@
     return result;
   }
   translate.withTerms=withTerms;
-  const urgent=Object.assign((text,from)=>translate(text,from,-1),{withTerms:parts=>withTerms(parts,-1)});
+  const urgent=Object.assign((text,from,priority=-1)=>translate(text,from,priority),{withTerms:(parts,priority=-1)=>withTerms(parts,priority)});
   const keyFor=source=>(field.key??field)+'\n'+source;
   function chinese(source,retry=false) {
     const key=keyFor(source),profile=field;
@@ -137,7 +152,8 @@
         delete el.dataset.translationRetry;delete el.dataset.sourcePending;
         el.textContent=value;el.lang=/[\u3400-\u9fff]/u.test(value)?'zh-CN':'en';
       }
-    }).catch(()=>{if(current()&&el.isConnected&&ReaderLanguage.current==='zh'){
+    }).catch(error=>{if(current()&&el.isConnected&&ReaderLanguage.current==='zh'){
+      report(error,'paper');
       binding.button?.remove();binding.button=null;
       el.textContent=binding.showSource||el.matches('option')?source:'';
       retryControl(el,binding,'error');
@@ -173,5 +189,5 @@
   }));
   // A discarded document releases its dedicated translation worker. Starting
   // another asynchronous teardown in pagehide can interrupt an active batch.
-  window.PaperLanguageText={bind,clear,translate,chinese,retry,prioritizeLabels,glossary,science,setField,get field(){return field}};
+  window.PaperLanguageText={bind,clear,translate:urgent,report,chinese,retry,prioritizeLabels,glossary,science,setField,get field(){return field}};
 })();
