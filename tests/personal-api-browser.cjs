@@ -17,7 +17,10 @@ async function test() {
     channel:process.env.READER_BROWSER_CHANNEL || (process.platform==='win32' ? 'msedge' : 'chromium')
   });
   try {
-    const context = await browser.newContext(mobile ? {...devices['iPhone 13'],locale:'zh-CN'} : {viewport:{width:1440,height:950}});
+    const context = await browser.newContext({
+      ...(mobile ? {...devices['iPhone 13'],locale:'zh-CN'} : {viewport:{width:1440,height:950}}),
+      ignoreHTTPSErrors:base.protocol==='https:' && ['127.0.0.1','localhost'].includes(base.hostname)
+    });
     const page = await context.newPage();
     page.setDefaultTimeout(12000);
     const calls=[], providerPosts=[], errors=[], leak=[];
@@ -49,6 +52,7 @@ async function test() {
     });
     const url=new URL('?lang='+(zh?'zh':'en'),base);
     await page.goto(url.href);
+    assert(await page.evaluate(()=>window.isSecureContext),'Personal-key acceptance needs a secure browser context');
     await page.addLocatorHandler(page.locator('.gd-layer .gd-skip:visible'),b=>b.click());
     await page.locator('input[id$="-main"]').first().setInputFiles(path.resolve(__dirname,'../dist/media/2007.08902.pdf'));
     await page.locator('.st-explain').first().click({timeout:100000});
@@ -63,7 +67,11 @@ async function test() {
       await provider.selectOption(name);
       await pwd.waitFor();
       await pwd.fill(key[name]);
-      await use.click();
+      if(mobile)await use.tap();else await use.click();
+      const confirmation=setting.getByRole('status');
+      await confirmation.filter({hasText:zh?'Key 已设置':'Key set'}).waitFor().catch(async error=>{
+        throw new Error('Key confirmation was not displayed. Status: '+await confirmation.innerText(),{cause:error});
+      });
       assert.equal(await pwd.inputValue(),'');
       assert.equal(await setting.locator('select').inputValue(),name);
       await question.fill('What does this figure compare?');

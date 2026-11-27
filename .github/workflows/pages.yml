@@ -15,6 +15,7 @@ on:
       - 'tests/journal-layout-browser.cjs'
       - 'tests/public-search.cjs'
       - 'tests/personal-api-browser.cjs'
+      - 'tests/serve-https.py'
       - 'tests/panel-evidence.cjs'
       - 'tests/figure-elements.cjs'
       - 'tests/raster-legend-browser.cjs'
@@ -55,15 +56,19 @@ jobs:
           node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium webkit
           python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
           server_pid=$!
-          trap 'kill "$server_pid"' EXIT
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj '/CN=localhost' -addext 'subjectAltName=IP:127.0.0.1,DNS:localhost' -keyout "$RUNNER_TEMP/reader.key" -out "$RUNNER_TEMP/reader.crt" 2>/dev/null
+          python3 tests/serve-https.py _site 8175 "$RUNNER_TEMP/reader.crt" "$RUNNER_TEMP/reader.key" >"$RUNNER_TEMP/reader-https.log" 2>&1 &
+          tls_pid=$!
+          trap 'kill "$server_pid" "$tls_pid"' EXIT
           curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
           node tests/reading-map-data.cjs
           node tests/map-language.mjs
           node tests/panel-evidence.cjs
           node tests/figure-elements.cjs
           node tests/public-search.cjs
-          node tests/personal-api-browser.cjs http://127.0.0.1:8174/read/
-          DEBUG=pw:browser READER_BROWSER=webkit node tests/personal-api-browser.cjs http://127.0.0.1:8174/read/
+          curl --fail --silent --cacert "$RUNNER_TEMP/reader.crt" --retry 10 --retry-connrefused https://127.0.0.1:8175/read/VERSION
+          node tests/personal-api-browser.cjs https://127.0.0.1:8175/read/
+          READER_BROWSER=webkit node tests/personal-api-browser.cjs https://127.0.0.1:8175/read/
           node tests/cross-page-reader-browser.cjs http://127.0.0.1:8174/read/
           node tests/journal-layout-browser.cjs http://127.0.0.1:8174/read/
           node tests/raster-legend-browser.cjs http://127.0.0.1:8174/read/
