@@ -118,4 +118,4 @@ jobs:
     steps:
       - name: Publish at the permanent Pages address
         id: publish
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
