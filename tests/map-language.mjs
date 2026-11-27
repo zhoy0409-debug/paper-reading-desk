@@ -26,3 +26,8 @@ const translated=await mapChinese(nervous,async()=>'两条佳能通路相交，�
 assert.match(translated,/经典通路发生交叉作用，以协调细胞间通讯/);
 assert.match(await mapChinese('The review identified limited in vivo validation.',async()=>'该综述指出了有限的体内验证。'),/体内验证有限/);
 assert.match(await mapChinese('Conformational hijacking of lipoprotein transporter LolDF enables precision antimicrobial activity against Acinetobacter baumannii',known),/劫持脂蛋白转运蛋白 LolDF 的构象.*鲍曼不动杆菌.*精准抗菌作用/);
+const scope='This review examines how chemokine-mediated signaling cascades intersect with canonical pathways such as JAK/STAT3, NF-kB, PI3K/Akt, and Wnt/b-catenin to coordinate cellular communication within the bone microenvironment.';
+assert.match(await mapChinese(scope,known),/趋化因子介导的信号级联.*JAK\/STAT3、NF-κB、PI3K\/Akt、Wnt\/β-catenin.*经典通路.*骨微环境中的细胞间通讯/);
+assert.match(await mapChinese('This review highlights recent progress in therapeutic strategies targeting chemokine axes to mitigate inflammatory bone loss and promote tissue regeneration.',known),/靶向趋化因子轴.*减轻炎症性骨丢失.*促进组织再生/);
+assert.equal(await mapChinese('What pharyngeal neuronal mechanisms govern sour taste perception in Drosophila melanogaster?',known),'黑腹果蝇的酸味感知受哪些咽部神经元机制调控？');
+assert.match(await mapChinese('How do single-cell RNA sequencing algorithms and single-molecule RNA imaging compare when estimating changes in transcriptional noise?',known),/估计转录噪声的变化.*单细胞 RNA 测序算法.*单分子 RNA 成像.*差异/);

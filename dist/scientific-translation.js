@@ -17,6 +17,10 @@ const terminology=[
   ['attraction','吸引力'],['repulsion','排斥力'],['stroke','卒中'],
   ['distance correlations','距离相关性'],
   ['chemokine signaling networks','趋化因子信号网络'],['skeletal disorders','骨骼疾病'],
+  ['chemokine-mediated signaling cascades','趋化因子介导的信号级联'],['chemokine axes','趋化因子轴'],
+  ['pharyngeal neuronal','咽部神经元'],['sour taste perception','酸味感知'],['Drosophila melanogaster','黑腹果蝇'],
+  ['single-cell RNA sequencing algorithms','单细胞 RNA 测序算法'],['single-molecule RNA imaging','单分子 RNA 成像'],
+  ['changes in transcriptional noise','转录噪声的变化'],
   ['osteogenesis','成骨作用'],['osteoclastogenesis','破骨细胞形成'],['osteoporosis','骨质疏松症'],['osteoarthritis','骨关节炎'],
   ['osteoblasts','成骨细胞'],['osteoclasts','破骨细胞'],['bone resorption','骨吸收'],['bone remodeling','骨重塑'],
   ['skeletal homeostasis','骨稳态'],['bone homeostasis','骨稳态'],['bone microenvironment','骨微环境'],
@@ -183,6 +187,20 @@ async function academicAim(s,translate){
   const spaced=text=>/^[a-z\d]/i.test(text)?' '+text:text;
   const mechanism=s.match(/^Conformational hijacking of (.+?) ([A-Z][A-Za-z\d-]+) enables (.+?) against\s*([A-Z][a-z.]+ [a-z]+)[.]?$/i);
   if(mechanism)return '通过劫持'+(await phrase(mechanism[1]))+' '+mechanism[2]+' 的构象，实现对'+(await phrase(mechanism[4]))+'的'+(await phrase(mechanism[3]))+'。';
+  const regulation=s.match(/^What (.+?) mechanisms govern (.+?) in (.+?)\?$/i);
+  if(regulation)return (await phrase(regulation[3]))+'的'+(await phrase(regulation[2]))+'受哪些'+(await phrase(regulation[1]))+'机制调控？';
+  const estimate=s.match(/^How do (.+?) and (.+?) compare when estimating (.+?)\?$/i);
+  if(estimate)return '在估计'+(await phrase(estimate[3]))+'时，'+(await phrase(estimate[1]))+'与'+(await phrase(estimate[2]))+'的结果有何差异？';
+  const crosstalk=s.match(/^This review (?:examines how|synthesi[sz]es current insights into how) (.+?) intersects? with (.+?) such as (.+?) to coordinate (.+?) (?:within|in) (?:the )?(.+?)\.$/i);
+  if(crosstalk){
+    const [,signal,networks,examples,process,setting]=crosstalk;
+    const list=examples.split(/,\s*(?:and\s+)?|\s+and\s+/i);
+    if(list.every(name=>/^[A-Za-zΑ-ω0-9][\wΑ-ω./-]*$/u.test(name))){
+      return '本综述探讨'+(await phrase(signal))+'如何与 '+list.join('、')+' 等'+(await phrase(networks))+'相互作用，从而协调'+(await phrase(setting))+'中的'+(await phrase(process))+'。';
+    }
+  }
+  const therapy=s.match(/^This review highlights recent (?:progress|advances) in therapeutic strategies targeting (.+?) to (?:mitigate|reduce) (.+?) and promote ([^,;:.]+)\.$/i);
+  if(therapy)return '本综述梳理了靶向'+(await phrase(therapy[1]))+'的治疗策略在减轻'+(await phrase(therapy[2]))+'和促进'+(await phrase(therapy[3]))+'方面的最新进展。';
   const compared=s.match(/^We compared (.+?) embeddings and (.+?) embeddings using (.+?) across values of ([A-Za-zα-ωΑ-Ω]+)\.$/i);
   if(compared)return '在不同的 '+compared[4]+' 取值下，用'+(await phrase(compared[3]))+'比较 '+compared[1].replace(/\s*&\s*/g,'、')+' 的嵌入结果与 '+compared[2]+' 的嵌入结果。';
   const balance=s.match(/^How does the balance between (.+?) and (.+?) shape (.+?)\?$/i);
