@@ -33,6 +33,7 @@ on:
       - 'tests/journal-layout-browser.cjs'
       - 'tests/public-search.cjs'
       - 'tests/personal-api-browser.cjs'
+      - 'tests/personal-api-fixture.cjs'
       - 'tests/serve-https.py'
       - 'tests/panel-evidence.cjs'
       - 'tests/figure-elements.cjs'
@@ -84,6 +85,7 @@ jobs:
           python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
           server_pid=$!
           openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj '/CN=localhost' -addext 'subjectAltName=IP:127.0.0.1,DNS:localhost' -keyout "$RUNNER_TEMP/reader.key" -out "$RUNNER_TEMP/reader.crt" 2>/dev/null
+          export READER_TEST_CERT="$RUNNER_TEMP/reader.crt" READER_TEST_KEY="$RUNNER_TEMP/reader.key"
           python3 tests/serve-https.py _site 8175 "$RUNNER_TEMP/reader.crt" "$RUNNER_TEMP/reader.key" >"$RUNNER_TEMP/reader-https.log" 2>&1 &
           tls_pid=$!
           trap 'kill "$server_pid" "$tls_pid"' EXIT
