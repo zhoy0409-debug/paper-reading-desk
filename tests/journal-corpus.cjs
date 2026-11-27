@@ -43,6 +43,8 @@ async function audit(browser, ref) {
       window.PaperReadingEvidence = {...api, enrich(...args) {
         const result = api.enrich(...args);
         window.corpusModel = args[1];
+        window.corpusSession = args[2];
+        window.corpusRows = args[0].model.rows;
         return result;
       }};
     });
@@ -56,6 +58,24 @@ async function audit(browser, ref) {
     const extra = figures.filter(f => !expected.has(f.number)).map(f => f.number);
     const duplicate = figures.filter((f,i) => figures.some((g,j) => j<i && g.number===f.number)).map(f => f.number);
     const checks = [];
+    const bodyByFigure = await page.evaluate(async () => {
+      const compact = s => String(s).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+      const pageText = new Map();
+      for (const row of corpusRows) pageText.set(row.page,(pageText.get(row.page)||'')+compact(row.text));
+      const evidence = {};
+      for (const f of corpusModel.figures) {
+        const results = [];
+        for (const h of f.authorPassages || []) {
+          const quote=compact(h.text);
+          const present=quote.length>12&&pageText.get(h.page)?.includes(quote);
+          const line=await corpusSession.locateExcerpt(h.page,h.text);
+          results.push({page:h.page,quoted:!!present,highlighted:!!line,
+            citesFigure:PaperLiterature.figureMentions(h.text).includes(f.matchKey)});
+        }
+        evidence[f.id]=results;
+      }
+      return evidence;
+    });
     for (const target of ref.figures) {
       const actual = figures.find(f => f.number === target.n);
       const row = {number: target.n, found: !!actual, mode: actual ? (actual.box?'crop':'page') : null,
@@ -64,7 +84,7 @@ async function audit(browser, ref) {
         captionPage: target.cp ? actual?.captionPage === target.cp : null,
         imagePage: target.image ? actual?.page === target.image.page : null,
         crop: target.image ? actual?.page === target.image.page && covers(actual?.box,target.image.box) : null,
-        reading: false};
+        reading: false, bodyPassages: bodyByFigure[actual?.key]||[]};
       checks.push(row);
       if (!actual) continue;
       const tile = page.locator('.lens-cell[data-figure="'+actual.key+'"]').first();
@@ -107,9 +127,13 @@ async function audit(browser, ref) {
     counts[key] = [values.filter(Boolean).length,values.length];
   }
   const total = key => results.reduce((n,r) => n+(r[key]?.length || 0),0);
-  const summary = {papers:results.length, numbered:counts, extra:total('extra'), duplicates:total('duplicate'), pageErrors:total('errors')};
+  const passages=results.flatMap(r=>(r.checks||[]).flatMap(c=>c.bodyPassages));
+  const summary = {papers:results.length, numbered:counts, extra:total('extra'), duplicates:total('duplicate'), pageErrors:total('errors'),
+    body:{figures:results.flatMap(r=>r.checks||[]).filter(c=>c.bodyPassages.length).length, passages:passages.length,
+      quoted:passages.filter(p=>p.quoted).length, cited:passages.filter(p=>p.citesFigure).length, highlighted:passages.filter(p=>p.highlighted).length}};
   fs.writeFileSync(reportFile, JSON.stringify({summary,results},null,2)+'\n');
   console.log(summary);
   if (results.some(r => r.error || r.errors?.length) ||
-    options.includes('--strict') && (summary.extra || summary.duplicates || Object.values(counts).some(([a,b]) => a!==b))) process.exitCode=1;
+    options.includes('--strict') && (summary.extra || summary.duplicates || Object.values(counts).some(([a,b]) => a!==b) ||
+      passages.some(p=>!p.quoted||!p.citesFigure||!p.highlighted))) process.exitCode=1;
 })().catch(e => {console.error(e);process.exitCode=1;});

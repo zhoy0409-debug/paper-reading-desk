@@ -4,6 +4,10 @@ global.window = global;
 require('../dist/literature-reader.js');
 assert.deepEqual(PaperLiterature.figureMentions('Figures 3A, 3B and S4C.'),['F:3','F:3A','F:3B','F:S4','F:S4C']);
 assert.deepEqual(PaperLiterature.figureMentions('Extended Data Fig. 3 and Supplemental Fig. 30A.'),['F:ED3','F:S30','F:S30A']);
+assert.deepEqual(PaperLiterature.figureMentions('Fig. 3A–C and E.'),['F:3','F:3A','F:3B','F:3C','F:3E']);
+assert.deepEqual(PaperLiterature.figureMentions('Figs. 2–4 and S1–S3.'),['F:2','F:3','F:4','F:S1','F:S2','F:S3']);
+assert(PaperLiterature.inFigureScope('Fig. 3A–C and E.','F:3','b'));
+assert(!PaperLiterature.inFigureScope('Fig. 3A–C and E.','F:3','d'));
 require('../dist/panel-reading.js');
 require('../dist/panel-labels.js');
 require('../dist/paper-figure-context.js');
@@ -56,6 +60,11 @@ function read(caption, body = []) {
   PaperReadingEvidence.enrich({model: {rows}}, {figures: [figure]}, {});
   return figure.panels.map(panel => panel.reading);
 }
+const splice={page:2,matchKey:'F:4',caption:'FIGURE 4 Common materials in optical sensors and their uses.',panels:[]};
+const spliceRows=['Figure 4 summarizes the FIGURE 4 Common materials in optical sensors and their uses.',
+ 'The quartz sensor gave a reproducible reading in Figure 4.'].map(text=>({text,page:2,mentions:['F:4']}));
+PaperReadingEvidence.enrich({model:{rows:spliceRows}},{figures:[splice]},{});
+assert.deepEqual(splice.authorPassages.map(p=>p.text),[spliceRows[1].text]);
 const [a,b,c] = read('Figure 2. (a) Accuracy increased from 82% to 90%. (b) Paired measurements are reported as mean ± SD, n = 12 patients. (c) Heatmap of RNA expression.',
   ['Figure 2b shows paired samples from the participating patients.']);
 const bare=read('Fig. 2 | Measurements. a Response distributions in the presence of noise. b Accuracy increased from 70% to 82%. c Heatmap of scores.',

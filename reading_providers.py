@@ -3,13 +3,14 @@ import json
 import os
 import re
 import threading
+from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
-HOSTED = {
-    'deepseek': ('https://api.deepseek.com/chat/completions', 'DEEPSEEK_API_KEY', 'READING_DEEPSEEK_MODEL', 'deepseek-flash'),
-    'qwen': ('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', 'DASHSCOPE_API_KEY', 'READING_QWEN_MODEL', 'qwen-plus')
-}
+CONTRACT = json.loads((Path(__file__).resolve().parent / 'dist' / 'reading-models.json').read_text(encoding='utf-8'))
+HOSTED = {name: (config['endpoint'], 'DASHSCOPE_API_KEY' if name == 'qwen' else 'DEEPSEEK_API_KEY',
+                 f'READING_{name.upper()}_MODEL', config['model'])
+          for name, config in CONTRACT['providers'].items()}
 LOCAL = 'http://127.0.0.1:11434/api/'
 MODES = ('auto', 'evidence', 'deepseek', 'qwen', 'ollama', 'chatgpt')
 
@@ -53,7 +54,7 @@ def request_json(url, body=None, token=None, timeout=75):
         with opener.open(req, timeout=timeout) as response:
             return json.loads(response.read(2_000_000))
     except HTTPError as exc:
-        msg={401:'服务密钥未通过验证',403:'当前凭据无权使用此模型',429:'服务繁忙或额度已用完'}.get(exc.code,'模型服务返回错误')
+        msg={401:'服务密钥未通过验证',402:'模型账户余额不足',403:'当前凭据无权使用此模型',429:'服务繁忙或额度已用完'}.get(exc.code,'模型服务返回错误')
         raise ProviderIssue(msg) from None
     except (ValueError,OSError,URLError):
         raise ProviderIssue('暂时未能连接模型服务') from None
@@ -95,6 +96,8 @@ def complete(provider,system,message,schema):
     token=credential(provider)
     if not token:raise ProviderIssue('阅读器尚未配置此服务的 API 密钥')
     body={'model':os.environ.get(model_env) or default,'messages':messages,'response_format':{'type':'json_object'},'stream':False}
+    if provider=='qwen' and body['model']==default:
+        body['enable_thinking']=False
     data=request_json(endpoint,body,token)
     choices=data.get('choices') or []
     return decode((choices[0].get('message') or {}).get('content') if choices else None)

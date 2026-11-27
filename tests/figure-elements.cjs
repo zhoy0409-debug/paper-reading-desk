@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 global.window = global;
 require('../dist/figure-elements.js');
 const {explain, labels} = FigureElements;
+require('../dist/literature-reader.js');
 
 const caption='Exaggeration values ρ were distributed on a log-scale. Dots mark the maximum of each curve.';
 const source=method=>({kind:'小图图注',en:'Panel caption',text:'Distance correlation between '+method+' and t-SNE',page:12});
@@ -43,4 +44,14 @@ const lookup=FigureElements.paperPassages([
 assert.equal(lookup('travel time',2)[4],6);
 assert.match(lookup('travel time',2).quote,/between departure and arrival/);
 assert.equal(lookup('novel label',1),null);
+const localReading={id:'a',reading:{sources:[{kind:'小图图注',page:4,text:'Arm B represents the calibrated detector.'}]}};
+const experiment={caption:'(A) Arm B represents the calibrated detector. (B) Arm B represents a reference.',
+ page:3,captionPage:4,matchKey:'F:3',panels:[localReading,{id:'b'}],
+ authorPassages:[{page:2,text:'The reference reading is highest in Fig. 3B.'}]};
+const sources=FigureElements.panelSources(experiment,localReading);
+assert(!sources.some(s=>s.text.includes('reference')));
+const key=explain({text:'Arm B'},{caption:experiment.caption,page:3,sources,series:true});
+assert.deepEqual([key[1],key[4],key.quote],['Legend · Arm B',4,'Arm B represents the calibrated detector.']);
+assert.equal(FigureElements.labelPassage('Arm B',sources,()=>{throw Error('nearer page overrode local evidence')},3).quote,key.quote);
+assert.equal(explain({text:'Scratch'},{caption:'Wound closure in a scratch assay.',page:1}),null);
 console.log('PASS element-specific cards, label geometry, method roles, matched evidence, units and table columns.');

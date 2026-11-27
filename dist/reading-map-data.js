@@ -179,9 +179,16 @@
     const result=f=>{
       const kids=[];
       for(const a of (f.questionAims||[]).slice(0,1))kids.push({text:PaperOutline.claim(a.text),quote:a.text,page:a.page,check:'source',role:'why'});
-      const panels=[...PaperOutline.panelText(f.caption)].map(([l,v])=>({text:v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase()}));
-      kids.push(...panels);
-      for(const p of (f.authorPassages||[]).slice(0,2))kids.push({text:PaperOutline.claim(p.text),quote:p.text,page:p.page,check:'source',role:'found'});
+      if(Array.isArray(f.panels)){
+        for(const p of f.panels){
+          const source=p.reading?.sources?.find(s=>s.kind==='小图图注')||p.reading?.sources?.find(s=>s.kind.startsWith('组内共用图注'));
+          const text=source?.text||p.groupCaption?.text||p.captionPart;
+          if(text)kids.push({text,quote:text,page:source?.page||f.captionPanelPages?.[p.id]||f.captionPage||f.page,check:'source',panel:p.id.toUpperCase()});
+        }
+      }else for(const [l,v] of PaperOutline.panelText(f.caption)){
+        kids.push({text:v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase()});
+      }
+      for(const p of (f.authorPassages||[]).slice(0,2))kids.push({text:PaperOutline.claim(p.text),quote:p.text,page:p.page,check:'source',role:p.shared?'joint':'found'});
       return {...(f.evidenceStep?{zh:f.title,en:f.evidenceStep[0]}:{}),text:PaperOutline.title(f.caption,f.label)||f.title||f.label,fig:f.id,page:f.page,children:kids};
     };
     const named=sections.filter(s=>s.title).length>1;
@@ -235,11 +242,16 @@
       let depth,text;
       if(h){depth=h[1].length-1;base=depth+1;text=h[2]}else{depth=base+Math.round(b[1].length/2)*1;text=b[2]}
       const node={text:'',children:[]};
-      const fig=text.match(/⟦\s*(?:Fig(?:ure)?\.?|图)\s*(S?\d+)[^⟧]*⟧/i)||text.match(/\bFig(?:ure)?\.?\s*(S?\d+)/i)||text.match(/图\s*(\d+)/);
+      const claim=clean(text.replace(/⟦[^⟧]*⟧/g,''));
+      const fig=text.match(/⟦\s*(?:Fig(?:ure)?\.?|图)\s*((?:ED|S)?\d+)([A-Z]?)\s*⟧/i)||claim.match(/(?:\bFig(?:ure)?\.?|图)\s*((?:ED|S)?\d+)([A-Z]?)(?![a-z0-9])/i);
       const ev=text.match(/⟦\s*p\.?\s*(\d+)\s*(?:[|｜:：]\s*([^⟧]+))?⟧/i);
-      if(fig){const f=figures.find(x=>String(x.matchKey||'').toUpperCase()==='F:'+fig[1].toUpperCase());if(f)node.fig=f.id}
+      if(fig){
+        const f=figures.find(x=>x.matchKey==='F:'+fig[1].toUpperCase()),panel=fig[2].toUpperCase();
+        if(f&&(!panel||f.panels?.some(p=>p.id.toUpperCase()===panel))){node.fig=f.id;if(panel)node.panel=panel}
+        else node.unknownFigure=true;
+      }
       if(ev){node.page=Number(ev[1]);node.quote=clean(ev[2]||'').replace(/^["“]|["”]$/g,'')}
-      node.text=clean(text.replace(/⟦[^⟧]*⟧/g,'')).slice(0,400);
+      node.text=claim.slice(0,400);
       if(!node.text)continue;
       if(++count>500)break;
       depth=Math.min(12,depth);
@@ -249,19 +261,47 @@
     const only=root.children.length===1&&root.children[0].children.length>1?root.children[0]:null;
     return only?{...only,root:true}:root;
   }
-  // A quotation counts only if this paper contains it. Its real page replaces the claimed one.
-  function verify(tree,rows){
-    const norm=s=>clean(s).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
-    let all='';const marks=[];
-    for(const r of rows){marks.push([all.length,r.page]);all+=norm(r.text)}
+  function verify(tree,rows,figures=[]){
+    const norm=s=>clean(s).normalize('NFKC').toLowerCase().replace(/[−–]/g,'-')
+      .replace(/\.(?!\d)|-(?!\s*\d)/gu,'').replace(/[^\p{L}\p{N}.+%±<>=≤≥-]/gu,'');
+    const pages=new Map(),byId=new Map(figures.map(f=>[f.id,f])),captions=figures.map(f=>[f.id,norm(f.caption)]);
+    const panelQuotes=new Map();
+    for(const f of figures)for(const p of f.panels||[]){
+      const statements=[p.captionPart,p.groupCaption?.text,...(p.reading?.sources||[])
+        .filter(s=>/小图图注|组内共用|提及本小图/.test(s.kind)).map(s=>s.text)];
+      panelQuotes.set(f.id+'/'+p.id.toUpperCase(),statements.filter(Boolean).map(norm));
+    }
+    for(const r of rows)if(Number.isInteger(r.page)&&r.page>0)pages.set(r.page,(pages.get(r.page)||'')+' '+r.text);
+    for(const [page,text] of pages)pages.set(page,norm(text));
     const stats={ok:0,miss:0,none:0};
-    (function walk(n){
-      if(n.quote!=null&&n.quote!==''){
-        const q=norm(n.quote),at=q.length>=16?all.indexOf(q):-1;
-        if(at>=0){n.check='ok';n.page=marks.filter(m=>m[0]<=at).at(-1)?.[1]||n.page;stats.ok++}else{n.check='miss';delete n.page;stats.miss++}
+    function walk(n,parentFig,parentPanel,unknown){
+      const id=n.fig||parentFig,target=byId.get(id),panel=n.panel||(n.fig?null:parentPanel);
+      const missing=Boolean(n.unknownFigure||(!n.fig&&unknown));
+      if(n.quote||missing){
+        const q=norm(n.quote),matches=q.length>=16?[...pages].filter(([,text])=>text.includes(q)).map(([page])=>page):[];
+        const page=matches.includes(n.page)?n.page:matches.length===1?matches[0]:null;
+        let matchesFigure=!missing;
+        if(target&&q){
+          const owners=captions.filter(([,text])=>text.includes(q));
+          const refs=(globalThis.PaperLiterature?.figureMentions(n.quote)||[]).filter(k=>k.startsWith('F:'));
+          const panels=refs.filter(k=>k.startsWith(target.matchKey)&&/^[A-Z]$/.test(k.slice(target.matchKey.length)));
+          const rightCaption=owners.some(([key])=>key===id);
+          const inBody=(target.authorPassages||[]).some(h=>h.page===page&&norm(h.text).includes(q));
+          const inPanel=panel&&panelQuotes.get(id+'/'+panel)?.some(text=>text.includes(q));
+          const grounded=panel?inPanel||panels.includes(target.matchKey+panel):rightCaption||inBody||refs.includes(target.matchKey);
+          matchesFigure=matchesFigure&&grounded&&(!owners.length||rightCaption)&&
+            (!refs.length||refs.includes(target.matchKey))&&(!panel||!panels.length||panels.includes(target.matchKey+panel));
+        }
+        if(page&&matchesFigure){n.check='ok';n.page=page;stats.ok++}
+        else{
+          if(page){n.check='scope';n.page=page}
+          else{n.check='miss';delete n.page}
+          delete n.fig;delete n.panel;stats.miss++;
+        }
       }else if(!n.children?.length&&!n.root){n.check='none';stats.none++}
-      n.children?.forEach(walk);
-    })(tree);
+      n.children?.forEach(child=>walk(child,id,panel,missing));
+    }
+    walk(tree);
     return stats;
   }
   const api={sentences,local,excerpt,prompt,parse,verify};

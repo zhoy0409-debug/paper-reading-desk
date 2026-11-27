@@ -79,6 +79,24 @@
     }
     return parts;
   }
+  // A PDF text stream may splice the next caption into a body paragraph.
+  // Check against the headings actually printed on that page before citing the sentence.
+  function bodySentenceCheck(figures){
+    const compact=s=>clean(s).toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+    const starts=new Map();
+    for(const f of figures){
+      const cap=compact(f.caption),page=f.captionPage||f.page;
+      if(cap.length<22)continue;
+      if(!starts.has(page))starts.set(page,[]);
+      starts.get(page).push(cap.slice(0,32));
+    }
+    return (sentence,page)=>{
+      const headings=starts.get(page);
+      if(!headings)return true;
+      const text=compact(sentence);
+      return !headings.some(h=>text.includes(h));
+    };
+  }
   function enrich(item,paper,session){
     const rows=item.model.rows;
     const front=clean(rows.filter(r=>r.page===1).map(r=>r.text).join(' '));
@@ -106,6 +124,7 @@
       else if(ref&&line&&!r.heading&&ref.text.length<650)ref.text+=' '+line;
     }
     const designContext=StudyDesignReading.studyContext(abstract);
+    const bodySentence=bodySentenceCheck(paper.figures);
     for(const f of paper.figures){
       f.designContext=designContext;
       if(f.openHistogram)f.binningEvidence=BinningReading.documentEvidence(f,refStart<0?rows:rows.slice(0,refStart));
@@ -139,15 +158,21 @@
         }
       }
       // Keep complete source sentences from paragraphs which actually mention this figure.
-      const hits=[];
+      const direct=[],joint=[],seenText=new Set();
       const linked=s=>window.PaperLiterature.figureMentions(s).includes(f.matchKey);
       for(let i=0;i<(refStart<0?rows.length:refStart);i++){
         const row=rows[i];
         if(row.fig||!row.mentions?.includes(f.matchKey))continue;
-        const sentence=PaperPanelReading.sourceSentences(rows,i).find(s=>s.length>=30&&linked(s)&&!hits.some(h=>h.text===s));
-        if(sentence&&!hits.some(h=>h.text===sentence))hits.push({text:sentence,page:row.page});
-        if(hits.length>=3)break;
+        for(const s of PaperPanelReading.sourceSentences(rows,i)){
+          if(s.length<30||seenText.has(s)||!linked(s)||!bodySentence(s,row.page))continue;
+          seenText.add(s);
+          const ids=PaperLiterature.figureMentions(s).filter(k=>/^F:(?:S|ED)?\d+$/.test(k));
+          if(ids.length>1){if(joint.length<3)joint.push({text:s,page:row.page,shared:ids})}
+          else direct.push({text:s,page:row.page});
+        }
+        if(direct.length>=3)break;
       }
+      const hits=[...direct,...joint].slice(0,3);
       f.authorPassages=hits;
       // Look in the same Results passage as the figure citation. A purpose
       // statement often precedes the sentence citing the figure by several lines.
@@ -159,7 +184,7 @@
         while(start>0&&i-start<8&&rows[start-1].page===row.page&&!rows[start-1].heading&&!rows[start-1].fig&&
           !rows[start-1].mentions?.some(key=>key.startsWith('F:')&&key.replace(/(?<=\d)[A-Z]$/,'')!==f.matchKey))start--;
         while(end+1<rows.length&&end-i<5&&rows[end+1].page===row.page&&!rows[end+1].heading&&!rows[end+1].fig)end++;
-        const statements=sentences(rows.slice(start,end+1).map(v=>v.text).join(' '));
+        const statements=sentences(rows.slice(start,end+1).map(v=>v.text).join(' ')).filter(s=>bodySentence(s,row.page));
         const cited=statements.findIndex(linked);
         if(cited<0)continue;
         const nearby=statements.slice(Math.max(0,cited-1),cited+1).join(' ');
@@ -170,8 +195,7 @@
         const onPage=clean(rows.filter(r=>r.page===f.page&&!r.fig).map(r=>r.text).join(' '));
         // Verified against this edition, Results p.2 and bibliography p.12.
         const phrase=onPage.match(/To evaluate abaucin.{0,12}s antibacterial spectrum.{20,300}?patients\./i);
-        const statement=phrase?.[0]||"To evaluate abaucin’s antibacterial spectrum in a clinically relevant context, we assessed its activity against a panel of antibiotic-resistant isolates freshly obtained from intensive care unit (ICU) patients.";
-        aims.unshift({page:2,text:statement});
+        if(phrase)aims.unshift({page:f.page,text:phrase[0]});
       }
       f.questionAims=aims.slice(0,2);
       const citations=[];
@@ -194,10 +218,7 @@
           if(ref&&!citations.some(c=>c.number===ref.number))citations.push({...ref,context:h});
         }
       }
-      if(f.checkedIsolateTable){
-        const ref={number:'54',page:12,text:'Liu, G. et al. Deep learning-guided discovery of an antibiotic targeting Acinetobacter baumannii. Nat. Chem. Biol. 19, 1342–1350 (2023).',context:{page:2,text:'These data provide a clinically relevant narrow-spectrum profile for abaucin and extend the initial report by Liu et al.⁵⁴ through validation in freshly obtained ICU isolates and an expanded commensal panel.'}};
-        f.questionCitations=[ref,...citations.filter(c=>c.number!=='54')];
-      }else f.questionCitations=citations.slice(0,3);
+      f.questionCitations=citations.slice(0,3);
       const finding=hits.find(h=>/\b(?:we (?:found|observed|show|find)|was (?:higher|lower)|increased|decreased|outperform\w*|correlated|yielded|produced|similar to)\b|高于|低于|观察到|发现/iu.test(h.text));
       if(finding && !paper.curated){f.branchTitle=finding.text;f.findingPage=finding.page}
       const body=cap.replace(/^.*?\d+\s*[:.|：]?\s*/,'');
@@ -209,7 +230,7 @@
         f.summary=clean(cap.replace(/^.*?\d+\s*[:.|：]?\s*/, '')).slice(0,470);
         f.boundary='';
       }
-      const panelBody=PaperPanelReading.passages(rows,f);
+      const panelBody=PaperPanelReading.passages(rows,f,bodySentence);
       for(const p of f.panels)p.reading=PaperPanelReading.build(f,p,parts.get(p.id)||p.captionPart,panelBody.get(p.id));
       MarkedPlots.enrich(f,rows);
       if(f.layerStack)StackedPlots.enrich(f,rows);

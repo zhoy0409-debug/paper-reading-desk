@@ -315,6 +315,7 @@
       for (const p of [null, ...active.panels.filter(p=>!p.raw?.markerParent)]) {
         const key = p?.id || '';
         const button = btn(p?.label || '整图', () => readPanel(p?.id), 'frw-panel-tab', p ? `小图 ${p.label}${p.title ? `：${p.title}` : ''}` : '查看整图说明');
+        button.dataset.panel = key;
         button.setAttribute('aria-pressed', String(p === panel));
         panelButtons.set(key, button); tabs.append(button);
       }

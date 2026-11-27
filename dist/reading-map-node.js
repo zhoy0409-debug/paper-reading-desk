@@ -18,9 +18,10 @@
   function evidence(n,source){
     if(n.page&&!n.root&&n.quote){
       const miss=n.check==='miss';
-      const b=tap('mm-page',miss?t('待核对','Unverified'):'p.'+n.page,()=>source(n.page,miss?'':n.quote));
+      const scope=n.check==='scope';
+      const b=tap('mm-page',scope?t('图号待核对 · p.','Check figure · p.')+n.page:miss?t('待核对','Unverified'):'p.'+n.page,()=>source(n.page,miss?'':n.quote));
       b.dataset.check=n.check||'';
-      b.title=(miss?t('没有在论文里找到这句：','Not found in this paper: '):'')+n.quote;
+      b.title=(scope?t('已找到原句，请核对它所指的图。','Quotation located. Check which figure it refers to. '):'')+n.quote;
       return b;
     }
     if(n.check==='miss'){const tag=el('span','mm-page',t('待核对','Unverified'));tag.title=n.quote;tag.dataset.check='miss';return tag}
@@ -39,11 +40,11 @@
       const r=el('i','mm-role');
       const roles={context:['研究背景','Context'],prior:['已有证据','Prior evidence'],gap:['待解问题','Open question'],challenge:['研究难点','Challenge'],
         reviewAim:['综述目的','Review aim'],scope:['讨论范围','Scope'],translationBarrier:['转化难点','Translational barrier'],
-        aim:['研究目的','Objective'],question:['具体问题','Specific question'],why:['为什么做','Why'],found:['作者的说法','Authors say']};
+        aim:['研究目的','Objective'],question:['具体问题','Specific question'],why:['为什么做','Why'],found:['作者的说法','Authors say'],joint:['多图合引','Joint figure reference']};
       PaperUI.set(r,...(roles[n.role]||roles.found));body.append(r);
     }
     if(n.fig)body.append(tap('mm-fig',name(n.fig),()=>figure(n.fig)));
-    if(n.panel)body.append(tap('mm-fig',n.panel,()=>panel(n.parent?.fig,n.panel)));
+    if(n.panel)body.append(tap('mm-fig',n.panel,()=>panel(n.fig||n.parent?.fig,n.panel)));
     words(n,line);body.append(line);
     const proof=evidence(n,source);if(proof)body.append(proof);
     const count=n.fig&&!n.short?refs(n.fig):0;

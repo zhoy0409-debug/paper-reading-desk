@@ -13,7 +13,7 @@ async function verify(page,lang,file){
   const image=page.locator('.frw-visual .frw-plate>img').first();
   const layer=page.locator('.frw-visual .figure-click-layer');
   const note=page.locator('.frw-visual .figure-click-note');
-  await layer.locator('button').first().waitFor({timeout:60000});
+  await image.evaluate(img=>img.decode());
   // Find each coloured square and the dark word alongside it on the original bitmap.
   const anchors=await image.evaluate(img=>{
     const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
@@ -37,16 +37,20 @@ async function verify(page,lang,file){
     });
   });
   for(const [index,name] of ['Control','Intervention'].entries())for(const [kind,[x,y]] of anchors[index].entries()){
+    const role=lang==='zh'?['图例符号','图例'][kind]:['Legend symbol','Legend'][kind];
+    const title=role+' · '+name;
+    const early=index===0&&kind===0;
+    if(!early)await layer.getByRole('button',{name:title,exact:true}).waitFor({timeout:60000});
     await image.scrollIntoViewIfNeeded();const b=await image.boundingBox();
     const point={x:b.x+x*b.width,y:b.y+y*b.height};
-    const target=await page.evaluate(p=>document.elementFromPoint(p.x,p.y)?.closest('button')?.title,point);
-    const role=lang==='zh'?['图例符号','图例'][kind]:['Legend symbol','Legend'][kind];
-    assert.equal(target,role+' · '+name);await page.mouse.click(point.x,point.y);
+    if(!early)assert.equal(await page.evaluate(p=>document.elementFromPoint(p.x,p.y)?.closest('button')?.title,point),title);
+    await page.mouse.click(point.x,point.y);
+    await note.getByText(title,{exact:true}).waitFor({timeout:60000});
     assert.match(await note.locator('p').innerText(),lang==='zh'?[ /红色方块.*对照组/,/蓝色方块.*干预/ ][index]:[ /red square.*reference group/i,/blue square.*study intervention/i ][index]);
   }
   if(output)await page.screenshot({path:path.join(output,file+'-'+lang+'.png')});
   assert.deepEqual(errors,[]);console.log('PASS',lang,file,': both printed squares and group names at original bitmap coordinates');
 }
-(async()=>{const b=await chromium.launch({channel:'msedge'});try{
+(async()=>{const b=await chromium.launch({channel:process.env.READER_BROWSER_CHANNEL||(process.platform==='win32'?'msedge':'chromium')});try{
   for(const file of ['raster-legend','fully-scanned-legend'])for(const lang of ['zh','en']){const p=await b.newPage({viewport:{width:1500,height:950}});await verify(p,lang,file);await p.close()}
 }finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});

@@ -6,6 +6,7 @@ const MB = 1024 * 1024;
 const MAX_FILE = 64 * MB, MAX_PAGES = 54, DEFAULT_PAGES = 34, MAX_FIGURES = 55;
 const MAX_GRAPHIC_PAGES = 18, MAX_TEXT_ITEMS = 6500, MAX_OPS = 35000, MAX_GRAPHICS = 850;
 const UNIT = [1,0,0,1,0,0];
+const textOrigin=(x,y)=>Math.round(x*4)+','+Math.round(y*4);
 const bareFigureNumber=/^(?:(?:(?:extended data|supplementary|supplemental)\s+)?fig(?:ur[ea])?\.?\s*|(?:扩展数据|补充|附)?图\s*)s?\s*\d{1,3}$/iu;
 
 const stop = () => new DOMException('已取消读取 PDF。','AbortError');
@@ -46,6 +47,7 @@ function positions(content,viewport,raw=false,visibleFonts=null){
   if(Math.abs(T[1])>Math.max(1,Math.abs(T[0])*.13))continue; // upright text only; page still viewable
   const dx=Math.max(Math.abs(item.width)||0,size*.25);
   const point={text:item.str,font:item.fontName,x0:T[4],x1:T[4]+dx,y0:T[5]-size*.91,y1:T[5]+size*.21,base:T[5],size};
+  if(visibleFonts?.hiddenOrigins?.has(textOrigin(T[4],T[5])))continue;
   const boxes=visibleFonts?.get(point.font);
   if(boxes&&!boxes.some(b=>point.x1>b.x0&&point.x0<b.x1&&point.base>=b.y0-1&&point.y0<=b.y1+1))continue;
   points.push(point);
@@ -280,12 +282,12 @@ function captions(lines,p,words,headingStyles){
 // even though only a small rectangle of that page is painted in this article.
 function formFontBounds(list,ops,V){
  if(list.fnArray.length>MAX_OPS||!list.fnArray.includes(ops.paintFormXObjectBegin))return null;
- const fonts=new Map(),stack=[];
- let matrix=UNIT,clip=null,font=null;
+ const fonts=new Map(),stack=[],hiddenOrigins=new Set(),shownOrigins=new Set();
+ let matrix=UNIT,clip=null,font=null,line=UNIT,leading=0,size=0;
  for(let i=0;i<list.fnArray.length;i++){
   const op=list.fnArray[i],a=list.argsArray[i];
   if(op===ops.save||op===ops.paintFormXObjectBegin){
-   stack.push([matrix,clip,font]);
+   stack.push([matrix,clip,font,line,leading,size]);
    if(op===ops.paintFormXObjectBegin){
     if(numArray(a?.[0],6))matrix=mult(matrix,a[0]);
     if(numArray(a?.[1],4)){
@@ -293,10 +295,20 @@ function formFontBounds(list,ops,V){
      clip=clip?{x0:Math.max(clip.x0,b.x0),y0:Math.max(clip.y0,b.y0),x1:Math.min(clip.x1,b.x1),y1:Math.min(clip.y1,b.y1)}:b;
     }
    }
-  }else if(op===ops.restore||op===ops.paintFormXObjectEnd){if(stack.length)[matrix,clip,font]=stack.pop()}
+  }else if(op===ops.restore||op===ops.paintFormXObjectEnd){if(stack.length)[matrix,clip,font,line,leading,size]=stack.pop()}
   else if(op===ops.transform&&numArray(a,6))matrix=mult(matrix,a);
-  else if(op===ops.setFont)font=a[0];
+  else if(op===ops.setFont){[font,size]=a}
+  else if(op===ops.beginText)line=UNIT;
+  else if(op===ops.setTextMatrix&&numArray(a,6))line=Array.from(a);
+  else if(op===ops.setLeading)leading=a[0];
+  else if(op===ops.moveText||op===ops.setLeadingMoveText){
+   if(op===ops.setLeadingMoveText)leading=-a[1];
+   line=mult(line,[1,0,0,1,a[0],a[1]]);
+  }else if(op===ops.nextLine)line=mult(line,[1,0,0,1,0,-leading]);
   else if(op===ops.showText&&font){
+   const m=mult(mult(V,matrix),line),key=textOrigin(m[4],m[5]),rise=Math.abs(size)*Math.hypot(m[2],m[3]);
+   const outside=clip&&(m[5]<clip.y0-rise||m[5]>clip.y1+rise||(m[0]>0&&m[4]>clip.x1+rise));
+   (outside?hiddenOrigins:shownOrigins).add(key);
    if(!clip)fonts.set(font,null);
    else if(fonts.get(font)!==null){
     const boxes=fonts.get(font)||[];
@@ -305,7 +317,43 @@ function formFontBounds(list,ops,V){
    }
   }
  }
- return [...fonts.values()].some(Boolean)?fonts:null;
+ for(const key of shownOrigins)hiddenOrigins.delete(key);
+ fonts.hiddenOrigins=hiddenOrigins;
+ return hiddenOrigins.size||[...fonts.values()].some(Boolean)?fonts:null;
+}
+// Typesetting systems sometimes place a cropped prior PDF page as a figure.
+// Repeated prose at different positions or in two fonts is a signal to inspect the form clips.
+async function printedTextItems(page,content,pdfjs){
+ const {items}=content;
+ if(items.length>MAX_TEXT_ITEMS)return items;
+ const phrases=new Map();
+ let repeated=false;
+ for(const it of items){
+  const words=it.str?.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[];
+  for(let i=0;i+5<=words.length;i++){
+   const phrase=words.slice(i,i+5).join(' ');
+   if(phrase.length<24)continue;
+   const previous=phrases.get(phrase);
+   if(previous&&(previous.fontName!==it.fontName||Math.abs(previous.transform[5]-it.transform[5])>2)){repeated=true;break}
+   phrases.set(phrase,it);
+  }
+  if(repeated)break;
+ }
+ if(!repeated)return items;
+ const V=page.getViewport({scale:1}).transform;
+ const list=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
+ const clips=formFontBounds(list,pdfjs.OPS,V);
+ if(!clips)return items;
+ return items.filter(item=>{
+  if(!item.str||!numArray(item.transform,6))return true;
+  const m=mult(V,item.transform),unit=Math.hypot(m[0],m[1]);
+  if(clips.hiddenOrigins.has(textOrigin(m[4],m[5])))return false;
+  const rects=clips.get(item.fontName);
+  if(!rects)return true;
+  if(!unit)return false;
+  const box=boxFrom(m,[0,-.20,item.width/unit,.90]);
+  return rects.some(b=>overlap(box.x0,box.x1,b.x0,b.x1)>0&&overlap(box.y0,box.y1,b.y0,b.y1)>0);
+ });
 }
 const legendPointer=s=>/^(?:(?:figure|fig\.?)\s*\d+\s*[|.:–—-]\s*)?\(?\s*(?:figure\s*)?(?:caption|legend)\s*(?:continues\s*)?on\s*(?:the\s*)?(?:next|following)\s*page[.)]*$|^图注(?:见|在)下页[。.]?$/i.test(norm(s));
 function isNumberedPointer(cap,lines){
@@ -322,6 +370,13 @@ function topCaptionImage(cap,all,objects,view){
   !all.some(c=>c!==cap&&c.line.y0>=anchor.endY&&c.line.y0<b.y1&&overlap(c.line.x0,c.line.x1,b.x0,b.x1)>12));
  if(candidates.length!==1)return null;
  const b=candidates[0];
+ // In a vertical stack, the picture below this caption may belong to
+ // the next caption. A differently sized preceding picture is still evidence.
+ const nextBelow=all.some(c=>c!==cap&&c.line.y0>=b.y1-2&&c.line.y0-b.y1<28&&
+   overlap(c.line.x0,c.line.x1,b.x0,b.x1)>Math.min(w(b),w(c.line))*.38);
+ if(nextBelow&&objects.some(a=>a.kind==='image'&&w(a)>view.width*.14&&h(a)>view.height*.045&&
+   line.y0-a.y1>=-2&&line.y0-a.y1<27&&overlap(line.x0,line.x1,a.x0,a.x1)>Math.min(w(a),w(line))*.38&&
+   !all.some(c=>c!==cap&&c.anchor.endY<=a.y0+2&&a.y0-c.anchor.endY<16&&overlap(c.line.x0,c.line.x1,a.x0,a.x1)>12)))return null;
  const above=objects.find(a=>a.kind==='image'&&Math.abs(a.x0-b.x0)<15&&w(a)>w(b)*.7&&
    line.y0-a.y1>=-2&&line.y0-a.y1<b.y0-anchor.endY+2);
  // With images on both sides, use an upper image already owned by an earlier heading.
@@ -568,7 +623,7 @@ async function scan(file,options={}){
   const pageCap=options.allPages?pdf.numPages:clamp(Math.floor(Number(options.maxPages)||DEFAULT_PAGES),1,MAX_PAGES);
   const graphicLimit=options.allPages?MAX_FIGURES:MAX_GRAPHIC_PAGES;
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
-  const hubblePassages=[], marksByFigure=new Map(),headingStyles=new Set();
+  const hubblePassages=[], marksByFigure=new Map(),headingStyles=new Set(),fontClips=new Map();
   let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null,lastYield=performance.now();
   const captionKey=cap=>cap.matchKey+'\n'+cap.caption.toLowerCase();
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
@@ -585,6 +640,7 @@ async function scan(file,options={}){
      try{
       displayList=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
       const visible=formFontBounds(displayList,pdfjs.OPS,viewport.transform);
+      fontClips.set(pg,visible);
       if(visible){words=positions(text,viewport,true,visible);lines=positions(text,viewport,false,visible);here=captions(lines,viewport,words,headingStyles)}
      }catch{check()}
     }
@@ -644,6 +700,7 @@ async function scan(file,options={}){
      catch{check();}
     }
     here=oneCaptionPerNumber(here,objects,viewport);
+    const inkBand=FigureInk.pageReader(page,viewport,lines,here,objects,pdfjs.AnnotationMode.DISABLE);
     for(const c of here)if(c.typographicHeading)headingStyles.add(c.line.font+'/'+c.line.size.toFixed(1));
     const axes=verticalLabels(text,viewport);
     for(const cap of here){
@@ -669,8 +726,9 @@ async function scan(file,options={}){
      }
      const placed=objects.filter(b=>b.placedForm&&w(b)>viewport.width*.20&&h(b)>viewport.height*.07&&
        cap.line.y0-b.y1>=-3&&cap.line.y0-b.y1<18&&Math.abs(b.x0-cap.line.x0)<30);
-     const fixedArt=placed.length===1?placed[0]:topCaptionImage(cap,here,objects,viewport);
-     const charts=!fixedArt&&window.CartesianPanels?.findPlots(cap,here,words,axes,objects,viewport);
+     const below=topCaptionImage(cap,here,objects,viewport);
+     const charts=!below&&window.CartesianPanels?.findPlots(cap,here,words,axes,objects,viewport);
+     const fixedArt=charts?null:placed.length===1?placed[0]:below;
      const pair=!fixedArt&&!charts&&hasExplicitSides(cap.caption)?pairedCrop(cap,lines,objects,viewport,here)||
        window.PaperPanelGeometry?.pairedAxes(cap,here,axes,words,objects,viewport):null;
      const initial=fixedArt||charts?.crop||(hasExplicitSides(cap.caption)?pair?.crop??null:objects.length?cropFor(cap,lines,objects,viewport,here):null);
@@ -716,6 +774,15 @@ async function scan(file,options={}){
      if(plate)crop=plate.crop;
      else if(here.length===1&&!fixedArt&&!beside&&crop)
       crop=await CompositePlate.completeTop(page,viewport,lines,cap,crop,pdfjs.AnnotationMode.DISABLE).catch(()=>crop);
+     if(!plate&&!pair&&!charts&&!stack&&!layers&&!beside&&!fixedArt&&!(page.rotate%360)){
+      const bounds=await inkBand(cap,crop).catch(()=>null);
+      if(bounds){
+       crop=bounds;
+       if(grid&&grid.panels.some(p=>p.rect.x0<crop.x0-5||p.rect.y0<crop.y0-5||p.rect.x1>crop.x1+5||p.rect.y1>crop.y1+5))
+        grid=SideCaption.panels(cap,crop,words,lines,viewport,axes);
+       for(let i=printed.length-1;i>=0;i--){const b=printed[i].rect;if(b&&(b.x0<crop.x0-5||b.x1>crop.x1+5||b.y0<crop.y0-5||b.y1>crop.y1+5))printed.splice(i,1)}
+      }
+     }
      // A list of legends can precede the illustrated pages. Preserve the
      // original card and its saved selections, then attach the actual artwork.
      if(repeated&&!crop)continue;
@@ -977,9 +1044,57 @@ async function scan(file,options={}){
    async locateExcerpt(n,quote){
     check();if(disposed)return null;
     const page=await pdf.getPage(n),view=page.getViewport({scale:1});
-    const lines=positions(await source.text(page),view);
+    const content=await source.text(page);
     const compact=t=>t.normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
-    const text=compact(quote),values=lines.map(l=>compact(l.text));
+    const text=compact(quote);
+    if(text.length<8)return null;
+    // Match the complete quote across PDF text runs before looking for a line fragment.
+    // The stream retains reading order even when narrow columns or superscripts split a sentence.
+    const chunks=[],items=[];
+    for(const item of content.items){
+     if(!item.str||!numArray(item.transform,6))continue;
+     const value=compact(item.str);
+     if(value){chunks.push(value);items.push(item)}
+    }
+    const stream=chunks.join(''),first=stream.indexOf(text),pageBox={x0:0,y0:0,x1:view.width,y1:view.height};
+    function openingLine(start,clips){
+     let offset=0,rect=null,baseline=null;
+     for(let i=0;i<items.length&&offset<start+text.length;i++){
+      offset+=chunks[i].length;
+      if(offset<=start)continue;
+      const item=items[i],matrix=mult(view.transform,item.transform),unit=Math.hypot(matrix[0],matrix[1]);
+      if(!unit||!item.width)continue;
+      const box=boxFrom(matrix,[0,-.20,item.width/unit,.90]);
+      if(rect&&(Math.abs(matrix[5]-baseline)>unit*.45||box.x0<rect.x0-2||box.x0>rect.x1+unit*1.8))break;
+      // Placed figures can carry the text of an entire earlier typeset page.
+      // Only the portion inside the form is actually printed in the article.
+      const visible=clips?.get(item.fontName);
+      if(clips?.hiddenOrigins?.has(textOrigin(matrix[4],matrix[5])))return null;
+      if(visible&&!visible.some(b=>matrix[5]>=b.y0-1&&matrix[5]<=b.y1+1&&overlap(box.x0,box.x1,b.x0,b.x1)>=w(box)*.75))return null;
+      baseline??=matrix[5];rect=rect?unite(rect,box):box;
+     }
+     return rect;
+    }
+    if(first>=0){
+     const next=stream.indexOf(text,first+1);
+     if(next>=0&&!fontClips.has(n)){
+      const list=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
+      fontClips.set(n,formFontBounds(list,pdfjs.OPS,view.transform));
+     }
+     const clips=fontClips.get(n);
+     let common=null,largest=0;
+     for(let at=first;at>=0;at=stream.indexOf(text,at+text.length)){
+      const line=openingLine(at,clips);
+      if(!line)continue;
+      if(next<0||clips)return normalized(line,pageBox);
+      largest=Math.max(largest,area(line));
+      common=common?{x0:Math.max(common.x0,line.x0),y0:Math.max(common.y0,line.y0),
+       x1:Math.min(common.x1,line.x1),y1:Math.min(common.y1,line.y1)}:line;
+     }
+     // Two superimposed text layers can describe the very same printed line.
+     if(common&&area(common)>=.74*largest)return normalized(common,pageBox);
+    }
+    const lines=positions(content,view,false,fontClips.get(n)),values=lines.map(l=>compact(l.text));
     // Match a unique sequence near the start of the cited passage, even mid-line.
     for(let start=0;start<=Math.min(70,text.length-18);start++){
       const fragment=text.slice(start,start+24);
@@ -1016,5 +1131,5 @@ async function scan(file,options={}){
   throw e;
  }
 }
-window.PaperFigureExtractor=Object.freeze({scan});
+window.PaperFigureExtractor=Object.freeze({scan,printedTextItems});
 })();

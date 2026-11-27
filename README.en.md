@@ -8,7 +8,7 @@ Select text and choose **Baidu Translate** to translate the selection in a new t
 
 For full-page plates with a legend on a different page, the reader shows both page numbers. References such as “Figure 3A” and “Figures 3A and 3B” link the figure to the passages that discuss it.
 
-The cross-journal upload audit covers 46 PDFs from 38 journals. It checks printed figure numbers, caption and image pages, automatic crops, and the source visible when you open a figure explanation. [See the results by paper](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.md)
+The upload audit follows 244 main figures across 46 PDFs from 38 journals. It checks each title and the source shown in the explanation, compares 237 crops with independent image positions, and locates each linked body quotation on its cited PDF page. [See the results by paper](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.md)
 
 **To read an explanation**, open a PDF, choose a figure thumbnail and select **Read explanation** beside the figure. The reading draws on the caption and passages that refer to the figure. On a phone, **Back to figure** returns to the same figure or panel. Open **Figure labels** to choose an identified axis or legend, or tap it on the image. These features run in the browser. For an image-only scan without a readable caption, the reader offers page viewing and manual cropping. [Try a labelled figure](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=en&sample=figure-8a)
 
@@ -64,7 +64,7 @@ The map links background, prior findings, open questions and aims to the pages t
 
 ![An English figure caption translated into Chinese, with the original text one click away](docs/guide/selection-zh.webp)
 
-**Map** organizes the background, research question and figure evidence from the text and captions. Select a page number to check a quotation. With a connected model, the Windows edition can generate an outline directly. The web edition accepts outlines from other AI chats and checks their quotations against the PDF.
+**Map** organizes the background, research question and figure evidence from the text and captions. Select a page number to check a quotation. With your API key, both editions can generate an outline and check its quotations against the PDF.
 
 Choose **Edit deck** in the basket to work with the same panels, order and notes in a full presentation. Insert your own pictures or text slides, edit the slide body and speaker notes separately, rehearse and choose **Export slide deck**.
 
@@ -187,10 +187,12 @@ Open the map at the research question or the authors’ statement of focus. Foll
 | English or Chinese maps, panel focus, PNG and PPTX export, source guide | Included | Included |
 | Public literature search | Crossref, Europe PMC and PubMed lookup by PMID | PubMed and Crossref |
 | Continue in your usual AI chat | Copy the question and excerpts to ChatGPT, DeepSeek, Claude or Gemini | Same options |
-| Answers inside the reader | Built-in source guide | Also supports DeepSeek, Qwen (Beijing), an installed Ollama model or a signed-in Codex CLI |
+| Answers inside the reader | Source guide, or your own DeepSeek or Qwen (Beijing) API key | Same options, plus Ollama and a signed-in Codex CLI |
 | Get updates | Reopen or refresh the site | From v0.3.0, open **Updates**, download the release and choose **Restart to apply** |
 
-In the Windows question panel, open **Answer and search settings → Connect a model** to enter a provider API key. Keys entered there stay in the service’s memory for the session and can be removed at any time. Provider billing applies. Users of v0.2.2 or earlier need to download the new edition once. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [Release notes](https://github.com/zhoy0409-debug/paper-reading-desk/releases)
+In **Ask AI**, select **DeepSeek** or **Qwen** under **Answer service**. Enter your key under **Use your own API key**, then choose **Use this key**. Review the excerpts, confirm and send your question. The browser calls the selected provider directly. Each model request uses your own provider account. The web key is cleared on refresh or when the tab closes. In the Windows edition a key entered here lasts until the reader service exits. You can remove it sooner in the same panel.
+
+Users of v0.2.2 or earlier need to download the new edition once. [Download for Windows](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [Release notes](https://github.com/zhoy0409-debug/paper-reading-desk/releases)
 
 On macOS or Linux, the local service can also be run from source with Python 3.8+ and `python3 preview.py`.
 

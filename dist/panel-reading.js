@@ -287,16 +287,17 @@
     while(start>0&&i-start<180&&!boundary(rows[start-1])&&!/[.!?。]$/.test(rows[start-1].text))start--;
     while(end+1<rows.length&&end-i<180&&!boundary(rows[end+1])&&!/[.!?。]$/.test(rows[end].text))end++;
     return tidy(rows.slice(start,end+1).map(r=>r.text).join(' '))
-      .split(/(?<=[。!?])\s*|(?<!\b(?:Fig|Figs|Eq|Eqs|Dr|vs)\.)(?<=\.)\s+(?=[A-Z(])/u)
+      .split(/(?<=[。!?])\s*|(?<!\b(?:Fig|Figs|Eq|Eqs|Dr|vs)\.)(?<=\.)\s+(?=[A-Z(])|(?<=[)\]]\.)(?=[A-Z][a-z])/u)
       .filter(s=>s.length>=15&&!/[\u0000-\u0008\u000b-\u001f\ufffd]/u.test(s));
   }
-  function passages(rows,figure) {
+  function passages(rows,figure,bodySentence=()=>true) {
     const number=figure.matchKey?.split(':')[1];const out=new Map();
     if(!/^[A-Z]*\d+$/.test(number||''))return out;
     const ref=new RegExp('(?:\\bFig(?:ure)?s?\\.?\\s*|图\\s*)'+number+'(?:\\s*\\(([a-z])\\)|([a-z])\\b)','gi');
     for(let i=0;i<rows.length;i++){
       const r=rows[i];if(r.fig||!r.mentions?.some(k=>k===figure.matchKey||(k.startsWith(figure.matchKey)&&/^[A-Z]$/.test(k.slice(figure.matchKey.length)))))continue;
       for(const sentence of sourceSentences(rows,i)){
+        if(!bodySentence(sentence,r.page))continue;
         const hits=[...sentence.matchAll(ref)];
         if(hits.length!==1||sentence.length<20||sentence.length>700)continue;
         const m=hits[0],tail=sentence.slice(m.index+m[0].length);

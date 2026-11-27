@@ -33,6 +33,31 @@ assert.equal(s.ok,2);assert.equal(s.miss,1);
 const leaf=tree.children[1].children[0].children;
 assert.equal(leaf[0].page,4,'the real page replaces the claimed one');
 assert.equal(leaf[1].check,'miss');
+globalThis.window=globalThis;
+require('../dist/literature-reader.js');
+const optical=[
+ {id:'first',matchKey:'F:1',caption:'Figure 1. The detector efficiency increases under strong illumination.',panels:[{id:'a'},{id:'b'}]},
+ {id:'second',matchKey:'F:2',caption:'Figure 2. The signal decays after the lamp turns off.'}
+];
+const repeat='The calibration used a constant reference voltage.';
+const sourceRows=[{page:1,text:repeat},{page:2,text:'The signal decays after the lamp turns off.'},{page:3,text:repeat},{page:4,text:'Figure 1B shows the control trace for the calibration.'}];
+const checked=(md)=>{const tree=D.parse('- '+md,optical);D.verify(tree,sourceRows,optical);return tree.children[0]};
+assert.equal(checked('Both sites ⟦p.3｜'+repeat+'⟧').page,3);
+assert.equal(checked('Both sites ⟦p.9｜'+repeat+'⟧').check,'miss');
+assert.equal(checked('Bad join ⟦p.2｜after the lamp turns off. The calibration used⟧').check,'miss');
+assert.equal(checked('Claim ⟦Fig1⟧ ⟦p.2｜The signal decays after the lamp turns off⟧').check,'scope');
+assert.equal(checked('Claim ⟦Fig1A⟧ ⟦p.4｜Figure 1B shows the control trace⟧').check,'scope');
+assert.equal(checked('Claim ⟦Fig1B⟧ ⟦p.4｜Figure 1B shows the control trace⟧').panel,'B');
+assert.equal(checked('Claim ⟦Fig99⟧ ⟦p.1｜'+repeat+'⟧').check,'scope');
+optical[0].panels[1].captionPart='The detector efficiency increases under strong illumination.';
+sourceRows.push({page:6,text:optical[0].caption});
+const sibling=checked('Claim ⟦Fig1A⟧ ⟦p.6｜efficiency increases under strong illumination⟧');
+assert.equal(sibling.check,'scope');assert.equal(sibling.page,6);assert.equal(sibling.panel,undefined);
+assert.equal(checked('Claim ⟦Fig1B⟧ ⟦p.6｜efficiency increases under strong illumination⟧').check,'ok');
+assert.equal(checked('Plain note ⟦p.4｜Figure 1B shows the control trace⟧').fig,undefined);
+sourceRows.push({page:5,text:'The two readings differed by −0.5 units (P < 0.05).'});
+assert.equal(checked('Threshold ⟦p.5｜differed by -0.5 units (P < 0.05)⟧').check,'ok');
+assert.equal(checked('Threshold ⟦p.5｜differed by 0.5 units (P > 0.05)⟧').check,'miss');
 const plain=D.parse('## 研究目的\n- 验证疗效\n  - 体内\n## 结果\n1. Fig2 药效',figs);
 assert.deepEqual(plain.children.map(c=>c.text),['研究目的','结果']);
 assert.equal(plain.children[0].children[0].children[0].text,'体内');

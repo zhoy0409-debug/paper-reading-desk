@@ -18,6 +18,7 @@
     const topic=el('input','rq-topic');topic.maxLength=120;topic.placeholder='例如，abaucin';
     const lookup=btn('查公开文献','',findPublic),lookState=el('div','rq-literature');
     const searchTools=el('div','rq-search-tools');searchTools.append(field('公开检索词',topic),lookup);
+    const connection=el('div','rq-connection');
     const options=el('details','rq-options');options.append(pair(el('summary'),'回答与检索设置',''),field('回答依据',range),searchTools,lookState);
     const sourceView=el('details','rq-source-preview'),sourceSummary=el('summary'),sourceList=el('div');sourceView.append(sourceSummary,sourceList);
     const transcript=el('details'),previous=el('pre');transcript.append(pair(el('summary'),'已附带的追问记录',''),previous);transcript.hidden=true;
@@ -28,7 +29,7 @@
     const excerptBox=el('details');excerptBox.append(pair(el('summary'),'核对或编辑选段',''),field('所选文字',draft));
     const note=el('p','rq-privacy');
     options.append(note);
-    host.append(log,field('想弄懂什么？',question),service,options,excerptBox,sourceView,transcript,confirmation,send,state);
+    host.append(log,field('想弄懂什么？',question),service,connection,options,excerptBox,sourceView,transcript,confirmation,send,state);
     let suggestedQuery='';
     let history=[],controller,lookupController,version=0,spot='',sources=[];
     const guideOnly=()=>provider.value==='evidence'||(provider.value==='auto'&&recommended==='evidence');
@@ -45,14 +46,17 @@
       const serviceText=free?'No account required.':name?'Answer service: '+name+'.':'Selects an available answer service.';
       pair(note,label+(search?' 公开数据库接收检索词及待核对的书目信息。':''),serviceText+(search?' The public index receives search terms and bibliographic details.':''));
     }
-    const initialLabels=Array.from(provider.options,o=>[o.value,o.textContent]);
-    if(!ReaderAccess.local){provider.value='evidence';service.hidden=true;range.value='paper';recommended='evidence';}
+    if(!ReaderAccess.local){
+      for(const option of Array.from(provider.options))if(['auto','ollama','chatgpt'].includes(option.value))option.remove();
+      provider.value='evidence';range.value='paper';recommended='evidence';
+    }
     function refreshOptions(config){
       if(!config?.available)return;
       recommended=config.automatic;
-      for(const [value] of initialLabels){
+      for(const item of provider.options){
+        const value=item.value;
         if(!['deepseek','qwen','ollama','chatgpt'].includes(value))continue;
-        const item=Array.from(provider.options).find(o=>o.value===value), name=providers[value];
+        const name=providers[value];
         const english={qwen:'Qwen',deepseek:'DeepSeek',ollama:'Ollama',chatgpt:'ChatGPT'}[value];
         item.dataset.needsKey=String(!config.available[value]);
         pair(item,name+(config.available[value]?'':'（待配置）'),english+(config.available[value]?'':' (set up)'));
@@ -60,14 +64,17 @@
       preview();
     }
     ReaderAccess.options().then(refreshOptions).catch(()=>{});
-    ReaderAccess.connections(options,provider,refreshOptions);
+    ReaderAccess.connections(connection,provider,refreshOptions);
     ReaderAccess.webChat(host,()=>{
       if(!question.value.trim())return '';
       const prior=history.map(turn=>turn.question+'\n'+turn.answer);
       return [question.value,spot,draft.value,...(range.value==='selection'?[]:sources).map(s=>'[p.'+s.page+'] '+s.text),...prior].filter(Boolean).join('\n\n');
     });
     function resetHistory(){history=[];transcript.hidden=true;previous.textContent='';state.textContent=''}
-    function busy(on){for(const control of [send,provider,range,topic,lookup,draft,question,remember])control.disabled=on}
+    function busy(on){
+      for(const control of [send,provider,range,topic,lookup,draft,question,remember])control.disabled=on;
+      connection.inert=on;
+    }
     function clear(keepTurns=false){
       if(!keepTurns)log.replaceChildren();
       version++;controller?.abort();lookupController?.abort();resetHistory();remember.checked=false;question.value='';draft.value='';lookState.replaceChildren();topic.value='';suggestedQuery='';topic.placeholder='例如，abaucin';sources=[];preview();busy(false);
@@ -141,7 +148,7 @@
       }
       return box;
     }
-    function display(q,data,free){
+    function display(q,data,free,rememberTurn=true){
       const turn=el('article','rq-turn');const questionTitle=el('h4');questionTitle.dataset.sourceText='';questionTitle.textContent=q;turn.append(questionTitle);
       const fallback=free||data.provider==='evidence'||!data.reported;
       const answer=fallback?guideFor(q,draft.value,range.value==='selection'?[]:sources,data.literature||[]):data;
@@ -165,19 +172,30 @@
       const short=['reported','background','uncertain'].map(k=>answer[k]?.zh||'').join('\n').trim();
       const english=['reported','background','uncertain'].map(k=>answer[k]?.en|| (answer[k]?.zh?PaperUI.english(answer[k].zh)||window.ReaderEnglish[answer[k].zh]||answer[k].zh:'')).filter(Boolean).join('\n');
       if(english && !/\p{Script=Han}/u.test(english))turn.append(btn('听英文回答','Listen to the English answer',e=>EnglishPractice.open({sentence:english,scope:spot,origin:e.currentTarget})));
-      if(short)history=[...history,{question:q,answer:ReaderLanguage.choose(short,english).slice(0,1800)}].slice(-4);
+      if(rememberTurn&&short)history=[...history,{question:q,answer:ReaderLanguage.choose(short,english).slice(0,1800)}].slice(-4);
       previous.textContent=history.map(h=>h.question+'\n'+h.answer).join('\n\n');transcript.hidden=!history.length;
     }
     async function submit(){
       const free=guideOnly();
+      if(!free && provider.selectedOptions[0]?.dataset.needsKey==='true' && ['deepseek','qwen'].includes(provider.value)){
+        provider.dispatchEvent(new Event('change'));
+        pair(state,'先填写所选服务的 API Key。','Enter an API key for the selected provider first.');return;
+      }
       if(!draft.value.trim()||!question.value.trim()||(!free&&!remember.checked)){state.textContent=free?'请填写选段与问题。':'请填写问题，并确认可发送所示文字。';return}
       const mine=++version,q=question.value.trim(),search=range.value==='search';controller=new AbortController();busy(true);
       state.textContent=search?'正在核对本文、引文和公开文献…':'正在核对本文…';
       try{
         const data=await ReaderAccess.ask({excerpt:draft.value.trim(),question:q,location:spot,history,sharePublic:true,paper:range.value==='selection'?[]:sources,searchPublic:search,provider:provider.value,query:search?(topic.value.trim()||suggestedQuery):''},controller.signal);
         if(mine!==version)return;
-        display(q,data,free);question.value='';updateQuery();state.textContent='可以接着问。';
-      }catch(err){if(mine===version){display(q,{modelNotice:err.message||'联网问答暂时不可用',search:{query:topic.value.trim()||suggestedQuery,status:search?'unavailable':'off'}},true);state.textContent='已保留本页依据。'}}
+        if(!free && data.modelNotice){
+          if(provider.value==='auto')display(q,data,true,false);
+          else if(search)publications(lookState,data);
+          pair(state,data.modelNotice,window.ReaderEnglish[data.modelNotice]||'The model did not return an answer.');
+        }else{display(q,data,free);question.value='';updateQuery();state.textContent='可以接着问。'}
+      }catch(err){if(mine===version){
+        if(free||provider.value==='auto'){display(q,{modelNotice:err.message||'联网问答暂时不可用',search:{query:topic.value.trim()||suggestedQuery,status:search?'unavailable':'off'}},true,false);state.textContent='已保留本页依据。'}
+        else pair(state,'未能取得模型回答，可以重试。','No model answer was received. You can try again.');
+      }}
       finally{if(mine===version){busy(false);controller=null}}
     }
     return {open(excerpt,newSpot,prompt='',evidence=[]){
@@ -565,19 +583,24 @@
         seen.add(normalized);out.push({kind,page,text:normalized.slice(0,1400)});
       }
       const raw=figure?.raw;if(!raw)return out;
+      if(row)put('所点表格行',figure.page,row);
+      const id=part?.raw.id;
+      function relevant(text){
+        return !raw.matchKey||PaperLiterature.inFigureScope(text,raw.matchKey,id);
+      }
+      for(const a of part?.raw.reading?.sources||[])if(/正文|图注/.test(a.kind)&&relevant(a.text))put(a.kind,a.page,a.text);
+      const local=part&&ModelReading.panelPassage(figure.caption,part.raw);
+      if(local?.local&&local.text)put('小图图注',raw.captionPanelPages?.[id]||raw.captionPage||figure.page,local.text);
       const record=selectedModel(excerpt||'')?.model.record;
       if(record)put('本文动物资料',record.page,record.text);
-      if(row)put('所点表格行',figure.page,row);
-      const local=part&&ModelReading.panelPassage(figure.caption,part.raw);
-      if(local?.local && local.text)put('小图图注',raw.captionPage||figure.page,local.text);
+      for(const a of raw.authorPassages||[])if(relevant(a.text))put(a.shared?'共同引用多张图的正文':'提及本图的正文',a.page,a.text);
       put('整图图注',raw.captionPage||figure.page,figure.caption);
-      for(const a of raw.questionAims||[])put('研究目的原句',a.page,a.text);
+      for(const a of raw.questionAims||[])if(relevant(a.text))put('研究目的原句',a.page,a.text);
       for(const c of (raw.questionCitations||[]).slice(0,1)){
+        if(c.context&&!relevant(c.context.text))continue;
         if(c.context)put('引文所在句',c.context.page,c.context.text);
         put('参考文献 ['+c.number+']',c.page,c.text.slice(0,650));
       }
-      for(const a of raw.authorPassages||[])put('提及本图的正文',a.page,a.text);
-      for(const a of part?.raw.reading?.sources||[])if(/正文|小图图注/.test(a.kind))put(a.kind,a.page,a.text);
       return out;
     }
     function openQuestion(excerpt,prompt,row){
@@ -827,13 +850,15 @@
         try{
           let words=await session.chartText(f.page,pageBox);
           if(current!==epoch)return;
-          const sources=[...(p.raw.reading?.sources||[]),...(f.raw.authorPassages||[]),{text:f.caption,page:f.raw.captionPage||f.page}];
+          const capPage=f.raw.captionPanelPages?.[p.raw.id]||f.raw.captionPage||f.page;
+          const sources=FigureElements.panelSources(f.raw,p.raw);
+          const lookup=(term,page)=>findPassage?.(term,page,f.raw.matchKey,p.raw.id);
           const quick=items=>{
             if(current!==epoch)return;
             const ready=[];
             for(const w of items.slice(0,90)){
-              const entry=w.chart?CartesianPanels.explanation(w,f.page):FigureElements.explain(w,{caption:f.caption,reading:p.raw.reading,page:f.page,words:items,lookupTerm})||
-                FigureElements.labelPassage(w.text,sources,findPassage,f.page);
+              const entry=w.chart?CartesianPanels.explanation(w,f.page):FigureElements.explain(w,{caption:f.caption,reading:p.raw.reading,page:f.page,captionPage:capPage,sources,words:items,lookupTerm})||
+                FigureElements.labelPassage(w.text,sources,lookup,f.page);
               if(entry&&w.x1>w.x0&&w.y1>w.y0)ready.push({x:w.x0,y:w.y0,w:w.x1-w.x0,h:w.y1-w.y0,entry});
             }
             if(ready.length){apply([...fixed,...ready]);pointProgress.update(fixed.length+ready.length,false)}
@@ -876,7 +901,7 @@
             shared.hidden=false;
             const heading=pair(el('small'),'共用图例','Shared legend');shared.append(heading);
             for(const item of sharedKeys){
-              const entry=FigureElements.explain({text:item.name},{caption:f.caption,reading:p.raw.reading,page:f.page,captionPage:f.raw.captionPage,series:true,estimate:marks.find(m=>m.peak&&m.text===item.name)?.estimate,axis:p.raw.axis});
+              const entry=FigureElements.explain({text:item.name},{caption:f.caption,reading:p.raw.reading,page:f.page,captionPage:capPage,sources,series:true,estimate:marks.find(m=>m.peak&&m.text===item.name)?.estimate,axis:p.raw.axis});
               const b=btn(item.name,item.name,()=>showTip(b,entry));b.setAttribute('aria-pressed','false');b.className='rq-series-key';
               b.style.setProperty('--series-color',item.color);if(item.dash.length)b.classList.add('rq-dashed');
               shared.append(b);
@@ -892,11 +917,11 @@
             const g=p.raw.reading,row=rowFor(word);
             const strainLabel=ModelReading.strains(t).length || f.raw.animalCohorts?.some(c=>c.name.toLowerCase()===t.toLowerCase());
             const model=strainLabel?modelEntries(t)[0]:null;
-            let entry=(word.chart&&CartesianPanels.explanation(word,f.page))||model||FigureElements.explain(word,{caption:f.caption,reading:g,page:f.page,captionPage:f.raw.captionPage,words,row,lookupTerm,series:word.series,peak:word.peak,estimate:word.estimate||marks.find(m=>m.peak&&m.text===t)?.estimate,axis:g?.axis||p.raw.axis})||
+            let entry=(word.chart&&CartesianPanels.explanation(word,f.page))||model||FigureElements.explain(word,{caption:f.caption,reading:g,page:f.page,captionPage:capPage,sources,words,row,lookupTerm,series:word.series,peak:word.peak,estimate:word.estimate||marks.find(m=>m.peak&&m.text===t)?.estimate,axis:g?.axis||p.raw.axis})||
               (f.raw.rasterPlate && CompositePlate.labelGuide(t,g?.sources,f.page));
             if(!entry){
               if(word.series||!/[\p{L}]{2}/u.test(t))continue;
-              entry=FigureElements.labelPassage(t,sources,findPassage,f.page);
+              entry=FigureElements.labelPassage(t,sources,lookup,f.page);
               if(!entry&&f.raw.review&&f.raw.rasterPlate)continue;
               if(!entry){entry=FigureElements.unresolved(t,f.page)}
             }

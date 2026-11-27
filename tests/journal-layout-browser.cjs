@@ -11,8 +11,13 @@ function sample() {
   const picture = add(stream(pixels,'/Type /XObject /Subtype /Image /Width 32 /Height 16 /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /ASCIIHexDecode'));
   const text = (x,y,s,size=10,font='R') => 'BT /'+font+' '+size+' Tf '+x+' '+y+' Td ('+s+') Tj ET';
   const plate = (bottom,height) => 'q 454 0 0 '+height+' 54 '+bottom+' cm /Plate Do Q';
+  const oldFont=add('<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman >>');
+  const repeated='The distribution of the samples was recorded at every site.';
+  const result='As shown in Figure 1, all three sampling sites lie along the river.';
+  const draft=add(stream([text(50,525,repeated),text(50,509,'The discarded measurements in Figure 1 came from a prior draft.'),
+    text(50,492,result)].join('\n'),'/Type /XObject /Subtype /Form /BBox [0 0 40 20] /Resources << /Font << /R '+oldFont+' 0 R >> >>'));
   const pages = [
-    [text(54,725,'The distribution of the samples was recorded at every site.',12),
+    [text(54,725,repeated,12),text(54,685,result),'/Draft Do',
      text(54,708,'The conditions at each of the three sites were comparable.',12),
      plate(250,300),text(54,235,'Figure 1 Sample collection sites.',9,'B')],
     [text(54,680,'Figura 2: Estimativas regionais.'),plate(500,175),
@@ -27,7 +32,7 @@ function sample() {
   ];
   const ids=pages.map(lines=>{
     const content=add(stream(lines.join('\n')));
-    return add('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 600 780] /Resources << /Font << /R 3 0 R /B 4 0 R >> /XObject << /Plate '+picture+' 0 R >> >> /Contents '+content+' 0 R >>');
+    return add('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 600 780] /Resources << /Font << /R 3 0 R /B 4 0 R >> /XObject << /Plate '+picture+' 0 R /Draft '+draft+' 0 R >> >> /Contents '+content+' 0 R >>');
   });
   objects[0]='<< /Type /Catalog /Pages 2 0 R >>';
   objects[1]='<< /Type /Pages /Kids ['+ids.map(i=>i+' 0 R').join(' ')+'] /Count '+ids.length+' >>';
@@ -47,13 +52,21 @@ function sample() {
     await p.addLocatorHandler(p.locator('.gd-skip:visible'),b=>b.click());
     await p.evaluate(()=>{
       const api=PaperReadingEvidence;
-      window.PaperReadingEvidence={...api,enrich(...args){const result=api.enrich(...args);window.checkedFigures=args[1].figures;return result;}};
+      window.PaperReadingEvidence={...api,enrich(...args){const result=api.enrich(...args);window.checkedFigures=args[1].figures;
+        window.checkedRows=args[0].model.rows;window.checkedSession=args[2];return result;}};
     });
     await p.locator('input[id$="-main"]').first().setInputFiles(sample());
     await p.waitForFunction(()=>window.checkedFigures,null,{timeout:45000});
     const figures=await p.evaluate(()=>checkedFigures.map(f=>({n:f.matchKey,id:f.id,title:f.title,pg:f.page,cp:f.captionPage,rect:f.pageBox})));
     assert.deepEqual(figures.map(f=>f.n),['F:1','F:2','F:3','F:4','F:5','F:6']);
     assert.match(figures[0].title,/^Sample collection/);
+    const citation=await p.evaluate(async()=>{
+      const actual=checkedFigures[0].authorPassages.find(p=>p.text.includes('along the river'));
+      return {hidden:checkedRows.some(r=>r.text.includes('discarded measurements')),
+        rect:actual&&await checkedSession.locateExcerpt(actual.page,actual.text)};
+    });
+    assert.equal(citation.hidden,false);
+    assert(citation.rect&&Math.abs((1-citation.rect.y)*780-693)<6,'Highlight the printed paragraph, not text clipped out of the placed figure');
     for(const [index,top,height] of [[1,105,175],[2,365,200]]){
       const f=figures[index];assert(f.rect);
       assert(Math.abs(f.rect.y*780-top)<4 && Math.abs(f.rect.height*780-height)<5,JSON.stringify(f));

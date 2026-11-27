@@ -1,19 +1,24 @@
 # Cross-journal PDF validation
 
-The corpus contains 46 public PDFs from 38 journals. It includes 35 papers in the initial set, nine additional papers from other issues or journals, and two controls with no numbered figures. It covers English, Portuguese, French and Chinese publications, including research articles, reviews, case reports, software papers, data articles and model descriptions. Both reader versions opened the same files through the web upload control. The audit selected each indexed main figure and opened **Read explanation**. [Per-paper results](journal-layouts-0.4.14.csv) · [Corpus and publisher sources](../tests/fixtures/journal-layouts.json)
+The corpus contains 46 public PDFs from 38 journals. It includes 35 papers in the initial set, nine additional papers from other issues or journals, and two controls with no numbered figures. It covers English, Portuguese, French and Chinese publications, including research articles, reviews, case reports, software papers, data articles and model descriptions. Both reader versions opened the same files through the web upload control. The audit selected each indexed main figure and opened **Read explanation**. [Per-paper results](journal-layouts-0.4.15.csv) · [Corpus and publisher sources](../tests/fixtures/journal-layouts.json)
 
-| Check | 0.4.13 | 0.4.14 |
+| Check | 0.4.14 | 0.4.15 |
 | --- | ---: | ---: |
-| Main figure numbers found | 227/244 | 244/244 |
-| Printed title openings matched | 213/244 | 244/244 |
-| Visible reading matched the selected source | 209/244 | 244/244 |
-| Caption page matched | 208/231 | 231/231 |
-| Artwork page matched | 215/237 | 237/237 |
-| Crop met both overlap thresholds | 161/237 | 216/237 |
-| Repeated entries | 31 | 0 |
-| Unexpected main figure numbers | 2 | 0 |
+| Main figure numbers found | 244/244 | 244/244 |
+| Printed title openings matched | 244/244 | 244/244 |
+| Visible reading matched the selected source | 244/244 | 244/244 |
+| Caption page matched | 231/231 | 231/231 |
+| Artwork page matched | 237/237 | 237/237 |
+| Crop met both overlap thresholds | 216/237 | 237/237 |
+| Repeated entries | 0 | 0 |
+| Unexpected main figure numbers | 0 | 0 |
 
-**How to read the counts.** The reference is the publisher's numbering of the main figures. Title and reading checks look for a distinctive opening from the source, normally its first 24 normalized letters or digits. The reading has to be visible after the click. Page and crop checks include only cases with an independent reference. A passing crop is on the correct page, covers at least 88% of the reference ink bounds, and has at least 49% of its area within those bounds. Among figures with an image reference, 12 opened in page view and 9 automatic crops cut off detail or included substantial surrounding material. Their figure numbers appear in the per-paper table.
+**How to read the counts.** The reference is the publisher's numbering of the main figures. Title and reading checks look for a distinctive opening from the source, normally its first 24 normalized letters or digits. The reading has to be visible after the click. Page and crop checks include only cases with an independent reference. A passing crop is on the correct page, covers at least 88% of the reference ink bounds, and has at least 49% of its area within those bounds. The audit revisited the 12 page fallbacks and nine crop mismatches from the previous release using the same references and thresholds.
+
+**Body passages and map links.** The reader identified 446 body quotations for 238 figures. Each quotation cited the target figure, appeared in full on the stated page, and led to a highlighted PDF line. Passages citing several figures carry a shared-reference label.
+
+- The reported Neuron paper opened Figure 3 on PDF page 6 and its caption on page 7. Figure 4 in the skeletal chemokine review opened the SDF-1/CXCR4 diagram on page 7. For both papers the test followed the caption, body passage, map objective and result back to a highlighted source line. [Neuron paper](https://pubmed.ncbi.nlm.nih.gov/40233748/) · [Skeletal chemokine review](https://doi.org/10.3389/fendo.2025.1667440)
+- Two side-by-side charts from DenseNet and Stochastic Depth received 160 clicks at independent PDF coordinates. Each click checked the explanation for the selected axis, group name, legend entry or symbol at fit, zoom, edited crop and zoomed crop. The maximum edge offsets were 1.89 and 1.75 CSS pixels, respectively.
 
 **Examples**
 

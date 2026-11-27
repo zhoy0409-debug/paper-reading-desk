@@ -8,7 +8,7 @@
 
 遇到图和图注分居两页的论文，阅读器会分别标出「图像第几页」和「图注第几页」。正文提到 Figure 3A 或 Figures 3A and 3B 时，也能从图 3 回到提及它的段落。
 
-跨期刊上传测试覆盖 38 种期刊的 46 篇 PDF，逐项检查图号、图注页、插图页、自动裁切及点开图解后显示的原文。[查看逐篇测试结果](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.zh-CN.md)
+用 38 种期刊的 46 篇 PDF 从上传开始复测。逐图核对 244 张正文图的标题和图解，给有位置参照的 237 张图检查裁切，还从每条关联的正文摘录点回原文。[查看逐篇测试结果](https://github.com/zhoy0409-debug/paper-reading-desk/blob/main/docs/journal-layouts.zh-CN.md)
 
 **想看图解**，打开 PDF，选一张缩略图，点原图旁的「看图解」。这里会列出图注中能找到的比较、测量，以及正文中提到这张图的段落，可点页码核对。手机上点「回到图」就会回到刚才那张图或小图。有可识别的坐标或图例时，直接点图，或从「点读标注」里选。以上操作在浏览器里即可完成。纯扫描页没有可读图注时，可以查看原页、手动框选取图。[用一张真实论文图试试点读](https://zhoy0409-debug.github.io/paper-reading-desk/read/?lang=zh&sample=figure-8a)
 
@@ -64,7 +64,7 @@
 
 ![从论文图注划词后显示的中文译文](docs/guide/selection-zh.webp)
 
-「脑图」按论文正文和图注组织背景、问题和逐图证据，点页码核对原句。Windows 版接好模型后，可选模型生成大纲。网页版也能粘贴常用 AI 的大纲，逐条核对引文。
+「脑图」按论文正文和图注组织背景、问题和逐图证据，点页码核对原句。网页版和 Windows 版都能用自己的 API Key 生成大纲，再逐条核对引用的原文。
 
 点底部「编辑讲稿」，同一批小图、排序和讲解会出现在整套幻灯片中。可加自己的图片和文字页，分别编辑投影片正文与演讲备注，试讲后点击「导出整套 PPTX」。
 
@@ -187,10 +187,12 @@ flowchart TD
 | 中文或英文图谱、小图特写、PNG 和 PPTX 导出、原文导读 | 支持 | 支持 |
 | 公开文献检索 | Crossref、Europe PMC，支持 PMID 精确检索 | PubMed、Crossref |
 | 沿用自己的 AI 网页 | 复制问题和原文，可打开 ChatGPT、DeepSeek、Claude 或 Gemini | 同样支持 |
-| 在阅读器内接模型回答 | 使用内置原文导读 | DeepSeek、通义千问（北京）、已安装的 Ollama，或已登录的 Codex CLI |
+| 在阅读器内提问 | 原文导读，或使用自己的 DeepSeek、通义千问（北京）API Key | 同样支持，也可使用本机的 Ollama 或已登录的 Codex CLI |
 | 获得新版 | 重新打开或刷新网页 | v0.3.0 起在「版本更新」中下载安装，再点「重启并应用」 |
 
-Windows 版可在「回答与检索设置 → 连接自己的模型」填写服务商 API 密钥。通过界面填写的密钥仅保存在本次服务进程内，可随时移除，费用按服务商规则计算。v0.2.2 及更早的便携版需先手动下载新版一次。[Windows 下载](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [发布说明](https://github.com/zhoy0409-debug/paper-reading-desk/releases)
+打开「划词追问」，在「回答方式」选 DeepSeek 或通义千问。在「使用自己的 API Key」里填入对应服务商的 Key，点「使用此 Key」。核对选段，勾选发送确认，即可在图旁提问。网页版由浏览器直连服务商，每次请求使用读者自己的模型额度。刷新或关闭标签页会清除网页里的 Key，Windows 版在退出阅读器服务时清除。两版都可以随时点「移除 Key」。
+
+v0.2.2 及更早的便携版需先手动下载新版一次。[Windows 下载](https://github.com/zhoy0409-debug/paper-reading-desk/releases/latest/download/Reading-Desk-Windows-x64.zip) · [发布说明](https://github.com/zhoy0409-debug/paper-reading-desk/releases)
 
 macOS 或 Linux 用户也可用 Python 3.8 或更高版本运行 `python3 preview.py` 启动本机服务。
 

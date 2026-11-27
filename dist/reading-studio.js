@@ -236,7 +236,7 @@
     const thread=track?ReadingThread.mount({workbench,track,tabs,model,paper}):null;
     const figureById=new Map(model.figures.map(f=>[f.id,f]));
     const map=ReadingMap.mount({workbench,model,paper,state,save,select,source,thumb:id=>lens.thumb(figureById.get(id)),
-      openPanel(id,letter){if(id)select(id);[...tabs.querySelectorAll('.frw-panel-tab')].find(b=>b.textContent.trim()===letter)?.click()}});
+      openPanel(id,letter){if(id)select(id);[...tabs.querySelectorAll('.frw-panel-tab')].find(b=>b.dataset.panel?.toUpperCase()===letter.toUpperCase())?.click()}});
     const deck=ReadingDeck.mount({workbench,model,paper,state,save,render,desk:panelDesk,changed:()=>drawBasket()});
     let followed='';
     function follow(){

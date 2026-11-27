@@ -14,7 +14,11 @@ on:
       - 'tests/cross-page-reader-browser.cjs'
       - 'tests/journal-layout-browser.cjs'
       - 'tests/public-search.cjs'
+      - 'tests/personal-api-browser.cjs'
       - 'tests/panel-evidence.cjs'
+      - 'tests/figure-elements.cjs'
+      - 'tests/raster-legend-browser.cjs'
+      - 'tests/fixtures/*legend.pdf'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -56,9 +60,13 @@ jobs:
           node tests/reading-map-data.cjs
           node tests/map-language.mjs
           node tests/panel-evidence.cjs
+          node tests/figure-elements.cjs
           node tests/public-search.cjs
+          node tests/personal-api-browser.cjs http://127.0.0.1:8174/read/
+          READER_BROWSER=webkit node tests/personal-api-browser.cjs http://127.0.0.1:8174/read/
           node tests/cross-page-reader-browser.cjs http://127.0.0.1:8174/read/
           node tests/journal-layout-browser.cjs http://127.0.0.1:8174/read/
+          node tests/raster-legend-browser.cjs http://127.0.0.1:8174/read/
           node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/figure-explanation-entry-browser.cjs http://127.0.0.1:8174/read/
           node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/

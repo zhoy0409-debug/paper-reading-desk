@@ -49,17 +49,38 @@ function figureMentions(str){
   add(number);
   let rest=str.slice(m.index+m[0].length);
   const panel=rest.match(/^\s*\(([A-Za-z])\)/);
-  if(panel&&!/[a-z]$/i.test(number)){add(number+panel[1]);rest=rest.slice(panel[0].length)}
+  const base=number.replace(/(?<=\d)[a-z]$/i,'');
+  let letter=number.slice(base.length);
+  if(panel&&!letter){letter=panel[1];add(base+letter);rest=rest.slice(panel[0].length)}
+  while(letter){
+   const next=rest.match(/^\s*(,\s*(?:and\s+)?|and\s+|[–—-]\s*)\(?([a-z])\)?(?=[\s,.;:)\]]|$)/i);
+   if(!next)break;
+   const from=letter.toUpperCase().charCodeAt(0),to=next[2].toUpperCase().charCodeAt(0);
+   if(to<=from)break;
+   if(/^[–—-]/.test(next[1]))for(let k=from+1;k<to;k++)add(base+String.fromCharCode(k));
+   add(base+next[2]);letter=next[2];rest=rest.slice(next[0].length);
+  }
   // Only plural references introduce a list of further figure numbers.
   if(/s\.?$/i.test(type)){
+   let prior=number.replace(/\s+/g,'');
    for(let n=0;n<16;n++){
-    const next=rest.match(/^\s*(?:,\s*(?:and\s+)?|and\s+|[–—-])\s*(S?\d{1,3}[a-z]?)(?![\w%]|\.\d|\s*(?:%|mg\b|mm\b|µm\b|Hz\b))/i);
+    const next=rest.match(/^\s*(,\s*(?:and\s+)?|and\s+|[–—-])\s*(S?\d{1,3}[a-z]?)(?![\w%]|\.\d|\s*(?:%|mg\b|mm\b|µm\b|Hz\b))/i);
     if(!next)break;
-    add(next[1]);rest=rest.slice(next[0].length);
+    const following=next[2],a=prior.match(/^(S?)(\d+)$/i),b=following.match(/^(S?)(\d+)$/i);
+    if(/[–—-]/.test(next[1])&&a&&b&&a[1].toUpperCase()===b[1].toUpperCase()&&Number(b[2])-Number(a[2])<=30)
+     for(let j=Number(a[2])+1;j<Number(b[2]);j++)add(a[1]+j);
+    add(following);prior=following;rest=rest.slice(next[0].length);
    }
   }
  }
  return Array.from(out);
+}
+function inFigureScope(text,key,panel){
+ const refs=figureMentions(text).filter(k=>k.startsWith('F:'));
+ if(refs.length&&!refs.includes(key))return false;
+ if(!panel)return true;
+ const specific=refs.filter(k=>k.startsWith(key)&&/^[A-Z]$/.test(k.slice(key.length)));
+ return !specific.length||specific.includes(key+panel.toUpperCase());
 }
 function detectHeading(str, heading){
  const text=inline(str).replace(/^#{1,6}\s+/,'').replace(/^\d+(?:\.\d+)*[.)、]?\s+/,'');
@@ -938,5 +959,5 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  window.addEventListener('hashchange',()=>{if(PaperShelf.target())shelf.restore()});
  }catch{}
 }
-window.PaperLiterature = Object.freeze({mount,figureMentions});
+window.PaperLiterature = Object.freeze({mount,figureMentions,inFigureScope});
 })();

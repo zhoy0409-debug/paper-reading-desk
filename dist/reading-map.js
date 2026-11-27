@@ -38,7 +38,7 @@
     function aiTree(){
       const tree=ReadingMapData.parse(state.aiMap,raws);
       if(!tree.text)tree.text=question;
-      return {tree,stats:ReadingMapData.verify(tree,rows)};
+      return {tree,stats:ReadingMapData.verify(tree,rows,raws)};
     }
     function draw(){
       const has=!!state.aiMap;
@@ -78,7 +78,7 @@
       d.append(button('mm-close','关闭','Close',()=>d.close()),ui('h2','','让 AI 梳理，再由原文核对','AI organizes, the paper checks'),
         ui('p','','每条依据都会在这篇论文里逐字查找，查不到的会标「待核对」。','Every quotation is searched for in this paper. Anything not found is marked.'),steps);
       const controller=new AbortController();
-      const modelBox=el('section','mm-model'),model=el('select'),modelStatus=el('small');
+      const modelBox=el('section','mm-model'),model=el('select'),modelStatus=el('small'),controls=el('div');
       const manual=el('details'),manualTitle=ui('summary','','用网页版 AI 或已有大纲','Use a web chat or an existing outline');
       manual.append(manualTitle,steps);d.append(modelBox,manual);
       model.setAttribute('aria-label',ReaderLanguage.choose('梳理模型','Outline model'));
@@ -91,21 +91,24 @@
           if(!d.open)return;
           area.value=result.outline;manual.open=true;make.click();
         }catch(error){
-          if(!controller.signal.aborted){PaperUI.set(modelStatus,'生成未完成，可重试或展开其他方式。','Generation did not finish. Retry or use the other options.');manual.open=true}
+          if(!controller.signal.aborted){PaperUI.set(modelStatus,error.message,window.ReaderEnglish[error.message]||'Generation did not finish. Check your connection and key.');}
         }finally{run.disabled=model.disabled=false}
       });
-      modelBox.hidden=true;manual.open=true;
-      ReaderAccess.options().then(options=>{
-        if(!d.open)return;
+      controls.append(ui('p','','点击生成会将带页码的摘录发给所选模型，使用该账号的额度。','Generate sends page-labelled excerpts to the selected model using that account.'),model,run,modelStatus);
+      modelBox.append(controls);controls.hidden=true;manual.open=true;
+      function updateModels(options){
+        const selected=model.value;
+        model.replaceChildren();
         for(const [key,label] of [['deepseek','DeepSeek'],['qwen','Qwen'],['ollama','Ollama'],['chatgpt','ChatGPT']]){
           if(!options.available[key])continue;
           const item=el('option');item.value=key;item.textContent=label;model.append(item);
         }
-        if(model.length){
-          modelBox.append(ui('p','','点击生成后，将带页码的正文摘录发送给所选模型。','Generate sends page-labelled excerpts to the selected model.'),model,run,modelStatus);
-          modelBox.hidden=false;if(!manual.contains(document.activeElement))manual.open=false;
-        }
-      }).catch(()=>{});
+        if(Array.from(model.options).some(item=>item.value===selected))model.value=selected;
+        controls.hidden=!model.length;
+        if(!manual.contains(document.activeElement))manual.open=!model.length;
+      }
+      ReaderAccess.connections(modelBox,model,updateModels);
+      ReaderAccess.options().then(options=>{if(d.open)updateModels(options)}).catch(()=>{});
       d.addEventListener('close',()=>{controller.abort();d.remove()});d.addEventListener('click',e=>{if(e.target===d)d.close()});
       workbench.append(d);d.showModal();
     }

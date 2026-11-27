@@ -71,6 +71,13 @@
     return null;
   }
 
+  function panelSources(f,p){
+    const own=(p.reading?.sources||[]).filter(s=>/正文|图注/.test(s.kind)&&!s.kind.startsWith('整图'));
+    const body=(f.authorPassages||[]).filter(s=>!f.matchKey||PaperLiterature.inFigureScope(s.text,f.matchKey,p.id));
+    const start=globalThis.CaptionFlow?.headings(f.caption)?.[0]?.at;
+    const shared=start!=null?f.caption.slice(0,start):own.some(s=>/图注/.test(s.kind))?'':f.panels?.length>1?'':f.caption;
+    return [...own,...body,...(shared?[{text:shared,page:f.captionPage||f.page}]:[])];
+  }
   function explain(w, ctx) {
     const t=clean(w.text), {caption,reading={},page,captionPage=page,words=[],row,series,axis}=ctx;
     const sources=reading.sources||[], local=sources.find(s=>s.kind==='小图图注');
@@ -118,7 +125,7 @@
     }
     if(/^relative expression$/i.test(t))return card(t,t,'纵轴表示相对于参照条件的表达水平。比较各组在同一尺度上的读数，读数越高，相对表达越高。','This axis measures expression relative to a reference condition. A higher value means higher relative expression.');
     if(/^mock$/i.test(t))return card(t,t,'Mock 是模拟处理对照，经历相应的对照操作，为比较实验处理后的读数提供基线。','Mock is the procedural control. Its measurement provides a baseline for comparing the experimental condition.');
-    if(/^(no scratch|scratch)$/i.test(t))return card(t,t,/^no/i.test(t)?'No scratch 标出未抓挠条件的数据。与 Scratch 组比较，可读出两种条件下指标的差异。':'Scratch 标出抓挠条件的数据。与 No scratch 组对读，观察抓挠条件下指标的变化。',/^no/i.test(t)?'No scratch identifies measurements under the no-scratching condition. Compare them with Scratch.':'Scratch identifies measurements under the scratching condition. Compare them with No scratch.');
+    if(/^(no scratch|scratch)$/i.test(t)&&/\b(?:itch|pruritus|scratching behaviou?r|bouts of scratching)\b/i.test(caption+' '+words.map(v=>v.text).join(' ')))return card(t,t,/^no/i.test(t)?'No scratch 标出未抓挠条件的数据。与 Scratch 组比较，可读出两种条件下指标的差异。':'Scratch 标出抓挠条件的数据。与 No scratch 组对读，观察抓挠条件下指标的变化。',/^no/i.test(t)?'No scratch identifies measurements under the no-scratching condition. Compare them with Scratch.':'Scratch identifies measurements under the scratching condition. Compare them with No scratch.');
     if(/^bouts of scratching$/i.test(t))return card(t,t,'纵轴计数观察期内出现了多少阵抓挠行为。读数越高，记录到的抓挠阵次越多。','This axis counts scratching bouts during the observation period. Higher values mean more bouts.');
     if(/^spontaneous itch$/i.test(t))return card(t,t,'这个标题指自发性瘙痒。图中用观察到的抓挠行为来量化这一表现。','Spontaneous itch is the outcome. The figure uses observed scratching behavior to quantify it.');
     if(/^p\s*[=<>≤≥]\s*0?\.\d+$/i.test(t))return card(t,t,'这是图中标出的比较所对应的 P 值。它衡量在零假设及检验假定成立时，得到至少如此极端结果的概率。','This is the P value for the indicated comparison. Under the null hypothesis and test assumptions, it is the probability of a result at least this extreme.');
@@ -138,6 +145,11 @@
       const entry=reading.rows?.find(r=>r.en==='Vertical axis' && r.enText && !/^The printed y-axis/i.test(r.enText));
       if (entry) return card(t,t,entry.zh,entry.enText);
     }
+    const definition=evidence(t,ctx.sources||sources.filter(s=>!/Printed|Full figure caption/.test(s.en||'')).concat({text:caption,page:captionPage}));
+    if(definition){
+      if(series){definition[0]='图例 · '+t;definition[1]='Legend · '+t}
+      return definition;
+    }
     if (series) return card('图例 · '+t,'Legend · '+t,'这段线的颜色和线型标识 '+t+'。'+(axis?'沿同样式的曲线读纵轴 '+axis+'。':'在图中沿对应曲线比较这一组的读数。'),
       'The colour and stroke identify '+t+'. '+(axis?'Follow this curve to read '+axis+' on the vertical axis.':'Follow the corresponding curve to compare readings for this group.'));
     const bar=t.match(/^(\d+(?:\.\d+)?)\s*([µμu]m|nm|mm)$/i);
@@ -156,7 +168,7 @@
       const entry=card(t,t,'本文将 '+full+' 简写为 '+t+'。',t+' stands for '+full+' in this paper.',sourcePage);
       entry.quote=text;return entry;
     }
-    return evidence(t,sources.filter(s=>!/Printed|Full figure caption/.test(s.en||'')).concat({text:caption,page:captionPage}));
+    return null;
   }
   function passage(term,sources){
     for(const source of sources){
@@ -194,11 +206,11 @@
       }
       flush();
     }
-    return (term,page)=>{
-      const key=page+'|'+folded(term);
+    return (term,page,figure,panel)=>{
+      const key=[page,figure,panel,folded(term)].join('|');
       if(!cache.has(key)){
         const needle=searchable(term);
-        const relevant=sources.filter(s=>s.index.includes(needle)).sort((a,b)=>Math.abs(a.page-page)-Math.abs(b.page-page));
+        const relevant=sources.filter(s=>s.index.includes(needle)&&(!figure||PaperLiterature.inFigureScope(s.text,figure,panel))).sort((a,b)=>Math.abs(a.page-page)-Math.abs(b.page-page));
         cache.set(key,evidence(term,relevant)||passage(term,relevant)||null);
       }
       return cache.get(key);
@@ -209,17 +221,17 @@
     entry.lookup=true;return entry;
   }
   function labelPassage(label,sources,lookup,page){
-    const direct=lookup?.(label,page)||passage(label,sources);
+    const direct=passage(label,sources)||lookup?.(label,page);
     if(direct)return direct;
     // A diagram can wrap "SDF-1 expression" or a kinase's action across lines.
     // Only use a shorter match if there is one unambiguous named term in the label.
     const tokens=[...new Set((label.match(/[A-Za-zΑ-Ωα-ω][A-Za-zΑ-Ωα-ω\d]*(?:[-‐‑][A-Za-zΑ-Ωα-ω\d]+)*/gu)||[])
       .filter(t=>t.length>=3&&t.length<=26&&(/[A-Z].*[A-Z\d]|\d|[Α-Ωα-ω]/u.test(t))&&t!==label))];
     if(tokens.length!==1)return null;
-    const term=tokens[0],matched=lookup?.(term,page)||passage(term,sources);
+    const term=tokens[0],matched=passage(term,sources)||lookup?.(term,page);
     if(!matched)return null;
     const entry=[label+' · '+term,label+' · '+term,matched[2],matched[3],matched[4]];
     entry.localize=matched.localize;entry.quote=matched.quote;return entry;
   }
-  window.FigureElements={labels,reference,distanceGuide,explain,passage,paperPassages,unresolved,labelPassage};
+  window.FigureElements={labels,reference,distanceGuide,explain,panelSources,passage,paperPassages,unresolved,labelPassage};
 })();

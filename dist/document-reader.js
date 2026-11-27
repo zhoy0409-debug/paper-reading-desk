@@ -77,9 +77,10 @@
         try {
           page = await pdf.getPage(n);
           const data = await source.text(page);
+          const items=await window.PaperFigureExtractor?.printedTextItems?.(page,data,source.pdfjs).catch(()=>data.items)??data.items;
           let line = '', prev, prevWidth=0, idx=0;
           function emit() { if (line.trim()) ctx.add('第 '+n+' 页 · 文字段 '+(++idx),line,{page:n}); line=''; }
-          for (const x of data.items) {
+          for (const x of items) {
             if (typeof x.str !== 'string') continue;
             if (ctx.full) break;
             const xform=x.transform||[];

@@ -12,7 +12,9 @@
         if(!busy||!layer)return false;
         const r=layer.parentElement.getBoundingClientRect(),area=layer.getBoundingClientRect();
         const box=area.width&&area.height?area:r;
-        const x=(event.clientX-box.left)/box.width,y=(event.clientY-box.top)/box.height;
+        const focused=!event.detail&&event.currentTarget?.matches?.('button')?event.currentTarget.getBoundingClientRect():null;
+        const x=((focused?focused.left+focused.width/2:event.clientX)-box.left)/box.width;
+        const y=((focused?focused.top+focused.height/2:event.clientY)-box.top)/box.height;
         if(!(x>=0&&x<=1&&y>=0&&y<=1))return false;
         pending={layer,x,y};
         say('loading','正在识别你点的位置…','Reading the spot you selected…');return true;
@@ -22,7 +24,7 @@
         if(!busy)return;
         if(pending){
           const {x,y,layer}=pending;
-          const match=[...layer.querySelectorAll('button.rq-hit')].map(b=>({b,x:parseFloat(b.style.left)/100,y:parseFloat(b.style.top)/100,
+          const match=[...layer.querySelectorAll('button.rq-hit:not([data-provisional])')].map(b=>({b,x:parseFloat(b.style.left)/100,y:parseFloat(b.style.top)/100,
             w:parseFloat(b.style.width)/100,h:parseFloat(b.style.height)/100})).filter(b=>x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h)
             .sort((a,b)=>a.w*a.h-b.w*b.h)[0];
           if(match){pending=null;match.b.click()}
@@ -32,7 +34,8 @@
           if(pending){pending=null;say('empty','此处未读出标注，可查看整图图解。','No label found at this spot. Open the figure explanation.');return}
         }
         if(pending)return;
-        if(count)say('ready',count+' 处标注可点读','Explore '+count+' figure labels');
+        if(count&&complete)say('ready',count+' 处标注可点读','Explore '+count+' figure labels');
+        else if(count)say('loading',count+' 处标注可点读，其余正在识别',count+' labels available. Reading the rest…');
         else if(complete)say('empty','可先看整图图解','Read the whole-figure explanation');
       }
     };
@@ -55,7 +58,7 @@
     choices.className='figure-label-list';choices.hidden=true;
     choices.append(summary,list);notes.append(choices);
     const saved=new Map();
-    let key='',run=0,marks=[],figure=null;
+    let key='',run=0,marks=[],figure=null,refining=false;
     function close(){
       for(const layer of layers)for(const button of layer.querySelectorAll('[aria-pressed=true]'))button.setAttribute('aria-pressed','false');
       for(const card of cards)card.hidden=true;
@@ -89,10 +92,15 @@
           const entry=m.entry||CartesianPanels.explanation(m,figure.page);
           const b=document.createElement('button');b.type='button';b.className='rq-hit';
           if(m.chart?.kind==='symbol')b.classList.add('rq-legend-symbol');
+          if(refining&&!m.chart)b.dataset.provisional='true';
           b.title=ReaderLanguage.choose(entry[0],entry[1]);b.setAttribute('aria-label',b.title);b.setAttribute('aria-pressed','false');
           Object.assign(b.style,{left:100*m.x0+'%',top:100*m.y0+'%',width:100*(m.x1-m.x0)+'%',height:100*(m.y1-m.y0)+'%'});
           if(b.title===selected[i]&&!cards[i].hidden)b.setAttribute('aria-pressed','true');
-          b.onclick=e=>{e.stopPropagation();select(m,b,i)};
+          b.onclick=e=>{
+            e.stopPropagation();
+            if(b.hasAttribute('data-provisional')&&progress.capture(e,layer))return;
+            select(m,b,i);
+          };
           if(i===0&&!entry.lookup&&m.chart?.kind!=='tick'){
             const control=document.createElement('button');control.type='button';
             const plot=figure.panels.length>1&&m.chart?.kind!=='x'&&m.chart?.context?.xName;
@@ -119,19 +127,19 @@
       const next=enabled&&f&&url?[f.id,mode,url].join('|'):'';
       if(next===key)return;
       if(f?.id!==figure?.id)choices.open=false;
-      key=next;const current=++run;marks=[];figure=f;close();draw();
+      key=next;const current=++run;marks=[];figure=f;refining=false;close();draw();
       progress.clear();if(!next)return;
       const bounds=(mode==='figure'&&f.raw.verifiedRegion)||f.raw.pageBox||(f.raw.pageOnly?{x:0,y:0,width:1,height:1}:null);
       if(!bounds)return;
-      progress.begin();
+      refining=true;progress.begin();
       const live=()=>current===run;
       const resolved=new Map();
       const sources=[{text:f.caption,page:f.raw.captionPage||f.page},...(f.raw.authorPassages||[])];
       function entries(words){
         return words.filter(w=>!w.chart&&/[\p{L}]{2}|[µμ]m/u.test(w.text)&&w.text.length<=82).map(w=>{
           if(!resolved.has(w.text)){
-            const entry=FigureElements.explain(w,{caption:f.caption,page:f.page,words})||
-              FigureElements.labelPassage(w.text,sources,findPassage,f.page)||
+            const entry=FigureElements.explain(w,{caption:f.caption,page:f.page,captionPage:f.raw.captionPage||f.page,words,sources})||
+              FigureElements.labelPassage(w.text,sources,(term,page)=>findPassage?.(term,page,f.raw.matchKey),f.page)||
               (!f.raw.pageOnly&&!(f.raw.review&&f.raw.rasterPlate)&&FigureElements.unresolved(w.text,f.page));
             resolved.set(w.text,entry);
           }
@@ -140,6 +148,7 @@
       }
       function publish(found,complete=false){
         if(!live())return;
+        refining=!complete;
         marks=found.map(m=>mode==='figure'?m:{...m,x0:bounds.x+m.x0*bounds.width,x1:bounds.x+m.x1*bounds.width,y0:bounds.y+m.y0*bounds.height,y1:bounds.y+m.y1*bounds.height});
         draw();progress.update(marks.length,complete);
       }
@@ -179,7 +188,7 @@
           publish(found,true);
         }finally{bitmap.close();c.width=c.height=0}
       }catch{/* Already readable labels stay active. */}
-      finally{if(live())progress.update(marks.length,true)}
+      finally{if(live()&&refining){refining=false;draw();progress.update(marks.length,true)}}
     }
     return {render,destroy(){run++;saved.clear();mirror.disconnect();for(const p of [plate,modalPlate])p.removeEventListener('click',dismiss);document.removeEventListener('keydown',escape);document.removeEventListener('reader-language-change',draw)}};
   }
