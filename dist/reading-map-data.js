@@ -241,10 +241,10 @@
         for(const p of f.panels){
           const source=p.reading?.sources?.find(s=>s.kind==='小图图注')||p.reading?.sources?.find(s=>s.kind.startsWith('组内共用图注'));
           const text=source?.text||p.groupCaption?.text||p.captionPart;
-          if(text)panels.push({text,quote:text,page:source?.page||f.captionPanelPages?.[p.id]||f.captionPage||f.page,check:'source',panel:p.id.toUpperCase(),figureId:f.id});
+          if(text)panels.push({text:p.groupCaption?.specific||text,quote:text,page:source?.page||f.captionPanelPages?.[p.id]||f.captionPage||f.page,check:'source',panel:p.id.toUpperCase(),figureId:f.id});
         }
       }else for(const [l,v] of PaperOutline.panelText(f.caption)){
-        panels.push({text:v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase(),figureId:f.id});
+        panels.push({text:v.specific||v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase(),figureId:f.id});
       }
       if(panels.length>=3)kids.push({zh:'分图证据',en:'Panel evidence',children:panels});
       else kids.push(...panels);

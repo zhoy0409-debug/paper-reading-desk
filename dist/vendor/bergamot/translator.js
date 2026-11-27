@@ -127,9 +127,11 @@ export class CancelledError extends Error {}
          * @type {Map<number,{accept:(any), reject:(Error)}>}
          */
         const pending = new Map();
+        let failure;
 
         // Function to send requests
         const call = (name, ...args) => new Promise((accept, reject) => {
+            if (failure) { reject(failure); return; }
             const id = ++serial;
             pending.set(id, {
                 accept,
@@ -162,11 +164,21 @@ export class CancelledError extends Error {}
         });
 
         // … and general errors
-        worker.addEventListener('error', this.onerror.bind(this));
+        worker.addEventListener('error', event => {
+            failure = new Error(event.message || 'Translation worker failed to load');
+            for (const request of pending.values()) request.reject(failure);
+            pending.clear();
+            this.onerror(failure);
+        });
 
         // Await initialisation. This will also nicely error out if the WASM
         // runtime fails to load.
-        await call('initialize', this.options);
+        try {
+            await call('initialize', this.options);
+        } catch (error) {
+            worker.terminate();
+            throw error;
+        }
 
         /**
          * Little wrapper around the message passing api of Worker to make it
@@ -178,6 +190,7 @@ export class CancelledError extends Error {}
          */
         return {
             worker,
+            failed: () => Boolean(failure),
             exports: new Proxy({}, {
                 get(target, name, receiver) {
                     // Prevent this object from being marked "then-able"
@@ -551,11 +564,9 @@ export class BatchTranslator {
 
             // No worker free, but space for more?
             if (!worker && this.workers.length < this.workerLimit) {
+                const placeholder = {idle: false};
+                this.workers.push(placeholder);
                 try {
-                    // Claim a place in the workers array (but mark it busy so
-                    // it doesn't get used by any other `notify()` calls).
-                    const placeholder = {idle: false};
-                    this.workers.push(placeholder);
 
                     // adds `worker` and `exports` props
                     Object.assign(placeholder, await this.backing.loadWorker());
@@ -563,6 +574,13 @@ export class BatchTranslator {
                     // At this point we know our new worker will be usable.
                     worker = placeholder;
                 } catch (e) {
+                    // A failed first download must release its slot so a later
+                    // request can start a worker. Settle the callers waiting on it.
+                    this.workers.splice(this.workers.indexOf(placeholder), 1);
+                    if (!this.workers.length) {
+                        for (const batch of this.queue.splice(0))
+                            batch.requests.forEach(({reject}) => reject(e));
+                    }
                     this.onerror(new Error(`Could not initialise translation worker: ${e.message}`));
                 }
             }
@@ -571,11 +589,11 @@ export class BatchTranslator {
             if (!worker)
                 return;
 
-            // Up to this point, this function has not used await, so no
-            // chance that another call stole our batch since we did the check
-            // at the beginning of this function and JavaScript is only
-            // cooperatively parallel.
             const batch = this.queue.shift();
+            if (!batch) {
+                worker.idle = true;
+                return;
+            }
 
             // Put this worker to work, marking as busy
             worker.idle = false;
@@ -584,7 +602,12 @@ export class BatchTranslator {
             } catch (e) {
                 batch.requests.forEach(({reject}) => reject(e));
             }
-            worker.idle = true;
+            if (worker.failed?.()) {
+                worker.worker.terminate();
+                this.workers.splice(this.workers.indexOf(worker), 1);
+            } else {
+                worker.idle = true;
+            }
 
             // Is there more work to be done? Do another idleRequest
             if (this.queue.length)

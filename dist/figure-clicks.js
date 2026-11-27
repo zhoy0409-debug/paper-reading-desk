@@ -67,7 +67,7 @@
       close();progress.cancelTap();
       const entry=m.entry||(m.chart?CartesianPanels.explanation(m,figure.page):null);
       if(!entry)return;
-      const context=entry.lookup&&findPassage?.(m.text,figure.page);
+      const context=entry.lookup&&findPassage?.(m.text,figure.page,figure.raw.matchKey);
       const content=context||entry;
       const card=cards[index];
       button.setAttribute('aria-pressed','true');

@@ -97,3 +97,14 @@ main:has(.frw) > header.top {position:sticky;top:0;z-index:8;background:var(--pa
 @media (max-width:640px) { #literaturePane .rq-quote-actions button,.rq-term-definition button { min-height:44px } }
 
 .local-translation .rq-term-definition .rq-term-gloss { display:block; margin:4px 0 2px; color:#3f444e; font-size:.85rem; line-height:1.5 }
+.pl-field{display:flex;align-items:center;flex-wrap:wrap;gap:.65rem;margin:10px 0;color:var(--muted,#515d6b);font:500 .85rem/1.4 var(--sans,system-ui)}
+.pl-field[hidden]{display:none}
+.pl-field select{max-width:100%;min-height:32px}
+.pl-custom-glossary:not([hidden]){display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 12px;max-width:32rem;margin-bottom:12px;font-size:.85rem}
+.pl-custom-glossary label,.pl-custom-glossary textarea{grid-column:1/-1}
+.pl-custom-glossary textarea{width:100%;min-width:0;resize:vertical;box-sizing:border-box}
+.pl-custom-glossary small{color:var(--muted,#515d6b)}
+.paper-translation-retry{display:inline-flex;align-items:center;gap:.3em;vertical-align:middle;min-height:26px;padding:2px 8px;border:1px solid currentColor;border-radius:6px;background:transparent;color:var(--link,#3856ac);font:inherit;font-size:.9em;cursor:pointer}
+.paper-translation-retry::before{content:'↻';font-size:1.05em}
+.paper-translation-retry:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@media(pointer:coarse){.paper-translation-retry{min-height:34px}}

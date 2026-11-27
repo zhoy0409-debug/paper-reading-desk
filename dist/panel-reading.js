@@ -218,7 +218,9 @@
       row('原文怎样描述这张图','Panel-specific description',pair(lead,''));
     }
     row('怎么读','How to read it',interpretation);
-    if(group){
+    if(group?.specific){
+      row('本小图的指标','Measure in this panel',pair(group.specific,group.specific));
+    }else if(group){
       const lead=group.text.split(/(?<=[.!?。])\s+(?=[A-Z])/u)[0];
       let zh=lead,en=lead;
       if(/\babsolute values?\b/i.test(group.text)){

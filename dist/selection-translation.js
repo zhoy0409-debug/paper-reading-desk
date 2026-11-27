@@ -1,5 +1,3 @@
-import {selectionTranslation} from './scientific-translation.js?rev=reader-0415g';
-
 const popup = document.createElement('section');
 popup.className = 'local-translation';
 popup.hidden = true;
@@ -220,7 +218,10 @@ async function translate(){
   if(text.length>8000){PaperUI.set(output,'每次最多选择 8000 个字符。','Select up to 8,000 characters at a time.');return}
   ignore=true;delete output.dataset.sourceText;run.disabled=true;PaperUI.set(output,'正在本机翻译…','Translating on this device…');
   try{
-    const result=await selectionTranslation(text,from,PaperLanguageText.translate);
+    const anchor=activeRange?.startContainer.parentElement;
+    const context=EnglishPractice.selectionSentence(anchor,text)||anchor?.textContent||'';
+    const {selectionTranslation}=await PaperLanguageText.science();
+    const result=await selectionTranslation(text,from,PaperLanguageText.translate,{field:PaperLanguageText.field,context});
     if(request!==id)return;
     output.textContent=result.text;output.lang=result.lang;output.dataset.sourceText='';
     quote.textContent=text;original.hidden=false;notice.hidden=!result.name;
@@ -239,6 +240,7 @@ async function translate(){
 // Pointer activation keeps the native range; keyboard activation uses real buttons.
 popup.addEventListener('pointerdown', e => { if (e.target.closest('button')) e.preventDefault() });
 run.onclick = translate;
+document.addEventListener('paper-field-change',hide);
 close.onclick = hide;
 document.addEventListener('selectionchange', () => { clearTimeout(timer); timer = setTimeout(update, 100) });
 document.addEventListener('pointerdown', e => { if (!popup.hidden && !popup.contains(e.target)) hide() }, true);

@@ -1,10 +1,12 @@
+const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=0416'));
 // Translate supported scientific constructions from their captured subjects and modifiers.
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
 export function normalizeSelection(text){
   return text.replace(/\u00ad/g,'').replace(/(\b[A-Z]{2,8}-)\s+(?=[A-Z0-9])/g,'$1')
     .replace(/\b([A-Z][A-Z\d]*\d)\s*\/\s*(?=[A-Z][A-Z\d]*\d\b)/g,'$1/')
     .replace(/\b(vul)-\s+(gatus)\b|\b(experi)-\s+(ments?)\b/gi,(_,a,b,c,d)=>(a||c)+(b||d))
-    .replace(/-\s+(?=producing\b|resistant\b|susceptible\b)/gi,'-').replace(/\s+/g,' ').trim();
+    .replace(/[-‐‑]\s+(?=producing\b|resistant\b|susceptible\b|treated\b)/gi,'-')
+    .replace(/\b(vehicle|[a-z]{3,}(?:cillin|penem|mycin|cin))treated\b/gi,'$1-treated').replace(/\s+/g,' ').trim();
 }
 const terminology=[
   ['attraction-repulsion spectrum','吸引力与排斥力谱'],['neighbor embeddings','邻域嵌入'],['neighbor embedding','邻域嵌入'],
@@ -14,7 +16,7 @@ const terminology=[
   ['neural stem and progenitor cells','神经干细胞和祖细胞'],['neurorepair','神经修复'],
   ['conformational hijacking','构象劫持'],['lipoprotein transporter','脂蛋白转运蛋白'],
   ['precision antimicrobial activity','精准抗菌作用'],
-  ['attraction','吸引力'],['repulsion','排斥力'],['stroke','卒中'],
+  ['attraction','吸引力'],['repulsion','排斥力'],
   ['distance correlations','距离相关性'],
   ['chemokine signaling networks','趋化因子信号网络'],['skeletal disorders','骨骼疾病'],
   ['chemokine-mediated signaling cascades','趋化因子介导的信号级联'],['chemokine axes','趋化因子轴'],
@@ -182,8 +184,8 @@ function comparisonCaption(body){
   const side=s=>s.toLowerCase()==='left'?'左图':'右图';
   return '比较 '+metric[1]+' 和 '+metric[2]+' 在 '+metric[7]+' '+dataset+'上的 Top-'+metric[4]+(/^error/i.test(metric[5])?' 错误率':' 准确率')+crop+'。'+side(panels[3])+'横轴为'+first+'，'+side(panels[5])+'横轴为'+second+'。';
 }
-async function academicAim(s,translate){
-  const phrase=text=>/^(?:[A-Z][A-Z\d/-]*|pH|t-SNE|kNN)$/.test(text)?text:mapChinese(text,translate);
+async function academicAim(s,translate,field){
+  const phrase=text=>/^(?:[A-Z][A-Z\d/-]*|pH|t-SNE|kNN)$/.test(text)?text:mapChinese(text,translate,{field});
   const spaced=text=>/^[a-z\d]/i.test(text)?' '+text:text;
   const mechanism=s.match(/^Conformational hijacking of (.+?) ([A-Z][A-Za-z\d-]+) enables (.+?) against\s*([A-Z][a-z.]+ [a-z]+)[.]?$/i);
   if(mechanism)return '通过劫持'+(await phrase(mechanism[1]))+' '+mechanism[2]+' 的构象，实现对'+(await phrase(mechanism[4]))+'的'+(await phrase(mechanism[3]))+'。';
@@ -226,20 +228,66 @@ async function academicAim(s,translate){
     return '考察 '+role[1]+' 在'+setting+'中的作用。';
   }
 }
-export async function translatePassage(original,from,translate){
+// Experimental captions frequently list the treatment groups as adjectives before
+// the specimen. Keep each group and the measured outcome in their printed order.
+function treatmentCaption(sentence,field){
+  if(!['medicine','life'].includes(field))return null;
+  const stats=sentence.match(/\s*\(n\s*=\s*(\d+)\s*[,;]\s*(\**)[pP]\s*([<>=≤≥])\s*(\d+(?:\.\d+)?)\s*;\s*ns,?\s*not significant\)\.?$/i);
+  const body=(stats?sentence.slice(0,stats.index):sentence).replace(/\.$/,'');
+  const specimen=body.match(/^(Lung tissue|Liver tissue|Kidney tissue|Plasma|Serum) from (.+?) (mice|rats)(?: in (?:the |a )?([\w-]+)-induced (pneumonia|injury|inflammation) model)?$/i);
+  const levels=body.match(/^(?:Concentrations?|Levels?) of ([\w\p{L}.-]+)(?: \(([a-z])\) and ([\w\p{L}.-]+) \(([a-z])\))? in (BALF|plasma|serum) from (.+?) (mice|rats)$/iu);
+  const outcome=body.match(/^(Body weight changes|Minute ventilation)(\s*\([^()]+\))? in (.+?)(?: (mice|rats))?( over the course of (?:infection|treatment)| with [\w-]+-induced pneumonia)?$/i);
+  if(!specimen&&!levels&&!outcome)return null;
+  const groups=specimen?.[2]||levels?.[6]||outcome[3];
+  const labels=groups.split(/\s*,\s*(?:and\s+)?|\s+and\s+/i).map(g=>{
+    const token=g.replace(/\s+(?:mice|rats)$/i,'');
+    if(/^sham$/i.test(token))return '模拟处理组';
+    if(/^vehicle(?:-treated)?$/i.test(token))return '溶媒对照组';
+    const drug=token.match(/^([A-Za-z][\w.-]*)-treated$/i);
+    if(!drug)return null;
+    const term=fieldTerms(drug[1],field).find(m=>m.original.length===drug[1].length);
+    const name=term?.value||drug[1];
+    return name+(/[A-Za-z\d]$/.test(name)?' 组':'组');
+  });
+  if(labels.length<2||labels.some(s=>!s))return null;
+  const material={'lung tissue':'肺组织','liver tissue':'肝组织','kidney tissue':'肾组织',plasma:'血浆',serum:'血清',balf:'支气管肺泡灌洗液（BALF）'};
+  const animals=specimen?.[3]||levels?.[7]||outcome?.[4]||(/\bmice\b/i.test(groups)?'mice':/\brats\b/i.test(groups)?'rats':'');
+  const what=animals.toLowerCase()==='mice'?'小鼠':animals.toLowerCase()==='rats'?'大鼠':'';
+  const list=labels.slice(0,-1).join('、')+'和'+labels.at(-1);
+  let result;
+  if(specimen){
+    const model=specimen[4]?specimen[4]+' 诱导的'+({pneumonia:'肺炎',injury:'损伤',inflammation:'炎症'})[specimen[5].toLowerCase()]+'模型中':'';
+    result='图中展示了'+model+list+what+'的'+material[specimen[1].toLowerCase()];
+  }else if(levels){
+    const measures=levels[3]?levels[1]+'（'+levels[2]+'）和 '+levels[3]+'（'+levels[4]+'）':levels[1];
+    result='比较'+list+what+material[levels[5].toLowerCase()]+'中的 '+measures+(/^levels?/i.test(body)?' 水平':' 浓度');
+  }else{
+    const time=(outcome[5]||'').trim();
+    const model=time.match(/^with ([\w-]+)-induced pneumonia$/i);
+    const context=model?model[1]+' 诱导的肺炎模型中，':time.endsWith('infection')?'感染期间，':time.endsWith('treatment')?'处理期间，':'';
+    result=context+'比较'+list+what+'的'+(/^Body/i.test(outcome[1])?'体重变化':'每分钟通气量')+(outcome[2]?.trim().replace('(','（').replace(')','）')||'');
+  }
+  if(stats)result+='（n = '+stats[1]+'，'+stats[2]+'P '+stats[3]+' '+stats[4]+'，ns 表示差异无统计学意义）';
+  return result+'。';
+}
+export async function translatePassage(original,from,translate,{field='auto'}={}){
   if(from!=='en')return {text:await translate(original,from),warnings:[]};
+  field=resolveField(field,original);
   const lines=[],warnings=[];
   for(const s of sentences(original)){
-    const checked=microscopyCaption(s)||quantitativeCaption(s)||clinicalStatement(s)||assay(s);
-    if(checked){lines.push(checked);continue}
+    const matched=fieldTerms(s,field);
+    if(matched.length===1&&matched[0].original.length===s.length){lines.push(matched[0].value);continue}
+    const accepts=value=>value&&(!field.terms||matched.every(m=>value.includes(m.value)));
+    const checked=microscopyCaption(s)||quantitativeCaption(s)||clinicalStatement(s)||assay(s)||treatmentCaption(s,field);
+    if(accepts(checked)){lines.push(checked);continue}
     const normalized=s.replace(/[‐‑–—]/g,'-').toLowerCase();
     const exact=terminology.find(([en])=>normalized===en.toLowerCase());
     if(exact){lines.push(exact[1]);continue}
     const named=s.match(/^(.+?)\s+\(([A-Z]{2,8})\)\s+(algorithms?|models?|methods?)\.?$/i);
     const stem=named&&terminology.find(([en])=>en.toLowerCase()===named[1].toLowerCase());
     if(stem){lines.push(stem[1]+'（'+named[2]+'）'+(/algorithm/i.test(named[3])?'算法':/model/i.test(named[3])?'模型':'方法'));continue}
-    const aim=await academicAim(s,translate).catch(()=>null);
-    if(aim){lines.push(aim);continue}
+    const aim=await academicAim(s,translate,field).catch(()=>null);
+    if(accepts(aim)){lines.push(aim);continue}
     const inTitle=normalized.match(/^(.+?) in (.+?)$/);
     if(inTitle){
       const terms=inTitle.slice(1).map(part=>terminology.find(([en])=>en.toLowerCase()===part)?.[1]);
@@ -250,7 +298,8 @@ export async function translatePassage(original,from,translate){
     const parallel=comparisonCaption(body);
     if(parallel){lines.push((fig?'图 '+fig[1]+'　':'')+parallel);continue}
     const keys=[...new Set([...body.matchAll(/\b(?:q(?:RT-)?PCR|mRNA|[A-Z]\d+[\w-]*|[A-Z]{2,8}-[A-Z0-9]+(?:[-–][A-Z0-9]+)*|[A-Z]{2,}\d*|[A-Z][a-z]+[A-Z][A-Za-z\d]*|[Aa]baucin)\b/g)].map(m=>m[0]))];
-    const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase()));
+    const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase())&&
+      !matched.some(m=>m.original.toLowerCase().includes(en.toLowerCase())));
     const prepared=body.replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells').replace(/\bmaybe (?=activated\b)/gi,'may be ');
     let result=body?await translate(prepared,from):'';
     // Correct unambiguous terminology in the complete translation before trying
@@ -290,7 +339,7 @@ export async function translatePassage(original,from,translate){
     const resultNumbers=result.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
     const equalNumbers=numbers.map(n=>n.replace(/\s/g,'')).sort().join('|')===resultNumbers.map(n=>n.replace(/\s/g,'')).sort().join('|');
     const panelRefs=s=>Array.from(s.matchAll(/\(([a-z])\)|[（(]([a-z])[)）]|(?:图|小图)\s*([a-z])\b/gi),m=>(m[1]||m[2]||m[3]).toLowerCase()).sort().join(',');
-    if(missingSide||!equalNumbers||keys.some(k=>!result.includes(k))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
+    if(missingSide||!equalNumbers||keys.some(k=>!result.includes(k)&&!matched.some(m=>m.original===k&&result.includes(m.value)))||matched.some(m=>!result.includes(m.value))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
       panelRefs(body)!==panelRefs(result)||(/\b(?:not|no|without)\b/i.test(body)&&!/[无不未没非]/.test(result))){
       warnings.push(s);result=body+(terms.length?'\n'+terms.map(([en,zh])=>en+' · '+zh).join('　'):'');
     }
@@ -300,7 +349,8 @@ export async function translatePassage(original,from,translate){
 }
 // A scientific sentence can lose a number or identifier during translation.
 // Retry with protected spans, then run the same factual checks again.
-export async function mapChinese(source,translate,{keepLatinNames=false}={}){
+export async function mapChinese(source,translate,{keepLatinNames=false,field='auto'}={}){
+  field=resolveField(field,source);
   const han=/[\u3400-\u9fff]/u;
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
   names.set('(left)','（左图）');names.set('(right)','（右图）');
@@ -308,6 +358,12 @@ export async function mapChinese(source,translate,{keepLatinNames=false}={}){
   const technical=/\((?:left|right)\)|\b[A-Z]\.\s+[a-z]{3,}\b|\b(?:q(?:RT-)?PCR|mRNA|[A-Z]\d+[\w-]*)\b|\([A-Za-z]\)|\b[A-Z][a-z]+[A-Z][\w-]*\b|\b[A-Z]{2,}[\w/-]*\b|(?:[<>≤≥−-]\s*)?\d+(?:[.]\d+)?(?:[%²³])?/g;
   const pattern=escaped.map(v=>v.replace(/[a-z]/gi,c=>'['+c.toUpperCase()+c.toLowerCase()+']')).join('|');
   const anchors=new RegExp(pattern+'|'+technical.source,'g');
+  function spans(s){
+    const domain=fieldTerms(s,field);
+    const rest=Array.from(s.matchAll(anchors),m=>({index:m.index,original:m[0],value:names.get(m[0].toLowerCase())||m[0]}))
+      .filter(m=>!domain.some(d=>m.index<d.index+d.original.length&&d.index<m.index+m.original.length));
+    return domain.concat(rest).sort((a,b)=>a.index-b.index);
+  }
   async function protectedSentence(s){
     const pieces=[];let end=0;
     async function prose(value){
@@ -316,30 +372,30 @@ export async function mapChinese(source,translate,{keepLatinNames=false}={}){
       if(!han.test(text)&&/[a-z]{3,}\s+[a-z]{3,}/i.test(text))throw Error('Untranslated passage');
       return text;
     }
-    for(const match of s.matchAll(anchors)){
-      pieces.push(await prose(s.slice(end,match.index)),names.get(match[0].toLowerCase())||match[0]);
-      end=match.index+match[0].length;
+    for(const match of spans(s)){
+      pieces.push(await prose(s.slice(end,match.index)),match.value);
+      end=match.index+match.original.length;
     }
     pieces.push(await prose(s.slice(end)));
     return pieces.filter(Boolean).join(' ').trim();
   }
   const parts=[];
   for(const s of sentences(source)){
-    let result=await translatePassage(s,'en',translate);
+    let result=await translatePassage(s,'en',translate,{field});
     if(result.warnings.length||!han.test(result.text)){
       if(translate.withTerms){
         const pieces=[];let end=0;
-        for(const match of s.matchAll(anchors)){
-          pieces.push(s.slice(end,match.index),{original:match[0],value:names.get(match[0].toLowerCase())||match[0]});
-          end=match.index+match[0].length;
+        for(const match of spans(s)){
+          pieces.push(s.slice(end,match.index),match);
+          end=match.index+match.original.length;
         }
         pieces.push(s.slice(end));
         const aligned=await translate.withTerms(pieces);
-        if(aligned&&han.test(aligned))result=await translatePassage(s,'en',async()=>aligned);
+        if(aligned&&han.test(aligned))result=await translatePassage(s,'en',async()=>aligned,{field});
       }
       if(result.warnings.length||!han.test(result.text)){
         const localized=await protectedSentence(s);
-        result=await translatePassage(s,'en',async()=>localized);
+        result=await translatePassage(s,'en',async()=>localized,{field});
       }
     }
     if(result.warnings.length||!han.test(result.text))throw Error('Translation needs another reading');
@@ -358,17 +414,23 @@ export async function mapChinese(source,translate,{keepLatinNames=false}={}){
 }
 
 // A successful English passage must display Chinese. Proper names can remain in Latin script.
-export async function selectionTranslation(text,from,translate){
+export async function selectionTranslation(text,from,translate,{field='auto',context=''}={}){
   const original=normalizeSelection(text);
   if(from!=='en'){
     const result=String(await translate(original,from)).trim();
     if(!result||result===original||!/[\p{Script=Latin}]/u.test(result))throw Error('No English translation');
     return {text:result,lang:'en',name:false};
   }
+  const exactField=fieldTerms(original,field).find(t=>t.original.length===original.length);
+  if(exactField)return {text:exactField.value,lang:'zh-CN',name:false};
   const term=terminology.find(([en])=>en.toLowerCase()===original.toLowerCase());
   if(term&&term[0]===term[1])return {text:term[1],lang:'en',name:true};
-  const abbreviation={SEM:'扫描电子显微镜（SEM）',TEM:'透射电子显微镜（TEM）',MIC:'最低抑菌浓度（MIC）'};
+  let sem='SEM 可指均值标准误、扫描电子显微镜或结构方程模型。';
+  if(/mean\s*(?:±|\+\s*\/\s*-|and)\s*(?:S\.?E\.?M\.?|standard error)|standard error of (?:the )?mean/i.test(context))sem='均值标准误（SEM）';
+  else if(/scanning electron microscop|\bSEM (?:images?|micrographs?)\b/i.test(context))sem='扫描电子显微镜（SEM）';
+  else if(/structural equation model/i.test(context))sem='结构方程模型（SEM）';
+  const abbreviation={SEM:sem,TEM:'透射电子显微镜（TEM）',MIC:'最低抑菌浓度（MIC）'};
   if(abbreviation[original])return {text:abbreviation[original],lang:'zh-CN',name:false};
-  const result=await mapChinese(original,translate,{keepLatinNames:true});
+  const result=await mapChinese(original,translate,{keepLatinNames:true,field});
   return {text:result,lang:'zh-CN',name:false};
 }

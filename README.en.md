@@ -52,6 +52,10 @@ Start with the public sample, or drop in your own PDF. Your browser reads the fi
 
 ## How does a figure fit into the argument and into my talk?
 
+The **Subject glossary** on the upload screen uses the paper’s text to suggest a field. You can choose a field yourself, or select **My glossary**, enter one English–Chinese term pair per line and click **Apply glossary**. The choice is remembered for the paper. You can edit it under **Paper & tools**. The same glossary applies when you select text and when you read the Chinese map. A failed entry has its own retry button. Its page number still opens the source, including the original sentence if two panels share a caption.
+
+In a panel close-up, tap a protein substitution label to read the position and both amino acid names. If the micrograph identifies the treatment rows and the wild-type column, **Ask a question** immediately explains how to compare the images. You can then ask about the letters or choose another label.
+
 Choose **Adjust crop** in a panel or **Crop** on a slide-basket card. Drag an edge or corner to include the axis, legend or scale bar. Apply the crop to update its preview and export.
 
 ![The crop editor on the public sample paper. Drag its handles to include labels and axes.](docs/guide/crop-en.webp)

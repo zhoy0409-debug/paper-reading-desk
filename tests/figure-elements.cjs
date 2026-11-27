@@ -54,4 +54,16 @@ const key=explain({text:'Arm B'},{caption:experiment.caption,page:3,sources,seri
 assert.deepEqual([key[1],key[4],key.quote],['Legend · Arm B',4,'Arm B represents the calibrated detector.']);
 assert.equal(FigureElements.labelPassage('Arm B',sources,()=>{throw Error('nearer page overrode local evidence')},3).quote,key.quote);
 assert.equal(explain({text:'Scratch'},{caption:'Wound closure in a scratch assay.',page:1}),null);
+const proteinCaption={kind:'小图图注',page:6,text:'Micrographs of wild-type and variant cells in control and treatment conditions.'};
+const words=['Wild Type','Enz_Q27R','Enz_R28Q'].map((text,i)=>({text,x0:.2+i*.28,x1:.4+i*.28,y0:.09,y1:.12}));
+words.push({text:'control',x0:.03,x1:.16,y0:.26,y1:.3},{text:'treatment',x0:.03,x1:.16,y0:.62,y1:.67});
+const panel={page:5,reading:{sources:[proteinCaption]},caption:proteinCaption.text,words};
+const second=explain(words[1],panel),third=explain(words[2],panel);
+assert.match(second[2],/第 27 位.*谷氨酰胺.*精氨酸.*第 2 列/);
+assert.match(second.point.comparison[1],/control.*treatment.*Wild Type/);
+assert.equal(second[4],6);assert.equal(second.quote,proteinCaption.text);
+assert.match(third[2],/第 28 位.*精氨酸.*谷氨酰胺.*第 3 列/);
+assert.equal(explain({text:'R28Q'},{page:3,caption:'Temperatures from sensor R28Q.'}),null);
+assert.match(explain({text:'p.G24G'},{page:3,caption:'Protein variants.'})[2],/仍是甘氨酸/);
+assert.equal(explain(words[2],{...panel,words:[words[2]]}).point.comparison,undefined);
 console.log('PASS element-specific cards, label geometry, method roles, matched evidence, units and table columns.');

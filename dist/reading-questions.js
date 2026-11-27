@@ -31,7 +31,7 @@
     options.append(note);
     host.append(log,field('想弄懂什么？',question),service,connection,options,excerptBox,sourceView,transcript,confirmation,send,state);
     let suggestedQuery='';
-    let history=[],controller,lookupController,version=0,spot='',sources=[];
+    let history=[],controller,lookupController,version=0,spot='',sources=[],point=null;
     const guideOnly=()=>provider.value==='evidence'||(provider.value==='auto'&&recommended==='evidence');
     function preview(){
       const free=guideOnly(),search=range.value==='search';
@@ -76,11 +76,12 @@
       connection.inert=on;
     }
     function clear(keepTurns=false){
+      point=null;
       if(!keepTurns)log.replaceChildren();
       version++;controller?.abort();lookupController?.abort();resetHistory();remember.checked=false;question.value='';draft.value='';lookState.replaceChildren();topic.value='';suggestedQuery='';topic.placeholder='例如，abaucin';sources=[];preview();busy(false);
     }
     function change(){lookupController?.abort();lookState.replaceChildren();resetHistory();remember.checked=false;preview()}
-    provider.onchange=range.onchange=change;draft.oninput=()=>{resetHistory();remember.checked=false};
+    provider.onchange=range.onchange=change;draft.oninput=()=>{point=null;resetHistory();remember.checked=false};
     function updateQuery(){
       suggestedQuery=topicFor(draft.value,question.value);
       topic.placeholder=suggestedQuery?ReaderLanguage.choose('建议检索词：'+suggestedQuery,'Suggested: '+suggestedQuery):'';
@@ -148,13 +149,32 @@
       }
       return box;
     }
-    function display(q,data,free,rememberTurn=true){
+    function pointAnswer(q,opening=false){
+      if(!point||point.lookup&&!(opening&&point.contextOnly))return null;
+      const info=point.point;
+      const label=point[0],otherVariant=/\b(?:[A-Za-z][\w.-]*_)?[ACDEFGHIKLMNPQRSTVWY][1-9]\d{0,5}[ACDEFGHIKLMNPQRSTVWY]\b/g;
+      if(!opening&&[...q.matchAll(otherVariant)].some(m=>!label.includes(m[0])))return null;
+      const compare=info?.comparison&&/哪一?[行列组]|上下|左右|横[着向]|竖[着向]|同[行列]|怎么看|怎样读|怎么读图|怎么比|怎么对照|跟谁比|和谁比|对照组|如何比较|compare|comparison|which (?:row|column|group)|read (?:this|the) (?:panel|figure)/i.test(q);
+      const code=label.match(/[A-Z]\d+[A-Z]$/)?.[0];
+      const aboutLabel=q.toLowerCase().includes(label.toLowerCase())||(code&&q.includes(code))||/(?:这个|该|所点|选中|this|the selected)\s*(?:标签|标注|符号|位点|组名|label|symbol|notation)/i.test(q);
+      const meaning=/^(?:什么意思|(?:这个?|它)(?:是)?什么(?:意思|含义)?|怎么读|what does (?:that|this|it) mean)[?？。!！\s]*$/i.test(q)||
+        aboutLabel&&/是什么|什么是|什么含义|什么意思|代表|表示|怎么读|what|mean|stand for/i.test(q)||
+        info&&/(?:字母|数字|[A-Z]\s*(?:和|与|、|及|\/)\s*[A-Z]|这几部分).{0,16}(?:指|表示|代表|意思)|(?:letters|digits|number).{0,18}(?:mean|represent|stand for)/i.test(q);
+      if(!opening&&!compare&&!meaning)return null;
+      const details=compare||opening&&info?.comparison?info.comparison:info?.meaning||[point[2],point[3]];
+      const refs=range.value==='selection'?[]:sources.flatMap((s,i)=>s.page===point[4]&&s.text===point.quote?['P'+(i+1)]:[]);
+      return {reported:{zh:details[0],en:details[1],refs},localize:point.localize,contextOnly:point.contextOnly};
+    }
+    function display(q,data,free,rememberTurn=true,local=null){
       const turn=el('article','rq-turn');const questionTitle=el('h4');questionTitle.dataset.sourceText='';questionTitle.textContent=q;turn.append(questionTitle);
       const fallback=free||data.provider==='evidence'||!data.reported;
-      const answer=fallback?guideFor(q,draft.value,range.value==='selection'?[]:sources,data.literature||[]):data;
+      const answer=local||(fallback?guideFor(q,draft.value,range.value==='selection'?[]:sources,data.literature||[]):data);
       for(const [key,title] of [['reported',fallback?'读原文':'本文依据'],['background','怎样理解'],['uncertain','证据边界']]){
         const line=answer[key];if(!line?.zh)continue;
-        turn.append(pair(el('strong'),title,''),pair(el('p'),line.zh,line.en));
+        const paragraph=pair(el('p'),line.zh,line.en);
+        const heading=local?.contextOnly?['本小图图注','Caption for this panel']:local?['读图解答','Reading the label']:[title,''];
+        turn.append(pair(el('strong'),...heading),paragraph);
+        if((answer.localize||fallback)&&line.en&&line.en===line.zh&&!/[㐀-鿿]/.test(line.zh))PaperLanguageText.bind(paragraph,line.en,{showSource:true});
         const refs=referenceButtons(line.refs,data);if(refs.childNodes.length)turn.append(refs);
       }
       if(answer.teachingSource){
@@ -166,7 +186,7 @@
       const enModel=fallback?'Source guide':(data.provider==='qwen'?'Qwen':providers[data.provider]||'Model response');
       pair(status,(data.modelNotice?data.modelNotice+' · ':'')+modelTitle,(data.modelNotice?(window.ReaderEnglish[data.modelNotice]||'The model service is unavailable.')+' · ':'')+enModel);turn.append(status);
       const modes={paper:['仅本文','Paper only'],selection:['仅选段','Selection only'],search:['本文与公开文献','Paper and public literature']};
-      const mode=modes[range.value];status.append(document.createTextNode(' · '),pair(el('span'),mode[0],mode[1]));
+      const mode=modes[local&&range.value!=='selection'?'paper':range.value];status.append(document.createTextNode(' · '),pair(el('span'),mode[0],mode[1]));
       const list=el('div','rq-literature');publications(list,data);turn.append(list);
       log.append(turn);turn.scrollIntoView({block:'nearest'});
       const short=['reported','background','uncertain'].map(k=>answer[k]?.zh||'').join('\n').trim();
@@ -182,6 +202,8 @@
         pair(state,'先填写所选服务的 API Key。','Enter an API key for the selected provider first.');return;
       }
       if(!draft.value.trim()||!question.value.trim()||(!free&&!remember.checked)){state.textContent=free?'请填写选段与问题。':'请填写问题，并确认可发送所示文字。';return}
+      const direct=free&&!/文献|检索|bibliograph|search|publication/i.test(question.value)&&pointAnswer(question.value);
+      if(direct){display(question.value.trim(),{provider:'evidence'},true,true,direct);question.value='';state.textContent='';updateQuery();return}
       const mine=++version,q=question.value.trim(),search=range.value==='search';controller=new AbortController();busy(true);
       state.textContent=search?'正在核对本文、引文和公开文献…':'正在核对本文…';
       try{
@@ -198,9 +220,17 @@
       }}
       finally{if(mine===version){busy(false);controller=null}}
     }
-    return {open(excerpt,newSpot,prompt='',evidence=[]){
-      if(excerpt!==draft.value||spot!==newSpot||JSON.stringify(evidence)!==JSON.stringify(sources)){
-        clear(spot===newSpot);spot=newSpot;draft.value=excerpt;sources=evidence;suggestedQuery=topicFor(excerpt);topic.value='';topic.placeholder=suggestedQuery?'建议检索词：'+suggestedQuery:'例如，abaucin';preview();
+    return {open(excerpt,newSpot,prompt='',evidence=[],clicked=null){
+      if(excerpt!==draft.value||spot!==newSpot||clicked?.[0]!==point?.[0]||JSON.stringify(evidence)!==JSON.stringify(sources)){
+        clear(spot===newSpot&&!point&&!clicked);point=clicked;spot=newSpot;draft.value=excerpt;sources=evidence;suggestedQuery=topicFor(excerpt);topic.value='';topic.placeholder=suggestedQuery?'建议检索词：'+suggestedQuery:'例如，abaucin';preview();
+        const first=pointAnswer('',true);
+        if(first){
+          const comparison=Boolean(point.point?.comparison);
+          const title=point.contextOnly?ReaderLanguage.choose('作者怎样描述这个小图？','How does the caption describe this panel?'):
+            ReaderLanguage.choose(comparison?'读 '+point[0]+' 时，应该和哪组比较？':point[0]+' 在这张图里表示什么？',
+              comparison?'Which group should I compare with '+point[1]+'?':'What does '+point[1]+' mean in this figure?');
+          display(title,{provider:'evidence'},true,true,first);
+        }
       }
       if(prompt)question.value=ReaderLanguage.choose(prompt,PaperUI.english(prompt)||window.ReaderEnglish[prompt]);updateQuery();question.focus({preventScroll:true});
     },hasText:()=>Boolean(draft.value),clear};
@@ -523,17 +553,18 @@
     function showTip(b,entry,row,anchor=null){
       pointProgress.cancelTap();
       enterAnimation?.finish();
-      if(entry.lookup)entry=findPassage?.(entry[0],figure.page)||entry;
+      if(entry.lookup)entry=findPassage?.(entry[0],figure.page,figure.raw.matchKey,part?.raw.id)||entry;
       traceAnchor=anchor;
       activeHit?.setAttribute('aria-pressed','false');activeHit=b;b.setAttribute('aria-pressed','true');
       callout.replaceChildren(pair(el('h4'),entry[0],entry[1]),pair(el('p'),entry[2],entry[3]));
+      if(entry.contextOnly)callout.querySelector('p').before(pair(el('small'),'本小图图注','Caption for this panel'));
       if(entry.localize)PaperLanguageText.bind(callout.querySelector('p'),entry[3],{showSource:true});
       const actions=el('div','rq-actions');actions.append(locate);
       if(entry[4])actions.append(btn('对照 p.'+entry[4],'Source · p.'+entry[4],()=>source(entry[4],entry.quote)));
       if(entry[3])actions.append(btn('英文跟读','English practice',e=>EnglishPractice.open({
         text:entry[1],sentence:entry[3],scope:selectionTag,origin:e.currentTarget,onAsk:(text,prompt)=>openQuestion(text,prompt,row)
       })));
-      actions.append(btn('继续追问','Ask a question',()=>openQuestion([ReaderLanguage.choose(entry[0],entry[1]),ReaderLanguage.choose(entry[2],entry[3])].join('\n'),'',row)));
+      actions.append(btn('继续追问','Ask a question',()=>openQuestion(ReaderLanguage.choose(entry[0],entry[1]),'',row,entry)));
       if(entry.model)ModelReading.details(callout,entry.model);
       callout.append(actions);callout.hidden=false;wire.classList.remove('rq-draw');drawWire();
       requestAnimationFrame(()=>{if(activeHit!==b||callout.hidden)return;revealTip();wire.classList.add('rq-draw');drawWire()});
@@ -589,7 +620,7 @@
         return !raw.matchKey||PaperLiterature.inFigureScope(text,raw.matchKey,id);
       }
       for(const a of part?.raw.reading?.sources||[])if(/正文|图注/.test(a.kind)&&relevant(a.text))put(a.kind,a.page,a.text);
-      const local=part&&ModelReading.panelPassage(figure.caption,part.raw);
+      const local=part&&!out.some(s=>/小图图注|组内共用图注/.test(s.kind))&&ModelReading.panelPassage(figure.caption,part.raw);
       if(local?.local&&local.text)put('小图图注',raw.captionPanelPages?.[id]||raw.captionPage||figure.page,local.text);
       const record=selectedModel(excerpt||'')?.model.record;
       if(record)put('本文动物资料',record.page,record.text);
@@ -603,13 +634,17 @@
       }
       return out;
     }
-    function openQuestion(excerpt,prompt,row){
+    function openQuestion(excerpt,prompt,row,entry=null){
       if(!row&&excerpt.trim().length>=4){
         const matches=tableRows.filter(h=>h.entry[0].includes(excerpt.trim()));
         if(matches.length===1)row=matches[0].row;
       }
       setTab('ask');const opened=document.querySelector('.ea-explorer[open]');if(opened)opened.close();
-      notes.scrollIntoView({block:'nearest'});conversation.open(excerpt.slice(0,3200),selectionTag,prompt,paperEvidence(row,excerpt));
+      const evidence=paperEvidence(row,excerpt);
+      if(entry?.quote&&entry[4]&&!evidence.some(s=>s.text===entry.quote&&s.page===entry[4])){
+        evidence.unshift({kind:'所点标注的原文',page:entry[4],text:entry.quote});
+      }
+      notes.scrollIntoView({block:'nearest'});conversation.open(excerpt.slice(0,3200),selectionTag,prompt,evidence,entry);
     }
     const selected=e=>{
       const studio=notes.closest('.frw.st');
@@ -923,7 +958,7 @@
               if(word.series||!/[\p{L}]{2}/u.test(t))continue;
               entry=FigureElements.labelPassage(t,sources,lookup,f.page);
               if(!entry&&f.raw.review&&f.raw.rasterPlate)continue;
-              if(!entry){entry=FigureElements.unresolved(t,f.page)}
+              if(!entry){entry=FigureElements.unresolved(t,f.page,sources)}
             }
             if(word.trace && word.series){
               entry[0]=entry[0].replace(/^图例 · /,'曲线 · ');entry[1]=entry[1].replace(/^Legend · /,'Curve · ');

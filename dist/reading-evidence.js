@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const clean=text=>String(text||'').normalize('NFKC').replace(/(\p{L})-\s+(\p{Ll})/gu,'$1$2').replace(/\s+/g,' ').trim();
+  const clean=text=>String(text||'').normalize('NFKC').replace(/[-‐‑]\s+(?=treated\b)/gi,'-').replace(/(\p{L})-\s+(\p{Ll})/gu,'$1$2').replace(/\s+/g,' ').trim();
   function sentences(text){
     return clean(text).split(/(?<=[!?。！？])\s*|(?<=\.)\s+(?=[A-Z(])/u).filter(Boolean);
   }
@@ -138,7 +138,7 @@
       for(const [id,s] of sections||[]){
         if(s.ids.length>1){
           parts.delete(id);
-          groups.set(id,{label:s.ids.join(', ').toUpperCase(),text:s.text});
+          groups.set(id,{label:s.ids.join(', ').toUpperCase(),text:s.text,specific:s.specific});
         }
         else if(!groups.has(id))parts.set(id,s.text);
       }
@@ -153,6 +153,8 @@
       for(const p of f.panels){
         p.groupCaption=groups.get(p.id);
         const part=parts.get(p.id);
+        if(p.groupCaption)p.captionPart=undefined;
+        else if(part)p.captionPart=part;
         if(part&&!paper.curated){
           p.text=part;p.title=p.title&&!/^分图 /.test(p.title)?p.title:'图注原文';
           p.boundary=p.region?'边界按原页标签估计，可校正。':'图注有该标签，图像范围待框选。';

@@ -2,7 +2,21 @@
 (() => {
   'use strict';
   const base=new URL('.',document.currentScript.src);
-  let engine,labelStartup;
+  let engine,labelStartup,field='auto';
+  function loadModule(file){
+    let pending,attempt=0;
+    return ()=>{
+      if(!pending){
+        const url=new URL(file,base);
+        if(attempt)url.searchParams.set('retry',attempt);
+        pending=import(url).catch(error=>{pending=null;attempt++;throw error});
+      }
+      return pending;
+    };
+  }
+  const glossary=loadModule('discipline-glossary.js?rev=0416');
+  const science=loadModule('scientific-translation.js?rev=reader-0416');
+  const runtime=loadModule('vendor/bergamot/translator.js?rev=0416');
   // Give the first interactive image a head start on the much larger translation model.
   function prioritizeLabels(ready){
     if(engine||labelStartup)return;
@@ -11,19 +25,22 @@
     labelStartup=Promise.race([ready.catch(()=>{}),deadline]).finally(()=>{clearTimeout(timer);labelStartup=null});
   }
   const cache=new Map(),ready=new Map(),bindings=new WeakMap();
-  async function translate(text,from) {
+  async function translate(text,from,priority=0) {
     if(!engine&&labelStartup)await labelStartup;
     if(!engine){
-      engine=import(new URL('vendor/bergamot/translator.js',base)).then(({BatchTranslator})=>
-        new BatchTranslator({registryUrl:new URL('vendor/bergamot/models.json',base).href,workers:1,downloadTimeout:150000,cacheSize:0,useNativeIntGemm:false}));
+      engine=runtime().then(async({BatchTranslator})=>{
+        const model=new BatchTranslator({registryUrl:new URL('vendor/bergamot/models.json',base).href,workers:1,downloadTimeout:150000,cacheSize:0,useNativeIntGemm:false});
+        await model.backing.registry;
+        return model;
+      });
       const active=engine;active.catch(()=>{if(engine===active)engine=null});
     }
     const translator=await engine;
-    return (await translator.translate({from,to:from==='en'?'zh':'en',text,html:false})).target.text;
+    return (await translator.translate({from,to:from==='en'?'zh':'en',text,html:false,priority})).target.text;
   }
   // Translate the prose in one piece. Restore each protected span only if its
   // placeholder survives exactly once. Some models lose inline HTML alignment.
-  translate.withTerms=async(parts)=>{
+  async function withTerms(parts,priority=0){
     const source=parts.map(p=>typeof p==='string'?p:p.original).join('');
     const terms=[];let start=731401;
     while(source.includes(String(start).slice(0,4)))start+=10000;
@@ -32,29 +49,37 @@
       const id=String(start+terms.length);terms.push([id,p.value]);return ' '+id+' ';
     }).join('');
     if(!terms.length)return null;
-    let result=await translate(masked,'en');
+    let result=await translate(masked,'en',priority);
     for(const [id,value] of terms){
       const pattern=new RegExp('(?<!\\d)'+id+'(?!\\d)','g');
       if((result.match(pattern)||[]).length!==1)return null;
       result=result.replace(pattern,()=>value);
     }
     return result;
-  };
-  function chinese(source) {
-    if(!cache.has(source)){
-      const job=import(new URL('scientific-translation.js?rev=reader-0415g',base)).then(async({mapChinese})=>{
-        if(!han.test(source))return mapChinese(source,translate);
+  }
+  translate.withTerms=withTerms;
+  const urgent=Object.assign((text,from)=>translate(text,from,-1),{withTerms:parts=>withTerms(parts,-1)});
+  const keyFor=source=>(field.key??field)+'\n'+source;
+  function chinese(source,retry=false) {
+    const key=keyFor(source),profile=field;
+    if(ready.has(key))return Promise.resolve(ready.get(key));
+    if(retry||!cache.has(key)){
+      const translator=retry?urgent:translate;
+      const job=science().then(async({mapChinese})=>{
+        if(!han.test(source))return mapChinese(source,translator,{field:profile});
         const parts=source.split(/([\u3400-\u9fff]+)/u);
-        return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translate):part))).join('');
+        return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translator,{field:profile}):part))).join('');
       }).then(value=>value.replace(/(?:近邻|邻居)\s*嵌入/g,'邻域嵌入').replace(/([\u3400-\u9fff])\s+(?=[\u3400-\u9fff])/gu,'$1'));
-      cache.set(source,job);
+      cache.set(key,job);
       job.then(value=>{
-        ready.set(source,value);if(ready.size>256)ready.delete(ready.keys().next().value);
+        if(cache.get(key)!==job)return;
+        ready.set(key,value);if(ready.size>256)ready.delete(ready.keys().next().value);
       },()=>{});
-      job.catch(()=>{if(cache.get(source)===job)cache.delete(source)});
+      job.catch(()=>{if(cache.get(key)===job)cache.delete(key)});
       if(cache.size>256)cache.delete(cache.keys().next().value);
+      return job;
     }
-    return cache.get(source);
+    return cache.get(key);
   }
   const han=/[\u3400-\u9fff]/u;
   const englishPassage=/\b[A-Za-z][\w-]*(?:\s+[A-Za-z][\w-]*){2,}/;
@@ -64,28 +89,45 @@
     if(/^(?:[A-Z]{1,8}[A-Z\d_./-]*|[a-zA-Z]\d[\w./-]*)$/.test(text))return '标记 '+text;
     return '';
   }
-  function refresh(el) {
+  function retryControl(el,binding,state){
+    el.dataset.translationRetry=state;
+    if(el.matches('option')||binding.button?.isConnected)return;
+    const b=document.createElement('button');b.type='button';b.className='paper-translation-retry';
+    b.textContent='重试此处';b.setAttribute('aria-label','重试此处的中文解读');
+    b.title='只重新翻译这一段';b.addEventListener('click',e=>{
+      e.preventDefault();e.stopPropagation();retry(el);
+    });
+    const interactive=el.closest('button,a,summary,label');
+    if(interactive)interactive.after(b);else el.append(b);
+    binding.button=b;
+  }
+  function refresh(el,again=false) {
     const binding=bindings.get(el);
     if(!binding)return;
     const {source}=binding;
     clearTimeout(binding.timer);
+    if(binding.button&&document.activeElement===binding.button){el.tabIndex=-1;el.focus({preventScroll:true})}
+    binding.button?.remove();binding.button=null;
     delete el.dataset.translationRetry;delete el.dataset.sourcePending;
     const revision=binding.revision=(binding.revision||0)+1;
     const current=()=>bindings.get(el)===binding&&binding.revision===revision;
     if(ReaderLanguage.current==='en'||!needsText(source)||identifier(source)){
       el.textContent=ReaderLanguage.current==='zh'?(identifier(source)||source):source;el.lang=ReaderLanguage.current==='zh'?'zh-CN':'en';el.removeAttribute('aria-busy');return;
     }
-    if(ready.has(source)){el.textContent=ready.get(source);el.lang='zh-CN';el.removeAttribute('aria-busy');return;}
-    el.lang=binding.showSource?'en':'zh-CN';el.textContent=binding.showSource?source:'正在生成中文…';el.setAttribute('aria-busy','true');
+    if(ready.has(keyFor(source))){el.textContent=ready.get(keyFor(source));el.lang='zh-CN';el.removeAttribute('aria-busy');return;}
+    el.lang=binding.showSource?'en':'zh-CN';el.textContent=binding.showSource?source:again?'正在重试…':'正在生成中文…';el.setAttribute('aria-busy','true');
     if(binding.showSource)el.dataset.sourcePending='原文 · 正在译为中文';
-    binding.timer=setTimeout(()=>{if(current()&&el.isConnected)el.dataset.translationRetry='slow'},45000);
-    chinese(source).then(value=>{
+    binding.timer=setTimeout(()=>{if(current()&&el.isConnected)retryControl(el,binding,'slow')},45000);
+    chinese(source,again).then(value=>{
       if(current()&&ReaderLanguage.current==='zh'&&el.isConnected){
+        binding.button?.remove();binding.button=null;
         delete el.dataset.translationRetry;delete el.dataset.sourcePending;
         el.textContent=value;el.lang=/[\u3400-\u9fff]/u.test(value)?'zh-CN':'en';
       }
-    }).catch(()=>{if(current()&&ReaderLanguage.current==='zh'){
-      el.textContent=binding.showSource?source:'中文解读待重试';el.dataset.translationRetry='error';
+    }).catch(()=>{if(current()&&el.isConnected&&ReaderLanguage.current==='zh'){
+      binding.button?.remove();binding.button=null;
+      el.textContent=binding.showSource||el.matches('option')?source:'';
+      retryControl(el,binding,'error');
       if(binding.showSource)el.dataset.sourcePending='原文 · 中文待重试';
     }}).finally(()=>{
       if(current()){clearTimeout(binding.timer);el.removeAttribute('aria-busy')}
@@ -93,29 +135,29 @@
   }
   function bind(el,source,{showSource=false}={}) {
     if(!el||!source)return el;
-    clear(el);el.textContent=ReaderLanguage.current==='zh'&&needsText(source)?identifier(source)||ready.get(source)||(showSource?source:'正在生成中文…'):source;delete el.dataset.sourceText;
+    clear(el);el.textContent=ReaderLanguage.current==='zh'&&needsText(source)?identifier(source)||ready.get(keyFor(source))||(showSource?source:'正在生成中文…'):source;delete el.dataset.sourceText;
     bindings.set(el,{source,showSource});el.dataset.paperTranslation='';
     queueMicrotask(()=>{if(el.isConnected&&bindings.get(el)?.source===source)refresh(el)});
     return el;
   }
   function clear(el){
-    clearTimeout(bindings.get(el)?.timer);bindings.delete(el);
+    const binding=bindings.get(el);clearTimeout(binding?.timer);binding?.button?.remove();bindings.delete(el);
     delete el.dataset.translationRetry;delete el.dataset.paperTranslation;delete el.dataset.sourcePending;el.removeAttribute('aria-busy');
   }
-  function retry(){
-    const pending=[...document.querySelectorAll('[data-paper-translation]')].filter(el=>el.hasAttribute('aria-busy')||el.hasAttribute('data-translation-retry'));
-    if(!pending.length)return;
-    const old=engine;engine=null;
-    for(const el of pending)cache.delete(bindings.get(el)?.source);
-    for(const el of pending)refresh(el);
-    old?.then(v=>v.delete()).catch(()=>{});
+  function retry(target){
+    if(target){if(bindings.has(target)&&target.hasAttribute('data-translation-retry'))refresh(target,true);return}
+    document.querySelectorAll('[data-translation-retry]').forEach(el=>retry(el));
   }
-  addEventListener('online',()=>{if(document.querySelector('[data-translation-retry]'))retry()});
+  function setField(next){
+    if((field.key??field)===(next.key??next))return;
+    field=next;document.querySelectorAll('[data-paper-translation]').forEach(el=>refresh(el));
+    document.dispatchEvent(new Event('paper-field-change'));
+  }
   document.addEventListener('reader-language-change',()=>document.querySelectorAll('[data-paper-translation]').forEach(el=>{
     if(ReaderLanguage.current==='en')el.lang='en';
     refresh(el);
   }));
   // A discarded document releases its dedicated translation worker. Starting
   // another asynchronous teardown in pagehide can interrupt an active batch.
-  window.PaperLanguageText={bind,clear,translate,chinese,retry,prioritizeLabels};
+  window.PaperLanguageText={bind,clear,translate,chinese,retry,prioritizeLabels,glossary,science,setField,get field(){return field}};
 })();

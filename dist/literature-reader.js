@@ -312,7 +312,18 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  exampleButton.hidden=true;
  const opening=add(intake,'div',undefined,'folio-opening');
  const uploadColumn=add(opening,'div',undefined,'folio-intake');
- uploadColumn.append(titleRow,primaryPicker,formats,paste,support);
+ const fieldLabel=make('label',undefined,'pl-field');
+ PaperUI.set(add(fieldLabel,'span'),'学科词库','Subject glossary');
+ const fieldSelect=add(fieldLabel,'select');fieldSelect.id=id+'-field';
+ const autoOption=PaperUI.set(add(fieldSelect,'option'),'自动识别','Automatic');autoOption.value='auto';
+ const customEditor=make('div',undefined,'pl-custom-glossary');customEditor.hidden=true;
+ const termsLabel=add(customEditor,'label');termsLabel.htmlFor=id+'-terms';
+ PaperUI.set(termsLabel,'英中术语，每行一组','English–Chinese terms, one pair per line');
+ const termsInput=add(customEditor,'textarea');termsInput.id=id+'-terms';termsInput.rows=3;
+ termsInput.placeholder='adsorption = 吸附';
+ const saveTerms=PaperUI.set(add(customEditor,'button'),'应用词表','Apply glossary');saveTerms.type='button';
+ const termsStatus=add(customEditor,'small');termsStatus.setAttribute('role','status');
+ uploadColumn.append(titleRow,primaryPicker,fieldLabel,customEditor,formats,paste,support);
  const plate=add(opening,'figure',undefined,'folio-example');
  const watch=add(plate,'button',undefined,'folio-watch');watch.type='button';
  const cover=add(watch,'img');cover.width=1360;cover.height=660;cover.alt='';
@@ -384,6 +395,52 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  if(typeof MutationObserver==='function')new MutationObserver(syncLoaded).observe(reader,{attributes:true,attributeFilter:['hidden']});
  const items=[], crossContexts=[];
+ let fieldCatalog,personalGlossary,uploadField=null;
+ const personalTermsKey='reading-desk.personal-glossary.v1';
+ function applyField(item){
+  const choice=(item?item.fieldChoice:uploadField)||'auto';
+  fieldSelect.value=choice;
+  customEditor.hidden=choice!=='custom';
+  const resolved=choice==='custom'&&personalGlossary?personalGlossary:fieldCatalog?.resolveField(choice,item?.fieldSample||'')||choice;
+  PaperLanguageText.setField(resolved);
+  const detected=item&&choice==='auto'&&fieldCatalog?.fields.find(f=>f[0]===resolved&&resolved!=='general');
+  PaperUI.set(autoOption,detected?'自动识别 · '+detected[1]:'自动识别',detected?'Automatic · '+detected[2]:'Automatic');
+ }
+ async function loadFields(){
+  try{
+   const catalog=await PaperLanguageText.glossary();fieldCatalog=catalog;
+   try{termsInput.value=localStorage.getItem(personalTermsKey)||'';personalGlossary=catalog.customGlossary(termsInput.value)}catch{}
+   for(const [key,zh,en] of catalog.fields.slice(1)){const opt=PaperUI.set(add(fieldSelect,'option'),zh,en);opt.value=key}
+   fieldSelect.disabled=false;
+   if(currentMain())applyField(currentMain());
+  }catch{
+   fieldSelect.disabled=true;
+   const again=PaperUI.set(make('button'),'重试加载词库','Retry loading glossary');again.type='button';
+   fieldLabel.after(again);again.onclick=()=>{again.remove();loadFields()};
+  }
+ }
+ loadFields();
+ saveTerms.addEventListener('click',()=>{
+  try{personalGlossary=fieldCatalog.customGlossary(termsInput.value)}
+  catch(error){
+   const line=Number(error.message);
+   PaperUI.set(termsStatus,'请按「英文 = 中文」填写第 '+line+' 行。','Use English = Chinese on line '+line+'.');
+   termsInput.focus();return;
+  }
+  let saved=true;try{localStorage.setItem(personalTermsKey,termsInput.value)}catch{saved=false}
+  applyField(currentMain());
+  PaperUI.set(termsStatus,saved?'已在此浏览器保存':'已在本页应用','Applied'+(saved?' and saved in this browser':' for this session'));
+ });
+ fieldSelect.addEventListener('change',()=>{
+  const item=currentMain();
+  if(!item){uploadField=fieldSelect.value;applyField(null);return}
+  item.fieldChoice=fieldSelect.value;
+  if(item.glossaryState){
+   item.glossaryState.fieldChoice=item.fieldChoice;
+   try{PaperShelf.persist(item.hash,item.glossaryState)}catch{}
+  }
+  applyField(item);
+ });
  let serial=0,pasted=0,activeDoc=null,activeSection=-1,loaded=PAGE,pending=0,queue=Promise.resolve();
  let readMode='map',mapHandle=null,figureHandle=null,viewKey=0,exampleMode=false;
  let missingId='';
@@ -518,6 +575,13 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    item.hash ||= await PaperShelf.fingerprint(item.pdfFile);
    if(activeView!==viewKey)return;
    const stored=PaperShelf.state(item.hash),dest=PaperShelf.target();
+   item.glossaryState=stored;
+   if(item.fieldChoice==null)item.fieldChoice=stored.fieldChoice||'auto';
+   else if(stored.fieldChoice!==item.fieldChoice){
+    stored.fieldChoice=item.fieldChoice;
+    try{PaperShelf.persist(item.hash,stored)}catch{}
+   }
+   applyField(item);
    for(const f of paper.figures){
     if(!f.openHistogram||f.panels.some(p=>p.region)||f.verifiedRegion)continue;
     // Existing manual grids keep their page basis, correction keys and source links.
@@ -709,13 +773,15 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   const previous=currentMain();
   if(previous===item)return '';
   if(previous)previous.role='related';
-  item.role='main';activeDoc=item.id;activeSection=-1;loaded=PAGE;readMode='map';startFigureScan(item);
+  item.role='main';activeDoc=item.id;activeSection=-1;loaded=PAGE;readMode='map';applyField(item);startFigureScan(item);
   return previous?'已把原主文「'+previous.name+'」移到参考文献／知识资料；角色仍可修改。':'';
  }
- function pushItem(name,result,key,role,problem='',pdfFile=null){
+ function pushItem(name,result,key,role,problem='',pdfFile=null,fieldChoice=null){
   const model=extract(result||{});
   const item={id:++serial,name,key,model,problem,pdfFile,pdfSource:result?.pdfSource,pdfUrl:'',role:role==='main'?'unset':role,
    warnings:listOf(result?.warnings).map(x=>typeof x==='string'?x:x?.message).filter(Boolean).slice(0,8)};
+  item.fieldChoice=fieldChoice??(role==='main'&&!pdfFile?uploadField:null);
+  item.fieldSample=model.rows.slice(0,110).map(r=>r.text).join(' ').slice(0,12000);
   if(!problem&&!model.rows.length&&!pdfFile)item.problem='没有读到可用的文字，可能没有文字层。可选有文字层的 PDF、DOCX，或粘贴一段原文。';
   items.push(item);
   const isMain=role==='main'&&!item.problem;
@@ -725,6 +791,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  function enqueue(selected,role){
   if(!selected.length)return;
+  const fieldChoice=role==='main'&&!currentMain()?uploadField:null;
   const stem=bounded(inline(selected[0].name)||'未命名文件',110);
   pending++;
   notice(pending>1?'已排队：'+stem+'。当前读取完成后会继续。':'正在本地读取：'+stem+(selected.length>1?' 等 '+selected.length+' 份材料':'')+'。','loading');
@@ -763,7 +830,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
         onProgress:(page,total)=>notice('正在读取正文 · 第 '+page+' / '+total+' 页','loading',role,'Reading the text · page '+page+' of '+total)});
       }
       const beforeMain=currentMain();
-      const {item,change}=pushItem(name,result,key,role,'',/.pdf$/i.test(file.name)?file:null);
+      const {item,change}=pushItem(name,result,key,role,'',/.pdf$/i.test(file.name)?file:null,fieldChoice);
       if(!beforeMain&&role==='main'&&!item.problem&&item.pdfFile&&window.PaperFigureExtractor?.scan&&window.FigureReadingWorkbench?.mount){
        window.requestAnimationFrame?.(()=>{
         if(currentMain()===item&&!reader.hidden&&!reader.closest?.('[role=tabpanel][hidden]')){

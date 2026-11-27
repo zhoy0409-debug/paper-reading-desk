@@ -88,10 +88,12 @@
       for (const s of panelSources) {
         if (/小图图注|组内共用图注/.test(s.kind)) add(s.kind,s.en,s.text,s.page);
       }
-      const local = window.ModelReading.panelPassage(f.caption,panel.raw);
-      if (local?.local) add('小图图注','Panel caption',local.text,localPage);
       const g = panel.raw?.groupCaption;
       if (g) add('共用图注 · '+g.label,'Shared caption · '+g.label,g.text,localPage);
+      if (!rows.length) {
+        const local = window.ModelReading.panelPassage(f.caption,panel.raw);
+        if (local?.local) add('小图图注','Panel caption',local.text,localPage);
+      }
     }
     if (!rows.length) add('整图图注','Figure caption',f.caption,captionPage);
     for (const s of panelSources) {

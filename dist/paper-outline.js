@@ -58,6 +58,10 @@
   // "(a) Text. (b–d) Text." or "a, Text. b, Text." → letter → complete sentence.
   function panelText(caption){
     const text=clean(caption),found=new Map();
+    const flow=globalThis.CaptionFlow?.panelSections(text);
+    if(flow?.size){
+      for(const [id,s] of flow)found.set(id,{text:s.text,specific:s.specific,shared:s.ids.length>1?s.ids:null});
+    }
     const mark=/(?:^|(?<=[.;:,]\s)|(?<=\s))\(([a-z])(?:\s*[–-]\s*([a-z])|((?:\s*,\s*[a-z])+))?\)\s*(?=\S)/gi;
     let marks=[...text.matchAll(mark)].map(m=>({at:m.index,end:m.index+m[0].length,from:m[1],to:m[2],more:m[3]}));
     if(marks.length<1||marks[0].from.toLowerCase()!=='a'&&marks.length<2)marks=marks.filter(m=>m.from.toLowerCase()==='a'||marks.length>1);

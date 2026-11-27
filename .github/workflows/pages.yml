@@ -10,6 +10,9 @@ on:
       - 'tests/review-reader-browser.cjs'
       - 'tests/reading-map-data.cjs'
       - 'tests/map-language.mjs'
+      - 'tests/scientific-translation.mjs'
+      - 'tests/caption-flow.cjs'
+      - 'tests/subject-glossary-browser.cjs'
       - 'tests/paper-map-browser.cjs'
       - 'tests/tour-media.py'
       - 'tests/fixtures/tour-scenes.json'
@@ -74,11 +77,14 @@ jobs:
           curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
           node tests/reading-map-data.cjs
           node tests/map-language.mjs
+          node tests/caption-flow.cjs
+          node tests/scientific-translation.mjs
           if ! command -v ffmpeg >/dev/null; then
             sudo apt-get -c "$RUNNER_TEMP/reader-apt.conf" install -y ffmpeg
           fi
           python3 tests/tour-media.py
           node tests/paper-map-browser.cjs http://127.0.0.1:8174/read/
+          node tests/subject-glossary-browser.cjs http://127.0.0.1:8174/read/
           node tests/panel-evidence.cjs
           node tests/figure-elements.cjs
           node tests/public-search.cjs

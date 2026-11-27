@@ -71,6 +71,7 @@
       if(fresh){later();return}
       layout();reveal();
     }
+    view.addEventListener('click',e=>{if(e.target.closest('.paper-translation-retry'))touched=true},true);
     view.addEventListener('pointerdown',e=>{
       if(e.button!==0||e.target.closest('.mm-node'))return;
       touched=true;drag={id:e.pointerId,x:e.clientX-x,y:e.clientY-y};view.setPointerCapture(e.pointerId);view.classList.add('mm-grab');

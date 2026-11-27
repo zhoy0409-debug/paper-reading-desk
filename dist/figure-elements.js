@@ -78,6 +78,61 @@
     const shared=start!=null?f.caption.slice(0,start):own.some(s=>/图注/.test(s.kind))?'':f.panels?.length>1?'':f.caption;
     return [...own,...body,...(shared?[{text:shared,page:f.captionPage||f.page}]:[])];
   }
+  // Single-letter protein notation gives an identity and a position. The
+  // comparison comes separately from the printed headings and the panel caption.
+  const residues={
+    A:['丙氨酸','alanine'],C:['半胱氨酸','cysteine'],D:['天冬氨酸','aspartic acid'],E:['谷氨酸','glutamic acid'],
+    F:['苯丙氨酸','phenylalanine'],G:['甘氨酸','glycine'],H:['组氨酸','histidine'],I:['异亮氨酸','isoleucine'],
+    K:['赖氨酸','lysine'],L:['亮氨酸','leucine'],M:['甲硫氨酸','methionine'],N:['天冬酰胺','asparagine'],
+    P:['脯氨酸','proline'],Q:['谷氨酰胺','glutamine'],R:['精氨酸','arginine'],S:['丝氨酸','serine'],
+    T:['苏氨酸','threonine'],V:['缬氨酸','valine'],W:['色氨酸','tryptophan'],Y:['酪氨酸','tyrosine']
+  };
+  const substitution=/^(?:([A-Za-z][A-Za-z\d.-]*)[_\s-]+)?(?:p\.)?([ACDEFGHIKLMNPQRSTVWY])([1-9]\d{0,5})([ACDEFGHIKLMNPQRSTVWY])$/;
+  const wildType=/^(?:wild[ -]?type|WT)$/i;
+  function variantLabel(w,ctx){
+    const label=clean(w.text),variant=substitution.exec(label),wild=wildType.test(label);
+    if(!variant&&!wild)return null;
+    const words=ctx.words||[],src=ctx.sources||ctx.reading?.sources||[];
+    const caption=src.find(s=>/小图图注|组内共用图注/.test(s.kind||'')&&/\b(?:mutants?|variants?|wild[- ]type)\b/i.test(s.text));
+    const local=caption?.text||src.map(s=>s.text).join(' ')||ctx.caption||'';
+    if(!/\b(?:mutants?|wild[- ]type|amino acid|protein variants?|substitutions?)\b/i.test(local)&&
+        !/^p\./.test(label)&&!(variant&&words.some(v=>wildType.test(clean(v.text)))))return null;
+    const header=words.filter(v=>(substitution.test(clean(v.text))||wildType.test(clean(v.text)))&&
+      Number.isFinite(v.x0)&&Math.abs((v.y0+v.y1-w.y0-w.y1)/2)<Math.max(.01,(w.y1-w.y0)*.65))
+      .sort((a,b)=>a.x0-b.x0).filter((v,i,all)=>all.findIndex(other=>folded(other.text)===folded(v.text))===i);
+    const col=header.findIndex(v=>folded(v.text)===folded(label));
+    const control=header.find(v=>wildType.test(clean(v.text)));
+    const matrix=ctx.reading&&control&&header.length>=2&&col>=0&&/microscop|micrographs?|images?\b|显微/i.test(local);
+    let meaning;
+    if(wild)meaning=['Wild type 指野生型，在这张图中用作比较参照。','Wild type identifies the reference group in this figure.'];
+    else{
+      const [,name,from,position,to]=variant;
+      const subject=name?'In this '+name+' variant, '+residues[from][1]:residues[from][1][0].toUpperCase()+residues[from][1].slice(1);
+      meaning=from===to?['第 '+position+' 位仍是'+residues[from][0]+'（'+from+'）。','The residue at position '+position+' remains '+residues[from][1]+' ('+from+').']:
+        [(name?name+' 的这一变体中，':'')+'第 '+position+' 位的'+residues[from][0]+'（'+from+'）被'+residues[to][0]+'（'+to+'）取代。',
+        subject+' ('+from+') at position '+position+' is replaced by '+residues[to][1]+' ('+to+').'];
+    }
+    let location='',enLocation='',comparison;
+    if(matrix){
+      location='对应从左起第 '+(col+1)+' 列。';enLocation=' It labels column '+(col+1)+' from the left.';
+      const rows=words.filter(v=>v.x1<header[0].x0&&v.y0>w.y1&&/^[A-Za-z][\w -]{1,30}$/.test(v.text)&&
+        (/^(?:DMSO|vehicle|control|mock|untreated)$/i.test(v.text)||contains(local,v.text)))
+        .sort((a,b)=>a.y0-b.y0).filter((v,i,all)=>all.findIndex(other=>folded(other.text)===folded(v.text))===i);
+      const two=rows.length===2&&rows[1].y0>rows[0].y1;
+      if(two){
+        location+='上、下两张图分别对应 '+rows[0].text+' 和 '+rows[1].text+'。';
+        enLocation+=' The upper and lower images correspond to '+rows[0].text+' and '+rows[1].text+', respectively.';
+      }
+      const vertical=two?'沿这一列，上方是 '+rows[0].text+'，下方是 '+rows[1].text+'。':'沿这一列，对照左侧的处理标签看同一组的照片。';
+      const enVertical=two?'Within this column, '+rows[0].text+' is the upper row and '+rows[1].text+' the lower row.':'Within this column, use the row labels to compare treatments for the same group.';
+      comparison=[vertical+(wild?'保持同一行，再与变体列比较显微形态。':'保持同一行，与 '+control.text+' 列比较，就能在相同处理条件下看两组的显微形态。'),
+        enVertical+(wild?' Stay in one row to compare the reference with a variant.':' Stay in one row and compare with '+control.text+' to examine morphology under the same condition.')];
+    }
+    const entry=[label,label,meaning[0]+location,meaning[1]+enLocation,caption?.page||ctx.page];
+    if(caption)entry.quote=caption.text;
+    entry.point={meaning,comparison};
+    return entry;
+  }
   function explain(w, ctx) {
     const t=clean(w.text), {caption,reading={},page,captionPage=page,words=[],row,series,axis}=ctx;
     const sources=reading.sources||[], local=sources.find(s=>s.kind==='小图图注');
@@ -85,6 +140,8 @@
     const card=(titleZh,titleEn,zh,en,src=page)=>[titleZh,titleEn,zh,en,src];
     const cell=tableCell(w,words,row,page);
     if (cell) return cell;
+    const variant=variantLabel(w,ctx);
+    if(variant)return variant;
     if (method && (isRho || /^(distance correlation|UMAP|ForceAtlas2|FA2)$/i.test(t) || series)) {
       if (isRho) {
         const log=/log[- ]scale/i.test(caption);
@@ -216,7 +273,13 @@
       return cache.get(key);
     };
   }
-  function unresolved(term,page){
+  function unresolved(term,page,sources=[]){
+    const panel=sources.find(s=>s.kind==='小图图注'&&s.text&&s.page);
+    if(panel){
+      const entry=[term,term,panel.text,panel.text,panel.page];
+      entry.quote=panel.text;entry.contextOnly=true;entry.localize=true;entry.lookup=true;
+      return entry;
+    }
     const entry=[term,term,'已读出标注「'+term+'」，其在本图中的含义待核对。','The label reads “'+term+'”. Its meaning in this figure is unconfirmed.',page];
     entry.lookup=true;return entry;
   }

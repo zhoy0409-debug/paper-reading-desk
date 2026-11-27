@@ -353,12 +353,16 @@
         jump.setAttribute('aria-label','阅读小图 '+p.label+' / Read panel '+p.label);
         const body=el('div'),tag=el('small'),copy=el('span');
         const line=g?.rows.find(r=>r.role==='结果说明什么')||reported||reading||description;
-        if(line){
-          PaperUI.set(tag,line.role,line.en);PaperUI.set(copy,line.zh,line.enText);
+        if(shared?.specific){
+          PaperUI.set(tag,'本小图的指标','Measure in this panel');PaperLanguageText.bind(copy,shared.specific);
+        }else if(line){
+          PaperUI.set(tag,line.role,line.en);
+          if(line.zh&&!/[\u3400-\u9fff]/u.test(line.zh))PaperLanguageText.bind(copy,line.zh);
+          else PaperUI.set(copy,line.zh,line.enText);
         }else if(shared){
           PaperUI.set(tag,'共用图注','Shared caption');copy.textContent=shared.label;
         }else if(source){
-          PaperUI.set(tag,'本小图图注','Panel caption');copy.textContent=source.text;
+          PaperUI.set(tag,'本小图图注','Panel caption');PaperLanguageText.bind(copy,source.text);
         }else{
           PaperUI.set(tag,'待核对','Check source');PaperUI.set(copy,p.raw?.printedTitle||'请在原页核对这块图的对象与读数。',p.raw?.printedTitle?p.raw.printedTitle:'Check the panel and its readout on the original page.');
         }

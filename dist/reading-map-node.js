@@ -4,16 +4,21 @@
   const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n};
   const t=(zh,en)=>window.ReaderLanguage?.current==='en'?en:zh;
   function tap(cls,text,fn){const b=el('button',cls,text);b.type='button';b.addEventListener('click',fn);return b}
+  // A run of stars before a P value belongs to the author, including in PDF captions.
+  const bold=/(?<!\*)\*\*(?![\s*])([^*]*?[^*\s])\*\*(?!\*)/g;
   function rich(node,text){
-    for(const part of String(text).split(/(\*\*[^*]+\*\*)/)){
-      if(part.startsWith('**'))node.append(el('b','',part.slice(2,-2)));
-      else if(part)node.append(document.createTextNode(part));
+    let end=0;
+    for(const match of text.matchAll(bold)){
+      node.append(document.createTextNode(text.slice(end,match.index)),el('b','',match[1]));
+      end=match.index+match[0].length;
     }
+    node.append(document.createTextNode(text.slice(end)));
   }
   function words(n,line){
     if(n.zh)PaperUI.set(line,n.zh,n.en);
+    else if(n.check==='source')PaperLanguageText.bind(line,n.text);
     else if(/[㐀-鿿]/.test(n.text)){rich(line,n.text);line.dataset.sourceText=''}
-    else PaperLanguageText.bind(line,n.text.replace(/\*\*/g,''));
+    else PaperLanguageText.bind(line,n.text.replace(bold,'$1'));
   }
   function evidence(n,source){
     if(n.page&&n.quote){
