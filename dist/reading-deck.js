@@ -7,14 +7,17 @@
   const t=(zh,en)=>window.ReaderLanguage?.current==='en'?en:zh;
   function button(cls,zh,en,fn){const b=ui('button',cls,zh,en);b.type='button';b.addEventListener('click',fn);return b}
 
-  function mount({workbench,model,paper,state,save,render,desk,changed}){
+  function mount({workbench,model,paper,state,save,render,desk,overview,changed}){
     const figures=model.figures.filter(f=>!f.raw?.pageOnly),byId=new Map(figures.map(f=>[f.id,f]));
     const titleOf=f=>f.raw?.evidenceStep?t(f.title,f.raw.evidenceStep[0]):PaperOutline.title(f.raw?.caption,f.label)||f.title||f.label;
     const urls=new Map(),cropVersions=new Map();let host=null,open='',timer=0,busy=false;
     const deck=()=>state.deck;
     function ensure(){
       if(!Array.isArray(state.deck)){
-        state.deck=S().skeleton({title:paper.title||'',question:PaperOutline.claim(t(model.question,model.questionEnglish)||model.rootLabel||''),figures,titleOf,zh:t(1,0)===1});keep();if(t(1,0)===1)translateTitles();
+        const aims=overview().find(branch=>branch.key==='aim')?.children||[];
+        const core=paper.centralQuestion;
+        const question=core&&!core.unresolved?(t(core.zh,core.en)||core.text):aims.map(n=>t(n.zh,n.en)||n.text).join(' ');
+        state.deck=S().skeleton({title:paper.title||'',question,figures,titleOf,zh:t(1,0)===1});keep();if(t(1,0)===1)translateTitles();
       }
       state.deck=state.deck.filter(s=>s&&s.id&&(!s.figure||byId.has(s.figure)));
       if(S().merge(state.deck,state.queue||[]))keep();

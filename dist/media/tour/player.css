@@ -8,3 +8,7 @@ footer{display:block;padding:25px 4px;font-size:13px;line-height:1.7;color:#5060
 @media(max-width:620px){header{padding:12px 0}h1{margin:21px 0 14px}#repo{float:none;display:block;margin-top:12px}.chapters a{padding:12px 4px;gap:8px;grid-template-columns:39px 1fr 15px}}
 
 #open-reader{border:1px solid #9bae9f;margin-left:6px;font-weight:650;white-space:nowrap}
+nav{align-items:center}nav a,.caption-bar button{display:inline-flex;align-items:center;justify-content:center;min-height:32px;line-height:1.25}
+.caption-bar{display:flex;align-items:center;gap:16px;min-height:3em;padding:6px 14px;background:#18332f;color:#f8f8f3;font-size:clamp(14px,1.15vw,17px);line-height:1.45}
+.caption-bar[hidden]{display:none}.caption-bar span{flex:1}.caption-bar button{padding:4px 10px;background:transparent;color:inherit;border:1px solid #8ba097;border-radius:6px;font:inherit;font-size:13px;cursor:pointer}
+.caption-bar button[aria-pressed="false"]{opacity:.75}.caption-bar button:focus-visible{outline:2px solid white;outline-offset:2px}

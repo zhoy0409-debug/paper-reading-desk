@@ -14,6 +14,8 @@ require('../dist/paper-figure-context.js');
 require('../dist/marked-plots.js');
 require('../dist/study-design.js');
 require('../dist/model-reading.js');
+global.PaperOutline=require('../dist/paper-outline.js');
+global.ReadingMapData=require('../dist/reading-map-data.js');
 require('../dist/reading-evidence.js');
 require('../dist/panel-geometry.js');
 

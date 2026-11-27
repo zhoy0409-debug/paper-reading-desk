@@ -7,6 +7,14 @@ export function normalizeSelection(text){
     .replace(/-\s+(?=producing\b|resistant\b|susceptible\b)/gi,'-').replace(/\s+/g,' ').trim();
 }
 const terminology=[
+  ['attraction-repulsion spectrum','吸引力与排斥力谱'],['neighbor embeddings','邻域嵌入'],['neighbor embedding','邻域嵌入'],
+  ['attractive forces','吸引力'],['repulsive forces','排斥力'],['attraction and repulsion','吸引力与排斥力'],
+  ['exaggeration parameter','夸大系数'],['kNN graph neighbors','kNN 图上的近邻点'],
+  ['t-distributed stochastic neighbor embedding','t 分布随机邻域嵌入'],['immune adaptation','免疫适应'],
+  ['neural stem and progenitor cells','神经干细胞和祖细胞'],['neurorepair','神经修复'],
+  ['attraction','吸引力'],['repulsion','排斥力'],['stroke','卒中'],
+  ['distance correlations','距离相关性'],
+  ['chemokine signaling networks','趋化因子信号网络'],['skeletal disorders','骨骼疾病'],
   ['osteogenesis','成骨作用'],['osteoclastogenesis','破骨细胞形成'],['osteoporosis','骨质疏松症'],['osteoarthritis','骨关节炎'],
   ['osteoblasts','成骨细胞'],['osteoclasts','破骨细胞'],['bone resorption','骨吸收'],['bone remodeling','骨重塑'],
   ['skeletal homeostasis','骨稳态'],['bone homeostasis','骨稳态'],['bone microenvironment','骨微环境'],
@@ -168,14 +176,53 @@ function comparisonCaption(body){
   const side=s=>s.toLowerCase()==='left'?'左图':'右图';
   return '比较 '+metric[1]+' 和 '+metric[2]+' 在 '+metric[7]+' '+dataset+'上的 Top-'+metric[4]+(/^error/i.test(metric[5])?' 错误率':' 准确率')+crop+'。'+side(panels[3])+'横轴为'+first+'，'+side(panels[5])+'横轴为'+second+'。';
 }
+async function academicAim(s,translate){
+  const phrase=text=>/^(?:[A-Z][A-Z\d/-]*|pH|t-SNE|kNN)$/.test(text)?text:mapChinese(text,translate);
+  const spaced=text=>/^[a-z\d]/i.test(text)?' '+text:text;
+  const compared=s.match(/^We compared (.+?) embeddings and (.+?) embeddings using (.+?) across values of ([A-Za-zα-ωΑ-Ω]+)\.$/i);
+  if(compared)return '在不同的 '+compared[4]+' 取值下，用'+(await phrase(compared[3]))+'比较 '+compared[1].replace(/\s*&\s*/g,'、')+' 的嵌入结果与 '+compared[2]+' 的嵌入结果。';
+  const balance=s.match(/^How does the balance between (.+?) and (.+?) shape (.+?)\?$/i);
+  if(balance)return (await phrase(balance[1]))+'与'+(await phrase(balance[2]))+'之间的平衡如何影响'+(await phrase(balance[3]))+'？';
+  const target=s.match(/^What evidence supports targeting (.+?) to treat (.+?)\?$/i);
+  if(target)return '靶向'+(await phrase(target[1]))+'治疗'+(await phrase(target[2]))+'有哪些依据？';
+  const cellular=s.match(/^How does ([A-Za-z][\w-]{1,16}) instruct (.+?) to (?:promote|potentiate) (.+?) after (.+?)\?$/i);
+  if(cellular)return cellular[1]+' 如何调控'+(await phrase(cellular[2]))+'，促进'+(await phrase(cellular[4]))+'后的'+(await phrase(cellular[3]))+'？';
+  const framework=s.match(/^we (?:provide|present|develop) a (?:unified|unifying) (?:account|framework) (?:of|for) (.+?)\.$/i);
+  if(framework)return '用统一框架解释'+spaced(await phrase(framework[1]))+'。';
+  const factor=s.match(/^we (?:study|examine|investigate|assess) how changing (.+?) affects (.+?)\.$/i);
+  if(factor){
+    const forces=factor[1].match(/^(?:the )?(attractive|repulsive) forces between (.+)$/i);
+    const variable=forces?(await phrase(forces[2]))+'之间的'+(/^attractive$/i.test(forces[1])?'吸引力':'排斥力'):await phrase(factor[1]);
+    const embedding=factor[2].match(/^the spectrum of ([A-Za-z][\w-]{1,20}) embeddings$/i);
+    const response=embedding?embedding[1]+' 的一系列嵌入结果':await phrase(factor[2]);
+    return '考察'+spaced(response)+'如何随'+spaced(variable)+'变化。';
+  }
+  const role=s.match(/^we (?:investigated|examined|assessed|evaluated) the role of ([A-Za-z][\w-]{1,16}) in (.+?)\.$/i);
+  if(role){
+    const recovery=role[2].match(/^(.+?) during the recovery phase (?:post[- ]stroke|after stroke)$/i);
+    const setting=recovery?'卒中恢复期'+await phrase(recovery[1]):await phrase(role[2]);
+    return '考察 '+role[1]+' 在'+setting+'中的作用。';
+  }
+}
 export async function translatePassage(original,from,translate){
   if(from!=='en')return {text:await translate(original,from),warnings:[]};
   const lines=[],warnings=[];
   for(const s of sentences(original)){
     const checked=microscopyCaption(s)||quantitativeCaption(s)||clinicalStatement(s)||assay(s);
     if(checked){lines.push(checked);continue}
-    const exact=terminology.find(([en])=>s.toLowerCase()===en.toLowerCase());
+    const normalized=s.replace(/[‐‑–—]/g,'-').toLowerCase();
+    const exact=terminology.find(([en])=>normalized===en.toLowerCase());
     if(exact){lines.push(exact[1]);continue}
+    const named=s.match(/^(.+?)\s+\(([A-Z]{2,8})\)\s+(algorithms?|models?|methods?)\.?$/i);
+    const stem=named&&terminology.find(([en])=>en.toLowerCase()===named[1].toLowerCase());
+    if(stem){lines.push(stem[1]+'（'+named[2]+'）'+(/algorithm/i.test(named[3])?'算法':/model/i.test(named[3])?'模型':'方法'));continue}
+    const aim=await academicAim(s,translate).catch(()=>null);
+    if(aim){lines.push(aim);continue}
+    const inTitle=normalized.match(/^(.+?) in (.+?)$/);
+    if(inTitle){
+      const terms=inTitle.slice(1).map(part=>terminology.find(([en])=>en.toLowerCase()===part)?.[1]);
+      if(terms.every(Boolean)){lines.push(terms[1]+'中的'+terms[0]);continue}
+    }
     const fig=s.match(/^(?:Fig(?:ure)?\.?)\s*([S\d]+[a-z]?)\s*(?:[|.:]\s*)?/i);
     const body=fig?s.slice(fig[0].length):s;
     const parallel=comparisonCaption(body);
@@ -199,6 +246,8 @@ export async function translatePassage(original,from,translate){
     if(/remain(?:s)? (?:insufficiently|poorly|incompletely) characteri[sz]ed[.!]?$/i.test(body))
       result=result.replace(/(?:仍然|仍|还)?不足[。.]?$/,'尚未得到充分研究。');
     if(/\bTimer probe\b/.test(body))result=result.replace(/定时器探针/g,'Timer 探针');
+    if(/\bneurorepair\b/i.test(body)&&/\bstroke\b/i.test(body))result=result.replace(/中风/g,'卒中').replace(/指示(?=(?:神经|细胞))/g,'引导');
+    if(/\b(?:t-SNE|UMAP|neighbor embeddings?)\b/i.test(body)&&/\bspectrum\b/i.test(body))result=result.replace(/(?:光谱|频谱)/g,'变化谱');
     if(/\blog[- ]posterior\b/i.test(body))result=result.replace(/日志后部|对数后部/g,'对数后验');
     if(/\b(?:imaging|image[- ]based|analysis|processing|data) pipeline\b/i.test(body))result=result.replace(/管道/g,'分析流程');
     // Translators often spell out standard abbreviations. Keep the original token searchable as well.

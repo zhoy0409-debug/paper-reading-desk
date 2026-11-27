@@ -34,8 +34,8 @@
     if(e.key==='Escape' && !document.fullscreenElement)window.frameElement?.closest('dialog')?.close();
   });
   const film=el('film');
-  film.poster='cover-'+lang+'.webp?v=044';
-  const movie='tour-'+lang+'.mp4?v=040';
+  film.poster='cover-'+lang+'.webp?v=0415d';
+  const movie='tour-'+lang+'.mp4?v=0415d';
   // The bundled Python file server sends whole files. A local Blob lets a browser seek
   // to any chapter even when the server does not implement HTTP Range requests.
   const localHost=['localhost','127.0.0.1','[::1]'].includes(location.hostname);
@@ -45,7 +45,31 @@
     : Promise.resolve(film.src=movie);
   const track=document.createElement('track');
   track.kind='captions';track.srclang=en?'en':'zh';track.label=en?'English':'中文';
-  track.default=true;track.src='tour-'+lang+'.vtt?v=040';film.append(track);
+  track.src='tour-'+lang+'.vtt?v=0415d';film.append(track);
+  const caption=el('current-caption'), captions=el('captions'), bar=captions.parentElement;
+  captions.textContent=local('字幕','Captions');
+  let enabled=true,nativeFullscreen=false;
+  function displayCue(){
+    const time=film.currentTime;
+    const cue=enabled && track.track.mode==='hidden' && Array.from(track.track.cues||[]).find(c=>c.startTime<=time && time<c.endTime);
+    caption.textContent=cue?.text||'';
+  }
+  function syncCaptions(){
+    const full=nativeFullscreen || document.fullscreenElement===film;
+    track.track.mode=enabled?(full?'showing':'hidden'):'disabled';
+    captions.setAttribute('aria-pressed',String(enabled));
+    bar.hidden=full || track.readyState!==HTMLTrackElement.LOADED;
+    displayCue();
+  }
+  captions.addEventListener('click',()=>{enabled=!enabled;syncCaptions()});
+  track.addEventListener('load',syncCaptions);
+  track.track.addEventListener('cuechange',displayCue);
+  film.addEventListener('seeked',displayCue);
+  film.addEventListener('timeupdate',displayCue);
+  document.addEventListener('fullscreenchange',syncCaptions);
+  film.addEventListener('webkitbeginfullscreen',()=>{nativeFullscreen=true;syncCaptions()});
+  film.addEventListener('webkitendfullscreen',()=>{nativeFullscreen=false;syncCaptions()});
+  syncCaptions();
   let chapters=[],aliases={},pending=null;
   function currentKey(){return location.hash.slice(1);}
   function updateLinks(){for(const code of ['zh','en'])el(code).href='?lang='+code+location.hash;}
@@ -64,7 +88,7 @@
   film.addEventListener('timeupdate',mark);
   addEventListener('hashchange',()=>{updateLinks();seek(currentKey(),false);});
   updateLinks();
-  fetch('chapters-'+lang+'.json?v=040').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
+  fetch('chapters-'+lang+'.json?v=0415d').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
     chapters=data.chapters;aliases=data.aliases||{};
     for(const c of chapters){
       const li=document.createElement('li'),a=document.createElement('a'),time=document.createElement('time'),body=document.createElement('span'),

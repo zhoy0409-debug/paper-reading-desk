@@ -42,8 +42,8 @@ async function check(browser,sample){
     const fit=page.locator('.mm-tools').getByRole('button',{name:'Fit',exact:true});
     await fit.click();
     const mapRows=page.locator('.mm-node:visible');
-    const aim=mapRows.filter({has:page.locator('.mm-role',{hasText:sample.panel?'Objective':'Review aim'})}).first().locator('.mm-page');
-    const found=mapRows.filter({has:page.locator('.mm-role',{hasText:/Authors say|Joint figure reference/})}).locator('button.mm-page');
+    const aim=page.locator('[data-map-role="'+(sample.panel?'aim':'reviewAim')+'"]:visible .mm-page').first();
+    const found=mapRows.filter({has:page.locator('.mm-role',{hasText:/Authors say|Measurement|Joint figure reference/})}).locator('button.mm-page');
     const target=found.filter({hasNotText:'Unverified'});
     const same=await target.evaluateAll((els,s)=>els.findIndex(el=>el.title===s),body);
     assert(same>=0,'The current figure should have the same verified body passage on its map');

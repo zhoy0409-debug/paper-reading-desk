@@ -3,6 +3,7 @@
    Imported: an outline from any AI chat, with every quotation checked against this paper. */
 (() => {
   'use strict';
+  const questions=typeof module==='object'&&module.exports?require('./reading-question.js'):globalThis.ReadingQuestion;
   const clean=s=>String(s??'').replace(/\s+/g,' ').replace(/(\p{Ll})-\s+(?=\p{Ll})/gu,'$1').trim();
   const STOP=/^(?:references|bibliography|acknowledg(?:e)?ments?|参考文献|致谢)$/i;
   const BREAK=/(?<!\b(?:et al|Fig|Figs|Eq|Sec|e\.g|i\.e|cf|vs|Dr|No|approx|\p{Lu}))[.!?](?=\s+(?:[\p{Lu}(]|\d+(?:\.\d+)?\s*%))|[。！？]/u;
@@ -26,11 +27,13 @@
   // Lines joined back into paragraphs, then split into sentences that keep their page.
   function sentences(rows){
     const out=[];let buf='',page=0,section='';
+    const numbered=new Map(PaperOutline.headings(rows).filter(h=>h.number).map(h=>[rows[h.at],h]));
     const flush=()=>{
       const parts=splitSentences(clean(buf));buf='';
       for(const s of parts){
         const chinese=/[\u3400-\u9fff]/u.test(s);
-        const sentence=chinese?s.length>=16&&/[。！？]$/u.test(s):s.length>=45&&/^[\p{Lu}"“]/u.test(s)&&/[.!?]$/.test(s)&&(s.match(/\p{L}{3,}/gu)||[]).length>=7;
+        const sentence=chinese?s.length>=16&&/[。！？]$/u.test(s):/^[\p{Lu}"“]/u.test(s)&&/[.!?]$/.test(s)&&
+          (s.length>=45&&(s.match(/\p{L}{3,}/gu)||[]).length>=7||s.length>=28&&!!objectiveText(s));
         if(sentence&&s.length<=420&&!rights.test(s)&&!/[=∑∼≈∂]/.test(s))out.push({text:s,page,section});
       }
     };
@@ -43,8 +46,13 @@
         if(r.page<=3&&!section)for(const s of out)if(s.page===r.page&&!s.section)s.section='abstract';
         section='body';continue;
       }
-      const head=t.match(/^(?:(?:\d{1,2}(?:\.\d{1,2})*\.?|[IVXLCDM]+\.)\s+)?(abstract|introduction|background|related work|materials and methods|methods?|results and discussion|results?|discussion(?: and conclusions?)?|conclusions?|limitations?|摘要|背景|引言|方法|结果|讨论|结论)\s*\.?$/i);
-      if(head||r.heading){flush();if(head)section=head[1].toLowerCase();page=r.page;continue}
+      const head=t.match(/^(?:(?:\d{1,2}(?:\.\d{1,2})*\.?|[IVXLCDM]+\.)\s+)?(abstract|summary|introduction|background|related work|materials and methods|methods?|results and discussion|results?|discussion(?: and conclusions?)?|conclusions?|limitations?|摘要|背景|引言|方法|结果|讨论|结论)\s*\.?$/i);
+      if(head||numbered.has(r)||r.heading){
+        flush();
+        if(head)section=/^summary$/i.test(head[1])?(r.page<=3?'abstract':'conclusions'):head[1].toLowerCase();
+        else if(numbered.get(r)?.level===1)section='body';
+        page=r.page;continue;
+      }
       if(r.fig){flush();continue}
       if(r.page!==page)flush();
       if(!buf)page=r.page;
@@ -54,7 +62,6 @@
   }
   const RULES={
     gap:/\b(?:remains? (?:unclear|unknown|elusive|poorly)|poorly understood|not (?:yet )?(?:been )?(?:known|understood|clear|established)|little is known|knowledge gaps?|open questions?|no consensus|limited understanding)\b/i,
-    aim:/\b(?:here,? we|in this (?:study|paper|work|article),? we|we (?:aim(?:ed)?|set out|sought|ask(?:ed)?|investigate[ds]?|hypothesi[sz]ed?)|the (?:aim|goal|purpose|objective) of this)\b/i,
     method:/\b(?:we (?:used|employed|performed|collected|measured|computed|constructed|analy[sz]ed|trained|generated|applied|implemented)|were (?:collected|measured|performed|treated|sequenced|computed|randomi[sz]ed))\b/i,
     find:/\b(?:we (?:found|observed|show(?:ed)?|demonstrate[ds]?|conclude|identified)|our (?:results|findings|data|analysis) (?:show|suggest|demonstrate|indicate|reveal)|(?:these|the) (?:results|findings|data) (?:show|suggest|indicate|demonstrate)|suggest(?:s|ing) that|significant(?:ly)?|in contrast to|compared (?:with|to))\b/i,
     limit:/\b(?:limitation|caveat|one drawback|we (?:did not|do not|cannot|could not)|further (?:work|research|studies|investigation)|future (?:work|research|studies)|remains? to be|it would be interesting|beyond the scope)\b/i
@@ -112,8 +119,40 @@
     }
     return {background,aims};
   }
-  const chineseRoles={aim:/本研究旨在|本文旨在|研究目的|我们旨在/,limit:/局限|尚待|仍需|未来研究/,find:/结果表明|结果显示|我们发现|研究发现/};
+  const chineseRoles={limit:/局限|尚待|仍需|未来研究/,find:/结果表明|结果显示|我们发现|研究发现/};
   const rx=k=>s=>RULES[k].test(s.text)||chineseRoles[k]?.test(s.text);
+  // Match what the authors set out to do. A first-person opening alone is also
+  // common in results ("Here we empirically show that ...").
+  function objectiveText(text){
+    const lead=text.replace(/^(?:here|in (?:this|the present) (?:paper|work|study|article|report)|to (?:address|answer|resolve) (?:this|these|the) [^,]{2,65})\s*,?\s+/i,'');
+    const intent=/^(?:we\s+(?:(?:also|further|specifically|systematically|first|next)\s+)*(?:aim(?:ed)?|sought|seek|set out|ask(?:ed)?|stud(?:y|ied)|investigat(?:e|ed)|examin(?:e|ed)|explor(?:e|ed)|evaluat(?:e|ed)|assess(?:ed)?|compar(?:e|ed)|test(?:ed)?|quantif(?:y|ied)|characteri[sz](?:e|ed)|hypothesi[sz](?:e|ed)|determin(?:e|ed)\s+(?:whether|how)|(?:provid(?:e|ed)|develop(?:ed)?|present(?:ed)?)\s+(?:a|an)\s+(?:unifying|unified|general|conceptual|theoretical)\s+(?:account|framework|model))\b|(?:the |our )(?:primary |main |specific )?(?:aims?|objectives?|goals?|purpose|research questions?|hypothes[ie]s)\b.{0,85}\b(?:was|were|is|are)\b|(?:this|our|the present) (?:study|paper|work|analysis)\s+(?:aims?|examines?|investigates?|assesses?|compares?|explores?|tests?|focuses)\b)/i;
+    const purpose=lead.match(/^to (?:better |further )?(?:understand|investigate|examine|assess|test|determine|explore|evaluate|characteri[sz]e|compare|clarify)\b.{6,260}?(?=,\s*we\b)/i);
+    const zh=/^(?:(?:本研究|本文|我们)(?:的(?:主要)?目的(?:是|在于)|旨在|力求|试图|探讨|检验|评估|考察|比较|研究了)|为(?:了)?(?:探讨|考察|检验|评估|明确|了解).{3,70}[，,])/;
+    const mechanism=/^we (?:define|elucidate|clarify|resolve|investigate)(?:d)? the (?:molecular |structural |biological )?(?:mechanism|basis)\b/i.test(lead);
+    const validation=lead.match(/^we validat(?:e|ed) (the (?:potency|selectivity|efficacy|accuracy|performance|reliability|sensitivity)\b.+)/i);
+    if(validation&&!/\b(?:showing|finding|confirming) that\b/i.test(validation[1]))return 'We evaluated '+validation[1];
+    if(!purpose&&!mechanism&&!intent.test(lead)&&!zh.test(lead))return '';
+    const statement=(purpose?purpose[0]:lead).split(/(?:,\s*(?:thereby\s+)?(?:revealing|showing|demonstrating|confirming|finding)\s+that\b|,?\s+(?:and|but)\s+(?:we\s+)?(?:(?:empirically|also|further)\s+)*(?:found|find|show(?:ed)?|demonstrate[ds]?|reveal(?:ed)?)\s+that\b|[，,](?:发现|结果表明|结果显示))/i)[0].trim();
+    const effect=statement.match(/^we (study|investigate|examine) (.{5,110}?) (?:that|which) (?:are|is) obtained when (.{6,190}?)(?:,\s*thereby .+)?[.]$/i);
+    if(effect)return 'We '+effect[1]+' how '+effect[3].replace(/^increasing\/decreasing\b/i,'changing')+' affects '+effect[2]+'.';
+    return PaperOutline.claim(statement+(statement!==lead&&!/[.!?。！？]$/.test(statement)?(/[㐀-鿿]/.test(statement)?'。':'.'):''));
+  }
+  // Expand short forms only when this paper actually defines them. The full quote stays available.
+  function defineTerms(nodes,early){
+    const definitions=new Map();
+    for(const s of early){
+      for(const m of s.text.matchAll(/((?:[A-Za-z][A-Za-z-]*\s+){1,7}[A-Za-z][A-Za-z-]*)\s*\(([A-Z]{2,8})\)/g)){
+        const initials=m[2],words=m[1].split(/\s+/).slice(-initials.length);
+        if(words.map(w=>w[0].toUpperCase()).join('')!==initials)continue;
+        const name=words.join(' '),known=definitions.get(initials);
+        definitions.set(initials,known===undefined||known.toLowerCase()===name.toLowerCase()?name:'');
+      }
+    }
+    for(const n of nodes)n.text=n.text.replace(/\b[A-Z]{2,8}\b/g,(id,i,s)=>{
+      const name=definitions.get(id);
+      return name&&!s.toLowerCase().includes(name.toLowerCase())?name+' ('+id+')':id;
+    });
+  }
   function studyOverview(early,used){
     const intro=early.filter(s=>/intro|background|引言|背景/.test(s.section));
     const ordered=[...intro,...early.filter(s=>!intro.includes(s))];
@@ -126,9 +165,8 @@
     const need=/remain(?:s)? (?:insufficiently|incompletely|poorly|unclear|unknown|elusive)|little is known|(?:is|are) (?:currently |still )?(?:unclear|unknown)|not (?:yet )?(?:known|clear|understood)|whether .+ (?:unclear|unknown)|尚不清楚|所知甚少|尚未阐明|仍不明确/i;
     const motivation=/further (?:investigation|study|work).{0,180}(?:essential|needed|necessary)|to (?:address|resolve|answer) (?:this|these)|尚需明确|为解答|为解决/i;
     const prior=/\b(?:previous(?:ly)?|prior (?:work|studies)|recent (?:work|studies|study)|a recent|was (?:identified|discovered)|has been shown|have shown)\b|既往|已有研究|前期研究|先前/i;
-    const aimCue=/\b(?:to (?:better )?(?:understand|investigate|examine|assess|test)\b.{1,100},?\s+we|we (?:tested whether|examined whether|evaluated|investigated|asked|sought|set out)|the present (?:study|work)|this (?:study|work) (?:aims|examines|investigates))\b|旨在|本研究(?:探讨|检验|评估|考察)|我们(?:探讨|检验|拟)/i;
-    const objective=s=>rx('aim')(s)||aimCue.test(s.text);
-    const reportedFinding=/\bwe (?:here )?report (?:the |a |an |our )?(?:(?:first|direct|new) )*(?:detection|observation|measurement|discovery|evidence)\b|我们(?:首次)?报告.{0,25}(?:观测|发现|测量)/i;
+    const objective=s=>!!objectiveText(s.text);
+    const reportedFinding=/\bwe\s+(?:(?:here|empirically|experimentally|further|also|consistently|now)\s+)*(?:(?:show(?:ed)?|demonstrate[ds]?|find|found|reveal(?:ed)?|discover(?:ed)?|confirm(?:ed)?)\s+that\b|report (?:the |a |an |our )?(?:(?:first|direct|new) )*(?:detection|observation|measurement|discovery|evidence)\b)|我们(?:首次)?(?:发现|观察到|报告.{0,25}(?:观测|发现|测量))/i;
     const eligible=s=>!metadata.test(s.text)&&!objective(s)&&!rx('find')(s)&&!motivation.test(s.text)&&!reportedFinding.test(s.text);
     const explicit=ordered.filter(s=>eligible(s)&&need.test(s.text));
     const gap=explicit[0]||ordered.find(s=>eligible(s)&&RULES.gap.test(s.text));
@@ -138,7 +176,8 @@
     const context=before.filter(s=>!need.test(s.text)&&!RULES.gap.test(s.text));
     const burden=/limited (?:therapeutic|treatment) options|clinical (?:burden|need)|healthcare burden|major (?:challenge|cause|barrier)|threat to public health|common (?:cause|symptom)|prevalen(?:t|ce)|affects? (?:many|millions)|广泛应用|临床负担|常见症状|治疗选择有限/i;
     const resultClaim=/\b(?:structures?|analyses|our (?:data|experiments|approach))\b.{0,85}\b(?:reveals?|shows?|demonstrates?)\b/i;
-    const start=before.find(s=>burden.test(s.text)&&!prior.test(s.text))||context.find(s=>!prior.test(s.text)&&!resultClaim.test(s.text)&&! /^(?:however|thus|therefore|together|in contrast|these|this |it |its |然而|因此|其)/i.test(s.text));
+    const definitionInAbstract=!gap&&early.find(s=>s.section==='abstract'&&eligible(s)&&/\b(?:is|are) (?:a |an )?(?:family|class|group|set) of\b/i.test(s.text));
+    const start=definitionInAbstract||before.find(s=>burden.test(s.text)&&!prior.test(s.text))||context.find(s=>!prior.test(s.text)&&!resultClaim.test(s.text)&&! /^(?:however|thus|therefore|together|in contrast|these|this |it |its |然而|因此|其)/i.test(s.text));
     const pluralContext=gap&&/\b(?:these|such) (?:[\w-]+ ){0,2}(?:conditions|diseases|disorders|phenomena)\b/i.test(gap.text);
     const definition=pluralContext&&before.slice(-6).find(s=>/\bis (?:an? |one of ).*\bcharacteri[sz]ed by\b/i.test(s.text));
     add(gaps,definition||start,'context');
@@ -147,52 +186,71 @@
     const priorWork=[...context].reverse().find(s=>prior.test(s.text));
     if(priorWork)add(gaps,priorWork,'prior');
     if(dependent&&antecedent&&antecedent!==gap&&!need.test(antecedent.text))add(gaps,antecedent,'context');
-    if(!gap&&!priorWork)add(gaps,context.find(s=>s!==start),'context');
+    if(!gap&&!priorWork){
+      const next=definitionInAbstract&&early[early.indexOf(start)+1];
+      add(gaps,next&&next.section===start.section&&eligible(next)?next:context.find(s=>s!==start),'context');
+    }
     if(gaps.length<2)add(gaps,ordered.find(s=>eligible(s)&&/\brequires? (?:a |an )?(?:better |clear |detailed |deeper )?understanding of\b/i.test(s.text)),'context');
     add(gaps,gap,'gap');
     const distinction=explicit.find(s=>s!==gap&&s.section===gap.section&&!/^(?:however|nevertheless|然而)/i.test(s.text));
     if(distinction&&gaps.length<4)add(gaps,distinction,'gap');
-    // A result sentence with “we found” is not a study aim.
-    const objectiveOrder=pos<0?ordered:[...early.slice(pos+1),...ordered];
-    for(const s of objectiveOrder.filter(s=>!metadata.test(s.text)&&objective(s)&&
-      !/\bwe (?:also |further )?(?:find|found|show(?:ed)?|report(?:ed)?|demonstrate[ds]?|reveal(?:ed)?)\b|我们发现/i.test(s.text))){
-      if(aims.length>=2)break;
-      const purpose=s.text.match(/^To (?:better )?(?:understand|investigate|examine|assess|test)\b[^,]+,\s*we\b.+?(?=,\s*(?:revealing|showing|demonstrating)\b)/i);
+    for(const s of ordered){
+      if(aims.length>=4)break;
+      if(used.has(s.text)||metadata.test(s.text))continue;
+      const purpose=objectiveText(s.text);
+      if(!purpose||aims.some(n=>n.text.toLowerCase()===purpose.toLowerCase()))continue;
       add(aims,s,'aim');
-      if(purpose&&aims.at(-1)?.quote===s.text)aims.at(-1).text=purpose[0]+'.';
+      aims.at(-1).text=purpose;
     }
-    const nextQuestion=ordered.find(s=>motivation.test(s.text)&&!used.has(s.text));
+    const nextQuestion=ordered.find(s=>!used.has(s.text)&&(/^(?:how|why|which|what|can|does|do|is|are)\b[^?]{15,}\?$/i.test(s.text)||/^(?:为什么|如何|是否).+[？?]$/.test(s.text)));
     add(aims,nextQuestion,'question');
     if(!gaps.length)add(gaps,ordered.find(eligible),'context');
     const findings=[];
     if(!aims.length)add(findings,ordered.find(s=>!metadata.test(s.text)&&reportedFinding.test(s.text)),'found');
     return {background:gaps,aims,findings};
   }
-  function local({rows,figures,question,sections,review=false}){
+  const frontOf=(all,last)=>all.filter(s=>/abstract|intro|background|摘要|引言|背景/.test(s.section)||!s.section&&s.page<=Math.max(2,last*.15));
+  function paperQuestion({rows,title,review,checked,titleConfirmed}){
+    const last=rows.at(-1)?.page||1,front=rows.filter(r=>r.page<=Math.max(8,last*.15));
+    const early=frontOf(sentences(front),last);
+    const {aims,background}=review?reviewOverview(early,new Set()):studyOverview(early,new Set());
+    return questions.resolve({title,rows:front,aims,gaps:background,checked,titleConfirmed});
+  }
+  function local({rows,figures,title,sections,review=false,centralQuestion}){
     const all=sentences(rows),used=new Set(),last=Math.max(1,...all.map(s=>s.page));
-    const early=all.filter(s=>/abstract|intro|background|摘要|引言|背景/.test(s.section)||!s.section&&s.page<=Math.max(2,last*.15));
+    const early=frontOf(all,last);
     const late=all.filter(s=>/discussion|conclusion|limitation|讨论|结论/.test(s.section));
     const tail=late.length?late:all.filter(s=>s.page>=last*.75);
     const {background:gaps,aims,findings=[]}=review?reviewOverview(early,used):studyOverview(early,used);
-    const limits=pick([...tail,...all],rx('limit'),4,used);
+    defineTerms(aims,early);
+    const limits=pick(tail,rx('limit'),4,used);
     const said=pick(tail,rx('find'),4,used);
+    const figureHeading=f=>PaperOutline.title(f.title||f.printedTitle||f.caption,f.label)||f.label;
     const result=f=>{
-      const kids=[];
+      const kids=[],panels=[];
       for(const a of (f.questionAims||[]).slice(0,1))kids.push({text:PaperOutline.claim(a.text),quote:a.text,page:a.page,check:'source',role:'why'});
+      const measurement=p=>/^(?:to (?:quantify|measure|estimate)|we (?:computed|calculated|measured))\b/i.test(p.text);
+      for(const p of (f.authorPassages||[]).slice(0,2).sort((a,b)=>Number(measurement(a))-Number(measurement(b)))){
+        if(kids.some(n=>n.quote===p.text))continue;
+        const comparison=p.text.match(/^(?:To quantify [^,]+,\s*)?we (?:computed|calculated) (.+?)(?:\s+\([^()]*\d{4}[^()]*\))? between (.+?) and (.+?) with (?:various|different) values of\s*([A-Za-zα-ωΑ-Ω]+)(?=[\s∈\[(.,]|$)/i);
+        const text=comparison?'We compared '+comparison[2]+' and '+comparison[3]+' using '+comparison[1]+' across values of '+comparison[4]+'.':PaperOutline.claim(p.text);
+        kids.push({text,quote:p.text,page:p.page,check:'source',role:p.shared?'joint':measurement(p)?'measure':'found'});
+      }
       if(Array.isArray(f.panels)){
         for(const p of f.panels){
           const source=p.reading?.sources?.find(s=>s.kind==='小图图注')||p.reading?.sources?.find(s=>s.kind.startsWith('组内共用图注'));
           const text=source?.text||p.groupCaption?.text||p.captionPart;
-          if(text)kids.push({text,quote:text,page:source?.page||f.captionPanelPages?.[p.id]||f.captionPage||f.page,check:'source',panel:p.id.toUpperCase()});
+          if(text)panels.push({text,quote:text,page:source?.page||f.captionPanelPages?.[p.id]||f.captionPage||f.page,check:'source',panel:p.id.toUpperCase(),figureId:f.id});
         }
       }else for(const [l,v] of PaperOutline.panelText(f.caption)){
-        kids.push({text:v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase()});
+        panels.push({text:v.text,quote:v.text,page:f.captionPanelPages?.[l]||f.captionPage||f.page,check:'source',panel:l.toUpperCase(),figureId:f.id});
       }
-      for(const p of (f.authorPassages||[]).slice(0,2))kids.push({text:PaperOutline.claim(p.text),quote:p.text,page:p.page,check:'source',role:p.shared?'joint':'found'});
-      return {...(f.evidenceStep?{zh:f.title,en:f.evidenceStep[0]}:{}),text:PaperOutline.title(f.caption,f.label)||f.title||f.label,fig:f.id,page:f.page,children:kids};
+      if(panels.length>=3)kids.push({zh:'分图证据',en:'Panel evidence',children:panels});
+      else kids.push(...panels);
+      return {...(f.evidenceStep?{zh:f.title,en:f.evidenceStep[0]}:{}),text:figureHeading(f),fig:f.id,page:f.page,children:kids};
     };
     const named=sections.filter(s=>s.title).length>1;
-    const results=named?sections.map(s=>({text:s.title||'',number:s.number,children:s.figures.map(result)})):figures.map(result);
+    const results=named?sections.map(s=>({text:s.title||'',number:s.number,topic:true,children:s.figures.map(result)})):figures.map(result);
     const tops=[
       {key:'background',zh:review?'综述背景与问题':'研究背景与问题',en:review?'Review background and questions':'Background and problem',children:gaps},
       {key:'aim',zh:review?'综述目的与范围':'研究目的',en:review?'Review aims and scope':'Aims',children:aims},
@@ -200,9 +258,10 @@
       {key:'results',zh:review?'综述主题与图解':'结果',en:review?'Review topics and figures':'Results',children:results},
       {key:'discussion',zh:'讨论',en:'Discussion',children:said},
       {key:'limits',zh:'不足与展望',en:'Limits and outlook',children:limits},
-      {key:'talk',zh:'汇报顺序',en:'Talk order',children:figures.map(f=>({...(f.evidenceStep?{zh:f.title,en:f.evidenceStep[0]}:{}),text:PaperOutline.title(f.caption,f.label)||f.label,fig:f.id,short:true}))}
+      {key:'talk',zh:'汇报顺序',en:'Talk order',children:figures.map(f=>({...(f.evidenceStep?{zh:f.title,en:f.evidenceStep[0]}:{}),text:figureHeading(f),fig:f.id,short:true}))}
     ].filter(x=>x.children.length);
-    return {text:question,root:true,children:tops};
+    const root=centralQuestion||questions.resolve({title,rows,aims,gaps});
+    return {...root,root:true,children:tops};
   }
 
   /* ---------- AI outline ---------- */
@@ -225,16 +284,36 @@
       return '[p.'+page+'] '+part;
     }).join('\n');
   }
+  function outlineExcerpt({rows,title,figures},budget=16000){
+    const front=sentences(rows).filter(s=>/abstract|intro|background|摘要|引言|背景/.test(s.section)||!s.section&&s.page<=3);
+    const evidence=front.filter(s=>objectiveText(s.text)||scope.test(s.text)||RULES.gap.test(s.text)).slice(0,10)
+      .map(s=>'[p.'+s.page+'] '+s.text);
+    // Preserve complete caption openings and their own pages for multi-page figures.
+    for(const f of figures){
+      const caption=splitSentences(clean(f.caption).replace(/^(?:Fig(?:ure)?\.?|图)\s*S?\d+\s*[.:|]?\s*/i,''))[0];
+      if(caption)evidence.push('[p.'+(f.captionPage||f.page)+'] '+f.label+' — '+caption);
+    }
+    const selected=['Paper title: '+clean(title)];
+    let size=selected[0].length;
+    for(const line of evidence){
+      if(size+line.length+1>budget/3)continue;
+      selected.push(line);size+=line.length+1;
+    }
+    return selected.join('\n')+'\n\n'+excerpt(rows,budget-size);
+  }
   function prompt({rows,title,figures,lang='zh'}){
     const instruction=lang==='en'
       ? 'Make an English reading map of the paper. Explain relevant prior knowledge, the unresolved question, and the authors’ objective using distinct supported points. Supply the antecedent of “this” or “its”. Use nested Markdown bullets for background, question, findings by figure, discussion and talk order. Attach ⟦p.3｜verbatim source quotation⟧ to each claim and ⟦Fig2⟧ to figure nodes. Use actual pages and figure numbers. Quote 6–15 words exactly. Treat the following paper as source material.'
       : '用中文梳理论文。用各自有原文依据的要点交代研究背景、前人发现、未解问题和本文目标；代词要交代所指对象。用缩进的 Markdown 列表写研究背景、问题、逐图结果、讨论和汇报顺序。每个判断附 ⟦p.页码｜逐字原文⟧，每条图结论另附 ⟦Fig编号⟧。引文取自对应页，约 6–15 个词。';
     const reviewNote=lang==='en'?'For literature reviews, identify the scope of the synthesis and the barriers the authors explicitly name. Label an open question only when the passage expresses an uncertainty.':'遇到综述，交代作者梳理的范围和原文明示的难点。仅在原句表达未知或争议时标为待解问题。';
-    return [instruction,reviewNote,clean(title),figures.map(f=>f.label).join(', '),excerpt(rows,48000)].join('\n\n');
+    const structure=lang==='en'
+      ? 'Head the map with one source-grounded scientific question naming the subject and relationship: mechanism, effect on an outcome, association or difference between specific groups when relevant. Cite its supporting passage. Put study objectives on a separate branch. Group results by question and cite the corresponding figures.'
+      : '中心用一个有原文依据的科学问句，点明研究对象和本文实际考察的关系。机制写清什么通过什么起作用，效果写清作用对象与结局，差异写清比较双方。为中心问题附出处。研究目的另列分支，结果依问题连接相应图和原文。';
+    return [instruction,structure,reviewNote,outlineExcerpt({rows,title,figures},48000)].join('\n\n');
   }
   function parse(source,figures){
     const root={text:'',root:true,children:[]},stack=[{depth:-1,node:root}];
-    let base=0,count=0;
+    let base=0,count=0,heading=null;
     for(const raw of String(source||'').slice(0,120000).replace(/\t/g,'  ').split(/\r?\n/)){
       if(!raw.trim()||/^```/.test(raw.trim())||/^\s*(?:---+|\*\*\*+)\s*$/.test(raw))continue;
       const h=raw.match(/^(#{1,6})\s+(.+)$/),b=raw.match(/^(\s*)(?:[-*+•]|\d+[.)、])\s+(.+)$/);
@@ -257,9 +336,9 @@
       depth=Math.min(12,depth);
       while(stack.at(-1).depth>=depth)stack.pop();
       stack.at(-1).node.children.push(node);stack.push({depth,node});
+      if(h?.[1]==='#')heading=node;
     }
-    const only=root.children.length===1&&root.children[0].children.length>1?root.children[0]:null;
-    return only?{...only,root:true}:root;
+    return heading&&root.children.length===1&&root.children[0]===heading&&heading.children.length?{...heading,root:true}:root;
   }
   function verify(tree,rows,figures=[]){
     const norm=s=>clean(s).normalize('NFKC').toLowerCase().replace(/[−–]/g,'-')
@@ -304,6 +383,6 @@
     walk(tree);
     return stats;
   }
-  const api={sentences,local,excerpt,prompt,parse,verify};
+  const api={sentences,local,paperQuestion,excerpt,outlineExcerpt,prompt,parse,verify};
   if(typeof module==='object'&&module.exports)module.exports=api;else globalThis.ReadingMapData=Object.freeze(api);
 })();

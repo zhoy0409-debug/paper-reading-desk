@@ -16,7 +16,7 @@
     else PaperLanguageText.bind(line,n.text.replace(/\*\*/g,''));
   }
   function evidence(n,source){
-    if(n.page&&!n.root&&n.quote){
+    if(n.page&&n.quote){
       const miss=n.check==='miss';
       const scope=n.check==='scope';
       const b=tap('mm-page',scope?t('图号待核对 · p.','Check figure · p.')+n.page:miss?t('待核对','Unverified'):'p.'+n.page,()=>source(n.page,miss?'':n.quote));
@@ -31,22 +31,29 @@
   function build(n,{figure,name,source,panel,thumb,refs,fold}){
     const box=el('div','mm-node mm-d'+Math.min(n.depth,3)),body=el('div','mm-words'),line=el('span','mm-text');
     box.style.setProperty('--branch',n.color);
+    if(n.root){box.dataset.mapRoot='';line.title=n.text}
+    if(n.topic)box.dataset.mapTopic='';
+    const branch=n.key||n.parent?.el.dataset.mapBranch;
+    if(branch)box.dataset.mapBranch=branch;
     if(n.fig&&!n.short){
       const pic=tap('mm-thumb','',()=>figure(n.fig)),img=el('img');
       img.alt='';pic.append(img);pic.setAttribute('aria-label',t('打开这张图','Open this figure'));box.append(pic);
       Promise.resolve(thumb(n.fig)).then(src=>{if(src)img.src=src},()=>{});
     }
-    if(n.role){
+    if(n.role&&!n.root){
+      box.dataset.mapRole=n.role;
       const r=el('i','mm-role');
       const roles={context:['研究背景','Context'],prior:['已有证据','Prior evidence'],gap:['待解问题','Open question'],challenge:['研究难点','Challenge'],
         reviewAim:['综述目的','Review aim'],scope:['讨论范围','Scope'],translationBarrier:['转化难点','Translational barrier'],
-        aim:['研究目的','Objective'],question:['具体问题','Specific question'],why:['为什么做','Why'],found:['作者的说法','Authors say'],joint:['多图合引','Joint figure reference']};
-      PaperUI.set(r,...(roles[n.role]||roles.found));body.append(r);
+        aim:['研究目的','Objective'],question:['具体问题','Specific question'],why:['为什么做','Why'],found:['作者的说法','Authors say'],measure:['测量方法','Measurement'],joint:['多图合引','Joint figure reference']};
+      if(!['aim','context','reviewAim'].includes(n.role)){PaperUI.set(r,...(roles[n.role]||roles.found));body.append(r)}
     }
     if(n.fig)body.append(tap('mm-fig',name(n.fig),()=>figure(n.fig)));
-    if(n.panel)body.append(tap('mm-fig',n.panel,()=>panel(n.fig||n.parent?.fig,n.panel)));
-    words(n,line);body.append(line);
+    if(n.panel)body.append(tap('mm-fig',n.panel,()=>panel(n.figureId||n.fig||n.parent?.fig,n.panel)));
+    // Source sentences in folded branches can wait until a reader opens them.
+    n.fillLabel=()=>words(n,line);body.append(line);
     const proof=evidence(n,source);if(proof)body.append(proof);
+    if(n.root)for(const ref of n.sources||[]){const link=evidence(ref,source);if(link)body.append(link)}
     const count=n.fig&&!n.short?refs(n.fig):0;
     if(count)body.append(el('small','mm-refs',t(count+' 篇文献',count+' references')));
     box.append(body);

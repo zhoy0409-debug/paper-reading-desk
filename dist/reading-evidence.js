@@ -101,12 +101,13 @@
     const rows=item.model.rows;
     const front=clean(rows.filter(r=>r.page===1).map(r=>r.text).join(' '));
     const abstract=front.split(/(?:^|\s)(?:abstract|摘要)\s*[:：]?\s*/i)[1]?.split(/\bkeywords\b|\bintroduction\b|关键词/i)[0] || '';
-    const aim=sentences(abstract).find(s=>/\b(?:here we|we (?:ask|study|investigate|examine|explore|evaluate|test|analy[sz]e|compare)|our (?:aim|objective))\b|本研究|旨在/i.test(s));
-    if(!paper.curated){
-      paper.title=session.documentTitle||item.name;
-      paper.rootLabel=aim||paper.title;
-      paper.rootKind=aim?'研究焦点 · 摘要原文':'论文题名';
-    }
+    paper.title=(session.documentTitle||item.name||paper.title||'').replace(/\.pdf$/i,'').trim();
+    const checked=paper.curated?{zh:paper.question,en:paper.questionEnglish,supportPatterns:paper.questionSources}:undefined;
+    paper.centralQuestion=ReadingMapData.paperQuestion({rows,title:paper.title,review:PaperFigureContext.isReview(rows),checked,titleConfirmed:!!session.documentTitle});
+    paper.rootLabel=paper.centralQuestion.text;
+    paper.rootKind='核心科学问题';
+    paper.question=paper.centralQuestion.zh||paper.centralQuestion.text;
+    paper.questionEnglish=paper.centralQuestion.en||'';
     const arxiv=PaperFigureContext.arxivID(front);
     const imprint=front.split(/\babstract\b|摘要/i)[0];
     const doi=imprint.match(/(?:https?:\/\/(?:dx\.)?doi\.org\/|\bdoi\s*:\s*)(10\.\d{4,9}\/[-.\w();/:]+)/i);

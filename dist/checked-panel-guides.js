@@ -49,8 +49,8 @@
     [/^Clinical isolates often display resistance to nearly all available antibiotics except tigecycline and polymyxins\b/i,'临床分离株对多种抗生素耐药，可用的治疗选择有限。'],
     [/^A recent machine-learning-guided screen identified abaucin\b/i,'前人利用机器学习筛选发现了 abaucin。它能选择性地作用于鲍曼不动杆菌，并影响脂蛋白转运。'],
     [/^However, its antibacterial efficacy and inhibitory mechanism remain insufficiently characterized/i,'abaucin 对这些细菌的抗菌效果如何？它通过什么机制发挥抑制作用？'],
-    [/^In this study, we validated the potency and selectivity of abaucin against clinically isolated CRAB\b/i,'作者检验 abaucin 对临床分离的耐碳青霉烯鲍曼不动杆菌（CRAB）的活性和选择性，并在小鼠肺部感染模型中评估药效。'],
-    [/^Here, we define the mechanism of abaucin\b/i,'作者还要解释 abaucin 如何通过脂蛋白转运蛋白 LolDF 发挥窄谱抗菌作用。'],
+    [/^In this study, we validated the potency and selectivity of abaucin against clinically isolated CRAB\b/i,'检验 abaucin 对临床分离的耐碳青霉烯鲍曼不动杆菌（CRAB）的活性和选择性，并在小鼠肺部感染模型中评估药效。'],
+    [/^Here, we define the mechanism of abaucin\b/i,'解释 abaucin 如何通过脂蛋白转运蛋白 LolDF 发挥窄谱抗菌作用。'],
     [/^Further investigation using contemporary clinical isolates and structural elucidation of its target complex\b/i,'研究将临床分离株的药效证据与靶点结构联系起来，以评估 abaucin 的治疗潜力。']
   ];
   function contextNote(quote){return contextNotes.find(([pattern])=>pattern.test(quote))?.[1]}

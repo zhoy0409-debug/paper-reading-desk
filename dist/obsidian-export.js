@@ -61,7 +61,9 @@
       return lang === 'zh' ? label.replace(/^Fig(?:ure)?\.?\s*/i,'图 ') : label.replace(/^图\s*/,'Figure ');
     }
     progress(t('正在整理背景与目的…','Preparing the background and aims…'));
-    for (const branch of ctx.overview()) {
+    const overview=ctx.overview(),core=paper.centralQuestion;
+    const branches=core&&!core.unresolved?[{zh:'核心科学问题',en:'Central scientific question',children:[core]},...overview]:overview;
+    for (const branch of branches) {
       lines.push('', '## '+literal(lang === 'zh' ? branch.zh : branch.en));
       for (const node of branch.children) {
         signal.throwIfAborted();
@@ -71,7 +73,8 @@
           try { words = await PaperLanguageText.chinese(original) || original; } catch { /* Keep the source sentence with its page. */ }
           if (!/[\u3400-\u9fff]/u.test(words)) words = '原文 · '+original;
         }
-        if (words) lines.push('', '- '+literal(words)+' '+pageLink(node.page));
+        const pages=[...new Set([node.page,...(node.sources||[]).map(s=>s.page)])].map(pageLink).filter(Boolean);
+        if (words) lines.push('', '- '+literal(words)+' '+pages.join(' · '));
       }
     }
     const figureLines = [];

@@ -18,12 +18,27 @@
     let view=null,usingAI=!!state.aiMap;
     tools.append(button('','−','−',()=>view?.zoom(.85)),button('','适合','Fit',()=>view?.fit()),button('','＋','+',()=>view?.zoom(1.18)));
     tools.append(button('mm-current','当前图','Current figure',()=>view?.current()));
+    const expand=button('mm-expand','展开全图','Expand all',()=>{
+      const on=expand.getAttribute('aria-pressed')!=='true';
+      view?.expandAll(on);setExpanded(on);
+    });
+    function setExpanded(on){
+      expand.setAttribute('aria-pressed',String(on));
+      PaperUI.set(expand,on?'还原分支':'展开全图',on?'Restore branches':'Expand all');
+    }
+    tools.append(expand);
+    const wider=button('mm-width','只看脑图','Map only',()=>{
+      const on=workbench.classList.toggle('mm-wide');
+      wider.setAttribute('aria-pressed',String(on));
+      PaperUI.set(wider,on?'图文对照':'只看脑图',on?'Show figure':'Map only');
+      view?.fit();
+    });
+    wider.setAttribute('aria-pressed','false');tools.append(wider);
     bar.append(title,which,status,tidy,tools);host.append(bar);
     const body=el('div','mm-body');host.append(body);
 
-    const question=PaperOutline.claim(model.rootLabel||paper.title||'');
     function localTree(){
-      const tree=ReadingMapData.local({rows,figures:raws,question,sections:paper.sections||[],review:PaperFigureContext.isReview(rows)});
+      const tree=ReadingMapData.local({rows,figures:raws,title:paper.title,sections:paper.sections||[],review:PaperFigureContext.isReview(rows),centralQuestion:paper.centralQuestion});
       if(raws.some(f=>f.editorGuide)){
         for(const branch of tree.children.filter(isOverview)){
           for(const node of branch.children){
@@ -32,16 +47,19 @@
           }
         }
       }
-      if(model.question&&model.questionEnglish){tree.zh=model.question;tree.en=model.questionEnglish}
       return tree;
     }
     function aiTree(){
       const tree=ReadingMapData.parse(state.aiMap,raws);
-      if(!tree.text)tree.text=question;
-      return {tree,stats:ReadingMapData.verify(tree,rows,raws)};
+      const stats=ReadingMapData.verify(tree,rows,raws);
+      const core=paper.centralQuestion;
+      const sourcedQuestion=tree.check==='ok'&&/[？?]$/.test(tree.text)&&tree.text.length>=14&&tree.text.length<=200;
+      if(!core?.unresolved||!sourcedQuestion)return {tree:{...core,root:true,children:tree.children},stats};
+      return {tree,stats};
     }
     function draw(){
       const has=!!state.aiMap;
+      setExpanded(false);
       which.hidden=!has;own.setAttribute('aria-pressed',String(!usingAI));ai.setAttribute('aria-pressed',String(usingAI));
       PaperUI.set(tidy,has?'重新梳理':'让 AI 帮我梳理',has?'Organize again':'Let AI organize it');
       if(usingAI&&has){
@@ -87,7 +105,7 @@
         run.disabled=true;model.disabled=true;
         PaperUI.set(modelStatus,'正在梳理所选论文…','Organizing this paper…');
         try{
-          const result=await ReaderAccess.outline({provider:model.value,language:ReaderLanguage.current,excerpt:ReadingMapData.excerpt(rows)},controller.signal);
+          const result=await ReaderAccess.outline({provider:model.value,language:ReaderLanguage.current,excerpt:ReadingMapData.outlineExcerpt({rows,title:paper.title,figures:raws})},controller.signal);
           if(!d.open)return;
           area.value=result.outline;manual.open=true;make.click();
         }catch(error){
@@ -116,11 +134,12 @@
     function show(){
       if(!view){
         view=ReadingMapView.mount(body,{
-          figure:id=>{select(id);if(matchMedia('(max-width:1000px)').matches)workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'read'}))},name:id=>(byId.get(id)?.label||'').replace(/^Fig(?:ure)?\.?\s*/i,ReaderLanguage.choose('图 ','Figure ')),
+          figure:id=>{if(workbench.classList.contains('mm-wide'))wider.click();select(id);if(matchMedia('(max-width:1000px)').matches)workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'read'}))},name:id=>(byId.get(id)?.label||'').replace(/^Fig(?:ure)?\.?\s*/i,ReaderLanguage.choose('图 ','Figure ')),
           source:(page,quote)=>{
+            if(workbench.classList.contains('mm-wide'))wider.click();
             if(matchMedia('(max-width:1000px)').matches)workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'read'}));
             source(page,quote);
-          },panel:(id,letter)=>{openPanel(id,letter);if(matchMedia('(max-width:1000px)').matches)workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'read'}))},thumb,refs:id=>paper.citations?.forFigure(byId.get(id)?.raw||{}).length||0});
+          },panel:(id,letter)=>{if(workbench.classList.contains('mm-wide'))wider.click();openPanel(id,letter);if(matchMedia('(max-width:1000px)').matches)workbench.dispatchEvent(new CustomEvent('studio-view',{detail:'read'}))},thumb,refs:id=>paper.citations?.forFigure(byId.get(id)?.raw||{}).length||0});
         view.mark(now);draw();
       }else view.layout();
     }

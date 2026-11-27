@@ -22,7 +22,7 @@
 
   function contract() {
     if (!contractRequest) {
-      contractRequest = fetch('./reading-models.json?rev=0415', {credentials:'omit', redirect:'error'})
+      contractRequest = fetch('./reading-models.json?rev=0415d', {credentials:'omit', redirect:'error'})
         .then(response => {
           if (!response.ok) throw Error();
           return response.json();

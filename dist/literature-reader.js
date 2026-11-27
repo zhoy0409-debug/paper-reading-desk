@@ -596,8 +596,13 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    return figure?.title||figureLabel(key);
   }
   const front=mm.rows.filter(r=>!r.page||r.page===1).slice(0,22);
+  const paperTitle=item.figureSession?.documentTitle||String(item.name||'').replace(/\.pdf$/i,'')||'未题名论文';
+  const question=()=>ReadingMapData.paperQuestion({rows:mm.rows,title:paperTitle,titleConfirmed:!!item.figureSession?.documentTitle,review:PaperFigureContext.isReview(mm.rows)});
   const knownId=front.flatMap(r=>sourceDOIs(r.text)).find(doi=>window.PaperReadingEditions?.get(doi));
-  if(knownId)return {model:window.PaperReadingEditions.get(knownId),curated:true};
+  if(knownId){
+   const edition=window.PaperReadingEditions.get(knownId);
+   return {model:edition,curated:true};
+  }
   const branches=priority.filter(key=>mm.sections.some(sec=>sec.key===key)).slice(0,5).map(key=>{
    const sectionIndex=mm.sections.findIndex(sec=>sec.key===key);
    const section=mm.sections[sectionIndex];
@@ -616,9 +621,8 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
     children:captions.map(([fig,records])=>({id:'cap-'+fig,title:figureTopic(fig),summary:'查看可定位的图注。',source:{label:figureLabel(fig),location:records[0].location,figure:fig}}))});
   }
   if(!branches.length)branches.push({id:'source-only',title:'从可读原文开始',category:'原文定位',summary:'标题还未可靠识别。可以点开已有文字，不猜测论文在证明什么。',source:{label:'显示原文',location:mm.rows[0]?.location||'',sectionIndex:-1}});
-  const explicit=mm.sections.find(sec=>sec.key==='question');
-  const question=explicit?.rows.find(row=>!row.heading&&/[？?]$/.test(row.text.trim())&&inline(row.text).length<112);
-  return {model:{title:'本地文献导览',root:{title:question?inline(question.text):item.figureSession?.documentTitle||'从哪里读懂这篇论文？',summary:'先点一个分支。节点连到本地识别到的段落或图注，不把目录当成论点。'},branches},curated:false};
+  const core=question();
+  return {model:{title:paperTitle,root:{title:core.zh||core.text,summary:'点分支可以查看对应段落或图注。'},branches},curated:false};
  }
  function graphContents(item,isExample=false){
   const data=isExample?{model:window.PaperReadingEditions?.example,curated:true}:autoMap(item);

@@ -12,10 +12,12 @@ Preparing a journal club talk? Open a paper, click a figure label to see what it
 
 ## From the paper to your presentation
 
-1. **Follow the argument.** Upload your PDF and open **Map** to see the background, the authors’ question and the figures they use to address it. For a review, follow the topics and questions the authors discuss. Select a page number to read the supporting passage.
+1. **Follow the argument.** Upload a PDF and open **Map**. The black node gives the central scientific question. Follow its branches to see what motivated the study, what the authors set out to learn, and which figures support their findings. Reviews show the scope of the synthesis. Select a page number to read the source.
 2. **Understand the figure in front of you.** Select a thumbnail and choose **Read explanation**. In a panel close-up, tap a recognized axis, legend symbol or group label to see what it represents. Open the linked caption or body text to check the explanation against the paper.
 3. **Prepare slides without taking screenshots.** Choose **Add to slides** on a panel. In the slide basket, adjust the crop, drag panels into order and edit your speaking notes. Export the deck to PowerPoint or save an individual panel as a PNG.
 4. **Keep what you learned.** Export a Markdown note to Obsidian with the selected panels, your notes and links to the PDF pages. For an English-language talk, select an unfamiliar term or a sentence and choose **Listen** to practise it.
+
+[See the study’s aims on its map](docs/guide/studio-map-en.webp) · [Follow Figure 8 to its supporting evidence](docs/guide/studio-map-figure-en.webp)
 
 <a name="ask-questions"></a>
 
@@ -39,10 +41,12 @@ The web address stays the same as updates are published. On Windows, you can als
 
 ## 从读懂论文到上台汇报
 
-1. **先理清作者想回答什么。** 上传 PDF，打开「脑图」，顺着研究背景、问题和各张图看论证如何展开。读综述时，可以按作者讨论的主题和问题往下读。点要点旁的页码，就能回到支持它的原文。
+1. **先理清作者想回答什么。** 上传 PDF，打开「脑图」。黑框点出本文的核心科学问题。顺着分支读研究缘起、作者的具体目的和各张图的证据。综述按讨论范围和主题展开。点页码可回到原句。
 2. **在图上弄懂一个具体细节。** 选一张缩略图，点「看图解」。进入小图特写后，点已识别的横轴、纵轴、图例符号或组名，就能看到所点元素的含义。图注和相关正文都带有出处，便于回原文核对。
 3. **把要讲的小图直接做成 PPT。** 在小图上点「加入汇报」。在底部汇报篮里调整裁切、拖动排序，直接写下每张图怎么讲。可以导出带讲解备注的 PowerPoint，也可以单独保存小图 PNG。
 4. **把读过的内容留下来。** 导出到 Obsidian，把选好的小图、笔记和原文页码放在一起。准备英文汇报时，划选陌生术语或整句，点「听英文」即可跟读。
+
+[看这篇论文的研究目的](docs/guide/studio-map-zh.webp) · [看图 8 和支持它的原文证据](docs/guide/studio-map-figure-zh.webp)
 
 <a name="怎么提问"></a>
 

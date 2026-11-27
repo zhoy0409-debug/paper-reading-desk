@@ -1,5 +1,11 @@
 import assert from 'node:assert/strict';
 import {mapChinese} from '../dist/scientific-translation.js';
+const title='Attraction–Repulsion Spectrum in Neighbor Embeddings';
+assert.equal(await mapChinese(title,async()=>{throw Error('Exact terms already known')}),'邻域嵌入中的吸引力与排斥力谱');
+const known=async()=>{throw Error('Phrase must be grounded in the supplied terms')};
+assert.equal(await mapChinese('We provide a unifying account of neighbor embedding (NE) algorithms.',known),'用统一框架解释邻域嵌入（NE）算法。');
+assert.equal(await mapChinese('We study how changing the attractive forces between kNN graph neighbors affects the spectrum of t-SNE embeddings.',known),'考察 t-SNE 的一系列嵌入结果如何随 kNN 图上的近邻点之间的吸引力变化。');
+assert.equal(await mapChinese('We examined the role of ILC2s in immune adaptation during the recovery phase post-stroke.',known),'考察 ILC2s 在卒中恢复期免疫适应中的作用。');
 
 const sentence='Intensity increased by 25% in ROI.';
 const output=await mapChinese(sentence,async text=>{

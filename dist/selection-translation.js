@@ -1,4 +1,4 @@
-import {selectionTranslation} from './scientific-translation.js?rev=reader-049';
+import {selectionTranslation} from './scientific-translation.js?rev=reader-0415d';
 
 const popup = document.createElement('section');
 popup.className = 'local-translation';

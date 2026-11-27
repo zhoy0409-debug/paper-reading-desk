@@ -3,11 +3,12 @@
   'use strict';
   const SVG='http://www.w3.org/2000/svg';
   const HUES=['#3b5bdb','#0b8f6a','#d9820a','#d6455d','#8250c4','#1786b5','#6b7280'];
+  const branchColors={background:HUES[0],aim:HUES[1],results:HUES[2],finding:HUES[2],discussion:HUES[3],limits:HUES[4],talk:HUES[5]};
   const el=cls=>{const n=document.createElement('div');n.className=cls;return n};
   function mount(host,actions){
     const view=el('mm-view'),ground=el('mm-ground'),svg=document.createElementNS(SVG,'svg'),layer=el('mm-layer');
     svg.classList.add('mm-links');ground.append(svg,layer);view.append(ground);host.append(view);
-    let tree=null,x=0,y=0,zoom=1,size=[0,0],fresh=true,touched=false,now='',queued=0,drag=null;
+    let tree=null,x=0,y=0,zoom=1,size=[0,0],fresh=true,touched=false,now='',queued=0,drag=null,previousFolds=null;
     const all=[];
     function make(n,depth,color,parent){
       Object.assign(n,{depth,color,parent,auto:!!n.fig&&!n.short});
@@ -15,13 +16,19 @@
       all.push(n);
       n.el=ReadingMapNode.build(n,{...actions,fold(){n.folded=!n.folded;n.auto=false;touched=true;layout()}});
       layer.append(n.el);
-      (n.children||[]).forEach((c,i)=>make(c,depth+1,depth?color:HUES[i%HUES.length],n));
+      (n.children||[]).forEach((c,i)=>make(c,depth+1,depth?color:branchColors[c.key]||HUES[i%HUES.length],n));
     }
     function layout(){
       if(!tree||!view.clientWidth)return;
       const shown=new Set(ReadingMapLayout.visible(tree));
-      for(const n of all){n.el.hidden=!shown.has(n);n.el.classList.toggle('mm-folded',!!n.folded)}
-      for(const n of shown){n.w=n.el.offsetWidth;n.h=n.el.offsetHeight}
+      for(const n of all){
+        n.el.hidden=!shown.has(n);n.el.classList.toggle('mm-folded',!!n.folded);
+        n.el.querySelector('.mm-dot')?.setAttribute('aria-expanded',String(!n.folded));
+      }
+      for(const n of shown){
+        if(n.fillLabel){n.fillLabel();n.fillLabel=null}
+        n.w=n.el.offsetWidth;n.h=n.el.offsetHeight;
+      }
       const [w,h]=ReadingMapLayout.arrange(tree);size=[w+40,h+20];
       svg.setAttribute('width',size[0]);svg.setAttribute('height',size[1]);svg.replaceChildren();
       for(const n of shown){
@@ -36,8 +43,9 @@
     function fit(all){
       const W=view.clientWidth,H=view.clientHeight;
       const ratio=Math.min((W-48)/size[0],(H-48)/size[1]);
-      zoom=Math.max(all ? .05 : .76,Math.min(1,ratio));
-      x=24;y=H/2-tree.y*zoom;if(size[1]*zoom<H)y=(H-size[1]*zoom)/2;move();
+      zoom=Math.max(all ? .05 : .76,Math.min(all?1.35:1,ratio));
+      x=size[0]*zoom<W?(W-size[0]*zoom)/2:24;
+      y=H/2-tree.y*zoom;if(size[1]*zoom<H)y=(H-size[1]*zoom)/2;move();
     }
     function scale(f,cx=view.clientWidth/2,cy=view.clientHeight/2){
       const z=Math.min(1.8,Math.max(.3,zoom*f));
@@ -77,10 +85,32 @@
     // Translations arrive after the first layout and change widths.
     const later=()=>{cancelAnimationFrame(queued);queued=requestAnimationFrame(layout)};
     const sizes=new ResizeObserver(later);
+    function current(){
+      const n=all.find(node=>node.fig===now&&!node.short);
+      if(!n)return;
+      for(let p=n;p;p=p.parent)p.folded=false;
+      touched=true;layout();
+      const nodes=[n,...(n.children||[])],right=Math.max(...nodes.map(c=>c.x+c.w));
+      const top=Math.min(...nodes.map(c=>c.y-c.h/2)),bottom=Math.max(...nodes.map(c=>c.y+c.h/2));
+      const w=right-n.x,h=bottom-top,W=view.clientWidth,H=view.clientHeight;
+      zoom=Math.max(.3,Math.min(1.3,(W-56)/w,(H-64)/h));
+      x=(W-w*zoom)/2-n.x*zoom;y=(H-h*zoom)/2-top*zoom;move();
+    }
     return {
-      fit(){touched=true;fit(true)},current(){const n=all.find(n=>n.fig===now&&!n.short);if(n){for(let p=n.parent;p;p=p.parent)p.folded=false;touched=true;zoom=Math.max(.78,zoom);layout();reveal()}},zoom(f){touched=true;scale(f)},layout:later,mark,
+      fit(){if(!tree)return;touched=true;layout();fit(true)},current,zoom(f){touched=true;scale(f)},layout:later,mark,
+      expandAll(on){
+        if(!tree||on===!!previousFolds)return;
+        if(on){
+          previousFolds=all.map(n=>[n,n.folded,n.auto]);
+          for(const n of all){n.folded=false;n.auto=false}
+        }else{
+          for(const [n,folded,auto] of previousFolds){n.folded=auto&&n.children?.length?n.fig!==now:folded;n.auto=auto}
+          previousFolds=null;
+        }
+        touched=true;layout();fit(true);
+      },
       set(next){
-        sizes.disconnect();sizes.observe(view);all.length=0;layer.replaceChildren();tree=next;fresh=true;touched=false;
+        sizes.disconnect();sizes.observe(view);all.length=0;layer.replaceChildren();tree=next;fresh=true;touched=false;previousFolds=null;
         make(tree,0,'#171a21',null);for(const n of all)sizes.observe(n.el);
         mark(now);later();
       },

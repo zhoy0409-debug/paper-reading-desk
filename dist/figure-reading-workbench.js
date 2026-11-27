@@ -77,7 +77,7 @@
     }
     return { title: string(model.title, 200) || '用图读论文', takeaway: string(model.takeaway, 250),
       sourceLabel: string(model.sourceLabel, 125), rootKind:model.rootKind,rootLabel: string(model.rootLabel, 420) || model.title || '论文主线',
-      question: string(model.question, 120), questionEnglish:string(model.questionEnglish,180), curated:Boolean(model.curated), figures: ordered, groups };
+      question: string(model.question, 420), questionEnglish:string(model.questionEnglish,420), curated:Boolean(model.curated), figures: ordered, groups };
   }
 
   function href(v, doc, kind) {

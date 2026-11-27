@@ -7,10 +7,8 @@
   function mount({workbench,track,tabs,model,paper}){
     const byId=new Map(model.figures.map(f=>[f.id,f]));
     const head=el('div','th-head'),claim=el('p'),fold=el('button','th-fold');
-    const aim=model.rootKind&&!/题名/.test(model.rootKind);
-    const label=PaperUI.set(el('small'),aim?'这篇论文要说明的':'这篇论文',aim?'What this paper argues':'This paper');
-    if(model.question&&model.questionEnglish)PaperUI.set(claim,model.question,model.questionEnglish);
-    else PaperLanguageText.bind(claim,PaperOutline.claim(model.rootLabel||paper.title||''));
+    const label=PaperUI.set(el('small'),'这篇论文','This paper');
+    PaperLanguageText.bind(claim,paper.title||'');
     claim.tabIndex=0;claim.setAttribute('role','button');
     const open=()=>head.classList.toggle('th-open');
     claim.addEventListener('click',open);

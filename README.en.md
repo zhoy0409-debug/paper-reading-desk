@@ -40,7 +40,7 @@ On a phone, open the **⋯** menu to find the export. You can also reach it wher
 
 Journal club tomorrow? The axis labels look fuzzy on your slide. You looked up UMAP and lost track of which dots you were comparing. You know what each figure shows, but explaining why one follows another is harder. The walkthrough below uses one published paper to show how to take a panel, read it closely and place it in the paper’s argument.
 
-[![Play the 60-second walkthrough from clicking an axis to exporting the complete slide deck.](dist/media/tour/cover-en.webp?v=044)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
+[![Play the 60-second walkthrough from clicking an axis to exporting the complete slide deck.](dist/media/tour/cover-en.webp?v=0415)](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en)
 
 [Watch by chapter](https://zhoy0409-debug.github.io/paper-reading-desk/?lang=en) · [Watch the narrated introduction](https://zhoy0409-debug.github.io/paper-reading-desk/film/en.html)
 
@@ -58,13 +58,13 @@ Choose **Adjust crop** in a panel or **Crop** on a slide-basket card. Drag an ed
 
 On desktop, the paper outline, original figure and explanation share one screen. Open a panel for a close-up. A thumbnail below the reading area marks the current panel in the whole figure. Select an axis, legend or scale bar to bring its explanation into view. Scroll through the note to reach its source and follow-up actions.
 
-![A public paper’s mind map alongside its original figure](docs/guide/studio-map-en.webp)
+![The JMLR paper’s central question, background and two objectives with their original page numbers](docs/guide/studio-map-en.webp)
 
 The map links background, prior findings, open questions and aims to the pages that support them. Select an English caption and choose **Translate to Chinese**. Expand the source to compare the wording, identifiers and numbers.
 
 ![An English figure caption translated into Chinese, with the original text one click away](docs/guide/selection-zh.webp)
 
-**Map** organizes the background, research question and figure evidence from the text and captions. Select a page number to check a quotation. With your API key, both editions can generate an outline and check its quotations against the PDF.
+Select **Expand all** to see the whole argument, or **Current figure** to read the corresponding result and panel captions. **Map only** expands the canvas. Select a page number to open the source beside the map. With your API key, both editions can generate an outline and check its quotations against the PDF. [See Figure 8 and its evidence side by side](docs/guide/studio-map-figure-en.webp)
 
 Choose **Edit deck** in the basket to work with the same panels, order and notes in a full presentation. Insert your own pictures or text slides, edit the slide body and speaker notes separately, rehearse and choose **Export slide deck**.
 

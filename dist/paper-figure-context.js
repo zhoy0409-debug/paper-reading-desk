@@ -153,8 +153,9 @@ function modelFor(item,found){
   records.push(figure);
  }
  return {title:curated?'Abaucin 的选择性作用：从比较到证据链':cut(item?.name||'论文图件',130),
-  question:curated?'为什么 Abaucin 对受测目标菌表现出选择性？':undefined,
-  questionEnglish:curated?'Why are the tested A. baumannii isolates more susceptible to abaucin?':undefined,
+  question:curated?'Abaucin 如何通过 LolDF 抑制鲍曼不动杆菌，为什么它对受测大肠杆菌的抑制作用很弱？':undefined,
+  questionEnglish:curated?'How does abaucin act on LolDF in A. baumannii, and why are the tested E. coli much less susceptible?':undefined,
+  questionSources:curated?[/selectively targets.{0,100}?lipoprotein transporter,\s*LolDF/i,/showing negligible effects on.{0,40}?E\.\s*coli/i]:undefined,
   takeaway:curated?'依原文顺序读：受测菌株的药敏比较 → 动物模型 → 复合物结构 → 结合实验 → 脂蛋白转运。':undefined,
   sourceLabel:curated?'此篇有经核对的导读 · 原图取自你的 PDF':'你的 PDF · 图注与原图定位',
   figures:records,groups:[...groups.entries()].map(([label,figureIds])=>({label,figureIds})),

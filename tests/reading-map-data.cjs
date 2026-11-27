@@ -13,7 +13,8 @@ assert(datedSentences.some(s=>s.text.startsWith('Multiple observatories')&&!s.te
 assert(datedSentences.some(s=>s.section==='introduction'&&s.text.startsWith('Previous optical')));
 assert(!datedSentences.some(s=>/Received|Survey Collaboration/.test(s.text)));
 const observational=[...dated.slice(0,6),{text:'In this report, we report the first direct observation of a distant astronomical event.',page:1}];
-const observed=D.local({rows:observational,figures:[],sections:[],question:''});
+const observed=D.local({rows:observational,figures:[],sections:[],title:''});
+assert(observed.unresolved);
 assert(!observed.children.some(b=>b.key==='aim'));
 assert.equal(observed.children.find(b=>b.key==='finding').children[0].page,1);
 const figs=[{id:'f2',matchKey:'F:2',label:'Figure 2',caption:'Figure 2: Mouse model. (a) Survival curves of mice. (b) Lung burden after treatment.',page:4,authorPassages:[],questionAims:[]}];
@@ -64,9 +65,12 @@ assert.equal(plain.children[0].children[0].children[0].text,'体内');
 assert.equal(plain.children[1].children[0].fig,'f2');
 const body=[{text:'Introduction',page:1},{text:'The mechanism of this drug remains unclear in clinical isolates from hospitals.',page:1},{text:'Here we investigated how the drug acts on resistant bacteria in infected mice.',page:1},
  {text:'Discussion',page:8},{text:'A limitation of this study is that only one mouse model of infection was used.',page:8},{text:'References',page:9}];
-const local=D.local({rows:body,figures:figs,question:'Q',sections:[{title:'',figures:figs}]});
+const local=D.local({rows:body,figures:figs,title:'Q',sections:[{title:'',figures:figs}]});
 assert.deepEqual(local.children.map(c=>c.key),['background','aim','results','limits','talk']);
 assert.equal(local.children[2].children[0].children.filter(c=>c.panel).length,2);
+const rawFigure={id:'sensors',label:'Figure 3',printedTitle:'Figure 3: Light detector sensitivity. The values are averaged across sensors.',page:3};
+const headings=D.local({rows:[],sections:[],figures:[rawFigure],title:'Light'}).children;
+for(const branch of headings)assert.equal(branch.children[0].text,'Light detector sensitivity');
 assert.ok(local.children[0].children[0].quote.startsWith('The mechanism'));
 assert.ok(D.prompt({rows:body,title:'T',figures:figs}).includes('[p.8]'));
 console.log('PASS local outline from source sentences, Markdown import and quotation checks.');
@@ -76,7 +80,7 @@ assert.match(D.prompt({rows:body,title:'T',figures:figs,lang:'en'}),/English rea
 const longPaper=Array.from({length:95},(_,i)=>({page:i+1,text:'Public source material. '.repeat(250)}));
 const excerpt=D.excerpt(longPaper);
 assert.ok(excerpt.includes('[p.1]')&&excerpt.includes('[p.95]')&&excerpt.length<19500);
-const zh=D.local({rows:[{page:1,text:'引言'},{page:1,text:'邻域嵌入是一类用于展示高维数据结构的降维方法。'}],figures:[],sections:[],question:'问题'});
+const zh=D.local({rows:[{page:1,text:'引言'},{page:1,text:'邻域嵌入是一类用于展示高维数据结构的降维方法。'}],figures:[],sections:[],title:'问题'});
 assert.equal(zh.children[0].key,'background');
 
 const context=[
@@ -86,7 +90,7 @@ const context=[
   {page:2,text:'However, its performance and calibration remain insufficiently characterized.'},
   {page:2,text:'In this study, we evaluated the sensor against a calibrated optical reference.'}
 ];
-const outline=D.local({rows:context,figures:[],sections:[],question:'Sensors'});
+const outline=D.local({rows:context,figures:[],sections:[],title:'Sensors'});
 const bg=outline.children.find(n=>n.key==='background').children,aims=outline.children.find(n=>n.key==='aim').children;
 assert.deepEqual(bg.map(n=>n.role),['context','prior','gap']);
 assert.deepEqual(aims.map(n=>n.role),['aim']);
@@ -95,8 +99,41 @@ for(const n of [...bg,...aims])assert(context.some(s=>s.page===n.page&&s.text===
 const reporting=[{text:'Introduction',page:2},
  {text:'We hypothesized that the detector would respond differently to the two light sources.',page:2},
  {text:'Here we find that the detector responds strongly under both experimental conditions.',page:2}];
-const goals=D.local({rows:reporting,figures:[],sections:[],question:'Light'}).children.find(n=>n.key==='aim');
+const goals=D.local({rows:reporting,figures:[],sections:[],title:'Light'}).children.find(n=>n.key==='aim');
 assert.deepEqual(goals.children.map(n=>n.quote),[reporting[1].text]);
+
+const spectrumTitle='Attraction-Repulsion Spectrum in Neighbor Embeddings';
+const roleRows=[
+  {page:1,text:'Abstract'},
+  {page:1,text:'Here we empirically show that stronger attraction changes the spectrum of embeddings.'},
+  {page:2,text:'1. Introduction'},
+  {page:2,text:'Here we provide a unifying account of NE algorithms.'},
+  {page:2,text:'We study how different attractive forces affect embeddings of the same data.'},
+  {page:3,text:'2. Evaluation'},
+  {page:3,text:'We compared two runs as an additional calibration check on our plotting code.'}
+];
+const spectrum=D.local({rows:roleRows,figures:[],sections:[],title:spectrumTitle,question:roleRows[1].text});
+assert.equal(spectrum.text,'How do different attractive forces affect embeddings of the same data?');
+assert.deepEqual(spectrum.children.find(n=>n.key==='aim').children.map(n=>[n.quote,n.page]),roleRows.slice(3,5).map(s=>[s.text,2]));
+assert(!spectrum.children.find(n=>n.key==='background')?.children.some(n=>n.quote===roleRows[1].text));
+const mixed='We assessed the competing light sources and found that the blue source was brighter.';
+const mixedTree=D.local({rows:[{page:1,text:'Abstract'},{page:1,text:mixed}],figures:[],sections:[],title:'Light sources'});
+const mixedAim=mixedTree.children.find(b=>b.key==='aim').children[0];
+assert.equal(mixedAim.text,'We assessed the competing light sources.');
+assert.equal(mixedAim.quote,mixed);
+const Q=require('../dist/reading-question.js');
+function central(title,aim){return Q.resolve({title,rows:[{page:1,text:title}],aims:aim?[{text:aim,quote:aim,page:2}]:[]})}
+assert.equal(central(spectrumTitle).text,'How does the balance between attraction and repulsion shape neighbor embeddings?');
+assert.equal(central('The effect of daylight on sleep duration').text,'What effect does daylight have on sleep duration?');
+assert.equal(central('Association between daylight exposure and sleep duration').text,'What is the association between daylight exposure and sleep duration?');
+assert.equal(central('Optical detection','We compared red sensors with blue sensors under low light.').text,'How do red sensors and blue sensors compare under low light?');
+assert.equal(central('Sensitivity to light','We investigate why light affects silicon but not glass.').text,'Why does light affect silicon but not glass?');
+assert.equal(central('Predicting electricity demand using temperature readings').text,'Can temperature readings predict electricity demand?');
+assert.equal(central('两种材料的光学性质','本研究探讨光照对聚合物薄膜的影响。').text,'光照对聚合物薄膜有何影响？');
+assert(Q.resolve({title:'Report 032',rows:[]}).unresolved);
+assert.equal(D.parse('# Supplied heading\n- Findings\n  - Observations',[]).children[0].text,'Findings');
+assert.equal(D.parse('- Findings\n  - First result\n  - Second result',[]).children[0].text,'Findings');
+assert.match(D.outlineExcerpt({rows:roleRows,title:spectrumTitle,figures:[]}),/\[p\.2\] We study how/);
 
 const reviewRows=[
   {page:1,text:'Downloaded from: https://example.org'},
@@ -111,7 +148,7 @@ const reviewRows=[
   {page:2,text:'No use, distribution or reproduction is permitted which does not comply with these terms.'},
   {page:3,text:'However, when a sensor is damaged, its reported output decreases significantly.'}
 ];
-const review=D.local({rows:reviewRows,figures:[],sections:[],question:'Sensors',review:true});
+const review=D.local({rows:reviewRows,figures:[],sections:[],title:'Sensors',review:true});
 const background=review.children.find(n=>n.key==='background').children;
 const scope=review.children.find(n=>n.key==='aim').children;
 assert.deepEqual(background.map(n=>n.role),['context','prior','challenge']);
@@ -122,6 +159,6 @@ for(const n of [...background,...scope])assert(reviewRows.some(r=>r.text===n.quo
 assert.doesNotMatch(D.excerpt(reviewRows),/permitted|these terms|Downloaded from/);
 const observation={page:1,text:'However, a sensor exposed to more daylight produces a larger signal.'};
 for(const review of [true,false]){
-  const tree=D.local({review,rows:[...body.slice(0,1),reviewRows[3],observation],figures:[],sections:[],question:'Daylight'});
+  const tree=D.local({review,rows:[...body.slice(0,1),reviewRows[3],observation],figures:[],sections:[],title:'Daylight'});
   assert(!tree.children.flatMap(n=>n.children).some(n=>n.role==='gap'&&n.quote===observation.text));
 }

@@ -237,7 +237,7 @@
     const figureById=new Map(model.figures.map(f=>[f.id,f]));
     const map=ReadingMap.mount({workbench,model,paper,state,save,select,source,thumb:id=>lens.thumb(figureById.get(id)),
       openPanel(id,letter){if(id)select(id);[...tabs.querySelectorAll('.frw-panel-tab')].find(b=>b.dataset.panel?.toUpperCase()===letter.toUpperCase())?.click()}});
-    const deck=ReadingDeck.mount({workbench,model,paper,state,save,render,desk:panelDesk,changed:()=>drawBasket()});
+    const deck=ReadingDeck.mount({workbench,model,paper,state,save,render,desk:panelDesk,overview:map.overview,changed:()=>drawBasket()});
     let followed='';
     function follow(){
       const id=track?.querySelector('.lens-cell[aria-current=true]')?.dataset.figure;
@@ -321,7 +321,7 @@
     };
     bench={
       alive:()=>alive&&workbench.isConnected,
-      state:()=>({view,title:(model.curated&&ReaderLanguage.current==='en'?model.questionEnglish:'')||title.textContent.trim()||t('论文','Paper'),
+      state:()=>({view,title:title.textContent.trim()||paper.title||t('论文','Paper'),
         figure:figIndex.textContent.replace(/^Fig(?:ure)?\.?\s*/i,t('图 ','Figure ')),
         panel:panelName(),page:visual.classList.contains('source-shown')}),
       show,
