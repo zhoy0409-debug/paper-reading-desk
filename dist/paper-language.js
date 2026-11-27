@@ -115,6 +115,7 @@
     if(ReaderLanguage.current==='en')el.lang='en';
     refresh(el);
   }));
-  addEventListener('pagehide',e=>{if(!e.persisted){engine?.then(v=>v.delete()).catch(()=>{});engine=null;cache.clear()}});
+  // A discarded document releases its dedicated translation worker. Starting
+  // another asynchronous teardown in pagehide can interrupt an active batch.
   window.PaperLanguageText={bind,clear,translate,chinese,retry,prioritizeLabels};
 })();

@@ -654,7 +654,8 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   if(item?.pdfUrl){window.URL.revokeObjectURL(item.pdfUrl);item.pdfUrl='';}
   item?.figureAbort?.abort();item?.figureSession?.destroy?.();item?.pdfSource?.destroy();
  };
- window.addEventListener('pagehide',event=>{if(!event.persisted)for(const item of items)revoke(item);});
+ // Explicit removal releases the paper while this document stays open. On
+ // navigation the browser owns teardown of its object URLs and PDF workers.
  function currentMain(){return items.find(d=>d.role==='main'&&!d.problem);}
  function auxiliaries(){return items.filter(d=>!d.problem&&d.model.rows.length);}
  function notice(message,state='ready',role='',english){
