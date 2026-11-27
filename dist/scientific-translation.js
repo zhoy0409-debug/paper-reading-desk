@@ -309,7 +309,7 @@ function treatmentCaption(sentence,field){
 export async function translatePassage(original,from,translate,{field='auto'}={}){
   if(from!=='en')return {text:modelText(await translate(original,from)),warnings:[]};
   field=resolveField(field,original);
-  const lines=[],warnings=[],issues=[];
+  const lines=[],warnings=[],issues=[],candidates=[];
   for(const s of sentences(original)){
     const matched=fieldTerms(s,field);
     if(matched.length===1&&matched[0].original.length===s.length){lines.push(matched[0].value);continue}
@@ -386,16 +386,17 @@ export async function translatePassage(original,from,translate,{field='auto'}={}
       compounds(body,fig?fieldTerms(body,field):matched).some(c=>!result.includes(c.value));
     const echoed=body&&body===result&&/[a-z]{2}/i.test(body);
     if(facts||missingTerm||echoed){
+      candidates.push({source:s,text:(fig?'图 '+fig[1]+'　':'')+result,reason:facts?'facts':missingTerm?'terms':'target'});
       issues.push(facts?'facts':missingTerm?'terms':'target');
       warnings.push(s);result=body+(terms.length?'\n'+terms.map(([en,zh])=>en+' · '+zh).join('　'):'');
     }
     lines.push((fig?'图 '+fig[1]+'　':'')+result);
   }
-  return {text:lines.join('\n\n'),warnings,issues};
+  return {text:lines.join('\n\n'),warnings,issues,candidates};
 }
 // A scientific sentence can lose a number or identifier during translation.
 // Retry with protected spans, then run the same factual checks again.
-export async function mapChinese(source,translate,{keepLatinNames=false,field='auto'}={}){
+export async function mapChinese(source,translate,{keepLatinNames=false,field='auto',onFragmentRecovery}={}){
   field=resolveField(field,source);
   const han=/[\u3400-\u9fff]/u;
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
@@ -441,6 +442,7 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
   const parts=[];
   for(const s of sentences(source)){
     let result=await translatePassage(s,'en',translate,{field});
+    const firstCandidate=result.candidates?.[0];
     if(result.warnings.length||!han.test(result.text)){
       if(translate.withTerms){
         const pieces=[];let end=0;
@@ -454,16 +456,17 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
       }
       if(result.warnings.length||!han.test(result.text)){
         let localized;
+        onFragmentRecovery?.(s);
         try{localized=await protectedSentence(s)}
         catch(cause){
           if(cause.stage!=='validation'||!result.issues?.length)throw cause;
-          throw Object.assign(validation(result.issues[0],'Protected translation still failed the source checks'),{cause});
+          throw Object.assign(validation(result.issues[0],'Protected translation still failed the source checks'),{cause,candidate:firstCandidate});
         }
         result=await translatePassage(s,'en',async()=>localized,{field});
       }
     }
     if(result.warnings.length||!han.test(result.text))
-      throw validation(result.issues?.[0]||'target','Translated passage did not preserve the source evidence');
+      throw Object.assign(validation(result.issues?.[0]||'target','Translated passage did not preserve the source evidence'),{candidate:firstCandidate});
     let localized=result.text.trim();
     for(const [name,zh] of terminology){
       if(keepLatinNames||!/^(?:[A-Z][a-z]+|[A-Z]\.) [a-z]+$/.test(name)||localized.includes(zh))continue;
@@ -482,14 +485,14 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
 }
 
 // A successful English passage must display Chinese. Proper names can remain in Latin script.
-export async function selectionTranslation(text,from,translate,{field='auto',context=''}={}){
+export async function selectionTranslation(text,from,translate,{field='auto',context='',onFragmentRecovery}={}){
   const original=normalizeSelection(text);
   if(from!=='en'){
     const result=modelText(await translate(original,from));
     if(result===original||!/[\p{Script=Latin}]/u.test(result))throw validation('target','No English translation');
     return {text:result,lang:'en',name:false};
   }
-  const exactField=fieldTerms(original,field).find(t=>t.original.length===original.length);
+  const exactField=fieldTerms(original,field,context).find(t=>t.original.length===original.length);
   if(exactField)return {text:exactField.value,lang:'zh-CN',name:false};
   const term=terminology.find(([en])=>en.toLowerCase()===original.toLowerCase());
   if(term&&term[0]===term[1])return {text:original,lang:'en',name:true};
@@ -499,6 +502,6 @@ export async function selectionTranslation(text,from,translate,{field='auto',con
   else if(/structural equation model/i.test(context))sem='结构方程模型（SEM）';
   const abbreviation={SEM:sem,TEM:'透射电子显微镜（TEM）',MIC:'最低抑菌浓度（MIC）'};
   if(abbreviation[original])return {text:abbreviation[original],lang:'zh-CN',name:false};
-  const result=await mapChinese(original,translate,{keepLatinNames:true,field});
+  const result=await mapChinese(original,translate,{keepLatinNames:true,field,onFragmentRecovery});
   return {text:result,lang:'zh-CN',name:false};
 }

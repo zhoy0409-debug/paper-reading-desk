@@ -1,0 +1,3722 @@
+{
+  "url": "http://127.0.0.1:8219/read/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "D001",
+      "chars": 395,
+      "from": "en",
+      "ms": 1710,
+      "text": "城市树木覆盖物为人类健康和福祉提供了好处，但以前的研究表明，树木覆盖物的分布往往不公平。 在这里，我们使用国家农业图像计划数字正统照片来调查人口普查区块的树覆盖不平等 US 大型城市化地区，167 百万人跨越 5，723 市政当局和其他人口普查指定的地方。",
+      "units": [
+        {
+          "id": "1-0",
+          "status": "review",
+          "source": "Urban tree cover provides benefits to human health and well-being, but previous studies suggest that tree cover is often inequitably distributed.",
+          "text": "城市树木覆盖物为人类健康和福祉提供了好处，但以前的研究表明，树木覆盖物的分布往往不公平。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "1-1",
+          "status": "review",
+          "source": "Here, we use National Agriculture Imagery Program digital ortho photographs to survey the tree cover inequality for Census blocks in US large urbanized areas, home to 167 million people across 5,723 municipalities and other Census-designated places.",
+          "text": "在这里，我们使用国家农业图像计划数字正统照片来调查人口普查区块的树覆盖不平等 US 大型城市化地区，167 百万人跨越 5，723 市政当局和其他人口普查指定的地方。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D002",
+      "chars": 93,
+      "from": "en",
+      "ms": 38,
+      "text": "我们比较了使用Landsat图像测量的夏季陆地表面温度。",
+      "units": [
+        {
+          "id": "2-0",
+          "status": "translated",
+          "source": "We compared tree cover to summer land surface temperature, as measured using Landsat imagery.",
+          "text": "我们比较了使用Landsat图像测量的夏季陆地表面温度。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D003",
+      "chars": 206,
+      "from": "en",
+      "ms": 361,
+      "text": "在接受调查的92%的城市化地区中，低收入街区的树木覆盖率低于高收入街区。 平均而言,低收入区块的树木覆盖率比高收入街区少15.2%,比高收入街区热1.50摄氏度。",
+      "units": [
+        {
+          "id": "3-0",
+          "status": "review",
+          "source": "In 92% of the urbanized areas surveyed, low-income blocks have less tree cover than high-income blocks.",
+          "text": "在接受调查的92%的城市化地区中，低收入街区的树木覆盖率低于高收入街区。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "3-1",
+          "status": "review",
+          "source": "On average, low-income blocks have 15.2% less tree cover and are 1.5⁰C hotter than high-income blocks.",
+          "text": "平均而言,低收入区块的树木覆盖率比高收入街区少15.2%,比高收入街区热1.50摄氏度。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D004",
+      "chars": 225,
+      "from": "en",
+      "ms": 166,
+      "text": "即使在控制了人口密度和积累强度之后，收入和树木覆盖之间的正关联也很重要，非西班牙裔白色和树木覆盖率之间的正相关关系也是如此。",
+      "units": [
+        {
+          "id": "4-0",
+          "status": "review",
+          "source": "Even after controlling for population density and built-up intensity, the positive association between income and tree cover is significant, as is the positive association between proportion non-Hispanic white and tree cover.",
+          "text": "即使在控制了人口密度和积累强度之后，收入和树木覆盖之间的正关联也很重要，非西班牙裔白色和树木覆盖率之间的正相关关系也是如此。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D005",
+      "chars": 192,
+      "from": "en",
+      "ms": 431,
+      "text": "我们估计，在控制人口密度之后，低收入区块 62 比高收入区块少一百万棵树，相当于补偿价值。 56 十亿(美元) 1，349 /人)",
+      "units": [
+        {
+          "id": "5-0",
+          "status": "review",
+          "source": "We estimate, after controlling for population density, that low-income blocks have 62 million fewer trees than high-income blocks, equal to a compensatory value of $56 billion ($1,349/person).",
+          "text": "我们估计，在控制人口密度之后，低收入区块 62 比高收入区块少一百万棵树，相当于补偿价值。 56 十亿(美元) 1，349 /人)",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D006",
+      "chars": 219,
+      "from": "en",
+      "ms": 228,
+      "text": "本文重点介绍一个城市自然特征，城市树冠覆盖(“树盖”),使用遥感技术从上面看，叶子，树枝和木状植被的茎层[5]。",
+      "units": [
+        {
+          "id": "6-0",
+          "status": "review",
+          "source": "This paper focuses on one urban natural feature, urban tree canopy cover (‘tree cover’ hereafter), the layer of leaves, branches, and stems of woody vegetation when viewed from above using remote sensing technology [5].",
+          "text": "本文重点介绍一个城市自然特征，城市树冠覆盖(“树盖”),使用遥感技术从上面看，叶子，树枝和木状植被的茎层[5]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D007",
+      "chars": 122,
+      "from": "en",
+      "ms": 56,
+      "text": "城市空气温度是城市能量平衡的函数，树木覆盖和许多其他因素影响[19]。",
+      "units": [
+        {
+          "id": "7-0",
+          "status": "translated",
+          "source": "Urban air temperatures are a function of the urban energy balance, which tree cover and many other factors influence [19].",
+          "text": "城市空气温度是城市能量平衡的函数，树木覆盖和许多其他因素影响[19]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D008",
+      "chars": 156,
+      "from": "en",
+      "ms": 180,
+      "text": "为了评估美国各地数千个社区的树木覆盖不平等，我们绘制了2米分辨率的树覆盖。",
+      "units": [
+        {
+          "id": "8-0",
+          "status": "review",
+          "source": "In order to assess tree cover inequality for a large sample of thousands of communities throughout the United States, we mapped tree cover at 2m resolution.",
+          "text": "为了评估美国各地数千个社区的树木覆盖不平等，我们绘制了2米分辨率的树覆盖。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D009",
+      "chars": 173,
+      "from": "en",
+      "ms": 150,
+      "text": "最后，创建了一个二进制层，其中具有高纹理值和高NDVI阈值的像素被赋予1的值，其余像素被编码为0。",
+      "units": [
+        {
+          "id": "9-0",
+          "status": "review",
+          "source": "Finally, a binary layer was created where pixels with high texture value and high NDVI threshold were given a value of 1, and the remaining pixels were otherwise coded as 0.",
+          "text": "最后，创建了一个二进制层，其中具有高纹理值和高NDVI阈值的像素被赋予1的值，其余像素被编码为0。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D010",
+      "chars": 175,
+      "from": "en",
+      "ms": 60,
+      "text": "虽然人口普查的信息被用来界定城市化地区，但人口普查区块的边界并不完全符合城市化地区的边界。",
+      "units": [
+        {
+          "id": "10-0",
+          "status": "translated",
+          "source": "Although information from the census is used to define urbanized areas, the boundaries of the census blocks did not precisely align with the boundaries of the urbanized areas.",
+          "text": "虽然人口普查的信息被用来界定城市化地区，但人口普查区块的边界并不完全符合城市化地区的边界。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D011",
+      "chars": 123,
+      "from": "en",
+      "ms": 123,
+      "text": "在所有收入四分位数中，UTC数据集中树木覆盖的估计值略高于我们的树覆盖数据集。",
+      "units": [
+        {
+          "id": "11-0",
+          "status": "review",
+          "source": "In all income quartiles, the estimate of tree cover was slightly greater in the UTC dataset than in our tree cover dataset.",
+          "text": "在所有收入四分位数中，UTC数据集中树木覆盖的估计值略高于我们的树覆盖数据集。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D012",
+      "chars": 126,
+      "from": "en",
+      "ms": 74,
+      "text": "本文的大部分分析都集中在收入最低的四分位数(红色方块)和最高四分位数(绿色三角形)上。",
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "This paper focuses most of its analysis on the lowest quartile (red squares) and highest quartile (green triangles) of income.",
+          "text": "本文的大部分分析都集中在收入最低的四分位数(红色方块)和最高四分位数(绿色三角形)上。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D013",
+      "chars": 145,
+      "from": "en",
+      "ms": 73,
+      "text": "中位树木覆盖（图3A）在亚特兰大等南部城市化地区最大，在凤凰城等西南部的城市化地区最低。",
+      "units": [
+        {
+          "id": "13-0",
+          "status": "translated",
+          "source": "Median tree cover (Fig 3A) was greatest in urbanized areas in the South like Atlanta and lowest in urbanized areas in the Southwest like Phoenix.",
+          "text": "中位树木覆盖（图3A）在亚特兰大等南部城市化地区最大，在凤凰城等西南部的城市化地区最低。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D014",
+      "chars": 127,
+      "from": "en",
+      "ms": 113,
+      "text": "补偿价值是对所有者对树木损失的补偿，可以被视为将树作为资产估价的一种方式。",
+      "units": [
+        {
+          "id": "14-0",
+          "status": "review",
+          "source": "Compensatory value is the compensation to owners for loss of a tree and can be viewed as one way to value the tree as an asset.",
+          "text": "补偿价值是对所有者对树木损失的补偿，可以被视为将树作为资产估价的一种方式。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D015",
+      "chars": 154,
+      "from": "en",
+      "ms": 114,
+      "text": "这种趋势可能只是因为密度较低的块中平均树木覆盖率更高，因此森林覆盖的不平等潜力更大。",
+      "units": [
+        {
+          "id": "15-0",
+          "status": "review",
+          "source": "This trend may occur simply because there was greater average tree cover in lower density blocks, and hence more potential for inequality in forest cover.",
+          "text": "这种趋势可能只是因为密度较低的块中平均树木覆盖率更高，因此森林覆盖的不平等潜力更大。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D016",
+      "chars": 97,
+      "from": "en",
+      "ms": 52,
+      "text": "人口加权的中位树木覆盖5,723个纳入的地方和人口普查指定的地方。",
+      "units": [
+        {
+          "id": "16-0",
+          "status": "translated",
+          "source": "Population-weighted median tree cover for 5,723 incorporated places and census designated places.",
+          "text": "人口加权的中位树木覆盖5,723个纳入的地方和人口普查指定的地方。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D017",
+      "chars": 223,
+      "from": "en",
+      "ms": 199,
+      "text": "对于每个城市化区域，我们分别运行一个回归预测树覆盖(arsin转换)作为人口密度类别，收入类别，积累强度(BUI)类别和大多数白人状态的函数。",
+      "units": [
+        {
+          "id": "17-0",
+          "status": "review",
+          "source": "For each urbanized area, we separately ran a regression predicting tree cover (arcsin transformed) as a function of population density category, income category, built-up intensity (BUI) category, and majority white status.",
+          "text": "对于每个城市化区域，我们分别运行一个回归预测树覆盖(arsin转换)作为人口密度类别，收入类别，积累强度(BUI)类别和大多数白人状态的函数。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D018",
+      "chars": 334,
+      "from": "en",
+      "ms": 191,
+      "text": "单细胞技术的最新进展使组织和癌症成分具有高分辨率特征。 虽然有许多用于减小尺寸和聚类的工具可用于单细胞数据分析，但这些方法通常无法同时保留本地聚类结构和全局数据几何。",
+      "units": [
+        {
+          "id": "18-0",
+          "status": "translated",
+          "source": "Recent advances in single-cell technologies have enabled high-resolution characterization of tissue and cancer compositions.",
+          "text": "单细胞技术的最新进展使组织和癌症成分具有高分辨率特征。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "18-1",
+          "status": "review",
+          "source": "Although numerous tools for dimension reduction and clustering are available for single-cell data analyses, these methods often fail to simultaneously preserve local cluster structure and global data geometry.",
+          "text": "虽然有许多用于减小尺寸和聚类的工具可用于单细胞数据分析，但这些方法通常无法同时保留本地聚类结构和全局数据几何。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D019",
+      "chars": 353,
+      "from": "en",
+      "ms": 299,
+      "text": "为了应对这些挑战，我们开发了一个新颖的分析框架，即单细胞路径指标分析(scPMP),使用功率加权路径指标，以数据驱动的方式测量细胞之间的距离。 与欧几里德距离和其他常用的距离指标不同，路径指标对密度敏感，并尊重底层数据几何。",
+      "units": [
+        {
+          "id": "19-0",
+          "status": "review",
+          "source": "To address these challenges, we developed a novel analyses framework, Single-Cell Path Metrics Profiling (scPMP), using power-weighted path metrics, which measure distances between cells in a data-driven way.",
+          "text": "为了应对这些挑战，我们开发了一个新颖的分析框架，即单细胞路径指标分析(scPMP),使用功率加权路径指标，以数据驱动的方式测量细胞之间的距离。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "19-1",
+          "status": "translated",
+          "source": "Unlike Euclidean distance and other commonly used distance metrics, path metrics are density sensitive and respect the underlying data geometry.",
+          "text": "与欧几里德距离和其他常用的距离指标不同，路径指标对密度敏感，并尊重底层数据几何。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D020",
+      "chars": 177,
+      "from": "en",
+      "ms": 88,
+      "text": "通过将路径指标与多维缩放相结合，可以获得数据的低维嵌入，从而保留全局数据几何和聚类结构。",
+      "units": [
+        {
+          "id": "20-0",
+          "status": "translated",
+          "source": "By combining path metrics with multidimensional scaling, a low dimensional embedding of the data is obtained which preserves both the global data geometry and cluster structure.",
+          "text": "通过将路径指标与多维缩放相结合，可以获得数据的低维嵌入，从而保留全局数据几何和聚类结构。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D021",
+      "chars": 342,
+      "from": "en",
+      "ms": 708,
+      "text": "单细胞的进步 RNA-seq 近年来(scRNA-seq)技术使基因的同步测量成为可能。 基因表达 单细胞水平[ 1 – 3 ]. 这为检测以前未知的细胞群，研究细胞发育和动力学以及大块组织中的细胞组成特征开辟了新的可能性。",
+      "units": [
+        {
+          "id": "21-0",
+          "status": "review",
+          "source": "The advance in single-cell RNA-seq (scRNA-seq) technologies in recent years has enabled the simultaneous measurement of gene expression at the single-cell level [1–3].",
+          "text": "单细胞的进步 RNA-seq 近年来(scRNA-seq)技术使基因的同步测量成为可能。 基因表达 单细胞水平[ 1 – 3 ].",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-1",
+          "status": "review",
+          "source": "This opens up new possibilities to detect previously unknown cell populations, study cellular development and dynamics, and characterize cell composition within bulk tissues.",
+          "text": "这为检测以前未知的细胞群，研究细胞发育和动力学以及大块组织中的细胞组成特征开辟了新的可能性。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D022",
+      "chars": 178,
+      "from": "en",
+      "ms": 92,
+      "text": "尽管它与大块RNAseq数据相似，但由于每个细胞的初始mRNA丰度较低，scRNAseq数据往往具有较大的变异和更大的缺失值。",
+      "units": [
+        {
+          "id": "22-0",
+          "status": "translated",
+          "source": "Despite its similarity with bulk RNAseq data, scRNAseq data tends to have larger variation and larger amounts of missing values due to the low abundance of initial mRNA per cell.",
+          "text": "尽管它与大块RNAseq数据相似，但由于每个细胞的初始mRNA丰度较低，scRNAseq数据往往具有较大的变异和更大的缺失值。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D023",
+      "chars": 186,
+      "from": "en",
+      "ms": 140,
+      "text": "然而，嵌入方法的一个关键挑战是同时减少聚类方差并保留全局几何形状，包括聚类和聚类形状之间的距离。",
+      "units": [
+        {
+          "id": "23-0",
+          "status": "review",
+          "source": "However, a key challenge for embedding methods is to simultaneously reduce cluster variance and preserve the global geometry, including the distances between clusters and cluster shapes.",
+          "text": "然而，嵌入方法的一个关键挑战是同时减少聚类方差并保留全局几何形状，包括聚类和聚类形状之间的距离。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D024",
+      "chars": 223,
+      "from": "en",
+      "ms": 126,
+      "text": "例如，Tabula Muris(TM)肺数据集[39]中的循环单核细胞具有细长的簇结构，如图2A中的PCA图所示，TM胰腺数据集中的导管细胞也是如此(见图2C)。",
+      "units": [
+        {
+          "id": "24-0",
+          "status": "translated",
+          "source": "For example, circulating monocytes in the Tabula Muris (TM) lung data set [39] have an elongated cluster structure as illustrated by the PCA plot in Fig 2A, as do the ductal cells in the TM pancreatic data set (see Fig 2C).",
+          "text": "例如，Tabula Muris(TM)肺数据集[39]中的循环单核细胞具有细长的簇结构，如图2A中的PCA图所示，TM胰腺数据集中的导管细胞也是如此(见图2C)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D025",
+      "chars": 60,
+      "from": "en",
+      "ms": 129,
+      "text": "(D) 显示了 SO (3 ) 流形的 2 - 维度 PCA 图。",
+      "units": [
+        {
+          "id": "25-0",
+          "status": "translated",
+          "source": "(D) shows the 2-dimensional PCA plot of the SO(3) manifolds.",
+          "text": "(D) 显示了 SO (3 ) 流形的 2 - 维度 PCA 图。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D026",
+      "chars": 139,
+      "from": "en",
+      "ms": 130,
+      "text": "因此，使用路径度量嵌入来对数据进行聚类，从而产生一种聚类方法，该方法平衡基于密度和几何信息。",
+      "units": [
+        {
+          "id": "26-0",
+          "status": "review",
+          "source": "Using the path metric embedding to cluster the data thus yields a clustering method which balances density-based and geometric information.",
+          "text": "因此，使用路径度量嵌入来对数据进行聚类，从而产生一种聚类方法，该方法平衡基于密度和几何信息。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D027",
+      "chars": 271,
+      "from": "en",
+      "ms": 334,
+      "text": "如果路径边缘进一步限制位于最近的邻居图中,则l1近似点之间的测地距离,即位于底层数据结构上的最短路径的长度,这是多路学习的非常有用的度量[55]。",
+      "units": [
+        {
+          "id": "27-0",
+          "status": "review",
+          "source": "If path edges are furthermore restricted to lie in a nearest neighbor graph, ℓ₁ approximates the geodesic distance between the points, i.e. the length of the shortest path lying on the underlying data structure, which is a highly useful metric for manifold learning [55].",
+          "text": "如果路径边缘进一步限制位于最近的邻居图中,则l1近似点之间的测地距离,即位于底层数据结构上的最短路径的长度,这是多路学习的非常有用的度量[55]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D028",
+      "chars": 116,
+      "from": "en",
+      "ms": 207,
+      "text": "通过限制在KNN图中,所有配对的路径距离都可以使用Dijkstra的算法[64]在O(Kn2)中计算。",
+      "units": [
+        {
+          "id": "28-0",
+          "status": "review",
+          "source": "By restricting to a KNN graph, all pairwise path distances can be computed in O(Kn²) with Dijkstra’s algorithm [64].",
+          "text": "通过限制在KNN图中,所有配对的路径距离都可以使用Dijkstra的算法[64]在O(Kn2)中计算。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D029",
+      "chars": 227,
+      "from": "en",
+      "ms": 102,
+      "text": "例如，[73] 提出 MDS 的快速、准线性实现，这只需要计算与一组 q 地标的路径距离，从而将计算路径距离的复杂性降低到 O(qn log n)。",
+      "units": [
+        {
+          "id": "29-0",
+          "status": "translated",
+          "source": "For example, [73] propose a fast, quasi-linear implementation of MDS which only requires the computation of path distances from a set of q landmarks, so that the complexity of computing path distances is reduced to O(qn log n).",
+          "text": "例如，[73] 提出 MDS 的快速、准线性实现，这只需要计算与一组 q 地标的路径距离，从而将计算路径距离的复杂性降低到 O(qn log n)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D030",
+      "chars": 134,
+      "from": "en",
+      "ms": 92,
+      "text": "用桥(表示的EWB,n = 620,d = 2,k = 3)进行加固:通过从3个细长的高斯分布采样创建聚类。",
+      "units": [
+        {
+          "id": "30-0",
+          "status": "translated",
+          "source": "Elongated with bridge (denoted EWB, n = 620, d = 2, k = 3): Clusters were created by sampling from 3 elongated Gaussian distributions.",
+          "text": "用桥(表示的EWB,n = 620,d = 2,k = 3)进行加固:通过从3个细长的高斯分布采样创建聚类。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D031",
+      "chars": 139,
+      "from": "en",
+      "ms": 62,
+      "text": "然后通过在1000个维度中添加标准差σ=0.0075的均匀随机噪声来获得噪声。",
+      "units": [
+        {
+          "id": "31-0",
+          "status": "translated",
+          "source": "A noisy, high-dimensional embedding was then obtained by adding uniform random noise with standard deviation σ = 0.0075 in 1000 dimensions.",
+          "text": "然后通过在1000个维度中添加标准差σ=0.0075的均匀随机噪声来获得噪声。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D032",
+      "chars": 35,
+      "from": "en",
+      "ms": 34,
+      "text": "对于 t-SNE,所有数据集的 r = 3。",
+      "units": [
+        {
+          "id": "32-0",
+          "status": "translated",
+          "source": "For t-SNE, r = 3 for all data sets.",
+          "text": "对于 t-SNE,所有数据集的 r = 3。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D033",
+      "chars": 78,
+      "from": "en",
+      "ms": 63,
+      "text": "RNAmix1用CEL-seq2处理，有n=296个细胞，d=14687个基因。",
+      "units": [
+        {
+          "id": "33-0",
+          "status": "translated",
+          "source": "RNAmix1 was processed with CEL-seq2 and has n = 296 cells and d = 14687 genes.",
+          "text": "RNAmix1用CEL-seq2处理，有n=296个细胞，d=14687个基因。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D034",
+      "chars": 193,
+      "from": "en",
+      "ms": 200,
+      "text": "我们观察到50%和25%的采样数据集的scPMP没有ARI恶化，并且10%的下采样数据集(ARI为0.67,p = 1.5的10%下采样)。",
+      "units": [
+        {
+          "id": "34-0",
+          "status": "review",
+          "source": "We observed no ARI deterioration for scPMP for the 50% and 25% down-sampled data set and only a moderate decrease for the 10% down-sampled dataset (ARI of 0.67 at 10% downsampling for p = 1.5).",
+          "text": "我们观察到50%和25%的采样数据集的scPMP没有ARI恶化，并且10%的下采样数据集(ARI为0.67,p = 1.5的10%下采样)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D035",
+      "chars": 175,
+      "from": "en",
+      "ms": 81,
+      "text": "有趣的是，路径指标在聚类上恢复与PCA相同的分层结构:细胞类型HCC827和H1975最相似，而H838是最不同的。",
+      "units": [
+        {
+          "id": "35-0",
+          "status": "translated",
+          "source": "Interestingly path metrics recover the same hierarchical structure on the clusters as PCA: the cell types HCC827 and H1975 are the most similar, and H838 is the most distinct.",
+          "text": "有趣的是，路径指标在聚类上恢复与PCA相同的分层结构:细胞类型HCC827和H1975最相似，而H838是最不同的。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D036",
+      "chars": 261,
+      "from": "en",
+      "ms": 147,
+      "text": "具体来说，最多有200个基因表达的细胞被过滤掉。 此外，只有在超过3个细胞中表达的基因才包含在数据集中。 此外，表达的线粒体基因百分比大于20%的细胞被排除在外。",
+      "units": [
+        {
+          "id": "36-0",
+          "status": "review",
+          "source": "Specifically, cells where at most 200 genes are expressed are\nfiltered out.",
+          "text": "具体来说，最多有200个基因表达的细胞被过滤掉。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "36-1",
+          "status": "translated",
+          "source": "Also, only genes that are expressed in more than 3 cells are included in the\ndata set.",
+          "text": "此外，只有在超过3个细胞中表达的基因才包含在数据集中。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "36-2",
+          "status": "translated",
+          "source": "In addition, cells with percentage of expressed mitochondrial genes greater\nthan 20% are excluded.",
+          "text": "此外，表达的线粒体基因百分比大于20%的细胞被排除在外。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D037",
+      "chars": 181,
+      "from": "en",
+      "ms": 162,
+      "text": "在Figshare中发现的TMpanc和TMLung通过了质量控制检查，至少有500个基因和50,000个读取，因此没有应用额外的过滤。",
+      "units": [
+        {
+          "id": "37-0",
+          "status": "review",
+          "source": "The data sets TMpanc and TMLung as found in Figshare have\npassed a quality control check with cutoffs of at least 500 genes and 50,000 reads, so no\nadditional filtering was applied.",
+          "text": "在Figshare中发现的TMpanc和TMLung通过了质量控制检查，至少有500个基因和50,000个读取，因此没有应用额外的过滤。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D038",
+      "chars": 239,
+      "from": "en",
+      "ms": 102,
+      "text": "对于给定的聚类，低 ECA 意味着预测聚类中的数据点来自同一真实组。 另一方面，低ECP表示真实组中的几乎所有数据点都被分配了相同的聚类标签。",
+      "units": [
+        {
+          "id": "38-0",
+          "status": "translated",
+          "source": "For a given clustering, low ECA means that data points in a predicted cluster\noriginate from the same true group.",
+          "text": "对于给定的聚类，低 ECA 意味着预测聚类中的数据点来自同一真实组。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "38-1",
+          "status": "translated",
+          "source": "On the other hand, low ECP indicates that almost\nall the data points in a true group were assigned the same clustering label.",
+          "text": "另一方面，低ECP表示真实组中的几乎所有数据点都被分配了相同的聚类标签。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D039",
+      "chars": 256,
+      "from": "en",
+      "ms": 218,
+      "text": "高电气设备向高功率输出的不断发展，需要更好的内部绝缘结构的散热性能。 它挑战了传统的纸基绝缘材料,导热性差。",
+      "units": [
+        {
+          "id": "39-0",
+          "status": "review",
+          "source": "The continuous development of high electrical equipment towards high power output requires better heat dissipation performance of internal insulation structure.",
+          "text": "高电气设备向高功率输出的不断发展，需要更好的内部绝缘结构的散热性能。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "39-1",
+          "status": "review",
+          "source": "It challenges the traditional paper-based insulating materials, with poor thermal conductivity.",
+          "text": "它挑战了传统的纸基绝缘材料,导热性差。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D040",
+      "chars": 149,
+      "from": "en",
+      "ms": 123,
+      "text": "将导热和电绝缘填料引入纤维素绝缘材料可以增强热传导性能。",
+      "units": [
+        {
+          "id": "40-0",
+          "status": "review",
+          "source": "Introducing thermally conductive and electrically insulating filler into cellulose-based insulating material can enhance heat conduction performance.",
+          "text": "将导热和电绝缘填料引入纤维素绝缘材料可以增强热传导性能。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D041",
+      "chars": 241,
+      "from": "en",
+      "ms": 161,
+      "text": "这项工作提供了一种制备导热和电绝缘BN/纤维素纤维复合材料的方法。 复合材料的导热性通过嫁接APTES和添加双尺寸填充物显着增加。",
+      "units": [
+        {
+          "id": "41-0",
+          "status": "review",
+          "source": "This work provided a method to prepare thermally conductive and electrically insulating BN/cellulosic fibre composites.",
+          "text": "这项工作提供了一种制备导热和电绝缘BN/纤维素纤维复合材料的方法。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "41-1",
+          "status": "translated",
+          "source": "And the thermal conductivity of the composites was remarkably increased via grafting APTES and adding dual-sized fillers.",
+          "text": "复合材料的导热性通过嫁接APTES和添加双尺寸填充物显着增加。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D042",
+      "chars": 65,
+      "from": "en",
+      "ms": 39,
+      "text": "纤维素是世界上最丰富的天然聚合物[1,2]。",
+      "units": [
+        {
+          "id": "42-0",
+          "status": "translated",
+          "source": "Cellulose is the most abundant nature polymer in the world [1,2].",
+          "text": "纤维素是世界上最丰富的天然聚合物[1,2]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D043",
+      "chars": 108,
+      "from": "en",
+      "ms": 44,
+      "text": "然而，基于纤维素的绝缘材料的导热性差会阻碍散热。",
+      "units": [
+        {
+          "id": "43-0",
+          "status": "translated",
+          "source": "However, the poor thermal conductivity of cellulose-based insulating materials will hinder heat dissipation.",
+          "text": "然而，基于纤维素的绝缘材料的导热性差会阻碍散热。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D044",
+      "chars": 112,
+      "from": "en",
+      "ms": 139,
+      "text": "六角氮化硼(h-BN)是一种典型的III-V化合物，其晶体结构与石墨相似。",
+      "units": [
+        {
+          "id": "44-0",
+          "status": "review",
+          "source": "Hexagonal boron nitride (h-BN) is a typical III-V compound, which has a similar crystal structure with graphite.",
+          "text": "六角氮化硼(h-BN)是一种典型的III-V化合物，其晶体结构与石墨相似。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D045",
+      "chars": 126,
+      "from": "en",
+      "ms": 56,
+      "text": "基于这些优点，h-BN被认为是热导和电绝缘填充物的有希望的候选者。",
+      "units": [
+        {
+          "id": "45-0",
+          "status": "translated",
+          "source": "Based on these merits, h-BN is considered as a promising candidate of thermally conductive and electrically insulating filler.",
+          "text": "基于这些优点，h-BN被认为是热导和电绝缘填充物的有希望的候选者。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D046",
+      "chars": 72,
+      "from": "en",
+      "ms": 38,
+      "text": "h-BN表面修改的流程图如图1所示。",
+      "units": [
+        {
+          "id": "46-0",
+          "status": "translated",
+          "source": "The flow diagram of the surface modification of h-BN was shown in Fig 1.",
+          "text": "h-BN表面修改的流程图如图1所示。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D047",
+      "chars": 139,
+      "from": "en",
+      "ms": 69,
+      "text": "保温电阻测试仪(中国上海景科实业有限公司ZC36)在25°C和50%湿度下进行了抗体积测试。",
+      "units": [
+        {
+          "id": "47-0",
+          "status": "translated",
+          "source": "The volume resistance was tested by an insulation resistance tester (ZC36, Shanghai Jingke Industrial Co., China) at 25°C and 50% humidity.",
+          "text": "保温电阻测试仪(中国上海景科实业有限公司ZC36)在25°C和50%湿度下进行了抗体积测试。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D048",
+      "chars": 116,
+      "from": "en",
+      "ms": 217,
+      "text": "与原始的h-BN相比,在表面修饰的h-BN中观察到新的弱吸收峰值为2924和2856 cm−1。",
+      "units": [
+        {
+          "id": "48-0",
+          "status": "review",
+          "source": "Compared with pristine h-BN, new weak absorption peaks were observed at 2924 and 2856 cm⁻¹ in surface modified h-BN.",
+          "text": "与原始的h-BN相比,在表面修饰的h-BN中观察到新的弱吸收峰值为2924和2856 cm−1。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D049",
+      "chars": 192,
+      "from": "en",
+      "ms": 480,
+      "text": "此外,在1032和1105厘米至1处的新吸收峰值被分配给Si-O-C和Si-O-Si拉伸振动[22],表明APTES已成功嫁接到h-BN表面。",
+      "units": [
+        {
+          "id": "49-0",
+          "status": "review",
+          "source": "Moreover, new absorption peaks at 1032 and 1105 cm⁻¹ were assigned to Si-O-C and Si-O-Si stretching vibration [22], indicating that the APTES was successfully grafted onto the surface of h-BN.",
+          "text": "此外,在1032和1105厘米至1处的新吸收峰值被分配给Si-O-C和Si-O-Si拉伸振动[22],表明APTES已成功嫁接到h-BN表面。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D050",
+      "chars": 77,
+      "from": "en",
+      "ms": 61,
+      "text": "(a)原始h-BN和表面修改的h-BN的FTIR光谱和(b)TGA曲线。",
+      "units": [
+        {
+          "id": "50-0",
+          "status": "translated",
+          "source": "(a)FTIR spectra and (b)TGA curves of pristine h-BN and surface modified h-BN.",
+          "text": "(a)原始h-BN和表面修改的h-BN的FTIR光谱和(b)TGA曲线。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D051",
+      "chars": 92,
+      "from": "en",
+      "ms": 43,
+      "text": "在干燥过程中，在氨基和羟基之间形成氢键。",
+      "units": [
+        {
+          "id": "51-0",
+          "status": "translated",
+          "source": "In drying process, the hydrogen bonding formed between the amino groups and hydroxyl groups.",
+          "text": "在干燥过程中，在氨基和羟基之间形成氢键。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D052",
+      "chars": 179,
+      "from": "en",
+      "ms": 114,
+      "text": "(a)表面和(b)具有11.5wt%填充物的复合截面的SEM图像;(c)表面和(d)复合的横截面，具有41.1wt%填充物加载。",
+      "units": [
+        {
+          "id": "52-0",
+          "status": "translated",
+          "source": "SEM images of (a) surface and (b) cross-section of composite with 11.5wt% filler loading; SEM images of (c) surface and (d) cross-section of composite with 41.1wt% filler loading.",
+          "text": "(a)表面和(b)具有11.5wt%填充物的复合截面的SEM图像;(c)表面和(d)复合的横截面，具有41.1wt%填充物加载。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D053",
+      "chars": 163,
+      "from": "en",
+      "ms": 108,
+      "text": "灵活的屏障被广泛用于减轻颗粒流动。 在实践中，在颗粒流启动后，流动系统可能会沿流路径不断变化。",
+      "units": [
+        {
+          "id": "53-0",
+          "status": "translated",
+          "source": "Flexible barriers are widely used to mitigate granular flows.",
+          "text": "灵活的屏障被广泛用于减轻颗粒流动。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "53-1",
+          "status": "review",
+          "source": "In practice, flow regimes may keep changing along a flow path after the initiation of granular flows.",
+          "text": "在实践中，在颗粒流启动后，流动系统可能会沿流路径不断变化。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D054",
+      "chars": 111,
+      "from": "en",
+      "ms": 41,
+      "text": "在设计拦截细粒度流量的柔性屏障时应考虑流动制度的影响。",
+      "units": [
+        {
+          "id": "54-0",
+          "status": "translated",
+          "source": "The effects of flow regimes should be considered in the design of flexible barriers to intercept granular flow.",
+          "text": "在设计拦截细粒度流量的柔性屏障时应考虑流动制度的影响。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D055",
+      "chars": 270,
+      "from": "en",
+      "ms": 151,
+      "text": "在这项研究中，流动制度分为三种类型:稀有流动;致密流;和准静态流。 使用流量测试和离散元件方法研究密集颗粒流和稀释颗粒流对柔性屏障的影响机制。",
+      "units": [
+        {
+          "id": "55-0",
+          "status": "review",
+          "source": "In this study, flow regimes are divided into three types: dilute flow; dense flow; and quasistatic flow.",
+          "text": "在这项研究中，流动制度分为三种类型:稀有流动;致密流;和准静态流。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "55-1",
+          "status": "translated",
+          "source": "The impact mechanisms of dense granular flows and dilute granular flows against flexible barriers are investigated using flume tests and the discrete element method.",
+          "text": "使用流量测试和离散元件方法研究密集颗粒流和稀释颗粒流对柔性屏障的影响机制。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D056",
+      "chars": 260,
+      "from": "en",
+      "ms": 103,
+      "text": "结果表明，密集的颗粒流对柔性屏障的冲击力不会随着平均粒径而线性增加。 底线的抗拉力通常是柔性屏障所有电缆的最大抗拉力。",
+      "units": [
+        {
+          "id": "56-0",
+          "status": "translated",
+          "source": "Results show that the impact force of dense granular flow against a flexible barrier will not increase linearly with the average particle size.",
+          "text": "结果表明，密集的颗粒流对柔性屏障的冲击力不会随着平均粒径而线性增加。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "56-1",
+          "status": "translated",
+          "source": "The tensile force of the bottom cable is usually the maximum tensile force among all cables of the flexible barrier.",
+          "text": "底线的抗拉力通常是柔性屏障所有电缆的最大抗拉力。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D057",
+      "chars": 195,
+      "from": "en",
+      "ms": 81,
+      "text": "粒子分离将导致致密流动的冲击力增加和上电缆的拉伸力。 稀释颗粒流的冲击力随着平均粒径的增加而增加。",
+      "units": [
+        {
+          "id": "57-0",
+          "status": "translated",
+          "source": "Particle segregation will lead to increase in impact force of dense flows and tensile force of the upper cables.",
+          "text": "粒子分离将导致致密流动的冲击力增加和上电缆的拉伸力。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "57-1",
+          "status": "translated",
+          "source": "Impact force of the dilute granular flow increases with the average particle size.",
+          "text": "稀释颗粒流的冲击力随着平均粒径的增加而增加。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D058",
+      "chars": 133,
+      "from": "en",
+      "ms": 52,
+      "text": "与在密集流量的冲击下柔性屏障的失效不同，中上电缆更容易断裂。",
+      "units": [
+        {
+          "id": "58-0",
+          "status": "translated",
+          "source": "Different from the failure of a flexible barrier under the impact of the dense flow, the middle and upper cables are easier to break.",
+          "text": "与在密集流量的冲击下柔性屏障的失效不同，中上电缆更容易断裂。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D059",
+      "chars": 134,
+      "from": "en",
+      "ms": 57,
+      "text": "然而，颗粒流不是以液相为主的流体运动，而是以固体相为主导的流化运动[3]。",
+      "units": [
+        {
+          "id": "59-0",
+          "status": "translated",
+          "source": "However, granular flow is not a fluid movement dominated by liquid phase but a fluidization movement dominated by the solid phase [3].",
+          "text": "然而，颗粒流不是以液相为主的流体运动，而是以固体相为主导的流化运动[3]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D060",
+      "chars": 154,
+      "from": "en",
+      "ms": 216,
+      "text": "在这项研究中，粒径的范围是0.5厘米~3厘米。 散装密度和粒度为1636和2650千克/立方米。 粒度流量的体积 0.045  m³.",
+      "units": [
+        {
+          "id": "60-0",
+          "status": "review",
+          "source": "In this study, the range of particle size is 0.5 cm~3 cm.",
+          "text": "在这项研究中，粒径的范围是0.5厘米~3厘米。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "60-1",
+          "status": "review",
+          "source": "Bulk density and grain density are 1636 and 2650 kg/m³.",
+          "text": "散装密度和粒度为1636和2650千克/立方米。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "60-2",
+          "status": "review",
+          "source": "Volume of the granular flow is 0.045 m³.",
+          "text": "粒度流量的体积 0.045  m³.",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D061",
+      "chars": 43,
+      "from": "en",
+      "ms": 131,
+      "text": "平均粒径(D50)为1.52厘米。",
+      "units": [
+        {
+          "id": "61-0",
+          "status": "review",
+          "source": "The average particle size (D₅₀) is 1.52 cm.",
+          "text": "平均粒径(D50)为1.52厘米。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D062",
+      "chars": 186,
+      "from": "en",
+      "ms": 246,
+      "text": "使用积累实验测试了休息φ的角度，如图6所示。 根据测试,摩擦参数δ1和角度的休息φ分别为21°和40.5°。",
+      "units": [
+        {
+          "id": "62-0",
+          "status": "translated",
+          "source": "The angle of repose φ was tested using the accumulation experiment, as shown in Fig 6.",
+          "text": "使用积累实验测试了休息φ的角度，如图6所示。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "62-1",
+          "status": "review",
+          "source": "Based on the tests, the friction parameter δ₁ and angle of repose φ is 21° and 40.5°, respectively.",
+          "text": "根据测试,摩擦参数δ1和角度的休息φ分别为21°和40.5°。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D063",
+      "chars": 65,
+      "from": "en",
+      "ms": 72,
+      "text": "烟流的长度和宽度分别为2.4米和0.6米。",
+      "units": [
+        {
+          "id": "63-0",
+          "status": "review",
+          "source": "The length and width of the flume is 2.4 and 0.6 m, respectively.",
+          "text": "烟流的长度和宽度分别为2.4米和0.6米。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D064",
+      "chars": 101,
+      "from": "en",
+      "ms": 92,
+      "text": "电缆从底部到顶部编号为Cab 1~Cab 5。 每根电缆之间的间距为10厘米。",
+      "units": [
+        {
+          "id": "64-0",
+          "status": "translated",
+          "source": "The cables were numbered Cab 1~Cab 5 from the bottom to top.",
+          "text": "电缆从底部到顶部编号为Cab 1~Cab 5。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "64-1",
+          "status": "review",
+          "source": "The spacing between each cable is 10 cm.",
+          "text": "每根电缆之间的间距为10厘米。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D065",
+      "chars": 83,
+      "from": "en",
+      "ms": 40,
+      "text": "动态相似性通常由Froude数字和Savage数字来评估。",
+      "units": [
+        {
+          "id": "65-0",
+          "status": "translated",
+          "source": "The dynamic similarity is usually evaluated by the Froude number and Savage number.",
+          "text": "动态相似性通常由Froude数字和Savage数字来评估。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D066",
+      "chars": 204,
+      "from": "en",
+      "ms": 91,
+      "text": "在30°、40°和50°斜坡的情况下，将从数值模拟中冲击柔性屏障的颗粒流的荷载与物理实验结果进行了比较，如图10所示。",
+      "units": [
+        {
+          "id": "66-0",
+          "status": "translated",
+          "source": "In the case of 30°, 40°, and 50° slopes, the load of the granular flow impacting the flexible barrier from the numerical simulation was compared with the physical experimental results, as shown in Fig 10.",
+          "text": "在30°、40°和50°斜坡的情况下，将从数值模拟中冲击柔性屏障的颗粒流的荷载与物理实验结果进行了比较，如图10所示。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D067",
+      "chars": 133,
+      "from": "en",
+      "ms": 40,
+      "text": "此外，测量精度还受到相机放置安装位置和安装角度等因素的影响。",
+      "units": [
+        {
+          "id": "67-0",
+          "status": "translated",
+          "source": "Moreover, the measurement accuracy is also affected by factors such as camera placement installation position and installation angle.",
+          "text": "此外，测量精度还受到相机放置安装位置和安装角度等因素的影响。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D068",
+      "chars": 129,
+      "from": "en",
+      "ms": 112,
+      "text": "电缆的张力间隔曲线和岩石坠落的冲击过程分别呈现在图 26和27中。",
+      "units": [
+        {
+          "id": "68-0",
+          "status": "translated",
+          "source": "The tension time interval curves of the cables and impact process of the rockfall are, respectively, presented in Figs 26 and 27.",
+          "text": "电缆的张力间隔曲线和岩石坠落的冲击过程分别呈现在图 26和27中。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D069",
+      "chars": 165,
+      "from": "en",
+      "ms": 65,
+      "text": "这项研究的目的是评估咖啡因对亚最大运动的生理反应的影响，重点是血液乳酸浓度([BLa])。",
+      "units": [
+        {
+          "id": "69-0",
+          "status": "translated",
+          "source": "The aim of this study was to evaluate the effects of caffeine on physiological responses to submaximal exercise, with a focus on blood lactate concentration ([BLa]).",
+          "text": "这项研究的目的是评估咖啡因对亚最大运动的生理反应的影响，重点是血液乳酸浓度([BLa])。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D070",
+      "chars": 114,
+      "from": "en",
+      "ms": 48,
+      "text": "每次试验包括六阶段增量测试(3分钟阶段),然后进行30分钟的被动恢复。",
+      "units": [
+        {
+          "id": "70-0",
+          "status": "translated",
+          "source": "Each trial consisted of a six-stage incremental test (3 minute stages) followed by 30 minutes of passive recovery.",
+          "text": "每次试验包括六阶段增量测试(3分钟阶段),然后进行30分钟的被动恢复。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D071",
+      "chars": 126,
+      "from": "en",
+      "ms": 326,
+      "text": "在试验前一小时,参与者摄入了含有5毫克∙kg-1咖啡因或安慰剂(maltodextrin)的胶囊。",
+      "units": [
+        {
+          "id": "71-0",
+          "status": "review",
+          "source": "One hour before trials 2–4, participants ingested a capsule containing 5 mg∙kg⁻¹ of either caffeine or placebo (maltodextrin).",
+          "text": "在试验前一小时,参与者摄入了含有5毫克∙kg-1咖啡因或安慰剂(maltodextrin)的胶囊。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D072",
+      "chars": 282,
+      "from": "en",
+      "ms": 310,
+      "text": "试验2和3旨在评估咖啡因对运动和恢复期间各种生理反应的影响。 相比之下,试验4旨在评估咖啡因对[BLa]在从4mmol∙L−1的末端运动浓度被动恢复期间的影响。",
+      "units": [
+        {
+          "id": "72-0",
+          "status": "translated",
+          "source": "Trials 2 and 3 were designed to evaluate the effects of caffeine on various physiological responses during exercise and recovery.",
+          "text": "试验2和3旨在评估咖啡因对运动和恢复期间各种生理反应的影响。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "72-1",
+          "status": "review",
+          "source": "In contrast, Trial 4 was designed to evaluate the effects of caffeine on [BLa] during passive recovery from an end-exercise concentration of 4 mmol∙L⁻¹.",
+          "text": "相比之下,试验4旨在评估咖啡因对[BLa]在从4mmol∙L−1的末端运动浓度被动恢复期间的影响。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D073",
+      "chars": 251,
+      "from": "en",
+      "ms": 576,
+      "text": "相对于安慰剂,咖啡因在运动过程中增加[BLa],独立于运动强度(Mean drifes:0.33±0.41 mmol∙L−1;95%可能范围:0.11至0.55 mmol∙L−1),但不影响[BLa]在恢复期间的时间过程(p = 0.604)。",
+      "units": [
+        {
+          "id": "73-0",
+          "status": "review",
+          "source": "Relative to placebo, caffeine increased [BLa] during exercise, independent of exercise intensity (mean difference: 0.33 ± 0.41 mmol∙L⁻¹; 95% likely range: 0.11 to 0.55 mmol∙L⁻¹), but did not affect the time-course of [BLa] during recovery (p = 0.604).",
+          "text": "相对于安慰剂,咖啡因在运动过程中增加[BLa],独立于运动强度(Mean drifes:0.33±0.41 mmol∙L−1;95%可能范围:0.11至0.55 mmol∙L−1),但不影响[BLa]在恢复期间的时间过程(p = 0.604)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D074",
+      "chars": 287,
+      "from": "en",
+      "ms": 547,
+      "text": "咖啡因降低了运动期间感知运动的评分(语气差异:0.5±0.7;95%可能范围:0.1至0.9)和心率(减值:3.6±4.2b∙min−1;95%可能范围:1.3至5.8b∙min−1),随着运动强度增加,对后者的影响减轻。",
+      "units": [
+        {
+          "id": "74-0",
+          "status": "review",
+          "source": "Caffeine reduced ratings of perceived exertion (mean difference: 0.5 ± 0.7; 95% likely range: 0.1 to 0.9) and heart rate (mean difference: 3.6 ± 4.2 b∙min⁻¹; 95% likely range: 1.3 to 5.8 b∙min⁻¹) during exercise, with the effect on the latter dissipating as exercise intensity increased.",
+          "text": "咖啡因降低了运动期间感知运动的评分(语气差异:0.5±0.7;95%可能范围:0.1至0.9)和心率(减值:3.6±4.2b∙min−1;95%可能范围:1.3至5.8b∙min−1),随着运动强度增加,对后者的影响减轻。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D075",
+      "chars": 137,
+      "from": "en",
+      "ms": 126,
+      "text": "观察到呼吸交换比的补充×运动强度相互作用(p=0.004)和每分钟通气量(p=0.034)。",
+      "units": [
+        {
+          "id": "75-0",
+          "status": "translated",
+          "source": "Supplement × exercise intensity interactions were observed for respiratory exchange ratio (p = 0.004) and minute ventilation (p = 0.034).",
+          "text": "观察到呼吸交换比的补充×运动强度相互作用(p=0.004)和每分钟通气量(p=0.034)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D076",
+      "chars": 172,
+      "from": "en",
+      "ms": 155,
+      "text": "十六名耐力训练[29],有竞争力的男性运动员(骑自行车者和铁人三项运动员)自愿参加这项研究，该研究得到了圣玛丽大学伦理委员会的批准。",
+      "units": [
+        {
+          "id": "76-0",
+          "status": "review",
+          "source": "Sixteen endurance-trained [29], competitive, male athletes (cyclists and triathletes) volunteered for the study which was approved by St Mary’s University Ethics Committee.",
+          "text": "十六名耐力训练[29],有竞争力的男性运动员(骑自行车者和铁人三项运动员)自愿参加这项研究，该研究得到了圣玛丽大学伦理委员会的批准。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D077",
+      "chars": 121,
+      "from": "en",
+      "ms": 41,
+      "text": "在开始之前，所有参与者都完成了健康筛查问卷，并提供了书面知情同意。",
+      "units": [
+        {
+          "id": "77-0",
+          "status": "translated",
+          "source": "Prior to commencement, all participants completed a health-screening questionnaire and provided written informed consent.",
+          "text": "在开始之前，所有参与者都完成了健康筛查问卷，并提供了书面知情同意。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D078",
+      "chars": 145,
+      "from": "en",
+      "ms": 108,
+      "text": "向参与者提供了咖啡因的膳食来源清单，并要求在每次试验前24小时内不要食用这些咖啡因。",
+      "units": [
+        {
+          "id": "78-0",
+          "status": "review",
+          "source": "Participants were provided with a list of dietary sources of caffeine and asked to refrain from consuming these for 24 hours prior to each trial.",
+          "text": "向参与者提供了咖啡因的膳食来源清单，并要求在每次试验前24小时内不要食用这些咖啡因。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D079",
+      "chars": 172,
+      "from": "en",
+      "ms": 68,
+      "text": "在每个运动后恢复期的最后30 s上，呼吸数据也是平均的，以确定在恢复期间是否有任何咖啡因的影响。",
+      "units": [
+        {
+          "id": "79-0",
+          "status": "translated",
+          "source": "Respiratory data were also averaged over the final 30 s of each post-exercise recovery period to determine whether any effects of caffeine at rest returned during recovery.",
+          "text": "在每个运动后恢复期的最后30 s上，呼吸数据也是平均的，以确定在恢复期间是否有任何咖啡因的影响。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D080",
+      "chars": 116,
+      "from": "en",
+      "ms": 88,
+      "text": "使用与Bonferroni调整进行多次比较的事后测试进行了重大互动。",
+      "units": [
+        {
+          "id": "80-0",
+          "status": "review",
+          "source": "Significant interactions were followed-up using post hoc tests with Bonferroni adjustments for multiple comparisons.",
+          "text": "使用与Bonferroni调整进行多次比较的事后测试进行了重大互动。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D081",
+      "chars": 47,
+      "from": "en",
+      "ms": 27,
+      "text": "值是手段;条形是标准差。",
+      "units": [
+        {
+          "id": "81-0",
+          "status": "translated",
+          "source": "Values are means; bars are standard deviations.",
+          "text": "值是手段;条形是标准差。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D082",
+      "chars": 137,
+      "from": "en",
+      "ms": 74,
+      "text": "然而，咖啡因对心率的影响随着运动强度的增加而消散(相互作用效应:F(5,75)=2.49;p = 0.039)。",
+      "units": [
+        {
+          "id": "82-0",
+          "status": "translated",
+          "source": "However, the effect of caffeine on heart rate dissipated as exercise intensity increased (interaction effect: F(5,75) = 2.49; p = 0.039).",
+          "text": "然而，咖啡因对心率的影响随着运动强度的增加而消散(相互作用效应:F(5,75)=2.49;p = 0.039)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D083",
+      "chars": 226,
+      "from": "en",
+      "ms": 434,
+      "text": "咖啡因补充对心率(A),吸氧(B),呼吸交换比(C)和分钟通气(D)的影响,在从亚最大增量运动中恢复时以5秒间隔测量。",
+      "units": [
+        {
+          "id": "83-0",
+          "status": "review",
+          "source": "The effects of caffeine supplementation on heart rate (A), oxygen uptake (B), respiratory exchange ratio (C), and minute ventilation (D) measured at 5 s intervals during recovery from a bout of submaximal incremental exercise.",
+          "text": "咖啡因补充对心率(A),吸氧(B),呼吸交换比(C)和分钟通气(D)的影响,在从亚最大增量运动中恢复时以5秒间隔测量。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "term",
+                "severity": "advisory",
+                "detail": "minute ventilation"
+              }
+            ]
+          },
+          "error": null,
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D084",
+      "chars": 90,
+      "from": "en",
+      "ms": 62,
+      "text": "注:RER=呼吸交换比。 *与安慰剂显著不同(p < 0.05)。",
+      "units": [
+        {
+          "id": "84-0",
+          "status": "translated",
+          "source": "Note: RER = Respiratory exchange ratio.",
+          "text": "注:RER=呼吸交换比。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "84-1",
+          "status": "translated",
+          "source": "* significantly different (p < 0.05) from placebo.",
+          "text": "*与安慰剂显著不同(p < 0.05)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D085",
+      "chars": 39,
+      "from": "en",
+      "ms": 26,
+      "text": "值是均值±标准差。",
+      "units": [
+        {
+          "id": "85-0",
+          "status": "translated",
+          "source": "Values are means ± standard deviations.",
+          "text": "值是均值±标准差。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D086",
+      "chars": 312,
+      "from": "en",
+      "ms": 131,
+      "text": "这项多中心研究旨在阐明日本健康成年人的睡眠持续时间与各种生活方式相关疾病之间的关联。 从2010年到2020年接受体检的62,056名健康参与者(年龄:49.4±10.9岁)进行了横断面和纵向分析。",
+      "units": [
+        {
+          "id": "86-0",
+          "status": "review",
+          "source": "This multicenter study aimed to elucidate the association between sleep duration and various lifestyle-related disorders in healthy adults in Japan.",
+          "text": "这项多中心研究旨在阐明日本健康成年人的睡眠持续时间与各种生活方式相关疾病之间的关联。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "86-1",
+          "status": "translated",
+          "source": "A total of 62,056 healthy participants (age: 49.4 ± 10.9 years) who received medical checkups from 2010 to 2020 were analyzed cross-sectionally and longitudinally.",
+          "text": "从2010年到2020年接受体检的62,056名健康参与者(年龄:49.4±10.9岁)进行了横断面和纵向分析。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D087",
+      "chars": 208,
+      "from": "en",
+      "ms": 103,
+      "text": "男性的平均睡眠时间为6.2±1.0h,女性为6.1±1.0h。 睡眠时间的分布表明，老年人往往睡得更久，这在男性中是清楚的，但在女性中是不明显的。",
+      "units": [
+        {
+          "id": "87-0",
+          "status": "translated",
+          "source": "The mean sleep duration was 6.2 ± 1.0 h in men and 6.1 ± 1.0 h in women.",
+          "text": "男性的平均睡眠时间为6.2±1.0h,女性为6.1±1.0h。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "87-1",
+          "status": "translated",
+          "source": "The distribution of sleep duration showed that older people tended to sleep longer, which was clearly observed in men but not in women.",
+          "text": "睡眠时间的分布表明，老年人往往睡得更久，这在男性中是清楚的，但在女性中是不明显的。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D088",
+      "chars": 170,
+      "from": "en",
+      "ms": 129,
+      "text": "单变量分析表明，年龄较大，体重指数较低(BMI),习惯性饮酒和习惯性运动与延长睡眠时间显着相关。",
+      "units": [
+        {
+          "id": "88-0",
+          "status": "review",
+          "source": "Univariate analyses showed that older age, lower body mass index (BMI), habitual drinking, and habitual exercise were significantly associated with longer sleep duration.",
+          "text": "单变量分析表明，年龄较大，体重指数较低(BMI),习惯性饮酒和习惯性运动与延长睡眠时间显着相关。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D089",
+      "chars": 449,
+      "from": "en",
+      "ms": 351,
+      "text": "男性的多变量分析表明，睡眠时间与年龄，习惯性运动，血清甘油三酯(TG),收缩压(SBP)以及习惯性饮酒以及与BMI和血红蛋白A1c(HbA1c)呈负相关。 或者，在女性中，睡眠时间与习惯性运动和TG呈正相关，并与BMI,高密度脂蛋白胆固醇，HbA1c和当前吸烟呈负相关。",
+      "units": [
+        {
+          "id": "89-0",
+          "status": "review",
+          "source": "Multivariate analyses in men showed that sleep duration was positively associated with age, habitual exercise, serum triglyceride (TG), systolic blood pressure (SBP), and habitual drinking and negatively associated with BMI and hemoglobin A1c (HbA1c).",
+          "text": "男性的多变量分析表明，睡眠时间与年龄，习惯性运动，血清甘油三酯(TG),收缩压(SBP)以及习惯性饮酒以及与BMI和血红蛋白A1c(HbA1c)呈负相关。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "relation",
+                "severity": "severe",
+                "detail": "positive-association"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "89-1",
+          "status": "translated",
+          "source": "Alternatively, in women, sleep duration was positively associated with habitual exercise and TG and negatively associated with BMI, high-density lipoprotein-cholesterol, HbA1c, and current smoking.",
+          "text": "或者，在女性中，睡眠时间与习惯性运动和TG呈正相关，并与BMI,高密度脂蛋白胆固醇，HbA1c和当前吸烟呈负相关。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D090",
+      "chars": 257,
+      "from": "en",
+      "ms": 303,
+      "text": "在随访期间，3，31 中的 360 人，004 人(10.8% )，发展为肥胖症。 考克斯比例危害模型显示，较短的睡眠时间明显高于肥胖的风险，而较长的睡眠时间可能降低肥胖风险。",
+      "units": [
+        {
+          "id": "90-0",
+          "status": "review",
+          "source": "During the follow-up period, 3,360 of 31,004 individuals (10.8%) developed obesity.",
+          "text": "在随访期间，3，31 中的 360 人，004 人(10.8% )，发展为肥胖症。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "90-1",
+          "status": "review",
+          "source": "The Cox proportional hazards model showed that shorter sleep duration was a significantly higher risk of obesity, and longer sleep duration might be a lower risk of obesity.",
+          "text": "考克斯比例危害模型显示，较短的睡眠时间明显高于肥胖的风险，而较长的睡眠时间可能降低肥胖风险。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D091",
+      "chars": 325,
+      "from": "en",
+      "ms": 229,
+      "text": "另一方面，39,048名参与者中有1,732人(4.4%)出现葡萄糖耐受性受损，33,537名参与者中有6,405人(19.1%)出现高甘油三酯血症。 然而，考克斯比例危害模型没有显示睡眠时间与血糖耐受性受损或高甘油三酯血症之间存在显着关联。",
+      "units": [
+        {
+          "id": "91-0",
+          "status": "translated",
+          "source": "On the other hand, 1,732 of 39,048 participants (4.4%) developed impaired glucose tolerance, and 6,405 of 33,537 participants (19.1%) developed hypertriglyceridemia.",
+          "text": "另一方面，39,048名参与者中有1,732人(4.4%)出现葡萄糖耐受性受损，33,537名参与者中有6,405人(19.1%)出现高甘油三酯血症。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "91-1",
+          "status": "review",
+          "source": "However, the Cox proportional hazards model did not show significant association between sleep duration and impaired glucose tolerance or hypertriglyceridemia.",
+          "text": "然而，考克斯比例危害模型没有显示睡眠时间与血糖耐受性受损或高甘油三酯血症之间存在显着关联。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D092",
+      "chars": 271,
+      "from": "en",
+      "ms": 232,
+      "text": "在基线时排除了已经患有生活方式相关疾病(肥胖，葡萄糖耐受性受损或高甘油三酯血症)的人后，进行了Cox比例危害分析，以评估可能性比率测试并计算95%CI的危险比(HR)。",
+      "units": [
+        {
+          "id": "92-0",
+          "status": "review",
+          "source": "After excluding those who already had lifestyle-related diseases (obesity, impaired glucose tolerance, or hypertriglyceridemia) at baseline, Cox proportional hazards analyses were performed to evaluate likelihood ratio tests and calculate hazard ratios (HRs) with 95% CI.",
+          "text": "在基线时排除了已经患有生活方式相关疾病(肥胖，葡萄糖耐受性受损或高甘油三酯血症)的人后，进行了Cox比例危害分析，以评估可能性比率测试并计算95%CI的危险比(HR)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D093",
+      "chars": 93,
+      "from": "en",
+      "ms": 38,
+      "text": "男性和女性睡眠时间的详细分布如图2和表2所示。",
+      "units": [
+        {
+          "id": "93-0",
+          "status": "translated",
+          "source": "The detailed distributions of sleep duration in men and women are shown in Fig 2 and Table 2.",
+          "text": "男性和女性睡眠时间的详细分布如图2和表2所示。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D094",
+      "chars": 110,
+      "from": "en",
+      "ms": 49,
+      "text": "方差的单向分析(ANOVA)用于评估年龄组之间的睡眠时间差异。",
+      "units": [
+        {
+          "id": "94-0",
+          "status": "translated",
+          "source": "One-way analysis of variance (ANOVA) was used to evaluate the difference in sleep duration between age groups.",
+          "text": "方差的单向分析(ANOVA)用于评估年龄组之间的睡眠时间差异。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D095",
+      "chars": 168,
+      "from": "en",
+      "ms": 148,
+      "text": "数据显示每个变量的均值(带SD)或人数。 连续量表基于对方差的单向分析,名义尺度基于χ2检验。",
+      "units": [
+        {
+          "id": "95-0",
+          "status": "translated",
+          "source": "Data show the mean (with SD) or headcount of each variable.",
+          "text": "数据显示每个变量的均值(带SD)或人数。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "95-1",
+          "status": "review",
+          "source": "Consecutive scale was based on one-way analysis of variance, and the nominal scale was based on the χ² test.",
+          "text": "连续量表基于对方差的单向分析,名义尺度基于χ2检验。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D096",
+      "chars": 102,
+      "from": "en",
+      "ms": 137,
+      "text": "低于0.05的P值被认为具有统计学意义(*p<0.05,**p<0.01,***p<0.001)。",
+      "units": [
+        {
+          "id": "96-0",
+          "status": "review",
+          "source": "P-value less than 0.05 was considered statistically significant (*p < 0.05, **p < 0.01, ***p < 0.001).",
+          "text": "低于0.05的P值被认为具有统计学意义(*p<0.05,**p<0.01,***p<0.001)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D097",
+      "chars": 262,
+      "from": "en",
+      "ms": 177,
+      "text": "BMI,体重指数;SBP,收缩压;DBP,舒张压;FPG,空腹血浆葡萄糖;HbA1c,血红蛋白A1c;LDL-C,低密度脂蛋白胆固醇;HDL-C,高密度脂蛋白胆固醇;TG,血清甘油三酯;UA,尿酸。",
+      "units": [
+        {
+          "id": "97-0",
+          "status": "translated",
+          "source": "BMI, body mass index; SBP, systolic blood pressure; DBP, diastolic blood pressure; FPG, fasting plasma glucose; HbA1c, hemoglobin A1c; LDL-C, low-density lipoprotein cholesterol; HDL-C, high-density lipoprotein cholesterol; TG, serum triglyceride; UA, uric acid.",
+          "text": "BMI,体重指数;SBP,收缩压;DBP,舒张压;FPG,空腹血浆葡萄糖;HbA1c,血红蛋白A1c;LDL-C,低密度脂蛋白胆固醇;HDL-C,高密度脂蛋白胆固醇;TG,血清甘油三酯;UA,尿酸。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D098",
+      "chars": 143,
+      "from": "en",
+      "ms": 123,
+      "text": "34,239名男性和27,817名女性研究参与者的特征根据睡眠时间长短分为五组。",
+      "units": [
+        {
+          "id": "98-0",
+          "status": "review",
+          "source": "Characteristics of the 34,239 male and 27,817 female study participants categorized into five groups according to the length of sleep duration.",
+          "text": "34,239名男性和27,817名女性研究参与者的特征根据睡眠时间长短分为五组。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D099",
+      "chars": 309,
+      "from": "en",
+      "ms": 235,
+      "text": "节肢动物捕食者通过自上而下地调节昆虫食草动物，对生态系统的运作很重要。 由于捕食者群落和活动受到不同空间尺度上的生物和非生物因素的影响，自上而下调节(“自下而上的捕食”)的强度也可能有所不同。",
+      "units": [
+        {
+          "id": "99-0",
+          "status": "translated",
+          "source": "Arthropod predators are important for ecosystem functioning by providing top-down regulation of insect herbivores.",
+          "text": "节肢动物捕食者通过自上而下地调节昆虫食草动物，对生态系统的运作很重要。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "99-1",
+          "status": "review",
+          "source": "As predator communities and activity are influenced by biotic and abiotic factors on different spatial scales, the strength of top-down regulation (‘arthropod predation’) is also likely to vary.",
+          "text": "由于捕食者群落和活动受到不同空间尺度上的生物和非生物因素的影响，自上而下调节(“自下而上的捕食”)的强度也可能有所不同。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D100",
+      "chars": 155,
+      "from": "en",
+      "ms": 58,
+      "text": "迫切需要了解潜在驱动因素对节肢动物捕食的综合影响，以改变人为气候和土地利用。",
+      "units": [
+        {
+          "id": "100-0",
+          "status": "translated",
+          "source": "Understanding the combined effects of potential drivers on arthropod predation is urgently needed with regard to anthropogenic climate and land-use change.",
+          "text": "迫切需要了解潜在驱动因素对节肢动物捕食的综合影响，以改变人为气候和土地利用。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D101",
+      "chars": 276,
+      "from": "en",
+      "ms": 250,
+      "text": "在一项大规模研究中，我们使用人工毛毛虫记录了在德国巴伐利亚州气候和土地利用梯度上嵌入对比栖息地类型(森林，草原，耕地，定居点)的113块开放草本植被的节肢动物捕食率。",
+      "units": [
+        {
+          "id": "101-0",
+          "status": "review",
+          "source": "In a large-scale study, we recorded arthropod predation rates using artificial caterpillars on 113 plots of open herbaceous vegetation embedded in contrasting habitat types (forest, grassland, arable field, settlement) along climate and land-use gradients in Bavaria, Germany.",
+          "text": "在一项大规模研究中，我们使用人工毛毛虫记录了在德国巴伐利亚州气候和土地利用梯度上嵌入对比栖息地类型(森林，草原，耕地，定居点)的113块开放草本植被的节肢动物捕食率。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D102",
+      "chars": 339,
+      "from": "en",
+      "ms": 549,
+      "text": "作为潜在的驱动因素，我们包括栖息地特征(栖息地类型，植物物种丰富性，当地平均温度和人工毛毛虫暴露期间的平均相对湿度),景观多样性( 0.5 – 3.0 -km,六个尺度),气候(年均温度) MAT “)和栖息地类型的与其他驱动因素的互动效果。",
+      "units": [
+        {
+          "id": "102-0",
+          "status": "review",
+          "source": "As potential drivers we included habitat characteristics (habitat type, plant species richness, local mean temperature and mean relative humidity during artificial caterpillar exposure), landscape diversity (0.5–3.0-km, six scales), climate (multi-annual mean temperature, ‘MAT’) and interactive effects of habitat type with other drivers.",
+          "text": "作为潜在的驱动因素，我们包括栖息地特征(栖息地类型，植物物种丰富性，当地平均温度和人工毛毛虫暴露期间的平均相对湿度),景观多样性( 0.5 – 3.0 -km,六个尺度),气候(年均温度) MAT “)和栖息地类型的与其他驱动因素的互动效果。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D103",
+      "chars": 390,
+      "from": "en",
+      "ms": 364,
+      "text": "我们观察到，与植物物种丰富度和巴伐利亚气候梯度相关的栖息地类型之间的节肢动物捕食率没有实质性差异，但当当地平均温度较低并且倾向于降低相对湿度时，捕食率有限。 节肢动物捕食率以2公里的规模增加到更多样化的景观。",
+      "units": [
+        {
+          "id": "103-0",
+          "status": "review",
+          "source": "We observed no substantial differences in arthropod predation rates between the studied habitat types, related to plant species richness and across the Bavarian-wide climatic gradient, but predation was limited when local mean temperatures were low and tended to decrease towards higher relative humidity.",
+          "text": "我们观察到，与植物物种丰富度和巴伐利亚气候梯度相关的栖息地类型之间的节肢动物捕食率没有实质性差异，但当当地平均温度较低并且倾向于降低相对湿度时，捕食率有限。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "103-1",
+          "status": "translated",
+          "source": "Arthropod predation rates increased towards more diverse landscapes at a 2-km scale.",
+          "text": "节肢动物捕食率以2公里的规模增加到更多样化的景观。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D104",
+      "chars": 296,
+      "from": "en",
+      "ms": 120,
+      "text": "未观察到栖息地类型的互动效应，当地天气条件，植物物种丰富性，景观多样性和MAT。 我们的结论是，景观多样性有利于开放草本植物的高节肢动物捕食率，独立于附近的主要栖息地。",
+      "units": [
+        {
+          "id": "104-0",
+          "status": "translated",
+          "source": "Interactive effects of habitat type with local weather conditions, plant species richness, landscape diversity and MAT were not observed.",
+          "text": "未观察到栖息地类型的互动效应，当地天气条件，植物物种丰富性，景观多样性和MAT。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "104-1",
+          "status": "translated",
+          "source": "We conclude that landscape diversity favours high arthropod predation rates in open herbaceous vegetation independent of the dominant habitat in the vicinity.",
+          "text": "我们的结论是，景观多样性有利于开放草本植物的高节肢动物捕食率，独立于附近的主要栖息地。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D105",
+      "chars": 320,
+      "from": "en",
+      "ms": 195,
+      "text": "这一发现可用于改善对食草动物(如农业害虫)的自上而下的控制，但需要进一步研究，以就景观管理提出更具体的建议。 缺乏MAT效应表明，在不久的将来，高捕食率可能独立于MAT的适度增加。",
+      "units": [
+        {
+          "id": "105-0",
+          "status": "review",
+          "source": "This finding may be harnessed to improve top-down control of herbivores, e.g. agricultural pests, but further research is needed for more specific recommendations on landscape management.",
+          "text": "这一发现可用于改善对食草动物(如农业害虫)的自上而下的控制，但需要进一步研究，以就景观管理提出更具体的建议。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "105-1",
+          "status": "review",
+          "source": "The absence of MAT effects suggests that high predation rates may occur independent of moderate increases of MAT in the near future.",
+          "text": "缺乏MAT效应表明，在不久的将来，高捕食率可能独立于MAT的适度增加。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D106",
+      "chars": 163,
+      "from": "en",
+      "ms": 82,
+      "text": "捕食和寄生是许多食草昆虫物种死亡的常见原因[1],因此可以对食草动物群落产生强烈影响[2,3]。",
+      "units": [
+        {
+          "id": "106-0",
+          "status": "translated",
+          "source": "Predation and parasitism are frequent causes of mortality to many herbivorous insect species [1] and hence can exert strong impact on herbivore communities [2, 3].",
+          "text": "捕食和寄生是许多食草昆虫物种死亡的常见原因[1],因此可以对食草动物群落产生强烈影响[2,3]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D107",
+      "chars": 241,
+      "from": "en",
+      "ms": 172,
+      "text": "人工毛毛虫暴露期间节肢动物攻击相对于局部平均温度的概率。 逻辑回归曲线和点表示不存在(0)和存在(1)在图级上对人工毛毛虫的节肢动物攻击。",
+      "units": [
+        {
+          "id": "107-0",
+          "status": "translated",
+          "source": "Probability of arthropod attack relative to local mean temperature during artificial caterpillar exposure.",
+          "text": "人工毛毛虫暴露期间节肢动物攻击相对于局部平均温度的概率。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "107-1",
+          "status": "review",
+          "source": "Logistic regression curve and dots indicate absence (0) and presence (1) of arthropod attack on artificial caterpillars at plot level.",
+          "text": "逻辑回归曲线和点表示不存在(0)和存在(1)在图级上对人工毛毛虫的节肢动物攻击。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D108",
+      "chars": 249,
+      "from": "en",
+      "ms": 110,
+      "text": "相对重要性(Akaike权重的总和)来解释A的节肢动物捕食率(即相对于其他尺度具有所有可能预测因子组合的模型)和B(每个空间尺度的候选预测因子)。",
+      "units": [
+        {
+          "id": "108-0",
+          "status": "translated",
+          "source": "Relative importance (sum of Akaike weights) for explaining arthropod predation rates of A) spatial scale (i.e. models with all possible predictor combinations at one scale relative to the others) and of B) each candidate predictor per spatial scale.",
+          "text": "相对重要性(Akaike权重的总和)来解释A的节肢动物捕食率(即相对于其他尺度具有所有可能预测因子组合的模型)和B(每个空间尺度的候选预测因子)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D109",
+      "chars": 353,
+      "from": "en",
+      "ms": 159,
+      "text": "白色符号是指栖息地特征(栖息地类型，SpecNum:植物物种丰富度，Temp或RH:人工毛毛虫暴露期间的局部平均温度或平均相对湿度，zi:包括零通胀术语)和填充的蓝色符号到区域因素(LandDiv:景观多样性，MAT:多年平均温度)。",
+      "units": [
+        {
+          "id": "109-0",
+          "status": "translated",
+          "source": "White symbols refer to habitat characteristics (Habitat: habitat type, SpecNum: plant species richness, Temp or RH: local mean temperature or mean relative humidity during artificial caterpillar exposure, zi: included as zero-inflation term) and filled blue symbols to regional factors (LandDiv: landscape diversity, MAT: multi-annual mean temperature).",
+          "text": "白色符号是指栖息地特征(栖息地类型，SpecNum:植物物种丰富度，Temp或RH:人工毛毛虫暴露期间的局部平均温度或平均相对湿度，zi:包括零通胀术语)和填充的蓝色符号到区域因素(LandDiv:景观多样性，MAT:多年平均温度)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D110",
+      "chars": 87,
+      "from": "en",
+      "ms": 34,
+      "text": "景观多样性是唯一的景观参数(随着空间尺度的值变化)。",
+      "units": [
+        {
+          "id": "110-0",
+          "status": "translated",
+          "source": "Landscape diversity is the only landscape parameter (value changes with spatial scale).",
+          "text": "景观多样性是唯一的景观参数(随着空间尺度的值变化)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D111",
+      "chars": 285,
+      "from": "en",
+      "ms": 145,
+      "text": "A) 栖息地类型(用于:森林，Gra:草原，Ara:耕地，设置:沉降),B)植物物种丰富度，C + D)人工毛毛虫暴露期间的局部平均温度和平均相对湿度，E)2公里尺度的景观多样性和F)多年平均温度(MAT)。",
+      "units": [
+        {
+          "id": "111-0",
+          "status": "translated",
+          "source": "A) Habitat type (For: forest, Gra: grassland, Ara: arable field, Set: Settlement), B) plant species richness, C+D) local mean temperature and mean relative humidity during artificial caterpillar exposure, E) landscape diversity at 2-km scale and F) multi-annual mean temperature (MAT).",
+          "text": "A) 栖息地类型(用于:森林，Gra:草原，Ara:耕地，设置:沉降),B)植物物种丰富度，C + D)人工毛毛虫暴露期间的局部平均温度和平均相对湿度，E)2公里尺度的景观多样性和F)多年平均温度(MAT)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D112",
+      "chars": 105,
+      "from": "en",
+      "ms": 62,
+      "text": "浅灰色点每个图显示值;重叠点显示较暗。 在A中，圆圈表示异常值。",
+      "units": [
+        {
+          "id": "112-0",
+          "status": "translated",
+          "source": "Light grey dots present values per plot; overlapping dots appear darker.",
+          "text": "浅灰色点每个图显示值;重叠点显示较暗。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "112-1",
+          "status": "translated",
+          "source": "In A) circles indicate outliers.",
+          "text": "在A中，圆圈表示异常值。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D113",
+      "chars": 370,
+      "from": "en",
+      "ms": 207,
+      "text": "姜黄素是一种天然多酚，有助于香料姜黄的风味和黄色色素，以其抗氧化，抗炎和抗癌特性而闻名。 能够通过多种机制影响致癌性的启动，促进和进展，姜黄素对化学预防和化疗都有潜在的效用。",
+      "units": [
+        {
+          "id": "113-0",
+          "status": "review",
+          "source": "Curcumin, a natural polyphenol that contributes to the flavor and yellow pigment of the spice turmeric, is known for its antioxidant, anti-inflammatory, and anticarcinogenic properties.",
+          "text": "姜黄素是一种天然多酚，有助于香料姜黄的风味和黄色色素，以其抗氧化，抗炎和抗癌特性而闻名。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "113-1",
+          "status": "translated",
+          "source": "Capable of affecting the initiation, promotion, and progression of carcinogenesis through multiple mechanisms, curcumin has potential utility for both chemoprevention and chemotherapy.",
+          "text": "能够通过多种机制影响致癌性的启动，促进和进展，姜黄素对化学预防和化疗都有潜在的效用。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D114",
+      "chars": 266,
+      "from": "en",
+      "ms": 124,
+      "text": "先前的研究表明，姜黄素可以抑制人类白血病和乳腺癌细胞中的正肌脯脱羧酶(ODC)活性，并且用膳食姜黄素预处理会阻断皮肤，结肠癌和肾癌啮齿动物模型中致癌物诱导的ODC活性。",
+      "units": [
+        {
+          "id": "114-0",
+          "status": "translated",
+          "source": "Previous studies demonstrated that curcumin can inhibit ornithine decarboxylase (ODC) activity in human leukemia and breast cancer cells, and pretreatment with dietary curcumin blocks carcinogen-induced ODC activity in rodent models of skin, colon, and renal cancer.",
+          "text": "先前的研究表明，姜黄素可以抑制人类白血病和乳腺癌细胞中的正肌脯脱羧酶(ODC)活性，并且用膳食姜黄素预处理会阻断皮肤，结肠癌和肾癌啮齿动物模型中致癌物诱导的ODC活性。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D115",
+      "chars": 142,
+      "from": "en",
+      "ms": 56,
+      "text": "目前的研究调查了人类胃癌和结肠癌细胞系中聚胺代谢的调节，以响应姜黄素。",
+      "units": [
+        {
+          "id": "115-0",
+          "status": "review",
+          "source": "The current study investigated the regulation of polyamine metabolism in human gastric and colon carcinoma cell lines in response to curcumin.",
+          "text": "目前的研究调查了人类胃癌和结肠癌细胞系中聚胺代谢的调节，以响应姜黄素。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "polyamine"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D116",
+      "chars": 383,
+      "from": "en",
+      "ms": 737,
+      "text": "姜黄素治疗显着诱导精氨酸氧化酶(SMOX)mRNA和活性，导致过氧化氢的产生，ROS的来源。 同时,姜黄素降低调节精子/精子N1-乙酰转移酶(SSAT)活性和生物合成酶ODC和S-adenosylmethionine脱羧酶(SAMDC),从而减少细胞内多胺池。",
+      "units": [
+        {
+          "id": "116-0",
+          "status": "review",
+          "source": "Curcumin treatment significantly induced spermine oxidase (SMOX) mRNA and activity, which results in the generation of hydrogen peroxide, a source of ROS.",
+          "text": "姜黄素治疗显着诱导精氨酸氧化酶(SMOX)mRNA和活性，导致过氧化氢的产生，ROS的来源。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "116-1",
+          "status": "review",
+          "source": "Simultaneously, curcumin down regulated spermidine/spermine N¹-acetyltransferase (SSAT) activity and the biosynthetic enzymes ODC and S-adenosylmethionine decarboxylase (SAMDC), thereby diminishing intracellular polyamine pools.",
+          "text": "同时,姜黄素降低调节精子/精子N1-乙酰转移酶(SSAT)活性和生物合成酶ODC和S-adenosylmethionine脱羧酶(SAMDC),从而减少细胞内多胺池。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "identifier",
+                "severity": "severe",
+                "detail": "N1-acetyltransferase"
+              },
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "acetyltransferase, polyamine"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D117",
+      "chars": 290,
+      "from": "en",
+      "ms": 278,
+      "text": "使用姜黄素与ODC抑制剂2-二氟甲基奥尼汀(DFMO)的组合治疗，这是目前临床化学预防试验中的一种药物，显着增强了ODC活性的抑制作用，并降低了GI癌细胞系的生长，超出了单独观察到的任何一种药物。",
+      "units": [
+        {
+          "id": "117-0",
+          "status": "review",
+          "source": "Combination treatments using curcumin with the ODC inhibitor 2-difluoromethylornithine (DFMO), an agent currently in clinical chemoprevention trials, significantly enhanced inhibition of ODC activity and decreased growth of GI cancer cell lines beyond that observed with either agent alone.",
+          "text": "使用姜黄素与ODC抑制剂2-二氟甲基奥尼汀(DFMO)的组合治疗，这是目前临床化学预防试验中的一种药物，显着增强了ODC活性的抑制作用，并降低了GI癌细胞系的生长，超出了单独观察到的任何一种药物。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D118",
+      "chars": 260,
+      "from": "en",
+      "ms": 209,
+      "text": "同样，将姜黄素与聚胺类似物之二(乙基)结合，增加生长抑制，伴随着类似物的积累增加，并且细胞内聚胺水平降低，超出单独使用任何一种药物观察到的水平。",
+      "units": [
+        {
+          "id": "118-0",
+          "status": "review",
+          "source": "Similarly, combining curcumin with the polyamine analogue bis(ethyl)norspermine enhanced growth inhibition that was accompanied by enhanced accumulation of the analogue and decreased intracellular polyamine levels beyond those observed with either agent alone.",
+          "text": "同样，将姜黄素与聚胺类似物之二(乙基)结合，增加生长抑制，伴随着类似物的积累增加，并且细胞内聚胺水平降低，超出单独使用任何一种药物观察到的水平。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "polyamine"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D119",
+      "chars": 123,
+      "from": "en",
+      "ms": 100,
+      "text": "重要的是，用姜黄素共同治疗可以降低有效剂量的ODC抑制剂或聚胺类似物。",
+      "units": [
+        {
+          "id": "119-0",
+          "status": "review",
+          "source": "Importantly, cotreatment with curcumin permitted the lowering of the effective dose of ODC inhibitor or polyamine analogue.",
+          "text": "重要的是，用姜黄素共同治疗可以降低有效剂量的ODC抑制剂或聚胺类似物。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "polyamine"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D120",
+      "chars": 198,
+      "from": "en",
+      "ms": 165,
+      "text": "这些研究提供了对癌细胞对姜黄素反应所涉及的聚胺相关机制的见解，以及它作为GI道中化学预防或化疗药物的潜力。",
+      "units": [
+        {
+          "id": "120-0",
+          "status": "review",
+          "source": "These studies provide insight into the polyamine-related mechanisms involved in the cancer cell response to curcumin and its potential as a chemopreventive or chemotherapeutic agent in the GI tract.",
+          "text": "这些研究提供了对癌细胞对姜黄素反应所涉及的聚胺相关机制的见解，以及它作为GI道中化学预防或化疗药物的潜力。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "polyamine"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D121",
+      "chars": 244,
+      "from": "en",
+      "ms": 494,
+      "text": "姜黄素构成 5% 姜黄根(Curcuma drota)的粗提取物，其中姜黄素(二甲酰甲烷)最丰富( 60 – 70% ),其次是desmethoxycurcumin( 20 – 27% )和bisdesmethoxycurcumin( 10 – 15% )[ 1 ].",
+      "units": [
+        {
+          "id": "121-0",
+          "status": "review",
+          "source": "Curcuminoids constitute approximately 5% of the crude extract of turmeric root (Curcuma longa), of which curcumin (diferuloylmethane) is the most abundant (60–70%), followed by desmethoxycurcumin (20–27%), and bisdesmethoxycurcumin (10–15%)[1].",
+          "text": "姜黄素构成 5% 姜黄根(Curcuma drota)的粗提取物，其中姜黄素(二甲酰甲烷)最丰富( 60 – 70% ),其次是desmethoxycurcumin( 20 – 27% )和bisdesmethoxycurcumin( 10 – 15% )[ 1 ].",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D122",
+      "chars": 55,
+      "from": "en",
+      "ms": 38,
+      "text": "(A)姜黄素(二甲酰甲烷)的化学结构。",
+      "units": [
+        {
+          "id": "122-0",
+          "status": "translated",
+          "source": "(A) Chemical structure of curcumin (diferuloylmethane).",
+          "text": "(A)姜黄素(二甲酰甲烷)的化学结构。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D123",
+      "chars": 196,
+      "from": "en",
+      "ms": 244,
+      "text": "(B) 天然聚胺精子的化学结构，spermidine 和 patrescine，聚胺类似物 bis(乙基) norspermine ( BENSpm )，以及 ODC 抑制剂二氟甲基铕(DFMO )。",
+      "units": [
+        {
+          "id": "123-0",
+          "status": "review",
+          "source": "(B) Chemical structures of the natural polyamines spermine, spermidine, and putrescine, the polyamine analogue bis(ethyl)norspermine (BENSpm), and the ODC inhibitor difluoromethylornithine (DFMO).",
+          "text": "(B) 天然聚胺精子的化学结构，spermidine 和 patrescine，聚胺类似物 bis(乙基) norspermine ( BENSpm )，以及 ODC 抑制剂二氟甲基铕(DFMO )。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "polyamine"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "D124",
+      "chars": 396,
+      "from": "en",
+      "ms": 231,
+      "text": "(C)哺乳动物多胺途径:对羟基苯甲酸酯脱羧酶(ODC)将鸟类转化为puthescine,后者获得顺序氨基丙基形成精氨酸，然后形成精子。 氨基丙基来自脱羧S-adenosylmethionine(dcSAM),其添加到puthrescine或精子中由精子合成酶(SRM和SMS)介导。",
+      "units": [
+        {
+          "id": "124-0",
+          "status": "review",
+          "source": "(C) The mammalian polyamine pathway: ornithine decarboxylase (ODC) converts ornithine into putrescine, which acquires sequential aminopropyl groups to form spermidine followed by spermine.",
+          "text": "(C)哺乳动物多胺途径:对羟基苯甲酸酯脱羧酶(ODC)将鸟类转化为puthescine,后者获得顺序氨基丙基形成精氨酸，然后形成精子。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "chemical-name",
+                "severity": "advisory",
+                "detail": "polyamine"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "124-1",
+          "status": "translated",
+          "source": "The aminopropyl group is derived from decarboxylated S-adenosylmethionine (dcSAM), and its addition onto putrescine or spermidine is mediated by spermidine and spermine synthases (SRM and SMS, respectively).",
+          "text": "氨基丙基来自脱羧S-adenosylmethionine(dcSAM),其添加到puthrescine或精子中由精子合成酶(SRM和SMS)介导。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "D125",
+      "chars": 190,
+      "from": "en",
+      "ms": 113,
+      "text": "还收集了总细胞解解物，并用于ODC酶活性测定(B; n = 2个独立实验，每个实验以三联体测量)和分解代谢酶(D)的西方斑块。",
+      "units": [
+        {
+          "id": "125-0",
+          "status": "translated",
+          "source": "Total cell lysates were also collected and used for ODC enzyme activity assays (B; n = 2 independent experiments, each measured in triplicate) and Western blots of the catabolic enzymes (D).",
+          "text": "还收集了总细胞解解物，并用于ODC酶活性测定(B; n = 2个独立实验，每个实验以三联体测量)和分解代谢酶(D)的西方斑块。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D126",
+      "chars": 87,
+      "from": "en",
+      "ms": 43,
+      "text": "数据点指示至少3个独立实验的手段;误差条=SEM。",
+      "units": [
+        {
+          "id": "126-0",
+          "status": "translated",
+          "source": "Data points indicate the means of at least 3 independent experiments; error bars = SEM.",
+          "text": "数据点指示至少3个独立实验的手段;误差条=SEM。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D127",
+      "chars": 162,
+      "from": "en",
+      "ms": 103,
+      "text": "在A-F中，数据点指示至少2个独立实验的手段，测量≥2次;误差条=SEM。 *p < 0.05 相对于单药治疗。",
+      "units": [
+        {
+          "id": "127-0",
+          "status": "translated",
+          "source": "In A-F, data points indicate the means of at least 2 independent experiments, measured ≥ 2 times; error bars = SEM.",
+          "text": "在A-F中，数据点指示至少2个独立实验的手段，测量≥2次;误差条=SEM。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "127-1",
+          "status": "translated",
+          "source": "*p < 0.05 relative to single agent treatments.",
+          "text": "*p < 0.05 相对于单药治疗。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "D128",
+      "chars": 118,
+      "from": "en",
+      "ms": 112,
+      "text": "数据点表示至少2个独立实验的手段，测量≥2次;误差条=SEM。 ",
+      "units": [
+        {
+          "id": "128-0",
+          "status": "translated",
+          "source": "Data points indicate the means of at least 2 independent experiments, measured ≥ 2 times; error bars = SEM.",
+          "text": "数据点表示至少2个独立实验的手段，测量≥2次;误差条=SEM。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "128-1",
+          "status": "failed",
+          "source": "*p < 0.05.",
+          "text": "",
+          "validation": null,
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    }
+  ],
+  "probes": {},
+  "snapshots": [
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 325,
+      "modelReady": [
+        {
+          "start": 1220.8999999985099,
+          "end": 1431.5,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 22888.89999999851
+    }
+  ],
+  "version": "0.4.18"
+}

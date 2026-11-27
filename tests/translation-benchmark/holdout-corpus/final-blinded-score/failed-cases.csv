@@ -1,0 +1,147 @@
+﻿id,system,field,section,status,displayed,completeReadable,severe,accepted,flagged,rawAcceptable,reason
+H001,A,cognitive neuroscience,abstract,translated,True,True,False,True,,False,“绑定”没有表达累积边界，“嘈杂的证据”也不自然。
+H001,B,cognitive neuroscience,abstract,translated,True,True,False,True,,False,阈值后的 bound 被译作“绑定”。
+H002,A,cognitive neuroscience,abstract,review,False,False,False,False,,False,未展示中文。候选把带噪信息称为“讨厌”的信息。
+H002,B,cognitive neuroscience,abstract,translated,True,True,False,True,,False,“讨厌”的信息误释 noisy，与下句的噪音脱节。
+H003,A,cognitive neuroscience,abstract,translated,True,True,True,True,,False,把信心评分误述为每次都充满信心。
+H003,B,cognitive neuroscience,abstract,translated,True,True,True,True,,False,将人类“评价自己的信心”改为“都会充满信心”，把测量行为写成观察结论。
+H004,A,cognitive neuroscience,abstract,review,False,False,False,False,,True,原始候选呈现两类对象和两个变化方向，界面没有译文。
+H005,A,cognitive neuroscience,introduction,partial,True,True,False,False,,False,关注者与被研究对象调换。
+H005,B,cognitive neuroscience,introduction,translated,True,True,False,True,,False,把“决策研究受到神经科学关注”写成决定本身对神经科学感兴趣，实验可研究性也表意生硬。
+H006,A,cognitive neuroscience,introduction,review,False,False,False,False,,False,无呈现，候选将有界累积误为有根据的积累。
+H006,B,cognitive neuroscience,introduction,translated,True,True,False,True,,False,把有界积累写成“有根据的积累”，把测量指标写成措施。
+H007,A,cognitive neuroscience,introduction,review,False,False,False,False,,True,原候选保留三个条件与方向，页面未展示。
+H008,A,cognitive neuroscience,introduction,partial,True,False,False,False,,False,省去方差和均值所在的首句，剩余的“公正”未交代统计无偏。
+H008,B,cognitive neuroscience,introduction,translated,True,True,False,True,,False,统计意义上的无偏被写成“公正的”，读者无法确认强度和方向未改变。
+H009,A,cognitive neuroscience,figure,review,False,False,False,False,,False,无译文；候选遗漏适用范围。
+H009,B,cognitive neuroscience,figure,translated,True,False,False,True,,False,颜色与条件对应正确，但遗漏“所有分图”这一范围。
+H010,A,cognitive neuroscience,figure,review,False,False,False,False,,False,候选将标准差和数值拆断，页面无译文。
+H010,B,cognitive neuroscience,figure,translated,True,False,False,True,,False,标点将标准差标签和 0.256 拆开，均值与标准差的归属不清。
+H011,A,cognitive neuroscience,supplement,translated,True,True,True,True,,False,将方差说成差异，改变图注唯一指明的统计量。
+H011,B,cognitive neuroscience,supplement,translated,True,True,True,True,,False,将方差说成差异，改变图注唯一指明的统计量。
+H012,A,cognitive neuroscience,supplement,translated,True,True,False,True,,False,第二句“猴子W的拟合到行为数据”没有清楚交代拟合的对象及例子来源。
+H012,B,cognitive neuroscience,supplement,translated,True,True,False,True,,False,行为数据与拟合关系的中文词序错误。
+H014,A,cognitive neuroscience,results,review,False,False,False,False,,False,原候选没有说明两组均值相同，页面未提供译文。
+H014,B,cognitive neuroscience,results,translated,True,True,True,True,,False,均值相同的关键比较丢失高波动性组，变成低波动性组内的等同。
+H015,A,cognitive neuroscience,methods,translated,True,True,True,True,,False,把核心统计方法似然比检验写成“概率率测试”。
+H015,B,cognitive neuroscience,methods,translated,True,True,True,True,,False,把核心统计方法似然比检验写成“概率率测试”。
+H016,A,social sciences,abstract,translated,True,True,False,True,,False,统计中介作用误作“调解作用”，改变研究要检验的作用类型。
+H016,B,social sciences,abstract,translated,True,True,False,True,,False,统计中介作用误作“调解作用”，改变研究要检验的作用类型。
+H017,A,social sciences,abstract,partial,True,False,False,False,,False,没有展示招募和人口数量；候选另将短表写成短期形式。
+H017,B,social sciences,abstract,failed,False,False,False,False,,,没有译文，校验前候选未采集。
+H020,A,social sciences,methods,review,False,False,False,False,,False,无展示，原候选的分层整群抽样单位误译。
+H020,B,social sciences,methods,translated,True,True,True,True,,False,将抽样层写成地质“地层”、自然班写成“自然类”，改变抽样单位。
+H021,A,social sciences,methods,translated,True,True,False,True,,False,将三个量表的测量值写为三个“措施”，没有清楚说明采集的数据。
+H021,B,social sciences,methods,translated,True,True,False,True,,False,将三个量表的测量值写为三个“措施”，没有清楚说明采集的数据。
+H022,A,social sciences,methods,review,False,False,False,False,,True,候选完整覆盖人口学项目，页面未显示。
+H022,B,social sciences,methods,failed,False,False,False,False,,,无展示、无可评原候选。
+H024,A,social sciences,results,review,False,False,False,False,,True,组别、相关方向及显著性均正确的候选未展示。
+H025,A,social sciences,results,review,False,False,False,False,,True,否定与 P 值均保留，候选未展示。
+H027,A,social sciences,results,review,False,False,False,False,,True,可接受的分类编码、预测作用及置信区间均未展示。
+H028,A,social sciences,table,review,False,False,False,False,,False,无展示；原候选中的自助法置信区间不可读。
+H028,B,social sciences,table,translated,True,False,True,True,,False,"5,000 得到保留，但“靴带置置信度间隔”与“引导样本”破坏了该表注的统计方法含义。"
+H031,A,analytical and organic chemistry,abstract,translated,True,True,True,True,,False,hesperidin 可保留原名，但橙皮中占主导的 naringin 被写成无法核对的“纳林金”，且“其中”指代含混。
+H031,B,analytical and organic chemistry,abstract,translated,True,True,True,True,,False,hesperidin 可保留原名，但橙皮中占主导的 naringin 被写成无法核对的“纳林金”，且“其中”指代含混。
+H033,A,analytical and organic chemistry,results,translated,True,False,True,True,,False,四种标准品名被乱码替换或遗漏，且溶液与化合物的语法关系破坏。
+H033,B,analytical and organic chemistry,results,translated,True,False,True,True,,False,四种标准品名被乱码替换或遗漏，且溶液与化合物的语法关系破坏。
+H034,A,analytical and organic chemistry,figure,partial,True,False,False,False,,False,图 A–D 及波段未译，1:1:1:1 未说明是质量比。
+H034,B,analytical and organic chemistry,figure,translated,True,False,True,True,,False,将黄酮名换成原蛋白、粒铁蛋白等，分图与化合物的对应失真，质量比亦丢失。
+H035,A,analytical and organic chemistry,results,translated,True,False,True,True,,False,把芦丁储备液写成“原子库存解决方案”，另一药名和 stock 也变形；波长存在却不能与正确样品对应。
+H035,B,analytical and organic chemistry,results,translated,True,False,True,True,,False,把芦丁储备液写成“原子库存解决方案”，另一药名和 stock 也变形；波长存在却不能与正确样品对应。
+H036,A,analytical and organic chemistry,results,translated,True,False,True,True,,False,唯一发生颜色转变的芦丁被替换为乱码，无法识别化合物。
+H036,B,analytical and organic chemistry,results,translated,True,False,True,True,,False,唯一发生颜色转变的芦丁被替换为乱码，无法识别化合物。
+H037,A,analytical and organic chemistry,results,translated,True,False,True,True,,False,主要反应物变成乱码，两种淡黄色化合物之一的名称损坏。
+H037,B,analytical and organic chemistry,results,translated,True,False,True,True,,False,芦丁变成无意义字符，hesperidin 拼写变形，510 nm 定量对象和颜色对应关系因而不可靠。
+H038,A,analytical and organic chemistry,results,review,False,False,False,False,,False,无展示，候选将 hesperidin 写成 sesperidin，第三个峰的归属无法可靠核对。
+H038,B,analytical and organic chemistry,results,translated,True,True,True,True,,False,第三种化合物拼写损坏，保留时间列表不能完整对应正确化合物。
+H039,A,analytical and organic chemistry,results,review,False,False,False,False,,False,无展示，候选损坏波长条件及测定前后关系。
+H039,B,analytical and organic chemistry,results,translated,True,False,True,True,,False,波段 200 nm < λ < 700 nm 丢失 λ 与一个不等号，图 4 的测定前条件也消失。
+H042,A,analytical and organic chemistry,methods,review,True,True,True,False,,False,将两个吸光度读数写成“吸收”，阴性对照写成“负控制”，破坏了两个量的定义。
+H042,B,analytical and organic chemistry,methods,failed,False,False,False,False,,,没有可核对的译文和候选。
+H043,A,analytical and organic chemistry,methods,review,False,False,False,False,,False,没有展示，候选误释三次重复及均值。
+H043,B,analytical and organic chemistry,methods,translated,True,False,True,True,,False,三次重复变成三项实验，均值被误写成“手段”，数据表示方式错误。
+H045,A,analytical and organic chemistry,discussion,translated,True,True,False,True,,False,只说信号发生变化，未表明信号位置移动，测定名称中的“铝化”也不准确。
+H045,B,analytical and organic chemistry,discussion,translated,True,True,False,True,,False,只说信号发生变化，未表明信号位置移动，测定名称中的“铝化”也不准确。
+H050,A,biomedical engineering,methods,translated,True,False,True,True,,False,内外侧方向的线加速度分量误作“中侧组件”，驱动信号仍为断行的英文。
+H050,B,biomedical engineering,methods,translated,True,False,True,True,,False,内外侧方向的线加速度分量误作“中侧组件”，驱动信号仍为断行的英文。
+H051,A,biomedical engineering,methods,partial,True,False,False,False,,False,只展示振荡器数量与缺连接符的公式，省略基频、步频和收敛时长。
+H051,B,biomedical engineering,methods,translated,True,True,True,True,,False,把七个跨步周期写成七步，改变收敛所需的步态周期数，公式范围也残缺。
+H053,A,biomedical engineering,figure,review,False,False,False,False,,False,候选将驱动信号误译，页面没有译文。
+H053,B,biomedical engineering,figure,translated,True,True,False,True,,False,驱动信号错成“驾驶信号”，估计对象也似乎是受试者本身。
+H056,A,biomedical engineering,figure,review,False,False,False,False,,True,原候选虽用直译的“脚跟撞击”，但正确交代了步态事件、速度和左右步数，页面未展示。
+H058,A,biomedical engineering,discussion,translated,True,True,False,True,,False,原文指基于标准差的精密度，译为分类指标“精确率”，与平均准确性之间的区别不清。
+H058,B,biomedical engineering,discussion,translated,True,True,False,True,,False,原文指基于标准差的精密度，译为分类指标“精确率”，与平均准确性之间的区别不清。
+H060,A,biomedical engineering,discussion,partial,True,False,False,False,,False,“单头安装”未说明仅一个头戴式单元，并遗漏精度及非对称步态的传感器放置建议。
+H060,B,biomedical engineering,discussion,translated,True,True,False,True,,False,“单头安装”不能准确交代使用的是单个头戴式传感器，尤其成句比较生硬。
+H061,A,polymer physics and materials,abstract,translated,True,True,True,True,,False,PET 的全称译成另一化学结构“乙烯甲基苯甲酸酯”，缩写保留不能修复化学身份。
+H061,B,polymer physics and materials,abstract,translated,True,True,True,True,,False,PET 的全称译成另一化学结构“乙烯甲基苯甲酸酯”，缩写保留不能修复化学身份。
+H062,A,polymer physics and materials,introduction,partial,True,False,False,False,,False,工艺分类整句未展示，单体的物理回收在剩余句中成了“检索”。
+H062,B,polymer physics and materials,introduction,translated,True,True,False,True,,False,化学回收步骤中的单体回收被写成信息“检索”。
+H063,A,polymer physics and materials,introduction,review,False,False,False,False,,True,三组标识和配比可以识别的候选未展示。
+H066,A,polymer physics and materials,methods,review,False,False,False,False,,False,无展示，原候选没有明确写出首个升温过程。
+H066,B,polymer physics and materials,methods,translated,True,True,False,True,,False,首步把升温速率写成温度，后一步又将温度斜率误译为“坡道”。
+H067,A,polymer physics and materials,methods,translated,True,True,True,True,,False,聚合物片晶结构的长周期被译为时间上的“长期”，改变了测量对象。
+H067,B,polymer physics and materials,methods,translated,True,True,True,True,,False,聚合物片晶结构的长周期被译为时间上的“长期”，改变了测量对象。
+H068,A,polymer physics and materials,figure,partial,True,False,False,False,,False,预制坯对象误释，升降温过程词序破碎。
+H068,B,polymer physics and materials,figure,translated,True,False,False,True,,False,数值可以核对，但半结晶预制坯被译成“半结晶预制曲线”，升降温从句无法顺畅连读。
+H069,A,polymer physics and materials,figure,translated,True,True,True,True,,False,分图 b 的压入测量被写成排版意义上的“缩进”，会误读分图。
+H069,B,polymer physics and materials,figure,translated,True,True,True,True,,False,分图 b 的压入测量被写成排版意义上的“缩进”，会误读分图。
+H070,A,polymer physics and materials,figure,review,True,True,False,False,,False,把随温度变化的关系仅挂在 vPET 上，另两个材料又被写成“测量 DMA”的主体。
+H070,B,polymer physics and materials,figure,translated,True,True,False,True,,False,把随温度变化的关系仅挂在 vPET 上，另两个材料又被写成“测量 DMA”的主体。
+H071,A,polymer physics and materials,results,review,False,False,False,False,,False,没有展示；候选混淆物质的相和时间阶段。
+H071,B,polymer physics and materials,results,translated,True,True,True,True,,False,非晶相先被译为“相位”、再变成“无定形阶段”，改变约束关系中对象的物理意义。
+H072,A,polymer physics and materials,results,review,False,False,False,False,,True,可读出三种聚合物无显著差异的候选没有展示。
+H074,A,polymer physics and materials,discussion,review,False,False,False,False,,True,正确的分子量比较和分散度结论未展示。
+H075,A,polymer physics and materials,discussion,partial,True,False,False,False,,False,仅保留了表述错误的 AFM 句，省略两材料间无显著差异的结果。
+H075,B,polymer physics and materials,discussion,translated,True,True,False,True,,False,采用 AFM 表征影响，被写成影响本身“以AFM为特征”。
+H076,A,clinical epidemiology,abstract,translated,True,True,False,True,,False,模型中的协变量误译为软件编程中的“协程”，虽可看出各因素作了调整。
+H076,B,clinical epidemiology,abstract,translated,True,True,False,True,,False,模型中的协变量误译为软件编程中的“协程”，虽可看出各因素作了调整。
+H077,A,clinical epidemiology,abstract,review,False,False,False,False,,True,原候选保留 OR、置信区间、群体、方向和参照组，没有展示。
+H077,B,clinical epidemiology,abstract,translated,True,True,True,True,,False,关键效应量 odds ratio 被称为“奇数比”，数值 0.61 的统计含义错误。
+H078,A,clinical epidemiology,abstract,review,False,False,False,False,,False,原候选把统计学不显著说成“微不足道”，页面未展示译文。
+H078,B,clinical epidemiology,abstract,translated,True,True,True,True,,False,“奇数比”改变效应量名称，“微不足道”又将统计学不显著混为实际重要性很小。
+H079,A,clinical epidemiology,introduction,review,False,False,False,False,,True,正确的老年人群关联描述没有展示。
+H080,A,clinical epidemiology,methods,review,True,False,False,False,,False,仅留调查名称和年份，漏去全国代表性、分层抽样和家庭选择。
+H080,B,clinical epidemiology,methods,translated,True,True,False,True,,False,把先抽取家庭再收集数据的行动关系写成“收集年度国家数据，以选择家庭单位”。
+H081,A,clinical epidemiology,methods,review,True,True,True,False,,False,"将研究参与者写成“科目”，21,236 和完成调查者的人群归属错误。"
+H081,B,clinical epidemiology,methods,translated,True,True,True,True,,False,"将研究参与者写成“科目”，21,236 和完成调查者的人群归属错误。"
+H082,A,clinical epidemiology,methods,review,False,False,False,False,,False,原候选遗漏每天这一计量周期，页面没有展示。
+H082,B,clinical epidemiology,methods,translated,True,True,False,True,,False,分组阈值和均值都在，但遗漏明确的“每日”，并以“对于整个人口”悬置句尾。
+H083,A,clinical epidemiology,methods,translated,True,True,False,True,,False,将多重比较的事后校正写成“临时调整”，错释统计程序。
+H083,B,clinical epidemiology,methods,translated,True,True,False,True,,False,将多重比较的事后校正写成“临时调整”，错释统计程序。
+H086,A,clinical epidemiology,results,partial,True,False,True,False,,False,仅显示“意义消失了”，既遗漏组间风险和区间，也不再表达统计显著性的变化。
+H086,B,clinical epidemiology,results,translated,True,True,True,True,,False,将 OR 误称“数比”，把调整后不再有统计学显著性写成“意义消失了”。
+H088,A,clinical epidemiology,discussion,translated,True,True,False,True,,False,没有发现稳健关联不等同于没有发现强烈关联，译文把稳健性写成关联强度。
+H088,B,clinical epidemiology,discussion,translated,True,True,False,True,,False,没有发现稳健关联不等同于没有发现强烈关联，译文把稳健性写成关联强度。
+H089,A,clinical epidemiology,discussion,review,False,False,False,False,,False,候选将较低的血红蛋白和贫血写成“贫血降低”，未展示译文。
+H089,B,clinical epidemiology,discussion,translated,True,True,True,True,,False,把因贫血而睡眠较短的可能性写成“贫血降低的结果”，结局方向错误。
+H090,A,clinical epidemiology,discussion,translated,True,True,False,True,,False,时间先后顺序误作“时间优先级”，未说明横断面设计不能判断谁先发生。
+H090,B,clinical epidemiology,discussion,translated,True,True,False,True,,False,时间先后顺序误作“时间优先级”，未说明横断面设计不能判断谁先发生。
+H091,A,computational biology and statistics,abstract,translated,True,True,True,True,,False,把开发归一化方法写作新常态的发展，混淆了研究对象。
+H091,B,computational biology and statistics,abstract,translated,True,True,True,True,,False,归一化方法被写成“新常态”，模型性能评价被改成“绩效措施”。
+H092,A,computational biology and statistics,introduction,translated,True,True,False,True,,False,样本间归一化算法被泛化为样本“正常化”，不是 RNA 测序领域的准确术语。
+H092,B,computational biology and statistics,introduction,translated,True,True,False,True,,False,样本间归一化算法被泛化为样本“正常化”，不是 RNA 测序领域的准确术语。
+H093,A,computational biology and statistics,introduction,review,False,False,False,False,,False,无展示；候选中的“地面真理”与“表达式矩阵”均不适用。
+H093,B,computational biology and statistics,introduction,translated,True,True,True,True,,False,将真实参照译为“地面真理”，把基因表达矩阵混为数学表达式矩阵。
+H094,A,computational biology and statistics,figure,translated,True,True,False,True,,False,参照集合写成“引用集”，测序读段计数写成泛指的“读取计数”。
+H094,B,computational biology and statistics,figure,translated,True,True,False,True,,False,参照集合写成“引用集”，测序读段计数写成泛指的“读取计数”。
+H096,A,computational biology and statistics,introduction,review,False,False,False,False,,False,无展示，原候选将真实参照误作电学的接地。
+H096,B,computational biology and statistics,introduction,translated,True,True,True,True,,False,把指标对真实值的依赖写成“基于接地”，并把表达矩阵写成表达式矩阵。
+H097,A,computational biology and statistics,methods,translated,True,True,True,True,,False,入选标准是加入 ERCC 外源对照，译文说加入“ERCC峰值”，改变了样本处理条件。
+H097,B,computational biology and statistics,methods,translated,True,True,True,True,,False,外源对照误为峰值，计量对象错误。
+H098,A,computational biology and statistics,methods,translated,True,True,False,True,,False,矩阵误译为基质，与后句的计数矩阵不一致。
+H098,B,computational biology and statistics,methods,translated,True,True,False,True,,False,把 n × m 表达矩阵称为“基质”，读段计数也译成“读取计数”，虽保留样本索引。
+H099,A,computational biology and statistics,methods,translated,True,False,True,True,,False,丢失倍数变化等于 1 和每个样本至少 t 个读段两个阈值，并把 ERCC 对照写成尖峰。
+H099,B,computational biology and statistics,methods,translated,True,False,True,True,,False,两个定义性阈值均消失，外源对照身份误译。
+H100,A,computational biology and statistics,methods,translated,True,True,True,True,,False,只有逐列缩放时才成立的等式，被说成列扩展时成立，改变数学条件。
+H100,B,computational biology and statistics,methods,translated,True,True,True,True,,False,只有逐列缩放时才成立的等式，被说成列扩展时成立，改变数学条件。
+H101,A,computational biology and statistics,methods,translated,True,True,True,True,,False,生物学的差异表达改成数学中的“差分表达式”，归一化也被写作正常化。
+H101,B,computational biology and statistics,methods,translated,True,True,True,True,,False,生物学的差异表达改成数学中的“差分表达式”，归一化也被写作正常化。
+H102,A,computational biology and statistics,figure,translated,True,True,True,True,,False,把倍数变化写成“折叠变化”，把变化的基因比例写成基因的不同部分。
+H102,B,computational biology and statistics,figure,translated,True,True,True,True,,False,把倍数变化写成“折叠变化”，把变化的基因比例写成基因的不同部分。
+H103,A,computational biology and statistics,figure,translated,True,True,True,True,,False,归一化算法误作制剂，AUC 的括号还错误地挂在 ROC 曲线上。
+H103,B,computational biology and statistics,figure,translated,True,True,True,True,,False,图 A 中的归一化算法误作“标准化剂”，改变评价对象。
+H104,A,computational biology and statistics,results,partial,True,False,False,False,,False,省略真实参照无法稳定的结果，保留的唯一句仍将 Rat 拼错。
+H104,B,computational biology and statistics,results,translated,True,True,True,True,,False,把真实参照写成文献“引用”，且命名数据集 Rat Bodymap 被变为 Rata Bodymap。
+H105,A,computational biology and statistics,discussion,partial,True,False,True,False,,False,把真实值写成“地面真理”，并省略超过两种条件时的局限。
+H105,B,computational biology and statistics,discussion,translated,True,True,True,True,,False,真实值被写成“地面真理”，“两个以上”未保留严格大于两种的边界。

@@ -335,6 +335,13 @@ main:has(.frw) .hero.uploadHero{padding:18px 0}main:has(.frw) .uploadHero h1{fon
 .local-translation > small { display: block; color: #79551f }
 .local-translation summary { cursor: pointer; color: #474c58 }
 .local-translation blockquote { margin: 5px 0; font-size: .95em; overflow-wrap: anywhere }
+.local-translation .selection-actions {flex-wrap:wrap}
+.local-translation pre,.local-translation .translation-unit,.local-translation details>div {white-space:pre-wrap;overflow-wrap:anywhere}
+.local-translation pre {font:inherit;background:var(--wash);max-height:10rem;overflow:auto;padding:.55rem}
+.local-translation .translation-unit {border-top:1px solid #dfe1e4;padding:.45rem 0}
+.local-translation .translation-unit small,.local-translation > div:not(.selection-actions)>small {display:block}
+.local-translation .translation-unit button,.local-translation details>button {margin:.3rem .3rem .3rem 0}
+.local-translation .selection-actions button {flex-shrink:0}
 @media (hover: hover) {
   .local-translation .selection-translate:hover:not(:disabled) { background: var(--wash) }
   .local-translation .selection-ask:hover, .local-translation .selection-ask:hover .selection-icon::before { background: var(--accent-strong) }

@@ -1,0 +1,146 @@
+[
+  {
+    "doi": "10.7554/eLife.17688",
+    "pmcid": "PMC5083065",
+    "title": "The influence of evidence volatility on choice, reaction time and confidence in a perceptual decision",
+    "authors": [
+      "Ariel Zylberberg",
+      "Christopher R Fetsch",
+      "Michael N Shadlen"
+    ],
+    "journal": "eLife",
+    "field": "cognitive neuroscience",
+    "year": "2016",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "copyright": "© 2016, Zylberberg et al",
+    "url": "https://doi.org/10.7554/eLife.17688",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5083065/fullTextXML",
+    "xmlSha256": "806260382dd1294b739b3ba3d222c120533934885efb008faff3fb8b64559058",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  },
+  {
+    "doi": "10.7717/peerj.16270",
+    "pmcid": "PMC10576493",
+    "title": "Physical activity, problematic smartphone use, and burnout among Chinese college students",
+    "authors": [
+      "Lianghao Zhu",
+      "Junli Hou",
+      "Bojun Zhou",
+      "Xi Xiao",
+      "Jingqiang Wang",
+      "Wanping Jia"
+    ],
+    "journal": "PeerJ",
+    "field": "social sciences",
+    "year": "2023",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "© 2023 Zhu et al.",
+    "url": "https://doi.org/10.7717/peerj.16270",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10576493/fullTextXML",
+    "xmlSha256": "8dcaa08b31c85ed33cb14f106f223889fd283cd58e92407212fea92b79e960f5",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  },
+  {
+    "doi": "10.3390/plants12234046",
+    "pmcid": "PMC10708307",
+    "title": "Assessment of Mediterranean Citrus Peel Flavonoids and Their Antioxidant Capacity Using an Innovative UV-Vis Spectrophotometric Approach",
+    "authors": [
+      "Rosario Mare",
+      "Roberta Pujia",
+      "Samantha Maurotti",
+      "Simona Greco",
+      "Antonio Cardamone",
+      "Anna Rita Coppoletta",
+      "Sonia Bonacci",
+      "Antonio Procopio",
+      "Arturo Pujia"
+    ],
+    "journal": "Plants",
+    "field": "analytical and organic chemistry",
+    "year": "2023",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "© 2023 by the authors.",
+    "url": "https://doi.org/10.3390/plants12234046",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10708307/fullTextXML",
+    "xmlSha256": "f6cad6bfef69cd5a0f1868c7d36cc4b3b446bc98a2ad382919b207a80ef6a14a",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  },
+  {
+    "doi": "10.3390/s23125500",
+    "pmcid": "PMC10305366",
+    "title": "Real-Time Gait Event Detection with Adaptive Frequency Oscillators from a Single Head-Mounted IMU",
+    "authors": [
+      "Matej Tomc",
+      "Zlatko Matjačić"
+    ],
+    "journal": "Sensors (Basel, Switzerland)",
+    "field": "biomedical engineering",
+    "year": "2023",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "© 2023 by the authors.",
+    "url": "https://doi.org/10.3390/s23125500",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10305366/fullTextXML",
+    "xmlSha256": "ddd0a82e77c5a6e3fcff63a6f172423349209573cc769c323a0c13b2e5803fad",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  },
+  {
+    "doi": "10.3390/polym15234613",
+    "pmcid": "PMC10708313",
+    "title": "A Comparative Study on Crystallisation for Virgin and Recycled Polyethylene Terephthalate (PET): Multiscale Effects on Physico-Mechanical Properties",
+    "authors": [
+      "Laurianne Viora",
+      "Marie Combeau",
+      "Monica Francesca Pucci",
+      "Didier Perrin",
+      "Pierre-Jacques Liotier",
+      "Jean-Luc Bouvard",
+      "Christelle Combeaud"
+    ],
+    "journal": "Polymers",
+    "field": "polymer physics and materials",
+    "year": "2023",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "© 2023 by the authors.",
+    "url": "https://doi.org/10.3390/polym15234613",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10708313/fullTextXML",
+    "xmlSha256": "bee54dcf24850d8dc24f79119bf1fbd3cfe64f76294811b170100790c5b41259",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  },
+  {
+    "doi": "10.3390/ijerph18094721",
+    "pmcid": "PMC8124661",
+    "title": "Relationship between Self-Reported Sleep Duration and Risk of Anemia: Data from the Korea National Health and Nutrition Examination Survey 2016–2017",
+    "authors": [
+      "Min-Young Chun",
+      "Jeong-hoon Kim",
+      "Ju-Seop Kang"
+    ],
+    "journal": "International Journal of Environmental Research and Public Health",
+    "field": "clinical epidemiology",
+    "year": "2021",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "© 2021 by the authors.",
+    "url": "https://doi.org/10.3390/ijerph18094721",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8124661/fullTextXML",
+    "xmlSha256": "70fe8b7e1832c2bf39855e28a9f9b1eb99200799104c3cfe148ef7ae2cb28b05",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  },
+  {
+    "doi": "10.7717/peerj.12233",
+    "pmcid": "PMC8496462",
+    "title": "cdev: a ground-truth based measure to evaluate RNA-seq normalization performance",
+    "authors": [
+      "Diem-Trang Tran",
+      "Matthew Might"
+    ],
+    "journal": "PeerJ",
+    "field": "computational biology and statistics",
+    "year": "2021",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "©2021 Tran and Might",
+    "url": "https://doi.org/10.7717/peerj.12233",
+    "xml": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8496462/fullTextXML",
+    "xmlSha256": "23aa4751b0b7ff36b2569e5acf122ebb5e0b17944ab794992cf17e527afc8993",
+    "alterations": "JATS excerpts use normalized whitespace and Unicode numeric sub-/superscripts. Selections marked pdf-line-break reproduce text extracted from the cited original PDF. Chinese translations and annotations are newly supplied."
+  }
+]

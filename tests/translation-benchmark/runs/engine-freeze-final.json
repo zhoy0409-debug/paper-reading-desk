@@ -1,0 +1,38 @@
+[
+  {
+    "file": "scientific-translation.js",
+    "sha256": "7ee3a533fd0e8d0c1da5cbb74c36b18d9535608fe3fab4e445958950475e2db3"
+  },
+  {
+    "file": "selection-translation.js",
+    "sha256": "9604fe7476b16f73a481c3b5880b12672ad56cf59baffda7b89faebf878ebe01"
+  },
+  {
+    "file": "translation-alignment.js",
+    "sha256": "bc4b08cecea40c9424777dccc073664fb11f3f6208a6ed399376dce417217d55"
+  },
+  {
+    "file": "translation-facts.js",
+    "sha256": "579163381714aeb2e44011064f0b6a6f33d7be26812d8c740801f7fbd10d3f57"
+  },
+  {
+    "file": "translation-runtime-cache.js",
+    "sha256": "86a9c9f6190e9d113d9bfd75bb6d99f2c915ae2f86a306cee879c5fbd712cc00"
+  },
+  {
+    "file": "translation-session.js",
+    "sha256": "022d96693f7b77b10bb86c64c6279bc5ed4fe31617e68638bb92206a4224a60e"
+  },
+  {
+    "file": "discipline-glossary.js",
+    "sha256": "5c919dac4e6907053cd5941675588dd1f69d2e2ede3c753b64e4e4073d4dc42f"
+  },
+  {
+    "file": "paper-language.js",
+    "sha256": "b456d1569fbc8162ec0598b66e4ee87d934010aac22973bbefd26d08f90e263c"
+  },
+  {
+    "file": "translator.js",
+    "sha256": "c906ceca32ad06a7b189dd08993264ef6c721270f2dbff038f66312a546fea1f"
+  }
+]

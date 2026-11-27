@@ -1,0 +1,6 @@
+# Frozen UTF-8 evidence is hashed byte for byte on both Windows and Linux.
+*.json text eol=lf
+*.jsonl text eol=lf
+*.tsv text eol=lf
+*.csv text eol=lf
+*.txt text eol=lf

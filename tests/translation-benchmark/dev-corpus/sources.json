@@ -1,0 +1,255 @@
+[
+  {
+    "key": "forest",
+    "doi": "10.1371/journal.pone.0249715",
+    "title": "The tree cover and temperature disparity in US urbanized areas: Quantifying the association with income across 5,723 communities",
+    "authors": [
+      "Robert I. McDonald",
+      "Tanushree Biswas",
+      "Cedilla Sachar",
+      "Ian Housman",
+      "Timothy M. Boucher",
+      "Deborah Balk",
+      "David Nowak",
+      "Erica Spotswood",
+      "Charlotte K. Stanley",
+      "Stefan Leyk"
+    ],
+    "year": "2021",
+    "journal": "PLOS ONE",
+    "field": "earth",
+    "credit": "Robert I. McDonald, Tanushree Biswas, Cedilla Sachar, Ian Housman, Timothy M. Boucher, Deborah Balk, David Nowak, Erica Spotswood, Charlotte K. Stanley, Stefan Leyk",
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licenseNotice": "This is an open access article, free of all copyright, and may be freely reproduced, distributed, transmitted, modified, built upon, or otherwise used by anyone for any lawful purpose. The work is made available under the Creative Commons CC0 public domain dedication.",
+    "url": "https://doi.org/10.1371/journal.pone.0249715",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0249715&type=manuscript",
+    "xmlSha256": "af00fc527827891136e6f8448c2f43b73928ee4c2d9893d187bc7ed52683f147",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  },
+  {
+    "key": "paths",
+    "doi": "10.1371/journal.pcbi.1012014",
+    "title": "Clustering and visualization of single-cell RNA-seq data using path metrics",
+    "authors": [
+      "Andriana Manousidaki",
+      "Anna Little",
+      "Yuying Xie"
+    ],
+    "year": "2024",
+    "journal": "PLOS Computational Biology",
+    "field": "bioinformatics",
+    "credit": "Andriana Manousidaki, Anna Little, Yuying Xie",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pcbi.1012014",
+    "xmlUrl": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371%2Fjournal.pcbi.1012014&type=manuscript",
+    "xmlSha256": "ea676bd0da591ee8d76d34edfd8dc52467672bb95cd2777008a12a9865e8fc6c",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator",
+      "supplementaryFiles": [
+        {
+          "doi": "10.1371/journal.pcbi.1012014.s001",
+          "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1012014.s001&type=supplementary",
+          "sha256": "c8c572ccc847d6f538e2162f5f8f7b96e427a62f3cc5f89e7026a2dcdfdea5ff",
+          "extractor": "pypdf 6.21.4; page 1; original line breaks retained"
+        },
+        {
+          "doi": "10.1371/journal.pcbi.1012014.s002",
+          "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1012014.s002&type=supplementary",
+          "sha256": "50919fd96817c2301f23a1b0e160e66f764020798f5c8407aaefef27fbd889b9",
+          "extractor": "pypdf 6.21.4; page 1; original line breaks retained"
+        }
+      ]
+    }
+  },
+  {
+    "key": "insulate",
+    "doi": "10.1371/journal.pone.0200842",
+    "title": "Enhancement of the heat conduction performance of boron nitride/cellulosic fibre insulating composites",
+    "authors": [
+      "Zhihuai Yu",
+      "Xiu Wang",
+      "Huiyang Bian",
+      "Liang Jiao",
+      "Weibing Wu",
+      "Hongqi Dai"
+    ],
+    "year": "2018",
+    "journal": "PLOS ONE",
+    "field": "materials",
+    "credit": "Zhihuai Yu, Xiu Wang, Huiyang Bian, Liang Jiao, Weibing Wu, Hongqi Dai",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pone.0200842",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0200842&type=manuscript",
+    "xmlSha256": "23073ca70ef04774ba29047cd11a2a213bf68677767968c802d50bca37f1e064",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  },
+  {
+    "key": "gravel",
+    "doi": "10.1371/journal.pone.0285559",
+    "title": "Effects of flow regimes on the interaction between granular flow and flexible barrier",
+    "authors": [
+      "Siyou Xiao",
+      "Xingqian Xu",
+      "Haijun Wang",
+      "Dianxin Li",
+      "Zhongju Wei",
+      "Tengyuan Zhang"
+    ],
+    "year": "2023",
+    "journal": "PLOS ONE",
+    "field": "engineering",
+    "credit": "Siyou Xiao, Xingqian Xu, Haijun Wang, Dianxin Li, Zhongju Wei, Tengyuan Zhang",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pone.0285559",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0285559&type=manuscript",
+    "xmlSha256": "0f4566b957752c11e5972dba3f339e026c2c16b8fe3d9da26459929e6542e62d",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  },
+  {
+    "key": "coffee",
+    "doi": "10.1371/journal.pone.0161375",
+    "title": "The Effects of Caffeine Supplementation on Physiological Responses to Submaximal Exercise in Endurance-Trained Men",
+    "authors": [
+      "Mark Glaister",
+      "Benjamin Henley Williams",
+      "Daniel Muniz-Pumares",
+      "Carlos Balsalobre-Fernández",
+      "Paul Foley"
+    ],
+    "year": "2016",
+    "journal": "PLOS ONE",
+    "field": "pharmacology",
+    "credit": "Mark Glaister, Benjamin Henley Williams, Daniel Muniz-Pumares, Carlos Balsalobre-Fernández, Paul Foley",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pone.0161375",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0161375&type=manuscript",
+    "xmlSha256": "7de781b63d57eb96cae9a1ccb1a3a81fa6117e5f1c917a2919b9070dc78cf67c",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  },
+  {
+    "key": "sleep",
+    "doi": "10.1371/journal.pone.0319085",
+    "title": "Short sleep duration is a significant risk factor of obesity: A multicenter observational study of healthy adults in Japan",
+    "authors": [
+      "Mami Takahashi",
+      "Takeshi Shimamoto",
+      "Lumine Matsumoto",
+      "Yusuke Mitsui",
+      "Yukari Masuda",
+      "Hirotaka Matsuzaki",
+      "Eriko Hasumi",
+      "Chie Bujo",
+      "Keiko Niimi",
+      "Takako Nishikawa",
+      "Ryoichi Wada",
+      "Nobutake Yamamichi"
+    ],
+    "year": "2025",
+    "journal": "PLOS ONE",
+    "field": "epidemiology",
+    "credit": "Mami Takahashi, Takeshi Shimamoto, Lumine Matsumoto, Yusuke Mitsui, Yukari Masuda, Hirotaka Matsuzaki, Eriko Hasumi, Chie Bujo, Keiko Niimi, Takako Nishikawa, Ryoichi Wada, Nobutake Yamamichi",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pone.0319085",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0319085&type=manuscript",
+    "xmlSha256": "351b70c203e9db3f74e54b4b539e4b5a8dc74cb75a5145dae0c6ea982a7256fd",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  },
+  {
+    "key": "predation",
+    "doi": "10.1371/journal.pone.0264881",
+    "title": "Landscape diversity and local temperature, but not climate, affect arthropod predation among habitat types",
+    "authors": [
+      "Ute Fricke",
+      "Ingolf Steffan-Dewenter",
+      "Jie Zhang",
+      "Cynthia Tobisch",
+      "Sandra Rojas-Botero",
+      "Caryl S. Benjamin",
+      "Jana Englmeier",
+      "Cristina Ganuza",
+      "Maria Haensel",
+      "Rebekka Riebl",
+      "Johannes Uhler",
+      "Lars Uphus",
+      "Jörg Ewald",
+      "Johannes Kollmann",
+      "Sarah Redlich"
+    ],
+    "year": "2022",
+    "journal": "PLOS ONE",
+    "field": "ecology",
+    "credit": "Ute Fricke, Ingolf Steffan-Dewenter, Jie Zhang, Cynthia Tobisch, Sandra Rojas-Botero, Caryl S. Benjamin, Jana Englmeier, Cristina Ganuza, Maria Haensel, Rebekka Riebl, Johannes Uhler, Lars Uphus, Jörg Ewald, Johannes Kollmann, Sarah Redlich",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pone.0264881",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0264881&type=manuscript",
+    "xmlSha256": "f9101c8e6a972eb51fb9b774253c25f6a77e1fe4b0a7a08eb13dd80bda0ed20f",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  },
+  {
+    "key": "curcumin",
+    "doi": "10.1371/journal.pone.0202677",
+    "title": "Curcumin mediates polyamine metabolism and sensitizes gastrointestinal cancer cells to antitumor polyamine-targeted therapies",
+    "authors": [
+      "Tracy Murray-Stewart",
+      "Matthew Dunworth",
+      "Yuan Lui",
+      "Francis M. Giardiello",
+      "Patrick M. Woster",
+      "Robert A. Casero"
+    ],
+    "year": "2018",
+    "journal": "PLOS ONE",
+    "field": "chemistry",
+    "credit": "Tracy Murray-Stewart, Matthew Dunworth, Yuan Lui, Francis M. Giardiello, Patrick M. Woster, Robert A. Casero",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "licenseNotice": "This is an open access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.",
+    "url": "https://doi.org/10.1371/journal.pone.0202677",
+    "xmlUrl": "https://journals.plos.org/plosone/article/file?id=10.1371%2Fjournal.pone.0202677&type=manuscript",
+    "xmlSha256": "763127324ae3c722d4f3d1d8b67bc173b52e512b88a0319ebf04350338c1e6dd",
+    "provenance": {
+      "format": "publisher JATS",
+      "identification": "front/article-meta/article-id[@pub-id-type='doi']",
+      "licenseLocation": "front/article-meta/permissions/license",
+      "excerptLocation": "per-record XPath and sentence index in locator"
+    }
+  }
+]

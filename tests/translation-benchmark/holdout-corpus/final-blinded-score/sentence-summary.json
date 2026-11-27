@@ -1,0 +1,192 @@
+{
+  "all": {
+    "units": 145,
+    "passages": 105,
+    "AInline": 98,
+    "AExpandable": 47,
+    "AUnavailable": 0,
+    "AEffectiveDefault": 54,
+    "AEffectiveAfterExpansion": 79,
+    "BEffectiveDefault": 73,
+    "BUnavailable": 4,
+    "AExpandableGrades": {
+      "n": 6,
+      "y": 25,
+      "s": 16
+    },
+    "AInlineGrades": {
+      "y": 54,
+      "s": 25,
+      "n": 19
+    },
+    "BGrades": {
+      "y": 73,
+      "n": 25,
+      "s": 43,
+      "x": 4
+    },
+    "ADefaultPassageStates": {
+      "allInline": 64,
+      "noneInline": 30,
+      "partiallyInline": 11
+    },
+    "AExpandableCorrect": [
+      "H002.2",
+      "H004.1",
+      "H007.1",
+      "H008.1",
+      "H009.1",
+      "H017.1",
+      "H020.2",
+      "H022.1",
+      "H024.1",
+      "H025.1",
+      "H027.1",
+      "H056.1",
+      "H060.2",
+      "H062.1",
+      "H063.1",
+      "H066.2",
+      "H071.1",
+      "H072.1",
+      "H074.1",
+      "H075.2",
+      "H077.1",
+      "H078.1",
+      "H079.1",
+      "H082.1",
+      "H086.1"
+    ],
+    "AExpandableSerious": [
+      "H014.1",
+      "H020.1",
+      "H028.1",
+      "H034.1",
+      "H038.1",
+      "H039.1",
+      "H043.1",
+      "H043.2",
+      "H051.2",
+      "H071.2",
+      "H078.2",
+      "H089.1",
+      "H093.1",
+      "H096.1",
+      "H104.1",
+      "H105.2"
+    ]
+  },
+  "preselected35": {
+    "units": 54,
+    "passages": 35,
+    "AInline": 34,
+    "AExpandable": 20,
+    "AUnavailable": 0,
+    "AEffectiveDefault": 18,
+    "AEffectiveAfterExpansion": 28,
+    "BEffectiveDefault": 25,
+    "BUnavailable": 2,
+    "AExpandableGrades": {
+      "n": 3,
+      "y": 10,
+      "s": 7
+    },
+    "AInlineGrades": {
+      "y": 18,
+      "n": 8,
+      "s": 8
+    },
+    "BGrades": {
+      "n": 11,
+      "y": 25,
+      "s": 16,
+      "x": 2
+    },
+    "ADefaultPassageStates": {
+      "noneInline": 10,
+      "allInline": 19,
+      "partiallyInline": 6
+    },
+    "AExpandableCorrect": [
+      "H002.2",
+      "H007.1",
+      "H017.1",
+      "H020.2",
+      "H062.1",
+      "H066.2",
+      "H072.1",
+      "H075.2",
+      "H078.1",
+      "H082.1"
+    ],
+    "AExpandableSerious": [
+      "H020.1",
+      "H028.1",
+      "H034.1",
+      "H051.2",
+      "H078.2",
+      "H089.1",
+      "H104.1"
+    ]
+  },
+  "remainder70": {
+    "units": 91,
+    "passages": 70,
+    "AInline": 64,
+    "AExpandable": 27,
+    "AUnavailable": 0,
+    "AEffectiveDefault": 36,
+    "AEffectiveAfterExpansion": 51,
+    "BEffectiveDefault": 48,
+    "BUnavailable": 2,
+    "AExpandableGrades": {
+      "y": 15,
+      "n": 3,
+      "s": 9
+    },
+    "AInlineGrades": {
+      "y": 36,
+      "s": 17,
+      "n": 11
+    },
+    "BGrades": {
+      "y": 48,
+      "s": 27,
+      "n": 14,
+      "x": 2
+    },
+    "ADefaultPassageStates": {
+      "allInline": 45,
+      "noneInline": 20,
+      "partiallyInline": 5
+    },
+    "AExpandableCorrect": [
+      "H004.1",
+      "H008.1",
+      "H009.1",
+      "H022.1",
+      "H024.1",
+      "H025.1",
+      "H027.1",
+      "H056.1",
+      "H060.2",
+      "H063.1",
+      "H071.1",
+      "H074.1",
+      "H077.1",
+      "H079.1",
+      "H086.1"
+    ],
+    "AExpandableSerious": [
+      "H014.1",
+      "H038.1",
+      "H039.1",
+      "H043.1",
+      "H043.2",
+      "H071.2",
+      "H093.1",
+      "H096.1",
+      "H105.2"
+    ]
+  }
+}

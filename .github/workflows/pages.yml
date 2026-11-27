@@ -16,6 +16,13 @@ on:
       - 'tests/caption-flow.cjs'
       - 'tests/subject-glossary-browser.cjs'
       - 'tests/translation-transfer.mjs'
+      - 'tests/translation-*.cjs'
+      - 'tests/translation-session.mjs'
+      - 'tests/translation-benchmark/**'
+      - 'tests/provider-test.py'
+      - 'preview.py'
+      - 'reading_questions.py'
+      - 'reading_providers.py'
       - 'tests/portable-update-browser.cjs'
       - 'tests/paper-map-browser.cjs'
       - 'tests/tour-media.py'
@@ -33,13 +40,15 @@ on:
       - 'tests/fixtures/*legend.pdf'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: reading-desk-pages
+  group: reading-desk-pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -60,7 +69,7 @@ jobs:
           test -s _site/cover-zh.webp
           test -s _site/film/en.html
       - name: Test the reader at its public subpath
-        timeout-minutes: 12
+        timeout-minutes: 20
         run: |
           npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.65.1
           export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
@@ -83,9 +92,17 @@ jobs:
           node tests/map-language.mjs
           node tests/caption-flow.cjs
           node tests/scientific-translation.mjs
+          node tests/translation-session.mjs
+          python3 tests/provider-test.py
+          python3 tests/translation-benchmark/verify-acceptance.py
           node tests/translation-transfer.mjs
           node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/
+          node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/ --isolated-faults
           READER_BROWSER=webkit node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/ --healthy
+          node tests/translation-workflow-browser.cjs http://127.0.0.1:8174/read/
+          READER_BROWSER=webkit node tests/translation-workflow-browser.cjs http://127.0.0.1:8174/read/
+          node tests/translation-cache-browser.cjs http://127.0.0.1:8174/read/
+          node tests/translation-lifecycle-browser.cjs http://127.0.0.1:8174/read/
           if ! command -v ffmpeg >/dev/null; then
             sudo apt-get -c "$RUNNER_TEMP/reader-apt.conf" install -y ffmpeg
           fi
@@ -109,10 +126,12 @@ jobs:
           node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
       - uses: actions/upload-pages-artifact@v5
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: _site
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:

@@ -1,0 +1,313 @@
+{
+  "url": "http://127.0.0.1:8218/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "hot-0",
+      "chars": 40,
+      "from": "en",
+      "ms": 1105,
+      "text": "蓝光穿过玻璃。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-1",
+      "chars": 48,
+      "from": "en",
+      "ms": 32,
+      "text": "温暖的表面在光线去除后冷却。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-2",
+      "chars": 43,
+      "from": "en",
+      "ms": 39,
+      "text": "浓度为0.25毫克/毫升（图2c）。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-3",
+      "chars": 59,
+      "from": "en",
+      "ms": 35,
+      "text": "A组增长10%,B组增长20%。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-4",
+      "chars": 60,
+      "from": "en",
+      "ms": 27,
+      "text": "测量过程中室温保持稳定。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-5",
+      "chars": 40,
+      "from": "en",
+      "ms": 23,
+      "text": "蓝光穿过玻璃。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-6",
+      "chars": 48,
+      "from": "en",
+      "ms": 32,
+      "text": "温暖的表面在光线去除后冷却。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-7",
+      "chars": 43,
+      "from": "en",
+      "ms": 38,
+      "text": "浓度为0.25毫克/毫升（图2c）。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-8",
+      "chars": 59,
+      "from": "en",
+      "ms": 37,
+      "text": "A组增长10%,B组增长20%。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-9",
+      "chars": 60,
+      "from": "en",
+      "ms": 27,
+      "text": "测量过程中室温保持稳定。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-10",
+      "chars": 40,
+      "from": "en",
+      "ms": 23,
+      "text": "蓝光穿过玻璃。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-11",
+      "chars": 48,
+      "from": "en",
+      "ms": 33,
+      "text": "温暖的表面在光线去除后冷却。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-12",
+      "chars": 43,
+      "from": "en",
+      "ms": 45,
+      "text": "浓度为0.25毫克/毫升（图2c）。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-13",
+      "chars": 59,
+      "from": "en",
+      "ms": 37,
+      "text": "A组增长10%,B组增长20%。",
+      "status": "translated"
+    },
+    {
+      "id": "hot-14",
+      "chars": 60,
+      "from": "en",
+      "ms": 27,
+      "text": "测量过程中室温保持稳定。",
+      "status": "translated"
+    },
+    {
+      "id": "zh-0",
+      "chars": 23,
+      "from": "zh",
+      "ms": 856,
+      "text": "The experimental group increased by 10%, while the control group decreased by 20%.",
+      "status": "translated"
+    },
+    {
+      "id": "zh-1",
+      "chars": 6,
+      "from": "zh",
+      "ms": 23,
+      "text": "Light through the glass.",
+      "status": "translated"
+    },
+    {
+      "id": "zh-2",
+      "chars": 10,
+      "from": "zh",
+      "ms": 25,
+      "text": "The temperature of the sample remains stable.",
+      "status": "translated"
+    },
+    {
+      "id": "length-100",
+      "chars": 100,
+      "from": "en",
+      "ms": 86,
+      "status": "failed",
+      "error": "Only protected labels were localized",
+      "stage": "validation",
+      "reason": "target"
+    },
+    {
+      "id": "length-500",
+      "chars": 500,
+      "from": "en",
+      "ms": 326,
+      "text": "蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 温度在mea期间保持稳定",
+      "status": "translated"
+    },
+    {
+      "id": "length-2000",
+      "chars": 2000,
+      "from": "en",
+      "ms": 1126,
+      "text": "蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%,B组增长20%。 室温",
+      "status": "translated"
+    },
+    {
+      "id": "length-6000",
+      "chars": 6000,
+      "from": "en",
+      "ms": 3149,
+      "status": "failed",
+      "error": "Translated passage did not preserve the source evidence",
+      "stage": "validation",
+      "reason": "target"
+    }
+  ],
+  "probes": {
+    "partial": {
+      "error": "Interrupted this unit",
+      "stage": "download"
+    },
+    "foregroundDuringMap": {
+      "id": "foreground",
+      "chars": 33,
+      "from": "en",
+      "ms": 24,
+      "text": "样品被保存在阴凉处。",
+      "status": "translated"
+    },
+    "warmOffline": {
+      "id": "warm-offline",
+      "chars": 42,
+      "from": "en",
+      "ms": 25,
+      "text": "一个新的样品被保存在室温下。",
+      "status": "translated"
+    },
+    "emptyOffline": {
+      "id": "cold-offline",
+      "chars": 40,
+      "from": "en",
+      "ms": 9,
+      "status": "failed",
+      "error": "Could not load /vendor/bergamot/translator.js",
+      "stage": "download"
+    },
+    "recovery": {
+      "id": "network-restored",
+      "chars": 40,
+      "from": "en",
+      "ms": 941,
+      "text": "蓝光穿过玻璃。",
+      "status": "translated"
+    }
+  },
+  "snapshots": [
+    {
+      "label": "before cold",
+      "files": {},
+      "starts": 0,
+      "inferences": 0,
+      "modelReady": [],
+      "requests": [],
+      "ts": 655.2999999998137
+    },
+    {
+      "label": "after en",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 15,
+      "modelReady": [
+        {
+          "start": 1112.8999999994412,
+          "end": 1393.7000000001863,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 2252.7000000001863
+    },
+    {
+      "label": "both languages",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1,
+        "vocab.zhen.spm": 1,
+        "model.zhen.intgemm.alphas.bin": 1,
+        "lex.50.50.zhen.s2t.bin": 1
+      },
+      "starts": 1,
+      "inferences": 197,
+      "modelReady": [
+        {
+          "start": 1112.8999999994412,
+          "end": 1393.7000000001863,
+          "from": "en"
+        },
+        {
+          "start": 2478.2000000001863,
+          "end": 2646.899999999441,
+          "from": "zh"
+        }
+      ],
+      "requests": [],
+      "ts": 8131.799999999814
+    },
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1,
+        "vocab.zhen.spm": 1,
+        "model.zhen.intgemm.alphas.bin": 1,
+        "lex.50.50.zhen.s2t.bin": 1
+      },
+      "starts": 1,
+      "inferences": 197,
+      "modelReady": [
+        {
+          "start": 1112.8999999994412,
+          "end": 1393.7000000001863,
+          "from": "en"
+        },
+        {
+          "start": 2478.2000000001863,
+          "end": 2646.899999999441,
+          "from": "zh"
+        }
+      ],
+      "requests": [],
+      "ts": 9626.200000000186
+    }
+  ],
+  "version": "0.4.18"
+}

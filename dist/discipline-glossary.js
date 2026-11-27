@@ -36,6 +36,19 @@ const catalog={
   humanities:{zh:'人文与法律',en:'Humanities & law',signal:/\b(?:linguistics?|textual criticism|jurisprudence|case law|legal precedent|contract law|philolog\w+|corpus linguistics)\b/gi,
     terms:[['case law','判例法'],['burden of proof','举证责任'],['contractual consideration','合同对价'],['contract law','合同法'],['corpus linguistics','语料库语言学'],['textual criticism','文本校勘']]}
 };
+// Narrow profiles inherit the vocabulary of their parent. The list contains
+// project-authored phrase pairs, not text copied from a third-party dictionary.
+for(const [id,parent,zh,en,signal,terms] of [
+  ['molecular','life','分子生物学','Molecular biology',/\b(?:gene expression|transcription factors?|messenger RNA)\b/gi,[['transcription factor','转录因子']]],
+  ['microbiology','life','微生物学','Microbiology',/\b(?:microbial communities|microbiology|microbiome|antimicrobial resistance)\b/gi,[['microbial community','微生物群落'],['antimicrobial resistance','抗微生物药物耐药性']]],
+  ['pharmacology','medicine','药理学','Pharmacology',/\b(?:dose.response|pharmacokinetic\w*|pharmacodynamic\w*)\b/gi,[['half-life','半衰期'],['clearance','清除率']]],
+  ['clinical','medicine','临床医学','Clinical medicine',/\b(?:clinical trials?|clinical outcome|randomi[sz]ed controlled trial)\b/gi,[['primary endpoint','主要终点']]],
+  ['epidemiology','medicine','流行病学','Epidemiology',/\b(?:person.years|incidence rate|prevalence ratio|cohort stud\w*)\b/gi,[['incidence rate','发病率'],['prevalence ratio','患病率比']]],
+  ['biostatistics','math','生物统计学','Biostatistics',/\b(?:standard error of the mean|survival analysis|censoring|odds ratio)\b/gi,[['odds ratio','比值比'],['confidence interval','置信区间']]],
+  ['bioinformatics','computing','生物信息学','Bioinformatics',/\b(?:bioinformatics|sequence alignment|single.cell transcriptom\w*)\b/gi,[['sequence alignment','序列比对'],['read depth','测序深度']]],
+  ['organic','chemistry','有机化学','Organic chemistry',/\b(?:organic chemistry|enantiomer\w*|stereochem\w*|functional group)\b/gi,[['functional group','官能团'],['enantiomer','对映异构体']]],
+  ['materials','engineering','材料科学','Materials science',/\b(?:microstructure|grain boundaries|materials science|crystallite size)\b/gi,[['grain boundary','晶界'],['microstructure','微观结构']]]
+])catalog[id]={zh,en,signal,parent,terms:[...catalog[parent].terms,...terms]};
 export const fields=[['auto','自动识别','Automatic'],...Object.entries(catalog).map(([k,f])=>[k,f.zh,f.en]),['general','通用','General'],['custom','我的词库','My glossary']];
 // Keep a snapshot so an in-flight translation always uses its original dictionary.
 export function customGlossary(text){
@@ -53,7 +66,7 @@ export function resolveField(choice,text=''){
   let best='general',score=0;
   for(const [id,field] of Object.entries(catalog)){
     const hits=new Set(Array.from(text.matchAll(field.signal),m=>m[0].toLowerCase())).size;
-    if(hits>score){best=id;score=hits}
+    if(hits>score||(hits&&hits===score&&field.parent===best)){best=id;score=hits}
   }
   return best;
 }
@@ -73,9 +86,32 @@ function matcher(field){
   cache.set(field,result);
   return result;
 }
-export function fieldTerms(text,choice='auto'){
-  const field=resolveField(choice,text),{terms,pattern}=matcher(field);
-  return Array.from(text.matchAll(pattern),m=>{
+const senses=[
+  ['SEM',/scanning electron|electron micrographs?/i,'扫描电子显微镜（SEM）'],
+  ['SEM',/standard error of (?:the )?mean|mean\s*(?:±|\+\/-)\s*SEM/i,'均值标准误（SEM）'],
+  ['SEM',/structural equation model|latent variables?/i,'结构方程模型（SEM）'],
+  ['expression',/gene expression|mRNA|transcription level/i,'基因表达'],
+  ['expression',/mathematical expression|algebraic|evaluate the expression/i,'表达式'],
+  ['resistance',/electric(?:al)? resistance|ohm|voltage|circuit/i,'电阻'],
+  ['resistance',/drag coefficient|air resistance|fluid resistance/i,'阻力'],
+  ['resistance',/drug resistance|antibiotic|antimicrobial resistance/i,'耐药性'],
+  ['vehicle control',/drug|dose|placebo|solvent|pharmaco/i,'溶媒对照'],
+  ['vehicle control',/traffic|steering|automotive|roadway/i,'车辆控制']
+];
+export function fieldTerms(text,choice='auto',context=''){
+  const scope=context?text+' '+context:text;
+  const field=resolveField(choice,scope),{terms,pattern}=matcher(field);
+  const base=Array.from(text.matchAll(pattern),m=>{
     return {index:m.index,original:m[0],value:terms.get(normalizedKey(m[0]))};
   });
+  const matches=[];
+  for(const m of text.matchAll(/\b(?:SEM|expression|resistance|vehicle control)\b/gi)){
+    const options=senses.filter(([key,cue])=>m[0].toLowerCase()===key.toLowerCase()&&cue.test(scope));
+    if(options.length!==1)continue;
+    const entry=base.find(t=>m.index<t.index+t.original.length&&t.index<m.index+m[0].length);
+    if(entry&&(field?.id==='custom'||entry.original.length>m[0].length))continue;
+    if(entry)entry.value=options[0][2];
+    else matches.push({index:m.index,original:m[0],value:options[0][2]});
+  }
+  return base.concat(matches).sort((a,b)=>a.index-b.index);
 }

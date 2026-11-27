@@ -1,0 +1,2543 @@
+{
+  "url": "http://127.0.0.1:8221/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "hot-0",
+      "chars": 40,
+      "from": "en",
+      "ms": 1258,
+      "text": "蓝光穿过玻璃。",
+      "units": [
+        {
+          "id": "1-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-1",
+      "chars": 48,
+      "from": "en",
+      "ms": 41,
+      "text": "温暖的表面在光线去除后冷却。",
+      "units": [
+        {
+          "id": "2-0",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-2",
+      "chars": 43,
+      "from": "en",
+      "ms": 37,
+      "text": "浓度为0.25毫克/毫升（图2c）。",
+      "units": [
+        {
+          "id": "3-0",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-3",
+      "chars": 59,
+      "from": "en",
+      "ms": 94,
+      "text": "A组增长10%，而B组减少20%。",
+      "units": [
+        {
+          "id": "4-0",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-4",
+      "chars": 60,
+      "from": "en",
+      "ms": 23,
+      "text": "测量过程中室温保持稳定。",
+      "units": [
+        {
+          "id": "5-0",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-5",
+      "chars": 40,
+      "from": "en",
+      "ms": 0,
+      "text": "蓝光穿过玻璃。",
+      "units": [
+        {
+          "id": "6-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-6",
+      "chars": 48,
+      "from": "en",
+      "ms": 0,
+      "text": "温暖的表面在光线去除后冷却。",
+      "units": [
+        {
+          "id": "7-0",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-7",
+      "chars": 43,
+      "from": "en",
+      "ms": 0,
+      "text": "浓度为0.25毫克/毫升（图2c）。",
+      "units": [
+        {
+          "id": "8-0",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-8",
+      "chars": 59,
+      "from": "en",
+      "ms": 0,
+      "text": "A组增长10%，而B组减少20%。",
+      "units": [
+        {
+          "id": "9-0",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-9",
+      "chars": 60,
+      "from": "en",
+      "ms": 0,
+      "text": "测量过程中室温保持稳定。",
+      "units": [
+        {
+          "id": "10-0",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-10",
+      "chars": 40,
+      "from": "en",
+      "ms": 0,
+      "text": "蓝光穿过玻璃。",
+      "units": [
+        {
+          "id": "11-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-11",
+      "chars": 48,
+      "from": "en",
+      "ms": 0,
+      "text": "温暖的表面在光线去除后冷却。",
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-12",
+      "chars": 43,
+      "from": "en",
+      "ms": 0,
+      "text": "浓度为0.25毫克/毫升（图2c）。",
+      "units": [
+        {
+          "id": "13-0",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-13",
+      "chars": 59,
+      "from": "en",
+      "ms": 0,
+      "text": "A组增长10%，而B组减少20%。",
+      "units": [
+        {
+          "id": "14-0",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "hot-14",
+      "chars": 60,
+      "from": "en",
+      "ms": 0,
+      "text": "测量过程中室温保持稳定。",
+      "units": [
+        {
+          "id": "15-0",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "zh-0",
+      "chars": 23,
+      "from": "zh",
+      "ms": 684,
+      "text": "The experimental group increased by 10%, while the control group decreased by 20%.",
+      "units": [
+        {
+          "id": "16-0",
+          "status": "translated",
+          "source": "实验组增加了 10%，而对照组降低了 20%。",
+          "text": "The experimental group increased by 10%, while the control group decreased by 20%.",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "zh-1",
+      "chars": 6,
+      "from": "zh",
+      "ms": 18,
+      "text": "Light through the glass.",
+      "units": [
+        {
+          "id": "17-0",
+          "status": "translated",
+          "source": "光穿过玻璃。",
+          "text": "Light through the glass.",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "zh-2",
+      "chars": 10,
+      "from": "zh",
+      "ms": 20,
+      "text": "The temperature of the sample remains stable.",
+      "units": [
+        {
+          "id": "18-0",
+          "status": "translated",
+          "source": "样品的温度保持稳定。",
+          "text": "The temperature of the sample remains stable.",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "length-100",
+      "chars": 100,
+      "from": "en",
+      "ms": 31,
+      "text": "蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 ",
+      "units": [
+        {
+          "id": "19-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "19-1",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "19-2",
+          "status": "failed",
+          "source": "The concen",
+          "text": "",
+          "validation": null,
+          "error": "Only protected labels were localized",
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "length-500",
+      "chars": 500,
+      "from": "en",
+      "ms": 26,
+      "text": "蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 温度在mea期间保持稳定",
+      "units": [
+        {
+          "id": "20-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-1",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-2",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-3",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "20-4",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-5",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-6",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-7",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-8",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "20-9",
+          "status": "translated",
+          "source": "The room temperature remained stable during the mea",
+          "text": "温度在mea期间保持稳定",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "length-2000",
+      "chars": 2000,
+      "from": "en",
+      "ms": 15,
+      "text": "蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 室温",
+      "units": [
+        {
+          "id": "21-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-1",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-2",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-3",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-4",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-5",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-6",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-7",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-8",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-9",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-10",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-11",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-12",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-13",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-14",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-15",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-16",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-17",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-18",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-19",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-20",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-21",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-22",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-23",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-24",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-25",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-26",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-27",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-28",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-29",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-30",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-31",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-32",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-33",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-34",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-35",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-36",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-37",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-38",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "21-39",
+          "status": "translated",
+          "source": "The room temperature",
+          "text": "室温",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "length-6000",
+      "chars": 6000,
+      "from": "en",
+      "ms": 10,
+      "text": "蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 A组增长10%，而B组减少20%。 测量过程中室温保持稳定。 蓝光穿过玻璃。 温暖的表面在光线去除后冷却。 浓度为0.25毫克/毫升（图2c）。 ",
+      "units": [
+        {
+          "id": "22-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-1",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-2",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-3",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-4",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-5",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-6",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-7",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-8",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-9",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-10",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-11",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-12",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-13",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-14",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-15",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-16",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-17",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-18",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-19",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-20",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-21",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-22",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-23",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-24",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-25",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-26",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-27",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-28",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-29",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-30",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-31",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-32",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-33",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-34",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-35",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-36",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-37",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-38",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-39",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-40",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-41",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-42",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-43",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-44",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-45",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-46",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-47",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-48",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-49",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-50",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-51",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-52",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-53",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-54",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-55",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-56",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-57",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-58",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-59",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-60",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-61",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-62",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-63",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-64",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-65",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-66",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-67",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-68",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-69",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-70",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-71",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-72",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-73",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-74",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-75",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-76",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-77",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-78",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-79",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-80",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-81",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-82",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-83",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-84",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-85",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-86",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-87",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-88",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-89",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-90",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-91",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-92",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-93",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-94",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-95",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-96",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-97",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-98",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-99",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-100",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-101",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-102",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-103",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-104",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-105",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-106",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-107",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-108",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-109",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-110",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-111",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-112",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-113",
+          "status": "translated",
+          "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+          "text": "A组增长10%，而B组减少20%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        },
+        {
+          "id": "22-114",
+          "status": "translated",
+          "source": "The room temperature remained stable during the measurement.",
+          "text": "测量过程中室温保持稳定。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-115",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-116",
+          "status": "translated",
+          "source": "A warm surface cools after the light is removed.",
+          "text": "温暖的表面在光线去除后冷却。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-117",
+          "status": "translated",
+          "source": "The concentration was 0.25 mg/mL (Fig. 2c).",
+          "text": "浓度为0.25毫克/毫升（图2c）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "22-118",
+          "status": "failed",
+          "source": "G",
+          "text": "",
+          "validation": null,
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    }
+  ],
+  "probes": {
+    "partial": [
+      [
+        "translated",
+        "蓝光穿过玻璃。",
+        1
+      ],
+      [
+        "translated",
+        "玻璃冷却缓慢。",
+        1
+      ],
+      [
+        "failed",
+        "",
+        1
+      ],
+      [
+        "translated",
+        "最终温度稳定。",
+        1
+      ],
+      [
+        "translated",
+        "水仍然清澈。",
+        1
+      ]
+    ],
+    "foregroundDuringMap": {
+      "id": "foreground",
+      "chars": 33,
+      "from": "en",
+      "ms": 27,
+      "text": "样品被保存在阴凉处。",
+      "units": [
+        {
+          "id": "24-0",
+          "status": "translated",
+          "source": "The sample was kept in the shade.",
+          "text": "样品被保存在阴凉处。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    "warmOffline": {
+      "id": "warm-offline",
+      "chars": 42,
+      "from": "en",
+      "ms": 69,
+      "text": "一个新的样品被保存在室温下。",
+      "units": [
+        {
+          "id": "25-0",
+          "status": "review",
+          "source": "A new sample was kept at room temperature.",
+          "text": "一个新的样品被保存在室温下。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    "emptyOffline": {
+      "id": "cold-offline",
+      "chars": 40,
+      "from": "en",
+      "ms": 1,
+      "status": "failed",
+      "error": "Could not load /translation-session.js",
+      "stage": "download"
+    },
+    "recovery": {
+      "id": "network-restored",
+      "chars": 40,
+      "from": "en",
+      "ms": 1024,
+      "text": "蓝光穿过玻璃。",
+      "units": [
+        {
+          "id": "1-0",
+          "status": "translated",
+          "source": "The blue light passed through the glass.",
+          "text": "蓝光穿过玻璃。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    }
+  },
+  "snapshots": [
+    {
+      "label": "before cold",
+      "files": {},
+      "starts": 0,
+      "inferences": 0,
+      "modelReady": [],
+      "requests": [],
+      "ts": 501.40000000037253
+    },
+    {
+      "label": "after en",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 8,
+      "modelReady": [
+        {
+          "start": 1144.300000000745,
+          "end": 1362.5999999996275,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 1983.5
+    },
+    {
+      "label": "both languages",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1,
+        "vocab.zhen.spm": 1,
+        "model.zhen.intgemm.alphas.bin": 1,
+        "lex.50.50.zhen.s2t.bin": 1
+      },
+      "starts": 1,
+      "inferences": 26,
+      "modelReady": [
+        {
+          "start": 1144.300000000745,
+          "end": 1362.5999999996275,
+          "from": "en"
+        },
+        {
+          "start": 2253.5999999996275,
+          "end": 2363.7000000011176,
+          "from": "zh"
+        }
+      ],
+      "requests": [],
+      "ts": 3217
+    },
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1,
+        "vocab.zhen.spm": 1,
+        "model.zhen.intgemm.alphas.bin": 1,
+        "lex.50.50.zhen.s2t.bin": 1
+      },
+      "starts": 1,
+      "inferences": 26,
+      "modelReady": [
+        {
+          "start": 1144.300000000745,
+          "end": 1362.5999999996275,
+          "from": "en"
+        },
+        {
+          "start": 2253.5999999996275,
+          "end": 2363.7000000011176,
+          "from": "zh"
+        }
+      ],
+      "requests": [],
+      "ts": 4819.5999999996275
+    }
+  ],
+  "version": "0.4.18"
+}

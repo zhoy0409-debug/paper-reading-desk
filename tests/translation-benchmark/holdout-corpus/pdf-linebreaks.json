@@ -1,0 +1,86 @@
+{
+  "perception.13.2": {
+    "source": "Specifically, were it possible to leave unchanged the expectation of each sample of\nmomentary evidence while boosting the noise associated with it, then the bounded accumulation of\nthe noisier samples should lead to (i) lower accuracy when the expectation of the momentary evi-\ndence is strong, (ii) faster reaction times when the momentary evidence is weak, and (iii) increased\nconfidence when the momentary evidence is weak.",
+    "pdfPage": 2,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5083065.1/PMC5083065.1.pdf",
+    "pdfSha256": "c78140c2417c0be978fcbb1468756d382c059c7cff32c9f6b77d298c4af29b1a"
+  },
+  "perception.18.1-2": {
+    "source": "We therefore sought a method to manipulate the variance associated with the neural representa-\ntion of momentary evidence without affecting its mean. We achieved this with a manipulation of the\nmotion information in a random dot motion (RDM) display, by adding a second level of randomness\nwhich increased its volatility but was unbiased with respect to the strength and direction of motion\nevidence.",
+    "pdfPage": 3,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5083065.1/PMC5083065.1.pdf",
+    "pdfSha256": "c78140c2417c0be978fcbb1468756d382c059c7cff32c9f6b77d298c4af29b1a"
+  },
+  "behavior.1.1": {
+    "source": "The aim of this study was to investigate the association between physical activity\n(PA), problematic smartphone use (PSU), and burnout, as well as to identify whether\nthere is a mediating role for PSU.",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10576493.1/PMC10576493.1.pdf",
+    "pdfSha256": "d06757f36b09cec85aa4d46184151e4aebb31b1ea0bf5c956a314d77aa39b949"
+  },
+  "behavior.1.2-3": {
+    "source": "We recruited 823 college students ( Mage = 18.55,\nSD = 0.83) from Wuhan, China, in December 2022, including 499 males and 324\nfemales. Demographic information, the International Physical Activity\nQuestionnaire-Short Form (IPAQ-SF), the Smartphone Addiction Scale-Short\nVersion (SAS-SV), and the Maslach Burnout Inventory-Student Survey (MBI-SS)\nwere used for assessments.",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10576493.1/PMC10576493.1.pdf",
+    "pdfSha256": "d06757f36b09cec85aa4d46184151e4aebb31b1ea0bf5c956a314d77aa39b949"
+  },
+  "chemistry.9.1-2": {
+    "source": "UV-Visible spectrophotometric analyses of pure ﬂavonoid standard solutions (rutin, nar-\ningin, apigenin and hesperidin, respectively, for panels (A–D)) with wavelengths between 200 nm \nand 600 nm. Panel (E) is the analysis of a mixture obtained with all standard molecules previously \nlisted in weight ratio 1:1:1:1.",
+    "pdfPage": 3,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10708307.1/PMC10708307.1.pdf",
+    "pdfSha256": "d5579b8121a50708d39435832a72f4c9d7343dcf57759422c0bd20219f0b8e72"
+  },
+  "chemistry.1.9": {
+    "source": "HPLC data\ndemonstrated that hesperidin was the most abundant ﬂavonoid in all peel extracts except for orange\npeels, in which naringin was the predominant ﬂavonoid.",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10708307.1/PMC10708307.1.pdf",
+    "pdfSha256": "d5579b8121a50708d39435832a72f4c9d7343dcf57759422c0bd20219f0b8e72"
+  },
+  "gait.1.1": {
+    "source": "Accurate real-time gait event detection is the basis for the development of new gait rehabil-\nitation techniques, especially when utilizing robotics or virtual reality (VR).",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10305366.1/PMC10305366.1.pdf",
+    "pdfSha256": "6fd29b89ab834b13d3d9cb2bcc00e704cc77213ed5637de768cee392c97aa033"
+  },
+  "gait.17.1": {
+    "source": "We used the mediolateral component of the linear acceleration of the head as the driv-\ning signal for the pool of AFOs.",
+    "pdfPage": 4,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10305366.1/PMC10305366.1.pdf",
+    "pdfSha256": "6fd29b89ab834b13d3d9cb2bcc00e704cc77213ed5637de768cee392c97aa033"
+  },
+  "polymer.79.1-2": {
+    "source": "The impact of these differences of crystalline morphologies on local mechanical be-\nhaviour was then characterised by AFM. Modulus analysis did not show signiﬁcant dif-\nferences between vPET and rPET.",
+    "pdfPage": 17,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10708313.1/PMC10708313.1.pdf",
+    "pdfSha256": "7532f4cd40f7934127a6cb49f3671be9ed4ab89531e6e1f8914af26aa267a205"
+  },
+  "polymer.1.1": {
+    "source": "Poly(Ethylene Terephthalate) (PET) is one of the most used polymers for packaging applica-\ntions.",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10708313.1/PMC10708313.1.pdf",
+    "pdfSha256": "7532f4cd40f7934127a6cb49f3671be9ed4ab89531e6e1f8914af26aa267a205"
+  },
+  "cohort.6.1": {
+    "source": "Among a total of 21,236 subjects (Figure 1), 16,277 completed the 2016–2017 KN-\nHANES assessments, with an average response rate of 76.6%.",
+    "pdfPage": 2,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8124661.1/PMC8124661.1.pdf",
+    "pdfSha256": "074de372ff3049be72e842e9ad0f8f2aca50e5ba112ade227e19872b08352735"
+  },
+  "cohort.7.2": {
+    "source": "Responses were catego-\nrized into five groups: <5 h, 5 h ~ <6 h, 6 h ~ <8 h, 8 h ~ <9 h, and ≥9 h per day , according \nto the mean sleep duration of 419 min (6.98 h) for the entire population.",
+    "pdfPage": 3,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8124661.1/PMC8124661.1.pdf",
+    "pdfSha256": "074de372ff3049be72e842e9ad0f8f2aca50e5ba112ade227e19872b08352735"
+  },
+  "rna.1.1-2": {
+    "source": "Normalization of RNA-seq data has been an active area of research since the problem\nwas first recognized a decade ago. Despite the active development of new normalizers,\ntheir performance measures have been given little attention.",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8496462.1/PMC8496462.1.pdf",
+    "pdfSha256": "da4eb83056f17897fa583b007fd2597a821a640bd0b35b3927359681531f9716"
+  },
+  "rna.3.1": {
+    "source": "Between-sample normalization has long been recognized as a critical step in processing\nand analyzing RNA-sequencing (RNA-seq) data.",
+    "pdfPage": 1,
+    "pdfHref": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8496462.1/PMC8496462.1.pdf",
+    "pdfSha256": "da4eb83056f17897fa583b007fd2597a821a640bd0b35b3927359681531f9716"
+  }
+}

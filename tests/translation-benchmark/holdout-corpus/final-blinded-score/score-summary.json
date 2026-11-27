@@ -1,0 +1,4184 @@
+{
+  "A": {
+    "all": {
+      "n": 105,
+      "statuses": {
+        "translated": 58,
+        "review": 34,
+        "partial": 13
+      },
+      "displayedChinese": {
+        "numerator": 75,
+        "denominator": 105,
+        "rate": 0.714286
+      },
+      "literalFactAnchorMatches": {
+        "numerator": 58,
+        "denominator": 260,
+        "rate": 0.223077
+      },
+      "literalTermAnchorMatches": {
+        "numerator": 52,
+        "denominator": 177,
+        "rate": 0.293785
+      },
+      "allAnchorsInOneDisplayedResponse": {
+        "numerator": 2,
+        "denominator": 105,
+        "rate": 0.019048
+      },
+      "rawCandidateCaptured": {
+        "numerator": 105,
+        "denominator": 105,
+        "rate": 1.0
+      },
+      "durationMs": {
+        "n": 105,
+        "p50": 120,
+        "p95": 487
+      },
+      "durationByCacheState": {},
+      "retries": {
+        "observed": 105,
+        "total": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "extraActions": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "semanticReview": {
+        "sample": "105 reviewed / 105 assigned",
+        "completeReadable": {
+          "numerator": 57,
+          "denominator": 105,
+          "rate": 0.542857
+        },
+        "effectivePassages": {
+          "numerator": 27,
+          "denominator": 105,
+          "rate": 0.257143
+        },
+        "factsPreserved": {
+          "numerator": 128,
+          "denominator": 260,
+          "rate": 0.492308
+        },
+        "termsCorrect": {
+          "numerator": 90,
+          "denominator": 177,
+          "rate": 0.508475
+        },
+        "seriousDisplayedErrors": {
+          "numerator": 23,
+          "denominator": 105,
+          "rate": 0.219048
+        },
+        "seriousUnflagged": [],
+        "seriousFlagStatusUnknown": [
+          "H003",
+          "H011",
+          "H015",
+          "H031",
+          "H033",
+          "H035",
+          "H036",
+          "H037",
+          "H042",
+          "H050",
+          "H061",
+          "H067",
+          "H069",
+          "H081",
+          "H086",
+          "H091",
+          "H097",
+          "H099",
+          "H100",
+          "H101",
+          "H102",
+          "H103",
+          "H105"
+        ],
+        "rejectedCorrectRaw": {
+          "numerator": 13,
+          "denominator": 39,
+          "rate": 0.333333
+        },
+        "acceptedIncorrectRaw": {
+          "numerator": 32,
+          "denominator": 66,
+          "rate": 0.484848
+        },
+        "validationDecisionsUnassessable": 0
+      }
+    },
+    "preselected35": {
+      "n": 35,
+      "statuses": {
+        "review": 10,
+        "translated": 18,
+        "partial": 7
+      },
+      "displayedChinese": {
+        "numerator": 25,
+        "denominator": 35,
+        "rate": 0.714286
+      },
+      "literalFactAnchorMatches": {
+        "numerator": 15,
+        "denominator": 94,
+        "rate": 0.159574
+      },
+      "literalTermAnchorMatches": {
+        "numerator": 17,
+        "denominator": 63,
+        "rate": 0.269841
+      },
+      "allAnchorsInOneDisplayedResponse": {
+        "numerator": 0,
+        "denominator": 35,
+        "rate": 0.0
+      },
+      "rawCandidateCaptured": {
+        "numerator": 35,
+        "denominator": 35,
+        "rate": 1.0
+      },
+      "durationMs": {
+        "n": 35,
+        "p50": 127,
+        "p95": 514
+      },
+      "durationByCacheState": {},
+      "retries": {
+        "observed": 35,
+        "total": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "extraActions": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "semanticReview": {
+        "sample": "35 reviewed / 35 assigned",
+        "completeReadable": {
+          "numerator": 16,
+          "denominator": 35,
+          "rate": 0.457143
+        },
+        "effectivePassages": {
+          "numerator": 8,
+          "denominator": 35,
+          "rate": 0.228571
+        },
+        "factsPreserved": {
+          "numerator": 46,
+          "denominator": 94,
+          "rate": 0.489362
+        },
+        "termsCorrect": {
+          "numerator": 31,
+          "denominator": 63,
+          "rate": 0.492063
+        },
+        "seriousDisplayedErrors": {
+          "numerator": 7,
+          "denominator": 35,
+          "rate": 0.2
+        },
+        "seriousUnflagged": [],
+        "seriousFlagStatusUnknown": [
+          "H015",
+          "H031",
+          "H036",
+          "H091",
+          "H097",
+          "H099",
+          "H100"
+        ],
+        "rejectedCorrectRaw": {
+          "numerator": 2,
+          "denominator": 10,
+          "rate": 0.2
+        },
+        "acceptedIncorrectRaw": {
+          "numerator": 10,
+          "denominator": 25,
+          "rate": 0.4
+        },
+        "validationDecisionsUnassessable": 0
+      }
+    },
+    "remainder70": {
+      "n": 70,
+      "statuses": {
+        "translated": 40,
+        "review": 24,
+        "partial": 6
+      },
+      "displayedChinese": {
+        "numerator": 50,
+        "denominator": 70,
+        "rate": 0.714286
+      },
+      "literalFactAnchorMatches": {
+        "numerator": 43,
+        "denominator": 166,
+        "rate": 0.259036
+      },
+      "literalTermAnchorMatches": {
+        "numerator": 35,
+        "denominator": 114,
+        "rate": 0.307018
+      },
+      "allAnchorsInOneDisplayedResponse": {
+        "numerator": 2,
+        "denominator": 70,
+        "rate": 0.028571
+      },
+      "rawCandidateCaptured": {
+        "numerator": 70,
+        "denominator": 70,
+        "rate": 1.0
+      },
+      "durationMs": {
+        "n": 70,
+        "p50": 115,
+        "p95": 368
+      },
+      "durationByCacheState": {},
+      "retries": {
+        "observed": 70,
+        "total": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "extraActions": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "semanticReview": {
+        "sample": "70 reviewed / 70 assigned",
+        "completeReadable": {
+          "numerator": 41,
+          "denominator": 70,
+          "rate": 0.585714
+        },
+        "effectivePassages": {
+          "numerator": 19,
+          "denominator": 70,
+          "rate": 0.271429
+        },
+        "factsPreserved": {
+          "numerator": 82,
+          "denominator": 166,
+          "rate": 0.493976
+        },
+        "termsCorrect": {
+          "numerator": 59,
+          "denominator": 114,
+          "rate": 0.517544
+        },
+        "seriousDisplayedErrors": {
+          "numerator": 16,
+          "denominator": 70,
+          "rate": 0.228571
+        },
+        "seriousUnflagged": [],
+        "seriousFlagStatusUnknown": [
+          "H003",
+          "H011",
+          "H033",
+          "H035",
+          "H037",
+          "H042",
+          "H050",
+          "H061",
+          "H067",
+          "H069",
+          "H081",
+          "H086",
+          "H101",
+          "H102",
+          "H103",
+          "H105"
+        ],
+        "rejectedCorrectRaw": {
+          "numerator": 11,
+          "denominator": 29,
+          "rate": 0.37931
+        },
+        "acceptedIncorrectRaw": {
+          "numerator": 22,
+          "denominator": 41,
+          "rate": 0.536585
+        },
+        "validationDecisionsUnassessable": 0
+      }
+    },
+    "field": {
+      "analytical and organic chemistry": {
+        "n": 15,
+        "statuses": {
+          "translated": 10,
+          "partial": 1,
+          "review": 4
+        },
+        "displayedChinese": {
+          "numerator": 12,
+          "denominator": 15,
+          "rate": 0.8
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 6,
+          "denominator": 38,
+          "rate": 0.157895
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 9,
+          "denominator": 30,
+          "rate": 0.3
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 110,
+          "p95": 397
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 7,
+            "denominator": 15,
+            "rate": 0.466667
+          },
+          "effectivePassages": {
+            "numerator": 4,
+            "denominator": 15,
+            "rate": 0.266667
+          },
+          "factsPreserved": {
+            "numerator": 16,
+            "denominator": 38,
+            "rate": 0.421053
+          },
+          "termsCorrect": {
+            "numerator": 13,
+            "denominator": 30,
+            "rate": 0.433333
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 6,
+            "denominator": 15,
+            "rate": 0.4
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H031",
+            "H033",
+            "H035",
+            "H036",
+            "H037",
+            "H042"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 4,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 6,
+            "denominator": 11,
+            "rate": 0.545455
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "biomedical engineering": {
+        "n": 15,
+        "statuses": {
+          "translated": 11,
+          "partial": 2,
+          "review": 2
+        },
+        "displayedChinese": {
+          "numerator": 13,
+          "denominator": 15,
+          "rate": 0.866667
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 8,
+          "denominator": 35,
+          "rate": 0.228571
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 10,
+          "denominator": 23,
+          "rate": 0.434783
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 15,
+          "rate": 0.066667
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 86,
+          "p95": 289
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 10,
+            "denominator": 15,
+            "rate": 0.666667
+          },
+          "effectivePassages": {
+            "numerator": 9,
+            "denominator": 15,
+            "rate": 0.6
+          },
+          "factsPreserved": {
+            "numerator": 23,
+            "denominator": 35,
+            "rate": 0.657143
+          },
+          "termsCorrect": {
+            "numerator": 16,
+            "denominator": 23,
+            "rate": 0.695652
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 1,
+            "denominator": 15,
+            "rate": 0.066667
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H050"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 1,
+            "denominator": 10,
+            "rate": 0.1
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 2,
+            "denominator": 5,
+            "rate": 0.4
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "clinical epidemiology": {
+        "n": 15,
+        "statuses": {
+          "translated": 7,
+          "review": 7,
+          "partial": 1
+        },
+        "displayedChinese": {
+          "numerator": 10,
+          "denominator": 15,
+          "rate": 0.666667
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 20,
+          "denominator": 51,
+          "rate": 0.392157
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 6,
+          "denominator": 26,
+          "rate": 0.230769
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 127,
+          "p95": 568
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 8,
+            "denominator": 15,
+            "rate": 0.533333
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 15,
+            "rate": 0.2
+          },
+          "factsPreserved": {
+            "numerator": 23,
+            "denominator": 51,
+            "rate": 0.45098
+          },
+          "termsCorrect": {
+            "numerator": 13,
+            "denominator": 26,
+            "rate": 0.5
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 2,
+            "denominator": 15,
+            "rate": 0.133333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H081",
+            "H086"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 2,
+            "denominator": 5,
+            "rate": 0.4
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 4,
+            "denominator": 10,
+            "rate": 0.4
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "cognitive neuroscience": {
+        "n": 15,
+        "statuses": {
+          "translated": 5,
+          "review": 7,
+          "partial": 3
+        },
+        "displayedChinese": {
+          "numerator": 8,
+          "denominator": 15,
+          "rate": 0.533333
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 3,
+          "denominator": 35,
+          "rate": 0.085714
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 6,
+          "denominator": 20,
+          "rate": 0.3
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 152,
+          "p95": 1356
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 7,
+            "denominator": 15,
+            "rate": 0.466667
+          },
+          "effectivePassages": {
+            "numerator": 1,
+            "denominator": 15,
+            "rate": 0.066667
+          },
+          "factsPreserved": {
+            "numerator": 14,
+            "denominator": 35,
+            "rate": 0.4
+          },
+          "termsCorrect": {
+            "numerator": 8,
+            "denominator": 20,
+            "rate": 0.4
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 3,
+            "denominator": 15,
+            "rate": 0.2
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H003",
+            "H011",
+            "H015"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 5,
+            "denominator": 12,
+            "rate": 0.416667
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "computational biology and statistics": {
+        "n": 15,
+        "statuses": {
+          "translated": 11,
+          "review": 2,
+          "partial": 2
+        },
+        "displayedChinese": {
+          "numerator": 13,
+          "denominator": 15,
+          "rate": 0.866667
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 9,
+          "denominator": 33,
+          "rate": 0.272727
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 3,
+          "denominator": 28,
+          "rate": 0.107143
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 117,
+          "p95": 237
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 10,
+            "denominator": 15,
+            "rate": 0.666667
+          },
+          "effectivePassages": {
+            "numerator": 1,
+            "denominator": 15,
+            "rate": 0.066667
+          },
+          "factsPreserved": {
+            "numerator": 18,
+            "denominator": 33,
+            "rate": 0.545455
+          },
+          "termsCorrect": {
+            "numerator": 9,
+            "denominator": 28,
+            "rate": 0.321429
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 8,
+            "denominator": 15,
+            "rate": 0.533333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H091",
+            "H097",
+            "H099",
+            "H100",
+            "H101",
+            "H102",
+            "H103",
+            "H105"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 10,
+            "denominator": 14,
+            "rate": 0.714286
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "polymer physics and materials": {
+        "n": 15,
+        "statuses": {
+          "translated": 6,
+          "partial": 3,
+          "review": 6
+        },
+        "displayedChinese": {
+          "numerator": 10,
+          "denominator": 15,
+          "rate": 0.666667
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 8,
+          "denominator": 31,
+          "rate": 0.258065
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 7,
+          "denominator": 30,
+          "rate": 0.233333
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 129,
+          "p95": 514
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 7,
+            "denominator": 15,
+            "rate": 0.466667
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 15,
+            "rate": 0.2
+          },
+          "factsPreserved": {
+            "numerator": 16,
+            "denominator": 31,
+            "rate": 0.516129
+          },
+          "termsCorrect": {
+            "numerator": 17,
+            "denominator": 30,
+            "rate": 0.566667
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 3,
+            "denominator": 15,
+            "rate": 0.2
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H061",
+            "H067",
+            "H069"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 3,
+            "denominator": 6,
+            "rate": 0.5
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 3,
+            "denominator": 9,
+            "rate": 0.333333
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "social sciences": {
+        "n": 15,
+        "statuses": {
+          "translated": 8,
+          "partial": 1,
+          "review": 6
+        },
+        "displayedChinese": {
+          "numerator": 9,
+          "denominator": 15,
+          "rate": 0.6
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 4,
+          "denominator": 37,
+          "rate": 0.108108
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 11,
+          "denominator": 20,
+          "rate": 0.55
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 15,
+          "rate": 0.066667
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 120,
+          "p95": 487
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 15,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 8,
+            "denominator": 15,
+            "rate": 0.533333
+          },
+          "effectivePassages": {
+            "numerator": 6,
+            "denominator": 15,
+            "rate": 0.4
+          },
+          "factsPreserved": {
+            "numerator": 18,
+            "denominator": 37,
+            "rate": 0.486486
+          },
+          "termsCorrect": {
+            "numerator": 14,
+            "denominator": 20,
+            "rate": 0.7
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 0,
+            "denominator": 15,
+            "rate": 0.0
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [],
+          "rejectedCorrectRaw": {
+            "numerator": 4,
+            "denominator": 10,
+            "rate": 0.4
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 2,
+            "denominator": 5,
+            "rate": 0.4
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      }
+    },
+    "section": {
+      "abstract": {
+        "n": 13,
+        "statuses": {
+          "translated": 8,
+          "review": 4,
+          "partial": 1
+        },
+        "displayedChinese": {
+          "numerator": 9,
+          "denominator": 13,
+          "rate": 0.692308
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 5,
+          "denominator": 34,
+          "rate": 0.147059
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 10,
+          "denominator": 24,
+          "rate": 0.416667
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 13,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 13,
+          "p50": 115,
+          "p95": 1356
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 13,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "13 reviewed / 13 assigned",
+          "completeReadable": {
+            "numerator": 8,
+            "denominator": 13,
+            "rate": 0.615385
+          },
+          "effectivePassages": {
+            "numerator": 1,
+            "denominator": 13,
+            "rate": 0.076923
+          },
+          "factsPreserved": {
+            "numerator": 13,
+            "denominator": 34,
+            "rate": 0.382353
+          },
+          "termsCorrect": {
+            "numerator": 13,
+            "denominator": 24,
+            "rate": 0.541667
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 4,
+            "denominator": 13,
+            "rate": 0.307692
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H003",
+            "H031",
+            "H061",
+            "H091"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 2,
+            "denominator": 3,
+            "rate": 0.666667
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 7,
+            "denominator": 10,
+            "rate": 0.7
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "discussion": {
+        "n": 13,
+        "statuses": {
+          "translated": 8,
+          "partial": 3,
+          "review": 2
+        },
+        "displayedChinese": {
+          "numerator": 11,
+          "denominator": 13,
+          "rate": 0.846154
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 4,
+          "denominator": 29,
+          "rate": 0.137931
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 8,
+          "denominator": 23,
+          "rate": 0.347826
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 13,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 13,
+          "p50": 102,
+          "p95": 289
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 13,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "13 reviewed / 13 assigned",
+          "completeReadable": {
+            "numerator": 8,
+            "denominator": 13,
+            "rate": 0.615385
+          },
+          "effectivePassages": {
+            "numerator": 4,
+            "denominator": 13,
+            "rate": 0.307692
+          },
+          "factsPreserved": {
+            "numerator": 16,
+            "denominator": 29,
+            "rate": 0.551724
+          },
+          "termsCorrect": {
+            "numerator": 17,
+            "denominator": 23,
+            "rate": 0.73913
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 1,
+            "denominator": 13,
+            "rate": 0.076923
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H105"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 1,
+            "denominator": 5,
+            "rate": 0.2
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 4,
+            "denominator": 8,
+            "rate": 0.5
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "figure": {
+        "n": 13,
+        "statuses": {
+          "review": 5,
+          "partial": 3,
+          "translated": 5
+        },
+        "displayedChinese": {
+          "numerator": 9,
+          "denominator": 13,
+          "rate": 0.692308
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 7,
+          "denominator": 33,
+          "rate": 0.212121
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 6,
+          "denominator": 21,
+          "rate": 0.285714
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 13,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 13,
+          "p50": 152,
+          "p95": 514
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 13,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "13 reviewed / 13 assigned",
+          "completeReadable": {
+            "numerator": 7,
+            "denominator": 13,
+            "rate": 0.538462
+          },
+          "effectivePassages": {
+            "numerator": 2,
+            "denominator": 13,
+            "rate": 0.153846
+          },
+          "factsPreserved": {
+            "numerator": 17,
+            "denominator": 33,
+            "rate": 0.515152
+          },
+          "termsCorrect": {
+            "numerator": 11,
+            "denominator": 21,
+            "rate": 0.52381
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 3,
+            "denominator": 13,
+            "rate": 0.230769
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H069",
+            "H102",
+            "H103"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 2,
+            "denominator": 3,
+            "rate": 0.666667
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 4,
+            "denominator": 10,
+            "rate": 0.4
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "introduction": {
+        "n": 17,
+        "statuses": {
+          "partial": 3,
+          "review": 6,
+          "translated": 8
+        },
+        "displayedChinese": {
+          "numerator": 11,
+          "denominator": 17,
+          "rate": 0.647059
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 6,
+          "denominator": 35,
+          "rate": 0.171429
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 11,
+          "denominator": 28,
+          "rate": 0.392857
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 17,
+          "rate": 0.058824
+        },
+        "rawCandidateCaptured": {
+          "numerator": 17,
+          "denominator": 17,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 17,
+          "p50": 126,
+          "p95": 326
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 17,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "17 reviewed / 17 assigned",
+          "completeReadable": {
+            "numerator": 9,
+            "denominator": 17,
+            "rate": 0.529412
+          },
+          "effectivePassages": {
+            "numerator": 7,
+            "denominator": 17,
+            "rate": 0.411765
+          },
+          "factsPreserved": {
+            "numerator": 19,
+            "denominator": 35,
+            "rate": 0.542857
+          },
+          "termsCorrect": {
+            "numerator": 14,
+            "denominator": 28,
+            "rate": 0.5
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 0,
+            "denominator": 17,
+            "rate": 0.0
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [],
+          "rejectedCorrectRaw": {
+            "numerator": 3,
+            "denominator": 10,
+            "rate": 0.3
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 1,
+            "denominator": 7,
+            "rate": 0.142857
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "methods": {
+        "n": 22,
+        "statuses": {
+          "translated": 13,
+          "review": 8,
+          "partial": 1
+        },
+        "displayedChinese": {
+          "numerator": 17,
+          "denominator": 22,
+          "rate": 0.772727
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 16,
+          "denominator": 54,
+          "rate": 0.296296
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 3,
+          "denominator": 35,
+          "rate": 0.085714
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 22,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 22,
+          "denominator": 22,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 22,
+          "p50": 117,
+          "p95": 303
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 22,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "22 reviewed / 22 assigned",
+          "completeReadable": {
+            "numerator": 13,
+            "denominator": 22,
+            "rate": 0.590909
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 22,
+            "rate": 0.136364
+          },
+          "factsPreserved": {
+            "numerator": 26,
+            "denominator": 54,
+            "rate": 0.481481
+          },
+          "termsCorrect": {
+            "numerator": 14,
+            "denominator": 35,
+            "rate": 0.4
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 9,
+            "denominator": 22,
+            "rate": 0.409091
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H015",
+            "H042",
+            "H050",
+            "H067",
+            "H081",
+            "H097",
+            "H099",
+            "H100",
+            "H101"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 1,
+            "denominator": 4,
+            "rate": 0.25
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 10,
+            "denominator": 18,
+            "rate": 0.555556
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "results": {
+        "n": 20,
+        "statuses": {
+          "review": 8,
+          "translated": 10,
+          "partial": 2
+        },
+        "displayedChinese": {
+          "numerator": 12,
+          "denominator": 20,
+          "rate": 0.6
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 16,
+          "denominator": 64,
+          "rate": 0.25
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 8,
+          "denominator": 35,
+          "rate": 0.228571
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 20,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 20,
+          "denominator": 20,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 20,
+          "p50": 158,
+          "p95": 368
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 20,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "20 reviewed / 20 assigned",
+          "completeReadable": {
+            "numerator": 6,
+            "denominator": 20,
+            "rate": 0.3
+          },
+          "effectivePassages": {
+            "numerator": 6,
+            "denominator": 20,
+            "rate": 0.3
+          },
+          "factsPreserved": {
+            "numerator": 27,
+            "denominator": 64,
+            "rate": 0.421875
+          },
+          "termsCorrect": {
+            "numerator": 12,
+            "denominator": 35,
+            "rate": 0.342857
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 5,
+            "denominator": 20,
+            "rate": 0.25
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H033",
+            "H035",
+            "H036",
+            "H037",
+            "H086"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 4,
+            "denominator": 10,
+            "rate": 0.4
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 4,
+            "denominator": 10,
+            "rate": 0.4
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "supplement": {
+        "n": 3,
+        "statuses": {
+          "translated": 3
+        },
+        "displayedChinese": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 1,
+          "denominator": 5,
+          "rate": 0.2
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 2,
+          "denominator": 5,
+          "rate": 0.4
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 3,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 3,
+          "p50": 49,
+          "p95": 101
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 3,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "3 reviewed / 3 assigned",
+          "completeReadable": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "effectivePassages": {
+            "numerator": 1,
+            "denominator": 3,
+            "rate": 0.333333
+          },
+          "factsPreserved": {
+            "numerator": 5,
+            "denominator": 5,
+            "rate": 1.0
+          },
+          "termsCorrect": {
+            "numerator": 4,
+            "denominator": 5,
+            "rate": 0.8
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 1,
+            "denominator": 3,
+            "rate": 0.333333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H011"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 2,
+            "denominator": 2,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "table": {
+        "n": 4,
+        "statuses": {
+          "review": 1,
+          "translated": 3
+        },
+        "displayedChinese": {
+          "numerator": 3,
+          "denominator": 4,
+          "rate": 0.75
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 3,
+          "denominator": 6,
+          "rate": 0.5
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 4,
+          "denominator": 6,
+          "rate": 0.666667
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "rawCandidateCaptured": {
+          "numerator": 4,
+          "denominator": 4,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 4,
+          "p50": 42,
+          "p95": 79
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 4,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "4 reviewed / 4 assigned",
+          "completeReadable": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "factsPreserved": {
+            "numerator": 5,
+            "denominator": 6,
+            "rate": 0.833333
+          },
+          "termsCorrect": {
+            "numerator": 5,
+            "denominator": 6,
+            "rate": 0.833333
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 0,
+            "denominator": 4,
+            "rate": 0.0
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 3,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      }
+    },
+    "difficulty": {
+      "complex": {
+        "n": 52,
+        "statuses": {
+          "translated": 24,
+          "review": 17,
+          "partial": 11
+        },
+        "displayedChinese": {
+          "numerator": 37,
+          "denominator": 52,
+          "rate": 0.711538
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 30,
+          "denominator": 157,
+          "rate": 0.191083
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 24,
+          "denominator": 88,
+          "rate": 0.272727
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 52,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 52,
+          "denominator": 52,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 52,
+          "p50": 190,
+          "p95": 527
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 52,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "52 reviewed / 52 assigned",
+          "completeReadable": {
+            "numerator": 23,
+            "denominator": 52,
+            "rate": 0.442308
+          },
+          "effectivePassages": {
+            "numerator": 10,
+            "denominator": 52,
+            "rate": 0.192308
+          },
+          "factsPreserved": {
+            "numerator": 69,
+            "denominator": 157,
+            "rate": 0.43949
+          },
+          "termsCorrect": {
+            "numerator": 44,
+            "denominator": 88,
+            "rate": 0.5
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 11,
+            "denominator": 52,
+            "rate": 0.211538
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H003",
+            "H031",
+            "H035",
+            "H037",
+            "H081",
+            "H086",
+            "H091",
+            "H097",
+            "H099",
+            "H100",
+            "H105"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 5,
+            "denominator": 15,
+            "rate": 0.333333
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 14,
+            "denominator": 37,
+            "rate": 0.378378
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "plain": {
+        "n": 11,
+        "statuses": {
+          "translated": 10,
+          "review": 1
+        },
+        "displayedChinese": {
+          "numerator": 10,
+          "denominator": 11,
+          "rate": 0.909091
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 5,
+          "denominator": 15,
+          "rate": 0.333333
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 6,
+          "denominator": 18,
+          "rate": 0.333333
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 2,
+          "denominator": 11,
+          "rate": 0.181818
+        },
+        "rawCandidateCaptured": {
+          "numerator": 11,
+          "denominator": 11,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 11,
+          "p50": 41,
+          "p95": 112
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 11,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "11 reviewed / 11 assigned",
+          "completeReadable": {
+            "numerator": 10,
+            "denominator": 11,
+            "rate": 0.909091
+          },
+          "effectivePassages": {
+            "numerator": 5,
+            "denominator": 11,
+            "rate": 0.454545
+          },
+          "factsPreserved": {
+            "numerator": 13,
+            "denominator": 15,
+            "rate": 0.866667
+          },
+          "termsCorrect": {
+            "numerator": 11,
+            "denominator": 18,
+            "rate": 0.611111
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 5,
+            "denominator": 11,
+            "rate": 0.454545
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H011",
+            "H061",
+            "H067",
+            "H101",
+            "H102"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 5,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 5,
+            "denominator": 6,
+            "rate": 0.833333
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "standard": {
+        "n": 42,
+        "statuses": {
+          "review": 16,
+          "partial": 2,
+          "translated": 24
+        },
+        "displayedChinese": {
+          "numerator": 28,
+          "denominator": 42,
+          "rate": 0.666667
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 23,
+          "denominator": 88,
+          "rate": 0.261364
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 22,
+          "denominator": 71,
+          "rate": 0.309859
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 42,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 42,
+          "denominator": 42,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 42,
+          "p50": 88,
+          "p95": 202
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 42,
+          "total": 0,
+          "p50": 0,
+          "p95": 0
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "42 reviewed / 42 assigned",
+          "completeReadable": {
+            "numerator": 24,
+            "denominator": 42,
+            "rate": 0.571429
+          },
+          "effectivePassages": {
+            "numerator": 12,
+            "denominator": 42,
+            "rate": 0.285714
+          },
+          "factsPreserved": {
+            "numerator": 46,
+            "denominator": 88,
+            "rate": 0.522727
+          },
+          "termsCorrect": {
+            "numerator": 35,
+            "denominator": 71,
+            "rate": 0.492958
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 7,
+            "denominator": 42,
+            "rate": 0.166667
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H015",
+            "H033",
+            "H036",
+            "H042",
+            "H050",
+            "H069",
+            "H103"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 8,
+            "denominator": 19,
+            "rate": 0.421053
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 13,
+            "denominator": 23,
+            "rate": 0.565217
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      }
+    }
+  },
+  "B": {
+    "all": {
+      "n": 105,
+      "statuses": {
+        "translated": 102,
+        "failed": 3
+      },
+      "displayedChinese": {
+        "numerator": 102,
+        "denominator": 105,
+        "rate": 0.971429
+      },
+      "literalFactAnchorMatches": {
+        "numerator": 86,
+        "denominator": 260,
+        "rate": 0.330769
+      },
+      "literalTermAnchorMatches": {
+        "numerator": 69,
+        "denominator": 177,
+        "rate": 0.389831
+      },
+      "allAnchorsInOneDisplayedResponse": {
+        "numerator": 2,
+        "denominator": 105,
+        "rate": 0.019048
+      },
+      "rawCandidateCaptured": {
+        "numerator": 102,
+        "denominator": 105,
+        "rate": 0.971429
+      },
+      "durationMs": {
+        "n": 105,
+        "p50": 94,
+        "p95": 302
+      },
+      "durationByCacheState": {},
+      "retries": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "extraActions": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "semanticReview": {
+        "sample": "105 reviewed / 105 assigned",
+        "completeReadable": {
+          "numerator": 89,
+          "denominator": 105,
+          "rate": 0.847619
+        },
+        "effectivePassages": {
+          "numerator": 37,
+          "denominator": 105,
+          "rate": 0.352381
+        },
+        "factsPreserved": {
+          "numerator": 204,
+          "denominator": 260,
+          "rate": 0.784615
+        },
+        "termsCorrect": {
+          "numerator": 128,
+          "denominator": 177,
+          "rate": 0.723164
+        },
+        "seriousDisplayedErrors": {
+          "numerator": 37,
+          "denominator": 105,
+          "rate": 0.352381
+        },
+        "seriousUnflagged": [],
+        "seriousFlagStatusUnknown": [
+          "H003",
+          "H011",
+          "H014",
+          "H015",
+          "H020",
+          "H028",
+          "H031",
+          "H033",
+          "H034",
+          "H035",
+          "H036",
+          "H037",
+          "H038",
+          "H039",
+          "H043",
+          "H050",
+          "H051",
+          "H061",
+          "H067",
+          "H069",
+          "H071",
+          "H077",
+          "H078",
+          "H081",
+          "H086",
+          "H089",
+          "H091",
+          "H093",
+          "H096",
+          "H097",
+          "H099",
+          "H100",
+          "H101",
+          "H102",
+          "H103",
+          "H104",
+          "H105"
+        ],
+        "rejectedCorrectRaw": {
+          "numerator": 0,
+          "denominator": 37,
+          "rate": 0.0
+        },
+        "acceptedIncorrectRaw": {
+          "numerator": 65,
+          "denominator": 65,
+          "rate": 1.0
+        },
+        "validationDecisionsUnassessable": 3
+      }
+    },
+    "preselected35": {
+      "n": 35,
+      "statuses": {
+        "translated": 34,
+        "failed": 1
+      },
+      "displayedChinese": {
+        "numerator": 34,
+        "denominator": 35,
+        "rate": 0.971429
+      },
+      "literalFactAnchorMatches": {
+        "numerator": 26,
+        "denominator": 94,
+        "rate": 0.276596
+      },
+      "literalTermAnchorMatches": {
+        "numerator": 20,
+        "denominator": 63,
+        "rate": 0.31746
+      },
+      "allAnchorsInOneDisplayedResponse": {
+        "numerator": 0,
+        "denominator": 35,
+        "rate": 0.0
+      },
+      "rawCandidateCaptured": {
+        "numerator": 34,
+        "denominator": 35,
+        "rate": 0.971429
+      },
+      "durationMs": {
+        "n": 35,
+        "p50": 120,
+        "p95": 302
+      },
+      "durationByCacheState": {},
+      "retries": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "extraActions": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "semanticReview": {
+        "sample": "35 reviewed / 35 assigned",
+        "completeReadable": {
+          "numerator": 28,
+          "denominator": 35,
+          "rate": 0.8
+        },
+        "effectivePassages": {
+          "numerator": 10,
+          "denominator": 35,
+          "rate": 0.285714
+        },
+        "factsPreserved": {
+          "numerator": 73,
+          "denominator": 94,
+          "rate": 0.776596
+        },
+        "termsCorrect": {
+          "numerator": 43,
+          "denominator": 63,
+          "rate": 0.68254
+        },
+        "seriousDisplayedErrors": {
+          "numerator": 14,
+          "denominator": 35,
+          "rate": 0.4
+        },
+        "seriousUnflagged": [],
+        "seriousFlagStatusUnknown": [
+          "H015",
+          "H020",
+          "H028",
+          "H031",
+          "H034",
+          "H036",
+          "H051",
+          "H078",
+          "H089",
+          "H091",
+          "H097",
+          "H099",
+          "H100",
+          "H104"
+        ],
+        "rejectedCorrectRaw": {
+          "numerator": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "acceptedIncorrectRaw": {
+          "numerator": 24,
+          "denominator": 24,
+          "rate": 1.0
+        },
+        "validationDecisionsUnassessable": 1
+      }
+    },
+    "remainder70": {
+      "n": 70,
+      "statuses": {
+        "translated": 68,
+        "failed": 2
+      },
+      "displayedChinese": {
+        "numerator": 68,
+        "denominator": 70,
+        "rate": 0.971429
+      },
+      "literalFactAnchorMatches": {
+        "numerator": 60,
+        "denominator": 166,
+        "rate": 0.361446
+      },
+      "literalTermAnchorMatches": {
+        "numerator": 49,
+        "denominator": 114,
+        "rate": 0.429825
+      },
+      "allAnchorsInOneDisplayedResponse": {
+        "numerator": 2,
+        "denominator": 70,
+        "rate": 0.028571
+      },
+      "rawCandidateCaptured": {
+        "numerator": 68,
+        "denominator": 70,
+        "rate": 0.971429
+      },
+      "durationMs": {
+        "n": 70,
+        "p50": 83,
+        "p95": 311
+      },
+      "durationByCacheState": {},
+      "retries": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "extraActions": {
+        "observed": 0,
+        "total": null,
+        "p50": null,
+        "p95": null
+      },
+      "semanticReview": {
+        "sample": "70 reviewed / 70 assigned",
+        "completeReadable": {
+          "numerator": 61,
+          "denominator": 70,
+          "rate": 0.871429
+        },
+        "effectivePassages": {
+          "numerator": 27,
+          "denominator": 70,
+          "rate": 0.385714
+        },
+        "factsPreserved": {
+          "numerator": 131,
+          "denominator": 166,
+          "rate": 0.789157
+        },
+        "termsCorrect": {
+          "numerator": 85,
+          "denominator": 114,
+          "rate": 0.745614
+        },
+        "seriousDisplayedErrors": {
+          "numerator": 23,
+          "denominator": 70,
+          "rate": 0.328571
+        },
+        "seriousUnflagged": [],
+        "seriousFlagStatusUnknown": [
+          "H003",
+          "H011",
+          "H014",
+          "H033",
+          "H035",
+          "H037",
+          "H038",
+          "H039",
+          "H043",
+          "H050",
+          "H061",
+          "H067",
+          "H069",
+          "H071",
+          "H077",
+          "H081",
+          "H086",
+          "H093",
+          "H096",
+          "H101",
+          "H102",
+          "H103",
+          "H105"
+        ],
+        "rejectedCorrectRaw": {
+          "numerator": 0,
+          "denominator": 27,
+          "rate": 0.0
+        },
+        "acceptedIncorrectRaw": {
+          "numerator": 41,
+          "denominator": 41,
+          "rate": 1.0
+        },
+        "validationDecisionsUnassessable": 2
+      }
+    },
+    "field": {
+      "analytical and organic chemistry": {
+        "n": 15,
+        "statuses": {
+          "translated": 14,
+          "failed": 1
+        },
+        "displayedChinese": {
+          "numerator": 14,
+          "denominator": 15,
+          "rate": 0.933333
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 7,
+          "denominator": 38,
+          "rate": 0.184211
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 12,
+          "denominator": 30,
+          "rate": 0.4
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 14,
+          "denominator": 15,
+          "rate": 0.933333
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 109,
+          "p95": 302
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 7,
+            "denominator": 15,
+            "rate": 0.466667
+          },
+          "effectivePassages": {
+            "numerator": 4,
+            "denominator": 15,
+            "rate": 0.266667
+          },
+          "factsPreserved": {
+            "numerator": 21,
+            "denominator": 38,
+            "rate": 0.552632
+          },
+          "termsCorrect": {
+            "numerator": 17,
+            "denominator": 30,
+            "rate": 0.566667
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 9,
+            "denominator": 15,
+            "rate": 0.6
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H031",
+            "H033",
+            "H034",
+            "H035",
+            "H036",
+            "H037",
+            "H038",
+            "H039",
+            "H043"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 4,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 10,
+            "denominator": 10,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 1
+        }
+      },
+      "biomedical engineering": {
+        "n": 15,
+        "statuses": {
+          "translated": 15
+        },
+        "displayedChinese": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 10,
+          "denominator": 35,
+          "rate": 0.285714
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 10,
+          "denominator": 23,
+          "rate": 0.434783
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 15,
+          "rate": 0.066667
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 84,
+          "p95": 297
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 14,
+            "denominator": 15,
+            "rate": 0.933333
+          },
+          "effectivePassages": {
+            "numerator": 10,
+            "denominator": 15,
+            "rate": 0.666667
+          },
+          "factsPreserved": {
+            "numerator": 31,
+            "denominator": 35,
+            "rate": 0.885714
+          },
+          "termsCorrect": {
+            "numerator": 19,
+            "denominator": 23,
+            "rate": 0.826087
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 2,
+            "denominator": 15,
+            "rate": 0.133333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H050",
+            "H051"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 10,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 5,
+            "denominator": 5,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "clinical epidemiology": {
+        "n": 15,
+        "statuses": {
+          "translated": 15
+        },
+        "displayedChinese": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 29,
+          "denominator": 51,
+          "rate": 0.568627
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 13,
+          "denominator": 26,
+          "rate": 0.5
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 99,
+          "p95": 405
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 15,
+            "denominator": 15,
+            "rate": 1.0
+          },
+          "effectivePassages": {
+            "numerator": 4,
+            "denominator": 15,
+            "rate": 0.266667
+          },
+          "factsPreserved": {
+            "numerator": 40,
+            "denominator": 51,
+            "rate": 0.784314
+          },
+          "termsCorrect": {
+            "numerator": 24,
+            "denominator": 26,
+            "rate": 0.923077
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 5,
+            "denominator": 15,
+            "rate": 0.333333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H077",
+            "H078",
+            "H081",
+            "H086",
+            "H089"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 4,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 11,
+            "denominator": 11,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "cognitive neuroscience": {
+        "n": 15,
+        "statuses": {
+          "translated": 15
+        },
+        "displayedChinese": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 8,
+          "denominator": 35,
+          "rate": 0.228571
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 10,
+          "denominator": 20,
+          "rate": 0.5
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 93,
+          "p95": 1236
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 13,
+            "denominator": 15,
+            "rate": 0.866667
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 15,
+            "rate": 0.2
+          },
+          "factsPreserved": {
+            "numerator": 30,
+            "denominator": 35,
+            "rate": 0.857143
+          },
+          "termsCorrect": {
+            "numerator": 16,
+            "denominator": 20,
+            "rate": 0.8
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 4,
+            "denominator": 15,
+            "rate": 0.266667
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H003",
+            "H011",
+            "H014",
+            "H015"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 3,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 12,
+            "denominator": 12,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "computational biology and statistics": {
+        "n": 15,
+        "statuses": {
+          "translated": 15
+        },
+        "displayedChinese": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 12,
+          "denominator": 33,
+          "rate": 0.363636
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 4,
+          "denominator": 28,
+          "rate": 0.142857
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 89,
+          "p95": 233
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 14,
+            "denominator": 15,
+            "rate": 0.933333
+          },
+          "effectivePassages": {
+            "numerator": 1,
+            "denominator": 15,
+            "rate": 0.066667
+          },
+          "factsPreserved": {
+            "numerator": 23,
+            "denominator": 33,
+            "rate": 0.69697
+          },
+          "termsCorrect": {
+            "numerator": 13,
+            "denominator": 28,
+            "rate": 0.464286
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 11,
+            "denominator": 15,
+            "rate": 0.733333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H091",
+            "H093",
+            "H096",
+            "H097",
+            "H099",
+            "H100",
+            "H101",
+            "H102",
+            "H103",
+            "H104",
+            "H105"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 14,
+            "denominator": 14,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "polymer physics and materials": {
+        "n": 15,
+        "statuses": {
+          "translated": 15
+        },
+        "displayedChinese": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 12,
+          "denominator": 31,
+          "rate": 0.387097
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 9,
+          "denominator": 30,
+          "rate": 0.3
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 15,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 15,
+          "denominator": 15,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 85,
+          "p95": 523
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 14,
+            "denominator": 15,
+            "rate": 0.933333
+          },
+          "effectivePassages": {
+            "numerator": 6,
+            "denominator": 15,
+            "rate": 0.4
+          },
+          "factsPreserved": {
+            "numerator": 29,
+            "denominator": 31,
+            "rate": 0.935484
+          },
+          "termsCorrect": {
+            "numerator": 25,
+            "denominator": 30,
+            "rate": 0.833333
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 4,
+            "denominator": 15,
+            "rate": 0.266667
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H061",
+            "H067",
+            "H069",
+            "H071"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 6,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 9,
+            "denominator": 9,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "social sciences": {
+        "n": 15,
+        "statuses": {
+          "translated": 13,
+          "failed": 2
+        },
+        "displayedChinese": {
+          "numerator": 13,
+          "denominator": 15,
+          "rate": 0.866667
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 8,
+          "denominator": 37,
+          "rate": 0.216216
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 11,
+          "denominator": 20,
+          "rate": 0.55
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 15,
+          "rate": 0.066667
+        },
+        "rawCandidateCaptured": {
+          "numerator": 13,
+          "denominator": 15,
+          "rate": 0.866667
+        },
+        "durationMs": {
+          "n": 15,
+          "p50": 101,
+          "p95": 291
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "15 reviewed / 15 assigned",
+          "completeReadable": {
+            "numerator": 12,
+            "denominator": 15,
+            "rate": 0.8
+          },
+          "effectivePassages": {
+            "numerator": 9,
+            "denominator": 15,
+            "rate": 0.6
+          },
+          "factsPreserved": {
+            "numerator": 30,
+            "denominator": 37,
+            "rate": 0.810811
+          },
+          "termsCorrect": {
+            "numerator": 14,
+            "denominator": 20,
+            "rate": 0.7
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 2,
+            "denominator": 15,
+            "rate": 0.133333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H020",
+            "H028"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 9,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 4,
+            "denominator": 4,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 2
+        }
+      }
+    },
+    "section": {
+      "abstract": {
+        "n": 13,
+        "statuses": {
+          "translated": 12,
+          "failed": 1
+        },
+        "displayedChinese": {
+          "numerator": 12,
+          "denominator": 13,
+          "rate": 0.923077
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 11,
+          "denominator": 34,
+          "rate": 0.323529
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 10,
+          "denominator": 24,
+          "rate": 0.416667
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 13,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 12,
+          "denominator": 13,
+          "rate": 0.923077
+        },
+        "durationMs": {
+          "n": 13,
+          "p50": 111,
+          "p95": 1236
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "13 reviewed / 13 assigned",
+          "completeReadable": {
+            "numerator": 12,
+            "denominator": 13,
+            "rate": 0.923077
+          },
+          "effectivePassages": {
+            "numerator": 2,
+            "denominator": 13,
+            "rate": 0.153846
+          },
+          "factsPreserved": {
+            "numerator": 24,
+            "denominator": 34,
+            "rate": 0.705882
+          },
+          "termsCorrect": {
+            "numerator": 15,
+            "denominator": 24,
+            "rate": 0.625
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 6,
+            "denominator": 13,
+            "rate": 0.461538
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H003",
+            "H031",
+            "H061",
+            "H077",
+            "H078",
+            "H091"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 2,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 10,
+            "denominator": 10,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 1
+        }
+      },
+      "discussion": {
+        "n": 13,
+        "statuses": {
+          "translated": 13
+        },
+        "displayedChinese": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 7,
+          "denominator": 29,
+          "rate": 0.241379
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 9,
+          "denominator": 23,
+          "rate": 0.391304
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 13,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 13,
+          "p50": 81,
+          "p95": 297
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "13 reviewed / 13 assigned",
+          "completeReadable": {
+            "numerator": 13,
+            "denominator": 13,
+            "rate": 1.0
+          },
+          "effectivePassages": {
+            "numerator": 5,
+            "denominator": 13,
+            "rate": 0.384615
+          },
+          "factsPreserved": {
+            "numerator": 22,
+            "denominator": 29,
+            "rate": 0.758621
+          },
+          "termsCorrect": {
+            "numerator": 22,
+            "denominator": 23,
+            "rate": 0.956522
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 2,
+            "denominator": 13,
+            "rate": 0.153846
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H089",
+            "H105"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 5,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 8,
+            "denominator": 8,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "figure": {
+        "n": 13,
+        "statuses": {
+          "translated": 13
+        },
+        "displayedChinese": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 8,
+          "denominator": 33,
+          "rate": 0.242424
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 7,
+          "denominator": 21,
+          "rate": 0.333333
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 13,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 13,
+          "denominator": 13,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 13,
+          "p50": 113,
+          "p95": 523
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "13 reviewed / 13 assigned",
+          "completeReadable": {
+            "numerator": 9,
+            "denominator": 13,
+            "rate": 0.692308
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 13,
+            "rate": 0.230769
+          },
+          "factsPreserved": {
+            "numerator": 28,
+            "denominator": 33,
+            "rate": 0.848485
+          },
+          "termsCorrect": {
+            "numerator": 14,
+            "denominator": 21,
+            "rate": 0.666667
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 4,
+            "denominator": 13,
+            "rate": 0.307692
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H034",
+            "H069",
+            "H102",
+            "H103"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 3,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 10,
+            "denominator": 10,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "introduction": {
+        "n": 17,
+        "statuses": {
+          "translated": 17
+        },
+        "displayedChinese": {
+          "numerator": 17,
+          "denominator": 17,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 10,
+          "denominator": 35,
+          "rate": 0.285714
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 16,
+          "denominator": 28,
+          "rate": 0.571429
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 17,
+          "rate": 0.058824
+        },
+        "rawCandidateCaptured": {
+          "numerator": 17,
+          "denominator": 17,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 17,
+          "p50": 77,
+          "p95": 158
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "17 reviewed / 17 assigned",
+          "completeReadable": {
+            "numerator": 17,
+            "denominator": 17,
+            "rate": 1.0
+          },
+          "effectivePassages": {
+            "numerator": 10,
+            "denominator": 17,
+            "rate": 0.588235
+          },
+          "factsPreserved": {
+            "numerator": 32,
+            "denominator": 35,
+            "rate": 0.914286
+          },
+          "termsCorrect": {
+            "numerator": 24,
+            "denominator": 28,
+            "rate": 0.857143
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 2,
+            "denominator": 17,
+            "rate": 0.117647
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H093",
+            "H096"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 10,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 7,
+            "denominator": 7,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "methods": {
+        "n": 22,
+        "statuses": {
+          "translated": 20,
+          "failed": 2
+        },
+        "displayedChinese": {
+          "numerator": 20,
+          "denominator": 22,
+          "rate": 0.909091
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 20,
+          "denominator": 54,
+          "rate": 0.37037
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 5,
+          "denominator": 35,
+          "rate": 0.142857
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 22,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 20,
+          "denominator": 22,
+          "rate": 0.909091
+        },
+        "durationMs": {
+          "n": 22,
+          "p50": 113,
+          "p95": 194
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "22 reviewed / 22 assigned",
+          "completeReadable": {
+            "numerator": 17,
+            "denominator": 22,
+            "rate": 0.772727
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 22,
+            "rate": 0.136364
+          },
+          "factsPreserved": {
+            "numerator": 38,
+            "denominator": 54,
+            "rate": 0.703704
+          },
+          "termsCorrect": {
+            "numerator": 19,
+            "denominator": 35,
+            "rate": 0.542857
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 11,
+            "denominator": 22,
+            "rate": 0.5
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H015",
+            "H020",
+            "H043",
+            "H050",
+            "H051",
+            "H067",
+            "H081",
+            "H097",
+            "H099",
+            "H100",
+            "H101"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 3,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 17,
+            "denominator": 17,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 2
+        }
+      },
+      "results": {
+        "n": 20,
+        "statuses": {
+          "translated": 20
+        },
+        "displayedChinese": {
+          "numerator": 20,
+          "denominator": 20,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 25,
+          "denominator": 64,
+          "rate": 0.390625
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 16,
+          "denominator": 35,
+          "rate": 0.457143
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 20,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 20,
+          "denominator": 20,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 20,
+          "p50": 135,
+          "p95": 215
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "20 reviewed / 20 assigned",
+          "completeReadable": {
+            "numerator": 15,
+            "denominator": 20,
+            "rate": 0.75
+          },
+          "effectivePassages": {
+            "numerator": 10,
+            "denominator": 20,
+            "rate": 0.5
+          },
+          "factsPreserved": {
+            "numerator": 49,
+            "denominator": 64,
+            "rate": 0.765625
+          },
+          "termsCorrect": {
+            "numerator": 25,
+            "denominator": 35,
+            "rate": 0.714286
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 10,
+            "denominator": 20,
+            "rate": 0.5
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H014",
+            "H033",
+            "H035",
+            "H036",
+            "H037",
+            "H038",
+            "H039",
+            "H071",
+            "H086",
+            "H104"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 10,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 10,
+            "denominator": 10,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "supplement": {
+        "n": 3,
+        "statuses": {
+          "translated": 3
+        },
+        "displayedChinese": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 1,
+          "denominator": 5,
+          "rate": 0.2
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 2,
+          "denominator": 5,
+          "rate": 0.4
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 3,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 3,
+          "denominator": 3,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 3,
+          "p50": 48,
+          "p95": 93
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "3 reviewed / 3 assigned",
+          "completeReadable": {
+            "numerator": 3,
+            "denominator": 3,
+            "rate": 1.0
+          },
+          "effectivePassages": {
+            "numerator": 1,
+            "denominator": 3,
+            "rate": 0.333333
+          },
+          "factsPreserved": {
+            "numerator": 5,
+            "denominator": 5,
+            "rate": 1.0
+          },
+          "termsCorrect": {
+            "numerator": 4,
+            "denominator": 5,
+            "rate": 0.8
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 1,
+            "denominator": 3,
+            "rate": 0.333333
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H011"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 1,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 2,
+            "denominator": 2,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "table": {
+        "n": 4,
+        "statuses": {
+          "translated": 4
+        },
+        "displayedChinese": {
+          "numerator": 4,
+          "denominator": 4,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 4,
+          "denominator": 6,
+          "rate": 0.666667
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 4,
+          "denominator": 6,
+          "rate": 0.666667
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "rawCandidateCaptured": {
+          "numerator": 4,
+          "denominator": 4,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 4,
+          "p50": 38,
+          "p95": 72
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "4 reviewed / 4 assigned",
+          "completeReadable": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "effectivePassages": {
+            "numerator": 3,
+            "denominator": 4,
+            "rate": 0.75
+          },
+          "factsPreserved": {
+            "numerator": 6,
+            "denominator": 6,
+            "rate": 1.0
+          },
+          "termsCorrect": {
+            "numerator": 5,
+            "denominator": 6,
+            "rate": 0.833333
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 1,
+            "denominator": 4,
+            "rate": 0.25
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H028"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 3,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 1,
+            "denominator": 1,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      }
+    },
+    "difficulty": {
+      "complex": {
+        "n": 52,
+        "statuses": {
+          "translated": 51,
+          "failed": 1
+        },
+        "displayedChinese": {
+          "numerator": 51,
+          "denominator": 52,
+          "rate": 0.980769
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 51,
+          "denominator": 157,
+          "rate": 0.324841
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 34,
+          "denominator": 88,
+          "rate": 0.386364
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 52,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 51,
+          "denominator": 52,
+          "rate": 0.980769
+        },
+        "durationMs": {
+          "n": 52,
+          "p50": 130,
+          "p95": 405
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "52 reviewed / 52 assigned",
+          "completeReadable": {
+            "numerator": 44,
+            "denominator": 52,
+            "rate": 0.846154
+          },
+          "effectivePassages": {
+            "numerator": 14,
+            "denominator": 52,
+            "rate": 0.269231
+          },
+          "factsPreserved": {
+            "numerator": 120,
+            "denominator": 157,
+            "rate": 0.764331
+          },
+          "termsCorrect": {
+            "numerator": 66,
+            "denominator": 88,
+            "rate": 0.75
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 21,
+            "denominator": 52,
+            "rate": 0.403846
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H003",
+            "H014",
+            "H020",
+            "H031",
+            "H034",
+            "H035",
+            "H037",
+            "H038",
+            "H043",
+            "H051",
+            "H071",
+            "H077",
+            "H078",
+            "H081",
+            "H086",
+            "H091",
+            "H097",
+            "H099",
+            "H100",
+            "H104",
+            "H105"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 14,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 37,
+            "denominator": 37,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 1
+        }
+      },
+      "plain": {
+        "n": 11,
+        "statuses": {
+          "translated": 11
+        },
+        "displayedChinese": {
+          "numerator": 11,
+          "denominator": 11,
+          "rate": 1.0
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 6,
+          "denominator": 15,
+          "rate": 0.4
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 6,
+          "denominator": 18,
+          "rate": 0.333333
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 2,
+          "denominator": 11,
+          "rate": 0.181818
+        },
+        "rawCandidateCaptured": {
+          "numerator": 11,
+          "denominator": 11,
+          "rate": 1.0
+        },
+        "durationMs": {
+          "n": 11,
+          "p50": 37,
+          "p95": 111
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "11 reviewed / 11 assigned",
+          "completeReadable": {
+            "numerator": 10,
+            "denominator": 11,
+            "rate": 0.909091
+          },
+          "effectivePassages": {
+            "numerator": 5,
+            "denominator": 11,
+            "rate": 0.454545
+          },
+          "factsPreserved": {
+            "numerator": 14,
+            "denominator": 15,
+            "rate": 0.933333
+          },
+          "termsCorrect": {
+            "numerator": 11,
+            "denominator": 18,
+            "rate": 0.611111
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 6,
+            "denominator": 11,
+            "rate": 0.545455
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H011",
+            "H028",
+            "H061",
+            "H067",
+            "H101",
+            "H102"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 5,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 6,
+            "denominator": 6,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 0
+        }
+      },
+      "standard": {
+        "n": 42,
+        "statuses": {
+          "translated": 40,
+          "failed": 2
+        },
+        "displayedChinese": {
+          "numerator": 40,
+          "denominator": 42,
+          "rate": 0.952381
+        },
+        "literalFactAnchorMatches": {
+          "numerator": 29,
+          "denominator": 88,
+          "rate": 0.329545
+        },
+        "literalTermAnchorMatches": {
+          "numerator": 29,
+          "denominator": 71,
+          "rate": 0.408451
+        },
+        "allAnchorsInOneDisplayedResponse": {
+          "numerator": 0,
+          "denominator": 42,
+          "rate": 0.0
+        },
+        "rawCandidateCaptured": {
+          "numerator": 40,
+          "denominator": 42,
+          "rate": 0.952381
+        },
+        "durationMs": {
+          "n": 42,
+          "p50": 77,
+          "p95": 141
+        },
+        "durationByCacheState": {},
+        "retries": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "extraActions": {
+          "observed": 0,
+          "total": null,
+          "p50": null,
+          "p95": null
+        },
+        "semanticReview": {
+          "sample": "42 reviewed / 42 assigned",
+          "completeReadable": {
+            "numerator": 35,
+            "denominator": 42,
+            "rate": 0.833333
+          },
+          "effectivePassages": {
+            "numerator": 18,
+            "denominator": 42,
+            "rate": 0.428571
+          },
+          "factsPreserved": {
+            "numerator": 70,
+            "denominator": 88,
+            "rate": 0.795455
+          },
+          "termsCorrect": {
+            "numerator": 51,
+            "denominator": 71,
+            "rate": 0.71831
+          },
+          "seriousDisplayedErrors": {
+            "numerator": 10,
+            "denominator": 42,
+            "rate": 0.238095
+          },
+          "seriousUnflagged": [],
+          "seriousFlagStatusUnknown": [
+            "H015",
+            "H033",
+            "H036",
+            "H039",
+            "H050",
+            "H069",
+            "H089",
+            "H093",
+            "H096",
+            "H103"
+          ],
+          "rejectedCorrectRaw": {
+            "numerator": 0,
+            "denominator": 18,
+            "rate": 0.0
+          },
+          "acceptedIncorrectRaw": {
+            "numerator": 22,
+            "denominator": 22,
+            "rate": 1.0
+          },
+          "validationDecisionsUnassessable": 2
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "documents": {
+    "gmd-gpep": {
+      "doi": "10.5194/gmd-17-1153-2024",
+      "title": "GPEP v1.0: the Geospatial Probabilistic Estimation Package to support Earth science applications",
+      "authors": [
+        "Guoqiang Tang",
+        "Andrew W. Wood",
+        "Andrew J. Newman",
+        "Martyn P. Clark",
+        "Simon Michael Papalexiou"
+      ],
+      "url": "https://doi.org/10.5194/gmd-17-1153-2024",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "3667d9fecf0d0974e88641e530938e920d00e8c77dd9aa4e3f8b50e532d71fa0"
+    },
+    "PMC11605121": {
+      "doi": "10.1038/s41598-024-81361-7",
+      "title": "Effects of foot–ground friction and age-related gait changes on falls during walking: a computational study using a neuromusculoskeletal model",
+      "authors": [
+        "Naoto Izumi",
+        "Takashi Yoshida",
+        "Toshiaki Nishi",
+        "Kei Masani",
+        "Takeshi Yamaguchi"
+      ],
+      "url": "https://doi.org/10.1038/s41598-024-81361-7",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "9680d4890c35bdb811681cc0256f2b59aeb6df4ce5f9e7c0e7cc3f245c850cd5"
+    },
+    "PMC11364041": {
+      "doi": "10.1107/S2052252524008157",
+      "title": "AI-enhanced X-ray diffraction analysis: towards real-time mineral phase identification and quantification",
+      "authors": [
+        "Nikolaos I. Prasianakis"
+      ],
+      "url": "https://doi.org/10.1107/S2052252524008157",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "985eb285d3a765203f5d18c39212f40688a6896aac1d76e4f45aedb0dee5e229"
+    },
+    "PMC11739939": {
+      "doi": "10.1021/acsomega.4c07325",
+      "title": "Hydrogel Biocomposite of Alginate and Mucilage of Opuntia ficus-indica Cactus in the Adsorption of Methylene Blue in Aqueous Solution",
+      "authors": [
+        "Estefane Caetano Nazzari",
+        "Gessica Wernke",
+        "Grace Anne Vieira Magalhães Ghiotto",
+        "Rosângela Bergamasco",
+        "Raquel Guttierres Gomes"
+      ],
+      "url": "https://doi.org/10.1021/acsomega.4c07325",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "e08b59ab6f0e7f04f5631ae131f23180232196be37d31bf651a2a90083a5a526"
+    },
+    "PMC8692591": {
+      "doi": "10.1038/s41746-021-00541-1",
+      "title": "Predicting changes in glycemic control among adults with prediabetes from activity patterns collected by wearable devices",
+      "authors": [
+        "Mitesh S. Patel",
+        "Daniel Polsky",
+        "Dylan S. Small",
+        "Sae-Hwan Park",
+        "Chalanda N. Evans",
+        "Tory Harrington",
+        "Rachel Djaraher",
+        "Sujatha Changolkar",
+        "Christopher K. Snider",
+        "Kevin G. Volpp"
+      ],
+      "url": "https://doi.org/10.1038/s41746-021-00541-1",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "40c9eea5ff47bbf4bf48b868007819663c3793498a9fd559ec114a9467a1ef20"
+    },
+    "PMC6410922": {
+      "doi": "10.1364/OE.27.005641",
+      "title": "Dynamic physiological temperature and pressure sensing with phase-resolved low-coherence interferometry",
+      "authors": [
+        "J. M. Coote",
+        "E. J. Alles",
+        "S. Noimark",
+        "C. A. Mosse",
+        "C. D. Little",
+        "C. D. Loder",
+        "A. L. David",
+        "R. D. Rakhit",
+        "M. C. Finlay",
+        "A. E. Desjardins"
+      ],
+      "url": "https://doi.org/10.1364/OE.27.005641",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "d5dfdf63d369ff1e27d09168b1b64ad972ff07ad7eb638893888858adbb9dd0c"
+    },
+    "PMC11704610": {
+      "doi": "10.1016/j.crmeth.2024.100933",
+      "title": "Single-cell RNA sequencing algorithms underestimate changes in transcriptional noise compared to single-molecule RNA imaging",
+      "authors": [
+        "Neha Khetan",
+        "Binyamin Zuckerman",
+        "Giuliana P. Calia",
+        "Xinyue Chen",
+        "Ximena Garcia Arceo",
+        "Leor S. Weinberger"
+      ],
+      "url": "https://doi.org/10.1016/j.crmeth.2024.100933",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "adc1d884815611bd9bef221ecc17ba6a9bd4b6a9825e1efa8b7752516aa1129b"
+    },
+    "PMC11628634": {
+      "doi": "10.1002/ece3.70587",
+      "title": "Phylogeography, Historical Population Demography, and Climatic Modeling of Two Bird Species Uncover Past Connections Between Amazonia and the Atlantic Forest",
+      "authors": [
+        "Ivandy N. Castro‐Astor",
+        "Joel Cracraft",
+        "José G. Tello",
+        "Maria Alice S. Alves",
+        "William M. Mauck",
+        "Alexandre Aleixo",
+        "Charles Duca",
+        "Ana Carolina Carnaval"
+      ],
+      "url": "https://doi.org/10.1002/ece3.70587",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "53a249c40de1f4a971d903b6758c85456b08deb459ac00761ac70c69cef2fea4"
+    },
+    "PMC11657818": {
+      "doi": "10.1186/s12859-024-05997-y",
+      "title": "Piikun: an information theoretic toolkit for analysis and visualization of species delimitation metric space",
+      "authors": [
+        "Jeet Sukumaran",
+        "Marina Meila"
+      ],
+      "url": "https://doi.org/10.1186/s12859-024-05997-y",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "00536bf5b5efecf5b633d7338fd294d7dfd457955b08b15f64b310e674aa39e5"
+    }
+  },
+  "samples": [
+    {
+      "id": "T01",
+      "document": "gmd-gpep",
+      "section": "abstract",
+      "text": "Yet ensemble estimation is more challenging than single-value spatial interpolation, and open-access routines and tools are limited in this area, hindering the generation and application of ensemble geophysical datasets.",
+      "criterion": "集合估计比单值空间插值更难；公开工具有限，妨碍生成与应用数据集。"
+    },
+    {
+      "id": "T02",
+      "document": "gmd-gpep",
+      "section": "abstract",
+      "text": "This paper describes GPEP and illustrates some of its capabilities using several demonstration experiments, including the estimation of precipitation, temperature, and snow water equivalent ensemble analyses on various scales.",
+      "criterion": "GPEP 演示涉及不同尺度的降水、温度和雪水当量。"
+    },
+    {
+      "id": "T03",
+      "document": "PMC11605121",
+      "section": "abstract",
+      "text": "The static friction coefficient between the foot and the ground was varied from 0.05 to 2.0.",
+      "criterion": "足与地面的静摩擦系数从 0.05 变化至 2.0。"
+    },
+    {
+      "id": "T04",
+      "document": "PMC11605121",
+      "section": "abstract",
+      "text": "Under high friction conditions, only the elderly faller model demonstrated trip-induced falls.",
+      "criterion": "高摩擦时，仅有跌倒史老年人的模型出现绊倒。"
+    },
+    {
+      "id": "T05",
+      "document": "PMC11364041",
+      "section": "abstract",
+      "text": "The use of convolutional neural networks can revolutionize XRD analysis by significantly reducing processing times.",
+      "criterion": "卷积神经网络有望缩短 XRD 分析的处理时间。"
+    },
+    {
+      "id": "T06",
+      "document": "PMC11739939",
+      "section": "abstract",
+      "text": "The swelling study showed a maximum value of 262% at pH 6.0.",
+      "criterion": "溶胀最大值为 262%，条件是 pH 6.0。"
+    },
+    {
+      "id": "T07",
+      "document": "PMC11739939",
+      "section": "abstract",
+      "text": "Adsorption studies revealed a maximum adsorptive capacity of 7.21 mg g–1 in 400 min at 298 K.",
+      "criterion": "最大吸附容量为每克 7.21 毫克，条件为 298 K、400 分钟。"
+    },
+    {
+      "id": "T08",
+      "document": "PMC11739939",
+      "section": "abstract",
+      "text": "Furthermore, the experimental data showed better fit to the pseudo-second order and Langmuir models for kinetic and isothermal studies, respectively.",
+      "criterion": "动力学与等温吸附研究分别与准二级、Langmuir 模型更吻合。"
+    },
+    {
+      "id": "T09",
+      "document": "PMC8692591",
+      "section": "abstract",
+      "text": "We conducted a randomized trial with adults with prediabetes who were given either a waist-worn or wrist-worn wearable to track activity patterns.",
+      "criterion": "糖尿病前期成年人随机试验；腰戴与腕戴设备，监测活动模式。"
+    },
+    {
+      "id": "T10",
+      "document": "PMC8692591",
+      "section": "abstract",
+      "text": "We tested three models that predicted changes in hemoglobin A1c that were continuous, improved glycemic control by 5% or worsened glycemic control by 5%.",
+      "criterion": "三个模型分别预测糖化血红蛋白连续变化、血糖控制改善 5%、恶化 5%。"
+    },
+    {
+      "id": "T11",
+      "document": "PMC6410922",
+      "section": "abstract",
+      "text": "At acquisition rates of 250 Hz, temperature and pressure changes of 0.0021 °C and 0.22 mmHg are detectable.",
+      "criterion": "采集速率为 250 Hz；可测温度变化 0.0021 °C、压力变化 0.22 mmHg。"
+    },
+    {
+      "id": "T12",
+      "document": "PMC6410922",
+      "section": "abstract",
+      "text": "An in vivo experiment demonstrated that the sensors had sufficient speed and sensitivity for monitoring dynamic physiological pressure waveforms.",
+      "criterion": "体内实验表明传感器速度和灵敏度足以监测动态生理压力波形。"
+    },
+    {
+      "id": "T13",
+      "document": "PMC11704610",
+      "section": "abstract",
+      "text": "Stochastic fluctuations (noise) in transcription generate substantial cell-to-cell variability. However, how best to quantify genome-wide noise remains unclear.",
+      "criterion": "转录随机波动造成细胞间变异；如何量化全基因组噪声尚不清楚。"
+    },
+    {
+      "id": "T14",
+      "document": "PMC11704610",
+      "section": "abstract",
+      "text": "We find that various scRNA-seq analyses report amplified noise—without altered mean expression levels—for ∼90% of genes and that smFISH analysis verifies noise amplification for the vast majority of tested genes.",
+      "criterion": "约 90% 的基因噪声增大，平均表达量未变；smFISH 验证了多数受测基因的结果。"
+    },
+    {
+      "id": "T15",
+      "document": "PMC11628634",
+      "section": "abstract",
+      "text": "ND2 sequences of C. rubrocapilla (75 individuals, 24 sites) and P. pipra (196, 77) were used in Bayesian inference and maximum likelihood analyses.",
+      "criterion": "两个物种 ND2 序列分别来自 75 个体、24 地与 196 个体、77 地；采用贝叶斯推断与最大似然分析。"
+    },
+    {
+      "id": "T16",
+      "document": "PMC11628634",
+      "section": "abstract",
+      "text": "Paleoclimatic distribution models suggest connections between southwestern Amazonia and the southern Atlantic Forest during the LIG, but not between eastern Amazonia and the northeastern Atlantic Forest, as suggested by previous studies.",
+      "criterion": "LIG 时期亚马孙西南部与大西洋森林南部相连；模型不支持亚马孙东部与大西洋森林东北部相连。"
+    },
+    {
+      "id": "T17",
+      "document": "PMC11657818",
+      "section": "abstract",
+      "text": "Existing software for comparison of species delimitation models do not provide a (true) metric or distance functions between species delimitation models, nor a way to compare these models in terms of relative clustering differences along a lattice of partitions.",
+      "criterion": "现有物种界定模型比较软件缺少真正度量或距离函数，也不能沿划分格比较相对聚类差异。"
+    }
+  ]
+}

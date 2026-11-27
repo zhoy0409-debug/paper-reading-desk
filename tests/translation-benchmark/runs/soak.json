@@ -1,0 +1,15 @@
+{
+  "readingSeconds": 331.44,
+  "selections": 363,
+  "crashRecovered": true,
+  "stage": "worker",
+  "beforeIdle": {
+    "starts": 2,
+    "ends": 1
+  },
+  "afterIdle": {
+    "starts": 3,
+    "ends": 2
+  },
+  "idleTest": "Five-minute timer accelerated only for idle teardown"
+}

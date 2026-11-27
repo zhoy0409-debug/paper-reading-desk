@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const base=new URL('.',document.currentScript.src);
-  let engine,labelStartup,field='auto';
+  let engine,labelStartup,idleTimer,outstanding=0,field='auto';
   function loadModule(file){
     let pending,attempt=0;
     return ()=>{
@@ -17,9 +17,19 @@
       return pending;
     };
   }
-  const glossary=loadModule('discipline-glossary.js?rev=0416');
-  const science=loadModule('scientific-translation.js?rev=0418');
-  const runtime=loadModule('vendor/bergamot/translator.js?rev=0418');
+  const glossary=loadModule('discipline-glossary.js?rev=quality1');
+  const science=loadModule('scientific-translation.js?rev=quality1');
+  const session=loadModule('translation-session.js?rev=quality1');
+  const runtime=loadModule('vendor/bergamot/translator.js?rev=quality1');
+  let runtimeCache;
+  function enableRuntimeCache(){
+    if(!runtimeCache&&navigator.serviceWorker&&window.isSecureContext)
+      runtimeCache=navigator.serviceWorker.register(new URL('translation-runtime-cache.js',base),{scope:base.href,updateViaCache:'none'}).catch(()=>null);
+  }
+  async function clearModelCache(){
+    const lib=await runtime();await lib.clearModelCache();
+    if(globalThis.caches)await caches.delete('reading-desk-translation-runtime-v1');
+  }
   const logged=new WeakSet();
   function report(error,context){
     if(error instanceof Error){
@@ -38,27 +48,39 @@
   const cache=new Map(),ready=new Map(),bindings=new WeakMap();
   const retryMessages=new Map();
   function downloadProgress(url,bytes,finished){
+    document.dispatchEvent(new CustomEvent('translation-download',{detail:{url,bytes,finished}}));
     if(!retryMessages.size||!url.includes('model.enzh.'))return;
     const mb=Math.floor(bytes/1048576);
     const text=finished?'正在翻译此处…':mb?'正在下载中文翻译模型 · 已接收 '+mb+' MiB':'正在下载中文翻译模型…';
     for(const message of retryMessages.values())if(message.textContent!==text)message.textContent=text;
   }
   async function translate(text,from,priority=0) {
-    if(!engine&&labelStartup)await labelStartup;
+    if(!engine&&labelStartup&&priority>=0)await labelStartup;
     if(!engine){
+      enableRuntimeCache();
       engine=runtime().then(async({BatchTranslator})=>{
-        const model=new BatchTranslator({registryUrl:new URL('vendor/bergamot/models.json',base).href,workers:1,downloadTimeout:150000,cacheSize:0,useNativeIntGemm:false});
+        const model=new BatchTranslator({registryUrl:new URL('vendor/bergamot/models.json',base).href,workers:1,batchSize:4,downloadTimeout:150000,cacheSize:0,useNativeIntGemm:false});
         model.backing.onprogress=downloadProgress;
         await model.backing.registry;
         return model;
       });
       const active=engine;active.catch(()=>{if(engine===active)engine=null});
     }
-    const translator=await engine;
-    const response=await translator.translate({from,to:from==='en'?'zh':'en',text,html:false,priority});
-    if(typeof response?.target?.text!=='string'||!response.target.text.trim())
-      throw Object.assign(new Error('Bergamot returned no translation'),{stage:'empty'});
-    return response.target.text;
+    clearTimeout(idleTimer);outstanding++;
+    const current=engine;
+    try{
+      const translator=await current;
+      const response=await translator.translate({from,to:from==='en'?'zh':'en',text,html:false,priority});
+      if(typeof response?.target?.text!=='string'||!response.target.text.trim())
+        throw Object.assign(new Error('Bergamot returned no translation'),{stage:'empty'});
+      return response.target.text;
+    }finally{
+      outstanding--;
+      if(!outstanding&&engine===current)idleTimer=setTimeout(()=>{
+        if(outstanding||engine!==current)return;
+        engine=null;current.then(model=>model.delete()).catch(e=>report(e,'worker cleanup'));
+      },300000);
+    }
   }
   // Translate the prose in one piece. Restore each protected span only if its
   // placeholder survives exactly once. Some models lose inline HTML alignment.
@@ -82,14 +104,26 @@
   }
   translate.withTerms=withTerms;
   const urgent=Object.assign((text,from,priority=-1)=>translate(text,from,priority),{withTerms:(parts,priority=-1)=>withTerms(parts,priority)});
-  const keyFor=source=>(field.key??field)+'\n'+source;
-  function chinese(source,retry=false) {
-    const key=keyFor(source),profile=field;
+  const keyFor=(source,profile=field)=>(profile.key??profile)+'\n'+source;
+  function chinese(source,retry=false,profile=field) {
+    const key=keyFor(source,profile);
     if(ready.has(key))return Promise.resolve(ready.get(key));
     if(retry||!cache.has(key)){
       const translator=retry?urgent:translate;
-      const job=science().then(async({mapChinese})=>{
-        if(!han.test(source))return mapChinese(source,translator,{field:profile});
+      const job=science().then(async({mapChinese,sentences})=>{
+        if(!han.test(source)){
+          const segments=sentences(source);
+          if(segments.length===1)return mapChinese(source,translator,{field:profile});
+          const text=[];let firstFailure,completed=0;
+          for(const [i,segment] of segments.entries()){
+            try{text.push(await chinese(segment,retry,profile));completed++}
+            catch(error){firstFailure??=error;text.push('〔第 '+(i+1)+' 句待重试〕')}
+          }
+          if(firstFailure)throw Object.assign(new Error('Map passage is incomplete',{cause:firstFailure}),{
+            stage:firstFailure.stage,partial:completed?text.join(' '):'',source
+          });
+          return text.join(' ');
+        }
         const parts=source.split(/([\u3400-\u9fff]+)/u);
         return (await Promise.all(parts.map(part=>englishPassage.test(part)?mapChinese(part,translator,{field:profile}):part))).join('');
       }).then(value=>value.replace(/(?:近邻|邻居)\s*嵌入/g,'邻域嵌入').replace(/([\u3400-\u9fff])\s+(?=[\u3400-\u9fff])/gu,'$1'));
@@ -127,6 +161,7 @@
   function refresh(el,again=false) {
     const binding=bindings.get(el);
     if(!binding)return;
+    if(binding.partialTitle&&el.title===binding.source){el.removeAttribute('title');binding.partialTitle=false}
     const {source}=binding;
     clearTimeout(binding.timer);
     retryMessages.delete(el);
@@ -155,7 +190,8 @@
     }).catch(error=>{if(current()&&el.isConnected&&ReaderLanguage.current==='zh'){
       report(error,'paper');
       binding.button?.remove();binding.button=null;
-      el.textContent=binding.showSource||el.matches('option')?source:'';
+      el.textContent=error.partial||(binding.showSource||el.matches('option')?source:'');
+      if(error.partial&&!el.title){el.title=source;binding.partialTitle=true}
       retryControl(el,binding,'error');
       if(binding.showSource)el.dataset.sourcePending='原文 · 中文待重试';
     }}).finally(()=>{
@@ -171,6 +207,7 @@
   }
   function clear(el){
     const binding=bindings.get(el);clearTimeout(binding?.timer);binding?.button?.remove();bindings.delete(el);
+    if(binding?.partialTitle&&el.title===binding.source)el.removeAttribute('title');
     retryMessages.delete(el);
     delete el.dataset.translationRetry;delete el.dataset.paperTranslation;delete el.dataset.sourcePending;el.removeAttribute('aria-busy');
   }
@@ -189,5 +226,5 @@
   }));
   // A discarded document releases its dedicated translation worker. Starting
   // another asynchronous teardown in pagehide can interrupt an active batch.
-  window.PaperLanguageText={bind,clear,translate:urgent,report,chinese,retry,prioritizeLabels,glossary,science,setField,get field(){return field}};
+  window.PaperLanguageText={bind,clear,translate:urgent,report,chinese,retry,prioritizeLabels,glossary,science,session,clearModelCache,setField,get field(){return field}};
 })();

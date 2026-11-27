@@ -95,6 +95,41 @@ def answer(data):
         SLOTS.release()
 
 
+def translation_payload(body):
+    if not isinstance(body,dict) or set(body)!={'provider','consent','message'} or body['consent'] is not True:
+        raise ValueError('Translation requires consent')
+    msg=body['message']
+    if body['provider'] not in ('deepseek','qwen','ollama') or not isinstance(msg,dict) or set(msg)!={'target','field','units','context','terms'}:
+        raise ValueError('Unknown translation request')
+    if msg['target'] not in ('zh','en') or not isinstance(msg['units'],list) or not 1<=len(msg['units'])<=512:
+        raise ValueError('Invalid translation units')
+    text(msg['field'],80,True)
+    text(msg['context'],8000)
+    ids=set()
+    for unit in msg['units']:
+        if not isinstance(unit,dict) or set(unit)!={'id','text'} or text(unit['id'],40,True) in ids:
+            raise ValueError('Invalid translation unit')
+        ids.add(unit['id'])
+        text(unit['text'],8000,True)
+    if not isinstance(msg['terms'],list) or len(msg['terms'])>150 or sum(len(u['text']) for u in msg['units'])>8000:
+        raise ValueError('Selection too long')
+    for pair in msg['terms']:
+        if not isinstance(pair,list) or len(pair)!=2:raise ValueError('Invalid term')
+        for item in pair:text(item,250,True)
+    return body
+
+
+def translate_selection(data):
+    config=providers.CONTRACT['translation']
+    if not SLOTS.acquire(blocking=False):raise ReaderError('阅读服务忙，请重试。 / Reader busy. Try again.')
+    try:
+        return providers.complete(data['provider'],config['system'],data['message'],config['schema'])
+    except providers.ProviderIssue as exc:
+        raise ReaderError(str(exc)) from exc
+    finally:
+        SLOTS.release()
+
+
 def outline_payload(body):
     if not isinstance(body, dict) or set(body) != {'language', 'provider', 'excerpt'}:
         raise ValueError('Invalid outline request')

@@ -54,8 +54,8 @@ function observeWorker() {
   };
 }
 
-async function openSource(page,pdf) {
-  await page.goto(new URL('?lang=en',base).href);
+async function openSource(page,pdf,language='en') {
+  await page.goto(new URL('?lang='+encodeURIComponent(language),base).href);
   await page.addLocatorHandler(page.locator('.gd-skip:visible'), b=>b.click());
   await page.locator('input[id$="-main"]').first().setInputFiles(pdf);
   await page.locator('.st-tools .lineActions').waitFor({state:'attached',timeout:120000});
@@ -126,10 +126,14 @@ function checkStructure(text) {
   assert.doesNotMatch(text,/吡啶|comprises|moieties|73140\d|待核对/);
 }
 
-async function verify(browser) {
-  const page=await browser.newPage({viewport:{width:1440,height:1000}});
+const failures = [['registry','download'],['manifest','model'],['wasm','worker'],['file','download'],['digest','integrity']];
+
+async function verify(browser, isolatedFault) {
+  // Route the actual model downloads for repeatable fault injection. Persistent
+  // Service Worker behavior is exercised in the separate reload/cache scenario.
+  const page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
   const requests=[], responses=[], errors=[];
-  let navigation=0, fault=process.argv.includes('--healthy')?'':'registry';
+  let navigation=0, fault=isolatedFault || (process.argv.includes('--healthy')?'':'registry');
   await page.addInitScript(observeWorker);
   page.on('framenavigated',f=>{if(f===page.mainFrame())navigation++});
   page.on('console',msg=>{
@@ -160,7 +164,7 @@ async function verify(browser) {
   const keep=await page.locator('.pl-excerpt blockquote').first().elementHandle();
   const opened=navigation;
   if(fault) {
-    for(const [scenario,stage] of [['registry','download'],['manifest','model'],['wasm','worker'],['file','download'],['digest','integrity']]) {
+    for(const [scenario,stage] of failures.filter(([name])=>!isolatedFault||name===isolatedFault)) {
       fault=scenario;await run(page,stage,word);
     }
     fault='';
@@ -168,6 +172,11 @@ async function verify(browser) {
   assert.equal(await run(page,null,word),'水');
   assert(await keep.evaluate(el=>el.isConnected));
   assert.equal(navigation,opened,'Retry must leave the current paper open');
+  if(isolatedFault) {
+    console.log('PASS isolated '+isolatedFault+' failure and a single successful retry of the same selection.');
+    await page.context().close();
+    return;
+  }
   const requestCount=part=>requests.filter(url=>url.endsWith('/'+path.basename(manifest[part].name))).length;
   const expectedRetries=process.argv.includes('--healthy')?1:3;
   assert.equal(requestCount('srcvocab'),expectedRetries);
@@ -199,7 +208,7 @@ async function verify(browser) {
     check(result); console.log('PASS selection:',source,'=>',result);
   }
   await page.locator('.selection-close:visible').click();
-  await selectText(page,sentence);
+  await selectText(page,'The blue light');
   await page.evaluate(()=>{selectionAudit.holdNext=true});
   await page.locator('.selection-translate:visible').click();
   await page.waitForFunction(()=>typeof selectionAudit.release==='function');
@@ -214,11 +223,11 @@ async function verify(browser) {
   console.log('PASS two overlapping native selections share the Worker; only the latest updates the popup.');
   if(expectedRetries>1){
     await page.locator('.selection-close:visible').click();
-    const stalled=await selectText(page,'water');
+    const stalled=await selectText(page,'glass');
     await page.evaluate(()=>{selectionAudit.shortenDeadline=true;selectionAudit.stallNext=true});
     await run(page,'timeout',stalled);
     await page.evaluate(()=>{selectionAudit.shortenDeadline=false});
-    assert.equal(await run(page,null,stalled),'水');
+    assert.match(await run(page,null,stalled),/玻璃/);
     assert.equal(await page.evaluate(()=>selectionAudit.starts),expectedInit+1);
     assert.equal(requestCount('model'),1);assert.equal(requestCount('srcvocab'),expectedRetries);
     console.log('PASS a stalled translation reached its deadline; retry replaced that Worker and reused the verified model files.');
@@ -235,8 +244,13 @@ async function verify(browser) {
     await article.close();
   }
 }
-(async()=>{
+module.exports={openSource,selectText};
+if(require.main===module)(async()=>{
   const browser=process.env.READER_BROWSER==='webkit' ? await webkit.launch()
     : await chromium.launch({channel:process.platform==='win32'?'msedge':'chromium'});
-  try{await verify(browser)}finally{await browser.close()}
+  try{
+    if(process.argv.includes('--isolated-faults')){
+      for(const [name] of failures)await verify(browser,name);
+    }else await verify(browser);
+  }finally{await browser.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});
