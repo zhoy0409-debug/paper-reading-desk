@@ -100,7 +100,7 @@ jobs:
           READER_BROWSER=webkit node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/
           node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
