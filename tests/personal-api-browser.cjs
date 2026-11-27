@@ -23,12 +23,16 @@ async function test() {
     const calls=[], errors=[], leak=[];
     let mode='success';
     page.on('pageerror',err=>errors.push(err.message));
-    await page.route('**/*', async route=>{
-      const req=route.request(), url=req.url();
-      const provider=Object.keys(endpoints).find(k=>endpoints[k]===url);
+    page.on('request',req=>{
+      const url=req.url();
+      if(Object.values(key).some(k=>url.includes(k)||(req.postData()||'').includes(k)) ||
+        (req.headers().authorization&&!Object.values(endpoints).includes(url)))leak.push(url);
+    });
+    // Only the two paid API endpoints are mocked. Reloads, PDF workers and
+    // language assets use normal browser navigation, including on mobile WebKit.
+    await page.route(url=>Object.values(endpoints).includes(url.href),async route=>{
+      const req=route.request(), provider=Object.keys(endpoints).find(k=>endpoints[k]===req.url());
       const authorization=await req.headerValue('authorization');
-      if(Object.values(key).some(k=>url.includes(k)||(req.postData()||'').includes(k)) || (authorization && !provider))leak.push(url);
-      if(!provider)return route.continue();
       const headers={'Access-Control-Allow-Origin':base.origin,'Access-Control-Allow-Headers':'authorization,content-type','Access-Control-Allow-Methods':'POST'};
       if(req.method()==='OPTIONS')return route.fulfill({status:204,headers});
       const wire=req.postDataJSON(), prompt=JSON.parse(wire.messages[1].content);
@@ -107,8 +111,10 @@ async function test() {
     const stored=await page.evaluate(()=>JSON.stringify([localStorage,sessionStorage]));
     assert(Object.values(key).every(k=>!stored.includes(k)));
     const count=calls.length;
-    await page.evaluate(()=>{window.__previousApiDocument=true;setTimeout(()=>location.reload(),0);});
-    await page.waitForFunction(()=>!window.__previousApiDocument&&!!window.ReaderBrowserModels,null,{timeout:20000});
+    await page.evaluate(()=>{document.documentElement.dataset.previousApiDocument='true'});
+    await page.reload({waitUntil:'commit',timeout:45000});
+    await page.waitForFunction(()=>!document.documentElement.dataset.previousApiDocument&&!!window.ReaderBrowserModels,
+      null,{polling:100,timeout:30000});
     assert.deepEqual(await page.evaluate(()=>ReaderBrowserModels.options().available),{evidence:true,deepseek:false,qwen:false});
     assert.equal(calls.length,count);
     assert.deepEqual(leak,[]);assert.deepEqual(errors,[]);
