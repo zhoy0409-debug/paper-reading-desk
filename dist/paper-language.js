@@ -16,7 +16,7 @@
   }
   const glossary=loadModule('discipline-glossary.js?rev=0416');
   const science=loadModule('scientific-translation.js?rev=reader-0416');
-  const runtime=loadModule('vendor/bergamot/translator.js?rev=0416');
+  const runtime=loadModule('vendor/bergamot/translator.js?rev=0416b');
   // Give the first interactive image a head start on the much larger translation model.
   function prioritizeLabels(ready){
     if(engine||labelStartup)return;
@@ -25,11 +25,19 @@
     labelStartup=Promise.race([ready.catch(()=>{}),deadline]).finally(()=>{clearTimeout(timer);labelStartup=null});
   }
   const cache=new Map(),ready=new Map(),bindings=new WeakMap();
+  const retryMessages=new Map();
+  function downloadProgress(url,bytes,finished){
+    if(!retryMessages.size||!url.includes('model.enzh.'))return;
+    const mb=Math.floor(bytes/1048576);
+    const text=finished?'正在翻译此处…':mb?'正在下载中文翻译模型 · 已接收 '+mb+' MiB':'正在下载中文翻译模型…';
+    for(const message of retryMessages.values())if(message.textContent!==text)message.textContent=text;
+  }
   async function translate(text,from,priority=0) {
     if(!engine&&labelStartup)await labelStartup;
     if(!engine){
       engine=runtime().then(async({BatchTranslator})=>{
         const model=new BatchTranslator({registryUrl:new URL('vendor/bergamot/models.json',base).href,workers:1,downloadTimeout:150000,cacheSize:0,useNativeIntGemm:false});
+        model.backing.onprogress=downloadProgress;
         await model.backing.registry;
         return model;
       });
@@ -106,6 +114,7 @@
     if(!binding)return;
     const {source}=binding;
     clearTimeout(binding.timer);
+    retryMessages.delete(el);
     if(binding.button&&document.activeElement===binding.button){el.tabIndex=-1;el.focus({preventScroll:true})}
     binding.button?.remove();binding.button=null;
     delete el.dataset.translationRetry;delete el.dataset.sourcePending;
@@ -116,6 +125,10 @@
     }
     if(ready.has(keyFor(source))){el.textContent=ready.get(keyFor(source));el.lang='zh-CN';el.removeAttribute('aria-busy');return;}
     el.lang=binding.showSource?'en':'zh-CN';el.textContent=binding.showSource?source:again?'正在重试…':'正在生成中文…';el.setAttribute('aria-busy','true');
+    if(again&&!binding.showSource&&!el.matches('option')){
+      const message=document.createElement('span');message.textContent='正在重试…';
+      el.replaceChildren(message);retryMessages.set(el,message);
+    }
     if(binding.showSource)el.dataset.sourcePending='原文 · 正在译为中文';
     binding.timer=setTimeout(()=>{if(current()&&el.isConnected)retryControl(el,binding,'slow')},45000);
     chinese(source,again).then(value=>{
@@ -130,7 +143,7 @@
       retryControl(el,binding,'error');
       if(binding.showSource)el.dataset.sourcePending='原文 · 中文待重试';
     }}).finally(()=>{
-      if(current()){clearTimeout(binding.timer);el.removeAttribute('aria-busy')}
+      if(current()){clearTimeout(binding.timer);retryMessages.delete(el);el.removeAttribute('aria-busy')}
     });
   }
   function bind(el,source,{showSource=false}={}) {
@@ -142,6 +155,7 @@
   }
   function clear(el){
     const binding=bindings.get(el);clearTimeout(binding?.timer);binding?.button?.remove();bindings.delete(el);
+    retryMessages.delete(el);
     delete el.dataset.translationRetry;delete el.dataset.paperTranslation;delete el.dataset.sourcePending;el.removeAttribute('aria-busy');
   }
   function retry(target){

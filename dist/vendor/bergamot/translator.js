@@ -87,6 +87,7 @@ export class CancelledError extends Error {}
          * @type {Map<{from:string,to:string}, Promise<Map<string,ArrayBuffer>>>}
          */
         this.buffers = new Map();
+        this.fileBuffers = new Map();
 
         /**
          * @type {string?}
@@ -219,6 +220,7 @@ export class CancelledError extends Error {}
      */
     async loadModelRegistery() {
         const response = await fetch(this.registryUrl, {credentials: 'omit'});
+        if (!response.ok) throw new Error('Translation model index returned HTTP ' + response.status);
         const registry = await response.json();
 
         // Add 'from' and 'to' keys for each model.
@@ -278,40 +280,19 @@ export class CancelledError extends Error {}
         // Find that model in the registry which will tell us about its files
         const entries = (await this.registry).filter(model => model.from == from && model.to == to);
 
-        if (!entries)
+        if (!entries.length)
             throw new Error(`No model for '${from}' -> '${to}'`);
 
         const files = entries[0].files;
 
-        const abort = () => reject(new CancelledError('abort signal'));
-
-        // Promise that resolves (or rejects really) when the abort signal hits
-        const escape = new Promise((accept, reject) => {
-            if (options?.signal)
-                options.signal.addEventListener('abort', abort);
-        });
-
-        // Download all files mentioned in the registry entry. Race the promise
-        // of all fetch requests, and a promise that rejects on the abort signal
-        const buffers = Object.fromEntries(await Promise.race([
-            Promise.all(Object.entries(files).map(async ([part, file]) => {
-                // Special case where qualityModel is not part of the model, and this
-                // should also catch the `config` case.
-                if (file === undefined || file.name === undefined)
-                    return [part, null];
-
-                try {
-                    return [part, await this.fetch(file.name, file.expectedSha256Hash, options)];
-                } catch (cause) {
-                    throw new Error(`Could not fetch ${file.name} for ${from}->${to} model`, {cause});
-                }
-            })),
-            escape
-        ]));
-
-        // Nothing to abort now, clean up abort promise
-        if (options?.signal)
-            options.signal.removeEventListener('abort', abort);
+        const buffers = Object.fromEntries(await Promise.all(Object.entries(files).map(async ([part, file]) => {
+            if (!file?.name) return [part, null];
+            try {
+                return [part, await this.fetchModelFile(file, options)];
+            } catch (cause) {
+                throw new Error(`Could not fetch ${file.name} for ${from}->${to} model`, {cause});
+            }
+        })));
 
         performance.measure('loadTranslationModel', `loadTranslationModule.${JSON.stringify({from, to})}`);
 
@@ -351,8 +332,23 @@ export class CancelledError extends Error {}
         };
     }
 
+    // If one download fails, reuse verified companion files on the next attempt.
+    fetchModelFile(file, options) {
+        const key = file.expectedSha256Hash;
+        if (!key || options?.signal) return this.fetch(file.name, key, options);
+        if (!this.fileBuffers.has(key)) {
+            const job = this.fetch(file.name, key, options);
+            this.fileBuffers.set(key, job);
+            job.catch(() => {
+                if (this.fileBuffers.get(key) === job) this.fileBuffers.delete(key);
+            });
+        }
+        return this.fileBuffers.get(key);
+    }
+
     /**
-     * Helper to download file from the web. Verifies the checksum.
+     * Download a model file and verify its digest. On a slow link the timeout
+     * measures inactivity, so a healthy transfer can keep making progress.
      * @param {string} url
      * @param {string?} checksum sha256 checksum as hexadecimal string
      * @param {{signal:AbortSignal}?} extra fetch options
@@ -363,11 +359,17 @@ export class CancelledError extends Error {}
         const controller = new AbortController();
         const abort = () => controller.abort();
 
-        const timeout = this.downloadTimeout ? setTimeout(abort, this.downloadTimeout) : null;
+        let timeout;
+        const active = () => {
+            clearTimeout(timeout);
+            if (this.downloadTimeout) timeout = setTimeout(abort, this.downloadTimeout);
+        };
+        active();
 
         try {
             // Also maintain the original abort signal
-            if (extra?.signal)
+            if (extra?.signal?.aborted) abort();
+            else if (extra?.signal)
                 extra.signal.addEventListener('abort', abort);
 
             const options = {
@@ -375,20 +377,27 @@ export class CancelledError extends Error {}
                 signal: controller.signal,
             };
 
-            if (checksum)
-                options['integrity'] = `sha256-${this.hexToBase64(checksum)}`;
-
-            // Disable the integrity check for NodeJS because of
-            // https://github.com/nodejs/undici/issues/1594
-            if (typeof window === 'undefined')
-                delete options['integrity'];
-
-            // Start downloading the url, using the hex checksum to ask
-            // `fetch()` to verify the download using subresource integrity 
+            const streaming = checksum && globalThis.crypto?.subtle && typeof TransformStream === 'function';
+            if (checksum && !streaming && typeof window !== 'undefined')
+                options.integrity = 'sha256-' + this.hexToBase64(checksum);
             const response = await fetch(url, options);
-
-            // Finish downloading (or crash due to timeout)
-            return await response.arrayBuffer();
+            if (!response.ok) throw new Error('Translation resource returned HTTP ' + response.status);
+            if (!streaming) return await response.arrayBuffer();
+            let bytes = 0;
+            const chunks = response.body?.pipeThrough(new TransformStream({
+                transform: (chunk, output) => {
+                    active();
+                    bytes += chunk.byteLength;
+                    this.onprogress?.(url, bytes, false);
+                    output.enqueue(chunk);
+                }
+            }));
+            const data = await (chunks ? new Response(chunks) : response).arrayBuffer();
+            const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
+            if (Array.from(digest, b => b.toString(16).padStart(2, '0')).join('') !== checksum.toLowerCase())
+                throw new Error('Translation resource checksum mismatch');
+            this.onprogress?.(url, data.byteLength, true);
+            return data;
 
         } finally {
             if (timeout)

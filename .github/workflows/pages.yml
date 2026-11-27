@@ -13,6 +13,7 @@ on:
       - 'tests/scientific-translation.mjs'
       - 'tests/caption-flow.cjs'
       - 'tests/subject-glossary-browser.cjs'
+      - 'tests/translation-transfer.mjs'
       - 'tests/paper-map-browser.cjs'
       - 'tests/tour-media.py'
       - 'tests/fixtures/tour-scenes.json'
@@ -79,6 +80,7 @@ jobs:
           node tests/map-language.mjs
           node tests/caption-flow.cjs
           node tests/scientific-translation.mjs
+          node tests/translation-transfer.mjs
           if ! command -v ffmpeg >/dev/null; then
             sudo apt-get -c "$RUNNER_TEMP/reader-apt.conf" install -y ffmpeg
           fi

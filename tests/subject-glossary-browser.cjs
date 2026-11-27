@@ -103,8 +103,9 @@ async function retryOne(browser){
     await button.focus();await button.press('Enter');
     await p.waitForFunction(()=>{
       const n=document.querySelector('[data-test-target=first]');
-      return n?.lang==='zh-CN'&&!n.hasAttribute('aria-busy')&&!n.dataset.translationRetry&&/[㐀-鿿]/.test(n.textContent);
-    },null,{timeout:120000});
+      return n&&!n.hasAttribute('aria-busy')&&(n.dataset.translationRetry==='error'||n.lang==='zh-CN'&&/[㐀-鿿]/.test(n.textContent));
+    },null,{timeout:300000});
+    assert.equal(await target.getAttribute('data-translation-retry'),null,'A single retry should produce the Chinese text');
     assert(await p.evaluate(()=>window.beforeRetry[0]===document.querySelector('[data-map-root]')&&
       window.beforeRetry[1]===document.querySelector('[data-test-target=second][data-translation-retry=error] button')));
     console.log('PASS one failed entry recovered after a blocked registry download; the other failed entry and map stayed in place.');
