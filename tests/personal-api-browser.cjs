@@ -20,11 +20,12 @@ async function test() {
     const context = await browser.newContext(mobile ? {...devices['iPhone 13'],locale:'zh-CN'} : {viewport:{width:1440,height:950}});
     const page = await context.newPage();
     page.setDefaultTimeout(12000);
-    const calls=[], errors=[], leak=[];
+    const calls=[], providerPosts=[], errors=[], leak=[];
     let mode='success';
     page.on('pageerror',err=>errors.push(err.message));
     page.on('request',req=>{
       const url=req.url();
+      if(req.method()==='POST'&&Object.values(endpoints).includes(url))providerPosts.push(url);
       if(Object.values(key).some(k=>url.includes(k)||(req.postData()||'').includes(k)) ||
         (req.headers().authorization&&!Object.values(endpoints).includes(url)))leak.push(url);
     });
@@ -110,13 +111,16 @@ async function test() {
     assert.deepEqual(await page.evaluate(()=>ReaderBrowserModels.options().available),{evidence:true,deepseek:true,qwen:false});
     const stored=await page.evaluate(()=>JSON.stringify([localStorage,sessionStorage]));
     assert(Object.values(key).every(k=>!stored.includes(k)));
-    const count=calls.length;
+    const count=providerPosts.length;
+    // Exercise normal navigation after the paid conversations have finished.
+    // The passive listener continues to detect any unexpected provider call.
+    await page.unrouteAll({behavior:'wait'});
     await page.evaluate(()=>{document.documentElement.dataset.previousApiDocument='true'});
     await page.reload({waitUntil:'commit',timeout:45000});
     await page.waitForFunction(()=>!document.documentElement.dataset.previousApiDocument&&!!window.ReaderBrowserModels,
       null,{polling:100,timeout:30000});
     assert.deepEqual(await page.evaluate(()=>ReaderBrowserModels.options().available),{evidence:true,deepseek:false,qwen:false});
-    assert.equal(calls.length,count);
+    assert.equal(providerPosts.length,count);
     assert.deepEqual(leak,[]);assert.deepEqual(errors,[]);
     console.log('Passed personal API upload, confirmation, provider isolation, question and outline, error recovery, removal and reload:',zh?'zh/mobile':'en/desktop');
   } finally {await browser.close();}

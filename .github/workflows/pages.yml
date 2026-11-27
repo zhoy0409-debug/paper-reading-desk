@@ -50,7 +50,7 @@ jobs:
       - name: Test the reader at its public subpath
         timeout-minutes: 12
         run: |
-          npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.56.1
+          npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.65.1
           export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
           node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium webkit
           python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
