@@ -11,6 +11,15 @@ const tail=flow.nextPage(cap,lines,{height:800});
 assert.equal(tail,lines.slice(0,2).map(l=>l.text).join(' '));
 assert.equal(flow.nextPage({...cap,anchor:{endY:200}},lines,{height:800}),undefined);
 assert.equal(flow.nextPage(cap,lines.slice(1),{height:800}),undefined);
+const legend={...cap,inLegendSection:true,lastFont:'regular'};
+const manuscript=[
+  {text:'the regional sample is shown.',font:'regular',base:68},
+  {text:'n = 12 independent sites.',font:'italic',base:91},
+  {text:'Source data are provided separately.',font:'regular',base:111},
+  {text:'Editorial Summary',font:'bold',base:126},
+  {text:'This is a separate article section.',font:'body',base:142}
+].map(row=>({...row,x0:80,y0:row.base-9,size:10}));
+assert.equal(flow.nextPage(legend,manuscript,{height:800}),manuscript.slice(0,3).map(r=>r.text).join(' '));
 const runs=flow.panelSections(intro+' '+tail);
 assert.deepEqual([...runs.keys()],['a','b','c','d','e','f']);
 assert.equal(runs.get('b').text,'First comparison (A) and time course (B) (n=10)');

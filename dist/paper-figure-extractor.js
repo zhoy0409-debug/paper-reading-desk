@@ -118,16 +118,17 @@ function capHead(text){
  const tag=/extended|扩展/i.test(lead)?'ED'+id:/supplement|补充|附/i.test(lead)&&!id.startsWith('S')?'S'+id:id;
  return {label:m[0],matchKey:'F:'+tag,tag};
 }
-function captionRun(line,words){
+function captionRun(line,words,rightEdge=Infinity){
  // Elevated PDF runs can split one caption line into multiple pieces.
  const raised=w=>w.size<line.size*.85&&Math.abs(w.base-line.base)<=line.size*.75;
- const band=words.filter(w=>w.x0>=line.x0-1&&(Math.abs(w.base-line.base)<1||raised(w)));
- if(!band.some(raised))return line.captionText||line.text;
+ const justified=Number.isFinite(rightEdge);
+ const band=words.filter(w=>w.x0>=line.x0-1&&w.x0<rightEdge&&(Math.abs(w.base-line.base)<1||raised(w)));
+ if(!justified&&!band.some(raised))return line.captionText||line.text;
  band.sort((a,b)=>a.x0-b.x0);
  let right=line.x0,text='',hasScript=false;
  for(const word of band){
   const gap=word.x0-right;
-  if(gap>line.size*1.2)break;
+  if(gap>line.size*(justified?2.5:1.2))break;
   if(text&&gap>line.size*.09&&!/^\s/.test(word.text)&&!/\s$/.test(text))text+=' ';
   const below=raised(word)&&word.base-line.base>line.size*.12;
   const sub='₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ';
@@ -135,9 +136,13 @@ function captionRun(line,words){
   text+=below?Array.from(word.text,c=>sub[plain.indexOf(c)]||c).join(''):word.text;
   right=Math.max(right,word.x1);hasScript||=raised(word);
  }
- return hasScript&&right>=line.x1-1?norm(text):line.captionText||line.text;
+ return (justified||hasScript)&&right>=line.x1-1?norm(text):line.captionText||line.text;
 }
-function captions(lines,p,words,headingStyles){
+function legendRightEdge(start,lines,view){
+ const wide=lines.filter(l=>Math.abs(l.x0-start.x0)<start.size&&w(l)>view.width*.60);
+ return wide.length>=3?Math.max(...wide.map(l=>l.x1))+1:Infinity;
+}
+function captions(lines,p,words,headingStyles,inLegendSection=false){
  const found=[];
  // Some journals put the number in its own small heading above the caption.
  // Check the neighbouring prose and typography before admitting a bare figure reference.
@@ -145,13 +150,13 @@ function captions(lines,p,words,headingStyles){
  for(const line of lines){
   const explicit=capHead(line.text)||(line.figurePrefix&&capHead(line.figurePrefix+'.'));
   if(explicit){heads.set(line,explicit);continue}
-  const unpunctuated=line.text.match(/^((?:Figure|Figura)\s+[Ss]?\d{1,3})\s+(?=[\p{Lu}])/u);
+  const unpunctuated=line.text.match(/^((?:Fig\.|Figure|Figura)\s+[Ss]?\d{1,3})\s+(?=[\p{Lu}])/u);
   if(unpunctuated){
    const bodyText=lines.filter(t=>t!==line&&t.text.length>=48&&t.font!==line.font&&t.size>=line.size*1.06);
    const followsBody=lines.some(t=>t.font===line.font&&t.text.length>25&&Math.abs(t.x0-line.x0)<line.size&&
     t.base<line.base&&line.base-t.base<line.size*1.65);
    const known=headingStyles?.has(line.font+'/'+line.size.toFixed(1));
-   if((bodyText.length>=2||known)&&!followsBody){heads.set(line,{...capHead(unpunctuated[1]+'.'),typographicHeading:true});continue}
+   if((bodyText.length>=2||known||inLegendSection)&&!followsBody){heads.set(line,{...capHead(unpunctuated[1]+'.'),typographicHeading:true});continue}
   }
   if(!bareFigureNumber.test(line.text))continue;
   const beside=lines.find(t=>t!==line&&Math.abs(t.base-line.base)<line.size*.25&&t.x0>=line.x1-1&&
@@ -178,7 +183,9 @@ function captions(lines,p,words,headingStyles){
  for(let idx=0;idx<lines.length;idx++){
   const line=lines[idx], name=heads.get(line);
   if(!name||wrapped.has(line))continue;
-  const chunks=[captionRun(line,words)];
+  const rightEdge=inLegendSection?legendRightEdge(line,lines,p):Infinity;
+  const readLine=l=>captionRun(l,words,rightEdge);
+  const chunks=[readLine(line)];
   let firstExtent=line;
   if(/^fig(?:ure)?\.?\s*[sS]?\d+\s*(?:\((?:colou?r online|online colou?r)\))?\s*[.:]$/i.test(line.text)){
    const onRow=lines.filter(t=>t!==line&&Math.abs(t.base-line.base)<line.size*.22&&t.x0>=line.x1&&t.x0-line.x1<line.size*4&&
@@ -197,7 +204,7 @@ function captions(lines,p,words,headingStyles){
    const continuesProse=x=>line.bodySize&&!/[.!?。！？]$/.test(prev.text)&&
      close(x.size,line.bodySize,.65)&&Math.abs(x.x0-line.x0)<=line.bodySize&&
      x.base-prev.base>2&&x.base-prev.base<=line.bodySize*1.5&&/^[\p{Ll}(\d]/u.test(x.text);
-   let next=lines.find(x=>x.base>prev.base+2&&x.base-prev.base<=Math.max(16,prev.size*1.57)&&captionSize(x)&&
+   let next=lines.find(x=>x.base>prev.base+2&&x.base-prev.base<=Math.max(16,prev.size*(inLegendSection?2.2:1.57))&&captionSize(x)&&
     (Math.abs(x.x0-prev.x0)<=Math.max(4,line.size*.86)||(k===1&&x.x0>=line.x0&&x.x0-line.x0<line.size*6)||
       (k===1&&x.x0<line.x0&&line.x0-x.x0<line.size*2.4&&Math.abs(x.x1-line.x1)<line.size*2.5&&!/[.!?]$/.test(prev.text)&&(/[-,]$/.test(prev.text)||/^[a-z]/.test(x.text)))));
    if(!next)next=lines.find(continuesProse);
@@ -216,7 +223,7 @@ function captions(lines,p,words,headingStyles){
     printedTitle=collected;
    }
    // A short complete line followed by a paragraph at body spacing is not a verified continuation.
-   if(/[.!?。！？]$/.test(k===1?chunks[0]:prev.text)&&((prev.base+line.size*1.35)<next.base||w(prev)<Math.min(p.width*.18,95))){
+   if(!inLegendSection&&/[.!?。！？]$/.test(k===1?chunks[0]:prev.text)&&((prev.base+line.size*1.35)<next.base||w(prev)<Math.min(p.width*.18,95))){
     const priorLabels=[...chunks.join(' ').matchAll(/(?:^|[.;。]\s+)([a-z])\s+(?=[A-Z])/g)];
     const nextLabel=next.text.match(/^([a-z])\s+(?=[A-Z])/);
     const firstPanel=k===1&&nextLabel?.[1]==='a'&&Math.abs(next.x0-line.x0)<3&&next.base-prev.base<line.size*1.7;
@@ -232,7 +239,7 @@ function captions(lines,p,words,headingStyles){
     const superscript={'−':'⁻','-':'⁻','+':'⁺','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
     continued+=Array.from(power.text,v=>superscript[v]).join('')+' '+tail.text;end=tail.x1;
    }
-   const full=captionRun(next,words);
+   const full=readLine(next);
    chunks.push(continued===next.text?full:continued);prev=next;endY=Math.max(endY,next.y1);
   }
   // Some journals continue a wide figure's caption at the top of the right column.
@@ -270,11 +277,11 @@ function captions(lines,p,words,headingStyles){
     if(/\bb\s+[A-Z]/.test(continuation)&&!chunks.join(' ').includes(right.text))chunks.push(continuation);
    }
   }
-  const columns=window.CompositePlate?.columnCaption(line,lines,p);
+  const columns=window.CompositePlate?.columnCaption(line,lines,p,l=>captionRun(l,words));
   const caption=columns?.text||chunks.join(' ');
   if(columns)endY=columns.endY;
   const captionLine=body?{...line,x1:Math.max(line.x1,body.x1)}:line;
-  found.push({...name,caption,printedTitle,partial:!/[.!?。！？][”")\]]?$/.test(caption),line:captionLine,anchor:{x:line.x0,y:line.y0,endY,line:idx+1}});
+  found.push({...name,caption,printedTitle,inLegendSection,lastFont:prev.font,partial:!/[.!?。！？][”")\]]?$/.test(caption),line:captionLine,anchor:{x:line.x0,y:line.y0,endY,line:idx+1}});
  }
  return found;
 }
@@ -626,6 +633,8 @@ async function scan(file,options={}){
   const figures=[],tables=[],internals=new Map(),seen=new Map(),unlabelledPages=[],noTextPages=[],warnings=[], failed=[];
   const hubblePassages=[], marksByFigure=new Map(),headingStyles=new Set(),fontClips=new Map();
   let scannedPages=0, usedDrawings=0,unclaimed=null,captionTail=null,lastYield=performance.now();
+  let legendStart=0;
+  const endPlates=[],wordForms=new Set();
   const captionKey=cap=>cap.matchKey+'\n'+cap.caption.toLowerCase();
   for(let pg=1;pg<=Math.min(pageCap,pdf.numPages)&&figures.length<MAX_FIGURES;pg++){
    check();scannedPages=pg;let page,here=[];
@@ -634,22 +643,29 @@ async function scan(file,options={}){
     page=await pdf.getPage(pg);
     const viewport=page.getViewport({scale:1});
     const text=await source.text(page);check();
+    for(const item of text.items){
+     if(typeof item.str==='string')for(const word of item.str.match(/[a-z][a-z0-9-]{2,}/gi)||[])wordForms.add(word.toLowerCase());
+    }
     if(!text.items.some(x=>typeof x.str==='string'&&x.str.trim()))noTextPages.push(pg);
-    let words=positions(text,viewport,true),lines=positions(text,viewport);here=captions(lines,viewport,words,headingStyles);
+    let words=positions(text,viewport,true),lines=positions(text,viewport);
+    if(!legendStart&&lines.some(l=>/^(?:figure (?:legends|captions)|图注)(?:[.:：])?$/i.test(l.text.trim())))legendStart=pg;
+    here=captions(lines,viewport,words,headingStyles,!!legendStart);
     let displayList;
     if(here.length&&usedDrawings<graphicLimit&&!(page.rotate%360)&&text.items.length<=MAX_TEXT_ITEMS){
      try{
       displayList=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
       const visible=formFontBounds(displayList,pdfjs.OPS,viewport.transform);
       fontClips.set(pg,visible);
-      if(visible){words=positions(text,viewport,true,visible);lines=positions(text,viewport,false,visible);here=captions(lines,viewport,words,headingStyles)}
+      if(visible){words=positions(text,viewport,true,visible);lines=positions(text,viewport,false,visible);here=captions(lines,viewport,words,headingStyles,!!legendStart)}
      }catch{check()}
     }
     const pointers=here.filter(c=>isNumberedPointer(c,lines));
     if(pointers.length)here=here.filter(c=>!pointers.includes(c));
     if(priorCaption){
      const {cap,figure}=priorCaption;
-     const more=CaptionFlow.nextPage(cap,lines,viewport);
+     const rightEdge=cap.inLegendSection?legendRightEdge(cap.line,lines,viewport):Infinity;
+     const readLine=l=>captionRun(l,words,rightEdge);
+     const more=CaptionFlow.nextPage(cap,lines,viewport,readLine);
      if(more){
       const boundary=figure.caption.length;
       figure.caption+=' '+more;
@@ -658,7 +674,7 @@ async function scan(file,options={}){
       for(const mark of CaptionFlow.headings(figure.caption)){
        if(mark.at>boundary)for(const id of mark.ids)figure.captionPanelPages[id]=pg;
       }
-      captionTail={figure,cap:{...cap,caption:figure.caption,anchor:{endY:lines.filter(l=>more.endsWith(l.text)).at(-1)?.y1||0}}};
+      captionTail={figure,cap:{...cap,caption:figure.caption,anchor:{endY:lines.findLast(l=>more.endsWith(readLine(l)))?.y1||0}}};
      }
     }
     if(lines.some(l=>/^Table\s+\d+\b/i.test(l.text))&&!(page.rotate%360)){
@@ -688,6 +704,15 @@ async function scan(file,options={}){
     if((!here.length||pointers.length===1)&&!(page.rotate%360)&&text.items.length<=MAX_TEXT_ITEMS)
      unclaimed={pg,lines,viewport,words,axes:verticalLabels(text,viewport),legendKey:pointers.length===1?pointers[0].matchKey:null};
     if(!here.length){
+     if(legendStart && figures.some(f=>f.captionPage>=legendStart) && !(page.rotate%360) &&
+       !lines.some(l=>l.text.length>65 && l.y0>viewport.height*.06 && l.y1<viewport.height*.94)){
+      const list=await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
+      const crop=CompositePlate.standaloneImage(drawings(list,pdfjs.OPS,viewport.transform),{viewport,lines});
+      if(crop&&area(crop)>=viewport.width*viewport.height*.38){
+       const numbers=lines.filter(l=>bareFigureNumber.test(l.text)).map(l=>capHead(l.text+'.')?.matchKey);
+       endPlates.push({pg,crop,numbers,width:viewport.width,height:viewport.height});
+      }
+     }
      unlabelledPages.push(pg);
      continue;
     }
@@ -763,7 +788,7 @@ async function scan(file,options={}){
       try{
        earlier=await pdf.getPage(previous.pg);usedDrawings++;
        const marks=drawings(await earlier.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE}),pdfjs.OPS,previous.viewport.transform);
-       const standalone=nextLegend&&CompositePlate.standaloneImage(marks,previous);
+       const standalone=CompositePlate.standaloneImage(marks,previous,!nextLegend);
        if(standalone){
         const geometry=await CompositePlate.locate(earlier,previous.viewport,previous.lines,cap,true,pdfjs.AnnotationMode.DISABLE,standalone,previous.words).catch(()=>null);
         plate={crop:standalone,panels:geometry?.panels||[],raster:true};
@@ -822,7 +847,7 @@ async function scan(file,options={}){
      }
      const figure={id,rasterPlate:Boolean(raster||plate?.raster||embedded&&!words.some(t=>t.x0>embedded.x0&&t.x1<embedded.x1&&t.y0>embedded.y0&&t.y1<embedded.y1)),matchKey:cap.matchKey,label:cap.label,layerStack:layers?{rows:layers.rows,horizontal:layers.horizontal,ticks:layers.ticks,shared:normalized(layers.shared,{x0:0,y0:0,x1:imageView.width,y1:imageView.height})}:null,markedStack:stack?{first:stack.first,rows:stack.rows}:null,
       page:imagePage,captionPage:pg,caption:cap.caption,printedTitle:cap.printedTitle,captionPartial:cap.partial,anchor:{page:pg,...cap.anchor},panels,pageBox:crop?normalized(crop,{x0:0,y0:0,x1:imageView.width,y1:imageView.height}):null,mode:crop?'crop':'page',duplicatePages:[],
-      reason:plate?'前页图内编号与本页图注编号吻合，已定位跨页图版。':beside?'图注排在图的侧边，按同一水平带内的图形选取的原文区域。':crop?'按明确图注和紧邻版面选取的原文区域。':'已定位图注，图形范围待核对。'};
+      reason:plate?'按相邻页的图版与图注定位，两者页码分别保留。':beside?'图注排在图的侧边，按同一水平带内的图形选取的原文区域。':crop?'按明确图注和紧邻版面选取的原文区域。':'已定位图注，图形范围待核对。'};
      if(!plate&&!pair&&/\bhistograms?\b/i.test(cap.caption)){
       const open=window.OpenHistograms?.locate(cap,here,words,verticalLabels(text,viewport,true),lines,objects,viewport);
       if(open&&await window.OpenHistograms.confirmInk(page,open,pdfjs.AnnotationMode.DISABLE).catch(()=>{open.cells.forEach(c=>c.edgeCheck=true);return !open.needsPixels})){
@@ -914,7 +939,7 @@ async function scan(file,options={}){
       figures[figures.indexOf(repeated)]=figure;
      }else figures.push(figure);
      internals.set(id,{page:imagePage,crop});seen.set(digest,figure);
-     if(cap.anchor.endY>viewport.height*.69&&CaptionFlow.headings(cap.caption).length)captionTail={cap,figure};
+     if(cap.anchor.endY>viewport.height*.69&&(cap.inLegendSection||CaptionFlow.headings(cap.caption).length))captionTail={cap,figure};
     }
    }catch(e){
     check();
@@ -935,6 +960,44 @@ async function scan(file,options={}){
     if(!signal?.aborted)options.onProgress?.({page:pg,total:Math.min(pageCap,pdf.numPages),figures:figures.length});
     if(performance.now()-lastYield>48){await new Promise(done=>setTimeout(done,0));lastYield=performance.now()}
    }
+  }
+  // Manuscripts can print all legends together and place one unnumbered plate per
+  // page afterwards. Link by order only when both complete sequences agree.
+  if(legendStart && endPlates.length>=2){
+   const legends=figures.filter(f=>f.captionPage>=legendStart && /^F:\d+$/.test(f.matchKey));
+   const first=endPlates[0].pg, last=legends.at(-1)?.captionPage;
+   if(legends.length===endPlates.length && first>last && first-last<=3 &&
+      legends.every((f,i)=>f.matchKey==='F:'+(i+1)&&f.mode==='page'&&endPlates[i].pg===first+i&&
+       endPlates[i].numbers.every(key=>key===f.matchKey))){
+    for(const [i,f] of legends.entries()){
+     check();const {pg,crop,width,height}=endPlates[i];
+     f.page=pg;f.pageBox=normalized(crop,{x0:0,y0:0,x1:width,y1:height});
+     f.rasterPlate=true;f.mode='crop';f.reason='按文末连续图注和等数连续图版的印刷顺序定位。';
+     internals.set(f.id,{page:pg,crop});
+     let page;
+     try{
+      page=await pdf.getPage(pg);
+      const view=page.getViewport({scale:1});
+      const text=await source.text(page), words=positions(text,view,true), lines=positions(text,view);
+      const geometry=await CompositePlate.locate(page,view,lines,{caption:f.caption},true,pdfjs.AnnotationMode.DISABLE,crop,words).catch(()=>null);
+      f.panels=(geometry?.panels||[]).map(panel=>{
+       const id=f.id+':'+panel.position;
+       internals.set(id,{page:pg,crop:panel.rect});
+       return {...panel,id,bbox:normalized(panel.rect,crop),bboxSpace:'figure-crop'};
+      });
+     }catch{check()}finally{page?.cleanup()}
+    }
+   }
+  }
+  function joinLineHyphens(text){
+   return text?.replace(/([A-Za-z0-9]+)-\s+([A-Za-z]{2,})/g,(_,a,b)=>{
+    const joined=a+b,compound=a+'-'+b;
+    return wordForms.has(joined.toLowerCase())&&!wordForms.has(compound.toLowerCase())?joined:compound;
+   });
+  }
+  for(const figure of figures){
+   figure.caption=joinLineHyphens(figure.caption);
+   figure.printedTitle=joinLineHyphens(figure.printedTitle);
   }
   for(const f of figures.filter(f=>f.singleHubble)){
    f.singleHubble.story=hubblePassages.find(p=>p.key===f.matchKey);

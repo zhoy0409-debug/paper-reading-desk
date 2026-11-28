@@ -69,8 +69,21 @@
     return out;
   }
 
-  function nextPage(cap,lines,view) {
+  function nextPage(cap,lines,view,read=line=>line.text) {
     if(cap.anchor.endY<view.height*.69)return;
+    if(cap.inLegendSection){
+      const column=lines.filter(l=>Math.abs(l.x0-cap.line.x0)<cap.line.size&&Math.abs(l.size-cap.line.size)<cap.line.size*.15);
+      const first=column[0];
+      if(!first||first.y0>view.height*.22||first.font!==cap.lastFont)return;
+      const parts=[];
+      for(const line of column){
+        if(/^(?:(?:Fig(?:ure)?\.?|Table)\s*\d+\b|(?:References|Supplementary information|Editorial summary|Acknowledg(?:e)?ments)\s*$)/i.test(line.text)||
+          parts.length&&line.base-parts.at(-1).base>line.size*2.5)break;
+        if(parts.length&&line.font!==cap.lastFont&&line.text.trim().split(/\s+/).length<=5&&/^[\p{Lu}][\p{L}\s-]+$/u.test(line.text))break;
+        parts.push(line);
+      }
+      return parts.map(read).join(' ');
+    }
     const last=headings(cap.caption).at(-1)?.ids.at(-1);
     if(!last||last==='z')return;
     const next=String.fromCharCode(last.charCodeAt(0)+1);

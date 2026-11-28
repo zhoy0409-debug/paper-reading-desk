@@ -55,6 +55,21 @@
       const n=page.pageNumber;
       if(textCache.has(n))return textCache.get(n);
       const data=await pageText(page);
+      // Windows Symbol fonts sometimes expose their encoded byte in the Unicode private-use area.
+      // Resolve only the known alphabet of an identified Symbol font.
+      const encoded=data.items.filter(i=>typeof i.str==='string'&&/[\uF041-\uF07A]/.test(i.str));
+      if(encoded.length){
+        try{
+          await page.getOperatorList({annotationMode:pdfjs.AnnotationMode.DISABLE});
+          const keys='ABGDEZHQIKLMNXOPRSTUFCYWabgdezhqiklmnxoprstufcyw';
+          const greek='ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω';
+          for(const item of encoded){
+            const font=page.commonObjs.has(item.fontName)&&page.commonObjs.get(item.fontName);
+            if(/^(?:[A-Z]{6}\+)?Symbol(?:MT)?$/i.test(font?.name||''))
+              item.str=item.str.replace(/[\uF041-\uF07A]/g,c=>greek[keys.indexOf(String.fromCharCode(c.charCodeAt(0)&255))]||c);
+          }
+        }catch{/* Keep the original text when the font cannot be inspected. */}
+      }
       if(!closed && !textCache.has(n) && data.items.length<=6500){
         while(textCache.size && retained+data.items.length>36000){
           const oldest=textCache.keys().next().value;retained-=textCache.get(oldest).items.length;textCache.delete(oldest);

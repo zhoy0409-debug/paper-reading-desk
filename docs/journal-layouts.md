@@ -20,7 +20,16 @@ The corpus contains 46 public PDFs from 38 journals. It includes 35 papers in th
 - The reported Neuron paper opened Figure 3 on PDF page 6 and its caption on page 7. Figure 4 in the skeletal chemokine review opened the SDF-1/CXCR4 diagram on page 7. For both papers the test followed the caption, body passage, map objective and result back to a highlighted source line. [Neuron paper](https://pubmed.ncbi.nlm.nih.gov/40233748/) · [Skeletal chemokine review](https://doi.org/10.3389/fendo.2025.1667440)
 - Two side-by-side charts from DenseNet and Stochastic Depth received 160 clicks at independent PDF coordinates. Each click checked the explanation for the selected axis, group name, legend entry or symbol at fit, zoom, edited crop and zoomed crop. The maximum edge offsets were 1.89 and 1.75 CSS pixels, respectively.
 
-**Examples**
+## PMID 42248891
+
+The previous reader opened the correct artwork for two of seven figures in the 21-page journal PDF. Its 42-page scan also ended before the first legend in the 60-page early edition. In 0.4.19 we uploaded both publisher PDFs, selected each figure, opened its explanation and compared the displayed pixels against all seven publisher images. All 14 selections matched the correct image. All 42 body quotations in the two runs linked to the corresponding printed lines. [Publisher's article](https://www.nature.com/articles/s41467-026-74037-5) · [Early edition](https://www.nature.com/articles/s41467-026-74037-5_reference.pdf)
+
+| PDF pages for Figures 1–7 | Journal PDF | Early PDF |
+| --- | --- | --- |
+| Artwork | 3, 5, 7, 8, 10, 11, 13 | 54, 55, 56, 57, 58, 59, 60 |
+| Start of the caption | 4, 6, 7, 9, 10, 12, 14 | 47, 48, 49, 49, 50, 51, 52 |
+
+## Examples
 
 - A PeerJ forest study prints the number and title together without punctuation. All seven figures appeared in the index. [Paper](https://doi.org/10.7717/peerj.18176)
 - A French paper lists its legends on page 9 and prints Figures 1–4 on pages 12, 13, 13 and 14. Selecting a figure opens its illustrated page. [Paper](https://doi.org/10.11604/pamj.2024.49.67.43551)

@@ -509,8 +509,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
   if(!item?.pdfFile||!window.PaperFigureExtractor?.scan||item.figureJob)return;
   const abort=typeof AbortController!=='undefined'?new AbortController():null;
   item.figureAbort=abort;
-  const review=window.PaperFigureContext?.isReview(item.model.rows);
-  item.figureJob=Promise.resolve().then(()=>window.PaperFigureExtractor.scan(item.pdfFile,{maxPages:42,allPages:review,pdfSource:item.pdfSource,signal:abort?.signal,
+  item.figureJob=Promise.resolve().then(()=>window.PaperFigureExtractor.scan(item.pdfFile,{allPages:true,pdfSource:item.pdfSource,signal:abort?.signal,
    onProgress:progress=>{item.figureProgress=progress;item.onFigureProgress?.(progress)}
   })).then(session=>{
    if(!items.includes(item)){session.destroy();return {problem:'已移除这份文献。'};}

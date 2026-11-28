@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const {chromium} = require('playwright-core');
 
-function sample() {
+function sample(appendix='') {
   const objects = [null,null,'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>'];
   const add = data => objects.push(data);
@@ -16,7 +16,16 @@ function sample() {
   const result='As shown in Figure 1, all three sampling sites lie along the river.';
   const draft=add(stream([text(50,525,repeated),text(50,509,'The discarded measurements in Figure 1 came from a prior draft.'),
     text(50,492,result)].join('\n'),'/Type /XObject /Subtype /Form /BBox [0 0 40 20] /Resources << /Font << /R '+oldFont+' 0 R >> >>'));
-  const pages = [
+  const pages = appendix ? [
+    ...Array.from({length:43},(_,i)=>[text(54,715,'Study observations on manuscript page '+(i+1)+'.')]),
+    [text(54,732,'Figure legends',14,'B'),
+      text(54,684,'Fig. 1 The distribution of mountain',12,'B'),text(54,661,'sampling sites',12,'B'),
+      text(54,638,'(A) The higher sampling sites are indicated by circles.'.replace(/[()]/g,'\\$&'),12),
+      text(54,520,'Fig. 2 Seasonal river temperatures',12,'B'),
+      text(54,497,'Measurements were repeated in three seasons.',12)],
+    [plate(90,595)],
+    ...(appendix==='missing'?[]:[[plate(90,595),...(appendix==='conflict'?[text(54,730,'Fig. 7',11,'B')]:[])]])
+  ] : [
     [text(54,725,repeated,12),text(54,685,result),'/Draft Do',
      text(54,708,'The conditions at each of the three sites were comparable.',12),
      plate(250,300),text(54,235,'Figure 1 Sample collection sites.',9,'B')],
@@ -41,7 +50,7 @@ function sample() {
   const xref=pdf.length;
   pdf+='xref\n0 '+(objects.length+1)+'\n0000000000 65535 f \n'+offsets.map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+
     'trailer\n<< /Size '+(objects.length+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF';
-  return {name:'field-observations.pdf',mimeType:'application/pdf',buffer:Buffer.from(pdf)};
+  return {name:'field-observations'+appendix+'.pdf',mimeType:'application/pdf',buffer:Buffer.from(pdf)};
 }
 
 (async()=>{
@@ -79,5 +88,24 @@ function sample() {
     await p.locator('.st-explain').first().click();
     assert.match(await p.locator('.frw-notes').first().innerText(),/Estimativas regionais/);
     console.log('Unpunctuated headings, Portuguese captions, top captions, numbered page pointers and wrapped references passed.');
+    for(const ending of ['complete','missing','conflict']){
+      const fresh=await browser.newPage();
+      try{
+        await fresh.goto(new URL('?lang=en',process.argv[2]).href);
+        await fresh.addLocatorHandler(fresh.locator('.gd-skip:visible'),b=>b.click());
+        await fresh.evaluate(()=>{
+          const api=PaperReadingEvidence;
+          window.PaperReadingEvidence={...api,enrich(...args){
+            const out=api.enrich(...args);window.tailFigures=args[1].figures;return out;
+          }};
+        });
+        await fresh.locator('input[id$="-main"]').first().setInputFiles(sample(ending));
+        await fresh.waitForFunction(()=>window.tailFigures,null,{timeout:45000});
+        const rows=await fresh.evaluate(()=>tailFigures.map(f=>[f.matchKey,f.title,f.page,f.captionPage,!!f.pageBox]));
+        assert.deepEqual(rows.map(r=>r.slice(0,2)),[['F:1','The distribution of mountain sampling sites'],['F:2','Seasonal river temperatures']]);
+        assert.deepEqual(rows.map(r=>r.slice(2)),ending==='complete'?[[45,44,true],[46,44,true]]:[[44,44,false],[44,44,false]]);
+      }finally{await fresh.close()}
+    }
+    console.log('End legends beyond page 42: complete series linked, incomplete and conflicting series kept on their source pages.');
   }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

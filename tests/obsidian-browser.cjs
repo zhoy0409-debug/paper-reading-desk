@@ -34,12 +34,13 @@ async function check() {
     const selectedKeys=[];
     for(const letter of ['B','A']){
       const tab=tabs.filter({hasText:new RegExp('^'+letter+'$')});
-      await tab.click();
+      if(webkitRun)await tab.tap();else await tab.click();
       await tab.and(page.locator('[aria-pressed="true"]')).waitFor();
       const key=JSON.stringify([await figure.getAttribute('data-figure'),await tab.getAttribute('data-panel')]);
       const add=page.locator('.rq-add-slide:visible');
-      await add.click();
+      if(webkitRun)await add.tap();else await add.click();
       selectedKeys.push(key);
+      await page.waitForFunction(expected=>[...document.querySelectorAll('.basket-card')].some(card=>card.dataset.key===expected),key,{timeout:8000});
       const basketKeys=await page.locator('.basket-card').evaluateAll(cards=>cards.map(card=>card.dataset.key));
       assert.deepEqual(basketKeys,selectedKeys,'The basket must acknowledge each selected panel in order');
     }
@@ -91,7 +92,9 @@ async function check() {
     assert.equal(files.pdf,createHash('sha256').update(await fs.readFile(example)).digest('hex'));
     assert.ok(files.images.length>=2&&files.images.every(([,w,h])=>w>10 && h>10),
       'Expected two decodable panel images. Archive entries: '+JSON.stringify(files.files)+'; dimensions: '+JSON.stringify(files.images));
-    assert(files.markdown.includes(note)&&files.markdown.includes(script)&&files.markdown.includes(privateNote));
+    for(const [kind,text] of Object.entries({takeaway:note,narration:script,privateNote})){
+      assert(files.markdown.includes(text),'Export must include the saved '+kind);
+    }
     const names=files.markdown.split('\n').filter(s=>/^### [12]\. /.test(s));
     assert.match(names[0],/ · B$/);assert.match(names[1],/ · A$/);
     assert.match(files.markdown,/#page=12\b/);
