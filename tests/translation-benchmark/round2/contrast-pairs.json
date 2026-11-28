@@ -1,0 +1,20 @@
+[
+  ["spaced minus", "The coefficient was −0.12 (P < 0.05).", "系数为 − 0.12（P < 0.05）。", "系数为 0.12（P < 0.05）。"],
+  ["spaced comparator", "The result had P<0.01.", "结果为 P < 0.01。", "结果为 P > 0.01。"],
+  ["calendar date", "In July 2018 we recruited 32 participants.", "2018 年 7 月招募了 32 名参与者。", "2018 年 8 月招募了 32 名参与者。"],
+  ["mixed-language unit", "The speed was 1.2 m/s.", "速度为 1.2 米/s。", "速度为 1.2 厘米/s。"],
+  ["kilo and grams", "The sample weighed 2 kg.", "样品质量为 2 千克。", "样品质量为 2 克。"],
+  ["implicit classifier", "A sensor recorded 24 Hz.", "一个传感器记录了 24 Hz。", "一个传感器记录了 1 Hz。"],
+  ["count with adjective", "Three independent samples were analyzed.", "分析了三个独立样本。", "分析了四个独立样本。"],
+  ["lower risk", "The risk was lower at night.", "夜间的风险较低。", "夜间的风险较高。"],
+  ["negative targeted", "The signal did not decrease.", "信号没有下降。", "不同样品的信号下降了。"],
+  ["significance spelling", "The difference was not statistically significant.", "差异不显着。", "差异显着。"],
+  ["compact CI", "The interval was 95% CI [−0.14 to 0.62].", "区间为 95%置信区间 [− 0.14 至 0.62]。", "区间为 95%置信区间 [0.14 至 0.62]。"],
+  ["half-open bound", "Only windows with at least k observations were retained.", "仅保留至少有 k 个观测值的窗口。", "仅保留超过 k 个观测值的窗口。"],
+  ["missing variable", "Measurements below q were excluded.", "低于 q 的测量值被剔除。", "低于阈值的测量值被剔除。"],
+  ["case-sensitive bound", "Values no greater than T were included.", "纳入 T 及以下的数值。", "纳入 t 及以下的数值。"],
+  ["fixed value", "The offset was set to zero.", "偏移量设定为零。", "偏移量设定完毕。"],
+  ["name and abbreviations", "Poly(vinyl acetate) (PVAc) was measured.", "测量了 Poly(vinyl acetate)（PVAc）。", "测量了聚乙烯（PVAc）。"],
+  ["locant", "We measured 2,4-dimethylphenol in the liquid.", "我们测定了液体中的 2,4-dimethylphenol。", "我们测定了液体中的 2,5-dimethylphenol。"],
+  ["unlabeled panels", "All panels show five samples.", "所有分图均显示五个样本。", "所有分图均显示三个样本。"]
+]

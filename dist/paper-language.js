@@ -17,9 +17,9 @@
       return pending;
     };
   }
-  const glossary=loadModule('discipline-glossary.js?rev=quality1');
-  const science=loadModule('scientific-translation.js?rev=quality1');
-  const session=loadModule('translation-session.js?rev=quality1');
+  const glossary=loadModule('discipline-glossary.js?rev=evidence2');
+  const science=loadModule('scientific-translation.js?rev=evidence2');
+  const session=loadModule('translation-session.js?rev=evidence2');
   const runtime=loadModule('vendor/bergamot/translator.js?rev=quality1');
   let runtimeCache;
   function enableRuntimeCache(){

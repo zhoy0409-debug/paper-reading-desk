@@ -300,9 +300,45 @@ const issueText={
   identifier:['标识符','identifier'],statistic:['统计量','statistic'],figure:['图号','figure'],panel:['分图','panel'],
   significance:['统计显著性','significance'],negation:['否定关系','negation'],causality:['因果关系','causality'],
   term:['术语用法','terminology'],'retained-term':['保留英文术语','retained term'],referent:['跨句指代','cross-sentence reference'],
+  bound:['阈值条件','threshold condition'],assignment:['设定值','assigned value'],replicates:['重复测量','replicates'],'chemical-identity':['化学全称','chemical identity'],
   relation:['比较关系','comparison'],'chemical-name':['化学名称待核对','chemical names to verify'],alignment:['回译中未找到的原文词','words missing in back-translation'],'alignment-unavailable':['回译未完成','back-translation unavailable'],
   'fragmented-prose':['分段恢复后的句意','meaning after fragment recovery'],'source-check':['原文对应','source correspondence']
 };
+function describeIssue(issue) {
+  const label=bilingual(...(issueText[issue.code]||['原文对应','source correspondence']));
+  if('sourceEvidence' in issue){
+    const missing=bilingual('未匹配到','no match');
+    const source=issue.sourceEvidence||missing, target=issue.targetEvidence||missing;
+    return label+' · '+bilingual('原文 ','source ')+source+' / '+bilingual('译文 ','translation ')+target;
+  }
+  return issue.detail&&issue.code!=='source-check'?label+' · '+issue.detail:label;
+}
+function showSentenceEvidence(id) {
+  reviews.open=true;
+  const row=reviewList.querySelector('[data-unit="'+id+'"]');
+  if(row){row.focus({preventScroll:true});row.scrollIntoView({block:'nearest'})}
+}
+function renderSentence(u, index, busy) {
+  const issues=u.validation?.issues||[];
+  const severe=issues.find(i=>i.severity==='severe');
+  const block=document.createElement('span');
+  const label=bilingual('第 '+(index+1)+' 句','Sentence '+(index+1));
+  if(u.text&&!severe)block.append(document.createTextNode(u.text));
+  if(u.status==='failed'||u.status==='review'){
+    const tag=document.createElement('button');
+    tag.type='button';tag.className='translation-issue-link';tag.disabled=busy;
+    if(u.status==='failed'){
+      tag.textContent=bilingual('重试'+label,'Retry '+label.toLowerCase());
+      tag.onclick=()=>translate([u.id]);
+    }else{
+      const issue=issues.find(i=>i.severity==='severe'&&i.sourceEvidence)||severe||issues[0];
+      tag.textContent=label+' · '+(issue?describeIssue(issue):bilingual('待核对','Check source'));
+      tag.onclick=()=>showSentenceEvidence(u.id);
+    }
+    block.append(tag);
+  }
+  return block;
+}
 function failedMessage(e){
   const key=e?.stage==='validation'&&['facts','terms'].includes(e.reason)?e.reason:e?.stage;
   return bilingual(...(failures[key]||failures.translate));
@@ -342,12 +378,11 @@ function paint(){
     popup.dataset.translationStage=us[0].error?.stage||'translate';
     output.textContent=failedMessage(us[0].error);
   }else if(any){
-    output.textContent=us.map((u,i)=>{
-      if(u.text&&!u.validation?.issues.some(x=>x.severity==='severe'))return u.text;
-      if(u.status==='review')return bilingual('〔第 '+(i+1)+' 句待核对〕','[Review sentence '+(i+1)+']');
-      if(u.status==='failed')return bilingual('〔第 '+(i+1)+' 句待重试〕','[Retry sentence '+(i+1)+']');
-      return '';
-    }).filter(Boolean).join(source==='en'?'':' ');
+    output.replaceChildren();
+    us.forEach((u,i)=>{
+      if(source!=='en'&&i)output.append(' ');
+      output.append(renderSentence(u,i,busy));
+    });
     output.lang=source==='en'?'zh-CN':'en';output.dataset.sourceText='';
   }else output.textContent=busy?bilingual('正在本机翻译…','Translating on this device…'):'';
   if(!any){output.removeAttribute('lang');delete output.dataset.sourceText}
@@ -361,11 +396,13 @@ function paint(){
     reviewList.replaceChildren();
     us.forEach((u,i)=>{
       if(!needs.includes(u))return;
-      const row=document.createElement('div');row.className='translation-unit';
+      const row=document.createElement('div');row.className='translation-unit';row.dataset.unit=String(u.id);row.tabIndex=-1;
       const label=document.createElement('strong');label.textContent=bilingual('第 '+(i+1)+' 句','Sentence '+(i+1));
       const raw=document.createElement('div');raw.textContent=u.source;
       const why=document.createElement('small');
-      why.textContent=u.error?failedMessage(u.error):(u.validation?.issues||[]).map(v=>bilingual(...(issueText[v.code]||['原文对应','source correspondence']))+(v.detail&&(v.code==='alignment'||!v.detail.includes(' '))?' '+v.detail:'')).join(' · ');
+      const reasons=(u.validation?.issues||[]).map(describeIssue);
+      if(u.error&&!reasons.length)reasons.push(failedMessage(u.error));
+      why.textContent=reasons.join(' · ');
       row.append(label,raw);
       if(u.text){const candidate=document.createElement('div');candidate.textContent=bilingual('待核对译文　','Candidate　')+u.text;row.append(candidate)}
       row.append(why,button('仅重试此句','Retry sentence',()=>translate([u.id])));
@@ -393,7 +430,9 @@ async function translate(ids){
 }
 copy.onclick=async()=>{
   if(!active)return;
-  try{await navigator.clipboard.writeText(output.textContent);PaperUI.set(notice,'译文已复制。','Translation copied.')}
+  const text=active.units.map((u,i)=>u.text&&!u.validation?.issues.some(v=>v.severity==='severe')?u.text:
+    bilingual('〔第 '+(i+1)+' 句待核对〕','[Review sentence '+(i+1)+']')).join(source==='en'?'':' ');
+  try{await navigator.clipboard.writeText(text);PaperUI.set(notice,'译文已复制。','Translation copied.')}
   catch{PaperUI.set(notice,'请选中译文并复制。','Select the translated text to copy it.')}
 };
 document.addEventListener('translation-download',({detail:d})=>{

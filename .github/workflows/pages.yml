@@ -18,6 +18,7 @@ on:
       - 'tests/translation-transfer.mjs'
       - 'tests/translation-*.cjs'
       - 'tests/translation-session.mjs'
+      - 'tests/translation-evidence.mjs'
       - 'tests/translation-benchmark/**'
       - 'tests/provider-test.py'
       - 'preview.py'
@@ -95,6 +96,7 @@ jobs:
           node tests/caption-flow.cjs
           node tests/scientific-translation.mjs
           node tests/translation-session.mjs
+          node tests/translation-evidence.mjs
           python3 tests/provider-test.py
           python3 tests/translation-benchmark/verify-acceptance.py
           node tests/translation-transfer.mjs

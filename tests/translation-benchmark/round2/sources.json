@@ -1,0 +1,102 @@
+[
+  {
+    "doi": "10.1371/journal.pone.0212088",
+    "title": "Microplastics in Mediterranean Sea: A protocol to robustly assess contamination characteristics",
+    "authors": [
+      "Mikaël Kedzierski",
+      "Jonathan Villain",
+      "Mathilde Falcou-Préfol",
+      "Marie Emmanuelle Kerros",
+      "Maryvonne Henry",
+      "Maria Luiza Pedrotti",
+      "Stéphane Bruzaud"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0212088&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "79f886284ac238bead070534013e2299fd1de69c1c97cae4d27ed22a56b4df7d"
+  },
+  {
+    "doi": "10.1371/journal.pbio.3001389",
+    "title": "Microplastics and anthropogenic fibre concentrations in lakes reflect surrounding land use",
+    "authors": [
+      "Andrew J. Tanentzap",
+      "Samuel Cottingham",
+      "Jérémy Fonvielle",
+      "Isobel Riley",
+      "Lucy M. Walker",
+      "Samuel G. Woodman",
+      "Danai Kontou",
+      "Christian M. Pichler",
+      "Erwin Reisner",
+      "Laurent Lebreton"
+    ],
+    "journal": "PLOS Biology",
+    "url": "https://journals.plos.org/plosbiology/article/file?id=10.1371/journal.pbio.3001389&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "8d9a8a57da9bf4f73494d44d80b8ed12d30d3afe0f43f5ab2c39259e97e9f60a"
+  },
+  {
+    "doi": "10.1371/journal.pcbi.1006487",
+    "title": "Data-driven brain network models differentiate variability across language tasks",
+    "authors": [
+      "Kanika Bansal",
+      "John D. Medaglia",
+      "Danielle S. Bassett",
+      "Jean M. Vettel",
+      "Sarah F. Muldoon"
+    ],
+    "journal": "PLOS Computational Biology",
+    "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1006487&type=manuscript",
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "xmlSha256": "5ce570603711af2d3a494a79c1bed962a77f262bb16cf1d753ea8528f38692fc"
+  },
+  {
+    "doi": "10.1371/journal.pclm.0000278",
+    "title": "Daytime land surface temperature and its limits as a proxy for surface air temperature in a subtropical, seasonally wet region",
+    "authors": [
+      "Nkosi Muse",
+      "Amy Clement",
+      "Katharine J. Mach"
+    ],
+    "journal": "PLOS Climate",
+    "url": "https://journals.plos.org/climate/article/file?id=10.1371/journal.pclm.0000278&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "20f42fd03c609a8ae4ee13c13b25fb50674a97367e1b56d636906383792a76f1"
+  },
+  {
+    "doi": "10.1371/journal.pmed.1003487",
+    "title": "Accelerometer measured physical activity and the incidence of cardiovascular disease: Evidence from the UK Biobank cohort study",
+    "authors": [
+      "Rema Ramakrishnan",
+      "Aiden Doherty",
+      "Karl Smith-Byrne",
+      "Kazem Rahimi",
+      "Derrick Bennett",
+      "Mark Woodward",
+      "Rosemary Walmsley",
+      "Terence Dwyer"
+    ],
+    "journal": "PLOS Medicine",
+    "url": "https://journals.plos.org/plosmedicine/article/file?id=10.1371/journal.pmed.1003487&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "6a5864c40b2791c6b53ad7904de23e1529fc8657160ff68427c190b3a977dddc"
+  },
+  {
+    "doi": "10.7554/eLife.58734",
+    "title": "Functional reallocation of sensory processing resources caused by long-term neural adaptation to altered optics",
+    "authors": [
+      "Antoine Barbot",
+      "Woon Ju Park",
+      "Cherlyn J Ng",
+      "Ru-Yuan Zhang",
+      "Krystel R Huxlin",
+      "Duje Tadin",
+      "Geunyoung Yoon"
+    ],
+    "journal": "eLife",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7963487/fullTextXML",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "8f68f94b146d7d618e1d8b0a86e35400cdb9bd288b0f22b5c552b90cd2b8b076"
+  }
+]

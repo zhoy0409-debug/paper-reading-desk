@@ -7,7 +7,10 @@ const base=process.argv[2],captures=process.env.TRANSLATION_SCREENSHOTS;
 const lang=process.env.READER_BROWSER||'chromium';
 const lines=['The blue light passed through the glass.','Water remained clear.','The second sensor failed.',
   'The surface was smooth.','The final temperature was stable.','The measured concentration was 0.25 mg/mL (Fig. 2c).',
-  'The standard error of the mean (SEM) was reported.'];
+  'The standard error of the mean (SEM) was reported.',
+  'Poly(vinyl acetate) (PVAc) was weighed.',
+  'Only intervals with at least k observations were retained.',
+  'Group A received 7 mg and group B received 11 mg.'];
 function fixture(title,rows){
   const lit=s=>s.replace(/[\\()]/g,a=>'\\'+a);
   const content='BT /F1 12 Tf 55 760 Td '+[title,...rows].map(s=>'('+lit(s)+') Tj').join(' 0 -22 Td ')+' ET';
@@ -69,7 +72,8 @@ async function main(){
     assert.equal(await popup.locator('.translation-unit').count(),1);
     await capture('partial-paragraph');
     await page.evaluate(()=>{unitFault=false;unitCalls.length=0});
-    await popup.locator('.translation-unit button').click();await wait('translated');
+    await popup.locator('.selection-review summary').click();
+    await popup.locator(':scope > p .translation-issue-link').click();await wait('translated');
     assert.deepEqual(await page.evaluate(()=>unitCalls),['The second sensor failed.']);
     await capture('single-sentence-retry');await popup.locator(':scope > details').filter({has:page.locator('blockquote')}).locator('summary').click();
     await capture('whole-paragraph-source');
@@ -101,6 +105,29 @@ async function main(){
     }
     await popup.locator('.selection-close').click();
     await selectText(page,'temperature');await run();await wait('translated');await capture('word');
+    // Both claims must survive a real model translation from selected PDF text.
+    await popup.locator('.selection-close').click();
+    for(const [line,expected] of [[lines[7],/poly\s*\(vinyl acetate\)/i],[lines[8],/至少\s*(?:有\s*)?k|≥\s*k/i]]){
+      await selectText(page,line);await run();
+      await popup.locator(':scope > p').filter({hasText:expected}).waitFor();
+      assert.match(await popup.locator(':scope > p').innerText(),/[\u4e00-\u9fff]/);
+      await capture(line===lines[7]?'chemical-identity':'symbolic-threshold');
+      await popup.locator('.selection-close').click();
+    }
+    // Force a known numerical swap to verify the UI independently of whether
+    // this particular worker happens to mistranslate the sentence today.
+    await page.evaluate(source=>{
+      const previous=PaperLanguageText.translate;
+      PaperLanguageText.translate=Object.assign((s,...args)=>s===source?
+        Promise.resolve('A 组接受 11 mg，B 组接受 7 mg。'):previous(s,...args),{withTerms:previous.withTerms});
+    },lines[9]);
+    await selectText(page,lines[9]);await run();await wait('partial');
+    const evidence=popup.locator(':scope > p .translation-issue-link');
+    assert.match(await evidence.innerText(),/7 mg.*11 mg/);
+    await capture('swapped-group-evidence');
+    await evidence.click();
+    assert.equal(await popup.locator('.selection-review').getAttribute('open'),'');
+    assert.match(await popup.locator('.translation-unit:focus').innerText(),/7 mg/);
     await page.locator('input[id$="-main"]').first().setInputFiles(fixture('Second document',['A separate study examined light.']));
     await page.waitForFunction(()=>document.querySelector('.local-translation')?.hidden);
     assert.deepEqual(errors,[]);

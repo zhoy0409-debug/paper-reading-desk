@@ -1,6 +1,6 @@
-import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=quality1';
-import {fieldTerms,resolveField} from './discipline-glossary.js?rev=quality1';
-import {validateScientific} from './translation-facts.js';
+import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=evidence2';
+import {fieldTerms,resolveField} from './discipline-glossary.js?rev=evidence2';
+import {validateScientific} from './translation-facts.js?rev=evidence2';
 import {needsAlignment,checkAlignment} from './translation-alignment.js';
 
 // The source is kept verbatim. Only the copy submitted to an engine is normalized.

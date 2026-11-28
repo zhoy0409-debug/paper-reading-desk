@@ -1,4 +1,6 @@
-const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=0416'));
+import {assignedValues,chemicalNames,missingAssignments,missingBoundRoles,symbolicBounds,symbolicKeys} from './translation-anchors.js?rev=evidence2';
+import {comparisonText} from './translation-facts.js?rev=evidence2';
+const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=evidence2'));
 // Translate supported scientific constructions from their captured subjects and modifiers.
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
 export function normalizeSelection(text){
@@ -67,10 +69,11 @@ function validation(reason,detail){
 // Chemical names in a structure description must survive even when the MT model
 // substitutes a different compound. A supplied subject glossary can localize them.
 function compounds(s,domain){
-  if(!/\b(?:chemical|moiet(?:y|ies)|functional groups?|substituents?|molecul\w*)\b/i.test(s))return [];
+  const spans=chemicalNames(s,domain);
+  if(!/\b(?:chemical|moiet(?:y|ies)|functional groups?|substituents?|molecul\w*)\b/i.test(s))return spans;
   const chemical=/\b([a-z][a-z\d-]*(?:oxazine|azine|idine|anone|azole|amide|phenyl|alkyl|ethyl|enoate))\b(\s+groups?\b)?/gi;
-  const spans=[];
   for(const m of s.matchAll(chemical)){
+    if(spans.some(term=>term.index<=m.index&&m.index<term.index+term.original.length))continue;
     if(domain.some(term=>term.index<=m.index&&term.index+term.original.length>=m.index+m[0].length))continue;
     const name=domain.find(term=>term.index===m.index&&term.original===m[1])?.value??m[1];
     const suffix=m[2]?(/[\u3400-\u9fff]$/.test(name)?'基团':' 基团'):'';
@@ -375,11 +378,12 @@ export async function translatePassage(original,from,translate,{field='auto'}={}
     if(/\bintegrating\b.+\bwith the processes of\b/i.test(body))
       result=result.replace(/将([^。！？]{2,100}?)与([^。！？]{2,70}?)的过程相结合/g,'将$1与$2联系起来');
     const missingSide=['left','right'].some((side,i)=>new RegExp('\\('+side+'\\)','i').test(body)&&!result.includes(i?'右':'左'));
-    const numbers=body.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
-    const resultNumbers=result.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
-    const equalNumbers=numbers.map(n=>n.replace(/\s/g,'')).sort().join('|')===resultNumbers.map(n=>n.replace(/\s/g,'')).sort().join('|');
+    const numericTokens=s=>(s.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[]).map(n=>n.replace(/\s/g,'')).sort().join('|');
+    const equalNumbers=numericTokens(body)===numericTokens(result)||numericTokens(comparisonText(body))===numericTokens(comparisonText(result));
     const panelRefs=s=>Array.from(s.matchAll(/\(([a-z])\)|[（(]([a-z])[)）]|(?:图|小图)\s*([a-z])\b/gi),m=>(m[1]||m[2]||m[3]).toLowerCase()).sort().join(',');
+    const bounds=symbolicKeys(body);
     const facts=missingSide||!equalNumbers||figures(body)!==figures(result)||concentrations(body)!==concentrations(result)||
+      (bounds.length&&(bounds.sort().join('|')!==symbolicKeys(result).sort().join('|')||missingBoundRoles(body,result).length>0))||missingAssignments(body,result).length>0||
       keys.some(k=>!result.includes(k)&&!matched.some(m=>m.original===k&&result.includes(m.value)))||
       panelRefs(body)!==panelRefs(result)||(/\b(?:not|no|without)\b/i.test(body)&&!/[无不未没非]/.test(result));
     const missingTerm=matched.some(m=>!result.includes(m.value))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
@@ -411,7 +415,8 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
       const value=names.get(m[0].toLowerCase());
       return {index:m.index,original:m[0],value:value&&value!==m[0].toLowerCase()?value:m[0]};
     });
-    const protectedSpans=[...domain,...compounds(s,domain),
+    const protectedSpans=[...domain,...compounds(s,domain),...symbolicBounds(s),...assignedValues(s),
+      ...Array.from(s.matchAll(/(?<![A-Za-z\d])[A-Za-zα-ω][₀-₉]+/giu),m=>({index:m.index,original:m[0],value:m[0]})),
       ...Array.from(s.matchAll(figureRef),m=>({index:m.index,original:m[0],value:'图 '+m[1]})),
       ...Array.from(s.matchAll(concentration),m=>({index:m.index,original:m[0],value:m[0]})),...identifiers];
     const result=[];
