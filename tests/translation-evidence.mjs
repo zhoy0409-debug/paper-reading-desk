@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {validateScientific} from '../dist/translation-facts.js';
 import {chemicalNames, symbolicKeys} from '../dist/translation-anchors.js';
+import {claimIssues,recoverClaimWording} from '../dist/translation-claims.js';
 
 for (const file of ['./translation-benchmark/control-pairs.json','./translation-benchmark/round2/contrast-pairs.json']) {
   const pairs=JSON.parse(fs.readFileSync(new URL(file,import.meta.url),'utf8'));
@@ -29,3 +30,32 @@ assert.equal(validateScientific('至少 k 个观测值。','At most k observatio
 const incorrect=validateScientific('Group A received 7 mg and group B received 11 mg.','A 组接受 11 mg，B 组接受 7 mg。');
 assert.ok(incorrect.issues.some(i=>i.code==='group'&&i.sourceEvidence.includes('7 mg')&&i.targetEvidence.includes('11 mg')));
 console.log('PASS paired controls, chemical identity, symbolic bounds and actionable evidence');
+
+const predicates = [
+  ['Height was inversely associated with frost damage.', '高度与冻害呈反比。','高度与冻害呈负相关。'],
+  ['Duration was positively correlated with spending.','持续时间与支出成正比。','持续时间与支出呈正相关。'],
+  ['Night lighting was used as a proxy for activity.','夜间照明是活动的代名词。','夜间照明是活动的替代指标。'],
+  ['The cohort was monitored for incident CKD.','监测队列中的事件 CKD。','监测队列中的新发 CKD。'],
+  ['Odds increased across successive quarters of exposure.','暴露水平各季度的比值逐渐增加。','暴露水平各四分位组的比值逐渐增加。'],
+];
+for(const [source,changed,good] of predicates){
+  assert.equal(recoverClaimWording(source,changed),good);
+  assert.equal(claimIssues(source,good).length,0);
+  assert.ok(claimIssues(source,changed).some(i=>i.sourceEvidence&&i.targetEvidence));
+}
+for(const [source,good] of [
+  ['Force is inversely proportional to distance.','力与距离成反比。'],
+  ['Cost was positively correlated with risk but inversely proportional to volume.','成本与风险正相关，与体积成反比。'],
+  ['The incident UV beam was measured.','测量入射紫外光束。'],
+  ['Quarterly risks increased during successive quarters of the year.','风险在这一年的连续几个季度上升。'],
+  ['The term is a synonym and is sometimes used as a proxy for wealth.','这一术语是一个代名词，有时用作财富的代理指标。'],
+  ['There were fewer than five invalid readings.','无效读数不足五次。']
+]){
+  assert.equal(recoverClaimWording(source,good),good);
+  assert.equal(claimIssues(source,good).length,0);
+}
+assert.ok(claimIssues('We observed fewer faults at the higher load.','我们观察了较高负载下的故障。').some(i=>i.code==='direction'));
+assert.equal(claimIssues('We observed fewer faults at the higher load.','较高负载下的故障更少。').length,0);
+assert.ok(claimIssues('The threshold is independent of speed.','阈值取决于速度。').some(i=>i.code==='relation'));
+assert.equal(claimIssues('The threshold is independent of speed.','速度不影响阈值。').length,0);
+console.log('PASS association strength, measured proxies, clinical outcomes and missing comparative predicates');

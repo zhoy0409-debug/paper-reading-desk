@@ -396,6 +396,15 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  if(typeof MutationObserver==='function')new MutationObserver(syncLoaded).observe(reader,{attributes:true,attributeFilter:['hidden']});
  const items=[], crossContexts=[];
  const sourceOwners=new WeakMap();
+ mountBox.addEventListener('reader-local-translation-context',event=>{
+  const item=event.composedPath().map(node=>sourceOwners.get(node)).find(Boolean);
+  if(!item)return;
+  const {index,source}=event.detail;
+  const lookup=item.lookupTerm??=PaperSourceNotes.lookupFor(item.model.sections);
+  item.translationContext??=index(item.model.sections.filter(s=>s.key!=='references').flatMap(s=>s.rows||[]),
+    item.model.title||item.metadata?.title||'',lookup);
+  event.detail.context=item.translationContext(source);
+ });
  mountBox.addEventListener('reader-pdf-word-forms',event=>{
   const item=sourceOwners.get(event.target.closest('.pl-excerpt'));
   if(!item)return;
@@ -632,8 +641,9 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
    });
    if(activeView!==viewKey)return;
    if(dest?.id===item.hash)history.replaceState(null,'',location.pathname);
+   sourceOwners.set(host,item);
    figureHandle=window.FigureReadingWorkbench.mount(host,{
-    lookupTerm: PaperSourceNotes.lookupFor(item.model.sections),
+    lookupTerm: item.lookupTerm??=PaperSourceNotes.lookupFor(item.model.sections),
     findPassage: FigureElements.paperPassages(item.model.sections),
     lookupSupplement(query){
      const found=[];
@@ -909,7 +919,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  function raw(parent,item,record){
   const panel=add(parent,'article',undefined,'pl-excerpt');
-  if(item.pdfFile)sourceOwners.set(panel,item);
+  sourceOwners.set(panel,item);
   const anchor=add(panel,'div',item.name+' · '+record.location,'pl-anchor');
   if(item.pdfFile&&record.page&&window.URL?.createObjectURL){
    try{

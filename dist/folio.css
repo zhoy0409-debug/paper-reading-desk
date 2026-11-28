@@ -281,6 +281,11 @@ main:has(.frw) .hero.uploadHero{padding:18px 0}main:has(.frw) .uploadHero h1{fon
   text-align: start;
 }
 .local-translation[hidden], .local-translation [hidden], .local-translation p:empty { display: none !important }
+.local-translation:has(.selection-model-choice:not([hidden])) { width: min(31rem, var(--selection-width, calc(100vw - 16px))) }
+.selection-model-choice { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .65rem 0 }
+.selection-model-choice small { flex: 0 0 100%; line-height: 1.45 }
+.selection-model-choice button { min-height: 2.35rem; padding: .35rem .75rem; border: 1px solid currentColor; border-radius: .55rem; cursor: pointer }
+.selection-model-choice .selection-download-local { background: var(--accent-strong,#203b32); color: white }
 .local-translation:has(p:not(:empty)) { width: min(31rem, var(--selection-width, calc(100vw - 16px))) }
 .local-translation .selection-actions { display: flex; align-items: center; gap: 7px }
 .local-translation .selection-actions button {

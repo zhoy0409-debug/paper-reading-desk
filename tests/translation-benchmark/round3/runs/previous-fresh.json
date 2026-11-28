@@ -1,0 +1,1270 @@
+{
+  "url": "http://127.0.0.1:54734/read/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "J01",
+      "chars": 204,
+      "from": "en",
+      "ms": 979,
+      "text": "在自由生活活动期间，PA的步数和时间与参考措施适度相关，但协议在指标，数据聚集水平和疾病严重程度方面各不相同。",
+      "units": [
+        {
+          "id": "1-0",
+          "status": "translated",
+          "source": "During free-living activity, step count and time in PA correlated moderately to strongly with reference measures, but agreement varied across metrics, data aggregation levels, and disease severity strata.",
+          "text": "在自由生活活动期间，PA的步数和时间与参考措施适度相关，但协议在指标，数据聚集水平和疾病严重程度方面各不相同。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J02",
+      "chars": 85,
+      "from": "en",
+      "ms": 42,
+      "text": "完美协议的测量将沿着指示的对角线黑线下降。",
+      "units": [
+        {
+          "id": "2-0",
+          "status": "translated",
+          "source": "Measurements in perfect agreement would fall along the indicated diagonal black line.",
+          "text": "完美协议的测量将沿着指示的对角线黑线下降。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J03",
+      "chars": 171,
+      "from": "en",
+      "ms": 134,
+      "text": "清醒时间至少10小时佩戴时间的天数被认为是有效的[67],至少有两个有效日期的参与者包含在本分析中[68]。",
+      "units": [
+        {
+          "id": "3-0",
+          "status": "review",
+          "source": "Days with at least 10 hours of wear time during waking hours were considered valid [67], and participants with at least two valid days were included in this analysis [68].",
+          "text": "清醒时间至少10小时佩戴时间的天数被认为是有效的[67],至少有两个有效日期的参与者包含在本分析中[68]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "≥2",
+                "targetEvidence": "2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J04",
+      "chars": 149,
+      "from": "en",
+      "ms": 66,
+      "text": "中度MS亚组中相关性最高，轻度MS亚组较低，重度MS亚组中相关性最低(S4表)。",
+      "units": [
+        {
+          "id": "4-0",
+          "status": "translated",
+          "source": "Correlations were highest in the subgroup with moderate MS, lower in the subgroup with mild MS, and lowest in the subgroup with severe MS (S4 Table).",
+          "text": "中度MS亚组中相关性最高，轻度MS亚组较低，重度MS亚组中相关性最低(S4表)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J05",
+      "chars": 108,
+      "from": "en",
+      "ms": 38,
+      "text": "这些关系要么与Actigraph衍生的PA指标相似，要么更强。",
+      "units": [
+        {
+          "id": "5-0",
+          "status": "translated",
+          "source": "These relationships were either similar to or stronger than those exhibited by Actigraph-derived PA metrics.",
+          "text": "这些关系要么与Actigraph衍生的PA指标相似，要么更强。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J06",
+      "chars": 353,
+      "from": "en",
+      "ms": 161,
+      "text": "多发性硬化症(MS)是一种神经退行性自身免疫性疾病，影响身体和认知功能，运动控制和能量水平。 身体活动(PA)在MS(PwMS)[1,2]患者中经常减少，尽管已知它有助于症状和疲劳管理[3-5],并且被PwMS[6,7]视为医疗保健的重要组成部分。",
+      "units": [
+        {
+          "id": "6-0",
+          "status": "translated",
+          "source": "Multiple sclerosis (MS) is a neurodegenerative autoimmune disease which affects physical and cognitive function, motor control, and energy levels.",
+          "text": "多发性硬化症(MS)是一种神经退行性自身免疫性疾病，影响身体和认知功能，运动控制和能量水平。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "6-1",
+          "status": "translated",
+          "source": "Physical activity (PA) is often reduced in persons with MS (PwMS) [1,2], though it is known to aid in symptom and fatigue management [3–5] and is perceived as an important part of health care by PwMS [6,7].",
+          "text": "身体活动(PA)在MS(PwMS)[1,2]患者中经常减少，尽管已知它有助于症状和疲劳管理[3-5],并且被PwMS[6,7]视为医疗保健的重要组成部分。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J07",
+      "chars": 182,
+      "from": "en",
+      "ms": 59,
+      "text": "双对手和强度通道使用尖峰神经网络重建，并线性地与单个对手通道结合，以提供感知图像。",
+      "units": [
+        {
+          "id": "7-0",
+          "status": "translated",
+          "source": "The double opponent and the intensity channels are reconstructed using spiking neural networks and linearly combined with the single opponent channels to provide the perceived image.",
+          "text": "双对手和强度通道使用尖峰神经网络重建，并线性地与单个对手通道结合，以提供感知图像。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J08",
+      "chars": 172,
+      "from": "en",
+      "ms": 73,
+      "text": "该模型开始模拟单对对手细胞对色度(红绿色和蓝黄色)和非色度通道的视觉刺激的反应。",
+      "units": [
+        {
+          "id": "8-0",
+          "status": "translated",
+          "source": "The model initiates with simulating the responses of single and double opponent cells to a visual stimulus in chromatic (red-green and blue-yellow) and achromatic channels.",
+          "text": "该模型开始模拟单对对手细胞对色度(红绿色和蓝黄色)和非色度通道的视觉刺激的反应。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J09",
+      "chars": 184,
+      "from": "en",
+      "ms": 91,
+      "text": "猴子被麻醉，通风，并锚定(用牙科丙烯酸巩固)使用两个25毫米的颅窗，双边放置在初级视觉皮质上。",
+      "units": [
+        {
+          "id": "9-0",
+          "status": "translated",
+          "source": "The monkey was anesthetized, ventilated, and anchored (cemented to the cranium with dental acrylic) using two 25mm cranial windows, bilaterally placed over the primary visual cortices.",
+          "text": "猴子被麻醉，通风，并锚定(用牙科丙烯酸巩固)使用两个25毫米的颅窗，双边放置在初级视觉皮质上。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J10",
+      "chars": 158,
+      "from": "en",
+      "ms": 67,
+      "text": "另一方面，随着s的增加，Retinex的结果获得了更多的彩色颜色(在CIELu'v'空间中更接近原始颜色的预测颜色)。",
+      "units": [
+        {
+          "id": "10-0",
+          "status": "translated",
+          "source": "On the other hand, as s increases, Retinex’s results obtain more chromatic colors (predicted colors that are closer to the original color, in CIELu’v’ space).",
+          "text": "另一方面，随着s的增加，Retinex的结果获得了更多的彩色颜色(在CIELu'v'空间中更接近原始颜色的预测颜色)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J11",
+      "chars": 145,
+      "from": "en",
+      "ms": 65,
+      "text": "虽然VSDI获得的信号强调基阈值膜电位，但它反映了超阈值膜电位(即尖峰活性)。",
+      "units": [
+        {
+          "id": "11-0",
+          "status": "translated",
+          "source": "While VSDI acquired signals emphasize subthreshold membrane potentials, it reflects supra-threshold membrane potentials (i.e., spiking activity).",
+          "text": "虽然VSDI获得的信号强调基阈值膜电位，但它反映了超阈值膜电位(即尖峰活性)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J12",
+      "chars": 350,
+      "from": "en",
+      "ms": 137,
+      "text": "最近，我们提出了生物学上合理的泊松驱动感知填充Sping神经网络(SNN),展示了从其梯度中重建图像[5]。 SNN在生物学上是合理的，因为它们具有尖峰神经元和局部学习规则，没有中央处理单元(CPU)或基于寄存器的记忆。",
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "Recently, we proposed biologically plausible Poisson-driven perceptual filling-in Spiking Neural Networks (SNN), demonstrating the reconstruction of images from their gradients [5].",
+          "text": "最近，我们提出了生物学上合理的泊松驱动感知填充Sping神经网络(SNN),展示了从其梯度中重建图像[5]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "12-1",
+          "status": "translated",
+          "source": "SNNs are considered biologically plausible as they feature spiking neurons and local learning rules without a Central Processing Unit (CPU) nor a register-based memory.",
+          "text": "SNN在生物学上是合理的，因为它们具有尖峰神经元和局部学习规则，没有中央处理单元(CPU)或基于寄存器的记忆。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J13",
+      "chars": 174,
+      "from": "en",
+      "ms": 167,
+      "text": "详细叙述了962平方公里3的全球灌溉需求估计数，也与空间变化和所需经费的月度变化有关。",
+      "units": [
+        {
+          "id": "13-0",
+          "status": "review",
+          "source": "The estimated global irrigation requirements for 962 km3 is described in detail, also in relation to the spatial variability and to the monthly variation of the requirements.",
+          "text": "详细叙述了962平方公里3的全球灌溉需求估计数，也与空间变化和所需经费的月度变化有关。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "962 km",
+                "targetEvidence": "962"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J14",
+      "chars": 132,
+      "from": "en",
+      "ms": 101,
+      "text": "两个轴上的变量已经量化，考虑到每月收获的AEI,如地块的最低部分所示。",
+      "units": [
+        {
+          "id": "14-0",
+          "status": "review",
+          "source": "The variables on both the axes have been quantified considering the monthly harvested AEI, as shown in the lowest part of the plots.",
+          "text": "两个轴上的变量已经量化，考虑到每月收获的AEI,如地块的最低部分所示。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J15",
+      "chars": 208,
+      "from": "en",
+      "ms": 219,
+      "text": "在考虑个别作物时，根据FAOSTAT的数据，2000年超过48%吨的农业总产量仅包括四种作物:甘蔗，水稻，小麦和玉米。",
+      "units": [
+        {
+          "id": "15-0",
+          "status": "review",
+          "source": "In considering individual crops it is significant that, according to FAOSTAT, more than 48% of total agricultural production in tonnes in year 2000 included only four crops: sugar cane, rice, wheat and maize.",
+          "text": "在考虑个别作物时，根据FAOSTAT的数据，2000年超过48%吨的农业总产量仅包括四种作物:甘蔗，水稻，小麦和玉米。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J16",
+      "chars": 259,
+      "from": "en",
+      "ms": 155,
+      "text": "退出低于阿拉伯联合酋长国等供水需求较高的国家的要求可能是由于灌溉实践不足，其中供水量低于实际需求是由于缺乏水供应[35]。",
+      "units": [
+        {
+          "id": "16-0",
+          "status": "review",
+          "source": "Withdrawals lower than requirements in nations with high water-demand states like United Arab Emirates may be due to deficit irrigation practices, in which a provision of lower water volumes than actual requirements are due to lack of water availability [35].",
+          "text": "退出低于阿拉伯联合酋长国等供水需求较高的国家的要求可能是由于灌溉实践不足，其中供水量低于实际需求是由于缺乏水供应[35]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J17",
+      "chars": 218,
+      "from": "en",
+      "ms": 274,
+      "text": "在开发阶段，kc从kc,ini线性增长到kc,mids,即季中阶段系数的恒定值，最后，在后期阶段，它从kc,mids到kc,end线性下降。",
+      "units": [
+        {
+          "id": "17-0",
+          "status": "review",
+          "source": "In the development stage, kc grows linearly from kc,ini to kc,mid, i.e. the constant value of the coefficient in the mid-season stage, and finally, in the late season stage, it decreases linearly from kc,mid to kc,end.",
+          "text": "在开发阶段，kc从kc,ini线性增长到kc,mids,即季中阶段系数的恒定值，最后，在后期阶段，它从kc,mids到kc,end线性下降。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J18",
+      "chars": 306,
+      "from": "en",
+      "ms": 112,
+      "text": "国家灌溉取款是从地表水体或地下水中提取的水量，用于农业，用于灌溉的田地。 取款包括作物所需的数量以及由于分配和灌溉系统效率低下而造成的水损失。",
+      "units": [
+        {
+          "id": "18-0",
+          "status": "translated",
+          "source": "The national irrigation withdrawals are the volumes of water taken from surface water bodies or groundwater to be used in agriculture, in fields equipped for irrigation.",
+          "text": "国家灌溉取款是从地表水体或地下水中提取的水量，用于农业，用于灌溉的田地。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "18-1",
+          "status": "translated",
+          "source": "Withdrawals include the volumes required by crops and the water losses due to inefficiencies in the distribution and irrigation systems.",
+          "text": "取款包括作物所需的数量以及由于分配和灌溉系统效率低下而造成的水损失。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J19",
+      "chars": 291,
+      "from": "en",
+      "ms": 129,
+      "text": "由此产生的PPLA结果表明，将PEG引入混合系统导致球菌断裂，熔体温度(Tm)和玻璃转移温度(Tg)降低，结晶度(χc)增加，这表明灵活性提高。",
+      "units": [
+        {
+          "id": "19-0",
+          "status": "translated",
+          "source": "The resulting PPLA results indicated that the introduction of PEG to the blend systems resulted in a ductile fracture, a decrease in the melt temperature (Tm) and glass transfer temperature (Tg), and an increase in the degree of crystallization (χc), which indicated an improved flexibility.",
+          "text": "由此产生的PPLA结果表明，将PEG引入混合系统导致球菌断裂，熔体温度(Tm)和玻璃转移温度(Tg)降低，结晶度(χc)增加，这表明灵活性提高。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J20",
+      "chars": 113,
+      "from": "en",
+      "ms": 110,
+      "text": "热重力曲线:(A)纯PLA,PEG 400和PPLA 400的TGA-DTG曲线。 (B) 纯和塑化 PLA。",
+      "units": [
+        {
+          "id": "20-0",
+          "status": "translated",
+          "source": "Thermogravimetric curves of: (A) TGA-DTG curves for pure PLA, PEG 400 and PPLA 400.",
+          "text": "热重力曲线:(A)纯PLA,PEG 400和PPLA 400的TGA-DTG曲线。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-1",
+          "status": "translated",
+          "source": "(B) pure and plasticized PLA.",
+          "text": "(B) 纯和塑化 PLA。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J21",
+      "chars": 238,
+      "from": "en",
+      "ms": 177,
+      "text": "这是因为在与PLA的混合过程中，PEG的小分子量相当于溶剂，导致聚合物的自由体积增加，材料刚度降低[23 ]。",
+      "units": [
+        {
+          "id": "21-0",
+          "status": "translated",
+          "source": "This occurred because, during the blending process with the PLA, the small molecular weight of the PEG was equivalent to the solvent, resulting in the increased free volume of the polymer and the decrease in the material’s stiffness [23].",
+          "text": "这是因为在与PLA的混合过程中，PEG的小分子量相当于溶剂，导致聚合物的自由体积增加，材料刚度降低[23 ]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J22",
+      "chars": 218,
+      "from": "en",
+      "ms": 138,
+      "text": "在过去的几十年里，石油基聚合物对环境造成的不可挽回的破坏导致人们越来越关注可再生和可生物降解聚合物复合材料的研究和开发[1]。",
+      "units": [
+        {
+          "id": "22-0",
+          "status": "review",
+          "source": "In the past few decades, irreparable damages to the environment caused by petroleum-based polymers have led to increased attentions on the research and development of renewable and biodegradable polymer composites [1].",
+          "text": "在过去的几十年里，石油基聚合物对环境造成的不可挽回的破坏导致人们越来越关注可再生和可生物降解聚合物复合材料的研究和开发[1]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J23",
+      "chars": 156,
+      "from": "en",
+      "ms": 53,
+      "text": "进行了CA分析，以研究无表面能量及其散光，PLA材料的极性成分;结果见表2。",
+      "units": [
+        {
+          "id": "23-0",
+          "status": "translated",
+          "source": "CA analysis was performed to investigate the surface free energy and its dispersive, polar component of the PLA materials; the results are shown in Table 2.",
+          "text": "进行了CA分析，以研究无表面能量及其散光，PLA材料的极性成分;结果见表2。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J24",
+      "chars": 401,
+      "from": "en",
+      "ms": 305,
+      "text": "为了评估PEG对WF/PPLA复合材料最终产品的塑化作用，同时研究了复合材料的相容性、机械强度、热稳定性。 本文应提供一种有效的方法来设计基于解放军的复合材料，并提高提高PLA材料加工性和扩大应用的可能性。",
+      "units": [
+        {
+          "id": "24-0",
+          "status": "translated",
+          "source": "In order to evaluate the plasticization effect of PEG on the final products of WF/PPLA composites, the compatibility, mechanical strength, thermal and thermal stability of the composites were studied at the same time.",
+          "text": "为了评估PEG对WF/PPLA复合材料最终产品的塑化作用，同时研究了复合材料的相容性、机械强度、热稳定性。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "24-1",
+          "status": "review",
+          "source": "This paper should provide an efficient method to design the PLA-based composites and improve the possibility to enhance the processability and expand the application of PLA materials.",
+          "text": "本文应提供一种有效的方法来设计基于解放军的复合材料，并提高提高PLA材料加工性和扩大应用的可能性。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "J25",
+      "chars": 173,
+      "from": "en",
+      "ms": 199,
+      "text": "城市形式进一步修改了这些模式,在非常开放或非常紧凑的设置中,阴影最有效，而更大的天空开放性始终如一地加强性能。",
+      "units": [
+        {
+          "id": "25-0",
+          "status": "translated",
+          "source": "Urban form further modifies these patterns, with shade most effective in very open or very compact settings, while greater sky openness consistently strengthens performance.",
+          "text": "城市形式进一步修改了这些模式,在非常开放或非常紧凑的设置中,阴影最有效，而更大的天空开放性始终如一地加强性能。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "error": null,
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J26",
+      "chars": 66,
+      "from": "en",
+      "ms": 260,
+      "text": "面板各不相同 Ta( 24，29，34 °C) SLR 线路( 300 / 600 / 900 Wh/M 2 ).",
+      "units": [
+        {
+          "id": "26-0",
+          "status": "review",
+          "source": "Panels vary Ta (24, 29, 34 °C) with SLR lines (300/600/900 Wh/m2).",
+          "text": "面板各不相同 Ta( 24，29，34 °C) SLR 线路( 300 / 600 / 900 Wh/M 2 ).",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J27",
+      "chars": 202,
+      "from": "en",
+      "ms": 558,
+      "text": "在2018年至2022年8月无降水日的528个小时观测中,平均Ta为29.3°C(22.4-35.7°C),Rh平均为60.5%(28-88%),单反平均为611.2Wh/m2(66.7–947.2 Wh/m2)。",
+      "units": [
+        {
+          "id": "27-0",
+          "status": "review",
+          "source": "Across 528 hourly observations from precipitation-free August days between 2018 and 2022, mean Ta was 29.3 °C (22.4–35.7 °C), Rh averaged 60.5% (28–88%), and SLR averaged 611.2 Wh/m2 (66.7–947.2 Wh/m2).",
+          "text": "在2018年至2022年8月无降水日的528个小时观测中,平均Ta为29.3°C(22.4-35.7°C),Rh平均为60.5%(28-88%),单反平均为611.2Wh/m2(66.7–947.2 Wh/m2)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "8"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J28",
+      "chars": 245,
+      "from": "en",
+      "ms": 205,
+      "text": "在物理方面，阴影主要减少短波辐射和mRT,但没有显着降低环境Ta或长波/对流荷载;因此，当高Ta与强SLR 相吻合时，额外阴影的边际效益是有限的。",
+      "units": [
+        {
+          "id": "28-0",
+          "status": "translated",
+          "source": "In physical terms, shade mainly reduced shortwave radiation and mRT but did not substantially lower ambient Ta or longwave/convective loads; therefore, when high Ta coincided with strong SLR, the marginal benefit of additional shade was limited.",
+          "text": "在物理方面，阴影主要减少短波辐射和mRT,但没有显着降低环境Ta或长波/对流荷载;因此，当高Ta与强SLR 相吻合时，额外阴影的边际效益是有限的。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J29",
+      "chars": 110,
+      "from": "en",
+      "ms": 39,
+      "text": "这项研究对小气候和城市形成如何共同塑造街道活力有了深入的实证理解。",
+      "units": [
+        {
+          "id": "29-0",
+          "status": "translated",
+          "source": "This study advanced empirical understanding of how microclimate and urban form jointly shaped street vitality.",
+          "text": "这项研究对小气候和城市形成如何共同塑造街道活力有了深入的实证理解。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J30",
+      "chars": 371,
+      "from": "en",
+      "ms": 235,
+      "text": "此外，该地区提供基于手机的精细分辨率步行数据和详细的环境层，使步行计数，模拟阴影比和当地天气之间能够直接联系。 这些属性使Jung-gu成为研究各种城市环境中炎热潮湿季节阴影如何促进街道活力的强大经验设置。",
+      "units": [
+        {
+          "id": "30-0",
+          "status": "translated",
+          "source": "Moreover, the district offers fine-resolution mobile-phone-based walking data and detailed environmental layers, enabling a direct link between walking count, modeled shadow ratio, and local weather.",
+          "text": "此外，该地区提供基于手机的精细分辨率步行数据和详细的环境层，使步行计数，模拟阴影比和当地天气之间能够直接联系。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "30-1",
+          "status": "review",
+          "source": "These attributes make Jung-gu a robust empirical setting for investigating how shade contributes to street vitality in hot-humid seasons across various urban environments.",
+          "text": "这些属性使Jung-gu成为研究各种城市环境中炎热潮湿季节阴影如何促进街道活力的强大经验设置。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "J31",
+      "chars": 119,
+      "from": "en",
+      "ms": 39,
+      "text": "在目前的研究中，我们考察了生物学学生的学习实践，特别是在这两种行为的背景下。",
+      "units": [
+        {
+          "id": "31-0",
+          "status": "translated",
+          "source": "In the current study, we examine biology students’ study practices, particularly in the context of these two behaviors.",
+          "text": "在目前的研究中，我们考察了生物学学生的学习实践，特别是在这两种行为的背景下。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J32",
+      "chars": 114,
+      "from": "en",
+      "ms": 43,
+      "text": "研究第1年和第2年干预部分的学生根据他们的URM状态进行分类。",
+      "units": [
+        {
+          "id": "32-0",
+          "status": "translated",
+          "source": "Students in the intervention sections during years 1 and 2 of the study were classified based on their URM status.",
+          "text": "研究第1年和第2年干预部分的学生根据他们的URM状态进行分类。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J33",
+      "chars": 106,
+      "from": "en",
+      "ms": 151,
+      "text": "这些等级的增加范围在 5.7 – 6.2% 对于那些使用间距和 4.6 – 6.5% 自我测试。",
+      "units": [
+        {
+          "id": "33-0",
+          "status": "review",
+          "source": "These grade increases were in the range of 5.7–6.2% for those using spacing and 4.6–6.5% for self-testing.",
+          "text": "这些等级的增加范围在 5.7 – 6.2% 对于那些使用间距和 4.6 – 6.5% 自我测试。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J34",
+      "chars": 223,
+      "from": "en",
+      "ms": 77,
+      "text": "我们知道，URMs通常进入大学时学术准备较少，表现较低的绩效指标[34],我们的研究结果可能会提供一些见解，说明他们的学习习惯的差异如何有助于这一点。",
+      "units": [
+        {
+          "id": "34-0",
+          "status": "translated",
+          "source": "We know that URMs typically come to college less academically prepared and exhibit lower performance metrics [34], and our results may provide some insight as to how differences in their study habits may contribute to this.",
+          "text": "我们知道，URMs通常进入大学时学术准备较少，表现较低的绩效指标[34],我们的研究结果可能会提供一些见解，说明他们的学习习惯的差异如何有助于这一点。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J35",
+      "chars": 226,
+      "from": "en",
+      "ms": 76,
+      "text": "对于调查后的回答，由于教师就他认为学生应该如何学习给出了明确的建议，这可能导致学生为了取悦教师而过度报告他们使用这些技能。",
+      "units": [
+        {
+          "id": "35-0",
+          "status": "translated",
+          "source": "For the post-survey responses, since the instructor gave explicit recommendations on how he believes students should study, this may have led students to over-report their use of these skills in order to please the instructor.",
+          "text": "对于调查后的回答，由于教师就他认为学生应该如何学习给出了明确的建议，这可能导致学生为了取悦教师而过度报告他们使用这些技能。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J36",
+      "chars": 371,
+      "from": "en",
+      "ms": 210,
+      "text": "在这两年中，干预部分的学生由一位研究作者(BKS)授课，而两个控制部分(C1和C2)的学生则由两对不同的教师授课。 所有部分都以常见的讲座幻灯片，讲座期间的主动学习时间以及相同的，基于问题的讨论部分进行了类似的教学。",
+      "units": [
+        {
+          "id": "36-0",
+          "status": "review",
+          "source": "For both years, students in the intervention section were taught by one of the study authors (BKS), while students in the two control sections (C1 and C2) were taught by two distinct pairs of instructors.",
+          "text": "在这两年中，干预部分的学生由一位研究作者(BKS)授课，而两个控制部分(C1和C2)的学生则由两对不同的教师授课。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "2",
+                "targetEvidence": "1"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "36-1",
+          "status": "translated",
+          "source": "All sections were taught similarly with common lecture slides, periods of active learning during the lecture period, and identical, problem-based discussion sections.",
+          "text": "所有部分都以常见的讲座幻灯片，讲座期间的主动学习时间以及相同的，基于问题的讨论部分进行了类似的教学。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "J37",
+      "chars": 172,
+      "from": "en",
+      "ms": 59,
+      "text": "你可能会认为，如果你的眼睛是睁开的，这个任务会更容易，因为你可以依靠来自你的眼睛和耳朵前庭系统的信息。",
+      "units": [
+        {
+          "id": "37-0",
+          "status": "translated",
+          "source": "You might think that this task would be easier if your eyes were open because you could rely on information from your eyes and also from the vestibular system in your ears.",
+          "text": "你可能会认为，如果你的眼睛是睁开的，这个任务会更容易，因为你可以依靠来自你的眼睛和耳朵前庭系统的信息。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J38",
+      "chars": 146,
+      "from": "en",
+      "ms": 72,
+      "text": "数据跨数据集平均(除了0%,12%,51%的一致性:只有数据集B2,D2,F2),阴影区域和错误条显示95%的CI。",
+      "units": [
+        {
+          "id": "38-0",
+          "status": "translated",
+          "source": "Data are averaged across datasets (except 0%, 12%, 51% coherence: only datasets B2, D2, F2), with shaded areas and error bars showing the 95% CIs.",
+          "text": "数据跨数据集平均(除了0%,12%,51%的一致性:只有数据集B2,D2,F2),阴影区域和错误条显示95%的CI。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J39",
+      "chars": 168,
+      "from": "en",
+      "ms": 121,
+      "text": "还请注意，合并条件中的歧视阈值大大小于前庭阈值，特别是在70%相干(图 2和3)时。",
+      "units": [
+        {
+          "id": "39-0",
+          "status": "translated",
+          "source": "Note also that discrimination thresholds in the combined condition were substantially smaller than vestibular thresholds, especially at 70% coherence (Figures 2 and 3).",
+          "text": "还请注意，合并条件中的歧视阈值大大小于前庭阈值，特别是在70%相干(图 2和3)时。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J40",
+      "chars": 221,
+      "from": "en",
+      "ms": 154,
+      "text": "我们使用贝叶斯模型比较将这些变体与最佳模型进行了比较，该模型将拟合质量与模型复杂性进行了权衡，以确定其他参数是否显着提高了拟合度(Goodman,1999)。",
+      "units": [
+        {
+          "id": "40-0",
+          "status": "review",
+          "source": "We compared these variants to the optimal model using Bayesian model comparison, which trades off fit quality with model complexity to determine whether additional parameters significantly improve the fit (Goodman, 1999).",
+          "text": "我们使用贝叶斯模型比较将这些变体与最佳模型进行了比较，该模型将拟合质量与模型复杂性进行了权衡，以确定其他参数是否显着提高了拟合度(Goodman,1999)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J41",
+      "chars": 185,
+      "from": "en",
+      "ms": 78,
+      "text": "然而，其他群体未能复制这些发现(Corneil等人，2002年;Whitchurch和Takahashi,2006年),目前还不清楚感觉输入是否最佳地组合在一起。",
+      "units": [
+        {
+          "id": "41-0",
+          "status": "translated",
+          "source": "However, other groups have failed to replicate these findings (Corneil et al., 2002; Whitchurch and Takahashi, 2006) and it is unclear whether the sensory inputs are combined optimally.",
+          "text": "然而，其他群体未能复制这些发现(Corneil等人，2002年;Whitchurch和Takahashi,2006年),目前还不清楚感觉输入是否最佳地组合在一起。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J42",
+      "chars": 227,
+      "from": "en",
+      "ms": 83,
+      "text": "因此，将光流添加到前庭刺激中会降低歧视阈值，基本上不会损失速度。 观察到其他受试者的类似总体结果模式(图3-图补充1)。",
+      "units": [
+        {
+          "id": "42-0",
+          "status": "translated",
+          "source": "Thus, adding optic flow to a vestibular stimulus decreased the discrimination threshold with essentially no loss of speed.",
+          "text": "因此，将光流添加到前庭刺激中会降低歧视阈值，基本上不会损失速度。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "42-1",
+          "status": "translated",
+          "source": "A similar overall pattern of results was observed for the other subjects (Figure 3—figure supplement 1).",
+          "text": "观察到其他受试者的类似总体结果模式(图3-图补充1)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J43",
+      "chars": 139,
+      "from": "en",
+      "ms": 83,
+      "text": "我们的评估表明，ESDM优于最先进的型号，PSNR为26.272,SSIM为0.737,mDice为0.972,mIoU为0.948。",
+      "units": [
+        {
+          "id": "43-0",
+          "status": "translated",
+          "source": "Our evaluation shows that ESDM outperforms state-of-the-art models with a PSNR of 26.272, SSIM of 0.737, mDice of 0.972, and mIoU of 0.948.",
+          "text": "我们的评估表明，ESDM优于最先进的型号，PSNR为26.272,SSIM为0.737,mDice为0.972,mIoU为0.948。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J44",
+      "chars": 190,
+      "from": "en",
+      "ms": 92,
+      "text": "SwinIR的结果如此之大，以至于会对图表中的可视化产生负面影响，因此我们决定将(A)的y轴从0限制到18000,(B)从0限制到700。",
+      "units": [
+        {
+          "id": "44-0",
+          "status": "translated",
+          "source": "The results from SwinIR are so large that it would negatively influence the visualization in the chart, therefore we decided to limit the y-axis of (A) from 0 to 18000 and (B) from 0 to 700.",
+          "text": "SwinIR的结果如此之大，以至于会对图表中的可视化产生负面影响，因此我们决定将(A)的y轴从0限制到18000,(B)从0限制到700。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J45",
+      "chars": 188,
+      "from": "en",
+      "ms": 96,
+      "text": "光学相干断层扫描(OCT)是一种非侵入性成像方式，提供轴向分辨率∼10μm的微解剖可视化，穿透深度为1-2mm[6]。",
+      "units": [
+        {
+          "id": "45-0",
+          "status": "translated",
+          "source": "Optical coherence tomography (OCT) is a non-invasive imaging modality that provides micro-anatomical visualization with an axial resolution of ∼10 µm and a penetration depth of 1-2 mm [6].",
+          "text": "光学相干断层扫描(OCT)是一种非侵入性成像方式，提供轴向分辨率∼10μm的微解剖可视化，穿透深度为1-2mm[6]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J46",
+      "chars": 154,
+      "from": "en",
+      "ms": 121,
+      "text": "在去噪任务中，与一次重复的OCT扫描生成的输入图像相比，所有深度学习模型都增强了PSNR和SSIM的性能。",
+      "units": [
+        {
+          "id": "46-0",
+          "status": "review",
+          "source": "In denoising task, compared to the input image generated from one repetition of OCT scan, all deep-learning models enhance both PSNR and SSIM performance.",
+          "text": "在去噪任务中，与一次重复的OCT扫描生成的输入图像相比，所有深度学习模型都增强了PSNR和SSIM的性能。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "1"
+              },
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "J47",
+      "chars": 152,
+      "from": "en",
+      "ms": 59,
+      "text": "在本节中，我们通过禁用特定解码器并引导ESDM作为单任务模型来评估ESDM多任务设计的效率。",
+      "units": [
+        {
+          "id": "47-0",
+          "status": "translated",
+          "source": "In this section, we evaluate the efficiency of the multi-task design of ESDM by disabling specific decoders and leading the ESDM as a single-task model.",
+          "text": "在本节中，我们通过禁用特定解码器并引导ESDM作为单任务模型来评估ESDM多任务设计的效率。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "J48",
+      "chars": 354,
+      "from": "en",
+      "ms": 254,
+      "text": "此外，Buchholz等人提出了一种联合去化和分割方法，该方法使用自我监督的学习来提高分割性能，并具有有限的注释数据[44]。 然而，最近的研究表明，参数较少且复杂性降低的分割解码器可以在提高效率的同时实现良好的性能[38,45]。",
+      "units": [
+        {
+          "id": "48-0",
+          "status": "review",
+          "source": "In addition, Buchholz et al. proposed a joint denoising and segmentation method that uses self-supervised learning to improve segmentation performance with limited annotated data [44].",
+          "text": "此外，Buchholz等人提出了一种联合去化和分割方法，该方法使用自我监督的学习来提高分割性能，并具有有限的注释数据[44]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "48-1",
+          "status": "review",
+          "source": "However, recent studies indicate that segmentation decoders with fewer parameters and reduced complexity can achieve good performance while improving efficiency [38,45].",
+          "text": "然而，最近的研究表明，参数较少且复杂性降低的分割解码器可以在提高效率的同时实现良好的性能[38,45]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    }
+  ],
+  "probes": {},
+  "snapshots": [
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 103,
+      "modelReady": [
+        {
+          "start": 906.5,
+          "end": 1038.1000000014901,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 7715.60000000149
+    }
+  ],
+  "version": "0.4.18"
+}

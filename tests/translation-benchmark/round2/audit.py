@@ -6,10 +6,12 @@ import json
 import math
 from pathlib import Path
 import statistics
+import subprocess
 
 ROOT = Path(__file__).resolve().parent
 VERSIONS = ("release", "previous", "revised")
 CORPUS_SHA256 = "a5c18cd25a97c0bbca3c2630203dc8228b546247f01f6aeb31e5ede6e1c2cc8a"
+HISTORICAL_REVISION = "cefc94eddbbae35bc34af9521d96dd4fbc84f380"
 
 
 def read_lines(path):
@@ -24,9 +26,9 @@ def write_lines(path, rows):
     path.write_bytes("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows).encode())
 
 
-def prepare(raw, dest):
+def prepare(raw, dest, corpus=ROOT):
     dest.mkdir(exist_ok=True, parents=True)
-    sources = read_lines(ROOT / "fresh.jsonl")
+    sources = read_lines(corpus / "fresh.jsonl")
     observed, blind = [], {}
     runs = {}
     for name, file in zip(VERSIONS, ("stable-fresh.json", "previous-fresh.json", "revised-fresh.json")):
@@ -59,12 +61,12 @@ def prepare(raw, dest):
     print("Prepared", len(blind), "anonymous passages from", len(sources), "selections")
 
 
-def score(root, dest):
-    assert sha256((root / "fresh.jsonl").read_bytes()).hexdigest() == CORPUS_SHA256, "Fresh corpus has changed"
+def score(root, dest, corpus_sha=CORPUS_SHA256, passages=36, papers=6):
+    assert sha256((root / "fresh.jsonl").read_bytes()).hexdigest() == corpus_sha, "Fresh corpus has changed"
     blind = {r["key"]: r for r in read_lines(root / "anonymous.jsonl")}
     observed = read_lines(root / "observations.jsonl")
     sources = read_lines(root / "fresh.jsonl")
-    assert len(sources) == 36 and len({s["doi"] for s in sources}) == 6
+    assert len(sources) == passages and len({s["doi"] for s in sources}) == papers
     assert [r["id"] for r in observed] == [s["id"] for s in sources]
     for source, row in zip(sources, observed):
         assert " ".join(source["source"].split()) == " ".join(" ".join(row["parts"]).split()), row["id"]
@@ -113,10 +115,11 @@ def score(root, dest):
     return summary
 
 
-def verify_assets(root):
+def verify_assets(root, revision=None):
     dist = ROOT.parents[2] / "dist"
     for name, expected in json.loads((root / "engine-freeze.json").read_bytes()).items():
-        content = (dist / name).read_bytes()
+        content = (subprocess.check_output(["git", "show", f"{revision}:dist/{name}"], cwd=dist.parent)
+                   if revision else (dist / name).read_bytes())
         if not name.startswith("vendor/"):
             content = content.replace(b"\r\n", b"\n")
         if sha256(content).hexdigest() != expected:
@@ -124,7 +127,7 @@ def verify_assets(root):
 
 
 def verify_runs(root, dest):
-    prepare(root/"runs", dest)
+    prepare(root/"runs", dest, root)
     for name in ("anonymous.jsonl", "observations.jsonl"):
         assert (root/name).read_bytes() == (dest/name).read_bytes(), name
     def outputs(filename):
@@ -138,7 +141,10 @@ if __name__ == "__main__":
     cli.add_argument("action", choices=["prepare","score","verify","release"])
     cli.add_argument("input", type=Path)
     cli.add_argument("output", type=Path)
+    cli.add_argument("--historical", action="store_true", help="Replay the archived round against its original commit.")
     args = cli.parse_args()
+    if args.historical and args.action != "verify":
+        cli.error("Only an archival verification may use the historical commit.")
     if args.action == "prepare":
         prepare(args.input,args.output)
     else:
@@ -146,7 +152,7 @@ if __name__ == "__main__":
             if args.input.resolve() == args.output.resolve():
                 cli.error("Replay into a separate directory to preserve the evidence.")
             verify_runs(args.input, args.output)
-            verify_assets(args.input)
+            verify_assets(args.input, HISTORICAL_REVISION if args.historical else None)
         results = score(args.input,args.output)
         if args.action in {"verify","release"}:
             for name in ["summary.json","failures.jsonl"]:

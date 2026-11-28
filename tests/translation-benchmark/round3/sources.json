@@ -1,0 +1,134 @@
+[
+  {
+    "doi": "10.1371/journal.pdig.0000171",
+    "title": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis",
+    "authors": [
+      "Ashley Polhemus",
+      "Chloé Sieber",
+      "Christina Haag",
+      "Ramona Sylvester",
+      "Jan Kool",
+      "Roman Gonzenbach",
+      "Viktor von Wyl"
+    ],
+    "journal": "PLOS Digital Health",
+    "url": "https://journals.plos.org/digitalhealth/article/file?id=10.1371/journal.pdig.0000171&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "d1047ddf5db20b165b81be75aedc111a5a9db73ba4ce94e43eb88bcdace971a0",
+    "subject": "wearables",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pcbi.1010648",
+    "title": "Computational modeling of color perception with biologically plausible spiking neural networks",
+    "authors": [
+      "Hadar Cohen-Duwek",
+      "Hamutal Slovin",
+      "Elishai Ezra Tsur"
+    ],
+    "journal": "PLOS Computational Biology",
+    "url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1010648&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "c4134d23ac22a8f03f42cc630f8612c63bc70ee81084b724c3b14fa1cf94cbaa",
+    "subject": "computational vision",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0250979",
+    "title": "ERA5-based global assessment of irrigation requirement and validation",
+    "authors": [
+      "Matteo Rolle",
+      "Stefania Tamea",
+      "Pierluigi Claps"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0250979&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "137bdcd174d887b903d45e4899ff20fc1cc045ea1ff5dc383a372896e6ef507e",
+    "subject": "water economics",
+    "alternativesSkipped": [
+      {
+        "doi": "10.1371/journal.pwat.0000452",
+        "reason": "ValueError: min() iterable argument is empty"
+      }
+    ]
+  },
+  {
+    "doi": "10.1371/journal.pone.0193520",
+    "title": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials",
+    "authors": [
+      "Decai Li",
+      "Yang Jiang",
+      "Shanshan Lv",
+      "Xiaojing Liu",
+      "Jiyou Gu",
+      "Qifeng Chen",
+      "Yanhua Zhang"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0193520&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "ebac957802242eca0ac65d8ddd6c2201440676e83d7f01098c312c86d19d4f4f",
+    "subject": "materials",
+    "alternativesSkipped": [
+      {
+        "doi": "10.1371/journal.pone.0342266",
+        "reason": "ValueError: min() iterable argument is empty"
+      }
+    ]
+  },
+  {
+    "doi": "10.1371/journal.pclm.0000841",
+    "title": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants",
+    "authors": [
+      "Jinhyun Bae",
+      "Seonju Jang",
+      "YouJoung Kim"
+    ],
+    "journal": "PLOS Climate",
+    "url": "https://journals.plos.org/climate/article/file?id=10.1371/journal.pclm.0000841&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "c1e3b8c4c169b22ebfb7f75ec1226f400c3250c15004211d9127bf801911a1b8",
+    "subject": "urban climate",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0200767",
+    "title": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students",
+    "authors": [
+      "Fernando Rodriguez",
+      "Mariela J. Rivas",
+      "Lani H. Matsumura",
+      "Mark Warschauer",
+      "Brian K. Sato"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0200767&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "a20337ba066a754b722324fb3aac863ee20fe41dad4024d097f16f06d82feb8b",
+    "subject": "education",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.7554/eLife.03005",
+    "title": "Optimal multisensory decision-making in a reaction-time task",
+    "authors": [],
+    "journal": "eLife",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4102720/fullTextXML",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "709760eac8e4de58cf82de3cf42023dd85d7871dd7151d4444203c637294c55b",
+    "subject": "sensory decisions",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1364/BOE.545377",
+    "title": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising",
+    "authors": [],
+    "journal": "Biomedical Optics Express",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11919357/fullTextXML",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "551927d8315c8d2473a5bf513bb3fbdc6711e332fbf7b8553689fb58b3d14964",
+    "subject": "optical imaging",
+    "alternativesSkipped": []
+  }
+]

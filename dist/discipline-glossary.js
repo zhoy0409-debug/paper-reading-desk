@@ -115,3 +115,24 @@ export function fieldTerms(text,choice='auto',context=''){
   }
   return base.concat(matches).sort((a,b)=>a.index-b.index);
 }
+
+// Use only short forms whose expansion is printed in the current document.
+// An exact personal definition has precedence; guessed expansions never enter this list.
+export function paperDefinedTerms(source,field,evidence=''){
+  const found=[];
+  for(const line of evidence.split('\n')){
+    const pair=line.match(/^([A-Z][A-Z\d-]{1,12}s?) = ([A-Za-z][A-Za-z -]{2,100})$/);
+    if(!pair||!source.match(/\b[A-Z][A-Z\d-]{1,12}s?\b/g)?.includes(pair[1]))continue;
+    const [,short,full]=pair;
+    const custom=field?.terms?.get(short.toLowerCase());
+    const inField=[full,full.replace(/s$/i,'')].flatMap(name=>fieldTerms(name,field,full)
+      .filter(term=>term.original.length===name.length).map(term=>term.value));
+    const common=new Set();
+    for(const {terms} of Object.values(catalog)){
+      for(const [name,value] of terms)if(name===full.toLowerCase()||name===full.toLowerCase().replace(/s$/,''))common.add(value);
+    }
+    const value=custom||inField[0]||(common.size===1?[...common][0]:'');
+    if(value)found.push({original:short,value,paperDefinition:full});
+  }
+  return found;
+}

@@ -1,9 +1,10 @@
 // A bilingual surface check, not a semantic quality score. Normalize only the
 // comparison copy. The reader retains the exact selected text alongside it.
 import {chemicalNames, missingAssignments, missingBoundRoles, symbolicKeys} from './translation-anchors.js?rev=evidence2';
+import {claimIssues} from './translation-claims.js';
 const superscripts='⁰¹²³⁴⁵⁶⁷⁸⁹', digits='零一二三四五六七八九';
 const words=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
-const counts='samples?|groups?|sites?|days?|hours?|minutes?|times?|participants?|subjects?|patients?|replicates?|times?|units?|approaches|methods?|structures?|structural|fold|classes|trials?|cases?|categories|stages?';
+const counts='samples?|groups?|sites?|days?|hours?|minutes?|times?|participants?|subjects?|patients?|replicates?|units?|approaches|methods?|structures?|structural|fold|classes|trials?|cases?|categories|stages?|explanations?|reasons?|interpretations?';
 const numberWord=new RegExp('\\b('+words.join('|')+')(?=[ -]?(?:'+counts+')\\b)','gi');
 const ordinals=['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth'];
 const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -38,6 +39,7 @@ export function comparisonText(s){
     .replace(/\b(?:the |a |an )?(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)(?=\s+[a-z]{2})/gi,(_m,n)=>'第'+(ordinals.indexOf(n.toLowerCase())+1)+' ')
     .replace(/第([一二三四五六七八九十]+)/g,(_m,n)=>'第'+chineseCount(n))
     .replace(/([零一二三四五六七八九两十]{1,3})(?=个|组|种|例|名|项|类|倍|次|天|小时|分钟|份|处|阶段|套|位)/g,(m)=>String(chineseCount(m)))
+    .replace(/([二三四五六七八九十]{1,3})(?=大(?:主要)?[\u3400-\u9fff]{1,8})/g,m=>String(chineseCount(m)))
     .replace(/(?:no fewer than|no less than|not less than|greater (?:than )?or equal to|at least|不小于|不低于|不少于|至少(?:为)?|大于(?:或)?等于|≥|>=)\s*/gi,'≥')
     .replace(/(?:no more than|not more than|no greater than|less (?:than )?or equal to|at most|不高于|不大于|不超过|至多(?:为)?|小于(?:或)?等于|≤|<=)\s*/gi,'≤')
     .replace(/(?:greater than|more than|大于|高于|超过)\s*(?=[.\d]|[A-Za-zα-ω](?![A-Za-z\d_]))/gi,'>')
@@ -88,7 +90,7 @@ function measurements(text){
 const quantities=s=>measurements(s).map(m=>m.key);
 const directions=s=>{
   const flags=[];
-  if(/\b(?:increas\w*|rose|rises?|higher|upregulat\w*|grew)\b|增加|增长|增多|升高|上升|提高|上调|高于|增强|较高|更高|增大/i.test(s))flags.push('up');
+  if(/\b(?:increas\w*|rose|rises?|higher|upregulat\w*|grew)\b|增加|增长|增多|升高|上升|提高|提升|上调|高于|增强|较高|更高|增大|更具多样性/i.test(s))flags.push('up');
   if(/\b(?:decreas\w*|declin\w*|fell|falls?|reduc\w*|lower(?! (?:panel|left|right|case|limb)s?\b)|downregulat\w*)\b|减少|降低|下降|下调|减弱|低于|减小|较低|更低|变低/i.test(s))flags.push('down');
   return flags;
 };
@@ -137,7 +139,7 @@ const relations=[
 function protectedIds(s){
   return s.match(/\b(?:[A-Z]{2,}[A-Z0-9]*[-_][A-Za-z\d_-]*\d[A-Za-z\d_-]*|[A-Z][A-Za-z]*\d+[A-Za-z\d_-]*|[A-Z][a-z]+[A-Z][\w-]*)\b/g)||[];
 }
-export function validateScientific(source,target,{from='en',terms=[]}={}){
+export function validateScientific(source,target,{from='en',terms=[],field}={}){
   const a=comparisonText(source),b=comparisonText(target),issues=[];
   const flag=(code,severity='severe',detail='',evidence)=>issues.push({code,severity,detail,...evidence});
   const han=/[\u3400-\u9fff]/u;
@@ -162,6 +164,7 @@ export function validateScientific(source,target,{from='en',terms=[]}={}){
   const lhs=symbolicKeys(source),rhs=symbolicKeys(target);
   if(sorted(lhs)!==sorted(rhs))flag('bound','severe','',{sourceEvidence:lhs.join(', '),targetEvidence:rhs.join(', ')});
   if(from==='en'){
+    issues.push(...claimIssues(source,target,field));
     if(lhs.length&&sorted(lhs)===sorted(rhs)){
       for(const bound of missingBoundRoles(source,target))
         flag('bound','severe','',{sourceEvidence:bound.original,targetEvidence:bound.key});

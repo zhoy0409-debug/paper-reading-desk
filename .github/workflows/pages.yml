@@ -19,6 +19,7 @@ on:
       - 'tests/translation-*.cjs'
       - 'tests/translation-session.mjs'
       - 'tests/translation-evidence.mjs'
+      - 'tests/translation-weight-cache.mjs'
       - 'tests/translation-benchmark/**'
       - 'tests/provider-test.py'
       - 'preview.py'
@@ -70,6 +71,8 @@ jobs:
           test -s _site/cover-en.webp
           test -s _site/cover-zh.webp
           test -s _site/film/en.html
+      - name: Fetch the original engine for the archived second-round replay
+        run: git fetch --no-tags --depth=1 origin cefc94eddbbae35bc34af9521d96dd4fbc84f380
       - name: Test the reader at its public subpath
         timeout-minutes: 20
         run: |
@@ -97,9 +100,11 @@ jobs:
           node tests/scientific-translation.mjs
           node tests/translation-session.mjs
           node tests/translation-evidence.mjs
+          node tests/translation-weight-cache.mjs
           python3 tests/provider-test.py
           python3 tests/translation-benchmark/verify-acceptance.py
-          python3 tests/translation-benchmark/round2/audit.py verify tests/translation-benchmark/round2 "$RUNNER_TEMP/translation-replay"
+          python3 tests/translation-benchmark/round2/audit.py verify tests/translation-benchmark/round2 "$RUNNER_TEMP/translation-replay" --historical
+          python3 tests/translation-benchmark/round3/audit.py verify "$RUNNER_TEMP/translation-local-replay"
           python3 tests/translation-benchmark/round2/score-regression.py
           node tests/translation-transfer.mjs
           node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/
@@ -133,15 +138,61 @@ jobs:
           READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
       - name: Require the tested scientific accuracy before public deployment
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        run: python3 tests/translation-benchmark/round2/audit.py release tests/translation-benchmark/round2 "$RUNNER_TEMP/translation-publication"
+        run: python3 tests/translation-benchmark/round3/audit.py release "$RUNNER_TEMP/translation-publication"
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: _site
 
+  scientific-model:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Restore the immutable scientific model
+        id: weights
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/reading-desk-model.gguf
+          key: reading-desk-gguf-bae6e591103654ff43ef0de7d1492f6e6df1f955505f6bb2cc52e86fc399a942
+      - name: Download the pinned publisher weights
+        if: steps.weights.outputs.cache-hit != 'true'
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          manifest = json.loads(Path("dist/vendor/local-mt/hy-mt3-q4.json").read_bytes())
+          dest = str(Path(os.environ["RUNNER_TEMP"]) / "reading-desk-model.gguf")
+          for url in reversed(manifest["urls"]):
+              if subprocess.run(["curl", "--fail", "--location", "--silent", "--show-error", "--retry", "2", "--output", dest, url]).returncode == 0:
+                  break
+          else:
+              raise SystemExit("Could not fetch the pinned model from either publisher mirror")
+          PY
+      - name: Exercise consent, inference, interrupted downloads and cache repair in the reader
+        run: |
+          export LOCAL_TRANSLATION_GGUF="$RUNNER_TEMP/reading-desk-model.gguf"
+          echo "bae6e591103654ff43ef0de7d1492f6e6df1f955505f6bb2cc52e86fc399a942  $LOCAL_TRANSLATION_GGUF" | sha256sum --check
+          npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.65.1
+          export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"
+          python3 scripts/web_assets.py _site/read
+          python3 -m http.server 8174 --bind 127.0.0.1 --directory _site >"$RUNNER_TEMP/reader-http.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8174/read/VERSION
+          LOCAL_TRANSLATION_FAULTS=1 node tests/translation-local-model-browser.cjs http://127.0.0.1:8174/read/ "$RUNNER_TEMP/model-test.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scientific-model-browser
+          path: ${{ runner.temp }}/model-test.json
+          if-no-files-found: ignore
+
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, scientific-model]
     runs-on: ubuntu-latest
     permissions:
       pages: write

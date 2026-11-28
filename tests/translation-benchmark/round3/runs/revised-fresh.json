@@ -1,0 +1,1252 @@
+{
+  "browser": "chrome",
+  "weightTransport": "verified local file",
+  "rows": [
+    {
+      "id": "J01",
+      "ms": 8798,
+      "units": [
+        {
+          "id": "2-0",
+          "status": "translated",
+          "source": "During free-living activity, step count and time in PA correlated moderately to strongly with reference measures, but agreement varied across metrics, data aggregation levels, and disease severity strata.",
+          "text": "在自由生活活动中，步数和身体活动时长与参考测量指标呈中等至强相关，但各指标间的吻合度存在差异，且这种差异还随数据聚合水平和疾病严重程度分层而变化。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在自由生活活动中，步数和身体活动时长与参考测量指标呈中等至强相关，但各指标间的吻合度存在差异，且这种差异还随数据聚合水平和疾病严重程度分层而变化。",
+      "status": "translated",
+      "paperContext": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis\nPA = physical activity\nFitbit-derived step count and time in PA, but not time in MVPA, exhibited excellent agreement with reference measures during scripted tasks. Time in MVPA weakly agreed with reference measures.\nDuring free-living evaluation, Fitbit and Actigraph-derived step count metrics were weakly correlated at the epoch level (r: 0.22), but strongly correlated at the daily (r: 0.80–0.82) and average levels (r: 0.76–0.86) (Table 2)."
+    },
+    {
+      "id": "J02",
+      "ms": 4527,
+      "units": [
+        {
+          "id": "3-0",
+          "status": "review",
+          "source": "Measurements in perfect agreement would fall along the indicated diagonal black line.",
+          "text": "若测量结果完全一致，则会落在所示的黑色对角线上。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "若测量结果完全一致，则会落在所示的黑色对角线上。",
+      "status": "review",
+      "paperContext": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis\nWalking was assessed A) during a six-minute walk test, B) during walking interspersed with postural transitions, C) during a simulated cleaning task, and D) during stair climbing and descent. Regression lines (A, C, D) demonstrate deviations between actual and perfect agreement.\n+/-: Evidence was mixed; Binary yes/no responses are indicated with + or -, respectively"
+    },
+    {
+      "id": "J03",
+      "ms": 12712,
+      "units": [
+        {
+          "id": "4-0",
+          "status": "review",
+          "source": "Days with at least 10 hours of wear time during waking hours were considered valid [67], and participants with at least two valid days were included in this analysis [68].",
+          "text": "在清醒时段内佩戴时长至少达到10小时的日期被视为有效[67]，且至少有两天为有效数据的参与者被纳入本分析[68]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "≥10 h, ≥2",
+                "targetEvidence": "10h, 2天"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在清醒时段内佩戴时长至少达到10小时的日期被视为有效[67]，且至少有两天为有效数据的参与者被纳入本分析[68]。",
+      "status": "review",
+      "paperContext": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis\nWear periods shorter than 10 minutes were discarded to reduce false positives in wear time resulting from short spikes. Epochs in which both devices were worn during waking hours (6AM to 11PM) on valid days were included in aggregation and analysis.\nEpoch-level data was used to evaluate absolute agreement between PA metrics over short periods of time and during diverse activities of daily living."
+    },
+    {
+      "id": "J04",
+      "ms": 6449,
+      "units": [
+        {
+          "id": "5-0",
+          "status": "translated",
+          "source": "Correlations were highest in the subgroup with moderate MS, lower in the subgroup with mild MS, and lowest in the subgroup with severe MS (S4 Table).",
+          "text": "相关性在中度MS亚组中最高，在轻度MS亚组中较低，在重度MS亚组中最低（S4表）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "相关性在中度MS亚组中最高，在轻度MS亚组中较低，在重度MS亚组中最低（S4表）。",
+      "status": "translated",
+      "paperContext": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis\nMS = multiple sclerosis\nDuring free-living evaluation, correlations between Fitbit and Actigraph methods were moderate at the daily level (r: 0.65–0.68) and moderate to strong at the average level (r: 0.64–0.80) (Table 4).\nAgreement tended to be highest for participants with moderate MS and lowest for participants with severe MS (S2 Table)."
+    },
+    {
+      "id": "J05",
+      "ms": 4471,
+      "units": [
+        {
+          "id": "6-0",
+          "status": "translated",
+          "source": "These relationships were either similar to or stronger than those exhibited by Actigraph-derived PA metrics.",
+          "text": "这些相关性要么与Actigraph衍生的PA指标所呈现的相关性相似，要么更强。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "这些相关性要么与Actigraph衍生的PA指标所呈现的相关性相似，要么更强。",
+      "status": "translated",
+      "paperContext": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis\nPA = physical activity\nFitbit consistently exhibited moderate to strong correlations with clinical outcome measures, though no method exhibited differences between mild and moderate or severe MS (Table 3).\nFitbit-derived metrics consistently exhibited similar or stronger evidence of construct validity than reference standards."
+    },
+    {
+      "id": "J06",
+      "ms": 13766,
+      "units": [
+        {
+          "id": "7-0",
+          "status": "translated",
+          "source": "Multiple sclerosis (MS) is a neurodegenerative autoimmune disease which affects physical and cognitive function, motor control, and energy levels.",
+          "text": "多发性硬化症（MS）是一种神经退行性自身免疫疾病，会影响身体与认知功能、运动控制以及能量水平。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "7-1",
+          "status": "translated",
+          "source": "Physical activity (PA) is often reduced in persons with MS (PwMS) [1,2], though it is known to aid in symptom and fatigue management [3–5] and is perceived as an important part of health care by PwMS [6,7].",
+          "text": "多发性硬化症患者（PwMS）的体力活动（PA）常会减少[1,2]，尽管已知它有助于症状与疲劳管理[3–5]，且PwMS将其视为医疗保健的重要组成部分[6,7]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "多发性硬化症（MS）是一种神经退行性自身免疫疾病，会影响身体与认知功能、运动控制以及能量水平。 多发性硬化症患者（PwMS）的体力活动（PA）常会减少[1,2]，尽管已知它有助于症状与疲劳管理[3–5]，且PwMS将其视为医疗保健的重要组成部分[6,7]。",
+      "status": "translated",
+      "paperContext": "Non-equivalent, but still valid: Establishing the construct validity of a consumer fitness tracker in persons with multiple sclerosis\nMS = multiple sclerosis\nPA = physical activity\nManaging appropriate amounts of PA is often difficult for PwMS, as overexertion can cause severe short-term fatigue or symptom exacerbations before the benefits of PA are realized [8–10].\nHowever, PA is often reduced in persons with multiple sclerosis (MS), a neurodegenerative autoimmune disease which affects physical function, motor control, and energy levels."
+    },
+    {
+      "id": "J07",
+      "ms": 5796,
+      "units": [
+        {
+          "id": "8-0",
+          "status": "translated",
+          "source": "The double opponent and the intensity channels are reconstructed using spiking neural networks and linearly combined with the single opponent channels to provide the perceived image.",
+          "text": "双对立细胞和强度通道采用尖峰神经网络进行重构，并与单对立通道线性组合，从而提供感知图像。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "双对立细胞和强度通道采用尖峰神经网络进行重构，并与单对立通道线性组合，从而提供感知图像。",
+      "status": "translated",
+      "paperContext": "Computational modeling of color perception with biologically plausible spiking neural networks\nThe model initiates with simulating the responses of single and double opponent cells to a visual stimulus in chromatic and achromatic channels. Our model allows the attribution of perceptual differences to the proportions between the single and double opponent cells’ activity, while being general enough to account for a wide range of visual phenomena including color constancy, color assimilation, and ambiguous color perception.\nThe DO and the intensity channels are reconstructed using SNNs and linearly combined with the SO channels to provide the perceived image."
+    },
+    {
+      "id": "J08",
+      "ms": 9220,
+      "units": [
+        {
+          "id": "9-0",
+          "status": "translated",
+          "source": "The model initiates with simulating the responses of single and double opponent cells to a visual stimulus in chromatic (red-green and blue-yellow) and achromatic channels.",
+          "text": "该模型首先模拟单对和双对对立细胞对视觉刺激的响应，涵盖色觉（红绿与蓝黄）通道及无彩色通道。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "该模型首先模拟单对和双对对立细胞对视觉刺激的响应，涵盖色觉（红绿与蓝黄）通道及无彩色通道。",
+      "status": "translated",
+      "paperContext": "Computational modeling of color perception with biologically plausible spiking neural networks\nThe DO and the intensity channels are reconstructed using SNNs and linearly combined with the SO channels to provide the perceived image.\nThe three RGB color channels of the visual stimulus were converted to two red-green SORG and blue-yellow SOBY single opponent channels, and the achromatic (grayscale) channel, denoted ILPF, using: SORG=RG*G(x,y,σ), (4) SOBY=BY*G(x,y,σ), (5) ILPF=I*G(x,y,σ), (6) where G(x,y,σ) is the normalized Gaussian Kernel: 1Ne−(x2+y2)2σ2 in which N=∑x∈s∑y∈se−(x2+y2)2σ2, '*' denotes the convolution operator, simulating the low-pass properties of the single opponent chan"
+    },
+    {
+      "id": "J09",
+      "ms": 7497,
+      "units": [
+        {
+          "id": "10-0",
+          "status": "translated",
+          "source": "The monkey was anesthetized, ventilated, and anchored (cemented to the cranium with dental acrylic) using two 25mm cranial windows, bilaterally placed over the primary visual cortices.",
+          "text": "猴子经麻醉、通气并固定（用牙科丙烯酸材料固定在颅骨上），通过两个25毫米的颅窗，双侧置于初级视觉皮层之上。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "猴子经麻醉、通气并固定（用牙科丙烯酸材料固定在颅骨上），通过两个25毫米的颅窗，双侧置于初级视觉皮层之上。",
+      "status": "translated",
+      "paperContext": "Computational modeling of color perception with biologically plausible spiking neural networks\nThe center positions of all surfaces in the visual field were identical (stimulus fixation within 2° about the fixation point; verified using eye movement monitoring). The visual cortex was exposed (3–6 mm anterior to the Lunate sulcus) and stained using Oxonol voltage-sensitive dyes.\nBiologically plausible computational modeling of visual perception has the potential to link high-level visual experiences to their underlying neurons’ spiking dynamic."
+    },
+    {
+      "id": "J10",
+      "ms": 7488,
+      "units": [
+        {
+          "id": "11-0",
+          "status": "translated",
+          "source": "On the other hand, as s increases, Retinex’s results obtain more chromatic colors (predicted colors that are closer to the original color, in CIELu’v’ space).",
+          "text": "另一方面，随着 s 的增加，Retinex 的结果呈现出更多的色相颜色（在 CIELu’v’空间中更接近原始颜色的预测颜色）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "另一方面，随着 s 的增加，Retinex 的结果呈现出更多的色相颜色（在 CIELu’v’空间中更接近原始颜色的预测颜色）。",
+      "status": "translated",
+      "paperContext": "Computational modeling of color perception with biologically plausible spiking neural networks\nTherefore, the Retinex algorithm results are approaching the achromatic gray point when s decreases (Fig 7, right column). Retinex’s results verify our model predictions regarding the individual perceptual differences in the images of #theDress and #theShoe (also demonstrated in [52]), as well as the perception of color under different illuminations.\nHowever, when αc = 0.5, the predicted colors are getting closer to the ground truth colors in both photos."
+    },
+    {
+      "id": "J11",
+      "ms": 6479,
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "While VSDI acquired signals emphasize subthreshold membrane potentials, it reflects supra-threshold membrane potentials (i.e., spiking activity).",
+          "text": "虽然VSDI采集的信号强调了亚阈值膜电位，但它反映了超阈值膜电位（即尖峰活动）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "虽然VSDI采集的信号强调了亚阈值膜电位，但它反映了超阈值膜电位（即尖峰活动）。",
+      "status": "translated",
+      "paperContext": "Computational modeling of color perception with biologically plausible spiking neural networks\nBriefly, these cortical layers are imaged using VSDI at high spatial resolution (mesoscale, 502 μm2/pixel) and temporal resolution (100 Hz). The main advantage of this technique is the combination of wide-field imaging with high spatio-temporal resolution, enabling the visualization of the whole cortical activity patterns evoked by a visual stimulus.\nTherefore, we emphasize that our model does not suggest the existence of a single set of parameters with which all illusions can be accounted for, nor does it suggest that a single set of parameters would be sufficient for modeling individual color perception."
+    },
+    {
+      "id": "J12",
+      "ms": 10711,
+      "units": [
+        {
+          "id": "13-0",
+          "status": "review",
+          "source": "Recently, we proposed biologically plausible Poisson-driven perceptual filling-in Spiking Neural Networks (SNN), demonstrating the reconstruction of images from their gradients [5].",
+          "text": "近期，我们提出了一种具有生物合理性的基于泊松驱动的感知填充型 Spiking Neural Networks（SNN），展示了其从图像梯度中重建图像的能力 [5]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "1"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "13-1",
+          "status": "translated",
+          "source": "SNNs are considered biologically plausible as they feature spiking neurons and local learning rules without a Central Processing Unit (CPU) nor a register-based memory.",
+          "text": "Spiking Neural Networks（SNN）被认为是生物上合理的，因为它们具备产生尖峰的神经元以及局部学习规则，且无需中央处理单元（CPU）或基于寄存器的记忆。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "近期，我们提出了一种具有生物合理性的基于泊松驱动的感知填充型 Spiking Neural Networks（SNN），展示了其从图像梯度中重建图像的能力 [5]。 Spiking Neural Networks（SNN）被认为是生物上合理的，因为它们具备产生尖峰的神经元以及局部学习规则，且无需中央处理单元（CPU）或基于寄存器的记忆。",
+      "status": "partial",
+      "paperContext": "Computational modeling of color perception with biologically plausible spiking neural networks\nSNN = Spiking Neural Networks\nSNNs = Spiking Neural Networks\nCPU = Central Processing Unit\nIn visual perception modeling, chromatic and achromatic receptive fields are typically modeled using spatial derivatives kernels [4].\nA SNN is considered biologically plausible as is it uses spikes to represent and transform data through local learning rules (Eq 2)."
+    },
+    {
+      "id": "J13",
+      "ms": 9427,
+      "units": [
+        {
+          "id": "14-0",
+          "status": "review",
+          "source": "The estimated global irrigation requirements for 962 km3 is described in detail, also in relation to the spatial variability and to the monthly variation of the requirements.",
+          "text": "详细描述了针对962立方千米的估算全球灌溉需求，同时也涉及其空间变异性以及需求的月度变化。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "962 km",
+                "targetEvidence": "962"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "详细描述了针对962立方千米的估算全球灌溉需求，同时也涉及其空间变异性以及需求的月度变化。",
+      "status": "review",
+      "paperContext": "ERA5-based global assessment of irrigation requirement and validation\nA focus on different areas of the world (California, Northern Italy and India) highlights the wealth of information provided by the model in different climatic conditions.\nTo better explore the spatial variability of results and to verify the ability of the model to provide estimates for various climate scenarios, the monthly water balance on three intensively harvested regions has been analyzed in more detail."
+    },
+    {
+      "id": "J14",
+      "ms": 5646,
+      "units": [
+        {
+          "id": "15-0",
+          "status": "review",
+          "source": "The variables on both the axes have been quantified considering the monthly harvested AEI, as shown in the lowest part of the plots.",
+          "text": "如图表最下方所示，两个轴上的变量均已根据月均收获灌溉面积进行了量化。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "如图表最下方所示，两个轴上的变量均已根据月均收获灌溉面积进行了量化。",
+      "status": "review",
+      "paperContext": "ERA5-based global assessment of irrigation requirement and validation\nAEI = areas equipped for irrigation\nThe selected regions belong to different agro-climatic zones: Central Valley (California, sub-tropic winter rainfall), Po Valley (Italy, temperate sub-continental) and Punjab (India, sub-tropic summer rainfall).\nTo better explore the spatial variability of results and to verify the ability of the model to provide estimates for various climate scenarios, the monthly water balance on three intensively harvested regions has been analyzed in more detail."
+    },
+    {
+      "id": "J15",
+      "ms": 7461,
+      "units": [
+        {
+          "id": "16-0",
+          "status": "review",
+          "source": "In considering individual crops it is significant that, according to FAOSTAT, more than 48% of total agricultural production in tonnes in year 2000 included only four crops: sugar cane, rice, wheat and maize.",
+          "text": "在考量各个作物时，值得注意的是，根据FAOSTAT数据，2000年以吨计的总农业产量中，超过48%仅由四种作物构成：甘蔗、水稻、小麦和玉米。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在考量各个作物时，值得注意的是，根据FAOSTAT数据，2000年以吨计的总农业产量中，超过48%仅由四种作物构成：甘蔗、水稻、小麦和玉米。",
+      "status": "review",
+      "paperContext": "ERA5-based global assessment of irrigation requirement and validation\nThe irrigation required by these four was 58% of the global estimation.\nThe largest volume is required from June to September, mainly because most of the summer crops are harvested in the northern hemisphere (e.g. 90% of maize I is required during these four months)."
+    },
+    {
+      "id": "J16",
+      "ms": 8607,
+      "units": [
+        {
+          "id": "17-0",
+          "status": "translated",
+          "source": "Withdrawals lower than requirements in nations with high water-demand states like United Arab Emirates may be due to deficit irrigation practices, in which a provision of lower water volumes than actual requirements are due to lack of water availability [35].",
+          "text": "在像阿拉伯联合酋长国这样高需水量的国家，取水量低于需求量，这可能是由于亏缺灌溉做法所致；在这种做法中，由于水资源不足，实际供应的取水量低于实际需求量[35]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在像阿拉伯联合酋长国这样高需水量的国家，取水量低于需求量，这可能是由于亏缺灌溉做法所致；在这种做法中，由于水资源不足，实际供应的取水量低于实际需求量[35]。",
+      "status": "translated",
+      "paperContext": "ERA5-based global assessment of irrigation requirement and validation\nUnited Kingdom (1.4), United Arab Emirates (1.5), Czech Republic (4.5). Results are consistent with the efficiencies estimated by Siebert & Döll [36], with similarities in some critical nations (e.g.\nFig 8 shows the comparison between our crop-specific estimates of irrigation requirement (I) and the data of applied irrigation water (AW), which is the volume of withdrawn water that is actually delivered to the crop fields."
+    },
+    {
+      "id": "J17",
+      "ms": 10258,
+      "units": [
+        {
+          "id": "18-0",
+          "status": "review",
+          "source": "In the development stage, kc grows linearly from kc,ini to kc,mid, i.e. the constant value of the coefficient in the mid-season stage, and finally, in the late season stage, it decreases linearly from kc,mid to kc,end.",
+          "text": "在发育阶段，kc 从 kc,ini 线性增长至 kc,mid，即中季阶段的系数恒定值；最后，在晚季阶段，它从 kc,mid 线性下降至 kc,end。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在发育阶段，kc 从 kc,ini 线性增长至 kc,mid，即中季阶段的系数恒定值；最后，在晚季阶段，它从 kc,mid 线性下降至 kc,end。",
+      "status": "review",
+      "paperContext": "ERA5-based global assessment of irrigation requirement and validation\n[18], the crop coefficient remains constant during the initial stage (kc = kc,ini). This information is available for the ten different climatic zones summarized in Fig 2 (based on the GAEZ thermal agro-classification [22]).\nWe used the data from Allen et al. [18] to set the maximum rooting depths for irrigated lands: roots of temporary crops are supposed to increase linearly in the first two phases of the growing period, from a sowing depth of 0.2 m, and then remain equal to the maximum value for the rest of the season."
+    },
+    {
+      "id": "J18",
+      "ms": 10474,
+      "units": [
+        {
+          "id": "19-0",
+          "status": "translated",
+          "source": "The national irrigation withdrawals are the volumes of water taken from surface water bodies or groundwater to be used in agriculture, in fields equipped for irrigation.",
+          "text": "全国灌溉取水量是指从地表水体或地下水中取用、用于灌溉田地的水量。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "19-1",
+          "status": "translated",
+          "source": "Withdrawals include the volumes required by crops and the water losses due to inefficiencies in the distribution and irrigation systems.",
+          "text": "取水量包括作物所需的水量以及因分配和灌溉系统效率低下而导致的水分损失。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "全国灌溉取水量是指从地表水体或地下水中取用、用于灌溉田地的水量。 取水量包括作物所需的水量以及因分配和灌溉系统效率低下而导致的水分损失。",
+      "status": "translated",
+      "paperContext": "ERA5-based global assessment of irrigation requirement and validation\nModel results, in terms of irrigation requirement volumes, have been cumulated at the national scale and compared with data of agricultural withdrawal (W) for the year 2000, provided by AQUASTAT [32] and by the Organization for Economic Co-operation and Development (OECD) [34].\nThe irrigation requirements are equal to withdrawals in the ideal condition of maximum efficiency (no water losses in the irrigation system) and absence of water stress during the growing season."
+    },
+    {
+      "id": "J19",
+      "ms": 11989,
+      "units": [
+        {
+          "id": "20-0",
+          "status": "translated",
+          "source": "The resulting PPLA results indicated that the introduction of PEG to the blend systems resulted in a ductile fracture, a decrease in the melt temperature (Tm) and glass transfer temperature (Tg), and an increase in the degree of crystallization (χc), which indicated an improved flexibility.",
+          "text": "所得PPLA结果表明，向共混体系中引入PEG会导致韧性断裂、熔体温度（Tm）和玻璃化转变温度（Tg）降低，以及结晶度（χc）升高，这表明其柔韧性得到了改善。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "所得PPLA结果表明，向共混体系中引入PEG会导致韧性断裂、熔体温度（Tm）和玻璃化转变温度（Tg）降低，以及结晶度（χc）升高，这表明其柔韧性得到了改善。",
+      "status": "translated",
+      "paperContext": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials\nPEG = polyethylene glycol\nThe structure, thermal property, morphology, and surface free energy of the PPLA were investigated by Fourier transform infrared spectroscopy (FTIR), differential scanning calorimeter (DSC), thermogravimetric analysis (TGA), scanning electron microscopy (SEM), and contact angles (CA). In addition, the polarity of the PPLA increased and the surface free energy decreased.\nRegarding the blends, the addition of 10 wt% PEG with different Mws to the PLA resulted in a considerable increase in the elongation at break and a decrease in the tensile strength; these results were consistent with previous experimental results [20–22]."
+    },
+    {
+      "id": "J20",
+      "ms": 9212,
+      "units": [
+        {
+          "id": "21-0",
+          "status": "translated",
+          "source": "Thermogravimetric curves of: (A) TGA-DTG curves for pure PLA, PEG 400 and PPLA 400.",
+          "text": "热重曲线如下：(A) 纯PLA、PEG 400和PPLA 400的TGA-DTG曲线。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "21-1",
+          "status": "translated",
+          "source": "(B) pure and plasticized PLA.",
+          "text": "(B) 纯PLA与塑化PLA。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "热重曲线如下：(A) 纯PLA、PEG 400和PPLA 400的TGA-DTG曲线。 (B) 纯PLA与塑化PLA。",
+      "status": "translated",
+      "paperContext": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials\nPEG = polyethylene glycol\nThe differential thermogravimetric (DTG) curves in Fig 5A indicate that the thermal decomposition mechanism of the PLA matrix changed in the presence of the plasticizers."
+    },
+    {
+      "id": "J21",
+      "ms": 6977,
+      "units": [
+        {
+          "id": "22-0",
+          "status": "translated",
+          "source": "This occurred because, during the blending process with the PLA, the small molecular weight of the PEG was equivalent to the solvent, resulting in the increased free volume of the polymer and the decrease in the material’s stiffness [23].",
+          "text": "这是因为，在与PLA混合过程中，PEG的小分子量相当于溶剂，导致聚合物的自由体积增大，材料的刚度降低[23]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "这是因为，在与PLA混合过程中，PEG的小分子量相当于溶剂，导致聚合物的自由体积增大，材料的刚度降低[23]。",
+      "status": "translated",
+      "paperContext": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials\nPEG = polyethylene glycol\nRegarding the blends, the addition of 10 wt% PEG with different Mws to the PLA resulted in a considerable increase in the elongation at break and a decrease in the tensile strength; these results were consistent with previous experimental results [20–22]. When the Mw of the PEG was increased, a considerable increase in the elongation occurred while the tensile strength remained unchanged.\nPrior to blending, plasticizers were dissolved in ethanol to allow full mixing with the PLA matrix; the ethanol solvent was completely volatilized during the placed process."
+    },
+    {
+      "id": "J22",
+      "ms": 8553,
+      "units": [
+        {
+          "id": "23-0",
+          "status": "review",
+          "source": "In the past few decades, irreparable damages to the environment caused by petroleum-based polymers have led to increased attentions on the research and development of renewable and biodegradable polymer composites [1].",
+          "text": "在过去的几十年里，石油基聚合物对环境造成的不可修复损害，促使人们日益关注可再生及可生物降解聚合物复合材料的研发[1]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在过去的几十年里，石油基聚合物对环境造成的不可修复损害，促使人们日益关注可再生及可生物降解聚合物复合材料的研发[1]。",
+      "status": "review",
+      "paperContext": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials\nDemands of biodegradation and reproducibility have driven series studies on thermoplastic polymers such as poly (lactic acid) (PLA) to produce fiber-PLA materials using injection molding [2–4].\nAmong the various plasticizers, polyethylene glycol (PEG) is one of the efficient plasticizers used for polymers because of the advantage of a broad range of molecular weights, nontoxic, miscibility, and biodegradability [10–13]."
+    },
+    {
+      "id": "J23",
+      "ms": 6494,
+      "units": [
+        {
+          "id": "24-0",
+          "status": "translated",
+          "source": "CA analysis was performed to investigate the surface free energy and its dispersive, polar component of the PLA materials; the results are shown in Table 2.",
+          "text": "进行了CA分析，以研究PLA材料的表面自由能及其分散组分和极性组分；结果见表2。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "进行了CA分析，以研究PLA材料的表面自由能及其分散组分和极性组分；结果见表2。",
+      "status": "translated",
+      "paperContext": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials\nCA = contact angles\nThe greater the difference, the better the interface obtained.\nThe testing liquids were water, ethylene glycol, and atolin and the parameters are shown in Table 1. γL(1+COSθ)/(2⋅γLD)=γSP⋅(γLP/γLD)+γSD (2) where L and S refer to the liquid and solid, respectively; γD is the dispersive component and γP is the polar component of the surface energy; θ is the contact angle."
+    },
+    {
+      "id": "J24",
+      "ms": 14511,
+      "units": [
+        {
+          "id": "25-0",
+          "status": "translated",
+          "source": "In order to evaluate the plasticization effect of PEG on the final products of WF/PPLA composites, the compatibility, mechanical strength, thermal and thermal stability of the composites were studied at the same time.",
+          "text": "为了评估PEG对WF/PPLA复合材料最终产品的增塑效果，同时研究了该复合材料的相容性、力学性能、热性能和热稳定性。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "25-1",
+          "status": "review",
+          "source": "This paper should provide an efficient method to design the PLA-based composites and improve the possibility to enhance the processability and expand the application of PLA materials.",
+          "text": "本文应提供一种高效的方法，用于设计基于PLA的复合材料，并提升增强其加工性能、拓展PLA材料应用的可能性。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "为了评估PEG对WF/PPLA复合材料最终产品的增塑效果，同时研究了该复合材料的相容性、力学性能、热性能和热稳定性。 本文应提供一种高效的方法，用于设计基于PLA的复合材料，并提升增强其加工性能、拓展PLA材料应用的可能性。",
+      "status": "partial",
+      "paperContext": "Preparation of plasticized poly (lactic acid) and its influence on the properties of composite materials\nPEG = polyethylene glycol\nIn this study, PLA resin was blended with PEG with different molecular weights (Mw), and the tensile properties, morphologies, crystallization behaviors, and surface free energy of the resulting PPLA were investigated.\nThe plasticization of PEG can effectively increase the chain mobility of PLA, and improve its ductility and drawability, thus broadening the range of potential applications."
+    },
+    {
+      "id": "J25",
+      "ms": 8116,
+      "units": [
+        {
+          "id": "26-0",
+          "status": "review",
+          "source": "Urban form further modifies these patterns, with shade most effective in very open or very compact settings, while greater sky openness consistently strengthens performance.",
+          "text": "城市形态进一步塑造了这些模式：在非常开阔或高度紧凑的街道格局中，遮阳效果最为显著，而更大的天空开阔度则始终能增强其效能。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "城市形态进一步塑造了这些模式：在非常开阔或高度紧凑的街道格局中，遮阳效果最为显著，而更大的天空开阔度则始终能增强其效能。",
+      "status": "review",
+      "paperContext": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants\nThe influence of shade is strongly conditional: it increases walking count under moderate heat but attenuates or turns negative as temperature and solar radiation intensify. Together, these findings indicate that shade affects street vitality through interactions among temperature, radiation, and morphology, thereby offering context-specific guidance for climate-sensitive street design.\nUrban form further shaped these thermal–behavioral relationships: shade was more effective in very open or highly compact street fabrics and in areas with greater sky openness."
+    },
+    {
+      "id": "J26",
+      "ms": 6700,
+      "units": [
+        {
+          "id": "27-0",
+          "status": "translated",
+          "source": "Panels vary Ta (24, 29, 34 °C) with SLR lines (300/600/900 Wh/m2).",
+          "text": "面板显示Ta（24、29、34°C）与SLR线（300/600/900瓦特/平方米）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "面板显示Ta（24、29、34°C）与SLR线（300/600/900瓦特/平方米）。",
+      "status": "translated",
+      "paperContext": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants\nSLR = solar radiation\n* Note: Derived from XGBoost residual modeling with 95% bootstrap CIs; higher values indicate greater marginal effect of a 1%p shade increase (pedestrians per grid per hour).\nFirst, limited attention has been paid to how the shade–street vitality relationship differs across land-use contexts, even though walking purposes and heat tolerance vary across commercial, residential, industrial, and green areas."
+    },
+    {
+      "id": "J27",
+      "ms": 13324,
+      "units": [
+        {
+          "id": "28-0",
+          "status": "translated",
+          "source": "Across 528 hourly observations from precipitation-free August days between 2018 and 2022, mean Ta was 29.3 °C (22.4–35.7 °C), Rh averaged 60.5% (28–88%), and SLR averaged 611.2 Wh/m2 (66.7–947.2 Wh/m2).",
+          "text": "在2018年至2022年间无降水八月日的528个小时观测数据中，平均气温为29.3°C（22.4–35.7°C），相对湿度平均为60.5%（28–88%），太阳辐射总量平均为611.2瓦/平方米（66.7–947.2瓦/平方米）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在2018年至2022年间无降水八月日的528个小时观测数据中，平均气温为29.3°C（22.4–35.7°C），相对湿度平均为60.5%（28–88%），太阳辐射总量平均为611.2瓦/平方米（66.7–947.2瓦/平方米）。",
+      "status": "translated",
+      "paperContext": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants\nSLR = solar radiation\nAugust afternoons in Jung-gu, Incheon, were marked by elevated Ta, intermediate Rh, and intense SLR, creating conditions under which street shade exerted a decisive influence on outdoor activity. These metrics captured both the prevailing thermal stress of late-summer afternoons and the intermittent periods of relief that shaped pedestrian responses.\nShading was simulated for all precipitation-free August days from 2018 to 2022 during 12:00–17:00, resulting in an hourly panel aligned with observations of street vitality."
+    },
+    {
+      "id": "J28",
+      "ms": 9850,
+      "units": [
+        {
+          "id": "29-0",
+          "status": "translated",
+          "source": "In physical terms, shade mainly reduced shortwave radiation and mRT but did not substantially lower ambient Ta or longwave/convective loads; therefore, when high Ta coincided with strong SLR, the marginal benefit of additional shade was limited.",
+          "text": "从物理层面来看，遮阳主要降低了短波辐射和平均辐射温度，但并未显著降低环境气温或长波/对流负荷；因此，当高温与强太阳辐射量同时出现时，额外遮阳的边际效益便受到限制。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "从物理层面来看，遮阳主要降低了短波辐射和平均辐射温度，但并未显著降低环境气温或长波/对流负荷；因此，当高温与强太阳辐射量同时出现时，额外遮阳的边际效益便受到限制。",
+      "status": "translated",
+      "paperContext": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants\nSLR = solar radiation\nThis reversal was consistent with earlier studies showing that excessive heat and strong radiation suppressed outdoor walking and shifted activity toward shaded or indoor environments [12,14,21]. By contrast, industrial districts exhibited the opposite tendency: shade became increasingly beneficial at higher temperatures, suggesting that in work-related environments dominated by mandatory walking, shade helped maintain walking counts under thermal stress—albeit with smaller magnitudes than in commercial areas.\nPhysically, shade primarily reduces shortwave radiation and mean radiant temperature (mRT); however, under extreme conditions it may be insufficient to offset elevated air temperature and other heat loads, which could limit the marginal benefit of additional shade."
+    },
+    {
+      "id": "J29",
+      "ms": 4110,
+      "units": [
+        {
+          "id": "30-0",
+          "status": "translated",
+          "source": "This study advanced empirical understanding of how microclimate and urban form jointly shaped street vitality.",
+          "text": "本研究深化了对微气候与城市形态如何共同塑造街道活力的实证理解。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "本研究深化了对微气候与城市形态如何共同塑造街道活力的实证理解。",
+      "status": "translated",
+      "paperContext": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants\nIt showed that the effects of shade were conditional and threshold-dependent rather than uniformly beneficial.\nSeveral novel contributions to urban climate research are advanced in this study."
+    },
+    {
+      "id": "J30",
+      "ms": 15274,
+      "units": [
+        {
+          "id": "31-0",
+          "status": "translated",
+          "source": "Moreover, the district offers fine-resolution mobile-phone-based walking data and detailed environmental layers, enabling a direct link between walking count, modeled shadow ratio, and local weather.",
+          "text": "此外，该区域还提供了高分辨率基于手机的步行数据以及详细的环境图层，从而能够将步数、建模的阴影比例与当地天气情况直接关联起来。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "31-1",
+          "status": "translated",
+          "source": "These attributes make Jung-gu a robust empirical setting for investigating how shade contributes to street vitality in hot-humid seasons across various urban environments.",
+          "text": "这些属性使Jung-gu成为一项稳健的实证研究场景，可用于探究在炎热潮湿季节中，遮荫如何影响各类城市环境中的街道活力。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此外，该区域还提供了高分辨率基于手机的步行数据以及详细的环境图层，从而能够将步数、建模的阴影比例与当地天气情况直接关联起来。 这些属性使Jung-gu成为一项稳健的实证研究场景，可用于探究在炎热潮湿季节中，遮荫如何影响各类城市环境中的街道活力。",
+      "status": "translated",
+      "paperContext": "Unpacking the shade effect on street vitality: Land use, thermal thresholds, and urban-design determinants\nJung-gu was selected because its diverse land-use composition and morphological variation provide ideal conditions for comparing shade effects across contrasting urban contexts and identifying nonlinear thermal-behavior thresholds.\nThe dependent variable was the hourly walking count, modeled using the count: poisson objective, which implements a Poisson log-likelihood with a log link."
+    },
+    {
+      "id": "J31",
+      "ms": 6457,
+      "units": [
+        {
+          "id": "32-0",
+          "status": "translated",
+          "source": "In the current study, we examine biology students’ study practices, particularly in the context of these two behaviors.",
+          "text": "在本研究中，我们考察了生物学专业学生的学习习惯，特别是针对这两种行为的情况。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在本研究中，我们考察了生物学专业学生的学习习惯，特别是针对这两种行为的情况。",
+      "status": "translated",
+      "paperContext": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students\nThere has been considerable work in laboratory settings examining two beneficial practices for enhancing learning: spacing and self-testing. We specifically investigate whether a light-touch study skills intervention focused on encouraging spacing and self-testing practices impacted their utilization.\nAggregating student’s average clicks per day over the ten weeks of the course allowed us to examine whether self-reported spacing versus cramming was reflected in the students’ engagement with the LMS."
+    },
+    {
+      "id": "J32",
+      "ms": 4290,
+      "units": [
+        {
+          "id": "33-0",
+          "status": "translated",
+          "source": "Students in the intervention sections during years 1 and 2 of the study were classified based on their URM status.",
+          "text": "在研究第1年和第2年的干预组学生，根据其URM身份进行了分类。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在研究第1年和第2年的干预组学生，根据其URM身份进行了分类。",
+      "status": "translated",
+      "paperContext": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students\nURM = underrepresented minorities\n(C).\nStudents in either the intervention or one of the control course sections were classified based on their self-reported usage of spacing and self-testing."
+    },
+    {
+      "id": "J33",
+      "ms": 15279,
+      "units": [
+        {
+          "id": "34-0",
+          "status": "review",
+          "source": "These grade increases were in the range of 5.7–6.2% for those using spacing and 4.6–6.5% for self-testing.",
+          "text": "使用间隔学习的学生成绩提升幅度在5.7%至6.2%之间，而自我测试的学生成绩提升幅度则在4.6%至6.5%之间。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "5.7, 4.6",
+                "targetEvidence": "5.7%, 4.6%"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "使用间隔学习的学生成绩提升幅度在5.7%至6.2%之间，而自我测试的学生成绩提升幅度则在4.6%至6.5%之间。",
+      "status": "review",
+      "paperContext": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students\nStudents who reported spacing or self-testing earned significantly higher grades across both years of the study relative to those who reported cramming (Table 5). We also examined the list of other study strategies students reported and their impact on course grade, and found that besides spacing and self-testing, condensing notes was positively associated with course performance across both years with grade increases in the range of 5.0–5.3%.\nThere was a wide range of study strategies reported with the most common being self-testing and re-reading a textbook (Table 2)."
+    },
+    {
+      "id": "J34",
+      "ms": 8661,
+      "units": [
+        {
+          "id": "35-0",
+          "status": "translated",
+          "source": "We know that URMs typically come to college less academically prepared and exhibit lower performance metrics [34], and our results may provide some insight as to how differences in their study habits may contribute to this.",
+          "text": "我们知道，URM学生通常入学时学术准备程度较低，且表现指标也较低[34]，我们的研究结果或许能提供一些见解，说明其学习习惯的差异如何可能促成这一现象。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "我们知道，URM学生通常入学时学术准备程度较低，且表现指标也较低[34]，我们的研究结果或许能提供一些见解，说明其学习习惯的差异如何可能促成这一现象。",
+      "status": "translated",
+      "paperContext": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students\nURMs = underrepresented minorities\nSurprisingly, use of self-testing was lower for URMs relative to their non-URM peers. The lower use of a beneficial study practice like self-testing may be due to the fact that URM students are disproportionately first-generation college students [35], individuals who have less knowledge regarding the university system and what is required for success.\nSurprisingly, we found that URMs were less likely to implement self-testing, which may contribute to the performance gap these students exhibit."
+    },
+    {
+      "id": "J35",
+      "ms": 7631,
+      "units": [
+        {
+          "id": "36-0",
+          "status": "translated",
+          "source": "For the post-survey responses, since the instructor gave explicit recommendations on how he believes students should study, this may have led students to over-report their use of these skills in order to please the instructor.",
+          "text": "在事后调查回复中，由于授课教师明确给出了他认为学生应如何学习的建议，这可能促使学生为了取悦授课教师而过度报告自己运用这些技能的情况。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在事后调查回复中，由于授课教师明确给出了他认为学生应如何学习的建议，这可能促使学生为了取悦授课教师而过度报告自己运用这些技能的情况。",
+      "status": "translated",
+      "paperContext": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students\nWhile self-report data is common in the study skills literature [14, 40, 41], students may be inaccurately reporting their study practices, either due to social desirability bias or lack of self-insight. However, self-report data is used quite often in psychological studies and has shown to be accurate when the respondent understands the question and when they do not fear reprisal [42].\nAdditionally, the instructor reminded students every week of the quarter that they should be using these behaviors."
+    },
+    {
+      "id": "J36",
+      "ms": 12891,
+      "units": [
+        {
+          "id": "37-0",
+          "status": "review",
+          "source": "For both years, students in the intervention section were taught by one of the study authors (BKS), while students in the two control sections (C1 and C2) were taught by two distinct pairs of instructors.",
+          "text": "在这两个学年中，干预组的学生均由其中一位研究作者（BKS）授课，而两个对照组（C1和C2）的学生则由两对不同授课教师任教。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "1"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "37-1",
+          "status": "translated",
+          "source": "All sections were taught similarly with common lecture slides, periods of active learning during the lecture period, and identical, problem-based discussion sections.",
+          "text": "所有课程的教学方式相似，均使用相同的课件幻灯片、课堂讲授期间的主动学习环节，以及相同的基于问题的讨论环节。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在这两个学年中，干预组的学生均由其中一位研究作者（BKS）授课，而两个对照组（C1和C2）的学生则由两对不同授课教师任教。 所有课程的教学方式相似，均使用相同的课件幻灯片、课堂讲授期间的主动学习环节，以及相同的基于问题的讨论环节。",
+      "status": "partial",
+      "paperContext": "How do students study in STEM courses? Findings from a light-touch intervention and its relevance for underrepresented students\nWe studied these three course sections in two different years—Spring 2016 (Year 1) and Spring 2017 (Year 2). One distinction was that the intervention section had three midterm exams and one cumulative final versus the control section which had a single midterm exam and a cumulative final.\nWhile the material studied in the intervention and comparison courses was similar, including the use of common lecture slides, discussion section activities, and online homework assignments, the intervention course contained more midterm exams (3) versus the control sections (1)."
+    },
+    {
+      "id": "J37",
+      "ms": 6833,
+      "units": [
+        {
+          "id": "38-0",
+          "status": "translated",
+          "source": "You might think that this task would be easier if your eyes were open because you could rely on information from your eyes and also from the vestibular system in your ears.",
+          "text": "你可能会认为，如果睁眼的话这项任务会更容易，因为你可以依赖来自眼睛以及耳朵前庭系统的信息。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "你可能会认为，如果睁眼的话这项任务会更容易，因为你可以依赖来自眼睛以及耳朵前庭系统的信息。",
+      "status": "translated",
+      "paperContext": "Optimal multisensory decision-making in a reaction-time task\nImagine trying out a new roller-coaster ride and doing your best to figure out if you are being hurled to the left or to the right. This is also what cue combination theory says—our ability to discriminate between two potential outcomes is enhanced when we can draw on more than one of the senses.\nBy developing a theory that takes into account both reaction times and choice accuracy, Drugowitsch et al. were able to show that, despite different trade-offs between speed and accuracy, test subjects still combined the information from their eyes and ears in a way that was close to ideal."
+    },
+    {
+      "id": "J38",
+      "ms": 8489,
+      "units": [
+        {
+          "id": "39-0",
+          "status": "translated",
+          "source": "Data are averaged across datasets (except 0%, 12%, 51% coherence: only datasets B2, D2, F2), with shaded areas and error bars showing the 95% CIs.",
+          "text": "数据在各数据集上进行了平均处理（除0%、12%、51%相干度外：仅包含数据集B2、D2、F2），带阴影区域和误差条显示了95%置信区间。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "数据在各数据集上进行了平均处理（除0%、12%、51%相干度外：仅包含数据集B2、D2、F2），带阴影区域和误差条显示了95%置信区间。",
+      "status": "translated",
+      "paperContext": "Optimal multisensory decision-making in a reaction-time task\nThe combined sensitivity measured by fitting the model to each coherence separately (red squares) does not differ significantly from the optimal prediction, providing strong support to the hypothesis that subjects accumulate evidence near-optimally across time and cues.\nBehavioral data (symbols with error bars) and model fits (lines) are, for clarity, shown separately for each different coherence of the visual motion stimulus."
+    },
+    {
+      "id": "J39",
+      "ms": 11679,
+      "units": [
+        {
+          "id": "40-0",
+          "status": "review",
+          "source": "Note also that discrimination thresholds in the combined condition were substantially smaller than vestibular thresholds, especially at 70% coherence (Figures 2 and 3).",
+          "text": "此外，还需注意：在联合条件下的辨别阈值显著小于前庭阈值，尤其是在70%相干度时（图2和图3）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "figure",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "3",
+                "targetEvidence": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此外，还需注意：在联合条件下的辨别阈值显著小于前庭阈值，尤其是在70%相干度时（图2和图3）。",
+      "status": "review",
+      "paperContext": "Optimal multisensory decision-making in a reaction-time task\nThus, subjects spent substantially more time integrating evidence in the visual condition, which boosted their discrimination performance when compared to the combined condition. Thus, adding optic flow to a vestibular stimulus decreased the discrimination threshold with essentially no loss of speed.\nCorrespondingly, discrimination thresholds for the combined condition are intermediate between visual and vestibular thresholds for this subject, and for high coherences, are substantially greater than the optimal predictions (Figure 2B)."
+    },
+    {
+      "id": "J40",
+      "ms": 7671,
+      "units": [
+        {
+          "id": "41-0",
+          "status": "translated",
+          "source": "We compared these variants to the optimal model using Bayesian model comparison, which trades off fit quality with model complexity to determine whether additional parameters significantly improve the fit (Goodman, 1999).",
+          "text": "我们通过贝叶斯模型比较将这些变体与最优模型进行了对比，该方法在拟合优度与模型复杂度之间进行权衡，以确定额外参数是否能显著改善拟合效果（Goodman, 1999）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "我们通过贝叶斯模型比较将这些变体与最优模型进行了对比，该方法在拟合优度与模型复杂度之间进行权衡，以确定额外参数是否能显著改善拟合效果（Goodman, 1999）。",
+      "status": "translated",
+      "paperContext": "Optimal multisensory decision-making in a reaction-time task\nTo further assess and validate the critical design features of our modified DM, we evaluated six alternative (mostly sub-optimal) versions of the model to see if these variants are able to explain the data equally well.\nThis is indeed what we found by Bayesian model comparison (Figure 7B, ‘separate k's’), which shows the optimal model to be ∼1070 times more likely than the variant with independent values of kcomb(c)."
+    },
+    {
+      "id": "J41",
+      "ms": 9217,
+      "units": [
+        {
+          "id": "42-0",
+          "status": "translated",
+          "source": "However, other groups have failed to replicate these findings (Corneil et al., 2002; Whitchurch and Takahashi, 2006) and it is unclear whether the sensory inputs are combined optimally.",
+          "text": "然而，其他研究未能重复这些发现（Corneil 等，2002；Whitchurch 和 Takahashi，2006），目前尚不清楚感官输入是否得到了最优整合。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "然而，其他研究未能重复这些发现（Corneil 等，2002；Whitchurch 和 Takahashi，2006），目前尚不清楚感官输入是否得到了最优整合。",
+      "status": "translated",
+      "paperContext": "Optimal multisensory decision-making in a reaction-time task\nSome of these studies have reported that reaction times for multisensory stimuli are faster than predicted by ‘parallel race’ models (Raab, 1962; Miller, 1982), suggesting that multisensory inputs are combined into a common representation. Thus, multisensory integration in reaction time experiments remains poorly understood, and there is no coherent framework for evaluating optimal decision making that incorporates both perceptual sensitivity and reaction times.\nOur model makes the assumption that sensory signals are integrated prior to decision-making and is in this sense similar to co-activation models that have been used previously to model reaction times in multimodal settings (Miller, 1982; Corneil et al., 2002; Townsend and Wenger, 2004)."
+    },
+    {
+      "id": "J42",
+      "ms": 9397,
+      "units": [
+        {
+          "id": "43-0",
+          "status": "translated",
+          "source": "Thus, adding optic flow to a vestibular stimulus decreased the discrimination threshold with essentially no loss of speed.",
+          "text": "因此，在前庭刺激中加入视觉流降低了辨别阈值，且速度几乎没有损失。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "43-1",
+          "status": "translated",
+          "source": "A similar overall pattern of results was observed for the other subjects (Figure 3—figure supplement 1).",
+          "text": "其他受试者的结果总体模式也呈现出类似趋势（图3——图补充1）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "因此，在前庭刺激中加入视觉流降低了辨别阈值，且速度几乎没有损失。 其他受试者的结果总体模式也呈现出类似趋势（图3——图补充1）。",
+      "status": "translated",
+      "paperContext": "Optimal multisensory decision-making in a reaction-time task\nNote also that discrimination thresholds in the combined condition were substantially smaller than vestibular thresholds, especially at 70% coherence (Figures 2 and 3). These data provide clear evidence that subjects made use of both visual and vestibular information to perform the reaction-time task, but the benefits of cue integration could not be appreciated by considering discrimination thresholds alone.\nTo summarize this contrast, we compare the ratio of observed to predicted thresholds in the combined condition for our subjects to human and monkey subjects performing a similar task in a fixed duration setting (Fetsch et al., 2009)."
+    },
+    {
+      "id": "J43",
+      "ms": 9824,
+      "units": [
+        {
+          "id": "44-0",
+          "status": "translated",
+          "source": "Our evaluation shows that ESDM outperforms state-of-the-art models with a PSNR of 26.272, SSIM of 0.737, mDice of 0.972, and mIoU of 0.948.",
+          "text": "我们的评估结果表明，ESDM在PSNR 26.272、SSIM 0.737、mDice 0.972和mIoU 0.948方面均优于现有最先进模型。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "我们的评估结果表明，ESDM在PSNR 26.272、SSIM 0.737、mDice 0.972和mIoU 0.948方面均优于现有最先进模型。",
+      "status": "translated",
+      "paperContext": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising\nESDM = Efficient Segmentation-Denoising Model\nPSNR = peak signal-to-noise ratio\nSSIM = structural similarity\nESDM integrates the local feature extraction capabilities of the convolution layer and the long-term information processing advantages of the transformer, achieving better denoising and segmentation performance compared to existing models. Ablation studies confirm the effectiveness of our design, such as the feature fusion methods, which enhance performance with minimal model complexity increase.\nThe results in Table 1, indicating that ESDM has the best image segmentation and denoising performance (mDice: 0.972, mIoU: 0.948, PSNR: 26.272, SSIM: 0.737)."
+    },
+    {
+      "id": "J44",
+      "ms": 9936,
+      "units": [
+        {
+          "id": "45-0",
+          "status": "translated",
+          "source": "The results from SwinIR are so large that it would negatively influence the visualization in the chart, therefore we decided to limit the y-axis of (A) from 0 to 18000 and (B) from 0 to 700.",
+          "text": "SwinIR的计算结果过于庞大，会对图表中的可视化效果产生负面影响，因此我们决定将（A）部分的y轴限制在0到18000之间，以及（B）部分的y轴限制在0到700之间。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "SwinIR的计算结果过于庞大，会对图表中的可视化效果产生负面影响，因此我们决定将（A）部分的y轴限制在0到18000之间，以及（B）部分的y轴限制在0到700之间。",
+      "status": "translated",
+      "paperContext": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising\nComparison of Model Inference under Various Batch Size on (A) CPU and (B) GPU. The inference times (unit: ms) of SwinIR (under batch sizes 4, 8, 16, 32, 48) are {16362, 36923, 73339, 141759, 212695} in (A) CPU and {331.8, 646.1, 1261.8, 2500.3, 3744.3} in (B) GPU.\nOptical coherence tomography (OCT) is a non-invasive imaging modality that provides micro-anatomical visualization with an axial resolution of ∼10 µm and a penetration depth of 1-2 mm [6]."
+    },
+    {
+      "id": "J45",
+      "ms": 7568,
+      "units": [
+        {
+          "id": "46-0",
+          "status": "translated",
+          "source": "Optical coherence tomography (OCT) is a non-invasive imaging modality that provides micro-anatomical visualization with an axial resolution of ∼10 µm and a penetration depth of 1-2 mm [6].",
+          "text": "光学相干断层扫描（OCT）是一种非侵入式成像技术，可提供微解剖可视化，轴向分辨率约为10微米，穿透深度为1-2毫米[6]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "光学相干断层扫描（OCT）是一种非侵入式成像技术，可提供微解剖可视化，轴向分辨率约为10微米，穿透深度为1-2毫米[6]。",
+      "status": "translated",
+      "paperContext": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising\nOCT = Optical coherence tomography\nThus, there is an urgent need for non-invasive imaging techniques that can provide accurate assessments of oral tissues with high-resolution and providing depth-information. Recent studies indicate that OCT can differentiate between normal and abnormal tissues, showing its potential as a non-invasive alternative to biopsy in oral mucosal assessments [7].\nOptical coherence tomography (OCT) is promising to become an essential imaging tool for non-invasive oral mucosal tissue assessment, but it faces challenges like speckle noise and motion artifacts."
+    },
+    {
+      "id": "J46",
+      "ms": 7591,
+      "units": [
+        {
+          "id": "47-0",
+          "status": "review",
+          "source": "In denoising task, compared to the input image generated from one repetition of OCT scan, all deep-learning models enhance both PSNR and SSIM performance.",
+          "text": "在去噪任务中，相较于由单次OCT扫描生成的输入图像，所有深度学习模型均提升了PSNR和SSIM的性能。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在去噪任务中，相较于由单次OCT扫描生成的输入图像，所有深度学习模型均提升了PSNR和SSIM的性能。",
+      "status": "review",
+      "paperContext": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising\nOCT = Optical coherence tomography\nPSNR = peak signal-to-noise ratio\nSSIM = structural similarity\nTable 1 is a quantitative comparison between different methods in oral OCT image denoising and segmentation. Among them, our ESDM offers the best denoising performance in terms of PSNR (26.272) and SSIM (0.737), with model complexity (FLOPs: 9.84 G) being the second smallest among all image denoising models and the smallest among all multi-task models.\nFigure 5 is the visual comparison of oral lip OCT image denoising performance among deep-learning models."
+    },
+    {
+      "id": "J47",
+      "ms": 5142,
+      "units": [
+        {
+          "id": "48-0",
+          "status": "translated",
+          "source": "In this section, we evaluate the efficiency of the multi-task design of ESDM by disabling specific decoders and leading the ESDM as a single-task model.",
+          "text": "在本节中，我们通过禁用特定解码器并将ESDM作为单任务模型来评估ESDM多任务设计的效率。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在本节中，我们通过禁用特定解码器并将ESDM作为单任务模型来评估ESDM多任务设计的效率。",
+      "status": "translated",
+      "paperContext": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising\nESDM = Efficient Segmentation-Denoising Model\nTable 4 shows the comparison between various settings, including multi-task, denoising only, and segmentation only.\nIn this section, we change the network size by increasing and decreasing the filter sizes to evaluate the influence on model size."
+    },
+    {
+      "id": "J48",
+      "ms": 12164,
+      "units": [
+        {
+          "id": "49-0",
+          "status": "review",
+          "source": "In addition, Buchholz et al. proposed a joint denoising and segmentation method that uses self-supervised learning to improve segmentation performance with limited annotated data [44].",
+          "text": "此外，Buchholz等人提出了一种联合去噪与分割方法，利用自监督学习在有限标注数据的情况下提升分割性能[44]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "49-1",
+          "status": "review",
+          "source": "However, recent studies indicate that segmentation decoders with fewer parameters and reduced complexity can achieve good performance while improving efficiency [38,45].",
+          "text": "然而，近期研究表明，参数更少、复杂度更低的分割解码器能够在提升效率的同时取得良好性能 [38,45]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此外，Buchholz等人提出了一种联合去噪与分割方法，利用自监督学习在有限标注数据的情况下提升分割性能[44]。 然而，近期研究表明，参数更少、复杂度更低的分割解码器能够在提升效率的同时取得良好性能 [38,45]。",
+      "status": "review",
+      "paperContext": "Semi-supervised assisted multi-task learning for oral optical coherence tomography image segmentation and denoising\nintroduced a co-learning deep learning framework for visible light-OCT image denoising and segmentation [43], demonstrating enhanced segmentation accuracy and robustness with limited annotated data. Further research is needed for MTDL training and to develop more efficient methods to minimize computational resource waste for simultaneous segmentation and denoising of oral OCT images.\nWe introduce the Efficient Segmentation-Denoising Model (ESDM), a multi-task deep learning framework designed to enhance OCT imaging by reducing scan time from ∼8s to ∼2s and improving oral epithelium layer segmentation."
+    }
+  ],
+  "requests": [
+    "complete"
+  ],
+  "externalPosts": [],
+  "browserVersion": "158.0.8127.88",
+  "firstText": "水",
+  "coldMs": 15828,
+  "firstPaperContext": [
+    {
+      "source": "water",
+      "context": "A sample of was kept in the shade."
+    }
+  ],
+  "reloadedText": "水",
+  "reloadMs": 9811
+}

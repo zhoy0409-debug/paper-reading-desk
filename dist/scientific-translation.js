@@ -1,5 +1,6 @@
 import {assignedValues,chemicalNames,missingAssignments,missingBoundRoles,symbolicBounds,symbolicKeys} from './translation-anchors.js?rev=evidence2';
-import {comparisonText} from './translation-facts.js?rev=evidence2';
+import {comparisonText} from './translation-facts.js?rev=claims1';
+import {recoverClaimWording} from './translation-claims.js';
 const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=evidence2'));
 // Translate supported scientific constructions from their captured subjects and modifiers.
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
@@ -348,7 +349,7 @@ export async function translatePassage(original,from,translate,{field='auto'}={}
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase())&&
       !matched.some(m=>m.original.toLowerCase().includes(en.toLowerCase())));
     const prepared=readableProse(body).replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells').replace(/\bmaybe (?=activated\b)/gi,'may be ');
-    let result=body?modelText(await translate(prepared,from)):'';
+    let result=body?recoverClaimWording(body,modelText(await translate(prepared,from)),field):'';
     if(fig)result=result.replace(new RegExp('^(?:图\\s*|Figure\\s+)'+fig[1]+'(?![a-z\\d])\\s*[|.:：]?\\s*','i'),'');
     // Correct unambiguous terminology in the complete translation before trying
     // placeholders. This preserves the verb and its dependent clauses.
