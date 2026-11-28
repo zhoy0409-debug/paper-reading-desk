@@ -11,7 +11,7 @@
     }
     return new Set(markers);
   }
-  function columnCaption(line,lines,view) {
+  function columnCaption(line,lines,view,read=l=>l.captionText||l.text) {
     const W=view.width;
     if(line.x0>W*.30||line.x1>W*.54||line.x1-line.x0<W*.15)return;
     const beside=lines.filter(l=>Math.abs(l.base-line.base)<line.size*.4&&l.x0>W*.46&&l.x0<W*.63&&Math.abs(l.size-line.size)<.75);
@@ -19,7 +19,7 @@
     function column(start) {
       const parts=[start];
       for(const l of lines){
-        if(l.base<=parts.at(-1).base+1||Math.abs(l.x0-start.x0)>start.size*.71)continue;
+        if(l.base<=parts.at(-1).base+1||Math.abs(l.x0-start.x0)>start.size*.71||l.size<start.size*.80)continue;
         if(l.base-parts.at(-1).base>start.size*1.7||Math.abs(l.size-start.size)>.75||/^(?:Fig(?:ure)?\.?|Table)\s*\d+/i.test(l.text))break;
         if(l.x1>start.x0+W*.47||parts.length>=75)break;
         parts.push(l);
@@ -28,11 +28,15 @@
     }
     const a=column(line),b=column(beside[0]);
     if(a.length<2||b.length<2)return;
-    const text=[...a,...b].map(l=>l.captionText||l.text).join(' ').replace(/\b(non|two|single|double|heat)-\s+(?=\p{Ll})/gu,'$1-').replace(/(\p{Ll})-\s+(\p{Ll})/gu,'$1$2');
+    const text=[...a,...b].map(read).join(' ');
     const letters=series(text);
     const lower=globalThis.CaptionFlow?.headings(text)||[];
     const continuedSeries=lower.length>=3&&lower.some(m=>m.at>=a.map(l=>l.text).join(' ').length);
-    if((!letters.has('A')||letters.size<2)&&!continuedSeries||!/[.!?)][”"]?$/.test(b.at(-1).text))return;
+    // Source-data footers in a parallel caption column also delimit inline
+    // panel references such as "(A)" or "A, B" which are not sentence headings.
+    const captionFooter=/\bsource data (?:are|is) provided\b[^.]*\.\s*$/i.test(text)&&
+      /\(\s*A\s*\)|\bA,\s*B\b/.test(a.map(read).join(' '));
+    if((!letters.has('A')||letters.size<2)&&!continuedSeries&&!captionFooter||!/[.!?)][”"]?$/.test(b.at(-1).text))return;
     return {text,endY:Math.max(a.at(-1).y1,b.at(-1).y1)};
   }
   const size=20;
@@ -126,11 +130,15 @@
     const preceding=lines.filter(l=>l.text.length>65&&l.y1<=image.y0&&l.x1>image.x0&&l.x0<image.x1);
     return {x0:Math.max(0,image.x0-pad),x1:Math.min(view.width,image.x1+pad),y0:Math.max(0,image.y0-pad,...preceding.map(l=>l.y1+2)),y1:Math.min(c.y0-2,image.y1+pad)};
   }
-  function standaloneImage(objects,{viewport:view,lines}){
+  function standaloneImage(objects,{viewport:view,lines},allowOuterText=false){
     const images=objects.filter(o=>o.kind==='image'&&o.x1-o.x0>view.width*.4&&o.y1-o.y0>view.height*.28&&
       o.x0>=0&&o.y0>=0&&o.x1<=view.width+1&&o.y1<=view.height+1);
-    if(images.length!==1||lines.some(l=>l.text.length>75&&l.y0>view.height*.08&&l.y1<view.height*.92))return null;
-    return images[0];
+    if(images.length!==1)return null;
+    const image=images[0];
+    if(allowOuterText && (image.x1-image.x0)*(image.y1-image.y0)<view.width*view.height*.35)return null;
+    const prose=lines.filter(l=>l.text.length>75&&l.y0>view.height*.08&&l.y1<view.height*.92);
+    if(prose.some(l=>!allowOuterText || l.y0<image.y1-2&&l.y1>image.y0+2&&l.x0<image.x1&&l.x1>image.x0))return null;
+    return image;
   }
   // Typeset vector plates can consist of hundreds of small shapes. The crop seeded
   // at the legend may span the last rows only. Walk contiguous bands of printed ink

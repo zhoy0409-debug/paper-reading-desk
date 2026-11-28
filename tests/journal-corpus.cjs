@@ -78,10 +78,13 @@ async function audit(browser, ref) {
     });
     for (const target of ref.figures) {
       const actual = figures.find(f => f.number === target.n);
+      const caption=norm(actual?.caption);
       const row = {number: target.n, found: !!actual, mode: actual ? (actual.box?'crop':'page') : null,
         pages: actual ? [actual.page,actual.captionPage] : null,
         heading: target.starts.length ? headingMatches(actual?.title || '', target.starts) : null,
         captionPage: target.cp ? actual?.captionPage === target.cp : null,
+        captionContent: target.captionAnchors ? target.captionAnchors.slice(0,-1).every(s=>caption.includes(norm(s))) &&
+          caption.endsWith(norm(target.captionAnchors.at(-1))) : null,
         imagePage: target.image ? actual?.page === target.image.page : null,
         crop: target.image ? actual?.page === target.image.page && covers(actual?.box,target.image.box) : null,
         reading: false, bodyPassages: bodyByFigure[actual?.key]||[]};
@@ -122,7 +125,7 @@ async function audit(browser, ref) {
   try {await Promise.all([run(),run()]);} finally {await browser.close();}
   results.sort((a,b) => a.id.localeCompare(b.id));
   const counts = {};
-  for (const key of ['found','heading','captionPage','imagePage','crop','reading']) {
+  for (const key of ['found','heading','captionPage','captionContent','imagePage','crop','reading']) {
     const values = results.flatMap(r => r.checks || []).map(c => c[key]).filter(x => typeof x==='boolean');
     counts[key] = [values.filter(Boolean).length,values.length];
   }
