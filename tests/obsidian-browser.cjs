@@ -31,10 +31,17 @@ async function check() {
     const tabs=page.locator('.st-dock .frw-panel-tab');
     const lens=page.locator('.lens-card textarea');
     await lens.fill(note);
+    const selectedKeys=[];
     for(const letter of ['B','A']){
-      await tabs.filter({hasText:new RegExp('^'+letter+'$')}).click();
+      const tab=tabs.filter({hasText:new RegExp('^'+letter+'$')});
+      await tab.click();
+      await tab.and(page.locator('[aria-pressed="true"]')).waitFor();
+      const key=JSON.stringify([await figure.getAttribute('data-figure'),await tab.getAttribute('data-panel')]);
       const add=page.locator('.rq-add-slide:visible');
       await add.click();
+      selectedKeys.push(key);
+      const basketKeys=await page.locator('.basket-card').evaluateAll(cards=>cards.map(card=>card.dataset.key));
+      assert.deepEqual(basketKeys,selectedKeys,'The basket must acknowledge each selected panel in order');
     }
     const more=page.locator('.st-more');
     await more.locator(':scope>summary').click();
@@ -51,6 +58,7 @@ async function check() {
     const dialog=page.locator('dialog.obs-dialog');
     const labels=dialog.locator('input');
     assert.equal(await labels.count(),2);
+    assert.equal(await labels.nth(1).isChecked(),true,'Selected panels are included by default');
     const rect=await dialog.boundingBox();
     assert.ok(rect.x>=0 && rect.x+rect.width<=page.viewportSize().width+1);
     const download=dialog.getByRole('button',{name:/下载笔记包|Download note bundle/});
@@ -81,7 +89,8 @@ async function check() {
     }
     const {files,bytes}=await exported();
     assert.equal(files.pdf,createHash('sha256').update(await fs.readFile(example)).digest('hex'));
-    assert(files.images.length>=2&&files.images.every(([,w,h])=>w>10 && h>10));
+    assert.ok(files.images.length>=2&&files.images.every(([,w,h])=>w>10 && h>10),
+      'Expected two decodable panel images. Archive entries: '+JSON.stringify(files.files)+'; dimensions: '+JSON.stringify(files.images));
     assert(files.markdown.includes(note)&&files.markdown.includes(script)&&files.markdown.includes(privateNote));
     const names=files.markdown.split('\n').filter(s=>/^### [12]\. /.test(s));
     assert.match(names[0],/ · B$/);assert.match(names[1],/ · A$/);
