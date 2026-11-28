@@ -3,12 +3,17 @@ import {comparisonText} from './translation-facts.js?rev=evidence2';
 const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=evidence2'));
 // Translate supported scientific constructions from their captured subjects and modifiers.
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
-export function normalizeSelection(text){
+export function normalizeSelection(text,paperWordForms){
   const normalized=text.replace(/\u00ad(?:[ \t]*\r?\n[ \t]*)?/g,'')
     .replace(/[ﬀ-ﬆ]/g,ch=>ch.normalize('NFKC'))
     .replace(/\b(mono|di|tri|tetra|per)\s+(?=fluoro[a-z])/gi,'$1');
   return normalized.replace(/(\b[A-Za-z][a-z]+)[-‐‑]\s+([a-z]+)\b/g,(whole,left,right)=>{
-    // A repeated spelling in the selection disambiguates a printed line-end hyphen.
+    // Prefer an attested hyphenated spelling when the same paper uses both forms.
+    if(paperWordForms&&/[\r\n]/.test(whole)){
+      const lhs=left.toLowerCase(),rhs=right.toLowerCase();
+      if(paperWordForms.has(lhs+'-'+rhs))return left+'-'+right;
+      if(paperWordForms.has(lhs+rhs))return left+right;
+    }
     if(new RegExp('\\b'+left+right+'\\b','i').test(normalized)||/^(?:tions?|ments?|vatus|gatus|xazine|idine|uoromethyl)$/i.test(right))
       return left+right;
     return left+'-'+right;

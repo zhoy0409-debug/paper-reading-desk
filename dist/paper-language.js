@@ -18,8 +18,8 @@
     };
   }
   const glossary=loadModule('discipline-glossary.js?rev=evidence2');
-  const science=loadModule('scientific-translation.js?rev=evidence2');
-  const session=loadModule('translation-session.js?rev=evidence2');
+  const science=loadModule('scientific-translation.js?rev=pdfwords');
+  const session=loadModule('translation-session.js?rev=pdfwords');
   const runtime=loadModule('vendor/bergamot/translator.js?rev=quality1');
   let runtimeCache;
   function enableRuntimeCache(){

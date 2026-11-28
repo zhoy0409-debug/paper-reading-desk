@@ -10,7 +10,8 @@ const lines=['The blue light passed through the glass.','Water remained clear.',
   'The standard error of the mean (SEM) was reported.',
   'Poly(vinyl acetate) (PVAc) was weighed.',
   'Only intervals with at least k observations were retained.',
-  'Group A received 7 mg and group B received 11 mg.'];
+  'Group A received 7 mg and group B received 11 mg.',
+  'A spectrometer was available.', 'The spectro-', 'meter measured light.'];
 function fixture(title,rows){
   const lit=s=>s.replace(/[\\()]/g,a=>'\\'+a);
   const content='BT /F1 12 Tf 55 760 Td '+[title,...rows].map(s=>'('+lit(s)+') Tj').join(' 0 -22 Td ')+' ET';
@@ -114,6 +115,11 @@ async function main(){
       await capture(line===lines[7]?'chemical-identity':'symbolic-threshold');
       await popup.locator('.selection-close').click();
     }
+    await selectText(page,/The spectro-\s+meter measured light\./);await run();
+    await wait('translated');
+    assert.match(await popup.locator('blockquote').textContent(),/spectro-\s+meter/);
+    assert.match(await popup.locator(':scope > p').innerText(),/光谱|分光|光度/);
+    await popup.locator('.selection-close').click();
     // Force a known numerical swap to verify the UI independently of whether
     // this particular worker happens to mistranslate the sentence today.
     await page.evaluate(source=>{

@@ -1,4 +1,4 @@
-import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=evidence2';
+import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=pdfwords';
 import {fieldTerms,resolveField} from './discipline-glossary.js?rev=evidence2';
 import {validateScientific} from './translation-facts.js?rev=evidence2';
 import {needsAlignment,checkAlignment} from './translation-alignment.js';
@@ -119,7 +119,7 @@ function quick(unit,from,field,context,engine,signal){
   // Injected engines never share results with the shipped translator. Caches hold no
   // credentials and live only in the current document.
   if(engine)return localUnit(unit,from,field,context,guarded(engine.translate,signal));
-  const key=JSON.stringify(['bergamot-shipped-0418','unit-v2',from,field?.key??field,unit.source,context,inContext(unit.source,from)?unit.previous:'']);
+  const key=JSON.stringify(['bergamot-shipped-0418','unit-v3',from,field?.key??field,unit.source,unit.normalized,context,inContext(unit.source,from)?unit.previous:'']);
   if(memo.has(key))return Promise.resolve(memo.get(key));
   let entry=pending.get(key);
   if(!entry){
@@ -138,9 +138,9 @@ function quick(unit,from,field,context,engine,signal){
   signal.addEventListener('abort',release,{once:true});
   return entry.work.finally(()=>{signal.removeEventListener('abort',release);if(!signal.aborted)release()});
 }
-export function createTranslationSession({source,from='en',field='auto',context='',engine,onUpdate=()=>{}}){
+export function createTranslationSession({source,from='en',field='auto',context='',engine,paperWordForms,onUpdate=()=>{}}){
   const sid=++sequence,parts=selectionUnits(source),profile=resolveField(field,context||source);
-  const units=parts.map((original,index)=>({id:sid+'-'+index,source:original,normalized:normalizeSelection(original),
+  const units=parts.map((original,index)=>({id:sid+'-'+index,source:original,normalized:normalizeSelection(original,paperWordForms),
     previous:parts[index-1]||'',text:'',status:'pending',engine:engine?.id||'bergamot',validation:null,error:null,attempts:0,terms:[]}));
   let generation=0,busy=false,controller;
   function cancel(){

@@ -395,6 +395,24 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  if(typeof MutationObserver==='function')new MutationObserver(syncLoaded).observe(reader,{attributes:true,attributeFilter:['hidden']});
  const items=[], crossContexts=[];
+ const sourceOwners=new WeakMap();
+ mountBox.addEventListener('reader-pdf-word-forms',event=>{
+  const item=sourceOwners.get(event.target.closest('.pl-excerpt'));
+  if(!item)return;
+  // Build this index only when a selection actually crosses a printed hyphen.
+  if(!item.wordForms){
+   const forms=new Set();
+   for(const row of item.model.rows){
+    for(const match of row.text.matchAll(/[A-Za-z]+(?:[-‐‑][A-Za-z]+)*/g)){
+     const word=match[0].toLowerCase().replace(/[‐‑]/g,'-');
+     forms.add(word);
+     if(word.includes('-'))for(const part of word.split('-'))forms.add(part);
+    }
+   }
+   item.wordForms=forms;
+  }
+  event.detail.forms=item.wordForms;
+ });
  let fieldCatalog,personalGlossary,uploadField=null;
  const personalTermsKey='reading-desk.personal-glossary.v1';
  function applyField(item){
@@ -891,6 +909,7 @@ body:has(.pl-figure-host) #literaturePane{max-width:1430px}
  }
  function raw(parent,item,record){
   const panel=add(parent,'article',undefined,'pl-excerpt');
+  if(item.pdfFile)sourceOwners.set(panel,item);
   const anchor=add(panel,'div',item.name+' · '+record.location,'pl-anchor');
   if(item.pdfFile&&record.page&&window.URL?.createObjectURL){
    try{

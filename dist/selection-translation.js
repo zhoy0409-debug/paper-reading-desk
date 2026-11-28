@@ -351,7 +351,11 @@ async function getSession(){
   const {createTranslationSession}=await PaperLanguageText.session();
   if(id!==request)return;
   if(!active){
-    const s=createTranslationSession({source:text,from:source,field:PaperLanguageText.field,context,
+    const spelling={};
+    if(source==='en'&&/[a-z][-‐‑][ \t]*\r?\n\s*[a-z]/i.test(text)){
+      readingAnchor?.dispatchEvent(new CustomEvent('reader-pdf-word-forms',{bubbles:true,detail:spelling}));
+    }
+    const s=createTranslationSession({source:text,from:source,field:PaperLanguageText.field,context,paperWordForms:spelling.forms,
       onUpdate:()=>{if(active===s)paint()}});
     active=s;
   }
