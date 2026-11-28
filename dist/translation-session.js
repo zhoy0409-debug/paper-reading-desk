@@ -1,9 +1,10 @@
-import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=claims1';
-import {fieldTerms,paperDefinedTerms,resolveField} from './discipline-glossary.js?rev=localmt1';
-import {restorePrintedUnits,validateScientific} from './translation-facts.js?rev=claims1';
+import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=identity1';
+import {fieldTerms,paperDefinedTerms,resolveField} from './discipline-glossary.js?rev=identity1';
+import {restorePrintedUnits,validateScientific} from './translation-facts.js?rev=identity1';
+import {chemicalNames,maskChemicalNames} from './translation-anchors.js?rev=identity1';
 import {needsAlignment,checkAlignment} from './translation-alignment.js';
 import {scientificText,selectionMode} from './local-scientific-model.js';
-import {recoverClaimWording} from './translation-claims.js';
+import {recoverClaimWording} from './translation-claims.js?rev=identity1';
 
 // The source is kept verbatim. Only the copy submitted to an engine is normalized.
 export function selectionUnits(source){
@@ -36,21 +37,44 @@ function inContext(source,from){
 }
 async function scientificUnit(unit,from,field,paper,nearby,signal){
   const source=unit.normalized;
-  const context=[paper,nearby!==source?nearby:'',unit.previous].filter(Boolean).join('\n').slice(0,1400);
+  const needsContext=source.length<24||inContext(source,from);
+  const context=[paper,needsContext&&nearby!==source?nearby:'',needsContext?unit.previous:''].filter(Boolean).join('\n').slice(0,1400);
   const defined=from==='en'?paperDefinedTerms(source,field,paper):[];
   const terms=from==='en'?[...defined,...fieldTerms(source,field,context).filter(t=>!defined.some(d=>d.original===t.original))]:[];
   const exact=terms.find(t=>t.original===source);
   if(exact)return {text:exact.value,terms,validation:{status:'checked',issues:[]},status:'translated'};
-  async function translated(correction=''){
-    const value=await scientificText(source,from,{signal,context,terms,correction});
+  const identities=from==='en'?chemicalNames(source,terms):[];
+  if(identities.length===1&&identities[0].original===source&&identities[0].value===source)
+    return {text:source,terms,name:true,validation:{status:'name',issues:[]},status:'translated'};
+  function checked(value){
     const text=from==='en'?restorePrintedUnits(source,recoverClaimWording(source,value,field)):value;
     if(!useful(text,source,from))throw Object.assign(new Error('The model did not translate this selection'),{stage:'empty'});
     const validation=validateScientific(source,text,{from,terms,field,context});
     return {text,terms,validation,status:validation.issues.length?'review':'translated'};
   }
+  async function translated(correction=''){
+    const glossary=[...terms,...identities.filter(s=>!terms.some(t=>t.original===s.original))];
+    return checked(await scientificText(source,from,{signal,context,terms:glossary,correction}));
+  }
   const first=await translated();
   const severe=first.validation.issues.filter(i=>i.severity==='severe');
   if(!severe.length)return first;
+  if(severe.some(i=>i.code==='chemical-identity')){
+    const masked=maskChemicalNames(source,identities);
+    try{
+      const raw=await scientificText(masked.text,from,{signal,
+        correction:'请逐字保留每个占位符，只翻译该句的其余文字。'});
+      const restored=masked.restore(raw);
+      if(restored){
+        const recovered=checked(restored);
+        if(!recovered.validation.issues.some(i=>i.severity==='severe'))return recovered;
+      }
+    }catch(error){
+      if(signal.aborted)throw error;
+      return {...first,error};
+    }
+    return first;
+  }
   const evidence=[...new Set(severe.map(i=>i.sourceEvidence||i.detail).filter(Boolean))];
   if(!evidence.length)return first;
   const corrected=await translated('请准确保留原文中的这些信息：'+evidence.join('、')).catch(error=>{
@@ -188,7 +212,16 @@ export function createTranslationSession({source,from='en',field='auto',context=
         // Only an ambiguous short term or a demonstrative needs neighboring text.
         const hint=u.normalized.length<24||inContext(u.normalized,from)?(context||nearby):u.normalized;
         try{
-          const result=scientific?await scientificUnit(u,from,profile,paperContext,hint,controller.signal):
+          // A complete neighboring sentence that has its own output slot must not
+          // enter this slot's prompt as extra text to translate.
+          let evidence=paperContext,localHint=hint;
+          if(scientific&&parts.length>1){
+            for(const neighbor of units.slice(i+1)){
+              evidence=evidence.replaceAll(neighbor.normalized,'');
+              localHint=localHint.replaceAll(neighbor.source,'').replaceAll(neighbor.normalized,'');
+            }
+          }
+          const result=scientific?await scientificUnit(u,from,profile,evidence,localHint,controller.signal):
             await quick(u,from,profile,hint,engine,controller.signal);
           if(token!==generation)break;
           Object.assign(u,result);

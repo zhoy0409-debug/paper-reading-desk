@@ -1,7 +1,7 @@
-import {assignedValues,chemicalNames,missingAssignments,missingBoundRoles,symbolicBounds,symbolicKeys} from './translation-anchors.js?rev=evidence2';
-import {comparisonText} from './translation-facts.js?rev=claims1';
-import {recoverClaimWording} from './translation-claims.js';
-const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=evidence2'));
+import {assignedValues,chemicalNames,missingAssignments,missingBoundRoles,retainedScientificNames,symbolicBounds,symbolicKeys} from './translation-anchors.js?rev=identity1';
+import {comparisonText} from './translation-facts.js?rev=identity1';
+import {recoverClaimWording} from './translation-claims.js?rev=identity1';
+const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=identity1'));
 // Translate supported scientific constructions from their captured subjects and modifiers.
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
 export function normalizeSelection(text,paperWordForms){
@@ -62,7 +62,8 @@ const terminology=[
   ['nonlesional skin','非皮损皮肤'],['non-lesional skin','非皮损皮肤'],['lesional skin','皮损皮肤'],
   ['skin swabs','皮肤拭子'],['host-directed therapy','宿主靶向治疗'],
   ['outer membrane vesicles','外膜囊泡'],['cytotoxicity','细胞毒性'],
-  ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],['abaucin','abaucin']
+  ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],
+  ...retainedScientificNames.map(name=>[name,name])
 ];
 const exactNames=new Map(terminology);
 function modelText(value){
@@ -71,21 +72,6 @@ function modelText(value){
 }
 function validation(reason,detail){
   return Object.assign(new Error(detail),{stage:'validation',reason});
-}
-// Chemical names in a structure description must survive even when the MT model
-// substitutes a different compound. A supplied subject glossary can localize them.
-function compounds(s,domain){
-  const spans=chemicalNames(s,domain);
-  if(!/\b(?:chemical|moiet(?:y|ies)|functional groups?|substituents?|molecul\w*)\b/i.test(s))return spans;
-  const chemical=/\b([a-z][a-z\d-]*(?:oxazine|azine|idine|anone|azole|amide|phenyl|alkyl|ethyl|enoate))\b(\s+groups?\b)?/gi;
-  for(const m of s.matchAll(chemical)){
-    if(spans.some(term=>term.index<=m.index&&m.index<term.index+term.original.length))continue;
-    if(domain.some(term=>term.index<=m.index&&term.index+term.original.length>=m.index+m[0].length))continue;
-    const name=domain.find(term=>term.index===m.index&&term.original===m[1])?.value??m[1];
-    const suffix=m[2]?(/[\u3400-\u9fff]$/.test(name)?'基团':' 基团'):'';
-    spans.push({index:m.index,original:m[0],value:name+suffix});
-  }
-  return spans;
 }
 const figureRef=/(?:\b(?:fig(?:ure)?s?)\.?\s*|图\s*)(S?\d+[a-z]?(?:\s*[-–]\s*(?:S?\d+)?[a-z])?)(?![a-z\d])/gi;
 const concentration=/(?:\d+(?:\.\d+)?|\.\d+)\s*(?:(?:[fpnumµμk]?g|[fpnumµμ]?mol)\s*\/\s*(?:[mdµμu]?L)|[fpnumµμ]?M)(?![a-zA-Z])/g;
@@ -393,7 +379,7 @@ export async function translatePassage(original,from,translate,{field='auto'}={}
       keys.some(k=>!result.includes(k)&&!matched.some(m=>m.original===k&&result.includes(m.value)))||
       panelRefs(body)!==panelRefs(result)||(/\b(?:not|no|without)\b/i.test(body)&&!/[无不未没非]/.test(result));
     const missingTerm=matched.some(m=>!result.includes(m.value))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
-      compounds(body,fig?fieldTerms(body,field):matched).some(c=>!result.includes(c.value));
+      chemicalNames(body,fig?fieldTerms(body,field):matched).some(c=>!result.includes(c.value));
     const echoed=body&&body===result&&/[a-z]{2}/i.test(body);
     if(facts||missingTerm||echoed){
       candidates.push({source:s,text:(fig?'图 '+fig[1]+'　':'')+result,reason:facts?'facts':missingTerm?'terms':'target'});
@@ -421,7 +407,7 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
       const value=names.get(m[0].toLowerCase());
       return {index:m.index,original:m[0],value:value&&value!==m[0].toLowerCase()?value:m[0]};
     });
-    const protectedSpans=[...domain,...compounds(s,domain),...symbolicBounds(s),...assignedValues(s),
+    const protectedSpans=[...domain,...chemicalNames(s,domain),...symbolicBounds(s),...assignedValues(s),
       ...Array.from(s.matchAll(/(?<![A-Za-z\d])[A-Za-zα-ω][₀-₉]+/giu),m=>({index:m.index,original:m[0],value:m[0]})),
       ...Array.from(s.matchAll(figureRef),m=>({index:m.index,original:m[0],value:'图 '+m[1]})),
       ...Array.from(s.matchAll(concentration),m=>({index:m.index,original:m[0],value:m[0]})),...identifiers];

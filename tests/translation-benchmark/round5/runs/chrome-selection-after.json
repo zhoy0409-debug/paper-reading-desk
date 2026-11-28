@@ -1,0 +1,39 @@
+{
+  "browser": "chrome",
+  "weightTransport": "verified local file",
+  "rows": [],
+  "requests": [
+    "complete"
+  ],
+  "externalPosts": [],
+  "profile": "temporary",
+  "browserVersion": "158.0.8127.88",
+  "storageBefore": {
+    "quota": 10789429264,
+    "usage": 52011024,
+    "usageDetails": {
+      "caches": 51937296,
+      "indexedDB": 73728
+    }
+  },
+  "firstText": "水",
+  "coldMs": 17505,
+  "firstPaperContext": [
+    {
+      "source": "water",
+      "context": "A sample of water was kept in the shade."
+    }
+  ],
+  "selectedSentences": [
+    {
+      "source": "The measured concentration was 0.25 mg/mL (Fig. 2c).",
+      "translation": "测得的浓度为0.25毫克/毫升（图2c）。"
+    },
+    {
+      "source": "Abaucin comprises three structural moieties: benzoxazine, piperidine,\nand trifluoromethyl-phenyl group (Fig. 3b).",
+      "translation": "Abaucin由三个结构单元组成：benzoxazine、piperidine和trifluoromethyl-phenyl基团（图3b）。"
+    }
+  ],
+  "reloadedText": "水",
+  "reloadMs": 10266
+}

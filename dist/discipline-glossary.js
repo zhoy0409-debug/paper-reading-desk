@@ -87,6 +87,7 @@ function matcher(field){
   return result;
 }
 const senses=[
+  ['phantom',/\b(?:scanned|scanners?|scatterers?|imaged|B[- ]scan|simulated and experimental images|tissue[- ]mimicking)\b/i,'体模'],
   ['SEM',/scanning electron|electron micrographs?/i,'扫描电子显微镜（SEM）'],
   ['SEM',/standard error of (?:the )?mean|mean\s*(?:±|\+\/-)\s*SEM/i,'均值标准误（SEM）'],
   ['SEM',/structural equation model|latent variables?/i,'结构方程模型（SEM）'],
@@ -105,7 +106,8 @@ export function fieldTerms(text,choice='auto',context=''){
     return {index:m.index,original:m[0],value:terms.get(normalizedKey(m[0]))};
   });
   const matches=[];
-  for(const m of text.matchAll(/\b(?:SEM|expression|resistance|vehicle control)\b/gi)){
+  for(const m of text.matchAll(/\b(?:SEM|expression|resistance|vehicle control|phantom)\b/gi)){
+    if(/^phantom$/i.test(m[0])&&/^\s+(?:limb|pain|sensation|load|power|stock|income)\b/i.test(text.slice(m.index+m[0].length)))continue;
     const options=senses.filter(([key,cue])=>m[0].toLowerCase()===key.toLowerCase()&&cue.test(scope));
     if(options.length!==1)continue;
     const entry=base.find(t=>m.index<t.index+t.original.length&&t.index<m.index+m[0].length);

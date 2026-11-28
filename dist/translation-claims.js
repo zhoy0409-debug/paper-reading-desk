@@ -68,5 +68,20 @@ export function claimIssues(source,target,field) {
   const mean=target.match(/(?:小时|时|日|周|月|年)(?:平均|均)(?=[\u3400-\u9fff\d])/);
   if(cadence&&mean&&!/\b(?:mean|averag\w*)\b/i.test(source))
     issues.push({code:'relation',severity:'severe',sourceEvidence:cadence[0],targetEvidence:mean[0]});
+  const risk=source.match(/\b(?:with|associated with|linked to) (?:an? )?(?:lower|higher|increased|reduced) risk\b/i);
+  const intervention=target.match(/(?:会|可(?:以|能)?|能够|从而|有助于)(?:有效|显著)?(?:降低|提高|增加|减少)[^。；，]{0,24}(?:风险|危险性)/);
+  if(risk&&intervention&&!/\b(?:caus\w*|prevent\w*|reduc(?:es?|ing)|increas(?:es?|ing)|leads? to|results? in)\b/i.test(source))
+    issues.push({code:'causality',severity:'severe',sourceEvidence:risk[0],targetEvidence:intervention[0]});
+  const sequence=source.match(/^(?:following|after) (?:each|every|the last|the final) (?:[a-z-]+ ){0,2}(?:trial|condition|scan|test|visit|session)\b/i);
+  if(sequence&&!/(?:后|结束|完成|之后|随后)/.test(target))
+    issues.push({code:'sequence',severity:'severe',sourceEvidence:sequence[0]});
+  const wholeRecording=source.match(/\b(?:each|every|per)\s+(?:video|recording|image)\b(?![- ](?:frame|pixel))/i);
+  const subdivision=target.match(/(?:每(?:一)?帧(?:视频|录像|影像)|每(?:一)?(?:个)?像素)/);
+  if(wholeRecording&&subdivision&&!/\b(?:frames?|pixels?)\b/i.test(source))
+    issues.push({code:'relation',severity:'severe',sourceEvidence:wholeRecording[0],targetEvidence:subdivision[0]});
+  const conjecture=source.match(/\b(?:would|might|could) have (?:been|reached|occurred|resulted|arisen)\b/i);
+  const certainty=target.match(/已(?:经)?(?:达到|产生|发生|出现|完成|证实|确定)|确实(?:是|达到|发生)/);
+  if(conjecture&&certainty&&!/本应|原应|推测|推断|可能|或许|应(?:当|该|已|为|处于)|本可|本会|本来会/.test(target))
+    issues.push({code:'modality',severity:'severe',sourceEvidence:conjecture[0],targetEvidence:certainty[0]});
   return issues;
 }

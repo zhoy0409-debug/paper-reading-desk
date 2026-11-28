@@ -124,6 +124,25 @@ async function main(){
     assert.ok(results.requests.length>=1);
     if(process.env.LOCAL_TRANSLATION_SCREEN)await popup.screenshot({path:process.env.LOCAL_TRANSLATION_SCREEN});
     const before=results.requests.length;
+    if(!corpus){
+      results.selectedSentences=[];
+      for(const test of [
+        {source:'The measured concentration was 0.25 mg/mL (Fig. 2c).',
+          required:[/浓度/,/0\.25\s*(?:mg\s*\/\s*m[lL]|毫克\s*[每/／]\s*毫升)/i,/(?:图|Fig\.)\s*2c/i]},
+        {source:/Abaucin comprises three\s+structural moieties[\s\S]{0,115}?phenyl group\s*\(Fig\.\s*3b\)\./i,
+          required:[/Abaucin/i,/[三3](?:种|个|大)?(?:[^。]{0,10})结构|结构[^。]{0,10}[三3]/,
+            /benzoxazine|苯并[噁恶]嗪/i,/piperidine|哌啶/i,/trifluoromethyl[ -]phenyl|三氟甲基.{0,5}苯基/i,/(?:图|Fig\.)\s*3b/i]}
+      ]){
+        await popup.locator('.selection-close').click();
+        const source=await selectText(page,test.source);await popup.locator('.selection-translate').click();
+        const translation=await finished();
+        results.selectedSentences.push({source,translation});save();
+        assert.equal(await popup.getAttribute('data-translation-state'),'translated');
+        for(const expected of test.required)assert.match(translation,expected);
+        if(process.env.LOCAL_TRANSLATION_SCIENCE_SCREEN&&source.includes('moieties'))
+          await popup.screenshot({path:process.env.LOCAL_TRANSLATION_SCIENCE_SCREEN});
+      }
+    }
     if(corpus){
       const inputs=fs.readFileSync(corpus,'utf8').trim().split(/\r?\n/).map(JSON.parse);
       const documents=papers?JSON.parse(fs.readFileSync(papers,'utf8')):{};

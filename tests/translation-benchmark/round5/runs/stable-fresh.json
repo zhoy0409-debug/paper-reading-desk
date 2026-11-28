@@ -1,0 +1,418 @@
+{
+  "url": "https://zhoy0409-debug.github.io/paper-reading-desk/read/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "L01",
+      "chars": 210,
+      "from": "en",
+      "ms": 56328,
+      "text": "研究结果表明，急性失眠受试者的昼夜节律成分略有但显着延迟，即更大的杂技，以及杂技和振幅的日常变化。",
+      "status": "translated"
+    },
+    {
+      "id": "L02",
+      "chars": 275,
+      "from": "en",
+      "ms": 246,
+      "text": "从与非回旋趋势或中音相对应的最显性λ1/λtot和(λ2 + λ3)/λto对应于周期的昼夜节律周期，向下到更高阶的λk/λtot,k ≥4对应于超音速波动。",
+      "status": "translated"
+    },
+    {
+      "id": "L03",
+      "chars": 235,
+      "from": "en",
+      "ms": 96,
+      "text": "在图6中，根据Eq(6),结果显示日内变异IV(P)作为采样间隔P的函数的非参数测量，比较无症状对照组和急性失眠受试者。",
+      "status": "translated"
+    },
+    {
+      "id": "L04",
+      "chars": 224,
+      "from": "en",
+      "ms": 126,
+      "text": "趋势倾向于降低时间序列的kurtosis,因为可以通过在随机高斯噪声中添加线性趋势(Kurt = 3)来轻松验证，这将kurtosis降低到更plykurtic值(Kurt<3),请参阅S1文件中的图14。",
+      "status": "translated"
+    },
+    {
+      "id": "L05",
+      "chars": 145,
+      "from": "en",
+      "ms": 214,
+      "text": "另一方面，分形 1 以前在使用的行为学数据中观察到的 /f 行为 DFA 在衰老和痴呆的背景下 34 – 36 ].",
+      "status": "translated"
+    },
+    {
+      "id": "L06",
+      "chars": 337,
+      "from": "en",
+      "ms": 178,
+      "text": "在图2中，平均24小时行为术概况与无症状控制人群和急性失眠受试者进行比较。 在这里，以及在以下内容中，使用Krukal-Wallis非参数测试(IBM SPSS软件版本22)计算统计显著性，先验显著性水平为p = 0.05。",
+      "status": "translated"
+    },
+    {
+      "id": "L07",
+      "chars": 89,
+      "from": "en",
+      "ms": 70,
+      "text": "这次搜索使观察到的漂白报告数量增加了79%,从4146增加到7429。",
+      "status": "translated"
+    },
+    {
+      "id": "L08",
+      "chars": 145,
+      "from": "en",
+      "ms": 101,
+      "text": "面积基于0.04°×0.04°纬度网格细胞，代表原始ReefBase报告(蓝色)和新报告(橙色)。",
+      "status": "translated"
+    },
+    {
+      "id": "L09",
+      "chars": 236,
+      "from": "en",
+      "ms": 562,
+      "text": "如此大规模的珊瑚“漂白”的情节从早期开始就在世界各地 1980 导致广泛的珊瑚死亡，并提出了关于珊瑚礁生态系统在快速气候变化期间的可行性的质疑。 2 ] [ 3 ] [ 4 ].",
+      "status": "translated"
+    },
+    {
+      "id": "L10",
+      "chars": 220,
+      "from": "en",
+      "ms": 715,
+      "status": "failed",
+      "error": "Translated passage did not preserve the source evidence",
+      "stage": "validation",
+      "reason": "facts"
+    },
+    {
+      "id": "L11",
+      "chars": 121,
+      "from": "en",
+      "ms": 178,
+      "text": "它也可以应用于检查其他因素的影响，如热历史[25][20]和珊瑚礁弹性[26]。",
+      "status": "translated"
+    },
+    {
+      "id": "L12",
+      "chars": 316,
+      "from": "en",
+      "ms": 416,
+      "text": "虽然数量众多，但2005年的新报告集中在东加勒比，每个网格单元有多份报告。 网格数据显示，新报告在报告的漂白细胞面积(超过ReefBase)中增加了61%,其中50%的增幅发生在2005年，2006年为14%,2010年为9%。",
+      "status": "translated"
+    },
+    {
+      "id": "L13",
+      "chars": 161,
+      "from": "en",
+      "ms": 169,
+      "text": "实验结果表明，该传感器是使用太阳能和无线通信监测大型农田水分的有前途的工具。",
+      "status": "translated"
+    },
+    {
+      "id": "L14",
+      "chars": 157,
+      "from": "en",
+      "ms": 327,
+      "text": "为=整体运行时间，Tw=测量土壤含水量的时间，Td=中间的延迟时间，Ts=发送数据的时间，TF=将数据写入FLASH的时间。",
+      "status": "translated"
+    },
+    {
+      "id": "L15",
+      "chars": 227,
+      "from": "en",
+      "ms": 332,
+      "text": "图 5　结果表明，在实验室条件下的校准结果在边缘电容传感器和VSWC的输出之间具有二次方程(R2 = 0.9989),范围从干燥到饱和(约40%)。",
+      "status": "translated"
+    },
+    {
+      "id": "L16",
+      "chars": 184,
+      "from": "en",
+      "ms": 245,
+      "text": "因此，探针板之间土壤中存在水，其电容产生高度显著的变化，水浓度越高，电容越高。",
+      "status": "translated"
+    },
+    {
+      "id": "L17",
+      "chars": 193,
+      "from": "en",
+      "ms": 229,
+      "text": "为了使传感器在土壤中易于访问，其中一个电极具有圆锥形，另一个电极是环状的，两个电极之间有PVC绝缘隔离环。",
+      "status": "translated"
+    },
+    {
+      "id": "L18",
+      "chars": 354,
+      "from": "en",
+      "ms": 147,
+      "text": "通过解释获得的数据，更好地了解田间土壤的物理特性并管理作物的资源保护生长过程是有益的。 另一方面，从实验克服与太阳能电池板尺寸与能耗相关的问题，传感器有可能在物理维度上进行小型化。",
+      "status": "translated"
+    },
+    {
+      "id": "L19",
+      "chars": 218,
+      "from": "en",
+      "ms": 90,
+      "text": "学龄前认知能力与口腔眼球运动模式的关系比无声阅读更密切，而阅读技能则预测了无声阅读期间的眼球运动模式，但在口阅读时则不那么相关。",
+      "status": "translated"
+    },
+    {
+      "id": "L20",
+      "chars": 184,
+      "from": "en",
+      "ms": 188,
+      "text": "绿色和橙色线表示显著相关 (p <。 05 )，表明在K- ABC尺度上更好的性能与更高效的眼球运动性能有关。",
+      "status": "translated"
+    },
+    {
+      "id": "L21",
+      "chars": 159,
+      "from": "en",
+      "ms": 90,
+      "text": "口头阅读时，阅读技能可靠地预测了saccadic振幅，回归模型占方差的36%(F(2,18)=5.01,p <.05)。",
+      "status": "translated"
+    },
+    {
+      "id": "L22",
+      "chars": 203,
+      "from": "en",
+      "ms": 90,
+      "text": "首先，LGVT是对无声阅读技能的测试，与口头阅读相比，阅读技能与眼球运动之间的更密切关系(见第3.4节)是假设的。",
+      "status": "translated"
+    },
+    {
+      "id": "L23",
+      "chars": 279,
+      "from": "en",
+      "ms": 438,
+      "text": "虽然有大量文献将沉默与口头阅读进行比较，但速度/效率或文本理解(例如，[ 3 – 8 大多数眼球运动研究都集中在无声阅读的特征上(例如，[] 9 – 13 ]; 有一项审查，见 [ 14 ]).",
+      "status": "translated"
+    },
+    {
+      "id": "L24",
+      "chars": 541,
+      "from": "en",
+      "ms": 260,
+      "text": "在他们的英语第一至五年级学生的样本中，作者发现口头阅读与更长的固定和固定持续时间，更频繁的重新固定以及更高的固定单词的可能性有关。 有趣的是，除了较短的萨卡德，Vorstius及其同事[26]发现，与无声阅读相比，口头上的重读时间更短，字间回归更少，作者将其归因于保持最佳眼睛语音跨度的努力(即眼睛在声音前面的距离;例如，[15,20,22])。",
+      "status": "translated"
+    },
+    {
+      "id": "L25",
+      "chars": 187,
+      "from": "en",
+      "ms": 57,
+      "text": "这项研究表明，我们设计的SERS表面可以用作细胞培养条件表征和细胞功能状态的多功能工具。",
+      "status": "translated"
+    },
+    {
+      "id": "L26",
+      "chars": 73,
+      "from": "en",
+      "ms": 31,
+      "text": "DIV0对应于完整的DMEM,没有细胞培养条件。",
+      "status": "translated"
+    },
+    {
+      "id": "L27",
+      "chars": 244,
+      "from": "en",
+      "ms": 131,
+      "text": "在LPS刺激后0,6,9,15,20和24小时，收集了Raw 264.7细胞的条件介质样本，并且根据制造程序(BioLegend,San Diego,CA,USA),ELISA对IL12p40细胞因子进行了量化。",
+      "status": "translated"
+    },
+    {
+      "id": "L28",
+      "chars": 267,
+      "from": "en",
+      "ms": 123,
+      "text": "如图2A所示，在Ag纳米结构基板(红线)上获得的1μM浓度下，R6G的SERS光谱中的峰值相对于在Ag平面(40nm溅射Ag)基板(黑线)上获得的相应光谱具有更高的强度。",
+      "status": "translated"
+    },
+    {
+      "id": "L29",
+      "chars": 89,
+      "from": "en",
+      "ms": 39,
+      "text": "事实上，对于生物样本来说，它相对容易，无标签和无损。",
+      "status": "translated"
+    },
+    {
+      "id": "L30",
+      "chars": 429,
+      "from": "en",
+      "ms": 170,
+      "text": "获得的结果表明，工程SERS表面如何用作多分析物检测的有效工具，并代表能够探测细胞系统“年龄”的多功能生物传感器。 因此，可以想象，有可能使用这个系统来区分病理与生理生物样本，以及细胞类型的激活/分化状态，即静止或活化淋巴细胞[7]。",
+      "status": "translated"
+    },
+    {
+      "id": "L31",
+      "chars": 165,
+      "from": "en",
+      "ms": 71,
+      "text": "将骨形态蛋白-2(BMP-2)添加到培养基中，进一步增加了骨质疏松，基质矿化增加就证明了这一点。",
+      "status": "translated"
+    },
+    {
+      "id": "L32",
+      "chars": 158,
+      "from": "en",
+      "ms": 59,
+      "text": "当凝胶的MeHA聚合物浓度增加时，细胞周围的较大区域染成红色，表明钙沉积到周围的基质中。",
+      "status": "translated"
+    },
+    {
+      "id": "L33",
+      "chars": 209,
+      "from": "en",
+      "ms": 88,
+      "text": "根据多孔立方体的结果，“脊椎通道”在3%(w/v)凝胶中保持最佳完整，这表明水凝胶刚性也在这些支架的形状维护中发挥了作用。",
+      "status": "translated"
+    },
+    {
+      "id": "L34",
+      "chars": 216,
+      "from": "en",
+      "ms": 302,
+      "text": "在未接受外部雌激素刺激的水凝胶中( BMP-2 ),增加 MeHA 聚合物浓度导致显著更高的钙沉淀形成(在 2.5 – 3% (w/v) 与 1.5%  (w/v).",
+      "status": "translated"
+    },
+    {
+      "id": "L35",
+      "chars": 93,
+      "from": "en",
+      "ms": 38,
+      "text": "遵循这种方法，可以在高分子量HA上获得受控的DS。",
+      "status": "translated"
+    },
+    {
+      "id": "L36",
+      "chars": 402,
+      "from": "en",
+      "ms": 148,
+      "text": "当雌激素刺激(BMP-2)被添加到具有内在骨质的水凝胶中时，观察到增加矿化的协同模式。 这些数据表明，MeHA水凝胶可以作为再生医学中骨再生目的的合适支架材料，当选择适当的水凝胶浓度时，选择粘弹性特性[38]。",
+      "status": "translated"
+    },
+    {
+      "id": "L37",
+      "chars": 113,
+      "from": "en",
+      "ms": 49,
+      "text": "除了运动协调任务外，我们还在(n-back)工作记忆任务中评估了这些影响。",
+      "status": "translated"
+    },
+    {
+      "id": "L38",
+      "chars": 257,
+      "from": "en",
+      "ms": 133,
+      "text": "dACC → SMA 连接在参与者过渡到任务活动状态时增加，相对于其他状态(t = 3.73,p < .05,校正 )。 (b) 描述的内存状态中交互的交叉不是显著的(校正 )。",
+      "status": "translated"
+    },
+    {
+      "id": "L39",
+      "chars": 89,
+      "from": "en",
+      "ms": 45,
+      "text": "总任务持续时间为8分20秒，所有数据都通过一次运行收集。",
+      "status": "translated"
+    },
+    {
+      "id": "L40",
+      "chars": 94,
+      "from": "en",
+      "ms": 136,
+      "text": "分析表明，灵敏度明显大于零(t 9 = 15.96,p <。 001 )",
+      "status": "translated"
+    },
+    {
+      "id": "L41",
+      "chars": 261,
+      "from": "en",
+      "ms": 131,
+      "text": "我们注意到，我们应用的连接模型(dFC)和结果(其余情况下的特定子网络和任务状态的非对称dFC)与这一概念一致，并进一步表明静息状态的这种准备作用可能是空间特异性的。",
+      "status": "translated"
+    },
+    {
+      "id": "L42",
+      "chars": 252,
+      "from": "en",
+      "ms": 264,
+      "status": "failed",
+      "error": "Translated passage did not preserve the source evidence",
+      "stage": "validation",
+      "reason": "facts"
+    },
+    {
+      "id": "L43",
+      "chars": 155,
+      "from": "en",
+      "ms": 115,
+      "text": "即使由于总谐波失真(THD)和不平衡负载而导致电网中断，也很难补偿不平衡的负载。",
+      "status": "translated"
+    },
+    {
+      "id": "L44",
+      "chars": 162,
+      "from": "en",
+      "ms": 371,
+      "text": "系统原理图和 MG : (a) 无任何补偿装置; (b) 带有源和无源滤波器; (c) 仅使用 PV 上建议的控制方法。",
+      "status": "translated"
+    },
+    {
+      "id": "L45",
+      "chars": 100,
+      "from": "en",
+      "ms": 226,
+      "text": "PV通过GCI连接到MG,产生扭曲的波形，具有11.04% THD。",
+      "status": "translated"
+    },
+    {
+      "id": "L46",
+      "chars": 186,
+      "from": "en",
+      "ms": 145,
+      "text": "为了创建三个当前引用，已经提出了一个PLL系统，其中每个系统的错误被引导到控制器中，并且可以比较相应的测量电流。",
+      "status": "translated"
+    },
+    {
+      "id": "L47",
+      "chars": 108,
+      "from": "en",
+      "ms": 274,
+      "text": "因此，这种方法被验证为能够满足IEEE 519 – 1992推荐的谐波标准限值。",
+      "status": "translated"
+    },
+    {
+      "id": "L48",
+      "chars": 286,
+      "from": "en",
+      "ms": 468,
+      "text": "拟议的控制方法适用于PV ;但是，FC由普通接口转换器连接到电网，没有控制策略。 MT的频率为1，500 Hz,与普通发电机相似，但其输出电压频率为1，500 Hz。",
+      "status": "translated"
+    }
+  ],
+  "probes": {},
+  "snapshots": [
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 86,
+      "modelReady": [
+        {
+          "start": 64464.69999999553,
+          "end": 64666.09999999404,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 74568.79999999702
+    }
+  ],
+  "version": "0.4.18"
+}

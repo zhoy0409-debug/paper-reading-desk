@@ -1,7 +1,7 @@
 // A bilingual surface check, not a semantic quality score. Normalize only the
 // comparison copy. The reader retains the exact selected text alongside it.
-import {chemicalNames, missingAssignments, missingBoundRoles, symbolicKeys} from './translation-anchors.js?rev=evidence2';
-import {claimIssues} from './translation-claims.js';
+import {chemicalNames, missingAssignments, missingBoundRoles, symbolicKeys} from './translation-anchors.js?rev=identity1';
+import {claimIssues} from './translation-claims.js?rev=identity1';
 const superscripts='⁰¹²³⁴⁵⁶⁷⁸⁹', digits='零一二三四五六七八九';
 const words=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
 const counts='samples?|groups?|sites?|days?|hours?|minutes?|times?|participants?|subjects?|patients?|replicates?|units?|approaches|methods?|structures?|structural|fold|classes|trials?|cases?|categories|stages?|explanations?|reasons?|interpretations?';
@@ -32,6 +32,7 @@ export function comparisonText(s){
     .replace(/(\d+(?:\.\d+)?)\s*[×x·]\s*10\s*\^\s*([+-]?\d+)/g,'$1e$2')
     .replace(/\bone(?= of (?:the |these |our )?\w+)/gi,'1')
     .replace(/\bboth (?:the )?axes\b/gi,'2 axes')
+    .replace(/\bone(?=\s+\w+[ -](?:was|is)\s+(?:delivered|applied|administered)\b)/gi,'1')
     .replace(numberWord,m=>String(words.indexOf(m.toLowerCase())))
     .replace(/\b(two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\b(?!-[a-z])/gi,m=>String(words.indexOf(m.toLowerCase())))
     .replace(/\b((?:set|fixed|equal) (?:to|at)) (one|zero)\b/gi,(_,verb,n)=>verb+' '+words.indexOf(n.toLowerCase()))
@@ -40,7 +41,8 @@ export function comparisonText(s){
     .replace(/\b(?:in|of) (duplicate|triplicate|quadruplicate)\b/gi,(_,w)=>({duplicate:'2',triplicate:'3',quadruplicate:'4'})[w.toLowerCase()])
     .replace(/\b(?:the |a |an )?(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)(?=\s+[a-z]{2})/gi,(_m,n)=>'第'+(ordinals.indexOf(n.toLowerCase())+1)+' ')
     .replace(/第([一二三四五六七八九十]+)/g,(_m,n)=>'第'+chineseCount(n))
-    .replace(/([零一二三四五六七八九两十]{1,3})(?=个|组|种|例|名|项|类|倍|次|天|小时|分钟|份|处|阶段|套|位)/g,(m)=>String(chineseCount(m)))
+    .replace(/首次/g,'第1次')
+    .replace(/([零一二三四五六七八九两十]{1,3})(?=个|组|种|例|名|项|类|倍|次|天|小时|分钟|份|处|阶段|套|位|款)/g,(m)=>String(chineseCount(m)))
     .replace(/([二三四五六七八九十]{1,3})(?=大(?:主要)?[\u3400-\u9fff]{1,8})/g,m=>String(chineseCount(m)))
     .replace(/(?:no fewer than|no less than|not less than|greater (?:than )?or equal to|at least|不小于|不低于|不少于|至少(?:达到|需要|有|为)?|大于(?:或)?等于|≥|>=)\s*/gi,'≥')
     .replace(/(?:no more than|not more than|no greater than|less (?:than )?or equal to|at most|不高于|不大于|不超过|至多(?:为)?|小于(?:或)?等于|≤|<=)\s*/gi,'≤')
@@ -54,10 +56,11 @@ export function comparisonText(s){
     .replace(/千瓦(?:特)?(?:小)?时|千瓦·?小时/g,'kWh').replace(/瓦(?:特)?(?:·?小时|时)/g,'Wh')
     .replace(/千瓦(?:特)?/g,'kW').replace(/瓦特|瓦/g,'W').replace(/千焦(?:耳)?/g,'kJ').replace(/焦耳/g,'J')
     .replace(/\b(k?W)\s*[·⋅]\s*h\b/g,'$1h').replace(/(k?Wh?|k?J)\s*每\s*(?=[cmk]*m[23]?)/g,'$1/')
-    .replace(/千米|公里/g,'km').replace(/厘米/g,'cm').replace(/毫米/g,'mm').replace(/微米/g,'µm').replace(/纳米/g,'nm').replace(/米(?=\s*[/／])/g,'m')
+    .replace(/千米|公里/g,'km').replace(/厘米/g,'cm').replace(/毫米/g,'mm').replace(/微米/g,'µm').replace(/纳米/g,'nm').replace(/(\d\s*)米(?!粒)/g,'$1m').replace(/米(?=\s*[/／])/g,'m')
     .replace(/毫升/g,'mL').replace(/微升/g,'µL').replace(/升(?=\s*(?:[/.。]|$))/g,'L')
     .replace(/小时|hours?\b/gi,'h').replace(/分钟|minutes?\b/gi,'min').replace(/秒钟?|seconds?\b/gi,'s')
     .replace(/摄氏度|degrees?\s+Celsius/gi,'°C').replace(/百分之\s*(\d+(?:\.\d+)?)/g,'$1%')
+    .replace(/(\d)\s+(?:per\s+cent|percent)\b/gi,'$1%')
     .replace(/(\d)\s+(?:valid|consecutive|eligible|complete)\s+(?=days?\b|h\b|min\b)/gi,'$1 ')
     .replace(/\b(fig(?:ure)?s?\.?\s+)(S?\d+[a-z]?)\s+(?:and|&)\s+(S?\d+[a-z]?)(?![a-z\d])/gi,'Fig. $2 and Fig. $3')
     .replace(/(图\s*S?\d+[a-z]?)\s*(?:和|及|与|、)\s*(S?\d+[a-z]?)/gi,'$1、图$2');
@@ -130,8 +133,8 @@ export function restorePrintedUnits(source,target){
 }
 const directions=s=>{
   const flags=[];
-  if(/\b(?:increas\w*|improv\w*|enhanc\w*|strengthen\w*|greater|stronger|rose|ris(?:e|es|ing)|higher|upregulat\w*|grew|grows?|growing)\b|增加|增长|增多|升高|上升|提高|提升|上调|高于|增强|加强|改善|改进|较高|更高|较强|更强|增大|日益|更具多样性/i.test(s))flags.push('up');
-  if(/\b(?:decreas\w*|declin\w*|(?:fell|falls?)(?! (?:along|on|within|into|under|between)\b)|reduc\w*|lower(?! (?:panel|left|right|case|limb)s?\b)|downregulat\w*)\b|减少|降低|下降|下调|减弱|低于|减小|较低|更低|变低/i.test(s))flags.push('down');
+  if(/\b(?:increas\w*|improv\w*|enhanc\w*|strengthen\w*|greater|larger|stronger|rose|ris(?:e|es|ing)|higher|upregulat\w*|grew|grows?|growing)\b|增加|增长|增多|升高|上升|提高|提升|上调|高于|增强|加强|改善|改进|较高|更高|较强|更强|强于|较大|更大|增大|日益|更具多样性/i.test(s))flags.push('up');
+  if(/\b(?:decreas\w*|declin\w*|(?:fell|falls?)(?! (?:along|on|within|into|under|between)\b)|reduc\w*|smaller|lower(?! (?:panel|left|right|case|limb)s?\b)|downregulat\w*)\b|减少|降低|下降|下调|减弱|减轻|低于|减小|较低|更低|较小|更小|变低/i.test(s))flags.push('down');
   return flags;
 };
 function associations(s){
@@ -156,7 +159,7 @@ const statLabels=[
   ['MIC',/\bMIC\b|minimum inhibitory concentration|最低抑菌浓度/i],['MBC',/\bMBC\b|minimum bactericidal concentration|最低杀菌浓度/i]
 ];
 function negationMismatch(en,zh){
-  const explicit=/\b(?:not(?! only)|no|without|neither|never|fail(?:ed|s)? to|none)\b/i.test(en);
+  const explicit=/\b(?:not(?! only)|no|without|neither|never|fail(?:ed|s)? to|none|non[- ]?existent)\b/i.test(en);
   if(explicit)return !/不(?!同|等式|确定性|良)|未(?!来|知数)|并非|无(?!监督|线|限|机|损|量纲)|没有|缺乏|缺少|与否/.test(zh);
   const chineseNegative=/没有|并未|并非|未能|不存在|不(?:显著|显着|升高|上升|增加|降低|下降|减少)|无统计学意义/.test(zh);
   return chineseNegative&&!/\b(?:non[- ]?significant|insignificant|unchanged|unchanging|absen\w*|lack\w*|unlikely|unable|undetect\w*|unaffected|unrelated|remain(?:ed)? stable)\b/i.test(en);
@@ -180,7 +183,15 @@ function protectedIds(s){
   return s.match(/\b(?:[A-Z]{2,}[A-Z0-9]*[-_][A-Za-z\d_-]*\d[A-Za-z\d_-]*|[A-Z][A-Za-z]*\d+[A-Za-z\d_-]*|[A-Z][a-z]+[A-Z][\w-]*)\b/g)||[];
 }
 export function validateScientific(source,target,{from='en',terms=[],field}={}){
-  const a=comparisonText(source),b=comparisonText(target),issues=[];
+  let a=comparisonText(source),b=comparisonText(target);
+  const issues=[];
+  // “Both methods” and “两种方法” express the same number. Only supply the count
+  // when the corresponding noun occurs, so unrelated missing values stay visible.
+  for(const [en,zh] of [['methods?','种方法'],['groups?','组'],['samples?','个样(?:品|本)'],['models?','种模型']]){
+    const both=new RegExp('\\bboth (?:the )?('+en+')\\b','gi');
+    if(from==='en'&&new RegExp('2'+zh).test(b))a=a.replace(both,'2 $1');
+    if(from==='zh'&&new RegExp('2'+zh).test(a))b=b.replace(both,'2 $1');
+  }
   const flag=(code,severity='severe',detail='',evidence)=>issues.push({code,severity,detail,...evidence});
   const han=/[\u3400-\u9fff]/u;
   if(!target?.trim()||source.trim()===target.trim()||(from==='en'?!han.test(b):!/[A-Za-z]{2}/.test(b)))flag('target');
@@ -212,9 +223,16 @@ export function validateScientific(source,target,{from='en',terms=[],field}={}){
     }
     for(const assignment of missingAssignments(source,target))
       flag('assignment','severe','',{sourceEvidence:assignment.original});
-    const canonical=s=>s.toLowerCase().normalize('NFKC').replace(/\s+/g,'');
+    const normalizedTarget=target.normalize('NFKC');
+    const retainsName=name=>{
+      const normalized=name.normalize('NFKC');
+      const escaped=normalized.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s*');
+      const left=/^[A-Za-z0-9]/.test(normalized)?'(?<![A-Za-z0-9])':'';
+      const right=/[A-Za-z0-9]$/.test(normalized)?'(?![A-Za-z0-9])':'';
+      return new RegExp(left+escaped+right,'iu').test(normalizedTarget);
+    };
     for(const term of chemicalNames(source,terms)){
-      if(!canonical(target).includes(canonical(term.value))&&!canonical(target).includes(canonical(term.original)))
+      if(!retainsName(term.value)&&!retainsName(term.original))
         flag('chemical-identity','severe',term.original,{sourceEvidence:term.original});
     }
   }
@@ -249,7 +267,9 @@ export function validateScientific(source,target,{from='en',terms=[],field}={}){
   for(const [key,re] of relations)if(re.test(a)&&!re.test(b))flag('relation','severe',key);
   for(const term of terms){
     if(!target.includes(term.value)){
-      if(target.toLowerCase().includes(term.original.toLowerCase()))flag('retained-term','advisory',term.original);
+      if(term.value==='体模'&&/幻像|幻象|幻影|幽灵/.test(target))
+        flag('term','severe',term.original,{sourceEvidence:term.original+' = '+term.value});
+      else if(target.toLowerCase().includes(term.original.toLowerCase()))flag('retained-term','advisory',term.original);
       else flag('term','advisory',term.original);
     }
   }

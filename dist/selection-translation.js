@@ -327,6 +327,8 @@ const issueText={
   quantity:['数值或单位','quantity or unit'],group:['组别对应','group comparison'],direction:['变化方向','direction'],
   identifier:['标识符','identifier'],statistic:['统计量','statistic'],figure:['图号','figure'],panel:['分图','panel'],
   significance:['统计显著性','significance'],negation:['否定关系','negation'],causality:['因果关系','causality'],
+  sequence:['事件先后顺序','order of events'],
+  modality:['推断或已观察到的结果','inferred or observed outcome'],
   term:['术语用法','terminology'],'retained-term':['保留英文术语','retained term'],referent:['跨句指代','cross-sentence reference'],
   bound:['阈值条件','threshold condition'],assignment:['设定值','assigned value'],replicates:['重复测量','replicates'],'chemical-identity':['化学全称','chemical identity'],
   relation:['比较关系','comparison'],'chemical-name':['化学名称待核对','chemical names to verify'],alignment:['回译中未找到的原文词','words missing in back-translation'],'alignment-unavailable':['回译未完成','back-translation unavailable'],

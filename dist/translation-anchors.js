@@ -1,6 +1,8 @@
 // Scientific expressions with explicit boundaries in the author's text. Only the
 // comparison copy is normalized. Reinsert the original spelling unless a glossary
 // actually supplies a translation of the entire chemical name.
+export const retainedScientificNames = ['abaucin'];
+
 export function chemicalNames(text, terms = []) {
   const spans = [];
   const compact = s => s.normalize('NFKC').toLowerCase().replace(/\s+/g, '');
@@ -26,7 +28,42 @@ export function chemicalNames(text, terms = []) {
   for (const m of text.matchAll(systematic)) {
     if (!spans.some(s => s.index <= m.index && m.index < s.index + s.original.length)) add(m.index,m[0]);
   }
-  return spans;
+  if (/\b(?:chemical|moiet(?:y|ies)|functional groups?|substituents?|molecul\w*)\b/i.test(text)) {
+    const component = /\b([a-z][a-z\d-]*(?:oxazine|azine|idine|anone|azole|amide|phenyl|alkyl|ethyl|enoate))\b(\s+groups?\b)?/gi;
+    for (const m of text.matchAll(component)) {
+      if (spans.some(s => s.index <= m.index && m.index < s.index + s.original.length)) continue;
+      const preferred = terms.find(t => compact(t.original) === compact(m[0]));
+      const name = terms.find(t => compact(t.original) === compact(m[1]))?.value ?? m[1];
+      const group = m[2] ? (/\p{Script=Han}$/u.test(name) ? '基团' : ' 基团') : '';
+      spans.push({index:m.index, original:m[0], value:preferred?.value ?? name + group});
+    }
+  }
+  for (const m of text.matchAll(/\b[A-Za-z][A-Za-z-]*\b/g)) {
+    if (retainedScientificNames.includes(m[0].toLowerCase()) &&
+        !spans.some(s => s.index <= m.index && m.index < s.index + s.original.length)) add(m.index, m[0]);
+  }
+  return spans.sort((a,b) => a.index-b.index);
+}
+
+// Keep each occurrence identifiable, including repeated names. A dropped, invented,
+// or duplicated marker leaves the direct translation available for review.
+export function maskChemicalNames(source, spans) {
+  let prefix = 'ZXQ';
+  while (source.toUpperCase().includes(prefix)) prefix += 'Z';
+  let end = 0, text = '';
+  const markers = new Map();
+  for (const span of spans) {
+    const key = prefix + String(markers.size + 1) + 'QXZ';
+    markers.set(key, span.value);
+    text += source.slice(end, span.index) + key;
+    end = span.index + span.original.length;
+  }
+  return {text:text + source.slice(end), restore(translation) {
+    const matches = translation.match(new RegExp(prefix + '\\d+QXZ', 'g')) ?? [];
+    if (matches.length !== markers.size || new Set(matches).size !== markers.size ||
+        matches.some(key => !markers.has(key))) return null;
+    return translation.replace(new RegExp(prefix + '\\d+QXZ', 'g'), key => markers.get(key));
+  }};
 }
 
 const limitPatterns = [

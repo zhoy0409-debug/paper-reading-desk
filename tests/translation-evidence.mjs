@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {validateScientific} from '../dist/translation-facts.js';
-import {chemicalNames, symbolicKeys} from '../dist/translation-anchors.js';
+import {chemicalNames,maskChemicalNames,symbolicKeys} from '../dist/translation-anchors.js';
 import {claimIssues,recoverClaimWording} from '../dist/translation-claims.js';
 
 for (const file of ['./translation-benchmark/control-pairs.json','./translation-benchmark/round2/contrast-pairs.json']) {
@@ -82,3 +82,29 @@ const converted='记录了3600焦耳。';
 assert.equal(restorePrintedUnits('The reading was 1 Wh.',converted),converted);
 assert.equal(validateScientific('The reading was 1 Wh.',converted).status,'checked');
 console.log('PASS dimensional equivalence, shared ranges, guarded unit recovery and comparison scope');
+
+const mixture='The chemical mixture contained acetamide, oxazole and acetamide.';
+const names=chemicalNames(mixture);
+assert.deepEqual(names.map(n=>n.original),['acetamide','oxazole','acetamide']);
+const markers=maskChemicalNames(mixture,names);
+assert.equal(markers.restore('该混合物含ZXQ1QXZ、ZXQ2QXZ和ZXQ3QXZ。'),'该混合物含acetamide、oxazole和acetamide。');
+for(const broken of ['ZXQ1QXZ、ZXQ1QXZ和ZXQ3QXZ','ZXQ1QXZ和ZXQ2QXZ','ZXQ1QXZ、ZXQ2QXZ和ZXQ7QXZ'])
+  assert.equal(markers.restore(broken),null);
+assert.ok(validateScientific(mixture,'该化学混合物含acetamide和异丙醇。').issues.some(i=>i.sourceEvidence==='oxazole'));
+const custom=[{original:'oxazole',value:'噁唑'}];
+assert.equal(validateScientific(mixture,'该化学混合物含acetamide、噁唑和acetamide。',{terms:custom}).status,'checked');
+assert.equal(validateScientific('The compound was poly(vinyl acetate).','该化合物是poly(vinyl acetate)。').status,'checked');
+const controls=[
+  ['Values were five percent and 4.2 m during the first visit.','首次访视记录到5%和4.2米。','首次访视记录到5%和4.2厘米。'],
+  ['Both methods measured two samples.','两种方法均测量了两个样本。','两种方法均测量了三个样本。'],
+  ['The larger amplitude was observed after cooling.','冷却后观察到较大振幅。','冷却后观察到较小振幅。'],
+  ['The survey described active adults with a lower risk of falls.','调查描述了跌倒风险较低的活跃成年人。','调查表明积极活动可降低成年人的跌倒风险。'],
+  ['Following each scan, readers recorded their ratings.','每次扫描后，读者都记录了评分。','每次扫描期间，读者记录了评分。'],
+  ['Each recording was assigned a label.','每段录像分配一个标签。','每一帧录像分配一个标签。'],
+  ['The peak might have occurred by noon.','峰值可能已经出现在中午之前。','中午前峰值已经出现。']
+];
+for(const [original,good,bad] of controls){
+  assert.equal(validateScientific(original,good).status,'checked',original);
+  assert.equal(validateScientific(original,bad).status,'review',original);
+}
+console.log('PASS missing chemical components, marker integrity, unit equivalence, temporal order and causal strength');
