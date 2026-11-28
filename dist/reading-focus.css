@@ -1,4 +1,5 @@
 /* Two reading distances: the whole plate for orientation, a foreground crop for close reading. */
+.rq-add-slide,.st-dock .frw-panel-tab{touch-action:manipulation}
 #literaturePane .frw-figure-head{padding-block:16px 12px}
 #literaturePane .frw-notes-top{display:grid;gap:8px;align-items:start}
 #literaturePane .frw-notes-top h3{font-size:clamp(18px,2vw,26px);margin:0;letter-spacing:.015em}
