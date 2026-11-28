@@ -4,10 +4,14 @@ import json
 import os
 import re
 import shutil
+import ssl
 import stat
 import tempfile
 import threading
+import time
 from pathlib import Path, PureWindowsPath
+from http.client import IncompleteRead
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import Request, build_opener, HTTPRedirectHandler
 from zipfile import ZipFile
@@ -46,6 +50,19 @@ def fetch(url):
     if not official(url):
         raise ValueError("Unexpected release URL")
     return build_opener(ReleaseRedirect()).open(Request(url, headers={"User-Agent": "Reading-Desk/" + VERSION}), timeout=45)
+
+
+def retry_transfer(operation):
+    for delay in (0.6, 2, None):
+        try:
+            return operation()
+        except (URLError, TimeoutError, ConnectionError, ssl.SSLEOFError, IncompleteRead) as exc:
+            reason = exc.reason if isinstance(exc, URLError) else exc
+            transient = (exc.code in (408, 429, 500, 502, 503, 504) if isinstance(exc, HTTPError)
+                         else isinstance(reason, (TimeoutError, ConnectionError, ssl.SSLEOFError, IncompleteRead)))
+            if delay is None or not transient:
+                raise
+            time.sleep(delay)
 
 
 def latest():
@@ -97,12 +114,25 @@ def unpack(archive, target, number):
         raise ValueError("Bundle version mismatch")
 
 
+def replace_when_available(source, target):
+    # Windows can temporarily reject renaming a directory while one of its
+    # newly extracted files is open, even after the ZIP and our handles close.
+    for delay in (0.2, 0.5, 1, 2, 4, 6, None):
+        try:
+            os.replace(source, target)
+            return
+        except OSError as exc:
+            if delay is None or getattr(exc, "winerror", None) not in (5, 32, 33):
+                raise
+            time.sleep(delay)
+
+
 def mark(store, name, value):
     fd, tmp = tempfile.mkstemp(dir=store)
     try:
         with os.fdopen(fd, "w", encoding="ascii") as out:
             out.write(value)
-        os.replace(tmp, store / name)
+        replace_when_available(tmp, store / name)
     finally:
         Path(tmp).unlink(missing_ok=True)
 
@@ -146,7 +176,7 @@ class Updater:
         try:
             if action == "check":
                 self.asset = None
-                number, assets = latest()
+                number, assets = retry_transfer(latest)
                 newer = version(number) > version(VERSION)
                 if newer:
                     self.asset = release_asset(number, assets)
@@ -156,18 +186,25 @@ class Updater:
             with tempfile.TemporaryDirectory(dir=self.store) as staging:
                 stage = Path(staging)
                 archive = stage / "bundle.zip"
-                received = 0
-                digest = hashlib.sha256()
-                with fetch(asset["browser_download_url"]) as response, archive.open("xb") as out:
-                    while chunk := response.read(256 * 1024):
-                        received += len(chunk)
-                        if received > asset["size"]:
-                            raise ValueError("Size mismatch")
-                        digest.update(chunk)
-                        out.write(chunk)
-                        self.change(received=received, total=asset["size"])
+                def download():
+                    received = 0
+                    digest = hashlib.sha256()
+                    self.change(phase="downloading", received=0, total=asset["size"])
+                    with fetch(asset["browser_download_url"]) as response, archive.open("wb") as out:
+                        while chunk := response.read(256 * 1024):
+                            received += len(chunk)
+                            if received > asset["size"]:
+                                raise ValueError("Size mismatch")
+                            digest.update(chunk)
+                            out.write(chunk)
+                            self.change(received=received)
+                    if received < asset["size"]:
+                        raise IncompleteRead(b"", asset["size"] - received)
+                    return digest.hexdigest()
+
+                downloaded_hash = retry_transfer(download)
                 self.change(phase="verifying")
-                if received != asset["size"] or digest.hexdigest() != asset["digest"][7:]:
+                if downloaded_hash != asset["digest"][7:]:
                     raise ValueError("Release verification failed")
                 next_app = stage / "app"
                 next_app.mkdir()
@@ -175,9 +212,15 @@ class Updater:
                 unpack(archive, next_app, number)
                 destination = self.store / number
                 # An interrupted, already unpacked installation can be retried.
+                previous = stage / "superseded"
                 if destination.exists():
-                    destination.rename(stage / "superseded")
-                next_app.rename(destination)
+                    replace_when_available(destination, previous)
+                try:
+                    replace_when_available(next_app, destination)
+                except OSError:
+                    if previous.exists():
+                        replace_when_available(previous, destination)
+                    raise
                 mark(self.store, "pending", number)
             self.change(phase="ready")
         except Exception as exc:
