@@ -47,7 +47,9 @@ export function indexPaperContext(rows,title='',lookup=()=>[]){
         if(!near){
           const before=passage.slice(0,at).trim().split(/(?<=[.!?])\s+/).at(-1)||'';
           const after=passage.slice(at+text.length).trim().split(/(?<=[.!?])\s+/)[0]||'';
-          near=[before.length<=420?before:'',after.length<=420?after:''].filter(Boolean).join(' ');
+          // A word or phrase needs the intact sentence it was selected from.
+          const embedded=(before&&!/[.!?]$/.test(before))||(!/[.!?]$/.test(text)&&after);
+          near=[before.length<=420?before:'',embedded?text:'',after.length<=420?after:''].filter(Boolean).join(' ');
         }
       }else if(!related&&passage.length>=30&&!text.includes(passage)){
         const candidate=passage.split(/(?<=[.!?])\s+(?=[A-Z])/).filter(s=>s.length>=24);

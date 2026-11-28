@@ -30,6 +30,8 @@ export function comparisonText(s){
     .replace(/(\d+(?:\.\d+)?)\s*(thousand|million|billion)\b/gi,(_,v,k)=>String(Number(v)*({thousand:1e3,million:1e6,billion:1e9})[k.toLowerCase()]))
     .replace(/(\d+(?:\.\d+)?)\s*(十亿|百万|万|亿|千(?!克|米|赫|瓦|焦|帕))/g,(_,v,k)=>String(Number(v)*({十亿:1e9,百万:1e6,万:1e4,亿:1e8,千:1e3})[k]))
     .replace(/(\d+(?:\.\d+)?)\s*[×x·]\s*10\s*\^\s*([+-]?\d+)/g,'$1e$2')
+    .replace(/\bone(?= of (?:the |these |our )?\w+)/gi,'1')
+    .replace(/\bboth (?:the )?axes\b/gi,'2 axes')
     .replace(numberWord,m=>String(words.indexOf(m.toLowerCase())))
     .replace(/\b(two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\b(?!-[a-z])/gi,m=>String(words.indexOf(m.toLowerCase())))
     .replace(/\b((?:set|fixed|equal) (?:to|at)) (one|zero)\b/gi,(_,verb,n)=>verb+' '+words.indexOf(n.toLowerCase()))
@@ -40,17 +42,25 @@ export function comparisonText(s){
     .replace(/第([一二三四五六七八九十]+)/g,(_m,n)=>'第'+chineseCount(n))
     .replace(/([零一二三四五六七八九两十]{1,3})(?=个|组|种|例|名|项|类|倍|次|天|小时|分钟|份|处|阶段|套|位)/g,(m)=>String(chineseCount(m)))
     .replace(/([二三四五六七八九十]{1,3})(?=大(?:主要)?[\u3400-\u9fff]{1,8})/g,m=>String(chineseCount(m)))
-    .replace(/(?:no fewer than|no less than|not less than|greater (?:than )?or equal to|at least|不小于|不低于|不少于|至少(?:为)?|大于(?:或)?等于|≥|>=)\s*/gi,'≥')
+    .replace(/(?:no fewer than|no less than|not less than|greater (?:than )?or equal to|at least|不小于|不低于|不少于|至少(?:达到|需要|有|为)?|大于(?:或)?等于|≥|>=)\s*/gi,'≥')
     .replace(/(?:no more than|not more than|no greater than|less (?:than )?or equal to|at most|不高于|不大于|不超过|至多(?:为)?|小于(?:或)?等于|≤|<=)\s*/gi,'≤')
     .replace(/(?:greater than|more than|大于|高于|超过)\s*(?=[.\d]|[A-Za-zα-ω](?![A-Za-z\d_]))/gi,'>')
     .replace(/(?:fewer than|less than|lower than|below|低于|小于|少于)\s*(?=[.\d]|[A-Za-zα-ω](?![A-Za-z\d_]))/gi,'<')
     .replace(/([A-Za-zα-ω])(?=[<>≥≤])/gi,'$1 ')
     .replace(/((?:[=<>≤≥[(,]|为|是|\bwas\b|\bis\b)\s*|^)([-+])\s+(?=[.\d])/gi,'$1$2')
     .replace(/毫克/g,'mg').replace(/微克/g,'µg').replace(/纳克/g,'ng').replace(/千克|公斤/g,'kg').replace(/克/g,'g')
+    .replace(/(平方|立方)(千米|公里|米|厘米|毫米)/g,(_,power,length)=>({千米:'km',公里:'km',米:'m',厘米:'cm',毫米:'mm'})[length]+(power==='平方'?'2':'3'))
+    .replace(/\b(km|cm|mm|m)\s*\^([23])\b/g,'$1$2')
+    .replace(/千瓦(?:特)?(?:小)?时|千瓦·?小时/g,'kWh').replace(/瓦(?:特)?(?:·?小时|时)/g,'Wh')
+    .replace(/千瓦(?:特)?/g,'kW').replace(/瓦特|瓦/g,'W').replace(/千焦(?:耳)?/g,'kJ').replace(/焦耳/g,'J')
+    .replace(/\b(k?W)\s*[·⋅]\s*h\b/g,'$1h').replace(/(k?Wh?|k?J)\s*每\s*(?=[cmk]*m[23]?)/g,'$1/')
     .replace(/千米|公里/g,'km').replace(/厘米/g,'cm').replace(/毫米/g,'mm').replace(/微米/g,'µm').replace(/纳米/g,'nm').replace(/米(?=\s*[/／])/g,'m')
     .replace(/毫升/g,'mL').replace(/微升/g,'µL').replace(/升(?=\s*(?:[/.。]|$))/g,'L')
     .replace(/小时|hours?\b/gi,'h').replace(/分钟|minutes?\b/gi,'min').replace(/秒钟?|seconds?\b/gi,'s')
-    .replace(/摄氏度|degrees?\s+Celsius/gi,'°C').replace(/百分之\s*(\d+(?:\.\d+)?)/g,'$1%');
+    .replace(/摄氏度|degrees?\s+Celsius/gi,'°C').replace(/百分之\s*(\d+(?:\.\d+)?)/g,'$1%')
+    .replace(/(\d)\s+(?:valid|consecutive|eligible|complete)\s+(?=days?\b|h\b|min\b)/gi,'$1 ')
+    .replace(/\b(fig(?:ure)?s?\.?\s+)(S?\d+[a-z]?)\s+(?:and|&)\s+(S?\d+[a-z]?)(?![a-z\d])/gi,'Fig. $2 and Fig. $3')
+    .replace(/(图\s*S?\d+[a-z]?)\s*(?:和|及|与|、)\s*(S?\d+[a-z]?)/gi,'$1、图$2');
 }
 const units=new Map(Object.entries({
   '%':['%',1],'‰':['%',.1],'°C':['°C',1],'K':['K',1],Hz:['Hz',1],kHz:['Hz',1e3],MHz:['Hz',1e6],
@@ -60,6 +70,9 @@ const units=new Map(Object.entries({
   M:['M',1],mM:['M',1e-3],'µM':['M',1e-6],uM:['M',1e-6],nM:['M',1e-9],
   h:['s',3600],min:['s',60],s:['s',1],ms:['s',1e-3],days:['s',86400],day:['s',86400],d:['s',86400],天:['s',86400],
   m:['m',1],mm:['m',1e-3],cm:['m',1e-2],nm:['m',1e-9],'µm':['m',1e-6],km:['m',1e3],
+  m2:['m2',1],cm2:['m2',1e-4],mm2:['m2',1e-6],km2:['m2',1e6],
+  m3:['m3',1],cm3:['m3',1e-6],mm3:['m3',1e-9],km3:['m3',1e9],
+  Wh:['J',3600],kWh:['J',3600000],J:['J',1],kJ:['J',1e3],W:['W',1],kW:['W',1e3],
   '倍':['fold',1],fold:['fold',1]
 }));
 const symbols=[...units.keys()].sort((a,b)=>b.length-a.length).join('|');
@@ -79,7 +92,8 @@ function unmatched(left,right){
 }
 function measurements(text){
   // A range separator is distinct from a unary minus.
-  const s=text.replace(/(?<=\d)\s*[-–~至到]\s*(?=[.\d])/g,' … ').replace(/(?<=\d)-(?=fold\b)/gi,' ');
+  const s=text.replace(/(\d+(?:\.\d+)?)\s*[-–~至到]\s*(\d+(?:\.\d+)?)\s*%/g,'$1% … $2%')
+    .replace(/(?<=\d)\s*[-–~至到]\s*(?=[.\d])/g,' … ').replace(/(?<=\d)-(?=fold\b)/gi,' ');
   return Array.from(s.matchAll(quantity),m=>{
     const [dimension,factor]=units.get(m[3])||['',1];
     const [divisor,denominator]=units.get(m[4])||['',1];
@@ -88,10 +102,36 @@ function measurements(text){
   });
 }
 const quantities=s=>measurements(s).map(m=>m.key);
+
+// Pair printed measurements by their literal numbers and their order. Never
+// guess which value is meant when the same number occurs more than once.
+const siSymbol='(?:[kmµμun]?Wh|[kmµμun]?[WJ]|[kcmµμun]?m(?:[²³]|\\^?[23])?|[kcmµμun]?g|[mµμun]?L|m?s|h|min|°C|%)';
+const unitWord='(?:(?:千)?瓦(?:特)?(?:·?小时|时)?|(?:千)?焦(?:耳)?|(?:平方|立方)?(?:千米|公里|厘米|毫米|微米|纳米|米)|(?:千|毫|微|纳)?克|(?:毫|微)?升|小时|分钟|秒|摄氏度)';
+const unitAtom='(?:'+unitWord+'|'+siSymbol+')';
+const printedMeasure=new RegExp('(?<![\\w.])([+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+))\\s*('+unitAtom+'(?:\\s*(?:[/／]|每)\\s*'+unitAtom+')?)(?![A-Za-z0-9])','g');
+function printedUnits(text){
+  return [...text.matchAll(printedMeasure)].map(m=>({number:m[1],unit:m[2],
+    index:m.index+m[0].length-m[2].length,key:quantities('1 '+comparisonText(m[2]))[0]}));
+}
+export function restorePrintedUnits(source,target){
+  const original=printedUnits(source),translated=printedUnits(target);
+  if(!original.length||original.length!==translated.length||original.some((m,i)=>m.number!==translated[i].number))
+    return target;
+  const counts=new Map();
+  for(const m of original)counts.set(m.number,(counts.get(m.number)||0)+1);
+  let result=target;
+  for(let i=original.length-1;i>=0;i--){
+    const a=original[i],b=translated[i];
+    if(counts.get(a.number)!==1||a.key===b.key||a.key==='1'||b.key==='1')continue;
+    const gap=/\d/.test(result[b.index-1])?' ':'';
+    result=result.slice(0,b.index)+gap+a.unit+result.slice(b.index+b.unit.length);
+  }
+  return result;
+}
 const directions=s=>{
   const flags=[];
-  if(/\b(?:increas\w*|rose|rises?|higher|upregulat\w*|grew)\b|增加|增长|增多|升高|上升|提高|提升|上调|高于|增强|较高|更高|增大|更具多样性/i.test(s))flags.push('up');
-  if(/\b(?:decreas\w*|declin\w*|fell|falls?|reduc\w*|lower(?! (?:panel|left|right|case|limb)s?\b)|downregulat\w*)\b|减少|降低|下降|下调|减弱|低于|减小|较低|更低|变低/i.test(s))flags.push('down');
+  if(/\b(?:increas\w*|improv\w*|enhanc\w*|strengthen\w*|greater|stronger|rose|ris(?:e|es|ing)|higher|upregulat\w*|grew|grows?|growing)\b|增加|增长|增多|升高|上升|提高|提升|上调|高于|增强|加强|改善|改进|较高|更高|较强|更强|增大|日益|更具多样性/i.test(s))flags.push('up');
+  if(/\b(?:decreas\w*|declin\w*|(?:fell|falls?)(?! (?:along|on|within|into|under|between)\b)|reduc\w*|lower(?! (?:panel|left|right|case|limb)s?\b)|downregulat\w*)\b|减少|降低|下降|下调|减弱|低于|减小|较低|更低|变低/i.test(s))flags.push('down');
   return flags;
 };
 function associations(s){
@@ -134,7 +174,7 @@ const relations=[
   ['from-above',/\btop[- ]down\b|自上(?:而|向)下|从上(?:往|到)下/i],
   ['from-below',/\bbottom[- ]up\b|自下(?:而|向)上|从下(?:往|到)上/i],
   ['sampling-interval',/\bevery\s+\d|\b(?:at\s+)?\d+(?:\.\d+)?[- ](?:second|minute|hour|day|s|min|h)s? intervals?\b|(?:每隔?|间隔)\s*\d|\d+(?:\.\d+)?\s*(?:s|min|h|天)(?:的)?间隔/i],
-  ['statistical-mean',/\baverag(?:e|es)\b|\b(?:arithmetic|geometric|group|sample) means?\b|\bmeans?\s*(?:±|values?|of (?:three|four|\d+)\s+(?:independent\s+)?(?:replicates?|experiments?|observations?|measurements?))|平均(?:值|数)?|均值/i]
+  ['statistical-mean',/\baverag(?:e|es)\b|\b(?:arithmetic|geometric|group|sample) means?\b|\bmeans?\s*(?:±|values?|of (?:three|four|\d+)\s+(?:independent\s+)?(?:replicates?|experiments?|observations?|measurements?))|平均(?:值|数)?|均值|[时日周月年]均/i]
 ];
 function protectedIds(s){
   return s.match(/\b(?:[A-Z]{2,}[A-Z0-9]*[-_][A-Za-z\d_-]*\d[A-Za-z\d_-]*|[A-Z][A-Za-z]*\d+[A-Za-z\d_-]*|[A-Z][a-z]+[A-Z][\w-]*)\b/g)||[];
@@ -155,7 +195,8 @@ export function validateScientific(source,target,{from='en',terms=[],field}={}){
     // missing explicit measurement, a changed value, or any extra value other than 1.
     const zh=from==='en'?target:source,en=from==='en'?source:target;
     const optional=from==='en'?extra:missing, required=from==='en'?missing:extra;
-    const articles=(en.match(/\b(?:a|an)\b/gi)||[]).length;
+    const articles=(en.match(/\b(?:a|an)\b/gi)||[]).length+
+      (zh.match(/(?:提出|设计|开发|建立|构建|引入|形成)(?:了)?一(?:个|种|项|套)/g)||[]).length;
     const classifiers=(zh.match(/一(?:个|种|项|位|名|处|套)/g)||[]).length;
     if(required.length||optional.some(v=>v!=='1')||optional.length>Math.min(articles,classifiers))
       flag('quantity','severe','',{sourceEvidence:missing.map(k=>left.find(v=>v.key===k).label).join(', '),
@@ -197,7 +238,8 @@ export function validateScientific(source,target,{from='en',terms=[],field}={}){
   for(const symbol of new Set(a.match(/[αβγδθκλω]/gi)||[]))if(!b.includes(symbol))flag('identifier','severe',symbol);
   if(sorted(directions(a))!==sorted(directions(b)))flag('direction');
   if(from==='en'?negationMismatch(a,b):negationMismatch(b,a))flag('negation');
-  if(significant(a)&&!significant(b))flag('significance');
+  const salience=from==='en'&&/\bit is significant (?:to note )?that\b/i.test(source)&&!/\b(?:statistically|significance level|p\s*[<=>])/i.test(source);
+  if(significant(a)&&!significant(b)&&!salience)flag('significance');
   if(from==='en'&&notSignificantEn.test(source)&&!notSignificantZh.test(target))
     flag('significance','severe','',{sourceEvidence:source.match(notSignificantEn)[0]});
   const repeats=from==='en'&&source.match(/\bin (?:duplicate|triplicate|quadruplicate)\b/i);

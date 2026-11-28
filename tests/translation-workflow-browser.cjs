@@ -79,7 +79,7 @@ async function main(){
     await capture('single-sentence-retry');await popup.locator(':scope > details').filter({has:page.locator('blockquote')}).locator('summary').click();
     await capture('whole-paragraph-source');
     await popup.locator('.selection-precision').click();
-    const pane=popup.locator('.selection-precision-pane');
+    const pane=popup.locator('.selection-precision-pane').filter({has:page.locator('select')});
     await pane.waitFor();
     assert.match(await pane.locator('pre').innerText(),/The second sensor failed/);
     await capture('precision-preview');
@@ -97,7 +97,7 @@ async function main(){
       assert.equal(submitted.length,0);const before=await popup.locator(':scope > p').innerText();
       for(code of [401,429,200]){
         const count=submitted.length;await send.click();
-        await page.waitForFunction(()=>!document.querySelector('.selection-precision-pane > button').disabled);
+        await page.waitForFunction(el=>!el.disabled,await send.elementHandle(),{timeout:15000});
         assert.equal(submitted.length,count+1);assert.equal(submitted.at(-1).context,'');
         assert.deepEqual(submitted.at(-1).units.map(u=>u.text),lines.slice(0,5));
         if(code!==200)assert.equal(await popup.locator(':scope > p').innerText(),before);

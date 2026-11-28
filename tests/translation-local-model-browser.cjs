@@ -11,7 +11,7 @@ const modelOrigins=['https://modelscope.cn','https://huggingface.co'];
 const results={browser:process.env.READER_BROWSER||'chrome',weightTransport:weights?'verified local file':'publisher CDN',rows:[],requests:[],externalPosts:[]};
 const save=()=>fs.writeFileSync(output,JSON.stringify(results,null,2)+'\n');
 async function main(){
-  let server,browser,mirror,fault=faults?'interrupt':'none';
+  let server,browser,context,mirror,fault=faults?'interrupt':'none';
   try{
     if(weights){
       const size=fs.statSync(weights).size;assert.equal(size,1348432160);
@@ -35,9 +35,18 @@ async function main(){
       mirror='http://127.0.0.1:'+server.address().port+'/weights';
     }
     const browserName=results.browser;
-    browser=browserName==='webkit'?await webkit.launch():await chromium.launch({channel:browserName});
-    results.browserVersion=browser.version();
-    const context=await browser.newContext({viewport:{width:1280,height:850},serviceWorkers:'block'});
+    const browserType=browserName==='webkit'?webkit:chromium;
+    const launchOptions=browserName==='webkit'?{}:{channel:browserName};
+    const pageOptions={viewport:{width:1280,height:850},serviceWorkers:'block'};
+    if(process.env.LOCAL_TRANSLATION_PROFILE){
+      context=await browserType.launchPersistentContext(process.env.LOCAL_TRANSLATION_PROFILE,{...launchOptions,...pageOptions});
+      results.profile='persistent';
+    }else{
+      browser=await browserType.launch(launchOptions);
+      context=await browser.newContext(pageOptions);
+      results.profile='temporary';
+    }
+    results.browserVersion=(browser||context.browser())?.version();
     await context.addInitScript(()=>{
       window.localPaperEvidence=[];
       window.localEngineErrors=[];
@@ -80,6 +89,7 @@ async function main(){
     page.on('pageerror',err=>console.error(err.message));
     const fixture=path.join(__dirname,'fixtures','translation-selection.pdf');
     await openSource(page,fixture,'zh');await selectText(page,'water');
+    results.storageBefore=await page.evaluate(()=>navigator.storage?.estimate?.());
     const popup=page.locator('.local-translation:visible');
     assert.equal(results.requests.length,0);
     assert.match(await popup.locator('.selection-model-choice').innerText(),/1.35 GB/);
@@ -90,6 +100,8 @@ async function main(){
       const state=await popup.getAttribute('data-translation-state');
       if(state==='error'){
         results.engineErrors=await page.evaluate(()=>window.localEngineErrors);
+        results.storageAtError=await page.evaluate(()=>navigator.storage?.estimate?.());
+        console.error('Local model diagnostics',results.engineErrors,results.storageAtError);
         throw new Error(await popup.innerText());
       }
       return popup.locator(':scope > p').innerText();
@@ -143,18 +155,26 @@ async function main(){
     assert.equal(results.requests.length,before,'Reopening the reader fetched model weights again');
     if(faults){
       await page.evaluate(async()=>{
-        const {weightCacheName}=await import('./translation-weight-cache.js');
-        const cache=await caches.open(weightCacheName);
+        const {openWeightStore}=await import('./translation-weight-cache.js');
+        const cache=await openWeightStore();
         const key=(await cache.keys()).find(r=>r.url.endsWith('/1'));
-        await cache.put(key,new Response('broken chunk'));
+        await cache.put(key.url,new Response('broken chunk'));cache.close?.();
       });
       await openSource(page,fixture,'zh');await selectText(page,'water');
       await popup.locator('.selection-translate').click();assert.match(await finished(),/水/);
       assert.deepEqual(results.requests.slice(before),['bytes=8388608-16777215']);
       results.corruptionRepair=results.requests.at(-1);
+      const preEviction=results.requests.length;
+      await page.evaluate(async()=>{const {clearWeightStore}=await import('./translation-weight-cache.js');await clearWeightStore()});
+      await openSource(page,fixture,'zh');await selectText(page,'water');
+      await popup.locator('.selection-translate').click();
+      await page.waitForFunction(()=>document.querySelector('.local-translation')?.dataset.translationStage==='consent',null,{timeout:30000});
+      assert.ok(await popup.locator('.selection-download-local').isVisible());
+      results.unconfirmedRedownloads=results.requests.length-preEviction;
+      assert.equal(results.unconfirmedRedownloads,0);
     }
     assert.deepEqual(results.externalPosts,[]);
     console.log('PASS first-use consent, true local inference, persisted choice and verified weight reuse',results.coldMs,results.reloadMs);
-  }finally{if(browser)await browser.close();if(server)server.close();save()}
+  }finally{if(context)await context.close();if(browser)await browser.close();if(server)server.close();save()}
 }
 main().catch(e=>{results.error=String(e);save();console.error(e);process.exitCode=1});

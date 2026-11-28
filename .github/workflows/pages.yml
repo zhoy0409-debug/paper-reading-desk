@@ -71,8 +71,8 @@ jobs:
           test -s _site/cover-en.webp
           test -s _site/cover-zh.webp
           test -s _site/film/en.html
-      - name: Fetch the original engine for the archived second-round replay
-        run: git fetch --no-tags --depth=1 origin cefc94eddbbae35bc34af9521d96dd4fbc84f380
+      - name: Fetch original engines for archived benchmark replays
+        run: git fetch --no-tags --depth=1 origin cefc94eddbbae35bc34af9521d96dd4fbc84f380 7caf4e87a263b27eab95b95f8beacf784e42c530
       - name: Test the reader at its public subpath
         timeout-minutes: 20
         run: |
@@ -104,7 +104,8 @@ jobs:
           python3 tests/provider-test.py
           python3 tests/translation-benchmark/verify-acceptance.py
           python3 tests/translation-benchmark/round2/audit.py verify tests/translation-benchmark/round2 "$RUNNER_TEMP/translation-replay" --historical
-          python3 tests/translation-benchmark/round3/audit.py verify "$RUNNER_TEMP/translation-local-replay"
+          python3 tests/translation-benchmark/round3/audit.py verify "$RUNNER_TEMP/translation-local-replay" --historical
+          python3 tests/translation-benchmark/round4/audit.py verify "$RUNNER_TEMP/translation-current-replay"
           python3 tests/translation-benchmark/round2/score-regression.py
           node tests/translation-transfer.mjs
           node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/
@@ -138,7 +139,7 @@ jobs:
           READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
       - name: Require the tested scientific accuracy before public deployment
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        run: python3 tests/translation-benchmark/round3/audit.py release "$RUNNER_TEMP/translation-publication"
+        run: python3 tests/translation-benchmark/round4/audit.py release "$RUNNER_TEMP/translation-publication"
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
@@ -174,6 +175,7 @@ jobs:
       - name: Exercise consent, inference, interrupted downloads and cache repair in the reader
         run: |
           export LOCAL_TRANSLATION_GGUF="$RUNNER_TEMP/reading-desk-model.gguf"
+          export LOCAL_TRANSLATION_PROFILE="$RUNNER_TEMP/reading-desk-test-profile"
           echo "bae6e591103654ff43ef0de7d1492f6e6df1f955505f6bb2cc52e86fc399a942  $LOCAL_TRANSLATION_GGUF" | sha256sum --check
           npm install --prefix "$RUNNER_TEMP/reader-qa" --no-audit --no-fund playwright-core@1.65.1
           export NODE_PATH="$RUNNER_TEMP/reader-qa/node_modules"

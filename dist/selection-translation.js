@@ -310,6 +310,7 @@ function update() {
 
 const failures={
   storage:['浏览器未能保存本机模型。请检查存储空间，或选择轻量快速翻译。','The browser could not store the model. Check free space or choose quick translation.'],
+  consent:['此浏览器已清除模型缓存。确认重新下载 1.35 GB 后可继续本机精译。','This browser cleared the saved model. Confirm a new 1.35 GB download to use it again.'],
   model:['翻译模型配置不完整或模型加载失败。','The translation model is missing or could not be loaded.'],
   download:['翻译资源下载失败。请检查网络，然后重试此选段。','A translation resource could not be downloaded. Check your connection and retry this selection.'],
   integrity:['翻译资源未通过 SHA-256 校验。请重试此选段。','A translation file could not be verified with SHA-256. Retry this selection.'],

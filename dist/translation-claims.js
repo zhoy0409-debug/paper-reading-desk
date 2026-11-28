@@ -64,5 +64,9 @@ export function claimIssues(source,target,field) {
   const independent = source.match(/\b(?:independent(?:ly)? of|irrespective of|regardless of)\b/i);
   if (independent && !/(?:独立|无关|不(?:受|依赖|取决于|论|管|影响|随)|无论|关乎与否)/.test(target))
     issues.push({code:'relation',severity:'severe',sourceEvidence:independent[0]});
+  const cadence=source.match(/\b(?:hourly|daily|weekly|monthly|yearly|annual(?:ly)?)\b/i);
+  const mean=target.match(/(?:小时|时|日|周|月|年)(?:平均|均)(?=[\u3400-\u9fff\d])/);
+  if(cadence&&mean&&!/\b(?:mean|averag\w*)\b/i.test(source))
+    issues.push({code:'relation',severity:'severe',sourceEvidence:cadence[0],targetEvidence:mean[0]});
   return issues;
 }

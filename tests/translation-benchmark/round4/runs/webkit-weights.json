@@ -1,0 +1,20 @@
+{
+  "browser": "webkit",
+  "weightTransport": "verified local file",
+  "rows": [],
+  "requests": [
+    "complete"
+  ],
+  "externalPosts": [],
+  "browserVersion": "26.5",
+  "firstText": "水",
+  "coldMs": 138208,
+  "firstPaperContext": [
+    {
+      "source": "water",
+      "context": "A sample of water was kept in the shade."
+    }
+  ],
+  "reloadedText": "水",
+  "reloadMs": 58395
+}

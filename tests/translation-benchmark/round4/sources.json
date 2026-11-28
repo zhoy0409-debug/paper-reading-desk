@@ -1,0 +1,132 @@
+[
+  {
+    "doi": "10.1371/journal.pone.0215562",
+    "title": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements",
+    "authors": [
+      "Tomasz Szot",
+      "Cezary Specht",
+      "Mariusz Specht",
+      "Pawel S. Dabrowski"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0215562&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "314d0ccbb40144e5334600eaa0cd3c7ae5bab20ba47994fbd152df641c9ed695",
+    "subject": "position measurement",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0203839",
+    "title": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions",
+    "authors": [
+      "Nizam Uddin Ahamed",
+      "Dylan Kobsar",
+      "Lauren Benson",
+      "Christian Clermont",
+      "Russell Kohrs",
+      "Sean T. Osis",
+      "Reed Ferber"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0203839&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "6eccb40e08df3312b2f05b8ebee2ded522f2189ea272eb454d28d6492d523941",
+    "subject": "biomechanics",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0198791",
+    "title": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding",
+    "authors": [
+      "Smadar Z. Patael",
+      "Emily A. Farris",
+      "Jessica M. Black",
+      "Roeland Hancock",
+      "John D. E. Gabrieli",
+      "Laurie E. Cutting",
+      "Fumiko Hoeft"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0198791&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "65f9b2052d28bddd41b73f34f1910183c98266f6e7163300094b9e57629d9061",
+    "subject": "reading comprehension",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0203872",
+    "title": "Streamflow contributions from tribal lands to major river basins of the United States",
+    "authors": [
+      "Kyle Blasch",
+      "Stephen Hundt",
+      "Patrick Wurster",
+      "Roy Sando",
+      "Antony Berthelote"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0203872&type=manuscript",
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "xmlSha256": "2d3686f3ebb1b7cc1c87693f584aedebe77a675c7cb1909d462544733894874a",
+    "subject": "streamflow",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0210438",
+    "title": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany",
+    "authors": [
+      "Joachim Pechtl",
+      "Alexander Land"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0210438&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "e5e57304186cec3cf8bf8654f35aa416e99cbc9bdc4300fe6fdde4815fa2f78f",
+    "subject": "tree-ring ecology",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1364/BOE.9.003122",
+    "title": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation",
+    "authors": [
+      "Paweł Ossowski",
+      "Andrea Curatolo",
+      "David D. Sampson",
+      "Peter R. T. Munro"
+    ],
+    "journal": "Biomedical Optics Express",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6033572/fullTextXML",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "698da8787a8a8a6e019822f97afdc9fee162e3795a60d9bb3a5e471fd4a6be52",
+    "subject": "optical imaging",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.3390/molecules23102473",
+    "title": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater",
+    "authors": [],
+    "journal": "Molecules : A Journal of Synthetic Chemistry and Natural Product Chemistry",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6222675/fullTextXML",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "8c975d1fe80e9d287cbdff213f62b713eef5177e3d5aa5265c7f3cc056d74067",
+    "subject": "water treatment",
+    "alternativesSkipped": []
+  },
+  {
+    "doi": "10.1371/journal.pone.0190165",
+    "title": "Directing visual attention during action observation modulates corticospinal excitability",
+    "authors": [
+      "David J. Wright",
+      "Greg Wood",
+      "Zoe C. Franklin",
+      "Ben Marshall",
+      "Martin Riach",
+      "Paul S. Holmes"
+    ],
+    "journal": "PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0190165&type=manuscript",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "xmlSha256": "bb7085375745235b1bfdcd11554e1b3c975ae6fc058685a2782b273ce7d8f3bc",
+    "subject": "visual attention",
+    "alternativesSkipped": []
+  }
+]

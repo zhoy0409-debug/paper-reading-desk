@@ -59,3 +59,26 @@ assert.equal(claimIssues('We observed fewer faults at the higher load.','较高�
 assert.ok(claimIssues('The threshold is independent of speed.','阈值取决于速度。').some(i=>i.code==='relation'));
 assert.equal(claimIssues('The threshold is independent of speed.','速度不影响阈值。').length,0);
 console.log('PASS association strength, measured proxies, clinical outcomes and missing comparative predicates');
+
+const {restorePrintedUnits}=await import('../dist/translation-facts.js');
+const dimension='Sensors recorded 81.4 Wh/m² under shade.';
+const changedUnit='在遮阴条件下，传感器记录了81.4瓦特/平方米。';
+assert.ok(validateScientific(dimension,changedUnit).issues.some(e=>e.code==='quantity'));
+const restored=restorePrintedUnits(dimension,changedUnit);
+assert.match(restored,/81\.4 Wh\/m²/);
+assert.equal(validateScientific(dimension,restored).status,'checked');
+assert.equal(validateScientific('Storage was 9 km³.','储量为9立方千米。').status,'checked');
+assert.equal(validateScientific('Storage was 9 km³.','储量为9平方千米。').status,'review');
+assert.equal(validateScientific('The gain was 1.4–2.6%.','增幅为1.4%至2.6%。').status,'checked');
+assert.equal(validateScientific('At least two valid days were required.','至少需要两天有效记录。').status,'checked');
+assert.equal(validateScientific('The values fall along the line.','各值落在直线上。').status,'checked');
+assert.equal(validateScientific('The values fell after cooling.','冷却后，各值有所上升。').status,'review');
+assert.equal(validateScientific('It is significant that the counts match.','值得注意的是，计数一致。').status,'checked');
+assert.equal(validateScientific('The monthly yield was reported.','报告了月均产量。').status,'review');
+assert.equal(validateScientific('The monthly average yield was reported.','报告了月均产量。').status,'checked');
+const duplicated='两个表的读数为7瓦特/平方米和7瓦时/平方米。';
+assert.equal(restorePrintedUnits('The meters read 7 Wh/m² and 7 W/m².',duplicated),duplicated);
+const converted='记录了3600焦耳。';
+assert.equal(restorePrintedUnits('The reading was 1 Wh.',converted),converted);
+assert.equal(validateScientific('The reading was 1 Wh.',converted).status,'checked');
+console.log('PASS dimensional equivalence, shared ranges, guarded unit recovery and comparison scope');

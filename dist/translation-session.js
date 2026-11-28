@@ -1,6 +1,6 @@
 import {normalizeSelection,selectionTranslation,translatePassage} from './scientific-translation.js?rev=claims1';
 import {fieldTerms,paperDefinedTerms,resolveField} from './discipline-glossary.js?rev=localmt1';
-import {validateScientific} from './translation-facts.js?rev=claims1';
+import {restorePrintedUnits,validateScientific} from './translation-facts.js?rev=claims1';
 import {needsAlignment,checkAlignment} from './translation-alignment.js';
 import {scientificText,selectionMode} from './local-scientific-model.js';
 import {recoverClaimWording} from './translation-claims.js';
@@ -43,7 +43,7 @@ async function scientificUnit(unit,from,field,paper,nearby,signal){
   if(exact)return {text:exact.value,terms,validation:{status:'checked',issues:[]},status:'translated'};
   async function translated(correction=''){
     const value=await scientificText(source,from,{signal,context,terms,correction});
-    const text=from==='en'?recoverClaimWording(source,value,field):value;
+    const text=from==='en'?restorePrintedUnits(source,recoverClaimWording(source,value,field)):value;
     if(!useful(text,source,from))throw Object.assign(new Error('The model did not translate this selection'),{stage:'empty'});
     const validation=validateScientific(source,text,{from,terms,field,context});
     return {text,terms,validation,status:validation.issues.length?'review':'translated'};

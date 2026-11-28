@@ -1,13 +1,64 @@
 // Each chunk hash is computed from the same file verified against the publisher's
 // full SHA-256. This keeps verification and resumption within a small memory budget.
 export const weightCacheName = 'reading-desk-hymt3-bae6e591-v1';
+const idbName=weightCacheName+'-chunks';
+const requestResult=request=>new Promise((resolve,reject)=>{
+  request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+});
+export async function openWeightStore(){
+  if(navigator.storage?.getDirectory||!globalThis.indexedDB)return caches.open(weightCacheName);
+  const request=indexedDB.open(idbName,1);
+  request.onupgradeneeded=()=>request.result.createObjectStore('chunks');
+  const db=await requestResult(request);
+  db.onversionchange=()=>db.close();
+  function use(mode,operation){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction('chunks',mode),req=operation(tx.objectStore('chunks'));
+      tx.oncomplete=()=>resolve(req.result);
+      tx.onabort=()=>reject(tx.error||req.error||new Error('Model storage transaction aborted'));
+      tx.onerror=()=>reject(tx.error||req.error);
+    });
+  }
+  return {
+    async match(url){const data=await use('readonly',s=>s.get(url));return data?new Response(data):undefined},
+    async put(url,response){const data=await response.arrayBuffer();await use('readwrite',s=>s.put(data,url))},
+    delete:url=>use('readwrite',s=>s.delete(url)),
+    async keys(){return (await use('readonly',s=>s.getAllKeys())).map(key=>new Request(key))},
+    close:()=>db.close()
+  };
+}
+export async function clearWeightStore(){
+  if(globalThis.caches)await caches.delete(weightCacheName);
+  if(globalThis.indexedDB)await requestResult(indexedDB.deleteDatabase(idbName));
+}
 export const digestHex = async bytes => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),
   b=>b.toString(16).padStart(2,'0')).join('');
 export function stageError(stage,message,cause) {
   return Object.assign(new Error(message,{cause}),{stage});
 }
 
-export async function verifiedWeights(manifest,{cache,signal,onProgress=()=>{},fetchFile=fetch,base=location.href}) {
+// wllama constructs its own file manager even for an already verified Blob.
+// WebKit builds can expose Cache Storage without the optional file-system API.
+export function runtimeStorage(cache,base=location.href){
+  const prefix=new URL('./.translation-runtime/',base).href;
+  const url=key=>prefix+encodeURIComponent(key);
+  const read=async key=>(await cache.match(url(key)))?.blob()??null;
+  const getSize=async key=>(await read(key))?.size??-1;
+  return {
+    isSupported:()=>true,canWriteAt:()=>false,read,getSize,
+    write(key,stream,_hint,offset=0){
+      if(offset)throw new RangeError('Cache Storage only supports complete writes');
+      return cache.put(url(key),new Response(stream));
+    },
+    async list(){
+      const keys=(await cache.keys()).filter(r=>r.url.startsWith(prefix)).map(r=>decodeURIComponent(r.url.slice(prefix.length)));
+      return Promise.all(keys.map(async key=>({key,size:await getSize(key)})));
+    },
+    async delete(key){await cache.delete(url(key))}
+  };
+}
+
+export async function verifiedWeights(manifest,{cache,signal,onProgress=()=>{},onMissing=()=>{},fetchFile=fetch,base=location.href}) {
   const {bytes,chunkBytes,parts,urls}=manifest;
   if (!Number.isSafeInteger(bytes)||bytes<=0||!Number.isSafeInteger(chunkBytes)||chunkBytes<=0||
       parts.length!==Math.ceil(bytes/chunkBytes)||!parts.every(h=>/^[0-9a-f]{64}$/.test(h))||!urls.length)
@@ -25,6 +76,7 @@ export async function verifiedWeights(manifest,{cache,signal,onProgress=()=>{},f
     }else await cache.delete(key(i));
     onProgress({phase:'checking',bytes:verified,total:bytes});
   }
+  if(verified<bytes)onMissing(verified,bytes);
 
   async function fetchRange(url,first,last) {
     const start=first*chunkBytes, end=Math.min(bytes,(last+1)*chunkBytes)-1;
