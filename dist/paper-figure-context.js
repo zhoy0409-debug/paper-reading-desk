@@ -124,7 +124,7 @@ function modelFor(item,found){
   }
   for(const [id] of Object.entries(precise?.panels||{})){if(!panelLabels.has(id))panelLabels.set(id,{});}
   // A panel interpretation does not imply a crop. Only a region the extractor actually returned is eligible.
-  const panels=[...panelLabels.entries()].slice(0,15).map(([id,observed])=>{
+  const panels=[...panelLabels.entries()].map(([id,observed])=>{
    const explanation=precise?.panels?.[id];
    const panelLabel=id==='left'?'左图':id==='right'?'右图':id.toUpperCase();
    const captionPart=observed.axis&&observed.curveLabels?undefined:sideCaption(caption,id);

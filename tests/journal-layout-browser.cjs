@@ -1,14 +1,16 @@
 // Minimal printed layouts distilled from failures in the public journal corpus.
 const assert = require('node:assert/strict');
+const {deflateSync} = require('node:zlib');
 const {chromium} = require('playwright-core');
 
-function sample(appendix='') {
+function sample(appendix='', raster=null) {
   const objects = [null,null,'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>'];
   const add = data => objects.push(data);
   const stream = (s, extra='') => '<< /Length '+s.length+' '+extra+' >>\nstream\n'+s+'\nendstream';
-  const pixels = '14314c8e'.repeat(128)+'>';
-  const picture = add(stream(pixels,'/Type /XObject /Subtype /Image /Width 32 /Height 16 /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /ASCIIHexDecode'));
+  const pixels = (raster ? deflateSync(Buffer.from(raster.pixels)).toString('hex') : '14314c8e'.repeat(128))+'>';
+  const filter = raster ? '[/ASCIIHexDecode /FlateDecode]' : '/ASCIIHexDecode';
+  const picture = add(stream(pixels,'/Type /XObject /Subtype /Image /Width '+(raster?.width||32)+' /Height '+(raster?.height||16)+' /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter '+filter));
   const text = (x,y,s,size=10,font='R') => 'BT /'+font+' '+size+' Tf '+x+' '+y+' Td ('+s+') Tj ET';
   const plate = (bottom,height) => 'q 454 0 0 '+height+' 54 '+bottom+' cm /Plate Do Q';
   const oldFont=add('<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman >>');
@@ -16,7 +18,10 @@ function sample(appendix='') {
   const result='As shown in Figure 1, all three sampling sites lie along the river.';
   const draft=add(stream([text(50,525,repeated),text(50,509,'The discarded measurements in Figure 1 came from a prior draft.'),
     text(50,492,result)].join('\n'),'/Type /XObject /Subtype /Form /BBox [0 0 40 20] /Resources << /Font << /R '+oldFont+' 0 R >> >>'));
-  const pages = appendix ? [
+  const pages = raster ? [[
+    plate(120,540),'q 1 g 50 632 460 18 re f Q',
+    text(54,104,'Fig. 1 | Survey sites. A Ridge. B Hill. C Bay. D Brook. E, F Gauges. G Basin. H East. I West.',9)
+  ]] : appendix ? [
     ...Array.from({length:43},(_,i)=>[text(54,715,'Study observations on manuscript page '+(i+1)+'.')]),
     [text(54,732,'Figure legends',14,'B'),
       text(54,684,'Fig. 1 The distribution of mountain',12,'B'),text(54,661,'sampling sites',12,'B'),
@@ -51,6 +56,26 @@ function sample(appendix='') {
   pdf+='xref\n0 '+(objects.length+1)+'\n0000000000 65535 f \n'+offsets.map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+
     'trailer\n<< /Size '+(objects.length+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF';
   return {name:'field-observations'+appendix+'.pdf',mimeType:'application/pdf',buffer:Buffer.from(pdf)};
+}
+
+// A publisher banner covers the first row. The lower left plots are lettered
+// before G, a map spanning two rows to their right.
+async function printedPanelFixture(page) {
+  const raster=await page.evaluate(()=>{
+    const canvas=document.createElement('canvas');canvas.width=454;canvas.height=540;
+    const ctx=canvas.getContext('2d');
+    ctx.fillStyle='white';ctx.fillRect(0,0,454,540);
+    ctx.fillStyle='black';ctx.font='bold 16px Arial';
+    for(const [label,x,y] of [['A',8,24],['B',160,24],['C',320,24],['D',8,167],['E',8,269],
+      ['F',58,269],['G',110,167],['H',8,375],['I',200,375]])ctx.fillText(label,x,y);
+    ctx.fillStyle='#555';
+    for(const rect of [[15,40,120,90],[170,40,120,116],[329,40,110,90],[15,178,80,55],
+      [12,280,38,56],[62,280,35,56],[125,180,314,159],[15,395,156,125],[210,395,229,125]])ctx.fillRect(...rect);
+    ctx.fillStyle='white';ctx.fillRect(125,254,314,2);
+    const rgba=ctx.getImageData(0,0,454,540).data;
+    return {width:454,height:540,pixels:Array.from({length:454*540},(_,i)=>rgba[i*4])};
+  });
+  return sample('',raster);
 }
 
 (async()=>{
@@ -107,5 +132,44 @@ function sample(appendix='') {
       }finally{await fresh.close()}
     }
     console.log('End legends beyond page 42: complete series linked, incomplete and conflicting series kept on their source pages.');
+    const panelPage=await browser.newPage();
+    try{
+      await panelPage.goto(new URL('?lang=en',process.argv[2]).href);
+      await panelPage.addLocatorHandler(panelPage.locator('.gd-skip:visible'),b=>b.click());
+      await panelPage.evaluate(()=>{
+        const mount=FigureReadingWorkbench.mount;
+        window.testPaints=0;
+        FigureReadingWorkbench.mount=(host,options)=>mount(host,{...options,async renderFigure(...args){
+          const original=await options.renderFigure(...args);
+          if(++window.testPaints!==1)return original;
+          // Valid file signature, incomplete image: exercise the browser's decode error.
+          return {...original,blob:new Blob([Uint8Array.from([137,80,78,71,13,10,26,10,0,0,0,0])],{type:'image/png'})};
+        }});
+        const api=PaperReadingEvidence;
+        window.PaperReadingEvidence={...api,enrich(...args){
+          const result=api.enrich(...args);window.riverFigure=args[1].figures[0];return result;
+        }};
+      });
+      const file=await printedPanelFixture(panelPage);
+      await panelPage.locator('input[id$="-main"]').first().setInputFiles(file);
+      await panelPage.waitForFunction(()=>window.riverFigure,null,{timeout:45000});
+      await panelPage.locator('.frw-placeholder button:visible').click({timeout:15000});
+      await panelPage.waitForFunction(()=>window.testPaints>=2&&document.querySelector('.frw-plate img')?.naturalWidth>0);
+      const panels=await panelPage.evaluate(()=>{
+        const {pageBox,panels}=riverFigure;
+        return panels.map(({id,region})=>({id,region,pageBox}));
+      });
+      assert.deepEqual(panels.map(p=>p.id),[...'abcdefghi']);
+      assert(panels.every(p=>p.region),'All printed letters must open a crop');
+      const g=panels.find(p=>p.id==='g');
+      function inside(x,y){
+        const bx=((54+x)/600-g.pageBox.x)/g.pageBox.width;
+        const by=((120+y)/780-g.pageBox.y)/g.pageBox.height;
+        return bx>=g.region.x&&bx<g.region.x+g.region.width&&by>=g.region.y&&by<g.region.y+g.region.height;
+      }
+      assert(inside(130,190)&&inside(431,333),'G must include the lower right corner of the map');
+      assert(!inside(65,265)&&!inside(202,371),'Neighbouring plots must stay outside G');
+    }finally{await panelPage.close()}
+    console.log('Retry after a decode error, A–I raster letters under a publisher banner and the full two-row map passed.');
   }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

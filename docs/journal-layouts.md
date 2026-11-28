@@ -29,6 +29,8 @@ The previous reader opened the correct artwork for two of seven figures in the 2
 | Artwork | 3, 5, 7, 8, 10, 11, 13 | 54, 55, 56, 57, 58, 59, 60 |
 | Start of the caption | 4, 6, 7, 9, 10, 12, 14 | 47, 48, 49, 49, 50, 51, 52 |
 
+Version 0.4.20 also opens the lettered panels inside these seven figures. In figure order the printed ranges are **A–V, A–K, A–H, A–O, A–M, A–K and A–S**, for 99 panels in each PDF. We opened all 198 close-ups and checked the displayed images. For each edition we also tested 99 printed letters and 107 points inside the artwork against independent publisher images. The early edition puts a banner across part of the first row. The reader can use the underlying PDF image to locate its letters and still display the publisher’s page. Figure 4J spans two rows beside smaller plots. We checked that its close-up includes the lower right micrograph and excludes the neighbouring panel letters.
+
 ## Examples
 
 - A PeerJ forest study prints the number and title together without punctuation. All seven figures appeared in the index. [Paper](https://doi.org/10.7717/peerj.18176)
