@@ -416,7 +416,7 @@ function drawings(list,ops,V){
  let T=UNIT, opacity=1,form=null;
  const push=()=>stack.push([T,opacity]);
  const pop=()=>{if(stack.length)[T,opacity]=stack.pop();};
- const add=(m,b,kind,path,stroke=false)=>{
+ const add=(m,b,kind,path,stroke=false,imageOp)=>{
   if((output.length>=MAX_GRAPHICS&&!form)||opacity<.03)return;
   const q=boxFrom(mult(V,m),b);
   if(!Object.values(q).every(Number.isFinite))return;
@@ -443,6 +443,7 @@ function drawings(list,ops,V){
    if(w(q)<.8){q.x0-=.5;q.x1+=.5;}if(h(q)<.8){q.y0-=.5;q.y1+=.5;}
    if(w(q)<2&&h(q)<2)return;
   }
+  if(imageOp!==undefined)q.imageOp=imageOp;
   output.push(barRect?{...q,kind,barRect}:vertical?{...q,kind,stroke:true}:{...q,kind});
  };
  for(let i=0;i<list.fnArray.length;i++){
@@ -462,7 +463,7 @@ function drawings(list,ops,V){
   else if(op===ops.setGState&&Array.isArray(a[0])){
    for(const s of a[0])if(Array.isArray(s)&&s[0]==='ca'&&Number.isFinite(s[1]))opacity=s[1];
   }
-  else if(rast.has(op))add(T,[0,0,1,1],'image');
+  else if(rast.has(op))add(T,[0,0,1,1],'image',null,false,i);
   else if(op===ops.constructPath&&paints.has(a[0])&&numArray(a[2],4))add(T,a[2],'vec',a[1]?.length===1?a[1][0]:null,a[0]===ops.stroke);
  }
  const placed=forms.filter(f=>f.ink&&(f.tiles>=4||f.paints>=12)&&area(f.ink)>=area(f.rect)*.45).map(f=>({...f.rect,kind:'image',placedForm:true}));

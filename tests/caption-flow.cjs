@@ -36,4 +36,16 @@ assert.equal(signals.get('e').text,'Final reading.');
 const cross=flow.panelSections('Fig. 2 | a Red signal. b Blue signal. As shown in (c) and (d), the response varies. c First control. d Second control.');
 assert.match(cross.get('b').text,/As shown/);
 assert.equal(cross.get('c').text,'First control.');
+const printed='Fig. 6 | Detector readings. A Overview. B–E Four channels. '+
+  'Power (B, C) and noise (D) were measured vs. the reference at 5 V. '+
+  'The phase (E) stayed constant. F, G Two calibration runs. '+
+  'Timing (H, J) and drift (I) were recorded. K The final array.';
+const upper=flow.panelSections(printed);
+assert.equal([...upper.keys()].join(''),'abcdefghijk');
+assert.equal(upper.get('d').specific,'Power (B, C) and noise (D) were measured vs. the reference at 5 V.');
+assert.equal(upper.get('e').specific,'The phase (E) stayed constant.');
+assert.equal(upper.get('f').text,'Two calibration runs.');
+assert.equal(upper.get('i').text,'Timing (H, J) and drift (I) were recorded.');
+assert.equal(upper.get('k').text,'The final array.');
+assert.equal(flow.panelSections('A reading was repeated. See Fig. 4 (A) and (B) for the conditions.').size,0);
 console.log('PASS continuous panel headings, shared captions and verified page breaks');

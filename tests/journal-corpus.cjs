@@ -97,7 +97,14 @@ async function audit(browser, ref) {
         const image = document.querySelector('.frw-plate img');
         return document.querySelector('.lens-cell[aria-current=true]')?.dataset.figure===key &&
           image?.naturalWidth>0 && image.alt.startsWith(label+' ·');
-      }, actual, {timeout:12000});
+      }, actual, {timeout:30000}).catch(async cause=>{
+        const shown=await page.evaluate(()=>({
+          selected:document.querySelector('.lens-cell[aria-current=true]')?.dataset.figure,
+          image:document.querySelector('.frw-plate img')?.alt,
+          width:document.querySelector('.frw-plate img')?.naturalWidth
+        }));
+        throw new Error('Expected the artwork for '+actual.key+'; observed '+JSON.stringify(shown),{cause});
+      });
       const notes = await page.locator('.frw-notes').first().innerText();
       // Check *visible* evidence after the button press. Prefer the independent
       // publisher text; also record when the UI correctly shows its own source.
@@ -105,6 +112,21 @@ async function audit(browser, ref) {
       row.reading = target.starts.some(s => shown.includes(s));
       row.opened = shown.includes(norm(actual.caption).slice(0,26)) || shown.includes(norm(actual.title).slice(0,26));
       if (!row.reading && process.env.CORPUS_TRACE) console.log(ref.id,target.n,notes.slice(0,650));
+      if (target.panelLetters) {
+        const tabs=page.locator('.st-dock .frw-panel-tab');
+        const labels=await tabs.evaluateAll(items=>items.map(b=>b.dataset.panel.toUpperCase()).join(''));
+        row.panels=labels===target.panelLetters;
+        if (row.panels) {
+          for (const letter of target.panelLetters) {
+            await tabs.filter({hasText:new RegExp('^'+letter+'$')}).click();
+            const focus=page.locator('.rq-focus:visible');
+            await focus.locator('.rq-sheet canvas:visible').first().waitFor();
+            const title=await focus.locator('.rq-focus-bar').innerText();
+            if (!new RegExp('(?:·|panel)\\s*'+letter+'\\b','i').test(title)) row.panels=false;
+          }
+          await page.locator('.st-dock .frw-panel-tab[data-panel=""]').click();
+        }
+      }
     }
     return {id:ref.id, journal:ref.journal, subset:ref.subset, extra, duplicate, errors, checks};
   } finally { await context.close(); }
@@ -125,7 +147,7 @@ async function audit(browser, ref) {
   try {await Promise.all([run(),run()]);} finally {await browser.close();}
   results.sort((a,b) => a.id.localeCompare(b.id));
   const counts = {};
-  for (const key of ['found','heading','captionPage','captionContent','imagePage','crop','reading']) {
+  for (const key of ['found','heading','captionPage','captionContent','imagePage','crop','reading','panels']) {
     const values = results.flatMap(r => r.checks || []).map(c => c[key]).filter(x => typeof x==='boolean');
     counts[key] = [values.filter(Boolean).length,values.length];
   }

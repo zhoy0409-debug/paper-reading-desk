@@ -901,13 +901,13 @@
       "source": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13396677.1/PMC13396677.1.xml",
       "subset": "reader-feedback",
       "figures": [
-        {"n":"1","starts":["cd31ishighlyexpressedinm"],"captionAnchors":["blotting detected","Source data file."],"cp":4,"image":{"page":3,"box":[0.1819,0.0616,0.6459,0.7586]}},
-        {"n":"2","starts":["cd31knockdownalleviatesm"],"captionAnchors":["hypergeometric test","Source data file."],"cp":6,"image":{"page":5,"box":[0.1388,0.0616,0.7322,0.7586]}},
-        {"n":"3","starts":["cd31regulatesmicrogliald"],"captionAnchors":["time-dependent reduction","Source data file."],"cp":7,"image":{"page":7,"box":[0.1016,0.0616,0.8064,0.5538]}},
-        {"n":"4","starts":["cd31regulatesaβclearance"],"captionAnchors":["Transcriptomic analysis","Source data file."],"cp":9,"image":{"page":8,"box":[0.1457,0.0616,0.7181,0.7586]}},
-        {"n":"5","starts":["microglialspecificcd31kn"],"captionAnchors":["Luciferase reporter assay","Source data file."],"cp":10,"image":{"page":10,"box":[0.1016,0.0616,0.8064,0.6054]}},
-        {"n":"6","starts":["cd31modulatesstat3phosph"],"captionAnchors":["intracellular domain","Source data file."],"cp":12,"image":{"page":11,"box":[0.1172,0.0616,0.7753,0.7586]}},
-        {"n":"7","starts":["intracerebroventriculari"],"captionAnchors":["swimming speed","Source data file."],"cp":14,"image":{"page":13,"box":[0.1334,0.0616,0.7427,0.7586]}}
+        {"n":"1","panelLetters":"ABCDEFGHIJKLMNOPQRSTUV","starts":["cd31ishighlyexpressedinm"],"captionAnchors":["blotting detected","Source data file."],"cp":4,"image":{"page":3,"box":[0.1819,0.0616,0.6459,0.7586]}},
+        {"n":"2","panelLetters":"ABCDEFGHIJK","starts":["cd31knockdownalleviatesm"],"captionAnchors":["hypergeometric test","Source data file."],"cp":6,"image":{"page":5,"box":[0.1388,0.0616,0.7322,0.7586]}},
+        {"n":"3","panelLetters":"ABCDEFGH","starts":["cd31regulatesmicrogliald"],"captionAnchors":["time-dependent reduction","Source data file."],"cp":7,"image":{"page":7,"box":[0.1016,0.0616,0.8064,0.5538]}},
+        {"n":"4","panelLetters":"ABCDEFGHIJKLMNO","starts":["cd31regulatesaβclearance"],"captionAnchors":["Transcriptomic analysis","Source data file."],"cp":9,"image":{"page":8,"box":[0.1457,0.0616,0.7181,0.7586]}},
+        {"n":"5","panelLetters":"ABCDEFGHIJKLM","starts":["microglialspecificcd31kn"],"captionAnchors":["Luciferase reporter assay","Source data file."],"cp":10,"image":{"page":10,"box":[0.1016,0.0616,0.8064,0.6054]}},
+        {"n":"6","panelLetters":"ABCDEFGHIJK","starts":["cd31modulatesstat3phosph"],"captionAnchors":["intracellular domain","Source data file."],"cp":12,"image":{"page":11,"box":[0.1172,0.0616,0.7753,0.7586]}},
+        {"n":"7","panelLetters":"ABCDEFGHIJKLMNOPQRS","starts":["intracerebroventriculari"],"captionAnchors":["swimming speed","Source data file."],"cp":14,"image":{"page":13,"box":[0.1334,0.0616,0.7427,0.7586]}}
       ]
     },
     {
@@ -922,13 +922,13 @@
       "source": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13396677.1/PMC13396677.1.xml",
       "subset": "reader-feedback",
       "figures": [
-        {"n":"1","starts":["cd31ishighlyexpressedinm"],"captionAnchors":["blotting detected","Source data file."],"cp":47,"image":{"page":54,"box":[0.0,0.0255,1.0,0.9745]}},
-        {"n":"2","starts":["cd31knockdownalleviatesm"],"captionAnchors":["hypergeometric test","Source data file."],"cp":48,"image":{"page":55,"box":[0.0,0.028,1.0,0.972]}},
-        {"n":"3","starts":["cd31regulatesmicrogliald"],"captionAnchors":["time-dependent reduction","Source data file."],"cp":49,"image":{"page":56,"box":[0.0,0.0419,1.0,0.9581]}},
-        {"n":"4","starts":["cd31regulatesaβclearance"],"captionAnchors":["Transcriptomic analysis","Source data file."],"cp":49,"image":{"page":57,"box":[0.0,0.0271,1.0,0.9729]}},
-        {"n":"5","starts":["microglialspecificcd31kn"],"captionAnchors":["Luciferase reporter assay","Source data file."],"cp":50,"image":{"page":58,"box":[0.0,0.0367,1.0,0.9633]}},
-        {"n":"6","starts":["cd31modulatesstat3phosph"],"captionAnchors":["intracellular domain","Source data file."],"cp":51,"image":{"page":59,"box":[0.0,0.0308,1.0,0.9692]}},
-        {"n":"7","starts":["intracerebroventriculari"],"captionAnchors":["swimming speed","Source data file."],"cp":52,"image":{"page":60,"box":[0.0,0.0282,1.0,0.9718]}}
+        {"n":"1","panelLetters":"ABCDEFGHIJKLMNOPQRSTUV","starts":["cd31ishighlyexpressedinm"],"captionAnchors":["blotting detected","Source data file."],"cp":47,"image":{"page":54,"box":[0.0,0.0255,1.0,0.9745]}},
+        {"n":"2","panelLetters":"ABCDEFGHIJK","starts":["cd31knockdownalleviatesm"],"captionAnchors":["hypergeometric test","Source data file."],"cp":48,"image":{"page":55,"box":[0.0,0.028,1.0,0.972]}},
+        {"n":"3","panelLetters":"ABCDEFGH","starts":["cd31regulatesmicrogliald"],"captionAnchors":["time-dependent reduction","Source data file."],"cp":49,"image":{"page":56,"box":[0.0,0.0419,1.0,0.9581]}},
+        {"n":"4","panelLetters":"ABCDEFGHIJKLMNO","starts":["cd31regulatesaβclearance"],"captionAnchors":["Transcriptomic analysis","Source data file."],"cp":49,"image":{"page":57,"box":[0.0,0.0271,1.0,0.9729]}},
+        {"n":"5","panelLetters":"ABCDEFGHIJKLM","starts":["microglialspecificcd31kn"],"captionAnchors":["Luciferase reporter assay","Source data file."],"cp":50,"image":{"page":58,"box":[0.0,0.0367,1.0,0.9633]}},
+        {"n":"6","panelLetters":"ABCDEFGHIJK","starts":["cd31modulatesstat3phosph"],"captionAnchors":["intracellular domain","Source data file."],"cp":51,"image":{"page":59,"box":[0.0,0.0308,1.0,0.9692]}},
+        {"n":"7","panelLetters":"ABCDEFGHIJKLMNOPQRS","starts":["intracerebroventriculari"],"captionAnchors":["swimming speed","Source data file."],"cp":52,"image":{"page":60,"box":[0.0,0.0282,1.0,0.9718]}}
       ]
     }
   ]

@@ -54,7 +54,7 @@
         branchTitle:string(f.branchTitle,420),summary: string(f.summary, 480), caption: string(f.caption, 6000), page: pageNumber(f.page ?? f.source?.page),
         group: string(f.group, 40), boundary: string(f.boundary, 320), source: f.source,
         references: array(f.references).filter(Boolean).slice(0,12),
-        panels: array(f.panels).filter(x=>x && typeof x === 'object').slice(0, 20).map((p, j) => {
+        panels: array(f.panels).filter(x=>x && typeof x === 'object').slice(0, 32).map((p, j) => {
           const label = string(p.label, 24) || String.fromCharCode(65 + j);
           const id = string(p.id, 80) || label;
           if (panelIds.has(id)) return null;
@@ -249,7 +249,7 @@
     const compare=options.desk&&global.PaperSourcePane.mount(visual,options.desk.session,n=>openSource({page:n}));
     const desk=options.desk&&global.PaperPanelDesk.mount(options.desk,{
       workbench,plate,img,notes,explain,boundary,more,pageMode:()=>pageMode,showFigure:()=>compare?.showFigure(),
-      togglePage:()=>{compare?.showFigure();pageMode=!pageMode;cache.delete(active.id);wantedZoom=zoom;loadPicture();rememberSpot()},
+      togglePage:()=>{compare?.showFigure();pageMode=!pageMode;cache.delete(active.id+':'+pageMode);wantedZoom=zoom;loadPicture();rememberSpot()},
       syncPanels:id=>{preparePanels();updateTabs();atlas?.syncPanels();readPanel(id)},
       openPreview:id=>{readPanel(id);visual.scrollIntoView({block:'nearest'});},
       listPanels:()=>{preparePanels();updateTabs();atlas?.syncPanels()}
@@ -1035,10 +1035,10 @@
       plate.hidden = true; placeholder.hidden = false; target.hidden = true;
       expand.disabled = true; zoom = 0; setZoom(); photoCaption.textContent = '';
     }
-    function failPicture(message, allowRetry) {
+    function failPicture(message, allowRetry, englishMessage) {
       resetPicture(); PaperUI.set(modeLabel,'原图未载入');
       PaperUI.set(placeholderTitle,'这里没有可核实的图像');
-      placeholderText.textContent = message || '可打开原文找图。这里不绘制占位图假装论文原图。';
+      PaperUI.set(placeholderText,message||'请打开 PDF 查看原图。',englishMessage||(!message?'Open the PDF to view the original figure.':undefined));
       retry.hidden = !allowRetry;
     }
     async function loadPicture() {
@@ -1060,7 +1060,7 @@
           if (!out || out.mode === 'unavailable') { failPicture(string(out?.reason,180), false); return; }
           const blob = out instanceof global.Blob ? out : out.blob;
           if (!(await validRaster(blob))) {
-            if (!stale()) failPicture('没有收到可安全显示的原文图像。请直接打开原文核对。', false);
+            if (!stale()) failPicture('没有收到可显示的原文图像。可重试或直接核对 PDF。', true,'The figure could not be displayed. Retry or open the source PDF.');
             return;
           }
           if (stale()) return;
@@ -1074,7 +1074,7 @@
         img.onload = () => {
           if (stale()) return;
           const ratio = img.naturalWidth / img.naturalHeight;
-          if (!Number.isFinite(ratio) || ratio <= 0) { cache.delete(current.id); failPicture('这份图像没有可显示的尺寸。', true); return; }
+          if (!Number.isFinite(ratio) || ratio <= 0) { cache.delete(cacheKey); failPicture('这份图像没有可显示的尺寸。', true,'Image dimensions are unavailable. Retry to read this figure again.'); return; }
           plate.style.setProperty('--frw-fit-width', `${Math.max(1, Math.round(Math.min(1070, img.naturalWidth, 548 * ratio)))}px`);
           plate.style.setProperty('--figure-aspect',String(ratio));
           visiblePicture = true; plate.hidden = false; placeholder.hidden = true;
@@ -1083,9 +1083,13 @@
           }else PaperUI.set(modeLabel,pic.mode === 'figure' ? '原文图像' : '原文整页');
           expand.disabled = false;zoom=wantedZoom;setZoom();desk?.image(pic.mode);lens?.picture(pic.mode);renderTarget();
         };
-        img.onerror = () => { if (!stale()) { cache.delete(current.id); failPicture('浏览器没有打开这张原图，可重试或直接核对 PDF。', true); } };
+        img.onerror = () => { if (!stale()) { cache.delete(cacheKey); failPicture('浏览器没有打开这张原图，可重试或直接核对 PDF。', true,'The browser could not open this figure. Retry or check the source PDF.'); } };
         img.src = objectUrl;
-      } catch (_) { if (!stale()) failPicture('图像提取没有完成。可重试或先读原文。', true); }
+      } catch (error) {
+        if (stale()) return;
+        console.warn('[Reading Desk] Could not render figure',current.label,error);
+        failPicture('图像提取没有完成。可重试或先读原文。', true,'Figure extraction was interrupted. Retry or open the source PDF.');
+      }
     }
 
     function selectFigure(idToFind, force = false) {

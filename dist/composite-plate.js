@@ -1,7 +1,7 @@
 /* Locate lettered composite plates from the rendered page. PDF text alone misses outlined letters. */
 (() => {
   'use strict';
-  const alphabet='ABCDEFGHIJKLMNOPQRST';
+  const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const legal = /(?:^|[.!?;:]\s+)\(?([A-T])(?:\)|\.)?\s+(?=[A-Z(0-9])/g;
   function series(text) {
     const markers=[...text.matchAll(legal)].map(m=>m[1]);
@@ -96,7 +96,7 @@
     }
     return letters;
   }
-  function chain(marks,expected,lower=false){
+  function chain(marks,expected,lower=false,columns=false){
     if(!expected.has('A')||expected.size<2)return;
     const last=Math.max(...[...expected].map(l=>alphabet.indexOf(l)));
     let paths=marks.filter(m=>m.ch==='A').map(m=>({list:[m],cost:m.score}));
@@ -106,15 +106,61 @@
         const a=p.list[0],b=p.list.at(-1);
         if(Math.abs(m.h/a.h-1)>(lower ? .65 : .28))continue;
         const same=Math.abs(b.y-m.y)<Math.max(2.8,a.h*.55);
-        if(same?m.x-b.x<a.h*3:m.y-b.y<a.h*3.2)continue;
+        const returnsUp=columns && m.y<b.y-a.h*3.2 && m.x>b.x+a.h*3 &&
+          p.list.some(n=>Math.abs(n.y-m.y)<a.h*.7 && n.x<m.x-a.h*3);
+        if(same?m.x-b.x<a.h*3:!returnsUp&&m.y-b.y<a.h*3.2)continue;
         const aligned=p.list.some(n=>Math.abs(n.x-m.x)<a.h*1.35);
-        next.push({list:[...p.list,m],cost:p.cost+m.score+(same||aligned?0:.11)+.15*Math.abs(m.h/a.h-1)});
+        next.push({list:[...p.list,m],cost:p.cost+m.score+(same||aligned?0:.11)+.15*Math.abs(m.h/a.h-1)+(returnsUp ? .12 : 0)});
       }
       paths=next.sort((a,b)=>a.cost-b.cost).slice(0,100);
       if(!paths.length)return;
     }
     if(paths.length>1&&paths[1].cost-paths[0].cost<.025)return;
     return paths[0]?.list;
+  }
+  function panelBoxes(seq,crop,ink,pixelWidth,scale,view){
+    const rows=[],pad=2.5;
+    for(const mark of seq.slice().sort((a,b)=>a.y-b.y||a.x-b.x)){
+      const row=rows.at(-1);
+      if(!row||mark.y-row[0].y>mark.h*.7)rows.push([mark]);
+      else row.push(mark);
+    }
+    const panels=[],active=[];
+    for(const row of rows){
+      const top=Math.max(crop.y0,row[0].y-pad);
+      row.sort((a,b)=>a.x-b.x);
+      for(let i=active.length-1;i>=0;i--){
+        const panel=active[i],rect=panel.rect;
+        const startsInside=row.some(m=>m.x>=rect.x0-m.h*.5&&m.x<rect.x1-m.h*.5);
+        // A large micrograph can continue alongside a second row of smaller charts.
+        // For a new panel on the left, distinguish a continuing image from
+        // ticks and rotated labels that extend just below the next row's letter.
+        let continued=!startsInside;
+        if(continued&&row.some(m=>m.x<rect.x1-m.h*.6)){
+          const left=Math.ceil(rect.x0*scale),right=Math.floor(rect.x1*scale);
+          const first=Math.max(0,Math.floor((top-row[0].h)*scale));
+          const last=Math.min(Math.floor(crop.y1*scale)-1,Math.ceil((row[0].y+row[0].h*.65)*scale));
+          const gutter=Math.max(2,Math.ceil(row[0].h*scale*.48));
+          let blank=0;
+          for(let y=first;y<=last;y++){
+            let hits=0;
+            for(let x=left;x<right;x++)hits+=ink[y*pixelWidth+x]||0;
+            blank=hits<Math.max(3,(right-left)*.07)?blank+1:0;
+            if(blank>=gutter){continued=false;break}
+          }
+        }
+        if(!continued){rect.y1=top;active.splice(i,1)}
+      }
+      const carried=active.slice();
+      for(const [j,m] of row.entries()){
+        const x0=j===0&&!carried.some(p=>p.rect.x0<m.x)?crop.x0:Math.max(crop.x0,m.x-pad);
+        const x1=Math.min(row[j+1]?row[j+1].x-pad:crop.x1,...carried.filter(p=>p.rect.x0>m.x).map(p=>p.rect.x0));
+        const panel={position:m.ch.toLowerCase(),label:m.ch,rect:{x0,y0:top,x1,y1:crop.y1},
+          markerBox:{x:m.x/view.width,y:m.y/view.height,width:m.w/view.width,height:m.h/view.height}};
+        panels.push(panel);active.push(panel);
+      }
+    }
+    return panels.sort((a,b)=>a.position.localeCompare(b.position));
   }
   // A single embedded image can carry the complete plate, with labels either
   // painted into the bitmap or printed as a separate PDF text layer above it.
@@ -128,7 +174,7 @@
     if(lines.some(l=>l.text.length>65 && l.y0>image.y1 && l.y1<c.y0))return null;
     const pad=Math.min(34,(image.x1-image.x0)*.11);
     const preceding=lines.filter(l=>l.text.length>65&&l.y1<=image.y0&&l.x1>image.x0&&l.x0<image.x1);
-    return {x0:Math.max(0,image.x0-pad),x1:Math.min(view.width,image.x1+pad),y0:Math.max(0,image.y0-pad,...preceding.map(l=>l.y1+2)),y1:Math.min(c.y0-2,image.y1+pad)};
+    return {x0:Math.max(0,image.x0-pad),x1:Math.min(view.width,image.x1+pad),y0:Math.max(0,image.y0-pad,...preceding.map(l=>l.y1+2)),y1:Math.min(c.y0-2,image.y1+pad),imageOp:image.imageOp};
   }
   function standaloneImage(objects,{viewport:view,lines},allowOuterText=false){
     const images=objects.filter(o=>o.kind==='image'&&o.x1-o.x0>view.width*.4&&o.y1-o.y0>view.height*.28&&
@@ -171,7 +217,7 @@
     }finally{canvas.width=canvas.height=0}
   }
   function textSequence(words,box){
-    const letters=words.filter(w=>/^[a-t]$/i.test(w.text.trim())&&w.x0>=box.x0-9&&w.x1<=box.x1+3&&w.y0>=box.y0-9&&w.y1<=box.y1+1);
+    const letters=words.filter(w=>/^[a-z]$/i.test(w.text.trim())&&w.x0>=box.x0-9&&w.x1<=box.x1+3&&w.y0>=box.y0-9&&w.y1<=box.y1+1);
     const sequences=[];
     for(const start of letters.filter(w=>/^a$/i.test(w.text.trim()))){
       const seq=[start];
@@ -190,6 +236,11 @@
   }
   async function locate(page,view,lines,cap,previous,annotationMode,box=null,words=[]){
     const expected=series(cap.caption);
+    if(box){
+      for(const heading of globalThis.CaptionFlow?.headings(cap.caption)||[]){
+        for(const id of heading.ids)expected.add(id.toUpperCase());
+      }
+    }
     for(const m of cap.caption.matchAll(/\(([A-T])(?:\s*(?:and|,|[-–—])\s*([A-T]))?\)/g)){
       expected.add(m[1]);if(m[2])expected.add(m[2]);
     }
@@ -240,11 +291,23 @@
         if(right-left>W*.4&&bottom-low/scale<30)return {crop:{x0:left/scale-2,y0:high/scale-2,x1:(right+1)/scale+2,y1:Math.min(bottom,(low+1)/scale+2)},panels:[]};
         return;
       }
-      for(let y=Math.max(0,Math.ceil(top*scale));y<H;y++)for(let x=xMin;x<xMax;x++){
-        const i=y*W+x,k=i*4;if(Math.max(data[k],data[k+1],data[k+2])<154)gray[i]=1;
+      function threshold(pixels){
+        for(let y=Math.max(0,Math.ceil(top*scale));y<H;y++)for(let x=xMin;x<xMax;x++){
+          const i=y*W+x,k=i*4;gray[i]=Math.max(pixels[k],pixels[k+1],pixels[k+2])<154?1:0;
+        }
       }
-      const marks=textMarks?[]:glyphs(gray,W,H,scale,box?(lower?'lower':'upper'):null);
-      let seq=textMarks||chain(marks,expected,lower);
+      threshold(data);
+      const style=box?(lower?'lower':'upper'):null;
+      let marks=textMarks?[]:glyphs(gray,W,H,scale,style);
+      const match=()=>chain(marks,expected,lower)||(box&&expected.size>=4&&chain(marks,expected,lower,true));
+      let seq=textMarks||match();
+      if(!seq&&Number.isInteger(box?.imageOp)){
+        // A page header painted over an embedded plate may cover the tops of
+        // its letters. Read the plate at its own paint operation for indexing.
+        await page.render({canvas,canvasContext:ctx,viewport:v,annotationMode,background:'#fff',operationsFilter:i=>i<=box.imageOp}).promise;
+        threshold(ctx.getImageData(0,0,W,H).data);
+        marks=glyphs(gray,W,H,scale,style);seq=match();
+      }
       if(!seq)return;
       // Captions can continue on the next page. Extend only with matching
       // printed letters of the same size in reading order.
@@ -256,20 +319,16 @@
           seq=extended;
         }
       }
-      const rows=[];
-      for(const m of seq){if(!rows.length||Math.abs(rows.at(-1)[0].y-m.y)>m.h*.65)rows.push([]);rows.at(-1).push(m);}
       for(let y=Math.max(0,Math.floor(seq[0].y*scale)-2);y<H;y++){
         let count=0,l=W,r=0;
         for(let x=xMin;x<xMax;x++){const k=(y*W+x)*4;if(Math.min(data[k],data[k+1],data[k+2])<200){count++;l=Math.min(l,x);r=x;}}
         if(count>=2&&count<W*.9){left=Math.min(left,l);right=Math.max(right,r);low=y;}
       }
       if(right<=left||low<seq.at(-1).y*scale)return;
-      const pad=2.5,crop={x0:Math.max(0,left/scale-pad),y0:Math.max(0,seq[0].y-pad),x1:Math.min(view.width,(right+1)/scale+pad),y1:Math.min(bottom,(low+1)/scale+pad)};
-      const panels=[];
-      rows.forEach((row,i)=>row.forEach((m,j)=>{
-        const rect={x0:j===0?crop.x0:m.x-pad,y0:row[0].y-pad,x1:row[j+1]?row[j+1].x-pad:crop.x1,y1:rows[i+1]?rows[i+1][0].y-pad:crop.y1};
-        panels.push({label:m.ch,position:m.ch.toLowerCase(),rect,markerBox:{x:m.x/view.width,y:m.y/view.height,width:m.w/view.width,height:m.h/view.height}});
-      }));
+      const pad=2.5,lane=box&&previous?box:{x0:0,y0:0,x1:view.width,y1:bottom};
+      const crop={x0:Math.max(lane.x0,left/scale-pad),y0:Math.max(lane.y0,seq[0].y-pad),
+        x1:Math.min(lane.x1,(right+1)/scale+pad),y1:Math.min(lane.y1,(low+1)/scale+pad)};
+      const panels=panelBoxes(seq,crop,gray,W,scale,view);
       return {crop,panels,raster:true};
     }finally{canvas.width=canvas.height=0}
   }
