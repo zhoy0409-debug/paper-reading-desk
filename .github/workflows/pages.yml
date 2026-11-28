@@ -17,6 +17,8 @@ on:
       - 'tests/subject-glossary-browser.cjs'
       - 'tests/translation-transfer.mjs'
       - 'tests/portable-update-browser.cjs'
+      - 'portable_update.py'
+      - 'tests/portable-update-test.py'
       - 'tests/paper-map-browser.cjs'
       - 'tests/tour-media.py'
       - 'tests/fixtures/tour-scenes.json'
@@ -94,6 +96,7 @@ jobs:
           python3 tests/tour-media.py
           node tests/paper-map-browser.cjs http://127.0.0.1:8174/read/
           node tests/subject-glossary-browser.cjs http://127.0.0.1:8174/read/
+          python3 tests/portable-update-test.py
           node tests/portable-update-browser.cjs http://127.0.0.1:8174/read/
           node tests/panel-evidence.cjs
           node tests/figure-elements.cjs
