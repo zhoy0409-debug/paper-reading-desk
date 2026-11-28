@@ -33,13 +33,15 @@ on:
       - 'tests/fixtures/*legend.pdf'
       - 'docs/film/**'
       - '.github/workflows/pages.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: reading-desk-pages
+  group: reading-desk-pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -109,10 +111,12 @@ jobs:
           node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
       - uses: actions/upload-pages-artifact@v5
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: _site
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
