@@ -19,6 +19,8 @@ Preparing a journal club talk? Open a paper, click a figure label to see what it
 
 [See the study’s aims on its map](docs/guide/studio-map-en.webp) · [Follow Figure 8 to its supporting evidence](docs/guide/studio-map-figure-en.webp)
 
+When artwork and captions are on different pages, selecting a figure opens the artwork and its caption link opens the printed legend. For manuscripts with grouped legends and unnumbered plates at the end, the reader links the two series when their counts, order and page locations agree. [See both PDF editions of a seven-figure paper](docs/journal-layouts.md#pmid-42248891)
+
 **Reading in Chinese?** The upload screen suggests a subject glossary. You can choose another field or add your own terms. The glossaries distinguish a drug’s delivery vehicle from a vehicle in a traffic study. If one map entry fails to translate, use its retry button to continue where you were.
 
 To translate a passage, select the English text and choose **Translate to Chinese**. Expand the original to check a compound name, number or figure reference. If a download or a source check fails, the popup explains why and lets you retry that selection.
@@ -51,6 +53,8 @@ The web address stays the same as updates are published. On Windows, unzip the p
 4. **把读过的内容留下来。** 导出到 Obsidian，把选好的小图、笔记和原文页码放在一起。准备英文汇报时，划选陌生术语或整句，点「听英文」即可跟读。
 
 [看这篇论文的研究目的](docs/guide/studio-map-zh.webp) · [看图 8 和支持它的原文证据](docs/guide/studio-map-figure-zh.webp)
+
+遇到插图与图注分开排版的论文，点图号打开插图，点图注页码查看原文。有些早期稿先集中列图注，再把无编号的图版放在文末。阅读器会核对数量、顺序和页位，能对应上才逐图关联。[看同一篇七图论文的两个 PDF 版本](docs/journal-layouts.zh-CN.md#pmid-42248891)
 
 **同一个词，在你的专业里怎么译？** 上传时可自动识别学科，也可手选或补充自己的术语。药物实验里的 *vehicle control* 译为「溶媒对照」。脑图里遇到某条中文没加载出来，点它旁边的「重试此处」，就能留在原位置继续读。
 
