@@ -1,0 +1,42 @@
+{
+  "release": {
+    "fullyUseful": 15,
+    "medianMs": 64.0,
+    "missing": 0,
+    "p95Ms": 487,
+    "passages": 36,
+    "sentences": 42,
+    "unmarkedSeverePassages": 16,
+    "usefulByDefault": 20,
+    "usefulHidden": 0,
+    "usefulIfExpanded": 20,
+    "visibleSeverePassages": 16
+  },
+  "previous": {
+    "fullyUseful": 9,
+    "medianMs": 91.5,
+    "missing": 0,
+    "p95Ms": 531,
+    "passages": 36,
+    "sentences": 42,
+    "unmarkedSeverePassages": 8,
+    "usefulByDefault": 14,
+    "usefulHidden": 6,
+    "usefulIfExpanded": 20,
+    "visibleSeverePassages": 10
+  },
+  "revised": {
+    "fullyUseful": 14,
+    "medianMs": 73.0,
+    "missing": 0,
+    "p95Ms": 444,
+    "passages": 36,
+    "sentences": 42,
+    "unmarkedSeverePassages": 12,
+    "usefulByDefault": 19,
+    "usefulHidden": 2,
+    "usefulIfExpanded": 21,
+    "visibleSeverePassages": 14
+  },
+  "passesScientificGate": false
+}

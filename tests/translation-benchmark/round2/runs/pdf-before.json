@@ -1,0 +1,62 @@
+[
+  {
+    "id": "F01",
+    "doi": "10.1371/journal.pone.0212088",
+    "kind": "abstract",
+    "pdfSha256": "a96e97b1ad6fa3922c60622701ad655ea4dcc14680bb407991859b94065784b1",
+    "reference": "pone.0212088.pdf · 第 1 页 · 文字段 33 · 打开 PDF 第 1 页",
+    "selected": "In this particular case, the results show\nthat only 3% of the collected microplastics need to be analyzed to give a precise view on the\nscale of the North West Mediterranean Basin (error <5%), and 17.7% to give an overview\nmanta per manta (error <10%).",
+    "state": "partial",
+    "visible": "在这种特殊情况下，结果表明，只有3%的收集微塑料需要进行分析，以给出西北地中海盆地规模的精确视图(误差<5%),17.7%的微塑料给出每曼塔的概述(误差<10%)。第 1 句 · 跨句指代"
+  },
+  {
+    "id": "F02",
+    "doi": "10.1371/journal.pone.0212088",
+    "kind": "caption",
+    "pdfSha256": "a96e97b1ad6fa3922c60622701ad655ea4dcc14680bb407991859b94065784b1",
+    "reference": "pone.0212088.pdf · 第 8 页 · 文字段 30 · 打开 PDF 第 8 页",
+    "selected": "Despite the significant increase in the\nnumber of particles analyzed, the proportions are very similar.",
+    "state": "translated",
+    "visible": "尽管分析的颗粒数量显著增加，但比例非常相似。"
+  },
+  {
+    "id": "F19",
+    "doi": "10.1371/journal.pclm.0000278",
+    "kind": "abstract",
+    "pdfSha256": "33135d48fbc585db83ac19d8e10e74a593f450402e58c77a869489e3e3bb6893",
+    "reference": "pclm.0000278.pdf · 第 1 页 · 文字段 18 · 打开 PDF 第 1 页",
+    "selected": "Land surface temperatures (LSTs) captured via satellite remote sensing are widely used as\na proxy for the surface air temperatures (SATs) experienced outdoors, a key component of\nhuman heat exposure.",
+    "state": "translated",
+    "visible": "通过卫星遥感捕获的陆地表面温度(LST)被广泛用作户外体验的表面空气温度(SAT)的代名词，这是人类热暴露的关键组成部分。"
+  },
+  {
+    "id": "F20",
+    "doi": "10.1371/journal.pclm.0000278",
+    "kind": "caption",
+    "pdfSha256": "33135d48fbc585db83ac19d8e10e74a593f450402e58c77a869489e3e3bb6893",
+    "reference": "pclm.0000278.pdf · 第 3 页 · 文字段 20 · 打开 PDF 第 3 页",
+    "selected": "Miami-Dade County boundary shapefile, Urban development boundary shapefile:\nMiami-Dade County [65].",
+    "state": "translated",
+    "visible": "迈阿密–戴德县边界形状文件，城市发展边界形状文件:迈阿密–戴德县[65]。"
+  },
+  {
+    "id": "F25",
+    "doi": "10.1371/journal.pmed.1003487",
+    "kind": "abstract",
+    "pdfSha256": "c5be32456581a7d56c584ca455b6af4229a2eaf1a939c5594cc21a95b68e990f",
+    "reference": "pmed.1003487.pdf · 第 1 页 · 文字段 45 · 打开 PDF 第 1 页",
+    "selected": "We investigated the association between accelerometer-measured mod-\nerate, vigorous, and total PA and incident CVD.",
+    "state": "translated",
+    "visible": "我们调查了加速度计测量的mod-erate,轰轰烈烈，以及PA和事件CVD之间的关联。"
+  },
+  {
+    "id": "F26",
+    "doi": "10.1371/journal.pmed.1003487",
+    "kind": "caption",
+    "pdfSha256": "c5be32456581a7d56c584ca455b6af4229a2eaf1a939c5594cc21a95b68e990f",
+    "reference": "pmed.1003487.pdf · 第 9 页 · 文字段 10 · 打开 PDF 第 9 页",
+    "selected": "CVD, cardiovascular disease; HR, hazard ratio; PA, physical activity.",
+    "state": "translated",
+    "visible": "CVD，心血管疾病; HR，风险比 ; PA，身体活动。"
+  }
+]

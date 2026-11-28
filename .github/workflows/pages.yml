@@ -99,6 +99,8 @@ jobs:
           node tests/translation-evidence.mjs
           python3 tests/provider-test.py
           python3 tests/translation-benchmark/verify-acceptance.py
+          python3 tests/translation-benchmark/round2/audit.py verify tests/translation-benchmark/round2 "$RUNNER_TEMP/translation-replay"
+          python3 tests/translation-benchmark/round2/score-regression.py
           node tests/translation-transfer.mjs
           node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/
           node tests/selection-engine-browser.cjs http://127.0.0.1:8174/read/ --isolated-faults
@@ -129,6 +131,9 @@ jobs:
           READER_BROWSER=webkit node tests/review-reader-browser.cjs http://127.0.0.1:8174/read/
           node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
           READER_BROWSER=webkit node tests/obsidian-browser.cjs http://127.0.0.1:8174/read/
+      - name: Require the tested scientific accuracy before public deployment
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: python3 tests/translation-benchmark/round2/audit.py release tests/translation-benchmark/round2 "$RUNNER_TEMP/translation-publication"
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:

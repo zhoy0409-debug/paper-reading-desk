@@ -1,0 +1,54 @@
+{
+  "paper-map-browser.cjs": {
+    "exitCode": 0,
+    "observations": [
+      "{\"title\":\"Attraction-Repulsion Spectrum in Neighbor Embeddings\",\"question\":\"How does the balance between attraction and repulsion shape neighbor embeddings?\",\"zh\":\"吸引力与排斥力之间的平衡如何影响邻域嵌入？\",\"aimPage\":2,\"aims\":[\"研究目的\",\"用统一框架解释邻域嵌入（NE）算法。\",\"考察 t-SNE 的一系列嵌入结果如何随 kNN 图上的近邻点之间的吸引力变化。\"],\"figures\":12}",
+      "{\"title\":\"ILC2 instructs neural stem and progenitor cells to potentiate neurorepair after stroke\",\"question\":\"How does ILC2 instruct neural stem and progenitor cells to potentiate neurorepair after stroke?\",\"zh\":\"ILC2 如何调控神经干细胞和祖细胞，促进卒中后的神经修复？\",\"aimPage\":4,\"aims\":[\"研究目的\",\"考察 ILC2s 在卒中恢复期免疫适应中的作用。\"],\"figures\":7}",
+      "{\"title\":\"Targeting chemokine signaling networks for therapeutics in skeletal disorders\",\"question\":\"What evidence supports targeting chemokine signaling networks to treat skeletal disorders?\",\"zh\":\"靶向趋化因子信号网络治疗骨骼疾病有哪些依据？\",\"aimPage\":1,\"aims\":[\"综述目的与范围\",\"本综述探讨趋化因子介导的信号级联如何与 JAK/STAT3、NF-κB、PI3K/Akt、Wnt/β-catenin 等经典通路相互作用，从而协调骨微环境中的细胞间通讯。\",\"本综述梳理了靶向趋化因子轴的治疗策略在减轻炎症性骨丢失和促进组织再生方面的最新进展。\"],\"figures\":5}"
+    ]
+  },
+  "figure-explanation-entry-browser.cjs": {
+    "exitCode": 0,
+    "observations": [
+      "Mobile zh ordinary upload and source passed http://127.0.0.1:8242/read/?lang=zh",
+      "Desktop en public PDF upload, panel and axis passed http://127.0.0.1:8242/read/?lang=en",
+      "Mobile zh page without captions passed http://127.0.0.1:8242/read/?lang=zh",
+      "Mobile zh caption and source when cropping fails passed http://127.0.0.1:8242/read/?lang=zh",
+      "Mobile zh public sample link, explanation menu, legend and printed axis passed",
+      "Mobile en public sample link, explanation menu, legend and printed axis passed"
+    ]
+  },
+  "subject-glossary-browser.cjs": {
+    "exitCode": 0,
+    "observations": [
+      "PASS clicked axis and immediate English follow-up on uploaded Figure 8A",
+      "PASS one failed entry recovered after a blocked registry download; the other failed entry and map stayed in place.",
+      "PASS subject choice restored for this paper.",
+      "PASS personal terminology used for the selection and restored after reopening."
+    ]
+  },
+  "obsidian-browser.cjs": {
+    "exitCode": 0,
+    "observations": [
+      "PASS chromium en upload, Markdown, selected order, PDF page, image pixels, personal notes, optional attachments, vault write and edit preservation"
+    ]
+  },
+  "slide-basket-browser.cjs": {
+    "exitCode": 0,
+    "observations": [
+      "PASS original Abaucin PDF: 2B sham, 2E ruler; add B/E/C, notes, pointer and keyboard reorder, bilingual controls, mobile width, reopen, remove/re-add and export E/B/C."
+    ]
+  },
+  "export": {
+    "slides": 2,
+    "embeddedImages": 3,
+    "panelOrder": [
+      "E",
+      "B",
+      "C"
+    ],
+    "sourcePage": 4,
+    "editableFigureExplanations": 3,
+    "validZip": true
+  }
+}

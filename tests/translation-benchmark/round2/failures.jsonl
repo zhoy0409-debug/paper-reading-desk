@@ -1,0 +1,70 @@
+{"id": "F01", "version": "release", "key": "f244d2f8eea1", "grades": "m", "visible": [true], "warnings": [false], "reason": "比例和误差界完整，但每曼塔未交代比较的采样单位。"}
+{"id": "F03", "version": "release", "key": "8c82deb53fb9", "grades": "s", "visible": [true], "warnings": [false], "reason": "比例估计精度5%变成准确率5%，统计量含义改变。"}
+{"id": "F04", "version": "release", "key": "3e78cb135982", "grades": "m", "visible": [true], "warnings": [false], "reason": "两个样本数与百分比均在，倒装和缺少量词使两组精度难以直接读取。"}
+{"id": "F06", "version": "release", "key": "39d84acafe3d", "grades": "ym", "visible": [true, true], "warnings": [false, false], "reason": "首句准确。次句的地区与引文交错，采集地点被译为领域，难以连贯阅读。"}
+{"id": "F08", "version": "release", "key": "f8e1b19ea272", "grades": "s", "visible": [true], "warnings": [false], "reason": "方形标记译成平方，并遗漏与已发表研究的来源区分。"}
+{"id": "F09", "version": "release", "key": "cff79649d9bb", "grades": "s", "visible": [true], "warnings": [false], "reason": "两处区间端点保留，却漏掉颗粒数更少这个主要发现。"}
+{"id": "F12", "version": "release", "key": "4940eb5a8eaa", "grades": "sy", "visible": [true, true], "warnings": [false, false], "reason": "首句漏掉轻微用力即断裂这一排除标准。次句保留包裹与回收步骤。"}
+{"id": "F16", "version": "release", "key": "feeccc63261e", "grades": "s", "visible": [true], "warnings": [false], "reason": "将更多受试者译为更多主题，改变扩大验证样本的要求。"}
+{"id": "F17", "version": "release", "key": "7baa9ca6f87e", "grades": "s", "visible": [true], "warnings": [false], "reason": "将成对数值译成对数值，凭空加入对数变换。"}
+{"id": "F19", "version": "release", "key": "6b76bf81ebbb", "grades": "s", "visible": [true], "warnings": [false], "reason": "将代理指标译为代名词，混淆了两个温度指标之间的测量关系。"}
+{"id": "F21", "version": "release", "key": "1d86c2502d72", "grades": "m", "visible": [true], "warnings": [false], "reason": "正相关和统计数值可辨，但括号中哪一项随不透水表面增加而升温没有说清。"}
+{"id": "F22", "version": "release", "key": "5b17eff9b0d3", "grades": "s", "visible": [true], "warnings": [false], "reason": "遗漏按平均NDVI筛选，并使引文94读起来像被移除的阈值。"}
+{"id": "F25", "version": "release", "key": "4ad6c6e26ca4", "grades": "s", "visible": [true], "warnings": [false], "reason": "将新发心血管病译为事件CVD，丢失结局的新发限定。"}
+{"id": "F27", "version": "release", "key": "c86c86a0593b", "grades": "s", "visible": [true], "warnings": [false], "reason": "将按活动量递增的四分位组写成季度。数值虽全，比较分组发生改变。"}
+{"id": "F28", "version": "release", "key": "ad04ce31763f", "grades": "s", "visible": [true], "warnings": [false], "reason": "将负相关强化为数学上的反比，括号也错乱。"}
+{"id": "F29", "version": "release", "key": "ae5fdc9c8eef", "grades": "s", "visible": [true], "warnings": [false], "reason": "将分布两端的截尾条件拆成观测值占比和悬空的95%，不能还原筛选标准。"}
+{"id": "F30", "version": "release", "key": "523767014ca7", "grades": "mm", "visible": [true, true], "warnings": [false, false], "reason": "总体活动量分别译为体积和容量，使两个句子的暴露指标都需回看原文。"}
+{"id": "F31", "version": "release", "key": "44e46ee5ea16", "grades": "s", "visible": [true], "warnings": [false], "reason": "把长期改变的视觉光学条件具体化为光学器件，改变适应的刺激来源。"}
+{"id": "F32", "version": "release", "key": "f4cc9e8d4476", "grades": "s", "visible": [true], "warnings": [false], "reason": "代表模型拟合的实线被写成实心行，图例编码错位。"}
+{"id": "F33", "version": "release", "key": "af1b83d46d3c", "grades": "s", "visible": [true], "warnings": [false], "reason": "药名、睫状肌麻痹及调节功能错译，药物与作用均不可靠。"}
+{"id": "F35", "version": "release", "key": "259e60334c29", "grades": "s", "visible": [true], "warnings": [false], "reason": "外侧膝状体、低通和带通特性均被错译，改变解剖对象与滤波特性。"}
+{"id": "F01", "version": "previous", "key": "f244d2f8eea1", "grades": "m", "visible": [true], "warnings": [false], "reason": "比例和误差界完整，但每曼塔未交代比较的采样单位。"}
+{"id": "F03", "version": "previous", "key": "8c82deb53fb9", "grades": "s", "visible": [true], "warnings": [false], "reason": "比例估计精度5%变成准确率5%，统计量含义改变。"}
+{"id": "F04", "version": "previous", "key": "3e78cb135982", "grades": "m", "visible": [true], "warnings": [false], "reason": "两个样本数与百分比均在，倒装和缺少量词使两组精度难以直接读取。"}
+{"id": "F05", "version": "previous", "key": "a314668db313", "grades": "y", "visible": [false], "warnings": [true], "reason": "保留与前两项结果比较及粒径分布一致。"}
+{"id": "F06", "version": "previous", "key": "39d84acafe3d", "grades": "ym", "visible": [true, false], "warnings": [false, true], "reason": "首句准确。次句的地区与引文交错，采集地点被译为领域，难以连贯阅读。"}
+{"id": "F08", "version": "previous", "key": "f8e1b19ea272", "grades": "s", "visible": [false], "warnings": [true], "reason": "方形标记译成平方，并遗漏与已发表研究的来源区分。"}
+{"id": "F09", "version": "previous", "key": "cff79649d9bb", "grades": "s", "visible": [false], "warnings": [true], "reason": "两处区间端点保留，却漏掉颗粒数更少这个主要发现。"}
+{"id": "F10", "version": "previous", "key": "843b151ed1c4", "grades": "y", "visible": [false], "warnings": [true], "reason": "植被完整的集水区浓度较低的预测与人类影响较小的条件可辨。"}
+{"id": "F12", "version": "previous", "key": "4940eb5a8eaa", "grades": "sy", "visible": [false, true], "warnings": [true, false], "reason": "首句漏掉轻微用力即断裂这一排除标准。次句保留包裹与回收步骤。"}
+{"id": "F15", "version": "previous", "key": "bde7f1b00553", "grades": "y", "visible": [false], "warnings": [true], "reason": "保留采集方案、方向数、b值、各向同性体素大小和单位。"}
+{"id": "F16", "version": "previous", "key": "feeccc63261e", "grades": "s", "visible": [false], "warnings": [true], "reason": "将更多受试者译为更多主题，改变扩大验证样本的要求。"}
+{"id": "F17", "version": "previous", "key": "7baa9ca6f87e", "grades": "s", "visible": [true], "warnings": [false], "reason": "将成对数值译成对数值，凭空加入对数变换。"}
+{"id": "F19", "version": "previous", "key": "6b76bf81ebbb", "grades": "s", "visible": [true], "warnings": [false], "reason": "将代理指标译为代名词，混淆了两个温度指标之间的测量关系。"}
+{"id": "F21", "version": "previous", "key": "1d86c2502d72", "grades": "m", "visible": [false], "warnings": [true], "reason": "正相关和统计数值可辨，但括号中哪一项随不透水表面增加而升温没有说清。"}
+{"id": "F22", "version": "previous", "key": "5b17eff9b0d3", "grades": "s", "visible": [true], "warnings": [true], "reason": "遗漏按平均NDVI筛选，并使引文94读起来像被移除的阈值。"}
+{"id": "F24", "version": "previous", "key": "9d11888cd136", "grades": "yy", "visible": [true, false], "warnings": [true, true], "reason": "保留年度强相关以及跨季节强度波动和非同一时刻比较的限定。"}
+{"id": "F25", "version": "previous", "key": "4ad6c6e26ca4", "grades": "s", "visible": [true], "warnings": [false], "reason": "将新发心血管病译为事件CVD，丢失结局的新发限定。"}
+{"id": "F27", "version": "previous", "key": "c86c86a0593b", "grades": "s", "visible": [true], "warnings": [false], "reason": "将按活动量递增的四分位组写成季度。数值虽全，比较分组发生改变。"}
+{"id": "F28", "version": "previous", "key": "ad04ce31763f", "grades": "s", "visible": [false], "warnings": [true], "reason": "将负相关强化为数学上的反比，括号也错乱。"}
+{"id": "F29", "version": "previous", "key": "ae5fdc9c8eef", "grades": "s", "visible": [false], "warnings": [true], "reason": "将分布两端的截尾条件拆成观测值占比和悬空的95%，不能还原筛选标准。"}
+{"id": "F30", "version": "previous", "key": "523767014ca7", "grades": "mm", "visible": [true, false], "warnings": [false, true], "reason": "总体活动量分别译为体积和容量，使两个句子的暴露指标都需回看原文。"}
+{"id": "F31", "version": "previous", "key": "44e46ee5ea16", "grades": "s", "visible": [true], "warnings": [false], "reason": "把长期改变的视觉光学条件具体化为光学器件，改变适应的刺激来源。"}
+{"id": "F32", "version": "previous", "key": "f4cc9e8d4476", "grades": "s", "visible": [true], "warnings": [false], "reason": "代表模型拟合的实线被写成实心行，图例编码错位。"}
+{"id": "F33", "version": "previous", "key": "af1b83d46d3c", "grades": "s", "visible": [true], "warnings": [true], "reason": "药名、睫状肌麻痹及调节功能错译，药物与作用均不可靠。"}
+{"id": "F34", "version": "previous", "key": "b2a334a45480", "grades": "y", "visible": [false], "warnings": [true], "reason": "保留阈上图案的感知对比度基本不依赖SF，以及与对比敏感度的区别。"}
+{"id": "F35", "version": "previous", "key": "259e60334c29", "grades": "s", "visible": [true], "warnings": [false], "reason": "外侧膝状体、低通和带通特性均被错译，改变解剖对象与滤波特性。"}
+{"id": "F36", "version": "previous", "key": "17f9ff880b33", "grades": "yy", "visible": [false, true], "warnings": [true, false], "reason": "保留百年应用、视觉评估和选择性滤波器共同决定敏感度曲线的关系。"}
+{"id": "F01", "version": "revised", "key": "f244d2f8eea1", "grades": "m", "visible": [true], "warnings": [false], "reason": "比例和误差界完整，但每曼塔未交代比较的采样单位。"}
+{"id": "F03", "version": "revised", "key": "8c82deb53fb9", "grades": "s", "visible": [true], "warnings": [false], "reason": "比例估计精度5%变成准确率5%，统计量含义改变。"}
+{"id": "F04", "version": "revised", "key": "3e78cb135982", "grades": "m", "visible": [true], "warnings": [false], "reason": "两个样本数与百分比均在，倒装和缺少量词使两组精度难以直接读取。"}
+{"id": "F08", "version": "revised", "key": "f8e1b19ea272", "grades": "s", "visible": [true], "warnings": [false], "reason": "方形标记译成平方，并遗漏与已发表研究的来源区分。"}
+{"id": "F09", "version": "revised", "key": "75935b5e1a33", "grades": "s", "visible": [true], "warnings": [false], "reason": "省略微粒更少，丢掉实地调查的主要比较结果。"}
+{"id": "F12", "version": "revised", "key": "4940eb5a8eaa", "grades": "sy", "visible": [false, true], "warnings": [true, false], "reason": "首句漏掉轻微用力即断裂这一排除标准。次句保留包裹与回收步骤。"}
+{"id": "F16", "version": "revised", "key": "feeccc63261e", "grades": "s", "visible": [true], "warnings": [false], "reason": "将更多受试者译为更多主题，改变扩大验证样本的要求。"}
+{"id": "F17", "version": "revised", "key": "7baa9ca6f87e", "grades": "s", "visible": [true], "warnings": [false], "reason": "将成对数值译成对数值，凭空加入对数变换。"}
+{"id": "F19", "version": "revised", "key": "6b76bf81ebbb", "grades": "s", "visible": [true], "warnings": [false], "reason": "将代理指标译为代名词，混淆了两个温度指标之间的测量关系。"}
+{"id": "F21", "version": "revised", "key": "1d86c2502d72", "grades": "m", "visible": [false], "warnings": [true], "reason": "正相关和统计数值可辨，但括号中哪一项随不透水表面增加而升温没有说清。"}
+{"id": "F22", "version": "revised", "key": "5b17eff9b0d3", "grades": "s", "visible": [true], "warnings": [true], "reason": "遗漏按平均NDVI筛选，并使引文94读起来像被移除的阈值。"}
+{"id": "F24", "version": "revised", "key": "9d11888cd136", "grades": "yy", "visible": [true, false], "warnings": [true, true], "reason": "保留年度强相关以及跨季节强度波动和非同一时刻比较的限定。"}
+{"id": "F25", "version": "revised", "key": "4ad6c6e26ca4", "grades": "s", "visible": [true], "warnings": [false], "reason": "将新发心血管病译为事件CVD，丢失结局的新发限定。"}
+{"id": "F27", "version": "revised", "key": "c86c86a0593b", "grades": "s", "visible": [true], "warnings": [false], "reason": "将按活动量递增的四分位组写成季度。数值虽全，比较分组发生改变。"}
+{"id": "F28", "version": "revised", "key": "7526e1a388c4", "grades": "s", "visible": [true], "warnings": [false], "reason": "原文只支持负相关，呈反比新增了确定的数学关系。"}
+{"id": "F29", "version": "revised", "key": "ae5fdc9c8eef", "grades": "s", "visible": [false], "warnings": [true], "reason": "将分布两端的截尾条件拆成观测值占比和悬空的95%，不能还原筛选标准。"}
+{"id": "F30", "version": "revised", "key": "523767014ca7", "grades": "mm", "visible": [true, false], "warnings": [false, true], "reason": "总体活动量分别译为体积和容量，使两个句子的暴露指标都需回看原文。"}
+{"id": "F31", "version": "revised", "key": "44e46ee5ea16", "grades": "s", "visible": [true], "warnings": [false], "reason": "把长期改变的视觉光学条件具体化为光学器件，改变适应的刺激来源。"}
+{"id": "F32", "version": "revised", "key": "f4cc9e8d4476", "grades": "s", "visible": [true], "warnings": [false], "reason": "代表模型拟合的实线被写成实心行，图例编码错位。"}
+{"id": "F33", "version": "revised", "key": "af1b83d46d3c", "grades": "s", "visible": [true], "warnings": [true], "reason": "药名、睫状肌麻痹及调节功能错译，药物与作用均不可靠。"}
+{"id": "F34", "version": "revised", "key": "b2a334a45480", "grades": "y", "visible": [false], "warnings": [true], "reason": "保留阈上图案的感知对比度基本不依赖SF，以及与对比敏感度的区别。"}
+{"id": "F35", "version": "revised", "key": "259e60334c29", "grades": "s", "visible": [true], "warnings": [false], "reason": "外侧膝状体、低通和带通特性均被错译，改变解剖对象与滤波特性。"}

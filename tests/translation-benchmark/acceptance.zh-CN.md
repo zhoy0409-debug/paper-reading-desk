@@ -1,5 +1,7 @@
 # Paper Reading Desk 科研翻译验收
 
+**第二轮补测已完成，当前仍暂缓发布。** 六篇新论文共 42 句，本轮候选默认可用 19 句，36 段中有 12 段严重错译未提示。三份真实 PDF 的摘要与图注、Windows 候选包以及 PPT 导出均已复测。以下保留首轮数据。[第二轮验收报告](round2/report.zh-CN.md)
+
 **本轮暂缓发布。** 候选版能保留一段中已经译好的句子，能够恢复模型下载和 Worker 故障，也减少了读者默认看到的严重错译。但在七篇独立论文中，读者能直接读懂主要事实的句子由 73/145 降到 54/145。还有 19 个选段带着严重语义错误通过了全部逐句检查。线上 GitHub Pages 和正式 Windows 包继续使用 v0.4.18。候选包与候选网页只用于验收。
 
 2026 年 11 月 28 日重新测量 v0.4.18，基线提交为 `05af935`。同机使用 Windows 便携版、实际 Pages 网站及从同一份候选源码生成的静态网页和 Windows 测试包。独立评审在看不到版本名的情况下逐段、逐句评分。评审由模型完成，没有第二位学科专家双评。[基线实测](runs/baseline-performance.json) · [Pages 实测](runs/pages-baseline-performance.json) · [候选包实测](runs/candidate-portable-performance.json) · [冻结文件摘要](runs/engine-freeze-final.json)

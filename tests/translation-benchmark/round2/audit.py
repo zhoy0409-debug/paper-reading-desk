@@ -9,6 +9,7 @@ import statistics
 
 ROOT = Path(__file__).resolve().parent
 VERSIONS = ("release", "previous", "revised")
+CORPUS_SHA256 = "a5c18cd25a97c0bbca3c2630203dc8228b546247f01f6aeb31e5ede6e1c2cc8a"
 
 
 def read_lines(path):
@@ -59,9 +60,14 @@ def prepare(raw, dest):
 
 
 def score(root, dest):
+    assert sha256((root / "fresh.jsonl").read_bytes()).hexdigest() == CORPUS_SHA256, "Fresh corpus has changed"
     blind = {r["key"]: r for r in read_lines(root / "anonymous.jsonl")}
     observed = read_lines(root / "observations.jsonl")
-    assert [r["id"] for r in observed] == [r["id"] for r in read_lines(ROOT / "fresh.jsonl")]
+    sources = read_lines(root / "fresh.jsonl")
+    assert len(sources) == 36 and len({s["doi"] for s in sources}) == 6
+    assert [r["id"] for r in observed] == [s["id"] for s in sources]
+    for source, row in zip(sources, observed):
+        assert " ".join(source["source"].split()) == " ".join(" ".join(row["parts"]).split()), row["id"]
     grades = {}
     for line in (root / "semantic.tsv").read_text(encoding="utf8").splitlines():
         key, grade, reasoning = line.split("\t", 2)
@@ -107,6 +113,26 @@ def score(root, dest):
     return summary
 
 
+def verify_assets(root):
+    dist = ROOT.parents[2] / "dist"
+    for name, expected in json.loads((root / "engine-freeze.json").read_bytes()).items():
+        content = (dist / name).read_bytes()
+        if not name.startswith("vendor/"):
+            content = content.replace(b"\r\n", b"\n")
+        if sha256(content).hexdigest() != expected:
+            raise SystemExit(f"Translation code or a model differs from the evaluated version: {name}")
+
+
+def verify_runs(root, dest):
+    prepare(root/"runs", dest)
+    for name in ("anonymous.jsonl", "observations.jsonl"):
+        assert (root/name).read_bytes() == (dest/name).read_bytes(), name
+    def outputs(filename):
+        rows = json.loads((root/"runs"/filename).read_bytes())["rows"]
+        return [(r["id"], r["status"], r["text"], r["units"]) for r in rows]
+    assert outputs("final-input-fresh.json") == outputs("revised-fresh.json"), "PDF-only follow-up changed frozen outputs"
+
+
 if __name__ == "__main__":
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument("action", choices=["prepare","score","verify","release"])
@@ -116,6 +142,11 @@ if __name__ == "__main__":
     if args.action == "prepare":
         prepare(args.input,args.output)
     else:
+        if args.action in {"verify","release"}:
+            if args.input.resolve() == args.output.resolve():
+                cli.error("Replay into a separate directory to preserve the evidence.")
+            verify_runs(args.input, args.output)
+            verify_assets(args.input)
         results = score(args.input,args.output)
         if args.action in {"verify","release"}:
             for name in ["summary.json","failures.jsonl"]:
