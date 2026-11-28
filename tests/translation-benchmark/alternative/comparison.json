@@ -1,0 +1,857 @@
+{
+  "sample_source_sha256": "b133a7321e98af319c66f7fc764fae24e91dd899e807a557818a6f00781d9dce",
+  "scoring_method": "单一审阅方按原文和预设核对点逐条检查。A/B 顺序逐条独立随机，先写下评分再解盲。通过指核对点正确且专业表述可直接使用；小修指主要含义和数量可恢复，但需修正术语或表达；失真指核心事实、对象、组别、数量、单位或关系发生错误。",
+  "baseline_commit": "05af935721a85fac61d84bd0da0332f034b1d321",
+  "hardware": "Intel Core Ultra 7 155H, Windows x64",
+  "source_license": "CC BY 4.0",
+  "documents": {
+    "gmd-gpep": {
+      "doi": "10.5194/gmd-17-1153-2024",
+      "title": "GPEP v1.0: the Geospatial Probabilistic Estimation Package to support Earth science applications",
+      "authors": [
+        "Guoqiang Tang",
+        "Andrew W. Wood",
+        "Andrew J. Newman",
+        "Martyn P. Clark",
+        "Simon Michael Papalexiou"
+      ],
+      "url": "https://doi.org/10.5194/gmd-17-1153-2024",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "3667d9fecf0d0974e88641e530938e920d00e8c77dd9aa4e3f8b50e532d71fa0"
+    },
+    "PMC11605121": {
+      "doi": "10.1038/s41598-024-81361-7",
+      "title": "Effects of foot–ground friction and age-related gait changes on falls during walking: a computational study using a neuromusculoskeletal model",
+      "authors": [
+        "Naoto Izumi",
+        "Takashi Yoshida",
+        "Toshiaki Nishi",
+        "Kei Masani",
+        "Takeshi Yamaguchi"
+      ],
+      "url": "https://doi.org/10.1038/s41598-024-81361-7",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "9680d4890c35bdb811681cc0256f2b59aeb6df4ce5f9e7c0e7cc3f245c850cd5"
+    },
+    "PMC11364041": {
+      "doi": "10.1107/S2052252524008157",
+      "title": "AI-enhanced X-ray diffraction analysis: towards real-time mineral phase identification and quantification",
+      "authors": [
+        "Nikolaos I. Prasianakis"
+      ],
+      "url": "https://doi.org/10.1107/S2052252524008157",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "985eb285d3a765203f5d18c39212f40688a6896aac1d76e4f45aedb0dee5e229"
+    },
+    "PMC11739939": {
+      "doi": "10.1021/acsomega.4c07325",
+      "title": "Hydrogel Biocomposite of Alginate and Mucilage of Opuntia ficus-indica Cactus in the Adsorption of Methylene Blue in Aqueous Solution",
+      "authors": [
+        "Estefane Caetano Nazzari",
+        "Gessica Wernke",
+        "Grace Anne Vieira Magalhães Ghiotto",
+        "Rosângela Bergamasco",
+        "Raquel Guttierres Gomes"
+      ],
+      "url": "https://doi.org/10.1021/acsomega.4c07325",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "e08b59ab6f0e7f04f5631ae131f23180232196be37d31bf651a2a90083a5a526"
+    },
+    "PMC8692591": {
+      "doi": "10.1038/s41746-021-00541-1",
+      "title": "Predicting changes in glycemic control among adults with prediabetes from activity patterns collected by wearable devices",
+      "authors": [
+        "Mitesh S. Patel",
+        "Daniel Polsky",
+        "Dylan S. Small",
+        "Sae-Hwan Park",
+        "Chalanda N. Evans",
+        "Tory Harrington",
+        "Rachel Djaraher",
+        "Sujatha Changolkar",
+        "Christopher K. Snider",
+        "Kevin G. Volpp"
+      ],
+      "url": "https://doi.org/10.1038/s41746-021-00541-1",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "40c9eea5ff47bbf4bf48b868007819663c3793498a9fd559ec114a9467a1ef20"
+    },
+    "PMC6410922": {
+      "doi": "10.1364/OE.27.005641",
+      "title": "Dynamic physiological temperature and pressure sensing with phase-resolved low-coherence interferometry",
+      "authors": [
+        "J. M. Coote",
+        "E. J. Alles",
+        "S. Noimark",
+        "C. A. Mosse",
+        "C. D. Little",
+        "C. D. Loder",
+        "A. L. David",
+        "R. D. Rakhit",
+        "M. C. Finlay",
+        "A. E. Desjardins"
+      ],
+      "url": "https://doi.org/10.1364/OE.27.005641",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "d5dfdf63d369ff1e27d09168b1b64ad972ff07ad7eb638893888858adbb9dd0c"
+    },
+    "PMC11704610": {
+      "doi": "10.1016/j.crmeth.2024.100933",
+      "title": "Single-cell RNA sequencing algorithms underestimate changes in transcriptional noise compared to single-molecule RNA imaging",
+      "authors": [
+        "Neha Khetan",
+        "Binyamin Zuckerman",
+        "Giuliana P. Calia",
+        "Xinyue Chen",
+        "Ximena Garcia Arceo",
+        "Leor S. Weinberger"
+      ],
+      "url": "https://doi.org/10.1016/j.crmeth.2024.100933",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "adc1d884815611bd9bef221ecc17ba6a9bd4b6a9825e1efa8b7752516aa1129b"
+    },
+    "PMC11628634": {
+      "doi": "10.1002/ece3.70587",
+      "title": "Phylogeography, Historical Population Demography, and Climatic Modeling of Two Bird Species Uncover Past Connections Between Amazonia and the Atlantic Forest",
+      "authors": [
+        "Ivandy N. Castro‐Astor",
+        "Joel Cracraft",
+        "José G. Tello",
+        "Maria Alice S. Alves",
+        "William M. Mauck",
+        "Alexandre Aleixo",
+        "Charles Duca",
+        "Ana Carolina Carnaval"
+      ],
+      "url": "https://doi.org/10.1002/ece3.70587",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "53a249c40de1f4a971d903b6758c85456b08deb459ac00761ac70c69cef2fea4"
+    },
+    "PMC11657818": {
+      "doi": "10.1186/s12859-024-05997-y",
+      "title": "Piikun: an information theoretic toolkit for analysis and visualization of species delimitation metric space",
+      "authors": [
+        "Jeet Sukumaran",
+        "Marina Meila"
+      ],
+      "url": "https://doi.org/10.1186/s12859-024-05997-y",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "xml_sha256": "00536bf5b5efecf5b633d7338fd294d7dfd457955b08b15f64b310e674aa39e5"
+    }
+  },
+  "engines": {
+    "bergamot": {
+      "measured_files": {
+        "bergamot/lex.50.50.enzh.s2t.bin": 6506248,
+        "bergamot/model.enzh.intgemm.alphas.bin": 43849787,
+        "bergamot/models.json": 1302,
+        "bergamot/srcvocab.enzh.spm": 806952,
+        "bergamot/translator.js": 37184,
+        "bergamot/trgvocab.enzh.spm": 772004,
+        "bergamot/worker/bergamot-translator-worker.js": 80474,
+        "bergamot/worker/bergamot-translator-worker.wasm": 5174294,
+        "bergamot/worker/translator-worker.js": 18791
+      },
+      "engine_and_model_bytes": 57247036,
+      "model_and_tokenizer_bytes": 51934991,
+      "median_cold_ms": 893.6,
+      "median_hot_ms": 74.8,
+      "hot_p95_ms": 116,
+      "median_peak_ws_increase_mib": 654.2,
+      "median_peak_private_increase_mib": 844.0,
+      "identical_across_three_runs": 17,
+      "runs": [
+        {
+          "label": "bergamot",
+          "cold_ms": 786.1,
+          "warmup": "样本被测量两次。",
+          "hot_ms": [
+            96.5,
+            73.4,
+            42.4,
+            42.5,
+            50.8,
+            39.7,
+            62.9,
+            74.8,
+            85.1,
+            92.9,
+            83.6,
+            58.4,
+            100.3,
+            126.3,
+            110.3,
+            102.2,
+            110.5
+          ],
+          "memory": {
+            "ws": {
+              "baseline_bytes": 491323392,
+              "peak_bytes": 1182441472,
+              "increase_bytes": 691118080
+            },
+            "private": {
+              "baseline_bytes": 238444544,
+              "peak_bytes": 1123926016,
+              "increase_bytes": 885481472
+            }
+          },
+          "observed_memory_samples": 19,
+          "browser": "158.0.8127.88"
+        },
+        {
+          "label": "bergamot-2",
+          "cold_ms": 893.6,
+          "warmup": "样本被测量两次。",
+          "hot_ms": [
+            87.9,
+            87.6,
+            44.2,
+            44.6,
+            49.3,
+            36.1,
+            58,
+            66.5,
+            70,
+            73.2,
+            64.1,
+            47.7,
+            71.3,
+            100,
+            94.2,
+            97,
+            105.5
+          ],
+          "memory": {
+            "ws": {
+              "baseline_bytes": 497324032,
+              "peak_bytes": 1183281152,
+              "increase_bytes": 685957120
+            },
+            "private": {
+              "baseline_bytes": 241311744,
+              "peak_bytes": 1126305792,
+              "increase_bytes": 884994048
+            }
+          },
+          "observed_memory_samples": 19,
+          "browser": "158.0.8127.88"
+        },
+        {
+          "label": "bergamot-3",
+          "cold_ms": 923.6,
+          "warmup": "样本被测量两次。",
+          "hot_ms": [
+            94.4,
+            94.2,
+            48.1,
+            45.5,
+            51,
+            43,
+            70,
+            74.2,
+            81.7,
+            90.5,
+            80.3,
+            53.9,
+            93.8,
+            123.7,
+            116,
+            108.7,
+            103.3
+          ],
+          "memory": {
+            "ws": {
+              "baseline_bytes": 495980544,
+              "peak_bytes": 1181908992,
+              "increase_bytes": 685928448
+            },
+            "private": {
+              "baseline_bytes": 241831936,
+              "peak_bytes": 1116811264,
+              "increase_bytes": 874979328
+            }
+          },
+          "observed_memory_samples": 21,
+          "browser": "158.0.8127.88"
+        }
+      ],
+      "grades": {
+        "小修": 7,
+        "通过": 5,
+        "失真": 5
+      }
+    },
+    "opus": {
+      "measured_files": {
+        "models/Xenova/opus-mt-en-zh/config.json": 1503,
+        "models/Xenova/opus-mt-en-zh/generation_config.json": 293,
+        "models/Xenova/opus-mt-en-zh/onnx/decoder_model_merged_quantized.onnx": 60212804,
+        "models/Xenova/opus-mt-en-zh/onnx/encoder_model_quantized.onnx": 52899742,
+        "models/Xenova/opus-mt-en-zh/tokenizer.json": 6380952,
+        "models/Xenova/opus-mt-en-zh/tokenizer_config.json": 282,
+        "runtime/ort-wasm-simd.wasm": 10014674,
+        "runtime/transformers.min.js": 897938
+      },
+      "engine_and_model_bytes": 130408188,
+      "model_and_tokenizer_bytes": 119495576,
+      "median_cold_ms": 1795.2,
+      "median_hot_ms": 1157.1,
+      "hot_p95_ms": 1712.2,
+      "median_peak_ws_increase_mib": 738.6,
+      "median_peak_private_increase_mib": 748.8,
+      "identical_across_three_runs": 17,
+      "runs": [
+        {
+          "label": "opus",
+          "cold_ms": 1795.2,
+          "warmup": "样本测量了两次。",
+          "hot_ms": [
+            1381,
+            1440.5,
+            665.3,
+            805.5,
+            833.6,
+            651.2,
+            1089.8,
+            935.9,
+            1317.5,
+            1475.3,
+            1132.5,
+            891.9,
+            1187.7,
+            1693.4,
+            1693.4,
+            1598,
+            1446.3
+          ],
+          "memory": {
+            "ws": {
+              "baseline_bytes": 498118656,
+              "peak_bytes": 1272578048,
+              "increase_bytes": 774459392
+            },
+            "private": {
+              "baseline_bytes": 242880512,
+              "peak_bytes": 1028079616,
+              "increase_bytes": 785199104
+            }
+          },
+          "observed_memory_samples": 194,
+          "browser": "158.0.8127.88"
+        },
+        {
+          "label": "opus-2",
+          "cold_ms": 1844.2,
+          "warmup": "样本测量了两次。",
+          "hot_ms": [
+            1396,
+            1489.8,
+            702,
+            791,
+            788.2,
+            643.5,
+            1032.5,
+            936.2,
+            1306,
+            1538.1,
+            1157.1,
+            812.3,
+            1136.6,
+            1801.2,
+            1712.2,
+            1779.9,
+            1480.1
+          ],
+          "memory": {
+            "ws": {
+              "baseline_bytes": 492978176,
+              "peak_bytes": 1259773952,
+              "increase_bytes": 766795776
+            },
+            "private": {
+              "baseline_bytes": 237445120,
+              "peak_bytes": 1014157312,
+              "increase_bytes": 776712192
+            }
+          },
+          "observed_memory_samples": 197,
+          "browser": "158.0.8127.88"
+        },
+        {
+          "label": "opus-3",
+          "cold_ms": 1682.4,
+          "warmup": "样本测量了两次。",
+          "hot_ms": [
+            1500.9,
+            1465.7,
+            671.9,
+            811.9,
+            818.1,
+            672.8,
+            1111.3,
+            932.4,
+            1325.1,
+            1524,
+            1081.6,
+            830.1,
+            1111.8,
+            1680.8,
+            1689.3,
+            1590.1,
+            1476.7
+          ],
+          "memory": {
+            "ws": {
+              "baseline_bytes": 492146688,
+              "peak_bytes": 1277329408,
+              "increase_bytes": 785182720
+            },
+            "private": {
+              "baseline_bytes": 237641728,
+              "peak_bytes": 1087545344,
+              "increase_bytes": 849903616
+            }
+          },
+          "observed_memory_samples": 193,
+          "browser": "158.0.8127.88"
+        }
+      ],
+      "grades": {
+        "失真": 14,
+        "通过": 1,
+        "小修": 2
+      }
+    }
+  },
+  "samples": [
+    {
+      "id": "T01",
+      "document": "gmd-gpep",
+      "section": "abstract",
+      "text": "Yet ensemble estimation is more challenging than single-value spatial interpolation, and open-access routines and tools are limited in this area, hindering the generation and application of ensemble geophysical datasets.",
+      "criterion": "集合估计比单值空间插值更难；公开工具有限，妨碍生成与应用数据集。",
+      "bergamot": {
+        "translation": "然而,集成估计比单值空间插值更具挑战性,并且开放获取的例程和工具在这一领域受到限制,阻碍了集成地球物理数据集的生成和应用。",
+        "grade": "小修",
+        "note": "ensemble 此处以“集合”更合适，其余比较和影响均在。"
+      },
+      "opus": {
+        "translation": "然而,共同估算比单一价值空间内插更具挑战性,而且开放访问的例行做法和工具在这方面有限,妨碍了共同地球物理数据集的生成和应用。",
+        "grade": "失真",
+        "note": "把集合估计译作共同估算，把单值译成单一价值。"
+      },
+      "opus4": {
+        "translation": "然而,总体估计比单一价值空间内插更具挑战性,而且这一领域开放访问的例行做法和工具有限,阻碍了共同地球物理数据集的生成和应用。",
+        "grade": "失真",
+        "note": "ensemble 与 single-value 的含义错误。",
+        "ms": 10154.8
+      }
+    },
+    {
+      "id": "T02",
+      "document": "gmd-gpep",
+      "section": "abstract",
+      "text": "This paper describes GPEP and illustrates some of its capabilities using several demonstration experiments, including the estimation of precipitation, temperature, and snow water equivalent ensemble analyses on various scales.",
+      "criterion": "GPEP 演示涉及不同尺度的降水、温度和雪水当量。",
+      "bergamot": {
+        "translation": "本文介绍了GPEP,并使用几个演示实验说明了它的一些能力,包括各种尺度的降水,温度和雪水等效综合分析的估计。",
+        "grade": "小修",
+        "note": "保留缩写和变量；雪水当量和集合分析的表述需要整理。"
+      },
+      "opus": {
+        "translation": "本文件介绍全球水分浓缩厂的情况,并用若干示范实验说明其一些能力,包括估计降水量、温度和各种尺度的雪水等同组合分析。",
+        "grade": "失真",
+        "note": "将专名 GPEP 擅自扩写为全球水分浓缩厂。"
+      },
+      "opus4": {
+        "translation": "本文介绍GPEP, 并用若干示范实验说明其一些能力,包括估计降水量、温度和不同尺度的雪水等同组合分析。",
+        "grade": "小修",
+        "note": "GPEP 在四束解码下得以保留，雪水当量和集合分析的表述仍需修正。",
+        "ms": 11566.8
+      }
+    },
+    {
+      "id": "T03",
+      "document": "PMC11605121",
+      "section": "abstract",
+      "text": "The static friction coefficient between the foot and the ground was varied from 0.05 to 2.0.",
+      "criterion": "足与地面的静摩擦系数从 0.05 变化至 2.0。",
+      "bergamot": {
+        "translation": "脚和地面之间的静态摩擦系数从0.05到2.0不等。",
+        "grade": "通过",
+        "note": "足、地面、静摩擦系数及两个端点正确。"
+      },
+      "opus": {
+        "translation": "脚与地面之间的静态摩擦系数从0.05到2.0不等。",
+        "grade": "通过",
+        "note": "足、地面、静摩擦系数及两个端点正确。"
+      },
+      "opus4": {
+        "translation": "脚与地面之间的静态摩擦系数从0.05到2.0不等。",
+        "grade": "通过",
+        "note": "静摩擦系数及两个端点正确。",
+        "ms": 5105.4
+      }
+    },
+    {
+      "id": "T04",
+      "document": "PMC11605121",
+      "section": "abstract",
+      "text": "Under high friction conditions, only the elderly faller model demonstrated trip-induced falls.",
+      "criterion": "高摩擦时，仅有跌倒史老年人的模型出现绊倒。",
+      "bergamot": {
+        "translation": "在高摩擦条件下,只有老年跌倒模型显示旅行引起的跌倒。",
+        "grade": "失真",
+        "note": "trip-induced 在此为绊倒，译成旅行引起。"
+      },
+      "opus": {
+        "translation": "在摩擦激烈的情况下,只有老式坠落模型证明是出行引起的坠落。",
+        "grade": "失真",
+        "note": "同时误译跌倒史老年人的模型和绊倒，变成老式模型和出行。"
+      },
+      "opus4": {
+        "translation": "在高摩擦条件下,只有老式坠落模型证明是绊脚石。",
+        "grade": "失真",
+        "note": "老式坠落模型和绊脚石改变组名、事件与结果。",
+        "ms": 5416.9
+      }
+    },
+    {
+      "id": "T05",
+      "document": "PMC11364041",
+      "section": "abstract",
+      "text": "The use of convolutional neural networks can revolutionize XRD analysis by significantly reducing processing times.",
+      "criterion": "卷积神经网络有望缩短 XRD 分析的处理时间。",
+      "bergamot": {
+        "translation": "卷积神经网络的使用可以通过显著缩短处理时间来彻底改变XRD分析。",
+        "grade": "通过",
+        "note": "CNN 的全称、XRD 及缩短处理时间均对应原文。"
+      },
+      "opus": {
+        "translation": "利用神经元变迁网络可大幅缩短处理时间,从而改变XRD分析。",
+        "grade": "失真",
+        "note": "未识别卷积神经网络，写成神经元变迁网络。"
+      },
+      "opus4": {
+        "translation": "利用进化神经网络可大幅缩短处理时间,从而改变XRD分析。",
+        "grade": "失真",
+        "note": "卷积神经网络误成进化神经网络。",
+        "ms": 5588.1
+      }
+    },
+    {
+      "id": "T06",
+      "document": "PMC11739939",
+      "section": "abstract",
+      "text": "The swelling study showed a maximum value of 262% at pH 6.0.",
+      "criterion": "溶胀最大值为 262%，条件是 pH 6.0。",
+      "bergamot": {
+        "translation": "肿胀研究表明,pH 6.0的最大值为262%。",
+        "grade": "小修",
+        "note": "262% 和 pH 6.0 正确；材料的 swelling 应译作溶胀。"
+      },
+      "opus": {
+        "translation": "肿胀研究显示,pH 6.0.最高值为262。",
+        "grade": "失真",
+        "note": "遗漏百分号，且将水凝胶溶胀译作肿胀。"
+      },
+      "opus4": {
+        "translation": "肿胀研究显示pH 6.0.最高值为2622。",
+        "grade": "失真",
+        "note": "262% 变成 2622。",
+        "ms": 3978.3
+      }
+    },
+    {
+      "id": "T07",
+      "document": "PMC11739939",
+      "section": "abstract",
+      "text": "Adsorption studies revealed a maximum adsorptive capacity of 7.21 mg g–1 in 400 min at 298 K.",
+      "criterion": "最大吸附容量为每克 7.21 毫克，条件为 298 K、400 分钟。",
+      "bergamot": {
+        "translation": "吸附研究显示,最大吸附能力为7.21毫克克-1,400分钟,为298K。",
+        "grade": "小修",
+        "note": "数值和条件完整；毫克克-1的单位排版与句序需整理。"
+      },
+      "opus": {
+        "translation": "吸附研究显示,在298K时,最大吸附能力为7.21毫克至1分(400分钟)。",
+        "grade": "失真",
+        "note": "将每克毫克的单位译为毫克至一分。"
+      },
+      "opus4": {
+        "translation": "吸附研究显示,在298K时,最大吸附能力为7.21毫克至1,400分钟。",
+        "grade": "失真",
+        "note": "单位 mg g⁻¹ 损坏，400 min 的边界不清。",
+        "ms": 6820.3
+      }
+    },
+    {
+      "id": "T08",
+      "document": "PMC11739939",
+      "section": "abstract",
+      "text": "Furthermore, the experimental data showed better fit to the pseudo-second order and Langmuir models for kinetic and isothermal studies, respectively.",
+      "criterion": "动力学与等温吸附研究分别与准二级、Langmuir 模型更吻合。",
+      "bergamot": {
+        "translation": "此外,实验数据显示,分别更适合用于动能和等温研究的伪二阶和Langmuir模型。",
+        "grade": "失真",
+        "note": "kinetic studies 指动力学研究，译成动能研究。"
+      },
+      "opus": {
+        "translation": "此外,实验数据显示分别适合变异和异热研究的假二次顺序和Langmuir模型。",
+        "grade": "失真",
+        "note": "动力学、等温两类研究被译成变异和异热。"
+      },
+      "opus4": {
+        "translation": "此外,实验数据显示,分别用于动能和异热研究的伪二次顺序和Langmuir模型更适合。",
+        "grade": "失真",
+        "note": "动力学和等温研究均有实质误译。",
+        "ms": 6500
+      }
+    },
+    {
+      "id": "T09",
+      "document": "PMC8692591",
+      "section": "abstract",
+      "text": "We conducted a randomized trial with adults with prediabetes who were given either a waist-worn or wrist-worn wearable to track activity patterns.",
+      "criterion": "糖尿病前期成年人随机试验；腰戴与腕戴设备，监测活动模式。",
+      "bergamot": {
+        "translation": "我们对患有糖尿病前期的成年人进行了一项随机试验,这些成年人被给予腰部磨损或手腕磨损的可穿戴设备来跟踪活动模式。",
+        "grade": "失真",
+        "note": "把腰戴、腕戴两组的共同属性误译成磨损。"
+      },
+      "opus": {
+        "translation": "我们随机地对有前期性病的成年人进行了试验,他们要么被给腰部或手腕-脚部穿戴,以便跟踪活动模式。",
+        "grade": "失真",
+        "note": "错译糖尿病前期，并加入脚部部位。"
+      },
+      "opus4": {
+        "translation": "我们对有预发性畸形的成年人进行了随机试验,他们要么被给予腰部或手腕的磨损,以便跟踪活动模式。",
+        "grade": "失真",
+        "note": "糖尿病前期变为预发性畸形，两类佩戴设备也被误译。",
+        "ms": 7470.4
+      }
+    },
+    {
+      "id": "T10",
+      "document": "PMC8692591",
+      "section": "abstract",
+      "text": "We tested three models that predicted changes in hemoglobin A1c that were continuous, improved glycemic control by 5% or worsened glycemic control by 5%.",
+      "criterion": "三个模型分别预测糖化血红蛋白连续变化、血糖控制改善 5%、恶化 5%。",
+      "bergamot": {
+        "translation": "我们测试了三种模型,这些模型预测血红蛋白A1c的变化是连续的,改善血糖控制5%或使血糖控制恶化5%。",
+        "grade": "小修",
+        "note": "两个 5% 和改善、恶化均在，三个预测任务的句子需重组。"
+      },
+      "opus": {
+        "translation": "我们测试了三种模型,预测血红蛋白A1c的变化是连续的, 改进了淋病控制 由 □ 或恶化了淋病控制 □ 。",
+        "grade": "失真",
+        "note": "glycemic control 译作淋病控制，两处百分数缺失。"
+      },
+      "opus4": {
+        "translation": "我们测试了三种模型,这些模型预测血红蛋白A1c的变化是连续的,由 □ 改进了血糖控制,或由 □ 恶化了血糖控制。",
+        "grade": "失真",
+        "note": "改善与恶化方向保留，两处 5% 均变成空框。",
+        "ms": 9786.9
+      }
+    },
+    {
+      "id": "T11",
+      "document": "PMC6410922",
+      "section": "abstract",
+      "text": "At acquisition rates of 250 Hz, temperature and pressure changes of 0.0021 °C and 0.22 mmHg are detectable.",
+      "criterion": "采集速率为 250 Hz；可测温度变化 0.0021 °C、压力变化 0.22 mmHg。",
+      "bergamot": {
+        "translation": "以250赫兹的采集速率,可检测0.0021°C和0.22 mmHg的温度和压力变化。",
+        "grade": "通过",
+        "note": "采集速率、两个变化量、对应单位均正确。"
+      },
+      "opus": {
+        "translation": "以250赫兹的获取率计算,温度和压力变化为0.0021°C和0.22毫米汞是可以检测到的。",
+        "grade": "小修",
+        "note": "三个数值及对应量正确；压力单位规范译名为毫米汞柱。"
+      },
+      "opus4": {
+        "translation": "按250赫兹的获取率计算,温度和压力变化为0.0021°C和0.22毫米汞是可以检测到的。",
+        "grade": "小修",
+        "note": "数值与对应关系正确；毫米汞应为毫米汞柱。",
+        "ms": 6848.6
+      }
+    },
+    {
+      "id": "T12",
+      "document": "PMC6410922",
+      "section": "abstract",
+      "text": "An in vivo experiment demonstrated that the sensors had sufficient speed and sensitivity for monitoring dynamic physiological pressure waveforms.",
+      "criterion": "体内实验表明传感器速度和灵敏度足以监测动态生理压力波形。",
+      "bergamot": {
+        "translation": "体内实验表明,传感器有足够的速度和灵敏度来监测动态生理压力波形。",
+        "grade": "通过",
+        "note": "体内条件、仪器性能和压力波形均正确。"
+      },
+      "opus": {
+        "translation": "一次体内实验表明,传感器具有足够的速度和敏感性,可以监测动态生理压力波形。",
+        "grade": "小修",
+        "note": "核心含义正确，传感器 sensitivity 宜用灵敏度。"
+      },
+      "opus4": {
+        "translation": "活体实验表明,传感器的速度和敏感性足以监测动态生理压力波形。",
+        "grade": "小修",
+        "note": "主要含义正确，仪器指标应称灵敏度。",
+        "ms": 4550.7
+      }
+    },
+    {
+      "id": "T13",
+      "document": "PMC11704610",
+      "section": "abstract",
+      "text": "Stochastic fluctuations (noise) in transcription generate substantial cell-to-cell variability. However, how best to quantify genome-wide noise remains unclear.",
+      "criterion": "转录随机波动造成细胞间变异；如何量化全基因组噪声尚不清楚。",
+      "bergamot": {
+        "translation": "转录中的随机波动(噪声)产生实质性的细胞与细胞的变异性。 然而,如何最好地量化全基因组噪声仍不清楚。",
+        "grade": "通过",
+        "note": "随机性、细胞间差异及尚未解决的全基因组量化问题清楚。"
+      },
+      "opus": {
+        "translation": "转录中的存储波动(噪音)会产生巨大的细胞间变异性,但如何最好地量化整个基因组的噪音仍然不清楚。",
+        "grade": "失真",
+        "note": "stochastic 被译为存储，改变随机波动的含义。"
+      },
+      "opus4": {
+        "translation": "转录中的存储波动(噪音)会产生巨大的细胞对细胞的变异性,然而,如何最好地量化整个基因组的噪音仍然不清楚。",
+        "grade": "失真",
+        "note": "stochastic 错译为存储。",
+        "ms": 7601.9
+      }
+    },
+    {
+      "id": "T14",
+      "document": "PMC11704610",
+      "section": "abstract",
+      "text": "We find that various scRNA-seq analyses report amplified noise—without altered mean expression levels—for ∼90% of genes and that smFISH analysis verifies noise amplification for the vast majority of tested genes.",
+      "criterion": "约 90% 的基因噪声增大，平均表达量未变；smFISH 验证了多数受测基因的结果。",
+      "bergamot": {
+        "translation": "我们发现各种scRNA-seq分析报告了∼90%的基因的放大噪声 - 没有改变的平均表达水平 - 并且smFISH分析验证了绝大多数测试基因的噪声扩增。",
+        "grade": "小修",
+        "note": "百分数、未改变平均值及验证的对应关系正确，放大噪声的句式生硬。"
+      },
+      "opus": {
+        "translation": "我们发现,各种ScRNA-seq分析报告为Z- 90基因放大噪音—— 未经改变平均表达水平—— 并且SmFISH分析证实绝大多数测试基因的噪音放大。",
+        "grade": "失真",
+        "note": "约 90% 损坏为 Z-90，百分比缺失。"
+      },
+      "opus4": {
+        "translation": "我们发现,各种ScRNA-seq分析报告在不改变平均表达水平的情况下放大了基因的噪声,SmFISH分析证实了绝大多数测试基因的噪声放大。",
+        "grade": "失真",
+        "note": "遗漏约 90% 的关键数量。",
+        "ms": 10178.2
+      }
+    },
+    {
+      "id": "T15",
+      "document": "PMC11628634",
+      "section": "abstract",
+      "text": "ND2 sequences of C. rubrocapilla (75 individuals, 24 sites) and P. pipra (196, 77) were used in Bayesian inference and maximum likelihood analyses.",
+      "criterion": "两个物种 ND2 序列分别来自 75 个体、24 地与 196 个体、77 地；采用贝叶斯推断与最大似然分析。",
+      "bergamot": {
+        "translation": "C. rubrocapilla(75个个体,24个位点)和P. pipra(16,77)的ND2序列用于贝叶斯推理和最大可能性分析。",
+        "grade": "失真",
+        "note": "第二个物种的样本量 196 变成 16。"
+      },
+      "opus": {
+        "translation": "在贝叶斯推理和最大可能性分析中使用了C. rubrocapilla(75人,24个地点)和P. pipra(196,77)的ND2序列。",
+        "grade": "失真",
+        "note": "虽然数字保留，但把鸟的个体数译为人；最大似然也需规范表达。"
+      },
+      "opus4": {
+        "translation": "在Bayesian推理和最大可能性分析中使用了C. rubrocapilla(75人,24个地点)和P. pipra(196,77)的ND2序列。",
+        "grade": "失真",
+        "note": "保留 196，仍将鸟的样本量表述为人数。",
+        "ms": 10859.4
+      }
+    },
+    {
+      "id": "T16",
+      "document": "PMC11628634",
+      "section": "abstract",
+      "text": "Paleoclimatic distribution models suggest connections between southwestern Amazonia and the southern Atlantic Forest during the LIG, but not between eastern Amazonia and the northeastern Atlantic Forest, as suggested by previous studies.",
+      "criterion": "LIG 时期亚马孙西南部与大西洋森林南部相连；模型不支持亚马孙东部与大西洋森林东北部相连。",
+      "bergamot": {
+        "translation": "古气候分布模型表明,在LIG期间,亚马逊西南部和南大西洋森林之间有联系,但正如之前的研究所暗示的那样,在亚马逊东部和大西洋东北部森林之间没有联系。",
+        "grade": "失真",
+        "note": "将大西洋森林的东北部译成大西洋东北部森林，改变专名的地域指向。"
+      },
+      "opus": {
+        "translation": "地球物理分布模型显示,亚马逊西南部和大西洋南部森林在LIG期间有联系,但如前几次研究所示,亚马逊东部和东北大西洋森林之间没有联系。",
+        "grade": "失真",
+        "note": "古气候被改写为地球物理，大西洋森林区域的地理指向不清。"
+      },
+      "opus4": {
+        "translation": "帕莱奥克气候分布模型表明,亚马逊西南部与大西洋南部森林之间在LIG期间有联系,但如以往研究所示,亚马逊东部与大西洋东北部森林之间没有联系。",
+        "grade": "失真",
+        "note": "古气候、森林地理专名有实质错误。",
+        "ms": 11731.5
+      }
+    },
+    {
+      "id": "T17",
+      "document": "PMC11657818",
+      "section": "abstract",
+      "text": "Existing software for comparison of species delimitation models do not provide a (true) metric or distance functions between species delimitation models, nor a way to compare these models in terms of relative clustering differences along a lattice of partitions.",
+      "criterion": "现有物种界定模型比较软件缺少真正度量或距离函数，也不能沿划分格比较相对聚类差异。",
+      "bergamot": {
+        "translation": "用于比较物种划界模型的现有软件不提供物种划界模型之间的(真实)度量或距离函数,也没有一种比较这些模型的方法,即沿着分区的格子的相对聚类差异。",
+        "grade": "小修",
+        "note": "保留两项否定和距离函数；沿划分格比较的中文需要整理。"
+      },
+      "opus": {
+        "translation": "现有的物种划界模型比较软件没有提供物种划界模型之间的(真正的)衡量或距离功能,也没有提供将这些模型在分层纬度的相对组别上的差异进行比较的方法。",
+        "grade": "失真",
+        "note": "划分格变成分层纬度，距离函数变成距离功能。"
+      },
+      "opus4": {
+        "translation": "现有的物种划界模型比较软件没有提供物种划界模型之间的(真正的)衡量或距离功能,也没有提供将这些模型按分层纬度的相对组别差异进行比较的方法。",
+        "grade": "失真",
+        "note": "划分格再次变成分层纬度。",
+        "ms": 9274.1
+      }
+    }
+  ],
+  "verified_artifacts": {
+    "bergamot": {
+      "runtime": "0.4.9",
+      "model": "2.1",
+      "model_sha256": {
+        "shortlist": "4a5e5827788060f1d718a8132b69440929387514a045796e9b77f935db68c055",
+        "trgvocab": "aded6993c36e440284d11cec3f6b8aef9c0e43188a772d80be342a713adf223d",
+        "model": "f102e513798f5c5e61621e58b08d1c8aa535189a47befdef5613d5b058983fed",
+        "srcvocab": "bd9b65504acc6d9726dd281f7defc2adb7c2c22d0688fe2f84697de25197c8c5"
+      }
+    },
+    "opus": {
+      "upstream": "Helsinki-NLP/opus-mt-en-zh",
+      "upstream_revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+      "conversion": "Xenova/opus-mt-en-zh",
+      "conversion_revision": "046f55aec303cdee3e0318604406d4df20f1e8ea",
+      "onnx_sha256": {
+        "onnx/decoder_model_merged_quantized.onnx": "023be4f841f4c47cd65fffcbaa81c0d99d7f7e0138f7ba0e03fa220a4e688aff",
+        "onnx/encoder_model_quantized.onnx": "d3b7912bf6a9bd27e4c074c2df91d4ff3d5b4bc5f7f6c8d7cc9c805c98fbafee"
+      },
+      "transformers_js": "2.17.2",
+      "onnxruntime_web": "1.14.0",
+      "target_tag": ">>cmn_Hans<<",
+      "target_id": 5
+    }
+  },
+  "opus_default_beams_sensitivity": {
+    "basis": "上游默认四束。追加一次独立浏览器进程；该轮单独核对，未遮蔽模型身份。",
+    "cold_ms": 3294.3,
+    "median_hot_ms": 7470.4,
+    "hot_p95_ms": 11731.5,
+    "grades": {
+      "失真": 13,
+      "小修": 3,
+      "通过": 1
+    }
+  }
+}

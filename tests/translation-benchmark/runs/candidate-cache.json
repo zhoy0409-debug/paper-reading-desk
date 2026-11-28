@@ -1,0 +1,27 @@
+{
+  "slow": {
+    "ok": true,
+    "ms": 14337,
+    "text": "蓝光进入玻璃。"
+  },
+  "slowRequests": [
+    "lex.50.50.enzh.s2t.bin",
+    "trgvocab.enzh.spm",
+    "model.enzh.intgemm.alphas.bin",
+    "srcvocab.enzh.spm"
+  ],
+  "warmRestartOffline": {
+    "ok": true,
+    "ms": 909,
+    "text": "水逐渐冷却。"
+  },
+  "recovered": {
+    "ok": true,
+    "ms": 33,
+    "text": "水逐渐冷却。"
+  },
+  "cacheStorage": [
+    "reading-desk-translation-models-v1",
+    "reading-desk-translation-runtime-v1"
+  ]
+}

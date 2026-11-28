@@ -1,0 +1,14 @@
+Recovered test stage: download A translation resource could not be downloaded. Check your connection and retry this selection.
+Recovered test stage: model The translation model is missing or could not be loaded.
+Recovered test stage: worker The translation Worker or WASM runtime could not start. Retry this selection.
+Recovered test stage: download A translation resource could not be downloaded. Check your connection and retry this selection.
+Recovered test stage: integrity A translation file could not be verified with SHA-256. Retry this selection.
+PASS {"worker":{"starts":2,"initialized":1,"model":[{"bytes":43849787,"sha256":"f102e513798f5c5e61621e58b08d1c8aa535189a47befdef5613d5b058983fed"},{"bytes":6506248,"sha256":"4a5e5827788060f1d718a8132b69440929387514a045796e9b77f935db68c055"},{"bytes":806952,"sha256":"bd9b65504acc6d9726dd281f7defc2adb7c2c22d0688fe2f84697de25197c8c5"},{"bytes":772004,"sha256":"aded6993c36e440284d11cec3f6b8aef9c0e43188a772d80be342a713adf223d"}],"loads":1,"completed":1},"srcvocabRequests":3,"navigationsDuringRetry":0,"word":"水"}
+PASS selection: The blue light passed through the glass. => 蓝光穿过玻璃。
+PASS selection: The measured concentration was 0.25 mg/mL (Fig. 2c). => 测量浓度为0.25 mg/mL（图2c）。
+PASS selection: Abaucin comprises three structural moieties: benzoxazine, piperidine,
+and trifluoromethyl-phenyl group (Fig. 3b). => Abaucin 包括三个结构单元，分别为 benzoxazine、piperidine 和 trifluoromethyl-phenyl 基团（图 3b）。
+PASS two overlapping native selections share the Worker; only the latest updates the popup.
+Recovered test stage: timeout Translation timed out. Retry this selection.
+PASS a stalled translation reached its deadline; retry replaced that Worker and reused the verified model files.
+PASS original PDF: uploaded-article.pdf · 第 5 页 · 文字段 4 · Open PDF · p.5 "Abaucin comprises three\nstructural moieties: benzoxazine, piperidine, and trifluoromethyl-\nphenyl group (Fig. 3b)." => Abaucin 包括三个结构单元，分别为 benzoxazine、piperidine 和 trifluoromethyl-phenyl 基团（图 3b）。

@@ -1,0 +1,467 @@
+[
+  {
+    "type": "spaced minus",
+    "source": "The coefficient was −0.12 (P < 0.05).",
+    "target": "系数为 − 0.12（P < 0.05）。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "spaced minus",
+    "source": "The coefficient was −0.12 (P < 0.05).",
+    "target": "系数为 0.12（P < 0.05）。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "spaced comparator",
+    "source": "The result had P<0.01.",
+    "target": "结果为 P < 0.01。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "spaced comparator",
+    "source": "The result had P<0.01.",
+    "target": "结果为 P > 0.01。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      },
+      {
+        "code": "statistic",
+        "severity": "severe",
+        "detail": "P"
+      }
+    ]
+  },
+  {
+    "type": "calendar date",
+    "source": "In July 2018 we recruited 32 participants.",
+    "target": "2018 年 7 月招募了 32 名参与者。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "calendar date",
+    "source": "In July 2018 we recruited 32 participants.",
+    "target": "2018 年 8 月招募了 32 名参与者。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "mixed-language unit",
+    "source": "The speed was 1.2 m/s.",
+    "target": "速度为 1.2 米/s。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "mixed-language unit",
+    "source": "The speed was 1.2 m/s.",
+    "target": "速度为 1.2 厘米/s。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "kilo and grams",
+    "source": "The sample weighed 2 kg.",
+    "target": "样品质​​量为 2 千克。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "kilo and grams",
+    "source": "The sample weighed 2 kg.",
+    "target": "样品质量为 2 克。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "implicit classifier",
+    "source": "A sensor recorded 24 Hz.",
+    "target": "一个传感器记录了 24 Hz。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "implicit classifier",
+    "source": "A sensor recorded 24 Hz.",
+    "target": "一个传感器记录了 1 Hz。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "count with adjective",
+    "source": "Three independent samples were analyzed.",
+    "target": "分析了三个独立样本。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "count with adjective",
+    "source": "Three independent samples were analyzed.",
+    "target": "分析了四个独立样本。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "lower risk",
+    "source": "The risk was lower at night.",
+    "target": "夜间的风险较低。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "direction",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "lower risk",
+    "source": "The risk was lower at night.",
+    "target": "夜间的风险较高。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "direction",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "negative targeted",
+    "source": "The signal did not decrease.",
+    "target": "信号没有下降。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "negative targeted",
+    "source": "The signal did not decrease.",
+    "target": "不同样品的信号下降了。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "negation",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "significance spelling",
+    "source": "The difference was not statistically significant.",
+    "target": "差异不显着。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "significance",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "significance spelling",
+    "source": "The difference was not statistically significant.",
+    "target": "差异显着。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "negation",
+        "severity": "severe",
+        "detail": ""
+      },
+      {
+        "code": "significance",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "compact CI",
+    "source": "The interval was 95% CI [−0.14 to 0.62].",
+    "target": "区间为 95%置信区间 [− 0.14 至 0.62]。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "compact CI",
+    "source": "The interval was 95% CI [−0.14 to 0.62].",
+    "target": "区间为 95%置信区间 [0.14 至 0.62]。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "half-open bound",
+    "source": "Only windows with at least k observations were retained.",
+    "target": "仅保留至少有 k 个观测值的窗口。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "half-open bound",
+    "source": "Only windows with at least k observations were retained.",
+    "target": "仅保留超过 k 个观测值的窗口。",
+    "gold": false,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "missing variable",
+    "source": "Measurements below q were excluded.",
+    "target": "低于 q 的测量值被剔除。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "direction",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "missing variable",
+    "source": "Measurements below q were excluded.",
+    "target": "低于阈值的测量值被剔除。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "direction",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "case-sensitive bound",
+    "source": "Values no greater than T were included.",
+    "target": "纳入 T 及以下的数值。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "negation",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "case-sensitive bound",
+    "source": "Values no greater than T were included.",
+    "target": "纳入 t 及以下的数值。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "negation",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "fixed value",
+    "source": "The offset was set to zero.",
+    "target": "偏移量设定为零。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "fixed value",
+    "source": "The offset was set to zero.",
+    "target": "偏移量设定完毕。",
+    "gold": false,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "name and abbreviations",
+    "source": "Poly(vinyl acetate) (PVAc) was measured.",
+    "target": "测量了 Poly(vinyl acetate)（PVAc）。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "name and abbreviations",
+    "source": "Poly(vinyl acetate) (PVAc) was measured.",
+    "target": "测量了聚乙烯（PVAc）。",
+    "gold": false,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "locant",
+    "source": "We measured 2,4-dimethylphenol in the liquid.",
+    "target": "我们测定了液体中的 2,4-dimethylphenol。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "locant",
+    "source": "We measured 2,4-dimethylphenol in the liquid.",
+    "target": "我们测定了液体中的 2,5-dimethylphenol。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "unlabeled panels",
+    "source": "All panels show five samples.",
+    "target": "所有分图均显示五个样本。",
+    "gold": true,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "panel",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "unlabeled panels",
+    "source": "All panels show five samples.",
+    "target": "所有分图均显示三个样本。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "panel",
+        "severity": "severe",
+        "detail": ""
+      },
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  }
+]

@@ -2,6 +2,21 @@ function translationError(stage, message, cause, reason) {
     return Object.assign(new Error(message, {cause}), {name:'TranslationError', stage, reason});
 }
 
+const storageName='reading-desk-translation-models-v1';
+const registryDigest='1e4116b0afc4585482abfba88af976e99fec5d75c45c98b5b2b602e07ccef133';
+let cacheEpoch=0;
+async function storage(){
+    try{return await globalThis.caches?.open(storageName)}catch{return null}
+}
+async function digest(data){
+    const bytes=await crypto.subtle.digest('SHA-256',data);
+    return Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');
+}
+export async function clearModelCache(){
+    cacheEpoch++;
+    if(globalThis.caches)await caches.delete(storageName);
+}
+
 /**
  * @typedef {Object} TranslationRequest
  * @property {String} from
@@ -256,7 +271,19 @@ export class CancelledError extends Error {}
      */
     async loadModelRegistery() {
         let registry;
-        const bytes = await this.fetch(this.registryUrl);
+        const db=await storage(),epoch=cacheEpoch;
+        const key=new URL(this.registryUrl);
+        key.searchParams.set('registry',registryDigest);
+        let bytes;
+        try{
+            bytes=await this.fetch(this.registryUrl);
+        }catch(error){
+            const saved=await db?.match(key).catch(()=>null);
+            if(!saved||!globalThis.crypto?.subtle)throw error;
+            const last=await saved.arrayBuffer();
+            if(await digest(last)!==registryDigest){await db.delete(key);throw translationError('integrity','Cached registry checksum mismatch',error)}
+            bytes=last;
+        }
         try {
             registry = JSON.parse(new TextDecoder().decode(bytes));
             if (!registry || Array.isArray(registry) || typeof registry !== 'object' || !Object.keys(registry).length)
@@ -265,6 +292,8 @@ export class CancelledError extends Error {}
             throw translationError('model', 'Invalid translation model registry', cause);
         }
 
+        if(db&&epoch===cacheEpoch&&globalThis.crypto?.subtle&&await digest(bytes)===registryDigest)
+            await db.put(key,new Response(bytes)).catch(()=>{});
         // Add 'from' and 'to' keys for each model.
         return Array.from(Object.entries(registry), ([key, files]) => {
             if (!files || typeof files !== 'object') throw translationError('model', 'Invalid model entry: ' + key);
@@ -397,7 +426,7 @@ export class CancelledError extends Error {}
         const key = file.expectedSha256Hash;
         if (!key || options?.signal) return this.fetch(file.name, key, options);
         if (!this.fileBuffers.has(key)) {
-            const job = this.fetch(file.name, key, this.failedFiles?.has(key) ? {...options, cache:'reload'} : options);
+            const job = this.verifiedFile(file, this.failedFiles?.has(key) ? {...options, cache:'reload'} : options);
             this.fileBuffers.set(key, job);
             job.then(() => this.failedFiles?.delete(key), () => {
                 if (this.fileBuffers.get(key) === job) {
@@ -407,6 +436,25 @@ export class CancelledError extends Error {}
             });
         }
         return this.fileBuffers.get(key);
+    }
+
+    async verifiedFile(file,options){
+        const hash=file.expectedSha256Hash.toLowerCase(),epoch=cacheEpoch;
+        const db=globalThis.crypto?.subtle?await storage():null;
+        if(!db)return this.fetch(file.name,hash,options);
+        const key=new URL(file.name);key.searchParams.set('sha256',hash);
+        const saved=await db?.match(key).catch(()=>null);
+        if(saved){
+            try{
+                const bytes=await saved.arrayBuffer();
+                if(await digest(bytes)===hash){this.onprogress?.(file.name,bytes.byteLength,true);return bytes}
+            }catch{/* Reload the affected file. Other cache entries remain usable. */}
+            await db.delete(key).catch(()=>{});
+            options={...options,cache:'reload'};
+        }
+        const bytes=await this.fetch(file.name,hash,options);
+        if(db&&epoch===cacheEpoch)await db.put(key,new Response(bytes)).catch(()=>{});
+        return bytes;
     }
 
     /**

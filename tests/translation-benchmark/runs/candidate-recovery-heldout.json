@@ -1,0 +1,3059 @@
+{
+  "url": "http://127.0.0.1:8219/read/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "H001",
+      "chars": 254,
+      "from": "en",
+      "ms": 1356,
+      "text": "许多决定被认为是通过积累嘈杂的证据到阈值或绑定而产生的。 在感知中，该机制解释了以信噪比为特征的刺激强度对决策速度、准确性和信心的影响。",
+      "units": [
+        {
+          "id": "1-0",
+          "status": "translated",
+          "source": "Many decisions are thought to arise via the accumulation of noisy evidence to a threshold or bound.",
+          "text": "许多决定被认为是通过积累嘈杂的证据到阈值或绑定而产生的。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "1-1",
+          "status": "translated",
+          "source": "In perception, the mechanism explains the effect of stimulus strength, characterized by signal-to-noise ratio, on decision speed, accuracy and confidence.",
+          "text": "在感知中，该机制解释了以信噪比为特征的刺激强度对决策速度、准确性和信心的影响。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H002",
+      "chars": 343,
+      "from": "en",
+      "ms": 256,
+      "text": "我们的许多决定都是基于不完美或“讨厌”的信息。 神经科学的一个长期目标是弄清楚这种噪音如何影响决策的三个方面:选择的准确性(或适当性),选择的速度，以及决策者对正确选择的信心。",
+      "units": [
+        {
+          "id": "2-0",
+          "status": "review",
+          "source": "Many of our decisions are made on the basis of imperfect or ‘noisy’ information.",
+          "text": "我们的许多决定都是基于不完美或“讨厌”的信息。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "2-1",
+          "status": "review",
+          "source": "A longstanding goal in neuroscience is to work out how such noise affects three aspects of decision-making: the accuracy (or appropriateness) of a choice, the speed at which the choice is made, and the decision-maker’s confidence that they have chosen correctly.",
+          "text": "神经科学的一个长期目标是弄清楚这种噪音如何影响决策的三个方面:选择的准确性(或适当性),选择的速度，以及决策者对正确选择的信心。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H003",
+      "chars": 325,
+      "from": "en",
+      "ms": 115,
+      "text": "每次试验后，人类都会对自己的决定充满信心。 相比之下，猴子可以表明他们对决定没有信心，在某些试验中选择保证小额奖励(而不是当他们正确指示点运动方向时，他们收到的奖励更大)。",
+      "units": [
+        {
+          "id": "3-0",
+          "status": "translated",
+          "source": "After each trial, the humans rated their confidence in their decision.",
+          "text": "每次试验后，人类都会对自己的决定充满信心。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "3-1",
+          "status": "translated",
+          "source": "By comparison, the monkeys could indicate that they were not confident in a decision by opting for a guaranteed small reward on certain trials (instead of the larger reward they received when they correctly indicated the direction of motion of the dots).",
+          "text": "相比之下，猴子可以表明他们对决定没有信心，在某些试验中选择保证小额奖励(而不是当他们正确指示点运动方向时，他们收到的奖励更大)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H004",
+      "chars": 205,
+      "from": "en",
+      "ms": 143,
+      "text": "在人类和猴子中，增加与点移动相关的不稳定性导致决策更快，更自信，正如有边界的证据积累框架预测的那样。",
+      "units": [
+        {
+          "id": "4-0",
+          "status": "review",
+          "source": "In both humans and monkeys, increasing the noisiness associated with the movement of the dots led to faster and more confident decision-making, just as the bounded evidence accumulation framework predicts.",
+          "text": "在人类和猴子中，增加与点移动相关的不稳定性导致决策更快，更自信，正如有边界的证据积累框架预测的那样。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H005",
+      "chars": 253,
+      "from": "en",
+      "ms": 182,
+      "text": "结合来自不同来源或跨时间的信息的决定对神经科学特别感兴趣，因为它们是认知功能的模型。 这些决定不是硬连线或反射性的,但它们在实验上是可处理的。",
+      "units": [
+        {
+          "id": "5-0",
+          "status": "translated",
+          "source": "Decisions that combine information from different sources or across time are of special interest to neuroscience because they serve as a model of cognitive function.",
+          "text": "结合来自不同来源或跨时间的信息的决定对神经科学特别感兴趣，因为它们是认知功能的模型。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "5-1",
+          "status": "review",
+          "source": "These decisions are not hard wired or reflexive, yet they are experimentally tractable.",
+          "text": "这些决定不是硬连线或反射性的,但它们在实验上是可处理的。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H006",
+      "chars": 206,
+      "from": "en",
+      "ms": 141,
+      "text": "如果噪声证据的有根据的积累是选择准确性、RT和置信度的基础，那么对噪声的选择性操纵应该对所有三种措施产生定量一致的影响。",
+      "units": [
+        {
+          "id": "6-0",
+          "status": "review",
+          "source": "If the bounded accumulation of noisy evidence underlies choice accuracy, RT and confidence, then a selective manipulation of the noise should produce quantitatively consistent effects on all three measures.",
+          "text": "如果噪声证据的有根据的积累是选择准确性、RT和置信度的基础，那么对噪声的选择性操纵应该对所有三种措施产生定量一致的影响。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H007",
+      "chars": 426,
+      "from": "en",
+      "ms": 326,
+      "text": "具体来说，如果在增加与之相关的噪声的同时，对每个瞬间证据样本的期望保持不变，那么噪声样本的有边界积累应该导致(i)当对瞬间证据的期望强时，准确性较低，(ii)当瞬间证据较弱时，反应时间更快，(iii)当瞬间证据较弱时增加信心。",
+      "units": [
+        {
+          "id": "7-0",
+          "status": "review",
+          "source": "Specifically, were it possible to leave unchanged the expectation of each sample of\nmomentary evidence while boosting the noise associated with it, then the bounded accumulation of\nthe noisier samples should lead to (i) lower accuracy when the expectation of the momentary evi-\ndence is strong, (ii) faster reaction times when the momentary evidence is weak, and (iii) increased\nconfidence when the momentary evidence is weak.",
+          "text": "具体来说，如果在增加与之相关的噪声的同时，对每个瞬间证据样本的期望保持不变，那么噪声样本的有边界积累应该导致(i)当对瞬间证据的期望强时，准确性较低，(ii)当瞬间证据较弱时，反应时间更快，(iii)当瞬间证据较弱时增加信心。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "causality",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H008",
+      "chars": 400,
+      "from": "en",
+      "ms": 203,
+      "text": "因此，我们寻求一种方法来操纵与暂时证据的神经表示相关的方差，而不影响其均值。 我们通过在随机点运动(RDM)显示中操纵运动信息来实现这一点，通过添加第二个随机性水平，这增加了其波动性，但在运动证据的强度和方向上是公正的。",
+      "units": [
+        {
+          "id": "8-0",
+          "status": "review",
+          "source": "We therefore sought a method to manipulate the variance associated with the neural representa-\ntion of momentary evidence without affecting its mean.",
+          "text": "因此，我们寻求一种方法来操纵与暂时证据的神经表示相关的方差，而不影响其均值。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "8-1",
+          "status": "translated",
+          "source": "We achieved this with a manipulation of the\nmotion information in a random dot motion (RDM) display, by adding a second level of randomness\nwhich increased its volatility but was unbiased with respect to the strength and direction of motion\nevidence.",
+          "text": "我们通过在随机点运动(RDM)显示中操纵运动信息来实现这一点，通过添加第二个随机性水平，这增加了其波动性，但在运动证据的强度和方向上是公正的。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H009",
+      "chars": 94,
+      "from": "en",
+      "ms": 76,
+      "text": "低波动率和高波动性分别由蓝色和红色表示。",
+      "units": [
+        {
+          "id": "9-0",
+          "status": "review",
+          "source": "Low and high volatility conditions are indicated by blue and red, respectively, in all panels.",
+          "text": "低波动率和高波动性分别由蓝色和红色表示。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "panel",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H010",
+      "chars": 198,
+      "from": "en",
+      "ms": 229,
+      "text": "左:两种刺激的相干参数为0.128,但在高波动性条件下，这是高斯分布(S.D.)的平均值。 = 0.256),在每个视频帧(75 Hz)上采样。",
+      "units": [
+        {
+          "id": "10-0",
+          "status": "review",
+          "source": "Left: the coherence parameter is 0.128 for both stimuli, but in the high volatility condition this is the mean of a Gaussian distribution (S.D. = 0.256) that is sampled on every video frame (75 Hz).",
+          "text": "左:两种刺激的相干参数为0.128,但在高波动性条件下，这是高斯分布(S.D.)的平均值。 = 0.256),在每个视频帧(75 Hz)上采样。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H011",
+      "chars": 51,
+      "from": "en",
+      "ms": 28,
+      "text": "模型拟合的瞬间证据的差异。",
+      "units": [
+        {
+          "id": "11-0",
+          "status": "translated",
+          "source": "Variance of the momentary evidence from model fits.",
+          "text": "模型拟合的瞬间证据的差异。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H012",
+      "chars": 252,
+      "from": "en",
+      "ms": 101,
+      "text": "除了神经记录的方差估计外，我们还使用噪声的3参数表征作为波动性和运动强度的函数。 示例从反应时间任务中猴子W的拟合到行为数据。",
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "In addition to the estimate of variance from neural recordings, we used a 3-parameter characterization of the noise as a function of volatility and motion strength.",
+          "text": "除了神经记录的方差估计外，我们还使用噪声的3参数表征作为波动性和运动强度的函数。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "12-1",
+          "status": "translated",
+          "source": "The example is from the fit to behavioral data from monkey W in the reaction-time task.",
+          "text": "示例从反应时间任务中猴子W的拟合到行为数据。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H013",
+      "chars": 184,
+      "from": "en",
+      "ms": 152,
+      "text": "为了说明目的，在显示移动点之前，我们指示运动的连贯性，波动性和方向。 这些没有显示给实验的参与者。",
+      "units": [
+        {
+          "id": "13-0",
+          "status": "translated",
+          "source": "For illustration purposes, before showing the moving dots we indicate the coherence, volatility and direction of motion.",
+          "text": "为了说明目的，在显示移动点之前，我们指示运动的连贯性，波动性和方向。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "13-1",
+          "status": "review",
+          "source": "These were not displayed to the participants in the experiment.",
+          "text": "这些没有显示给实验的参与者。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H014",
+      "chars": 262,
+      "from": "en",
+      "ms": 332,
+      "text": "图2B中显示的对运动能量的更系统分析显示，对于所有运动强度(上面板),低波动性刺激的均值是相同的，而高波动性刺激(下板)的方差更大。",
+      "units": [
+        {
+          "id": "14-0",
+          "status": "review",
+          "source": "A more systematic analysis of the motion energy, displayed in Figure 2B, reveals that the mean is identical for low and high volatility stimuli, for all motion strengths (upper panel), whereas the variance is larger for the high volatility stimuli (lower panel).",
+          "text": "图2B中显示的对运动能量的更系统分析显示，对于所有运动强度(上面板),低波动性刺激的均值是相同的，而高波动性刺激(下板)的方差更大。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H015",
+      "chars": 117,
+      "from": "en",
+      "ms": 53,
+      "text": "波动性的影响通过概率率测试来评估，比较有和没有β2术语的模型。",
+      "units": [
+        {
+          "id": "15-0",
+          "status": "translated",
+          "source": "The influence of volatility was evaluated with a likelihood-ratio test comparing models with and without the β2 term.",
+          "text": "波动性的影响通过概率率测试来评估，比较有和没有β2术语的模型。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H016",
+      "chars": 201,
+      "from": "en",
+      "ms": 83,
+      "text": "这项研究的目的是调查身体活动(PA),智能手机使用问题(PSU)和倦怠之间的关联，以及确定PSU是否有调解作用。",
+      "units": [
+        {
+          "id": "16-0",
+          "status": "translated",
+          "source": "The aim of this study was to investigate the association between physical activity\n(PA), problematic smartphone use (PSU), and burnout, as well as to identify whether\nthere is a mediating role for PSU.",
+          "text": "这项研究的目的是调查身体活动(PA),智能手机使用问题(PSU)和倦怠之间的关联，以及确定PSU是否有调解作用。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H017",
+      "chars": 371,
+      "from": "en",
+      "ms": 487,
+      "text": "2022年12月,我们从中国武汉招募了823名大学生(Mage = 18.55,SD = 0.83),其中包括499名男性和324名女性。 人口统计信息，国际体育活动问卷短期形式(IPAQ-SF),智能手机成瘾量表短版(SAS-SV)和Maslach Burnout Inventory-Student Survey(MBI-SS)用于评估。",
+      "units": [
+        {
+          "id": "17-0",
+          "status": "review",
+          "source": "We recruited 823 college students ( Mage = 18.55,\nSD = 0.83) from Wuhan, China, in December 2022, including 499 males and 324\nfemales.",
+          "text": "2022年12月,我们从中国武汉招募了823名大学生(Mage = 18.55,SD = 0.83),其中包括499名男性和324名女性。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        },
+        {
+          "id": "17-1",
+          "status": "translated",
+          "source": "Demographic information, the International Physical Activity\nQuestionnaire-Short Form (IPAQ-SF), the Smartphone Addiction Scale-Short\nVersion (SAS-SV), and the Maslach Burnout Inventory-Student Survey (MBI-SS)\nwere used for assessments.",
+          "text": "人口统计信息，国际体育活动问卷短期形式(IPAQ-SF),智能手机成瘾量表短版(SAS-SV)和Maslach Burnout Inventory-Student Survey(MBI-SS)用于评估。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H018",
+      "chars": 123,
+      "from": "en",
+      "ms": 51,
+      "text": "身体活动是骨骼肌肉产生的任何需要能量消耗的身体运动(Bull等人，2020)。",
+      "units": [
+        {
+          "id": "18-0",
+          "status": "translated",
+          "source": "Physical activity is any bodily movement produced by skeletal muscles that requires energy expenditure (Bull et al., 2020).",
+          "text": "身体活动是骨骼肌肉产生的任何需要能量消耗的身体运动(Bull等人，2020)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H019",
+      "chars": 74,
+      "from": "en",
+      "ms": 36,
+      "text": "假设1:PA和倦怠之间会有负相关。",
+      "units": [
+        {
+          "id": "19-0",
+          "status": "translated",
+          "source": "Hypothesis 1: There will be a negative correlation between PA and burnout.",
+          "text": "假设1:PA和倦怠之间会有负相关。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H020",
+      "chars": 347,
+      "from": "en",
+      "ms": 253,
+      "text": "使用分层聚类随机采样技术，我们根据院系的差异区分了八个相互独立的地层，然后将自然类用作聚类。 随机抽取了八个不同院系各三个班级的样本，共邀请24个班级参加调查。",
+      "units": [
+        {
+          "id": "20-0",
+          "status": "review",
+          "source": "Using the stratified cluster random sampling technique, we distinguished eight mutually independent strata based on differences in faculties, and then natural classes were used as clusters.",
+          "text": "使用分层聚类随机采样技术，我们根据院系的差异区分了八个相互独立的地层，然后将自然类用作聚类。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "20-1",
+          "status": "review",
+          "source": "A sample of three classes from each of the eight different faculties was randomly taken, and a total of 24 classes were invited to participate in the survey.",
+          "text": "随机抽取了八个不同院系各三个班级的样本，共邀请24个班级参加调查。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H021",
+      "chars": 169,
+      "from": "en",
+      "ms": 82,
+      "text": "这项研究采用了横断面设计，在单一时间收集参与者人口信息，IPAQ-SF,SAS-SV和MBI-SS措施。",
+      "units": [
+        {
+          "id": "21-0",
+          "status": "translated",
+          "source": "This study employed a cross-sectional design in which participant demographic information, IPAQ-SF, SAS-SV, and MBI-SS measures were collected at a single point in time.",
+          "text": "这项研究采用了横断面设计，在单一时间收集参与者人口信息，IPAQ-SF,SAS-SV和MBI-SS措施。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H022",
+      "chars": 154,
+      "from": "en",
+      "ms": 184,
+      "text": "性别、年龄、教育资格、家庭居住类型、家庭年收入和“独生子女与否”是所要求的人口统计数据。",
+      "units": [
+        {
+          "id": "22-0",
+          "status": "review",
+          "source": "Gender, age, educational qualification, type of household residence, annual family income, and “only child or not” were among the demographic data sought.",
+          "text": "性别、年龄、教育资格、家庭居住类型、家庭年收入和“独生子女与否”是所要求的人口统计数据。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H023",
+      "chars": 218,
+      "from": "en",
+      "ms": 120,
+      "text": "我们发现，318名(38.6%)学生达到中等水平，379名(46.1%)学生达到高水平。 共有241名(48.3%)男性和134名(41.4%)女学生在智能手机使用方面分别出现问题。",
+      "units": [
+        {
+          "id": "23-0",
+          "status": "translated",
+          "source": "We found that 318 (38.6%) students reached the moderate level and 379 (46.1%) students reached the high level.",
+          "text": "我们发现，318名(38.6%)学生达到中等水平，379名(46.1%)学生达到高水平。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "23-1",
+          "status": "translated",
+          "source": "A total of 241 (48.3%) male and 134 (41.4%) female students had problems with smartphone use, respectively.",
+          "text": "共有241名(48.3%)男性和134名(41.4%)女学生在智能手机使用方面分别出现问题。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H024",
+      "chars": 332,
+      "from": "en",
+      "ms": 368,
+      "text": "表3中的相关分析结果显示，PA与PSU显著负相关(r = −0.151,p < 0.001),PSU与倦怠显着呈正相关(r = 0.421,p < 0.001),而PA和倦怠之间的负关联没有统计学意义(r = − 0.046,p > 0.05)。",
+      "units": [
+        {
+          "id": "24-0",
+          "status": "review",
+          "source": "The results of the correlation analysis in Table 3 showed that PA was significantly negatively associated with PSU (r = −0.151, p < 0.001), PSU was significantly positively associated with burnout (r = 0.421, p < 0.001), while the negative association between PA and burnout was not statistically significant (r = −0.046, p > 0.05).",
+          "text": "表3中的相关分析结果显示，PA与PSU显著负相关(r = −0.151,p < 0.001),PSU与倦怠显着呈正相关(r = 0.421,p < 0.001),而PA和倦怠之间的负关联没有统计学意义(r = − 0.046,p > 0.05)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H025",
+      "chars": 138,
+      "from": "en",
+      "ms": 141,
+      "text": "同样，PA与EX和PE(所有p > 0.05)在倦怠的任何三个维度上都没有统计学上的显着关联。",
+      "units": [
+        {
+          "id": "25-0",
+          "status": "review",
+          "source": "Similarly, PA did not have statistically significant associations with EX and PE (all p > 0.05) on any of the three dimensions of burnout.",
+          "text": "同样，PA与EX和PE(所有p > 0.05)在倦怠的任何三个维度上都没有统计学上的显着关联。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H026",
+      "chars": 169,
+      "from": "en",
+      "ms": 192,
+      "text": "注: *p < 0.05，**p < 0.01，***p < 0.001。 回归系数标准化。 控制变量(即性别)的参数未在模型中显示。",
+      "units": [
+        {
+          "id": "26-0",
+          "status": "translated",
+          "source": "Notes: *p < 0.05, **p < 0.01, ***p < 0.001.",
+          "text": "注: *p < 0.05，**p < 0.01，***p < 0.001。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "26-1",
+          "status": "translated",
+          "source": "Regression coefficients were standardized.",
+          "text": "回归系数标准化。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "26-2",
+          "status": "translated",
+          "source": "The parameters of the control variable (i.e., gender) were not shown in the model.",
+          "text": "控制变量(即性别)的参数未在模型中显示。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H027",
+      "chars": 146,
+      "from": "en",
+      "ms": 205,
+      "text": "关于性别(男性=1,女性=0),我们发现它没有显著预测PSU(β=0.101,p > 0.05,95%CI[−0.041至0.242])。",
+      "units": [
+        {
+          "id": "27-0",
+          "status": "review",
+          "source": "With respect to gender (male = 1, female = 0), we found that it did not significantly predict PSU (β = 0.101, p > 0.05, 95% CI [−0.041 to 0.242]).",
+          "text": "关于性别(男性=1,女性=0),我们发现它没有显著预测PSU(β=0.101,p > 0.05,95%CI[−0.041至0.242])。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H028",
+      "chars": 81,
+      "from": "en",
+      "ms": 79,
+      "text": "百分位靴带置置信度间隔的引导样本数量:5,000。",
+      "units": [
+        {
+          "id": "28-0",
+          "status": "review",
+          "source": "Number of bootstrap samples for percentile bootstrap confidence intervals: 5,000.",
+          "text": "百分位靴带置置信度间隔的引导样本数量:5,000。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "statistic",
+                "severity": "severe",
+                "detail": "CI"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H029",
+      "chars": 261,
+      "from": "en",
+      "ms": 97,
+      "text": "回忆和社会可取性偏见可能会影响相关数据的收集。 目前研究的横截面设计没有为因果关系的推论提供强有力的佐证，变量之间可能存在潜在的双向效应。",
+      "units": [
+        {
+          "id": "29-0",
+          "status": "translated",
+          "source": "Recall and social-desirability bias may impact the collection of relevant data.",
+          "text": "回忆和社会可取性偏见可能会影响相关数据的收集。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "29-1",
+          "status": "translated",
+          "source": "The cross-sectional design of the current study did not provide strong corroboration for inferences of causality, and there may be potential bidirectional effects between variables.",
+          "text": "目前研究的横截面设计没有为因果关系的推论提供强有力的佐证，变量之间可能存在潜在的双向效应。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H030",
+      "chars": 125,
+      "from": "en",
+      "ms": 49,
+      "text": "支持数据分析结果的原始数据，包括823个样本的所有分类和连续变量。",
+      "units": [
+        {
+          "id": "30-0",
+          "status": "translated",
+          "source": "Raw data to support the results of the data analysis, including all categorical and continuous variables for the 823 samples.",
+          "text": "支持数据分析结果的原始数据，包括823个样本的所有分类和连续变量。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H031",
+      "chars": 163,
+      "from": "en",
+      "ms": 84,
+      "text": "HPLC数据显示，除橙皮外，hesperidin是所有果皮提取物中最丰富的黄酮，其中纳林金是主要的黄酮类。",
+      "units": [
+        {
+          "id": "31-0",
+          "status": "translated",
+          "source": "HPLC data\ndemonstrated that hesperidin was the most abundant ﬂavonoid in all peel extracts except for orange\npeels, in which naringin was the predominant ﬂavonoid.",
+          "text": "HPLC数据显示，除橙皮外，hesperidin是所有果皮提取物中最丰富的黄酮，其中纳林金是主要的黄酮类。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H032",
+      "chars": 257,
+      "from": "en",
+      "ms": 99,
+      "text": "这项研究的目的是表征柑橘果皮中存在的有益酚类分子，这些果皮在地中海地区很普遍。 此外，该研究旨在量化其抗氧化和自由基清除能力。",
+      "units": [
+        {
+          "id": "32-0",
+          "status": "translated",
+          "source": "The purpose of this study was to characterize the beneficial phenolic molecules present in citrus fruit peels, which are widespread in the Mediterranean area.",
+          "text": "这项研究的目的是表征柑橘果皮中存在的有益酚类分子，这些果皮在地中海地区很普遍。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "32-1",
+          "status": "translated",
+          "source": "Additionally, the study aimed to quantify their antioxidant and free radical scavenging abilities.",
+          "text": "此外，该研究旨在量化其抗氧化和自由基清除能力。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H033",
+      "chars": 181,
+      "from": "en",
+      "ms": 113,
+      "text": "使用UV-Vis光光光度计在进行亚硝酸盐–铝着色测定之前和之后对纳林、蟾螷、螥辫素和纯标准溶液进行了分析。",
+      "units": [
+        {
+          "id": "33-0",
+          "status": "translated",
+          "source": "Naringin, rutin, apigenin and hesperidin pure standard solutions were analyzed with the UV-Vis spectrophotometer before and after performing the nitrite-aluminum colorimetric assay.",
+          "text": "使用UV-Vis光光光度计在进行亚硝酸盐–铝着色测定之前和之后对纳林、蟾螷、螥辫素和纯标准溶液进行了分析。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H034",
+      "chars": 316,
+      "from": "en",
+      "ms": 397,
+      "text": "UV-Visible 纯类黄酮标准溶液(原蛋白、白素素、萫素和螳螳和粒铁蛋白)的分光光度分析，波长在 200 nm 和 600 nm 之间。 面板(E)是对先前以1:1:1:1列出的所有标准分子获得的混合物的分析。",
+      "units": [
+        {
+          "id": "34-0",
+          "status": "review",
+          "source": "UV-Visible spectrophotometric analyses of pure ﬂavonoid standard solutions (rutin, nar-\ningin, apigenin and hesperidin, respectively, for panels (A–D)) with wavelengths between 200 nm \nand 600 nm.",
+          "text": "UV-Visible 纯类黄酮标准溶液(原蛋白、白素素、萫素和螳螳和粒铁蛋白)的分光光度分析，波长在 200 nm 和 600 nm 之间。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "panel",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "34-1",
+          "status": "translated",
+          "source": "Panel (E) is the analysis of a mixture obtained with all standard molecules previously \nlisted in weight ratio 1:1:1:1.",
+          "text": "面板(E)是对先前以1:1:1:1列出的所有标准分子获得的混合物的分析。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H035",
+      "chars": 279,
+      "from": "en",
+      "ms": 198,
+      "text": "详细地说，原子库存解决方案的最大吸收度(AbsMAX)值在λ~360 nm（图1A）;apigenin库存解决方案的AbsMAX值为λ~340nm（图1C）;naringin和esperidin sock solutions在λ~330 nm处显示与AbsMAX值相似的光谱(图1B,D)。",
+      "units": [
+        {
+          "id": "35-0",
+          "status": "translated",
+          "source": "In detail, rutin stock solutions had a maximum absorbance (AbsMAX) value at λ~360 nm (Figure 1A); apigenin stock solutions had their AbsMAX value at λ~340 nm (Figure 1C); naringin and hesperidin stock solutions showed similar spectra with AbsMAX values at λ~330 nm (Figure 1B,D).",
+          "text": "详细地说，原子库存解决方案的最大吸收度(AbsMAX)值在λ~360 nm（图1A）;apigenin库存解决方案的AbsMAX值为λ~340nm（图1C）;naringin和esperidin sock solutions在λ~330 nm处显示与AbsMAX值相似的光谱(图1B,D)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H036",
+      "chars": 177,
+      "from": "en",
+      "ms": 72,
+      "text": "有趣的是，所有溶液都呈现出轻微的黄色，除了螥蛞�作用溶液，它作为分子浓度的函数转移到了红色（图2）。",
+      "units": [
+        {
+          "id": "36-0",
+          "status": "translated",
+          "source": "Interestingly, all solutions presented a slight yellow color, except for rutin solutions which shifted to a reddish color as a function of the molecule concentration (Figure 2).",
+          "text": "有趣的是，所有溶液都呈现出轻微的黄色，除了螥蛞�作用溶液，它作为分子浓度的函数转移到了红色（图2）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H037",
+      "chars": 293,
+      "from": "en",
+      "ms": 158,
+      "text": "特别是，賞蛳溶液的亚硝酸盐–铝测定是唯一具有特征红紫色颜色变化的样品，证明其合理的量化在λ=510nm。 Apigenin溶液转向深黄色，而naringin和phesperidin保留了浅黄色。",
+      "units": [
+        {
+          "id": "37-0",
+          "status": "translated",
+          "source": "In particular, the nitrite-aluminum assay of the rutin solution was the only sample with a characteristic red–purple color variation, justifying its plausible quantification at λ = 510 nm.",
+          "text": "特别是，賞蛳溶液的亚硝酸盐–铝测定是唯一具有特征红紫色颜色变化的样品，证明其合理的量化在λ=510nm。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "37-1",
+          "status": "translated",
+          "source": "Apigenin solution shifted to a dark yellow, while naringin and hesperidin retained a light yellow color.",
+          "text": "Apigenin溶液转向深黄色，而naringin和phesperidin保留了浅黄色。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H038",
+      "chars": 231,
+      "from": "en",
+      "ms": 283,
+      "text": "Rutin,naringin,sesperidin和apigenin通过色谱法有效地分离，标准误差为4%,并且显示保留时间分别为7.073分钟，11.517分钟，12.333分和17.497分钟（图3A）。",
+      "units": [
+        {
+          "id": "38-0",
+          "status": "review",
+          "source": "Rutin, naringin, hesperidin and apigenin were efficiently separated by the chromatographic method with a standard error of 4% and showed retention times of 7.073 min, 11.517 min, 12.333 min and 17.497 min, respectively (Figure 3A).",
+          "text": "Rutin,naringin,sesperidin和apigenin通过色谱法有效地分离，标准误差为4%,并且显示保留时间分别为7.073分钟，11.517分钟，12.333分和17.497分钟（图3A）。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H039",
+      "chars": 217,
+      "from": "en",
+      "ms": 240,
+      "text": "用HPLC(补充材料)和UV-Vis分光光度计在扫描模式下(200纳米<700 nm)（图4）和后（图5）分析柑橘皮提取物，进行着色测定应用。",
+      "units": [
+        {
+          "id": "39-0",
+          "status": "review",
+          "source": "Citrus peel extracts were analyzed with HPLC (Supplementary Materials) and the UV-Vis spectrophotometer in scansion mode (200 nm < λ < 700 nm) before (Figure 4) and after (Figure 5) the colorimetric assay application.",
+          "text": "用HPLC(补充材料)和UV-Vis分光光度计在扫描模式下(200纳米<700 nm)（图4）和后（图5）分析柑橘皮提取物，进行着色测定应用。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "identifier",
+                "severity": "severe",
+                "detail": "λ"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H040",
+      "chars": 243,
+      "from": "en",
+      "ms": 110,
+      "text": "即使考虑到唯一可用作为参考的标准分子，佛手柑也显示出高达0.8915±0.0081毫克/毫升的类黄酮浓度，并且在任何情况下都代表已识别信号数量最高的提取物(28个峰值)。",
+      "units": [
+        {
+          "id": "40-0",
+          "status": "translated",
+          "source": "Even considering the only standard molecules available as references, bergamot showed a concentration of flavonoids up to 0.8915 ± 0.0081 mg/mL and, in any case, represented the extract with the highest number of signals identified (28 peaks).",
+          "text": "即使考虑到唯一可用作为参考的标准分子，佛手柑也显示出高达0.8915±0.0081毫克/毫升的类黄酮浓度，并且在任何情况下都代表已识别信号数量最高的提取物(28个峰值)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H041",
+      "chars": 45,
+      "from": "en",
+      "ms": 30,
+      "text": "RT = 保留时间;SD = 标准差。",
+      "units": [
+        {
+          "id": "41-0",
+          "status": "translated",
+          "source": "RT = retention time; SD = standard deviation.",
+          "text": "RT = 保留时间;SD = 标准差。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H042",
+      "chars": 96,
+      "from": "en",
+      "ms": 88,
+      "text": "A0是负控制的吸收,A1是提取物/标准的吸收。",
+      "units": [
+        {
+          "id": "42-0",
+          "status": "review",
+          "source": "A₀ is the absorbance of the negative control and A₁ is the absorbance of the extracts/standards.",
+          "text": "A0是负控制的吸收,A1是提取物/标准的吸收。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "source-check",
+                "severity": "advisory",
+                "detail": "Translated passage did not preserve the source evidence"
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "error": "Translated passage did not preserve the source evidence",
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H043",
+      "chars": 145,
+      "from": "en",
+      "ms": 118,
+      "text": "所有实验都是三项实验。 数据作为三个独立实验 ± 标准差(如适用)的手段。",
+      "units": [
+        {
+          "id": "43-0",
+          "status": "review",
+          "source": "All experiments were conducted in triplicate.",
+          "text": "所有实验都是三项实验。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "43-1",
+          "status": "review",
+          "source": "Data are presented as means of three independent experiments ± standard deviation, when applicable.",
+          "text": "数据作为三个独立实验 ± 标准差(如适用)的手段。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H044",
+      "chars": 217,
+      "from": "en",
+      "ms": 102,
+      "text": "正如Sisa及其合作者所强调的那样，这种方法也将排除不同的类黄酮被量化，因为它们的芳香环含有在λ~350 nm时吸收的羰基色团[18]。",
+      "units": [
+        {
+          "id": "44-0",
+          "status": "translated",
+          "source": "This approach, as underlined by Sisa and his collaborators, would also exclude different flavonoids from being quantified because of their aromatic rings which contain carbonyl chromophores absorbing at λ~350 nm [18].",
+          "text": "正如Sisa及其合作者所强调的那样，这种方法也将排除不同的类黄酮被量化，因为它们的芳香环含有在λ~350 nm时吸收的羰基色团[18]。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H045",
+      "chars": 125,
+      "from": "en",
+      "ms": 71,
+      "text": "亚硝酸盐–铝化测定导致这一信号因亚硝酸盐介导的羰基氧化而发生变化（图2）。",
+      "units": [
+        {
+          "id": "45-0",
+          "status": "translated",
+          "source": "The nitrite-aluminum assay led to a shift in this signal due to the nitrite-mediated oxidation of carbonyl groups (Figure 2).",
+          "text": "亚硝酸盐–铝化测定导致这一信号因亚硝酸盐介导的羰基氧化而发生变化（图2）。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H046",
+      "chars": 173,
+      "from": "en",
+      "ms": 69,
+      "text": "精确的实时步态事件检测是开发新步态恢复能力技术的基础，特别是在利用机器人或虚拟现实(VR)时。",
+      "units": [
+        {
+          "id": "46-0",
+          "status": "translated",
+          "source": "Accurate real-time gait event detection is the basis for the development of new gait rehabil-\nitation techniques, especially when utilizing robotics or virtual reality (VR).",
+          "text": "精确的实时步态事件检测是开发新步态恢复能力技术的基础，特别是在利用机器人或虚拟现实(VR)时。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H047",
+      "chars": 196,
+      "from": "en",
+      "ms": 79,
+      "text": "步态分析是现代物理医学和康复的重要工具。 为了在步行试验和不同个体之间进行比较，步态被分割成步态循环。",
+      "units": [
+        {
+          "id": "47-0",
+          "status": "translated",
+          "source": "Gait analysis is an essential tool of modern physical medicine and rehabilitation.",
+          "text": "步态分析是现代物理医学和康复的重要工具。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "47-1",
+          "status": "translated",
+          "source": "To enable comparisons between walking trials and among different individuals, gait is segmented into gait cycles.",
+          "text": "为了在步行试验和不同个体之间进行比较，步态被分割成步态循环。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H048",
+      "chars": 206,
+      "from": "en",
+      "ms": 86,
+      "text": "可穿戴技术的最新进展，如惯性测量单元(IMU)和带嵌入式力感应电阻的鞋垫，为步态分析提供了可靠和负担得起的手段。",
+      "units": [
+        {
+          "id": "48-0",
+          "status": "translated",
+          "source": "Recent advancements in wearable technologies, such as inertial measurement units (IMUs) and shoe insoles with embedded force-sensing resistors, have provided reliable and affordable means for gait analysis.",
+          "text": "可穿戴技术的最新进展，如惯性测量单元(IMU)和带嵌入式力感应电阻的鞋垫，为步态分析提供了可靠和负担得起的手段。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H049",
+      "chars": 135,
+      "from": "en",
+      "ms": 66,
+      "text": "单个IMU已经嵌入到任何市售的VR HMD中。 我们建议使用此传感器进行实时步态分析。",
+      "units": [
+        {
+          "id": "49-0",
+          "status": "translated",
+          "source": "A single IMU is already embedded in any commercially available VR HMD.",
+          "text": "单个IMU已经嵌入到任何市售的VR HMD中。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "49-1",
+          "status": "translated",
+          "source": "We propose using this sensor to perform real-time gait analysis.",
+          "text": "我们建议使用此传感器进行实时步态分析。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H050",
+      "chars": 119,
+      "from": "en",
+      "ms": 58,
+      "text": "我们使用头部线性加速的中侧组件作为AFO池的driv-ing信号。",
+      "units": [
+        {
+          "id": "50-0",
+          "status": "translated",
+          "source": "We used the mediolateral component of the linear acceleration of the head as the driv-\ning signal for the pool of AFOs.",
+          "text": "我们使用头部线性加速的中侧组件作为AFO池的driv-ing信号。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H051",
+      "chars": 296,
+      "from": "en",
+      "ms": 224,
+      "text": "在方程(1)(6)之后创建了n=4 AFO池。 表1所示的振荡器的初始条件和调谐增益以这样一种方式选择，即池的基本频率将迅速收敛到步态的节奏(大约七步内)。",
+      "units": [
+        {
+          "id": "51-0",
+          "status": "translated",
+          "source": "A pool of n=4 AFOs was created, following Equations (1)–(6).",
+          "text": "在方程(1)(6)之后创建了n=4 AFO池。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "51-1",
+          "status": "review",
+          "source": "The initial conditions and tuning gains for the oscillators, shown in Table 1, were chosen in such a way that the fundamental frequency of the pool would rapidly converge toward the cadence of gait (within approximately seven strides).",
+          "text": "表1所示的振荡器的初始条件和调谐增益以这样一种方式选择，即池的基本频率将迅速收敛到步态的节奏(大约七步内)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H052",
+      "chars": 82,
+      "from": "en",
+      "ms": 42,
+      "text": "自适应频率振荡器池的初始条件和调谐增益。",
+      "units": [
+        {
+          "id": "52-0",
+          "status": "translated",
+          "source": "Initial conditions and tuning gains of the pool of adaptive frequency oscillators.",
+          "text": "自适应频率振荡器池的初始条件和调谐增益。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H053",
+      "chars": 139,
+      "from": "en",
+      "ms": 115,
+      "text": "一个6s滑动窗口的示例，显示驾驶信号和在慢速行走试验期间对代表性受试者的估计。",
+      "units": [
+        {
+          "id": "53-0",
+          "status": "review",
+          "source": "An example of a 6 s sliding window showing the driving signal and the estimation of a representative subject during the slow walking trial.",
+          "text": "一个6s滑动窗口的示例，显示驾驶信号和在慢速行走试验期间对代表性受试者的估计。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H054",
+      "chars": 296,
+      "from": "en",
+      "ms": 126,
+      "text": "我们调查了我们的方法是否表现不同(HS检测中的错误是因变量)基于步行速度(慢速或快;因子A),个体受试者的行走模式(七个受试者;因子B),或者使用双向ANOVA的两者之间的相互作用。",
+      "units": [
+        {
+          "id": "54-0",
+          "status": "translated",
+          "source": "We investigated whether our method performed differently (the error in the HS detection was the dependent variable) based on walking speed (either slow or fast; Factor A), the individual subject’s walking pattern (seven subjects; Factor B), or the interaction between the two using two-way ANOVA.",
+          "text": "我们调查了我们的方法是否表现不同(HS检测中的错误是因变量)基于步行速度(慢速或快;因子A),个体受试者的行走模式(七个受试者;因子B),或者使用双向ANOVA的两者之间的相互作用。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H055",
+      "chars": 195,
+      "from": "en",
+      "ms": 169,
+      "text": "在缓慢和快速的试验中，HS检测的错误分布在图 3 中作为直方图呈现。 由于步态是对称的，因此左HS和右HS的误差都以相同的直方图显示。",
+      "units": [
+        {
+          "id": "55-0",
+          "status": "translated",
+          "source": "Error distributions of HS detection in slow and fast trials are presented as histograms in Figure 3.",
+          "text": "在缓慢和快速的试验中，HS检测的错误分布在图 3 中作为直方图呈现。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "55-1",
+          "status": "translated",
+          "source": "Since gaits were symmetric, both errors at left and right HSs are shown in the same histogram.",
+          "text": "由于步态是对称的，因此左HS和右HS的误差都以相同的直方图显示。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H056",
+      "chars": 172,
+      "from": "en",
+      "ms": 202,
+      "text": "在慢速(0.6米/s)和快速(1.2米/s)的步行试验中，脚跟撞击步态事件检测的错误分布;每次试验每名参与者100步(50右和50左HS)。",
+      "units": [
+        {
+          "id": "56-0",
+          "status": "review",
+          "source": "Error distributions of heel strike gait event detection in slow (0.6 m/s) and fast (1.2 m/s) walking trials; 100 steps per participant per trial (50 right and 50 left HSs).",
+          "text": "在慢速(0.6米/s)和快速(1.2米/s)的步行试验中，脚跟撞击步态事件检测的错误分布;每次试验每名参与者100步(50右和50左HS)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H057",
+      "chars": 135,
+      "from": "en",
+      "ms": 61,
+      "text": "在非对称试验中，AFO相位与步态周期同时同步的峰值检测算法失败。",
+      "units": [
+        {
+          "id": "57-0",
+          "status": "translated",
+          "source": "During asymmetric trials, the peak-detection algorithm for the contemporaneous synchronization of AFO phase with the gait cycle failed.",
+          "text": "在非对称试验中，AFO相位与步态周期同时同步的峰值检测算法失败。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H058",
+      "chars": 326,
+      "from": "en",
+      "ms": 289,
+      "text": "在正常对称行走期间，我们的AFO-based算法实时检测了HS事件，与离线CoP-based峰值检测(在此验证实验中用作黄金标准)相比，具有良好的平均准确性，大约在步态周期的1%内，并且具有中度精确率(标准差高达7%)。",
+      "units": [
+        {
+          "id": "58-0",
+          "status": "translated",
+          "source": "During normal symmetric walking, our AFO-based algorithm detected HS events in real time with good average accuracy compared to an offline CoP-based peak detection (used as the golden standard in this validation experiment), approximately within 1% of the gait cycle, and with moderate precision (standard deviation up to 7%).",
+          "text": "在正常对称行走期间，我们的AFO-based算法实时检测了HS事件，与离线CoP-based峰值检测(在此验证实验中用作黄金标准)相比，具有良好的平均准确性，大约在步态周期的1%内，并且具有中度精确率(标准差高达7%)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H059",
+      "chars": 158,
+      "from": "en",
+      "ms": 64,
+      "text": "然而，我们的算法没有这种固有的延迟。 我们算法中的错误主要源于我们对周期的假设被违反。",
+      "units": [
+        {
+          "id": "59-0",
+          "status": "translated",
+          "source": "Our algorithm, however, has no such inherent delay.",
+          "text": "然而，我们的算法没有这种固有的延迟。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "59-1",
+          "status": "translated",
+          "source": "The errors in our algorithm originate mostly from the fact that our assumption of periodicity is violated.",
+          "text": "我们算法中的错误主要源于我们对周期的假设被违反。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H060",
+      "chars": 285,
+      "from": "en",
+      "ms": 167,
+      "text": "虽然本文表明，使用单头安装的IMU进行实时步态事件检测是可能的，但我们并不预认为我们的方法是在VR和AR领域之外实现的。 为了更高的精度，在处理非对称步态时，应使用其他传感器放置。",
+      "units": [
+        {
+          "id": "60-0",
+          "status": "translated",
+          "source": "While this paper shows that real-time gait event detection using a single head-mounted IMU is possible, we do not foresee our approach being implemented outside the fields of VR and AR.",
+          "text": "虽然本文表明，使用单头安装的IMU进行实时步态事件检测是可能的，但我们并不预认为我们的方法是在VR和AR领域之外实现的。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "60-1",
+          "status": "review",
+          "source": "For higher accuracy, and when dealing with asymmetric gait, other sensor placements should be used.",
+          "text": "为了更高的精度，在处理非对称步态时，应使用其他传感器放置。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H061",
+      "chars": 97,
+      "from": "en",
+      "ms": 112,
+      "text": "聚(乙烯甲基苯甲酸酯)(PET)是包装应用最常用的聚合物之一。",
+      "units": [
+        {
+          "id": "61-0",
+          "status": "translated",
+          "source": "Poly(Ethylene Terephthalate) (PET) is one of the most used polymers for packaging applica-\ntions.",
+          "text": "聚(乙烯甲基苯甲酸酯)(PET)是包装应用最常用的聚合物之一。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H062",
+      "chars": 175,
+      "from": "en",
+      "ms": 129,
+      "text": "将两个主要工艺应用于PET回收:化学回收和机械回收[2,10]。 化学回收需要检索PET基础单体并净化它们。",
+      "units": [
+        {
+          "id": "62-0",
+          "status": "review",
+          "source": "Two main processes are applied to recycle PET: chemical recycling and mechanical recycling [2,10].",
+          "text": "将两个主要工艺应用于PET回收:化学回收和机械回收[2,10]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "62-1",
+          "status": "translated",
+          "source": "Chemical recycling requires retrieving PET base monomers and purifying them.",
+          "text": "化学回收需要检索PET基础单体并净化它们。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H063",
+      "chars": 136,
+      "from": "en",
+      "ms": 166,
+      "text": "使用三种类型的PET:原始PET(vPET),回收PET(100rPET)和与原始(50rPET)的回收材料混合在50/50%。",
+      "units": [
+        {
+          "id": "63-0",
+          "status": "review",
+          "source": "Three types of PET are used: virgin PET (vPET), recycled PET (100rPET), and a blend of recycled material with virgin (50rPET) at 50/50%.",
+          "text": "使用三种类型的PET:原始PET(vPET),回收PET(100rPET)和与原始(50rPET)的回收材料混合在50/50%。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H064",
+      "chars": 194,
+      "from": "en",
+      "ms": 98,
+      "text": "熔体流量指数或速率(MFI或MFR)是与熔融聚合物粘度相关的工业参数。 MFI允许定义聚合物(注射或挤出级)的等级。",
+      "units": [
+        {
+          "id": "64-0",
+          "status": "translated",
+          "source": "The Melt Flow Index or Rate (MFI or MFR) is an industrial parameter related to the viscosity of a molten polymer.",
+          "text": "熔体流量指数或速率(MFI或MFR)是与熔融聚合物粘度相关的工业参数。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "64-1",
+          "status": "translated",
+          "source": "MFI allows one to define the grade of a polymer (injection- or extrusion-grade).",
+          "text": "MFI允许定义聚合物(注射或挤出级)的等级。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H065",
+      "chars": 73,
+      "from": "en",
+      "ms": 30,
+      "text": "图 1　显示适用于 DSC 分析的加热和冷却步骤。",
+      "units": [
+        {
+          "id": "65-0",
+          "status": "translated",
+          "source": "Figure 1 displays the heating and cooling steps applied for DSC analysis.",
+          "text": "图 1　显示适用于 DSC 分析的加热和冷却步骤。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H066",
+      "chars": 193,
+      "from": "en",
+      "ms": 215,
+      "text": "首先应用10°C/min至290°C的温度。 在290°C保持一分钟后，执行了一个带有10°C/min坡道达到30°C的冷却步骤。",
+      "units": [
+        {
+          "id": "66-0",
+          "status": "review",
+          "source": "A heating ramp of 10 °C/min up to a temperature of 290 °C was first applied.",
+          "text": "首先应用10°C/min至290°C的温度。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "66-1",
+          "status": "review",
+          "source": "After a holding step at 290 °C for one minute, a cooling step with a ramp of 10 °C/min to reach 30 °C was performed.",
+          "text": "在290°C保持一分钟后，执行了一个带有10°C/min坡道达到30°C的冷却步骤。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H067",
+      "chars": 82,
+      "from": "en",
+      "ms": 41,
+      "text": "长期L是使用衍射布拉格定律计算的(方程(4))。",
+      "units": [
+        {
+          "id": "67-0",
+          "status": "translated",
+          "source": "The long period L was calculated using the diffraction Bragg’s law (Equation (4)).",
+          "text": "长期L是使用衍射布拉格定律计算的(方程(4))。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H068",
+      "chars": 261,
+      "from": "en",
+      "ms": 514,
+      "text": "DSC vPET的半结晶预制曲线，50 rPET, 100 rPET，加热 30 °C 到 290 °C 加热速率 10 °C/min 冷却后的第二个加热步骤 290 °C 到 30 °C 冷却速率 −10 °C/min。 热图垂直移动。",
+      "units": [
+        {
+          "id": "68-0",
+          "status": "review",
+          "source": "DSC curves of semi-crystalline preforms for vPET, 50rPET, and 100rPET, heated from 30 °C to 290 °C at a heating rate of 10 °C/min for the second heating step after cooling from 290 °C to 30 °C at a cooling rate of −10 °C/min.",
+          "text": "DSC vPET的半结晶预制曲线，50 rPET, 100 rPET，加热 30 °C 到 290 °C 加热速率 10 °C/min 冷却后的第二个加热步骤 290 °C 到 30 °C 冷却速率 −10 °C/min。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "68-1",
+          "status": "translated",
+          "source": "Thermograms are vertically shifted.",
+          "text": "热图垂直移动。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H069",
+      "chars": 160,
+      "from": "en",
+      "ms": 106,
+      "text": "原子力显微镜(AFM)图像的vPET与地形(a),缩进(b),接触模量(c)和弹性模量(d)的直方图在室温下。",
+      "units": [
+        {
+          "id": "69-0",
+          "status": "translated",
+          "source": "Atomic Force Microscopy (AFM) images of vPET with topography (a), indentation (b), contact modulus (c), and histogram of elastic moduli (d) at room temperature.",
+          "text": "原子力显微镜(AFM)图像的vPET与地形(a),缩进(b),接触模量(c)和弹性模量(d)的直方图在室温下。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H070",
+      "chars": 168,
+      "from": "en",
+      "ms": 348,
+      "text": "存储模量(E′)作为vPET温度的函数，50 rPET, 100 rPET 测量 DMA，在拉伸模式下，以 1 Hz和加热率 2 °C/min。",
+      "units": [
+        {
+          "id": "70-0",
+          "status": "review",
+          "source": "Storage modulus (E′) as a function of temperature for vPET, 50rPET, and 100rPET measured by DMA, in tensile mode, at a frequency of 1 Hz and a heating rate of 2 °C/min.",
+          "text": "存储模量(E′)作为vPET温度的函数，50 rPET, 100 rPET 测量 DMA，在拉伸模式下，以 1 Hz和加热率 2 °C/min。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H071",
+      "chars": 275,
+      "from": "en",
+      "ms": 254,
+      "text": "根据图13,在rPET的情况下，Tan δ峰下的区域也较低，这证明100rPET的无定形相位呈现出较少的分子流动性。 正如DSC分析所建议的那样，更多晶体区域的存在正在限制无定形阶段。",
+      "units": [
+        {
+          "id": "71-0",
+          "status": "review",
+          "source": "According to Figure 13, the area under Tan δ peak is also lower in the case of rPET which proves that the amorphous phase of 100rPET presents less molecular mobility.",
+          "text": "根据图13,在rPET的情况下，Tan δ峰下的区域也较低，这证明100rPET的无定形相位呈现出较少的分子流动性。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "71-1",
+          "status": "review",
+          "source": "The presence of more crystalline regions, as suggested by DSC analysis, is constraining the amorphous phase.",
+          "text": "正如DSC分析所建议的那样，更多晶体区域的存在正在限制无定形阶段。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H072",
+      "chars": 171,
+      "from": "en",
+      "ms": 118,
+      "text": "最后一种方法倾向于强调这样一个事实，即在宏观尺度上机械行为没有显着差异，这在三种聚合物之间是看不到的。",
+      "units": [
+        {
+          "id": "72-0",
+          "status": "review",
+          "source": "This last approach tends to highlight the fact that no significant differences in the mechanical behaviour at the macroscopic scale can be seen between the three polymers.",
+          "text": "最后一种方法倾向于强调这样一个事实，即在宏观尺度上机械行为没有显着差异，这在三种聚合物之间是看不到的。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H073",
+      "chars": 101,
+      "from": "en",
+      "ms": 73,
+      "text": "室温下 vPET、50rPET 和 100rPET 的 AFM、DMA 和单轴拉伸测试模量值。",
+      "units": [
+        {
+          "id": "73-0",
+          "status": "translated",
+          "source": "AFM, DMA, and uniaxial tensile test modulus values for vPET, 50rPET, and 100rPET at room temperature.",
+          "text": "室温下 vPET、50rPET 和 100rPET 的 AFM、DMA 和单轴拉伸测试模量值。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H074",
+      "chars": 160,
+      "from": "en",
+      "ms": 201,
+      "text": "事实证明，与原始PET(vPET)相比，回收的PET(100rPET)的分子量较低，而多分散度指数仍然相当。",
+      "units": [
+        {
+          "id": "74-0",
+          "status": "review",
+          "source": "It is demonstrated that recycled PET (100rPET) presents lower molecular weight compared to virgin PET (vPET), while the Polydispersity Index remains equivalent.",
+          "text": "事实证明，与原始PET(vPET)相比，回收的PET(100rPET)的分子量较低，而多分散度指数仍然相当。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H075",
+      "chars": 200,
+      "from": "en",
+      "ms": 142,
+      "text": "晶体形态的这些差异对局部机械行为的影响随后以AFM为特征。 模量分析没有显示vPET和rPET之间的显着区别。",
+      "units": [
+        {
+          "id": "75-0",
+          "status": "translated",
+          "source": "The impact of these differences of crystalline morphologies on local mechanical be-\nhaviour was then characterised by AFM.",
+          "text": "晶体形态的这些差异对局部机械行为的影响随后以AFM为特征。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "75-1",
+          "status": "review",
+          "source": "Modulus analysis did not show signiﬁcant dif-\nferences between vPET and rPET.",
+          "text": "模量分析没有显示vPET和rPET之间的显着区别。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "significance",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H076",
+      "chars": 272,
+      "from": "en",
+      "ms": 100,
+      "text": "我们进行了多变量逻辑回归分析，以评估睡眠持续时间和贫血风险之间的关系，调整了包括年龄，性别，家庭收入水平，教育水平，身体活动，吸烟和酒精使用在内的协程。",
+      "units": [
+        {
+          "id": "76-0",
+          "status": "translated",
+          "source": "We performed multivariate logistic regression analysis to assess the relationship between sleep duration and risk of anemia after adjusting for covariates including age, gender, family income level, education level, physical activity, cigarette smoking, and alcohol usage.",
+          "text": "我们进行了多变量逻辑回归分析，以评估睡眠持续时间和贫血风险之间的关系，调整了包括年龄，性别，家庭收入水平，教育水平，身体活动，吸烟和酒精使用在内的协程。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H077",
+      "chars": 235,
+      "from": "en",
+      "ms": 568,
+      "text": "睡眠时间 ≥9 h与大多数绝经前妇女在调整协变量后贫血风险较低有关( 比值比  =  0.61 ;  95%   置信区间  =  0.38 – 0.96，睡眠时间 6  h ~  < 8 h 作为参考组)。",
+      "units": [
+        {
+          "id": "77-0",
+          "status": "review",
+          "source": "Also, sleep duration of ≥9 h was related to lower risk of anemia in most premenopausal women after adjusting for covariates (odds ratio = 0.61; 95% confidence interval = 0.38–0.96, sleep duration of 6 h ~ < 8 h as the reference group).",
+          "text": "睡眠时间 ≥9 h与大多数绝经前妇女在调整协变量后贫血风险较低有关( 比值比  =  0.61 ;  95%   置信区间  =  0.38 – 0.96，睡眠时间 6  h ~  < 8 h 作为参考组)。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H078",
+      "chars": 318,
+      "from": "en",
+      "ms": 523,
+      "text": "绝经后妇女与睡眠时间 ≥9 h 患贫血的风险显著较高( 比值比  = 2.02 ;  95%   置信区间  = 1.33 – 3.08 )不调整协变量。 然而，在调整了男性和绝经后妇女的年龄和协变量后，这些关联在统计上变得微不足道。",
+      "units": [
+        {
+          "id": "78-0",
+          "status": "review",
+          "source": "Postmenopausal women with sleep durations of ≥9 h had a significantly higher risk of anemia (odds ratio =2.02; 95% confidence interval =1.33–3.08) without adjusting for covariates.",
+          "text": "绝经后妇女与睡眠时间 ≥9 h 患贫血的风险显著较高( 比值比  = 2.02 ;  95%   置信区间  = 1.33 – 3.08 )不调整协变量。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "78-1",
+          "status": "review",
+          "source": "However, the associations became statistically insignificant after adjusting for age and covariates in both men and postmenopausal women.",
+          "text": "然而，在调整了男性和绝经后妇女的年龄和协变量后，这些关联在统计上变得微不足道。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H079",
+      "chars": 159,
+      "from": "en",
+      "ms": 126,
+      "text": "贫血在老年人中非常普遍，与心血管疾病，死亡率，身体功能不良和残疾有关[1,2,3]。",
+      "units": [
+        {
+          "id": "79-0",
+          "status": "review",
+          "source": "Anemia is highly prevalent in older individuals and has been linked to cardiovascular diseases, mortality, poor physical functionality, and disability [1,2,3].",
+          "text": "贫血在老年人中非常普遍，与心血管疾病，死亡率，身体功能不良和残疾有关[1,2,3]。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H080",
+      "chars": 260,
+      "from": "en",
+      "ms": 368,
+      "text": "我们研究的数据是从第七 KNHANES  ( 2016 – 2017 ). 这项调查是一项针对所有年龄段的全国代表性研究，旨在使用分层多阶段概率抽样来收集年度国家数据，以选择家庭单位。",
+      "units": [
+        {
+          "id": "80-0",
+          "status": "review",
+          "source": "The data for our study were acquired from the seventh KNHANES (2016–2017).",
+          "text": "我们研究的数据是从第七 KNHANES  ( 2016 – 2017 ).",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "80-1",
+          "status": "review",
+          "source": "This survey is a nationally representative study of all ages and is designed to collect annual national data using stratified, multistage probability sampling to select household units.",
+          "text": "这项调查是一项针对所有年龄段的全国代表性研究，旨在使用分层多阶段概率抽样来收集年度国家数据，以选择家庭单位。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "referent",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H081",
+      "chars": 138,
+      "from": "en",
+      "ms": 234,
+      "text": "总计 21，236 科目（图 1）,  16，277 完成 2016 – 2017   KN-HANES 评估，平均答复率为 76.6% .",
+      "units": [
+        {
+          "id": "81-0",
+          "status": "review",
+          "source": "Among a total of 21,236 subjects (Figure 1), 16,277 completed the 2016–2017 KN-\nHANES assessments, with an average response rate of 76.6%.",
+          "text": "总计 21，236 科目（图 1）,  16，277 完成 2016 – 2017   KN-HANES 评估，平均答复率为 76.6% .",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H082",
+      "chars": 192,
+      "from": "en",
+      "ms": 303,
+      "text": "响应被按分为五组:<5 h,5 h ~ <6 h,6 h ~ <8 h,8 h ~ <9 h,和≥9 h,根据平均睡眠持续时间为419分钟(6.98小时)对于整个人口。",
+      "units": [
+        {
+          "id": "82-0",
+          "status": "review",
+          "source": "Responses were catego-\nrized into five groups: <5 h, 5 h ~ <6 h, 6 h ~ <8 h, 8 h ~ <9 h, and ≥9 h per day , according \nto the mean sleep duration of 419 min (6.98 h) for the entire population.",
+          "text": "响应被按分为五组:<5 h,5 h ~ <6 h,6 h ~ <8 h,8 h ~ <9 h,和≥9 h,根据平均睡眠持续时间为419分钟(6.98小时)对于整个人口。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H083",
+      "chars": 234,
+      "from": "en",
+      "ms": 92,
+      "text": "使用分类变量的加权chi-square测试和对Tukey或Bonferroni临时调整后连续变量方差的加权单向分析来分析研究人群的特征。",
+      "units": [
+        {
+          "id": "83-0",
+          "status": "translated",
+          "source": "Characteristics of the study population were analyzed using either a weighted chi-square test for categorical variables and a weighted one-way analysis of variance for continuous variables with Tukey or Bonferroni post hoc adjustment.",
+          "text": "使用分类变量的加权chi-square测试和对Tukey或Bonferroni临时调整后连续变量方差的加权单向分析来分析研究人群的特征。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H084",
+      "chars": 168,
+      "from": "en",
+      "ms": 142,
+      "text": "报告每天睡眠<5 h,5 h ~ <6 h,6 h ~ <8 h,8 h ~ <9 h,和≥9 h的受试者百分比分别为4.4%,10.1%,56.7%,19.5%和9.3%。",
+      "units": [
+        {
+          "id": "84-0",
+          "status": "translated",
+          "source": "The percentages of subjects who reported sleeping for <5 h, 5 h ~ <6 h, 6 h ~ <8 h, 8 h ~ <9 h, and ≥9 h per day were 4.4%, 10.1%, 56.7%, 19.5%, and 9.3%, respectively.",
+          "text": "报告每天睡眠<5 h,5 h ~ <6 h,6 h ~ <8 h,8 h ~ <9 h,和≥9 h的受试者百分比分别为4.4%,10.1%,56.7%,19.5%和9.3%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H085",
+      "chars": 146,
+      "from": "en",
+      "ms": 97,
+      "text": "在11,131名受试者中，有1001名(8.99%)患有贫血症(表2)。 贫血受试者的平均年龄为51.55±0.70岁，男性为20.0%。",
+      "units": [
+        {
+          "id": "85-0",
+          "status": "translated",
+          "source": "Among the 11,131 subjects, 1001 (8.99%) had anemia (Table 2).",
+          "text": "在11,131名受试者中，有1001名(8.99%)患有贫血症(表2)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "85-1",
+          "status": "translated",
+          "source": "The mean age of subjects with anemia was 51.55 ± 0.70 years old, and 20.0% were men.",
+          "text": "贫血受试者的平均年龄为51.55±0.70岁，男性为20.0%。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H086",
+      "chars": 321,
+      "from": "en",
+      "ms": 527,
+      "text": "与 6 -  <8 -h睡眠时间，自我报告的睡眠持续时间更大或相等 9 h与男性贫血风险较高显著相关( 比值比  =  2.48 ;  95%   置信区间  =  1.63 – 3.81 ),没有调整。 然而，在根据年龄和协变量调整的模型中，意义消失了。",
+      "units": [
+        {
+          "id": "86-0",
+          "status": "review",
+          "source": "Compared with 6- <8-h sleep duration, self-reported sleep duration of greater or equal to 9 h was significantly associated with a higher risk of anemia in men (odds ratio = 2.48; 95% confidence interval = 1.63–3.81), without adjustments.",
+          "text": "与 6 -  <8 -h睡眠时间，自我报告的睡眠持续时间更大或相等 9 h与男性贫血风险较高显著相关( 比值比  =  2.48 ;  95%   置信区间  =  1.63 – 3.81 ),没有调整。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "fragmented-prose",
+                "severity": "advisory"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "86-1",
+          "status": "translated",
+          "source": "However, the significance disappeared in the model adjusted for age and covariates.",
+          "text": "然而，在根据年龄和协变量调整的模型中，意义消失了。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H087",
+      "chars": 166,
+      "from": "en",
+      "ms": 70,
+      "text": "在本研究中，我们根据2016年和2017年从KNHANES中提取的数据集观察了韩国人群中睡眠持续时间和贫血之间的关联。",
+      "units": [
+        {
+          "id": "87-0",
+          "status": "translated",
+          "source": "In the present study, we observed associations between sleep duration and anemia in the Korean population, based on a dataset drawn from the KNHANES in 2016 and 2017.",
+          "text": "在本研究中，我们根据2016年和2017年从KNHANES中提取的数据集观察了韩国人群中睡眠持续时间和贫血之间的关联。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H088",
+      "chars": 139,
+      "from": "en",
+      "ms": 55,
+      "text": "在本研究中，我们没有发现自我报告的睡眠时间与两性贫血风险之间存在强烈关联(表3)。",
+      "units": [
+        {
+          "id": "88-0",
+          "status": "translated",
+          "source": "In the present study, we did not find a robust association between self-reported sleep duration and risk of anemia in both sexes (Table 3).",
+          "text": "在本研究中，我们没有发现自我报告的睡眠时间与两性贫血风险之间存在强烈关联(表3)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H089",
+      "chars": 166,
+      "from": "en",
+      "ms": 127,
+      "text": "因为我们使用横截面数据，目前尚不清楚短睡眠时间是否作为风险因素，还是血红蛋白水平和贫血降低的结果。",
+      "units": [
+        {
+          "id": "89-0",
+          "status": "review",
+          "source": "Because we used cross-sectional data, it remains unclear whether short sleep duration acts as a risk factor or is a consequence of lower hemoglobin levels and anemia.",
+          "text": "因为我们使用横截面数据，目前尚不清楚短睡眠时间是否作为风险因素，还是血红蛋白水平和贫血降低的结果。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H090",
+      "chars": 165,
+      "from": "en",
+      "ms": 72,
+      "text": "首先，由于我们使用了从横断面调查KNHANES获得的数据，因此本研究设计没有确定许多因素和贫血之间的时间优先级。",
+      "units": [
+        {
+          "id": "90-0",
+          "status": "translated",
+          "source": "First, because we used data obtained from KNHANES, a cross-sectional survey, this study design did not establish temporal precedence between many factors and anemia.",
+          "text": "首先，由于我们使用了从横断面调查KNHANES获得的数据，因此本研究设计没有确定许多因素和贫血之间的时间优先级。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H091",
+      "chars": 230,
+      "from": "en",
+      "ms": 87,
+      "text": "自十年前首次认识到这个问题以来，RNA-seq数据的正常化一直是一个活跃的研究领域。 尽管新常态的积极发展，但其绩效措施很少受到关注。",
+      "units": [
+        {
+          "id": "91-0",
+          "status": "translated",
+          "source": "Normalization of RNA-seq data has been an active area of research since the problem\nwas first recognized a decade ago.",
+          "text": "自十年前首次认识到这个问题以来，RNA-seq数据的正常化一直是一个活跃的研究领域。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "91-1",
+          "status": "translated",
+          "source": "Despite the active development of new normalizers,\ntheir performance measures have been given little attention.",
+          "text": "尽管新常态的积极发展，但其绩效措施很少受到关注。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H092",
+      "chars": 131,
+      "from": "en",
+      "ms": 59,
+      "text": "长期以来，样本之间的正常化一直被认为是处理和分析RNA测序(RNA-seq)数据的关键步骤。",
+      "units": [
+        {
+          "id": "92-0",
+          "status": "translated",
+          "source": "Between-sample normalization has long been recognized as a critical step in processing\nand analyzing RNA-sequencing (RNA-seq) data.",
+          "text": "长期以来，样本之间的正常化一直被认为是处理和分析RNA测序(RNA-seq)数据的关键步骤。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H093",
+      "chars": 174,
+      "from": "en",
+      "ms": 182,
+      "text": "在基于地面真理的评估中，人们获得一个正确的归一化表达式矩阵，并定义一种量化它们离这个理想解决方案有多近的方法（图1）。",
+      "units": [
+        {
+          "id": "93-0",
+          "status": "review",
+          "source": "In ground-truth based evaluation, one obtains a correctly normalized expression matrix and defines a means to quantify how close they can get to this ideal solution (Fig. 1).",
+          "text": "在基于地面真理的评估中，人们获得一个正确的归一化表达式矩阵，并定义一种量化它们离这个理想解决方案有多近的方法（图1）。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H094",
+      "chars": 159,
+      "from": "en",
+      "ms": 59,
+      "text": "归一化方法可以在一个步骤中产生归一化计数，或者首先确定用于缩放读取计数矩阵的引用集。",
+      "units": [
+        {
+          "id": "94-0",
+          "status": "translated",
+          "source": "A normalization method may produce normalized counts in one step, or first identify the set of references which is then used for scaling the read count matrix.",
+          "text": "归一化方法可以在一个步骤中产生归一化计数，或者首先确定用于缩放读取计数矩阵的引用集。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H095",
+      "chars": 101,
+      "from": "en",
+      "ms": 35,
+      "text": "首先，比较研究在很大程度上取决于DE检测，DE检测是标准化的下游分析。",
+      "units": [
+        {
+          "id": "95-0",
+          "status": "translated",
+          "source": "First, comparative studies heavily depended on DE detection, an analysis downstream of normalization.",
+          "text": "首先，比较研究在很大程度上取决于DE检测，DE检测是标准化的下游分析。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H096",
+      "chars": 181,
+      "from": "en",
+      "ms": 136,
+      "text": "在解决这些问题时，我们提出了一种基于接地的度量，称为基于条件数的偏差，或cdev,它测量两个表达式矩阵之间的差异。",
+      "units": [
+        {
+          "id": "96-0",
+          "status": "review",
+          "source": "In addressing these issues, we propose a ground-truth based measure called condition-number based deviation, or cdev, which measures the differences between two expression matrices.",
+          "text": "在解决这些问题时，我们提出了一种基于接地的度量，称为基于条件数的偏差，或cdev,它测量两个表达式矩阵之间的差异。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "review"
+    },
+    {
+      "id": "H097",
+      "chars": 301,
+      "from": "en",
+      "ms": 117,
+      "text": "RNA-seq数据是根据以下标准从基因表达Omnibus(GEO)数据库中收集的:在足够数量的样本中以恒定的浓度添加ERCC峰值。 最初进行这些检测的研究清单见表2。",
+      "units": [
+        {
+          "id": "97-0",
+          "status": "translated",
+          "source": "RNA-seq data were collected from the Gene Expression Omnibus (GEO) database based on the following criteria: having ERCC spike-ins added at a constant concentration across a sufficiently large number of samples.",
+          "text": "RNA-seq数据是根据以下标准从基因表达Omnibus(GEO)数据库中收集的:在足够数量的样本中以恒定的浓度添加ERCC峰值。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "97-1",
+          "status": "translated",
+          "source": "The list of studies where these assays were originally performed is available in Table 2.",
+          "text": "最初进行这些检测的研究清单见表2。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H098",
+      "chars": 248,
+      "from": "en",
+      "ms": 115,
+      "text": "m样本上n个基因的表达分析实验通常导致n×m基质Y,其元素yij捕获了样本j中基因i的测量。 在RNA-seq中，Y是量化过程的读取计数矩阵输出。",
+      "units": [
+        {
+          "id": "98-0",
+          "status": "translated",
+          "source": "An expression profiling experiment of n genes on m samples typically results in an n × m matrix Y, the element yij of which captures the measurement of gene i in sample j.",
+          "text": "m样本上n个基因的表达分析实验通常导致n×m基质Y,其元素yij捕获了样本j中基因i的测量。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "98-1",
+          "status": "translated",
+          "source": "In RNA-seq, Y is the read count matrix output by the quantification process.",
+          "text": "在RNA-seq中，Y是量化过程的读取计数矩阵输出。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H099",
+      "chars": 254,
+      "from": "en",
+      "ms": 190,
+      "text": "在模拟中，参考集R由所有非DE基因组成，即那些具有折叠变化的基因。 在真实数据集中，R 包含在足够高的读取计数数下检测到的 ERCC 尖峰，即至少在每个样本中读取。",
+      "units": [
+        {
+          "id": "99-0",
+          "status": "translated",
+          "source": "In simulations, the reference set R is composed of all non-DE genes, i.e., those with fold-change set to one.",
+          "text": "在模拟中，参考集R由所有非DE基因组成，即那些具有折叠变化的基因。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "99-1",
+          "status": "translated",
+          "source": "In real data sets, R contains the ERCC spike-ins detected at sufficiently high number of read counts, that is, at least t reads in every sample.",
+          "text": "在真实数据集中，R 包含在足够高的读取计数数下检测到的 ERCC 尖峰，即至少在每个样本中读取。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H100",
+      "chars": 220,
+      "from": "en",
+      "ms": 175,
+      "text": "人们应该注意，cdev不是对称的，即cdev(X,A)≠ cdev(A,X)对于一般给出的矩阵X和A。 但是，当从 X 到 A 的转换仅涉及列扩展时，我们有 cdev(X，A) = cdev(A，X)。",
+      "units": [
+        {
+          "id": "100-0",
+          "status": "translated",
+          "source": "One should note that, cdev is not symmetric, i.e., cdev(X, A) ≠ cdev(A, X) for generally given matrices X and A. However, when the transformation from X to A involves only column-scaling, we have cdev(X, A) = cdev(A, X).",
+          "text": "人们应该注意，cdev不是对称的，即cdev(X,A)≠ cdev(A,X)对于一般给出的矩阵X和A。 但是，当从 X 到 A 的转换仅涉及列扩展时，我们有 cdev(X，A) = cdev(A，X)。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H101",
+      "chars": 98,
+      "from": "en",
+      "ms": 47,
+      "text": "差分表达式(DE)分析被用作正常化质量的下游指标。",
+      "units": [
+        {
+          "id": "101-0",
+          "status": "translated",
+          "source": "Differential expression (DE) analysis was used as a downstream indicator of normalization quality.",
+          "text": "差分表达式(DE)分析被用作正常化质量的下游指标。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H102",
+      "chars": 93,
+      "from": "en",
+      "ms": 50,
+      "text": "cdev和折叠变化MSE在模拟中的关系，在DE基因的不同部分。",
+      "units": [
+        {
+          "id": "102-0",
+          "status": "translated",
+          "source": "Relationship between cdev and fold-change MSE in simulation, at varying fraction of DE genes.",
+          "text": "cdev和折叠变化MSE在模拟中的关系，在DE基因的不同部分。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H103",
+      "chars": 148,
+      "from": "en",
+      "ms": 125,
+      "text": "(A) 各种标准化剂的性能。 (B,C) 以误报率(FPR)和ROC曲线(AUC)下区域测量的DE检测性能。",
+      "units": [
+        {
+          "id": "103-0",
+          "status": "translated",
+          "source": "(A) Performance of various normalizers.",
+          "text": "(A) 各种标准化剂的性能。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "103-1",
+          "status": "translated",
+          "source": "(B, C) DE detection performance as measured by false positive rate (FPR) and area under the ROC curve (AUC).",
+          "text": "(B,C) 以误报率(FPR)和ROC曲线(AUC)下区域测量的DE检测性能。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "translated"
+    },
+    {
+      "id": "H104",
+      "chars": 192,
+      "from": "en",
+      "ms": 237,
+      "text": "真正的数据集更具挑战性，因为没有一个标准化器可以正确稳定真实引用（图 S3）。 图 8　在 Rata Bodymap 数据集上显示此类结果为例。",
+      "units": [
+        {
+          "id": "104-0",
+          "status": "review",
+          "source": "Real data sets are more challenging, for none of the normalizers could stabilize the true references properly (Fig. S3).",
+          "text": "真正的数据集更具挑战性，因为没有一个标准化器可以正确稳定真实引用（图 S3）。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "104-1",
+          "status": "translated",
+          "source": "Figure 8 shows such results on the Rat Bodymap data sets as an example.",
+          "text": "图 8　在 Rata Bodymap 数据集上显示此类结果为例。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    },
+    {
+      "id": "H105",
+      "chars": 280,
+      "from": "en",
+      "ms": 183,
+      "text": "一旦定义了地面真理，性能就可以通过相似性(或差异性)测量，方便客观地衡量。 虽然MSE是一个直观且易于计算的指标，但在两个以上条件下对折叠变化MSE的定义变得过于繁琐。",
+      "units": [
+        {
+          "id": "105-0",
+          "status": "translated",
+          "source": "Once a ground truth is defined, performance can be measured, conveniently and objectively, by a similarity (or dissimilarity) measure.",
+          "text": "一旦定义了地面真理，性能就可以通过相似性(或差异性)测量，方便客观地衡量。",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "105-1",
+          "status": "review",
+          "source": "Although MSE is an intuitive and easy-to-compute metric, the definition of fold-change MSE on more than two conditions becomes overly cumbersome.",
+          "text": "虽然MSE是一个直观且易于计算的指标，但在两个以上条件下对折叠变化MSE的定义变得过于繁琐。",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "status": "partial"
+    }
+  ],
+  "probes": {},
+  "snapshots": [
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 253,
+      "modelReady": [
+        {
+          "start": 1154.2999999988824,
+          "end": 1382.5,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 18614.599999999627
+    }
+  ],
+  "version": "0.4.18"
+}

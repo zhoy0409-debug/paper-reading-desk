@@ -1,0 +1,2917 @@
+{
+  "corpus": "development",
+  "runSha256": "f683f4214ded59f0efcaee9e6a921247fa22bef52da37e480cb0a119942430eb",
+  "n": 128,
+  "counts": {
+    "records": 128,
+    "completeReadable": 67,
+    "units": 163,
+    "coveredUnits": 111,
+    "facts": 259,
+    "preservedFacts": 235,
+    "terms": 207,
+    "correctTerms": 154,
+    "seriousRows": 49,
+    "withoutTranslation": 0
+  },
+  "rows": [
+    {
+      "id": "D001",
+      "sha256": "84091d02aeecc055bf3f38a43a6c6e02d316abb17ff5cdf0a82de0b0613d41d3",
+      "units": 2,
+      "text": "城市树木覆盖物为人类健康和福祉提供了好处，但以前的研究表明，树木覆盖物的分布往往不公平。 在这里，我们使用国家农业图像计划数字正统照片来调查人口普查区块的树覆盖不平等 US 大型城市化地区，167 百万人跨越 5，723 市政当局和其他人口普查指定的地方。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "general",
+        "note": "将正射影像译作“正统照片”，行政区类别也不清楚。主旨、人口和地点数量仍可辨。"
+      }
+    },
+    {
+      "id": "D002",
+      "sha256": "4ee0a9ce2989412a35e29b194be0fe8b5bde877d06d8f35e27e6d2a4d02f060d",
+      "units": 1,
+      "text": "我们比较了使用Landsat图像测量的夏季陆地表面温度。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "省去了参与比较的树冠覆盖，只剩地表温度，未交代比较对象。"
+      }
+    },
+    {
+      "id": "D003",
+      "sha256": "f8eada8613a28de796a7aa62c5335fc60ba3605f4e95f40dafda7e1503972aef",
+      "units": 2,
+      "text": "在接受调查的92%的城市化地区中，低收入街区的树木覆盖率低于高收入街区。 平均而言,低收入区块的树木覆盖率比高收入街区少15.2%,比高收入街区热1.50摄氏度。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "两组树冠比较和温度均正确；1.50 与 1.5 数值相同，但增加了一位有效数字。"
+      }
+    },
+    {
+      "id": "D004",
+      "sha256": "62cedd79aaf2a765a78840bacd70429e8b3df69c90f97157f3e52f7bea08c942",
+      "units": 1,
+      "text": "即使在控制了人口密度和积累强度之后，收入和树木覆盖之间的正关联也很重要，非西班牙裔白色和树木覆盖率之间的正相关关系也是如此。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          false
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "serious",
+        "note": "将统计显著性写成“很重要”，将建成区强度和非西班牙裔白人比例译错。"
+      }
+    },
+    {
+      "id": "D005",
+      "sha256": "79ae2ca4c78ab813d004bcff3855547873b698775cf4cfae5e444b3975a19a76",
+      "units": 1,
+      "text": "我们估计，在控制人口密度之后，低收入区块 62 比高收入区块少一百万棵树，相当于补偿价值。 56 十亿(美元) 1，349 /人)",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "“区块62……少一百万棵”将六千二百万拆散，改变关键估计。"
+      }
+    },
+    {
+      "id": "D006",
+      "sha256": "eea49dce799e8ca61709c96c0c4d50a7c6c42b020eb3481ea2474a71f1899508",
+      "units": 1,
+      "text": "本文重点介绍一个城市自然特征，城市树冠覆盖(“树盖”),使用遥感技术从上面看，叶子，树枝和木状植被的茎层[5]。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "general",
+        "note": "叶、枝、茎和遥感观察方向可读，“木状植被”和“树盖”不够准确。"
+      }
+    },
+    {
+      "id": "D007",
+      "sha256": "1c0cde8ee727cc263acabee04a9a81dddfdd808f0d0ca63d0063efca328f892a",
+      "units": 1,
+      "text": "城市空气温度是城市能量平衡的函数，树木覆盖和许多其他因素影响[19]。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "第二分句省略了被影响的对象，但可从前句辨认城市能量平衡。"
+      }
+    },
+    {
+      "id": "D008",
+      "sha256": "375826298806d8c9958ef885a850156cb0481e646f369fd7270f0b1ae37e9bb0",
+      "units": 1,
+      "text": "为了评估美国各地数千个社区的树木覆盖不平等，我们绘制了2米分辨率的树覆盖。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "分辨率与制图目的正确，“树覆盖”表述生硬。"
+      }
+    },
+    {
+      "id": "D009",
+      "sha256": "fec4bb677b04092466c5e3cf2feeaab9d4fb7a1f01b152c60e98dc02d8306999",
+      "units": 1,
+      "text": "最后，创建了一个二进制层，其中具有高纹理值和高NDVI阈值的像素被赋予1的值，其余像素被编码为0。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "0、1 的条件对应正确，“二进制层”能辨义，遥感中宜称二值图层。"
+      }
+    },
+    {
+      "id": "D010",
+      "sha256": "3b6d44ccfe8b7450f1aedd0f44dd7450ca9ecd787ec5d46e9be67e6f7b9610f0",
+      "units": 1,
+      "text": "虽然人口普查的信息被用来界定城市化地区，但人口普查区块的边界并不完全符合城市化地区的边界。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "界定区域与边界并非完全相合的意思均清楚。"
+      }
+    },
+    {
+      "id": "D011",
+      "sha256": "72aad74555d4ea4365751354fb1863d14ca87467c1094fa7051405fb8fea2c32",
+      "units": 1,
+      "text": "在所有收入四分位数中，UTC数据集中树木覆盖的估计值略高于我们的树覆盖数据集。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "两套数据的比较方向正确，“收入四分位数”在这里指四分位组。"
+      }
+    },
+    {
+      "id": "D012",
+      "sha256": "593f2055edab1ff6c082c49c5a98668f1dc399ab8e24a4da8d14e184a8daa75f",
+      "units": 1,
+      "text": "本文的大部分分析都集中在收入最低的四分位数(红色方块)和最高四分位数(绿色三角形)上。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "收入组及红方块、绿三角的对应正确。"
+      }
+    },
+    {
+      "id": "D013",
+      "sha256": "87901759c644ff05126d3dd97d04b5b2de4c1d8b0e3a1fdd3718ec292e380767",
+      "units": 1,
+      "text": "中位树木覆盖（图3A）在亚特兰大等南部城市化地区最大，在凤凰城等西南部的城市化地区最低。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "南部最高、西南部最低及两座示例城市均对应，中文略生硬。"
+      }
+    },
+    {
+      "id": "D014",
+      "sha256": "5a0f673ff1a89b1e835b99d4b8c2400efb6c65f606c9d1e8553c21dc6335d117",
+      "units": 1,
+      "text": "补偿价值是对所有者对树木损失的补偿，可以被视为将树作为资产估价的一种方式。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "说明了受偿者和作为资产估值的含义。"
+      }
+    },
+    {
+      "id": "D015",
+      "sha256": "1c2ec8c20e65f7ffa45f701d00c0939816279d57eeb166956f608ba8fa16f55a",
+      "units": 1,
+      "text": "这种趋势可能只是因为密度较低的块中平均树木覆盖率更高，因此森林覆盖的不平等潜力更大。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "低密度地区树冠更多的推测可辨，“块”“不平等潜力”不自然。"
+      }
+    },
+    {
+      "id": "D016",
+      "sha256": "8d65b94a8b25f96b15f9f368aad951d93192d78238fe6332a09bd2c67ef7b473",
+      "units": 1,
+      "text": "人口加权的中位树木覆盖5,723个纳入的地方和人口普查指定的地方。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "权重、中位数与数量可辨，“纳入的地方”误译了建制地区，整句不顺。"
+      }
+    },
+    {
+      "id": "D017",
+      "sha256": "a0238edf22b9fe3de150f86875d939ddcf410a7cfe6ccde874258290e1ad5cf2",
+      "units": 1,
+      "text": "对于每个城市化区域，我们分别运行一个回归预测树覆盖(arsin转换)作为人口密度类别，收入类别，积累强度(BUI)类别和大多数白人状态的函数。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          false
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "模型变量中的建成区开发强度被译作积累强度，反正弦变换拼错。"
+      }
+    },
+    {
+      "id": "D018",
+      "sha256": "1b55d51cfdfdd3d70e3e363bfb7df95d9a35834b893217c62f248222c397562f",
+      "units": 2,
+      "text": "单细胞技术的最新进展使组织和癌症成分具有高分辨率特征。 虽然有许多用于减小尺寸和聚类的工具可用于单细胞数据分析，但这些方法通常无法同时保留本地聚类结构和全局数据几何。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "首句将技术使高分辨率表征成为可能，改成组织本身获得高分辨率特征；“减小尺寸”也不是数据降维。"
+      }
+    },
+    {
+      "id": "D019",
+      "sha256": "3680ac1c721e1e88ff576aa7308a60bc60d7071e4e4e8cac429db9f1fdc5addd",
+      "units": 2,
+      "text": "为了应对这些挑战，我们开发了一个新颖的分析框架，即单细胞路径指标分析(scPMP),使用功率加权路径指标，以数据驱动的方式测量细胞之间的距离。 与欧几里德距离和其他常用的距离指标不同，路径指标对密度敏感，并尊重底层数据几何。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "将数学上的幂加权误作按功率加权，改变了度量算法的含义。"
+      }
+    },
+    {
+      "id": "D020",
+      "sha256": "13e3e15dbe027cf46381335d09625e0f2e6fa939147d1e3cfbdca309e0b0fe74",
+      "units": 1,
+      "text": "通过将路径指标与多维缩放相结合，可以获得数据的低维嵌入，从而保留全局数据几何和聚类结构。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "降维和保留两类结构可辨，“多维缩放”是多维尺度分析的直译。"
+      }
+    },
+    {
+      "id": "D021",
+      "sha256": "7dda430cc9047fa64f82c1901ad72686cc2954f20381058784a4cb3ba5aef405",
+      "units": 2,
+      "text": "单细胞的进步 RNA-seq 近年来(scRNA-seq)技术使基因的同步测量成为可能。 基因表达 单细胞水平[ 1 – 3 ]. 这为检测以前未知的细胞群，研究细胞发育和动力学以及大块组织中的细胞组成特征开辟了新的可能性。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "首句把基因表达和细胞层次分割为残句；第二句对发现细胞群等用途仍可读。"
+      }
+    },
+    {
+      "id": "D022",
+      "sha256": "ef5e6da63e7c0a773882859a3f124bdaafd59c8ca23a17c46026d6c7e6950b38",
+      "units": 1,
+      "text": "尽管它与大块RNAseq数据相似，但由于每个细胞的初始mRNA丰度较低，scRNAseq数据往往具有较大的变异和更大的缺失值。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "将“缺失值更多”译成“更大的缺失值”，把数量变成数值大小。"
+      }
+    },
+    {
+      "id": "D023",
+      "sha256": "5537bd158b5143ae58adbb311b2b8dcfa1e8dddf47ee0a9a0f9edaa332247807",
+      "units": 1,
+      "text": "然而，嵌入方法的一个关键挑战是同时减少聚类方差并保留全局几何形状，包括聚类和聚类形状之间的距离。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "将“簇间距离以及簇的形状”错合并为“聚类和聚类形状之间的距离”。"
+      }
+    },
+    {
+      "id": "D024",
+      "sha256": "12a882c6f81a23c464c6f888d417cd1131ca25c61132bd446db352021e560ef9",
+      "units": 1,
+      "text": "例如，Tabula Muris(TM)肺数据集[39]中的循环单核细胞具有细长的簇结构，如图2A中的PCA图所示，TM胰腺数据集中的导管细胞也是如此(见图2C)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "肺单核细胞、胰腺导管细胞、细长的簇和对应两幅图均正确。"
+      }
+    },
+    {
+      "id": "D025",
+      "sha256": "0bc29f477750f016d6a0c417244c841668a64c2bdfc87bee81124b1f0257e8da",
+      "units": 1,
+      "text": "(D) 显示了 SO (3 ) 流形的 2 - 维度 PCA 图。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "format",
+        "note": "分图、流形及二维 PCA 均正确，SO(3) 和二维被插入多余空格。"
+      }
+    },
+    {
+      "id": "D026",
+      "sha256": "6eb0763d51319403cc0f5b514534f672e98d38d97ed91e36ecce92786dd72e26",
+      "units": 1,
+      "text": "因此，使用路径度量嵌入来对数据进行聚类，从而产生一种聚类方法，该方法平衡基于密度和几何信息。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "同时利用密度和几何信息的核心可辨，中文宾语略生硬。"
+      }
+    },
+    {
+      "id": "D027",
+      "sha256": "1f61ac6a41dca50ed1dffb89d40963245c6152eced119d8fe6ef4d00bf75770d",
+      "units": 1,
+      "text": "如果路径边缘进一步限制位于最近的邻居图中,则l1近似点之间的测地距离,即位于底层数据结构上的最短路径的长度,这是多路学习的非常有用的度量[55]。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "最短路径和测地距离可辨，流形学习被误称为多路学习。"
+      }
+    },
+    {
+      "id": "D028",
+      "sha256": "66c8239073ab75eb80be7650036c44c35624399edb00d2571b5220b2f6a8945d",
+      "units": 1,
+      "text": "通过限制在KNN图中,所有配对的路径距离都可以使用Dijkstra的算法[64]在O(Kn2)中计算。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "二次复杂度 O(Kn²) 变成 O(Kn2)，指数的含义未保留。"
+      }
+    },
+    {
+      "id": "D029",
+      "sha256": "ed2e98010f85065212886849fbc47252efe20a3728a6f059b2b77699ac62dcf8",
+      "units": 1,
+      "text": "例如，[73] 提出 MDS 的快速、准线性实现，这只需要计算与一组 q 地标的路径距离，从而将计算路径距离的复杂性降低到 O(qn log n)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "地标子集、路径距离和复杂度保留。"
+      }
+    },
+    {
+      "id": "D030",
+      "sha256": "633e7d4119ecaa71c4510fc8ad7fe5ab6698a7c6f354dcf3e14248ea6bac39bc",
+      "units": 1,
+      "text": "用桥(表示的EWB,n = 620,d = 2,k = 3)进行加固:通过从3个细长的高斯分布采样创建聚类。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "把带桥的细长簇命名误解为用桥加固的操作，后半句高斯抽样及参数正确。"
+      }
+    },
+    {
+      "id": "D031",
+      "sha256": "10826e15d187606f4b90fcb48a59d9daecc097bd7c92c790016e9e0419fa6de4",
+      "units": 1,
+      "text": "然后通过在1000个维度中添加标准差σ=0.0075的均匀随机噪声来获得噪声。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "把生成含噪声的高维嵌入改成生成噪声。维度和标准差正确，但运算输出错误。"
+      }
+    },
+    {
+      "id": "D032",
+      "sha256": "86566ce21efd6b55e0a62dcd918e3dddd0b912769620943a9df84064cefffe27",
+      "units": 1,
+      "text": "对于 t-SNE,所有数据集的 r = 3。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "全部数据集与固定参数 r 对应正确。"
+      }
+    },
+    {
+      "id": "D033",
+      "sha256": "9fa281dc3a77930de9cf803c49d40934a186efb3a3936be58ca1bea61ce79529",
+      "units": 1,
+      "text": "RNAmix1用CEL-seq2处理，有n=296个细胞，d=14687个基因。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "测序方法、细胞数和基因数都正确。"
+      }
+    },
+    {
+      "id": "D034",
+      "sha256": "2612c0bc7fda7eb70de11a938837c74f2c64473529cced9889f03c3ace40a80c",
+      "units": 1,
+      "text": "我们观察到50%和25%的采样数据集的scPMP没有ARI恶化，并且10%的下采样数据集(ARI为0.67,p = 1.5的10%下采样)。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "漏掉下采样至 10% 时 ARI 中度下降这一对比结果，最后分句无谓语。"
+      }
+    },
+    {
+      "id": "D035",
+      "sha256": "69eb4b5a0270254d9908337297b386c16517cc92733d6c27eed8cc24cf31f3de",
+      "units": 1,
+      "text": "有趣的是，路径指标在聚类上恢复与PCA相同的分层结构:细胞类型HCC827和H1975最相似，而H838是最不同的。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "保留层次结构一致及最相似、差异最大的细胞类型。"
+      }
+    },
+    {
+      "id": "D036",
+      "sha256": "4b4d71893db66289928add9c80b1b02ed8c946174e77a382b2cbc7cc41928053",
+      "units": 3,
+      "text": "具体来说，最多有200个基因表达的细胞被过滤掉。 此外，只有在超过3个细胞中表达的基因才包含在数据集中。 此外，表达的线粒体基因百分比大于20%的细胞被排除在外。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 3,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "三个纳入或排除阈值、方向和对象均正确。"
+      }
+    },
+    {
+      "id": "D037",
+      "sha256": "d103d19444becf962a28e971f37ad80470b2e5526d51e1eb1dcac7b5355ca2fd",
+      "units": 1,
+      "text": "在Figshare中发现的TMpanc和TMLung通过了质量控制检查，至少有500个基因和50,000个读取，因此没有应用额外的过滤。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "质控阈值与未再过滤正确，reads 直译成“读取”，专业表达宜用读段。"
+      }
+    },
+    {
+      "id": "D038",
+      "sha256": "4e20a8a000f2940cad7c547f20deddb54ce49610656d6c01689b947e471f3c32",
+      "units": 2,
+      "text": "对于给定的聚类，低 ECA 意味着预测聚类中的数据点来自同一真实组。 另一方面，低ECP表示真实组中的几乎所有数据点都被分配了相同的聚类标签。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "ECA、ECP 的方向与预测簇、真实组对应正确。"
+      }
+    },
+    {
+      "id": "D039",
+      "sha256": "36269d1f10b675f395fe942ca58abe28e4282d8eea68c5c99d45bfa121a016f0",
+      "units": 2,
+      "text": "高电气设备向高功率输出的不断发展，需要更好的内部绝缘结构的散热性能。 它挑战了传统的纸基绝缘材料,导热性差。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "改成“纸基”后更专业。高功率设备的散热需求和传统材料的低导热性可辨，整体语序仍不够顺。"
+      }
+    },
+    {
+      "id": "D040",
+      "sha256": "40704d0fe64963f5709c1ec8f9a74eb5573f341e25dc6f2e6101255ae3bcbd30",
+      "units": 1,
+      "text": "将导热和电绝缘填料引入纤维素绝缘材料可以增强热传导性能。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "填料的两种性质及材料导热性能的变化均清楚。"
+      }
+    },
+    {
+      "id": "D041",
+      "sha256": "bcd4ab1dcac995d2fa8a11c3b1c7654c45c2ad27d989179a40cbb6bd9defd19b",
+      "units": 2,
+      "text": "这项工作提供了一种制备导热和电绝缘BN/纤维素纤维复合材料的方法。 复合材料的导热性通过嫁接APTES和添加双尺寸填充物显着增加。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "复合材料、两种尺寸及导热增强可辨，化学 grafting 误用了园艺措辞“嫁接”。"
+      }
+    },
+    {
+      "id": "D042",
+      "sha256": "e73309a6cfd292162b8fc682dd300aacf3a5d35fe87d67e14bfe9d1284626db9",
+      "units": 1,
+      "text": "纤维素是世界上最丰富的天然聚合物[1,2]。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "纤维素、天然聚合物和最高丰度的关系完整。"
+      }
+    },
+    {
+      "id": "D043",
+      "sha256": "9d36492978724d22a097b43bfa209c5f83e51e4c1752786da2d5e6a8a4d27bf0",
+      "units": 1,
+      "text": "然而，基于纤维素的绝缘材料的导热性差会阻碍散热。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "导热性差妨碍散热，关系正确。"
+      }
+    },
+    {
+      "id": "D044",
+      "sha256": "9be3664e036ee692fee7326cf6546e3fc64d053f3587a5095a1088208fc4b5e9",
+      "units": 1,
+      "text": "六角氮化硼(h-BN)是一种典型的III-V化合物，其晶体结构与石墨相似。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "结构、石墨及 III-V 指代正确，中文宜用“六方”和“族”。"
+      }
+    },
+    {
+      "id": "D045",
+      "sha256": "0a5f3394c4549e3ad43368bbcff96fe1637dad1b9813a07b4486a0a216b690c3",
+      "units": 1,
+      "text": "基于这些优点，h-BN被认为是热导和电绝缘填充物的有希望的候选者。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "材料两项特性与候选地位可辨，候选材料被拟人化为“候选者”。"
+      }
+    },
+    {
+      "id": "D046",
+      "sha256": "e2616c19215829d5078d77b82de454aa57b5fcf891e8e2d747838ada4ba77325",
+      "units": 1,
+      "text": "h-BN表面修改的流程图如图1所示。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "general",
+        "note": "图号和材料正确，表面改性的专业术语被译成“表面修改”。"
+      }
+    },
+    {
+      "id": "D047",
+      "sha256": "7a9317ff0cdec12ba55aa9e21f06ef3424acd16553c07929e9a573b0f0b31e6e",
+      "units": 1,
+      "text": "保温电阻测试仪(中国上海景科实业有限公司ZC36)在25°C和50%湿度下进行了抗体积测试。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "serious",
+        "note": "将体积电阻变成“抗体积”，绝缘电阻测试仪也误成“保温电阻测试仪”。"
+      }
+    },
+    {
+      "id": "D048",
+      "sha256": "b1debfb215f936863dd0442d2c5abf7e7f3b734b87cb055728494aa0386f738d",
+      "units": 1,
+      "text": "与原始的h-BN相比,在表面修饰的h-BN中观察到新的弱吸收峰值为2924和2856 cm−1。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "format",
+        "note": "吸收峰、样品和两个波数正确，负一次方以非上标写出，在波数语境可辨。"
+      }
+    },
+    {
+      "id": "D049",
+      "sha256": "0ab6013daf67961515121fffb1baebdead603978d92ee3baa98a19614dbe9ac4",
+      "units": 1,
+      "text": "此外,在1032和1105厘米至1处的新吸收峰值被分配给Si-O-C和Si-O-Si拉伸振动[22],表明APTES已成功嫁接到h-BN表面。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true
+        ],
+        "terms": [
+          true,
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "波数的单位 cm⁻¹ 被改为“厘米至1”，造成量纲错误，伸缩振动及接枝的表达也不够专业。"
+      }
+    },
+    {
+      "id": "D050",
+      "sha256": "cc9786daf74ce017e0948b393b95303c4c5d447b1ccddd9847bd87242e163654",
+      "units": 1,
+      "text": "(a)原始h-BN和表面修改的h-BN的FTIR光谱和(b)TGA曲线。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "FTIR 和 TGA 分图正确；“表面修改”不如“表面改性”准确。"
+      }
+    },
+    {
+      "id": "D051",
+      "sha256": "73a2767c61dfc38d9d5d18d467bd36123f7a5e3343e65deb697eb8b980e6d44a",
+      "units": 1,
+      "text": "在干燥过程中，在氨基和羟基之间形成氢键。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "氨基与羟基、形成氢键及干燥过程正确。"
+      }
+    },
+    {
+      "id": "D052",
+      "sha256": "93dfcd765d427cab0b630b4a9fda03a49163133851566a234f9df2058b9aab1e",
+      "units": 1,
+      "text": "(a)表面和(b)具有11.5wt%填充物的复合截面的SEM图像;(c)表面和(d)复合的横截面，具有41.1wt%填充物加载。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "两组质量分数与四个分图可对应，“加载”及图注的修饰关系生硬。"
+      }
+    },
+    {
+      "id": "D053",
+      "sha256": "f82e583d9649c0abb965af704685842a3b98622d61461428faef5365b09a7102",
+      "units": 2,
+      "text": "灵活的屏障被广泛用于减轻颗粒流动。 在实践中，在颗粒流启动后，流动系统可能会沿流路径不断变化。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "serious",
+        "note": "第二句的研究对象是流态，译成整个流动系统在发生变化。柔性屏障也被日常化。"
+      }
+    },
+    {
+      "id": "D054",
+      "sha256": "669746d4631edd2ac7cb1b69b11da6f4b30eed1e3a863adabbe378e266dbbc0d",
+      "units": 1,
+      "text": "在设计拦截细粒度流量的柔性屏障时应考虑流动制度的影响。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "颗粒流被误解为“细粒度流量”，flow regimes 成了“流动制度”，读者难以识别设计因素。"
+      }
+    },
+    {
+      "id": "D055",
+      "sha256": "383565cc68f8079f7ce3cce8716fab7419b4af77925c23ae9d82691355b8f3d0",
+      "units": 2,
+      "text": "在这项研究中，流动制度分为三种类型:稀有流动;致密流;和准静态流。 使用流量测试和离散元件方法研究密集颗粒流和稀释颗粒流对柔性屏障的影响机制。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "serious",
+        "note": "把用于区分流态的“稀疏流”译为“稀有流动”，将水槽试验变成流量测试。"
+      }
+    },
+    {
+      "id": "D056",
+      "sha256": "6b41ae6562d679eea58b76c20c32350fadfbc8d4f47f4422478a7064f7d4f663",
+      "units": 2,
+      "text": "结果表明，密集的颗粒流对柔性屏障的冲击力不会随着平均粒径而线性增加。 底线的抗拉力通常是柔性屏障所有电缆的最大抗拉力。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "general",
+        "note": "冲击力和粒径关系清楚，第二句混用底线、电缆和抗拉力，实际为底部缆索的拉力。"
+      }
+    },
+    {
+      "id": "D057",
+      "sha256": "cf58f745895820a2b58b028cf93363d9c09d9e242556b3d26963a3a86a7dcb7f",
+      "units": 2,
+      "text": "粒子分离将导致致密流动的冲击力增加和上电缆的拉伸力。 稀释颗粒流的冲击力随着平均粒径的增加而增加。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "上部缆索拉力也会增大的谓语被漏掉；颗粒离析和稀疏流表达不准确。"
+      }
+    },
+    {
+      "id": "D058",
+      "sha256": "e05eef0d47f8250f8229d2809a9b2153f2297aff631fbc45560206dec71cb686",
+      "units": 1,
+      "text": "与在密集流量的冲击下柔性屏障的失效不同，中上电缆更容易断裂。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "保留了不同破坏情形及中、上部更易断裂，原文所指缆索被称作电缆。"
+      }
+    },
+    {
+      "id": "D059",
+      "sha256": "8682d78161dbe46ee41e02f3010fec4f95c0f3692d8dc51bf31f3e678c508cd5",
+      "units": 1,
+      "text": "然而，颗粒流不是以液相为主的流体运动，而是以固体相为主导的流化运动[3]。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "液相与固相、否定与肯定方向均正确。"
+      }
+    },
+    {
+      "id": "D060",
+      "sha256": "11061f3db14ec2fdfae53c82a8a04607a9e7e49e015c07eddaeb271ce6a580d2",
+      "units": 3,
+      "text": "在这项研究中，粒径的范围是0.5厘米~3厘米。 散装密度和粒度为1636和2650千克/立方米。 粒度流量的体积 0.045  m³.",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          false,
+          true
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "将第二个密度指标写为粒度，改变 2650 kg/m³ 对应的物理量。"
+      }
+    },
+    {
+      "id": "D061",
+      "sha256": "85d2ff1f6443ba969a2ee53d4157f4366290fb7e37a4b7961fa37aec4ce62952",
+      "units": 1,
+      "text": "平均粒径(D50)为1.52厘米。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "format",
+        "note": "D50 指标和粒径数值、厘米单位正确，数字写为行内字符。"
+      }
+    },
+    {
+      "id": "D062",
+      "sha256": "371e0651f5a995da0c199dc34e644a0154dfd8bac655e0c823bffc1433f83fd0",
+      "units": 2,
+      "text": "使用积累实验测试了休息φ的角度，如图6所示。 根据测试,摩擦参数δ1和角度的休息φ分别为21°和40.5°。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "serious",
+        "note": "休止角两次写作“休息”，虽保留参数和角度数值，却无法得知所测物理量。"
+      }
+    },
+    {
+      "id": "D063",
+      "sha256": "8dadb8c2a341fdd7869e19266cd37a1b9153e3edd13e79605782e0ca2b2827ed",
+      "units": 1,
+      "text": "烟流的长度和宽度分别为2.4米和0.6米。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "flume 被译作烟流，长和宽虽然正确，却归属于错误的对象。"
+      }
+    },
+    {
+      "id": "D064",
+      "sha256": "1fd0f9e7012b3a7d8526b87af776a38710fd2e3ac1760a4f94230e58a66d9eb9",
+      "units": 2,
+      "text": "电缆从底部到顶部编号为Cab 1~Cab 5。 每根电缆之间的间距为10厘米。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "编号、方向和间距均可辨，力学缆索译成电缆。"
+      }
+    },
+    {
+      "id": "D065",
+      "sha256": "d428282d6bfab69520394915ad6f7bf92c93b72fc1664cd248c21bb53a025c1c",
+      "units": 1,
+      "text": "动态相似性通常由Froude数字和Savage数字来评估。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "general",
+        "note": "两个人名对应正确，但把无量纲的 Froude 数和 Savage 数写成“数字”，术语不规范。"
+      }
+    },
+    {
+      "id": "D066",
+      "sha256": "b137704304cc6acfc3262d8588f2fcea443b4fea25f58f0eb92c8b82549ed74f",
+      "units": 1,
+      "text": "在30°、40°和50°斜坡的情况下，将从数值模拟中冲击柔性屏障的颗粒流的荷载与物理实验结果进行了比较，如图10所示。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "三种坡度、模拟荷载与物理实验比较和图号正确。"
+      }
+    },
+    {
+      "id": "D067",
+      "sha256": "18385780769a785035f284775126b653225451e289f9c67a5db3aabdfd31946c",
+      "units": 1,
+      "text": "此外，测量精度还受到相机放置安装位置和安装角度等因素的影响。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "安装位置与角度及其对测量的影响清楚，位置一词重复修饰。"
+      }
+    },
+    {
+      "id": "D068",
+      "sha256": "da20c8c64a5b5106884ff2c7af87fabca3683be4a60ce4603acbbe7525ada4ac",
+      "units": 1,
+      "text": "电缆的张力间隔曲线和岩石坠落的冲击过程分别呈现在图 26和27中。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "落石、曲线与图号配对可辨，张力曲线随时间变化的意思表达不清。"
+      }
+    },
+    {
+      "id": "D069",
+      "sha256": "3903e69c4d850d4b065585a746a53d761d4a0aa0cff8aecfab20eff05d194ef1",
+      "units": 1,
+      "text": "这项研究的目的是评估咖啡因对亚最大运动的生理反应的影响，重点是血液乳酸浓度([BLa])。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "药物、运动强度及血乳酸指标正确，“亚最大运动”属生硬直译。"
+      }
+    },
+    {
+      "id": "D070",
+      "sha256": "a3cc51fa11c74478e77816cc63329504520dec68f37831b2f6ee74c2c026981b",
+      "units": 1,
+      "text": "每次试验包括六阶段增量测试(3分钟阶段),然后进行30分钟的被动恢复。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "阶段数、每阶段时长及随后的恢复时间均可辨。"
+      }
+    },
+    {
+      "id": "D071",
+      "sha256": "2e7ee93c2dcc43b4dfb56c7b6bf385ac164cb60bdc085e7af79d4ff5399285fd",
+      "units": 1,
+      "text": "在试验前一小时,参与者摄入了含有5毫克∙kg-1咖啡因或安慰剂(maltodextrin)的胶囊。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          false
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "serious",
+        "note": "漏掉只在第 2–4 次试验前给药的限制；剂量和时间保留，麦芽糊精只留英文。"
+      }
+    },
+    {
+      "id": "D072",
+      "sha256": "98f6bcc9326d943295b1951ed1f034c335f189ef0ee400a2d4451b61908436de",
+      "units": 2,
+      "text": "试验2和3旨在评估咖啡因对运动和恢复期间各种生理反应的影响。 相比之下,试验4旨在评估咖啡因对[BLa]在从4mmol∙L−1的末端运动浓度被动恢复期间的影响。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "试验编号、运动结束浓度和被动恢复均可辨，第二句的语序很生硬。"
+      }
+    },
+    {
+      "id": "D073",
+      "sha256": "aec2fa730d144528cc7ac012a1cec0bd8b3ac9288dff53ff997bafd191fe63e3",
+      "units": 1,
+      "text": "相对于安慰剂,咖啡因在运动过程中增加[BLa],独立于运动强度(Mean drifes:0.33±0.41 mmol∙L−1;95%可能范围:0.11至0.55 mmol∙L−1),但不影响[BLa]在恢复期间的时间过程(p = 0.604)。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "保留升高、浓度差数值和恢复期不变，但平均差的统计量名称变成无法识别的 Mean drifes。"
+      }
+    },
+    {
+      "id": "D074",
+      "sha256": "733df300d055181b137656439b0acfe6df11b11f95f10de4e2cc8bbb8ba48036",
+      "units": 1,
+      "text": "咖啡因降低了运动期间感知运动的评分(语气差异:0.5±0.7;95%可能范围:0.1至0.9)和心率(减值:3.6±4.2b∙min−1;95%可能范围:1.3至5.8b∙min−1),随着运动强度增加,对后者的影响减轻。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          false
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "将平均差译成“语气差异”和“减值”，主观用力评分也译错；“影响减轻”未完整表达该作用消失。"
+      }
+    },
+    {
+      "id": "D075",
+      "sha256": "a9ece2cef7bfcbc3b4b10775cba10bfe2eb1caf351a237a456094157efcae1e3",
+      "units": 1,
+      "text": "观察到呼吸交换比的补充×运动强度相互作用(p=0.004)和每分钟通气量(p=0.034)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "两项指标及 P 值改善，但交互作用归属的句法只明确指向呼吸交换比。"
+      }
+    },
+    {
+      "id": "D076",
+      "sha256": "a8abadf34d22882d1c25772e1b3018c2b2077536b6ed6e636b022469af824646",
+      "units": 1,
+      "text": "十六名耐力训练[29],有竞争力的男性运动员(骑自行车者和铁人三项运动员)自愿参加这项研究，该研究得到了圣玛丽大学伦理委员会的批准。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "人数、性别、自愿及项目可辨；“有竞争力”未准确表达参加竞赛的身份。"
+      }
+    },
+    {
+      "id": "D077",
+      "sha256": "b5b083c713c54ec3181e27b02d39129011f21cc2bfa55fc8a0d186628b58bd75",
+      "units": 1,
+      "text": "在开始之前，所有参与者都完成了健康筛查问卷，并提供了书面知情同意。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "健康筛查与书面知情同意完整。"
+      }
+    },
+    {
+      "id": "D078",
+      "sha256": "29402814877829f98ebbc686c382c2a0b463e11b6be6d55b73c25518d3712015",
+      "units": 1,
+      "text": "向参与者提供了咖啡因的膳食来源清单，并要求在每次试验前24小时内不要食用这些咖啡因。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "正确表达了每次试验前避免摄入咖啡因的 24 小时；“这些咖啡因”指代生硬。"
+      }
+    },
+    {
+      "id": "D079",
+      "sha256": "221264a36cdfd170aafccbe44df39c5e10bf8f3d8cbd4c4bbbc42a7acdce7bcb",
+      "units": 1,
+      "text": "在每个运动后恢复期的最后30 s上，呼吸数据也是平均的，以确定在恢复期间是否有任何咖啡因的影响。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "serious",
+        "note": "把“静息时的作用在恢复期是否再次出现”改成“恢复期间是否有任何影响”，改变了检验问题。"
+      }
+    },
+    {
+      "id": "D080",
+      "sha256": "5f2cdad8d4c8c51bfa0132ba44d824398ba0eab9d922be27eb26c740fbde49c5",
+      "units": 1,
+      "text": "使用与Bonferroni调整进行多次比较的事后测试进行了重大互动。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "将具有统计学意义的交互作用译成“进行了重大互动”，事后检验与交互作用的关系丢失。"
+      }
+    },
+    {
+      "id": "D081",
+      "sha256": "ce3aeaca5c6a7a3896abf56bba9d3fbcb9eef2d6ed8dfce224b8f54b042fca1c",
+      "units": 1,
+      "text": "值是手段;条形是标准差。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "将均值译作“手段”，改变了图中数据代表的统计量。"
+      }
+    },
+    {
+      "id": "D082",
+      "sha256": "85e9cc0b05de4a4fdab89ec342be0e5e01f86220381a4ba00fc98d341dee792c",
+      "units": 1,
+      "text": "然而，咖啡因对心率的影响随着运动强度的增加而消散(相互作用效应:F(5,75)=2.49;p = 0.039)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "心率作用随强度增大而消失，F 统计量、自由度及 P 值正确。"
+      }
+    },
+    {
+      "id": "D083",
+      "sha256": "16862d14dfccf81aa668c40fb4b7d2aa6dbdc6bdfbe5252ac01355803277ab78",
+      "units": 1,
+      "text": "补充咖啡因对心率(A)，吸氧量(B)，呼吸交换比(C)和每分钟通气量 (D)的影响，在从亚最大增量运动中恢复时测量为5 s。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "把恢复期每隔五秒测量改成“测量为5 s”，改变采样间隔的意思。"
+      }
+    },
+    {
+      "id": "D084",
+      "sha256": "d5872040f8deb5068b0f1a0f5741f79faedc6853d8bf4f4bb7a4fb7f266e8a9d",
+      "units": 2,
+      "text": "注:RER=呼吸交换比。 *与安慰剂显著不同(p < 0.05)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "缩写、星号、对照组和阈值均对应。"
+      }
+    },
+    {
+      "id": "D085",
+      "sha256": "3136d6a52f693ffacda23ff4a1a17f0a8269e67fc8b170c7700dac9223422919",
+      "units": 1,
+      "text": "值是均值±标准差。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "均值与标准差表达正确。"
+      }
+    },
+    {
+      "id": "D086",
+      "sha256": "5a47dc33ca3fa25b815e5d2aff69eabe5278bb366f978d1355223cb79b4e1ef1",
+      "units": 2,
+      "text": "这项多中心研究旨在阐明日本健康成年人的睡眠持续时间与各种生活方式相关疾病之间的关联。 从2010年到2020年接受体检的62,056名健康参与者(年龄:49.4±10.9岁)进行了横断面和纵向分析。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "研究范围、样本、日期及设计正确；句法让参与者像是在实施分析。"
+      }
+    },
+    {
+      "id": "D087",
+      "sha256": "11bcd37dfa56db9c850c193cef452dbbe3b9093c5d19bdc3cf89d8164835e771",
+      "units": 2,
+      "text": "男性的平均睡眠时间为6.2±1.0h,女性为6.1±1.0h。 睡眠时间的分布表明，老年人往往睡得更久，这在男性中是清楚的，但在女性中是不明显的。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "男女均值和变异、年龄趋势及性别差异正确。"
+      }
+    },
+    {
+      "id": "D088",
+      "sha256": "e6ff268e614c7fddcc9b4fd1cf46ebdd8dfe34c4f083672b85ccde423e1aef32",
+      "units": 1,
+      "text": "单变量分析表明，年龄较大，体重指数较低(BMI),习惯性饮酒和习惯性运动与延长睡眠时间显着相关。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "因素及关联方向正确。“延长”宜写作“较长”，以避免引申干预含义。"
+      }
+    },
+    {
+      "id": "D089",
+      "sha256": "8d6335ee61592da021eb12d441b4c5c333239e3a7bf4c92c129a71edc2415625",
+      "units": 2,
+      "text": "男性的多变量分析表明，睡眠时间与年龄，习惯性运动，血清甘油三酯(TG),收缩压(SBP)以及习惯性饮酒以及与BMI和血红蛋白A1c(HbA1c)呈负相关。 或者，在女性中，睡眠时间与习惯性运动和TG呈正相关，并与BMI,高密度脂蛋白胆固醇，HbA1c和当前吸烟呈负相关。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          false,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "男性句子缺少正相关的谓语，只剩负相关。女性一组的正负相关尚正确。"
+      }
+    },
+    {
+      "id": "D090",
+      "sha256": "094fbad1c5e5e12f52815d2b927746ddcdabfef4c15dc2540709fcdafcce4e99",
+      "units": 2,
+      "text": "在随访期间，3，31 中的 360 人，004 人(10.8% )，发展为肥胖症。 考克斯比例危害模型显示，较短的睡眠时间明显高于肥胖的风险，而较长的睡眠时间可能降低肥胖风险。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true,
+          true
+        ],
+        "terms": [
+          false
+        ],
+        "severity": "serious",
+        "note": "病例数与总人数组合被拆乱，较短睡眠与较高风险的比较方向也表达失当。"
+      }
+    },
+    {
+      "id": "D091",
+      "sha256": "c999723490d10ec8e00b1a3d220ed338eec481b6fba87c32de0a978efc8faf9c",
+      "units": 2,
+      "text": "另一方面，39,048名参与者中有1,732人(4.4%)出现葡萄糖耐受性受损，33,537名参与者中有6,405人(19.1%)出现高甘油三酯血症。 然而，考克斯比例危害模型没有显示睡眠时间与血糖耐受性受损或高甘油三酯血症之间存在显着关联。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "两组病例数、分母、比例及未显著均正确。疾病名称和 Cox 比例风险模型的措辞不规范。"
+      }
+    },
+    {
+      "id": "D092",
+      "sha256": "ce6a6c73c01b02b8e80c4c75c03b05e1045638c7526d9f680414d3d3de11d322",
+      "units": 1,
+      "text": "在基线时排除了已经患有生活方式相关疾病(肥胖，葡萄糖耐受性受损或高甘油三酯血症)的人后，进行了Cox比例危害分析，以评估可能性比率测试并计算95%CI的危险比(HR)。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "general",
+        "note": "研究对象、HR、CI 可辨，似然比检验被逐词译为“可能性比率测试”，影响专业理解。"
+      }
+    },
+    {
+      "id": "D093",
+      "sha256": "5e90328ae98c770c6a36da1a4f40f111e75dbfbf887716b6d27eada2fc6e680a",
+      "units": 1,
+      "text": "男性和女性睡眠时间的详细分布如图2和表2所示。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "男性、女性及图表编号正确。"
+      }
+    },
+    {
+      "id": "D094",
+      "sha256": "68e2f801aec09de1c76e5d984864066a9bd17b670ab5a81ffcfa3e5f96c2d590",
+      "units": 1,
+      "text": "方差的单向分析(ANOVA)用于评估年龄组之间的睡眠时间差异。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "general",
+        "note": "ANOVA、年龄组及分析目的明确，但 one-way 误作“单向”。"
+      }
+    },
+    {
+      "id": "D095",
+      "sha256": "e3bd479fb45038ef18b37d2f1aeb5e82136779fd8f0d3d92054473c3752f4dad",
+      "units": 2,
+      "text": "数据显示每个变量的均值(带SD)或人数。 连续量表基于对方差的单向分析,名义尺度基于χ2检验。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "general",
+        "note": "数值类型和统计检验分配可辨，单因素方差分析误用“方差的单向分析”。"
+      }
+    },
+    {
+      "id": "D096",
+      "sha256": "3d3cd67f1f1124758156af3fc1469f0f073083e05be5ec1981f7008fa51bcfba",
+      "units": 1,
+      "text": "低于0.05的P值被认为具有统计学意义(*p<0.05,**p<0.01,***p<0.001)。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "ok",
+        "note": "显著性判定与星号数量逐一对应。"
+      }
+    },
+    {
+      "id": "D097",
+      "sha256": "d1e564cdbead0b733fb36c849ad696f91ebaf02987051dad7d29316fe2aa7c62",
+      "units": 1,
+      "text": "BMI,体重指数;SBP,收缩压;DBP,舒张压;FPG,空腹血浆葡萄糖;HbA1c,血红蛋白A1c;LDL-C,低密度脂蛋白胆固醇;HDL-C,高密度脂蛋白胆固醇;TG,血清甘油三酯;UA,尿酸。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "多数缩写及对应指标清楚，HbA1c 中文缺少标准名称中的“糖化”。"
+      }
+    },
+    {
+      "id": "D098",
+      "sha256": "89d6130bbc828d2b795f426181a0f52f5d4d8641ecf2be1990dd50c7275b4192",
+      "units": 1,
+      "text": "34,239名男性和27,817名女性研究参与者的特征根据睡眠时间长短分为五组。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "两组人数和五组正确；中文语法看似把“特征”而非参与者分组。"
+      }
+    },
+    {
+      "id": "D099",
+      "sha256": "c411e34cfbdb98f7365da233fc3c92b690a22b7099910d29f42949e366f8f2f5",
+      "units": 2,
+      "text": "节肢动物捕食者通过自上而下地调节昆虫食草动物，对生态系统的运作很重要。 由于捕食者群落和活动受到不同空间尺度上的生物和非生物因素的影响，自上而下调节(“自下而上的捕食”)的强度也可能有所不同。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "serious",
+        "note": "把节肢动物捕食写成自下而上的捕食，与原文反向，且同译文上一短语矛盾。"
+      }
+    },
+    {
+      "id": "D100",
+      "sha256": "c34e2f3d28eeb2ce3d9463d5660293a103e4dcd4a8c3de3ccef3559794816a30",
+      "units": 1,
+      "text": "迫切需要了解潜在驱动因素对节肢动物捕食的综合影响，以改变人为气候和土地利用。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "serious",
+        "note": "将气候和土地利用变化的背景改成这项研究要去改变气候和土地利用的目的。"
+      }
+    },
+    {
+      "id": "D101",
+      "sha256": "9334df8410e5033b57533eb4f7aa93ee331f637a33c41ee7f843e21869af0684",
+      "units": 1,
+      "text": "在一项大规模研究中，我们使用人工毛毛虫记录了在德国巴伐利亚州气候和土地利用梯度上嵌入对比栖息地类型(森林，草原，耕地，定居点)的113块开放草本植被的节肢动物捕食率。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "地点、113 个样地、四种生境、人工毛虫与捕食率均可辨。中文长定语不顺。"
+      }
+    },
+    {
+      "id": "D102",
+      "sha256": "05adbb8e852f0e9768b707b57cb8a8998f63f04aacbd60934b6dcb28da275ef2",
+      "units": 1,
+      "text": "作为潜在的驱动因素，我们包括栖息地特征(栖息地类型，植物物种丰富性，当地平均温度和人工毛毛虫暴露期间的平均相对湿度),景观多样性( 0.5 – 3.0 -km,六个尺度),气候(年均温度) MAT “)和栖息地类型的与其他驱动因素的互动效果。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "general",
+        "note": "列出变量、范围及六个尺度，但把多年平均温度缩短成单年概念，缩写和交互项句法破碎。"
+      }
+    },
+    {
+      "id": "D103",
+      "sha256": "edbc74bf6530920a1a6f28b1447530473057ed805afe539b1a71b2d415e041d0",
+      "units": 2,
+      "text": "我们观察到，与植物物种丰富度和巴伐利亚气候梯度相关的栖息地类型之间的节肢动物捕食率没有实质性差异，但当当地平均温度较低并且倾向于降低相对湿度时，捕食率有限。 节肢动物捕食率以2公里的规模增加到更多样化的景观。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          false,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "把“随湿度升高捕食率趋降”改成“倾向于降低相对湿度”，改变了趋势主体与环境关系。"
+      }
+    },
+    {
+      "id": "D104",
+      "sha256": "5f9d53a9056c366b06f01865dc696810ddf7cd79e9f35b10add6c825533e38f6",
+      "units": 2,
+      "text": "未观察到栖息地类型的互动效应，当地天气条件，植物物种丰富性，景观多样性和MAT。 我们的结论是，景观多样性有利于开放草本植物的高节肢动物捕食率，独立于附近的主要栖息地。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "未见交互的判断可辨，但首句把参与交互的变量写成与谓语断开的名词表。"
+      }
+    },
+    {
+      "id": "D105",
+      "sha256": "fe583a00422877a3805d6f3d09059d6a0c9b5590c9fd064ec1ad10f30daf570d",
+      "units": 2,
+      "text": "这一发现可用于改善对食草动物(如农业害虫)的自上而下的控制，但需要进一步研究，以就景观管理提出更具体的建议。 缺乏MAT效应表明，在不久的将来，高捕食率可能独立于MAT的适度增加。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "ok",
+        "note": "保留了调控应用的可能性、管理建议的限定和对近未来的推断。"
+      }
+    },
+    {
+      "id": "D106",
+      "sha256": "391c90c4b12fc7e1a7951f02a72041db5941a4852f46e156e4e887b7fd19c6ea",
+      "units": 1,
+      "text": "捕食和寄生是许多食草昆虫物种死亡的常见原因[1],因此可以对食草动物群落产生强烈影响[2,3]。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "捕食、寄生、死亡和群落影响关系正确；昆虫语境宜用植食性。"
+      }
+    },
+    {
+      "id": "D107",
+      "sha256": "a2c2d4063ec53c9d2e44669cb5391a25794d04b177d7d880cf06713e5ee19d42",
+      "units": 2,
+      "text": "人工毛毛虫暴露期间节肢动物攻击相对于局部平均温度的概率。 逻辑回归曲线和点表示不存在(0)和存在(1)在图级上对人工毛毛虫的节肢动物攻击。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "将每个样地的观测单位译为“图级”，改变图中数据点代表的单位，0/1 含义保留。"
+      }
+    },
+    {
+      "id": "D108",
+      "sha256": "df90f6780dfe9f3f35529034f1f54f6433843133948d39177a77c58c42f0f151",
+      "units": 1,
+      "text": "相对重要性(Akaike权重的总和)来解释A的节肢动物捕食率(即相对于其他尺度具有所有可能预测因子组合的模型)和B(每个空间尺度的候选预测因子)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "A 图的主要比较对象“空间尺度”被丢掉，变成 A 的捕食率，B 和权重之和仍可读。"
+      }
+    },
+    {
+      "id": "D109",
+      "sha256": "f4e75a15fd31707d8a827f7f39a9fe244a62448f44618266e003be38cffa4cac",
+      "units": 1,
+      "text": "白色符号是指栖息地特征(栖息地类型，SpecNum:植物物种丰富度，Temp或RH:人工毛毛虫暴露期间的局部平均温度或平均相对湿度，zi:包括零通胀术语)和填充的蓝色符号到区域因素(LandDiv:景观多样性，MAT:多年平均温度)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true,
+          false
+        ],
+        "terms": [
+          true,
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "白、蓝符号及区域变量可辨，统计模型的零膨胀项却被写成“零通胀术语”。"
+      }
+    },
+    {
+      "id": "D110",
+      "sha256": "f709548e13b7e2a392b540fdb6b306125b10eb84d1f0761f585b0b704f3378c6",
+      "units": 1,
+      "text": "景观多样性是唯一的景观参数(随着空间尺度的值变化)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "general",
+        "note": "唯一景观参数和尺度依赖均可理解。"
+      }
+    },
+    {
+      "id": "D111",
+      "sha256": "60668a04c0d9a5cc03eb7638d2a57e8af321a8e31b5e20a644d52810225734c2",
+      "units": 1,
+      "text": "A) 栖息地类型(用于:森林，Gra:草原，Ara:耕地，设置:沉降),B)植物物种丰富度，C + D)人工毛毛虫暴露期间的局部平均温度和平均相对湿度，E)2公里尺度的景观多样性和F)多年平均温度(MAT)。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "将图例代码 For、Set 译成日常词，且居民地变为“沉降”，无法据图例解读 A。"
+      }
+    },
+    {
+      "id": "D112",
+      "sha256": "956131cb18d3eafb6871536d9efde16581a94acaa91a37e0c645c6ab9a299f9d",
+      "units": 2,
+      "text": "浅灰色点每个图显示值;重叠点显示较暗。 在A中，圆圈表示异常值。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "每个灰点对应一个样地，被译成“每个图显示值”，改变抽样单位。A 图圆圈的含义正确。"
+      }
+    },
+    {
+      "id": "D113",
+      "sha256": "7faca16b865aeabe0acf17c2fcd8d8ae3e12a9f766649b3a506e1bbd21445a8c",
+      "units": 2,
+      "text": "姜黄素是一种天然多酚，有助于香料姜黄的风味和黄色色素，以其抗氧化，抗炎和抗癌特性而闻名。 能够通过多种机制影响致癌性的启动，促进和进展，姜黄素对化学预防和化疗都有潜在的效用。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 2,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true,
+          true
+        ],
+        "severity": "general",
+        "note": "成分、三种性质及治疗潜力可辨，致癌过程被表述为“致癌性的启动”。"
+      }
+    },
+    {
+      "id": "D114",
+      "sha256": "ff0e194cabb733a47790aadaa6e72eb2913dbcffbfc24cf734e242c4bc045db5",
+      "units": 1,
+      "text": "先前的研究表明，姜黄素可以抑制人类白血病和乳腺癌细胞中的正肌脯脱羧酶(ODC)活性，并且用膳食姜黄素预处理会阻断皮肤，结肠癌和肾癌啮齿动物模型中致癌物诱导的ODC活性。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "ODC 的酶名被写成“正肌脯脱羧酶”，致癌物和疾病模型的关系也不清。"
+      }
+    },
+    {
+      "id": "D115",
+      "sha256": "5850b9fd2622c654d562d69592484efc8e7c76a4b6c389c0a1757db5e48860c4",
+      "units": 1,
+      "text": "目前的研究调查了对人类胃癌和结肠癌细胞系中polyamine代谢的调节，以响应姜黄素。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          true
+        ],
+        "severity": "general",
+        "note": "胃癌和结肠癌细胞的姜黄素反应可辨，polyamine 保留英文，句法略生硬。"
+      }
+    },
+    {
+      "id": "D116",
+      "sha256": "e1f04834164db1e10d28949b5328513cc6b7ce52e1bb850f3b0cda2720024105",
+      "units": 2,
+      "text": "姜黄素治疗显着诱导精氨酸氧化酶(SMOX)mRNA和活性，导致过氧化氢的产生，ROS的来源。 同时,姜黄素降低调节精子/精子N1-乙酰转移酶(SSAT)活性和生物合成酶ODC和S-adenosylmethionine脱羧酶(SAMDC),从而减少细胞内多胺池。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          false,
+          true
+        ],
+        "terms": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "severity": "serious",
+        "note": "精胺氧化酶变成精氨酸氧化酶，SSAT 底物变成“精子/精子”，改变了酶及反应物身份。"
+      }
+    },
+    {
+      "id": "D117",
+      "sha256": "412361a41d3fb7226c9c4a1b32bc9fb129819073e7eb19284cf3b1a4a7a795eb",
+      "units": 1,
+      "text": "使用姜黄素与ODC抑制剂2-二氟甲基奥尼汀(DFMO)的组合治疗，这是目前临床化学预防试验中的一种药物，显着增强了ODC活性的抑制作用，并降低了GI癌细胞系的生长，超出了单独观察到的任何一种药物。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "DFMO 的系统性中文名被写作“2-二氟甲基奥尼汀”；联用与单用关系尚可辨。"
+      }
+    },
+    {
+      "id": "D118",
+      "sha256": "f10326eb7c42cc01f30a7090f19a1d5afe8d7a4985d6154d3c7316dc519a1093",
+      "units": 1,
+      "text": "同样，将姜黄素与polyamine类似物之二(乙基)norspermine增强生长抑制，伴随着类似物的积累增强，并且细胞内polyamine水平降低，超过单独使用任何一种药物观察到的水平。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 1,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "general",
+        "note": "恢复了 norspermine 母体，不再丢失联用物质的基本身份；但“polyamine类似物之二(乙基)norspermine”拆坏化学名，不是流畅完整的中文。"
+      }
+    },
+    {
+      "id": "D119",
+      "sha256": "64978f9578a7e050a0b7b4831fceba23562af036018f91fcf0e7f30f80d4445e",
+      "units": 1,
+      "text": "重要的是，用姜黄素共同治疗可以降低ODC抑制剂或polyamine类似物的有效剂量。",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": true,
+        "coveredUnits": 1,
+        "facts": [
+          true
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "general",
+        "note": "联用降低有效剂量的语序改对了。polyamine 在这一中文结果中仍未译出。"
+      }
+    },
+    {
+      "id": "D120",
+      "sha256": "d631ee7f40300fb217e4cac175b9c8fafc65d84b81925c2781b88fe4ddb2514d",
+      "units": 1,
+      "text": "这些研究提供了对金黄蛋白的癌细胞反应所涉及的polyamine相关机制的见解，以及它作为GI道中化学预防或化疗药物的潜力。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          false
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "姜黄素被改成“金黄蛋白”，因此肿瘤细胞的应答对象和后续药效潜力的归属都错误。"
+      }
+    },
+    {
+      "id": "D121",
+      "sha256": "b959567005149c24ef8f231eeaa738d217f8288eeaf83122499b40377b497249",
+      "units": 1,
+      "text": "姜黄素构成 5% 姜黄根(Curcuma drota)的粗提取物，其中姜黄素(二甲酰甲烷)最丰富( 60 – 70% ),其次是desmethoxycurcumin( 20 – 27% )和bisdesmethoxycurcumin( 10 – 15% )[ 1 ].",
+      "validation": {
+        "status": "review"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "姜黄属种名 longa 被改为 drota，二阿魏酰甲烷误成二甲酰甲烷，总姜黄素类与单一姜黄素混同。两种去甲氧基成分只保留英文。"
+      }
+    },
+    {
+      "id": "D122",
+      "sha256": "c0913d1716b07b15ab41fbe6e0db76008be57de0efe6d0b846ac91b1e41e8872",
+      "units": 1,
+      "text": "(A)姜黄素(二甲酰甲烷)的化学结构。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "serious",
+        "note": "姜黄素的同义化学名称被改成另一种化合物“二甲酰甲烷”。"
+      }
+    },
+    {
+      "id": "D123",
+      "sha256": "833adad062788cfca9ee6b43d0a5095872d27253b2ee7a9f05e139da28f7a757",
+      "units": 1,
+      "text": "(B) 天然聚胺精子的化学结构，spermidine 和 patrescine，聚胺类似物 bis(乙基) norspermine ( BENSpm )，以及 ODC 抑制剂二氟甲基铕(DFMO )。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "把精胺写成精子，将鸟氨酸衍生物错成含铕化合物，另有化合物名拼错。"
+      }
+    },
+    {
+      "id": "D124",
+      "sha256": "9235d6b4c1a62b22626cd53b49ac81eae8829626beed01cbc8372919c1703a12",
+      "units": 2,
+      "text": "(C) 哺乳动物polyamine途径:对羟基胺脱羧酶(ODC)将鸟类转化为puthescine,后者获得顺序的氨基丙基形成精氨酸，然后是精子。 氨基丙基来自脱羧S-adenosylmethionine(dcSAM),其添加到puthrescine或精子中由精子合成酶(SRM和SMS)介导。",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          false,
+          false
+        ],
+        "terms": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "ODC 仍误指另一种酶，鸟氨酸变鸟类，多胺及两种合酶的对应变成精氨酸或精子。"
+      }
+    },
+    {
+      "id": "D125",
+      "sha256": "2c67eb98d948c975debd9d4ebfdc856a1d1400f2f0bc338f21b009de08522808",
+      "units": 1,
+      "text": "还收集了总细胞解解物，并用于ODC酶活性测定(B; n = 2个独立实验，每个实验以三联体测量)和分解代谢酶(D)的西方斑块。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          false
+        ],
+        "terms": [
+          false,
+          false
+        ],
+        "severity": "serious",
+        "note": "免疫印迹成为“西方斑块”，“三联体”未准确表达每次实验三次测定。"
+      }
+    },
+    {
+      "id": "D126",
+      "sha256": "1570eb1afbb85b9a8dfd5bbff7e5f83ee442a653df27774cf039c97dc47e322e",
+      "units": 1,
+      "text": "数据点指示至少3个独立实验的手段;误差条=SEM。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true
+        ],
+        "terms": [
+          true
+        ],
+        "severity": "serious",
+        "note": "均值被写为手段，读者无法判断数据点代表的统计量。"
+      }
+    },
+    {
+      "id": "D127",
+      "sha256": "34bde764a9ba237d059414eafd0e74f91ad54163b5f162be97375e74c32c01e8",
+      "units": 1,
+      "text": "在A-F中，数据点指示至少2个独立实验的手段，测量≥2次;误差条=SEM。 *p < 0.05 相对于单药治疗。",
+      "validation": {
+        "status": "translated"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true,
+          true
+        ],
+        "terms": [
+          true,
+          true
+        ],
+        "severity": "serious",
+        "note": "次数、误差线和显著性改善，但数据点的均值仍错作“手段”。"
+      }
+    },
+    {
+      "id": "D128",
+      "sha256": "ff883821dedc42a60247791e1fbb548b96056c2ccbd389c810b790e53b5827ab",
+      "units": 1,
+      "text": "数据点表示至少2个独立实验的手段，测量≥2次;误差条=SEM。 ",
+      "validation": {
+        "status": "partial"
+      },
+      "review": {
+        "completeReadable": false,
+        "coveredUnits": 0,
+        "facts": [
+          true,
+          true,
+          false
+        ],
+        "terms": [
+          true,
+          false
+        ],
+        "severity": "serious",
+        "note": "均值写成手段，显著性阈值完全丢失。"
+      }
+    }
+  ]
+}

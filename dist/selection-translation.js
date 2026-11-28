@@ -1,3 +1,6 @@
+import {selectionMode,setSelectionMode,clearScientificWeights} from './local-scientific-model.js';
+import {indexPaperContext} from './translation-context.js';
+
 const popup = document.createElement('section');
 popup.className = 'local-translation';
 popup.hidden = true;
@@ -22,12 +25,17 @@ function action(kind, label, accessibleLabel) {
   return button;
 }
 const run = action('translate', '译为中文', '译为中文 / Translate to Chinese');
+const precision=action('precision','科研精译','科研精译 / Scientific translation');
+precision.firstElementChild.remove();PaperUI.set(precision.lastElementChild,'科研精译','Refine');
 const online = action('online', '百度翻译', '用百度翻译打开选段 / Open selection in Baidu Translate');
 online.firstElementChild.remove();
 PaperUI.set(online.lastElementChild,'百度翻译','Baidu Translate');
 const listen = action('speak', '听英文', '听英文 / Listen in English');
 PaperUI.set(listen.lastElementChild,'听英文','Listen');
 const ask = action('ask', '问 AI', '就所选文字提问 / Ask AI');
+const copy=action('copy','复制译文','复制译文 / Copy translation');
+copy.firstElementChild.remove();PaperUI.set(copy.lastElementChild,'复制译文','Copy');
+copy.hidden=true;
 const close = action('close', '', '关闭 / Close translation toolbar');
 const output = document.createElement('p');
 output.setAttribute('role', 'status');
@@ -40,10 +48,55 @@ original.append(summary, quote);
 original.hidden = notice.hidden = true;
 const definition = document.createElement('div');
 definition.className = 'rq-term-definition'; definition.hidden = true;
-popup.append(actions, definition, output, notice, original);
+function detail(zh,en){
+  const d=document.createElement('details');
+  d.append(PaperUI.set(document.createElement('summary'),zh,en));return d;
+}
+function button(zh,en,click){
+  const b=PaperUI.set(document.createElement('button'),zh,en);b.type='button';b.onclick=click;return b;
+}
+const reviews=detail('逐句核对','Review sentences'),terms=detail('术语对照','Terminology'),
+  diagnostics=detail('引擎与其他操作','Engine and other actions');
+const reviewList=document.createElement('div'),termList=document.createElement('div'),
+  engineInfo=document.createElement('small'),precisionPane=document.createElement('div');
+const modelChoice=document.createElement('div');
+modelChoice.className='selection-precision-pane selection-model-choice';
+const choiceText=PaperUI.set(document.createElement('small'),
+  '本机科研精译首次下载 1.35 GB。论文留在此设备，模型可重复使用。',
+  'On-device scientific translation downloads 1.35 GB once. Your paper stays on this device.');
+const chooseLocal=button('下载并设为默认精译','Download and use by default',()=>switchModel('local'));
+const chooseQuick=button('改用轻量快速翻译','Use quick translation',()=>switchModel('quick'));
+chooseLocal.className='selection-download-local';chooseQuick.className='selection-use-quick';
+modelChoice.append(choiceText,chooseLocal,chooseQuick);
+modelChoice.hidden=true;
+const optionsButton=button('选择本机翻译模型','Choose on-device model',()=>{modelChoice.hidden=!modelChoice.hidden;schedulePlace()});
+function switchModel(mode){
+  if(!selected)return;
+  invalidate();request++;setSelectionMode(mode);modelChoice.hidden=true;
+  run.disabled=false;void translate();
+}
+precisionPane.hidden=reviews.hidden=terms.hidden=true;
+precisionPane.className='selection-precision-pane';
+reviews.className='selection-review';terms.className='selection-terms';
+reviews.append(reviewList);terms.append(termList);
+diagnostics.append(engineInfo,optionsButton,online,ask,button('清除模型文件缓存','Clear cached model files',async()=>{
+  try{active?.cancel();await PaperLanguageText.clearModelCache();await clearScientificWeights();setSelectionMode('choose');
+    modelChoice.hidden=false;PaperUI.set(engineInfo,'模型文件缓存已清除。','Cached model files cleared.')}
+  catch{PaperUI.set(engineInfo,'浏览器无法清除模型缓存。','This browser could not clear its model cache.')}
+}));
+const cancel=button('取消翻译','Cancel',()=>{active?.cancel();paint()});cancel.hidden=true;
+cancel.className='selection-cancel';
+const reverse=button('本机回译核对（首次约 52 MiB）','Compare back-translation (52 MiB on first use)',async()=>{
+  const s=active;if(!s||s.busy)return;
+  try{const done=s.compareBack();paint();await done}
+  catch(e){if(s===active&&e.name!=='AbortError'){notice.hidden=false;notice.textContent=failedMessage(e);PaperLanguageText.report(e,'local back-translation')}}
+});
+diagnostics.insertBefore(reverse,online);reverse.hidden=true;
+popup.append(actions,modelChoice, definition, precisionPane, output, notice,cancel,reviews,terms,original,diagnostics);
 document.body.append(popup);
 
 let selected = '', source = '', request = 0, timer;
+let active,readingAnchor,locationLabel='',progressBytes=new Map(),lastLocalProgress='';
 let activeRange, frame, settle;
 // A gloss is keyed to the verified expansion, since the same initials can mean different things.
 const glosses = new Map([
@@ -91,12 +144,22 @@ function hide() {
   clearTimeout(settle);
   cancelAnimationFrame(frame);
   popup.hidden = true;
+  invalidate();
   selected = ''; definition.replaceChildren(); definition.hidden = true;
-  activeRange = null;
+  activeRange = null;readingAnchor=null;
   request++;
   output.textContent = '';
   notice.hidden = original.hidden = true;
   original.open = false;
+}
+function invalidate(){
+  const previous=active;active=null;previous?.cancel();progressBytes.clear();lastLocalProgress='';
+  modelChoice.hidden=true;
+  precision.disabled=false;
+  reverse.hidden=true;
+  precisionPane.replaceChildren();precisionPane.hidden=reviews.hidden=terms.hidden=copy.hidden=cancel.hidden=true;
+  reviews.open=terms.open=diagnostics.open=false;
+  reviewList.replaceChildren();termList.replaceChildren();engineInfo.textContent='';
 }
 listen.onclick = () => {
   const sourceNode=activeRange?.startContainer;
@@ -212,8 +275,10 @@ function update() {
   listen.hidden=!/[a-z]/i.test(value) || /\p{Script=Han}/u.test(value) || value.length>900;
   const parent = anchor?.closest('dialog[open]') || document.body;
   if (popup.parentNode !== parent) parent.append(popup);
-  activeRange = selection.getRangeAt(0).cloneRange();
-  if (value !== selected) {
+  const range=selection.getRangeAt(0);
+  if (value !== selected||activeRange?.startContainer!==range.startContainer||activeRange?.startOffset!==range.startOffset) {
+    invalidate();
+    modelChoice.hidden=selectionMode()!=='choose';
     request++;
     output.textContent = '';
     output.removeAttribute('lang');
@@ -224,12 +289,19 @@ function update() {
     original.hidden = notice.hidden = true;
     original.open = false;
   }
+  activeRange=range.cloneRange();readingAnchor=anchor;
+  locationLabel=anchor?.closest('.pl-excerpt')?.querySelector('.pl-anchor')?.textContent?.trim()||'';
+  PaperUI.set(summary,'对照所选原文'+(locationLabel?' · '+locationLabel:''),'Compare source'+(locationLabel?' · '+locationLabel:''));
   const allowed = anchor?.closest('.frw,.ea-explorer') && !anchor.closest('input,textarea,[contenteditable=true],.pd-report,.rq-ask');
   ask.hidden = !allowed || !document.querySelector('.rq-ask');
   showDefinition(anchor, value);
   selected = value;
   source = /\p{Script=Han}/u.test(value) ? 'zh' : 'en';
   if (!run.disabled && popup.dataset.translationState!=='error') translateLabel(source === 'en' ? '译为中文' : '译为英文', source === 'en' ? 'Translate to Chinese' : 'Translate to English');
+  if(selectionMode()==='choose'){
+    translateLabel(source==='en'?'轻量翻译为中文':'轻量翻译为英文',source==='en'?'Quick Chinese translation':'Quick English translation');
+    chooseQuick.hidden=true;
+  }else chooseQuick.hidden=false;
   popup.hidden = false;
   place();
   clearTimeout(settle);
@@ -237,6 +309,8 @@ function update() {
 }
 
 const failures={
+  storage:['浏览器未能保存本机模型。请检查存储空间，或选择轻量快速翻译。','The browser could not store the model. Check free space or choose quick translation.'],
+  consent:['此浏览器已清除模型缓存。确认重新下载 1.35 GB 后可继续本机精译。','This browser cleared the saved model. Confirm a new 1.35 GB download to use it again.'],
   model:['翻译模型配置不完整或模型加载失败。','The translation model is missing or could not be loaded.'],
   download:['翻译资源下载失败。请检查网络，然后重试此选段。','A translation resource could not be downloaded. Check your connection and retry this selection.'],
   integrity:['翻译资源未通过 SHA-256 校验。请重试此选段。','A translation file could not be verified with SHA-256. Retry this selection.'],
@@ -248,42 +322,223 @@ const failures={
   validation:['译文未通过原文核对，可单独重试。','The translation did not pass the source checks. Retry this selection.'],
   translate:['翻译引擎处理此选段时出错，可单独重试。','The engine could not translate this selection. Retry this selection.']
 };
-async function translate(){
-  if(!selected||run.disabled)return;
-  const id=++request,text=selected,from=source;
-  if(text.length>8000){PaperUI.set(output,'每次最多选择 8000 个字符。','Select up to 8,000 characters at a time.');return}
-  delete popup.dataset.translationStage;popup.dataset.translationState='pending';
-  delete output.dataset.sourceText;output.removeAttribute('lang');run.disabled=true;
-  quote.textContent=text;original.hidden=false;notice.hidden=true;
-  PaperUI.set(output,'正在本机翻译…','Translating on this device…');
+const bilingual=(zh,en)=>window.ReaderLanguage?.current==='en'?en:zh;
+const issueText={
+  quantity:['数值或单位','quantity or unit'],group:['组别对应','group comparison'],direction:['变化方向','direction'],
+  identifier:['标识符','identifier'],statistic:['统计量','statistic'],figure:['图号','figure'],panel:['分图','panel'],
+  significance:['统计显著性','significance'],negation:['否定关系','negation'],causality:['因果关系','causality'],
+  sequence:['事件先后顺序','order of events'],
+  modality:['推断或已观察到的结果','inferred or observed outcome'],
+  term:['术语用法','terminology'],'retained-term':['保留英文术语','retained term'],referent:['跨句指代','cross-sentence reference'],
+  bound:['阈值条件','threshold condition'],assignment:['设定值','assigned value'],replicates:['重复测量','replicates'],'chemical-identity':['化学全称','chemical identity'],
+  relation:['比较关系','comparison'],'chemical-name':['化学名称待核对','chemical names to verify'],alignment:['回译中未找到的原文词','words missing in back-translation'],'alignment-unavailable':['回译未完成','back-translation unavailable'],
+  'fragmented-prose':['分段恢复后的句意','meaning after fragment recovery'],'source-check':['原文对应','source correspondence']
+};
+function describeIssue(issue) {
+  const label=bilingual(...(issueText[issue.code]||['原文对应','source correspondence']));
+  if('sourceEvidence' in issue){
+    const missing=bilingual('未匹配到','no match');
+    const source=issue.sourceEvidence||missing, target=issue.targetEvidence||missing;
+    return label+' · '+bilingual('原文 ','source ')+source+' / '+bilingual('译文 ','translation ')+target;
+  }
+  return issue.detail&&issue.code!=='source-check'?label+' · '+issue.detail:label;
+}
+function showSentenceEvidence(id) {
+  reviews.open=true;
+  const row=reviewList.querySelector('[data-unit="'+id+'"]');
+  if(row){row.focus({preventScroll:true});row.scrollIntoView({block:'nearest'})}
+}
+function renderSentence(u, index, busy) {
+  const issues=u.validation?.issues||[];
+  const severe=issues.find(i=>i.severity==='severe');
+  const block=document.createElement('span');
+  const label=bilingual('第 '+(index+1)+' 句','Sentence '+(index+1));
+  if(u.text&&!severe)block.append(document.createTextNode(u.text));
+  if(u.status==='failed'||u.status==='review'){
+    const tag=document.createElement('button');
+    tag.type='button';tag.className='translation-issue-link';tag.disabled=busy;
+    if(u.status==='failed'){
+      tag.textContent=bilingual('重试'+label,'Retry '+label.toLowerCase());
+      tag.onclick=()=>translate([u.id]);
+    }else{
+      const issue=issues.find(i=>i.severity==='severe'&&i.sourceEvidence)||severe||issues[0];
+      tag.textContent=label+' · '+(issue?describeIssue(issue):bilingual('待核对','Check source'));
+      tag.onclick=()=>showSentenceEvidence(u.id);
+    }
+    block.append(tag);
+  }
+  return block;
+}
+function failedMessage(e){
+  const key=e?.stage==='validation'&&['facts','terms'].includes(e.reason)?e.reason:e?.stage;
+  return bilingual(...(failures[key]||failures.translate));
+}
+async function getSession(){
+  if(active)return active;
+  const id=request,text=selected;
+  if(!text||text.length>8000)throw Object.assign(new Error(bilingual('每次最多选择 8000 个字符。','Select up to 8,000 characters.')),{stage:'length'});
+  const context=EnglishPractice.selectionSentence(readingAnchor,text)||text;
+  const {createTranslationSession}=await PaperLanguageText.session();
+  if(id!==request)return;
+  if(!active){
+    const spelling={};
+    const paper={index:indexPaperContext,source:text};
+    if(selectionMode()==='local')readingAnchor?.dispatchEvent(new CustomEvent('reader-local-translation-context',{bubbles:true,detail:paper}));
+    if(source==='en'&&/[a-z][-‐‑][ \t]*\r?\n\s*[a-z]/i.test(text)){
+      readingAnchor?.dispatchEvent(new CustomEvent('reader-pdf-word-forms',{bubbles:true,detail:spelling}));
+    }
+    const s=createTranslationSession({source:text,from:source,field:PaperLanguageText.field,context,paperContext:paper.context,paperWordForms:spelling.forms,
+      onUpdate:()=>{if(active===s)paint()}});
+    active=s;
+  }
+  return active;
+}
+function paint(){
+  if(!active||popup.hidden)return;
+  const us=active.units,n=us.length,ok=us.filter(u=>u.status==='translated').length,
+    needs=us.filter(u=>u.status==='review'||u.status==='failed'),busy=active.busy;
+  const any=us.some(u=>u.text),allFailed=us.every(u=>u.status==='failed');
+  const state=busy?'pending':allFailed?'error':ok===n?'translated':needs.length?'partial':'paused';
+  popup.dataset.translationState=state;delete popup.dataset.translationStage;
+  run.disabled=busy||ok===n;cancel.hidden=!busy;precision.disabled=busy;
+  copy.hidden=!any;copy.disabled=busy;
+  quote.textContent=selected;original.hidden=false;
+  const name=n===1&&us[0].name;
+  optionsButton.disabled=busy;
+  if(allFailed){modelChoice.hidden=false;chooseQuick.hidden=false}
+  reverse.hidden=!active.canCompare;reverse.disabled=busy||us.every(u=>u.backTranslation||!u.text||u.name);
+  if(name)popup.dataset.translationState='name';
+  if(busy)translateLabel('翻译中','Translating');
+  else if(name)translateLabel('保留原名','Original name');
+  else if(ok===n)translateLabel('已翻译','Translated');
+  else translateLabel(state==='paused'?'继续翻译':'重试未完成',state==='paused'?'Resume':'Retry unfinished');
+  if(allFailed){
+    popup.dataset.translationStage=us[0].error?.stage||'translate';
+    output.textContent=failedMessage(us[0].error);
+  }else if(any){
+    output.replaceChildren();
+    us.forEach((u,i)=>{
+      if(source!=='en'&&i)output.append(' ');
+      output.append(renderSentence(u,i,busy));
+    });
+    output.lang=source==='en'?'zh-CN':'en';output.dataset.sourceText='';
+  }else output.textContent=busy?bilingual('正在本机翻译…','Translating on this device…'):'';
+  if(!any){output.removeAttribute('lang');delete output.dataset.sourceText}
+  notice.hidden=false;
+  if(name)PaperUI.set(notice,'这个名称保留原拼写。','The name retains its original spelling.');
+  else if(ok===n)PaperUI.set(notice,'已完成 '+n+' 句 · 机械核对通过','Completed '+n+' · automated checks passed');
+  else PaperUI.set(notice,'已通过机械核对 '+ok+' / '+n+' 句'+(needs.length?' · '+needs.length+' 句需要处理':''),
+    ok+' / '+n+' passed automated checks'+(needs.length?' · '+needs.length+' to review':''));
+  reviews.hidden=!needs.length;
+  if(!busy){
+    reviewList.replaceChildren();
+    us.forEach((u,i)=>{
+      if(!needs.includes(u))return;
+      const row=document.createElement('div');row.className='translation-unit';row.dataset.unit=String(u.id);row.tabIndex=-1;
+      const label=document.createElement('strong');label.textContent=bilingual('第 '+(i+1)+' 句','Sentence '+(i+1));
+      const raw=document.createElement('div');raw.textContent=u.source;
+      const why=document.createElement('small');
+      const reasons=(u.validation?.issues||[]).map(describeIssue);
+      if(u.error&&!reasons.length)reasons.push(failedMessage(u.error));
+      why.textContent=reasons.join(' · ');
+      row.append(label,raw);
+      if(u.text){const candidate=document.createElement('div');candidate.textContent=bilingual('待核对译文　','Candidate　')+u.text;row.append(candidate)}
+      row.append(why,button('仅重试此句','Retry sentence',()=>translate([u.id])));
+      reviewList.append(row);if(u.error)PaperLanguageText.report(u.error,'selection');
+    });
+  }
+  const pairs=new Map(us.flatMap(u=>u.terms.map(t=>[t.original,t.value])));
+  terms.hidden=!pairs.size;termList.textContent=[...pairs].map(([a,b])=>a+' · '+b).join('\n');
+  engineInfo.textContent=us.map((u,i)=>u.attempts?String(i+1)+' · '+u.engine+' · '+u.attempts+'×'+(u.refineError?' · '+u.refineError:'')+(u.backTranslation?'\n'+u.backTranslation:''):'').filter(Boolean).join('\n');
+  schedulePlace();
+}
+async function translate(ids){
+  if(!selected||active?.busy)return;
+  const id=request;run.disabled=true;precision.disabled=true;
+  quote.textContent=selected;original.hidden=false;
   try{
-    const anchor=activeRange?.startContainer.parentElement;
-    const context=EnglishPractice.selectionSentence(anchor,text)||anchor?.textContent||'';
-    const {selectionTranslation}=await PaperLanguageText.science();
-    const result=await selectionTranslation(text,from,PaperLanguageText.translate,{field:PaperLanguageText.field,context});
-    if(request!==id)return;
-    output.textContent=result.text;output.lang=result.lang;output.dataset.sourceText='';
-    popup.dataset.translationState=result.name?'name':'translated';
-    quote.textContent=text;original.hidden=false;notice.hidden=!result.name;
-    if(result.name)PaperUI.set(notice,'这个名称在中文文献中保留原拼写。','The name keeps its original spelling in Chinese.');
-    translateLabel(result.name?'保留原名':'已翻译',result.name?'Original name':'Translated');
-    schedulePlace();
-  }catch(error){
-    PaperLanguageText.report(error,'selection');
-    if(request!==id)return;
-    run.disabled=false;popup.dataset.translationState='error';
-    popup.dataset.translationStage=error.stage||'translate';
-    translateLabel('重试翻译','Retry translation');
-    const key=error.stage==='validation'&&['facts','terms'].includes(error.reason)?error.reason:error.stage;
-    PaperUI.set(output,...(failures[key]||failures.translate));
-    quote.textContent=text;original.hidden=false;notice.hidden=true;schedulePlace();
+    const s=await getSession();if(!s||id!==request)return;
+    await s.run({ids:Array.isArray(ids)?ids:undefined});
+  }catch(e){
+    if(id!==request)return;
+    PaperLanguageText.report(e,'selection');run.disabled=precision.disabled=false;
+    popup.dataset.translationState='error';popup.dataset.translationStage=e.stage||'translate';
+    output.textContent=e.stage==='length'?e.message:failedMessage(e);translateLabel('重试翻译','Retry translation');
   }
 }
+copy.onclick=async()=>{
+  if(!active)return;
+  const text=active.units.map((u,i)=>u.text&&!u.validation?.issues.some(v=>v.severity==='severe')?u.text:
+    bilingual('〔第 '+(i+1)+' 句待核对〕','[Review sentence '+(i+1)+']')).join(source==='en'?'':' ');
+  try{await navigator.clipboard.writeText(text);PaperUI.set(notice,'译文已复制。','Translation copied.')}
+  catch{PaperUI.set(notice,'请选中译文并复制。','Select the translated text to copy it.')}
+};
+document.addEventListener('translation-download',({detail:d})=>{
+  if(!active?.busy||!/\.(?:bin|spm)$/.test(d.url))return;
+  progressBytes.set(d.url,d.bytes);
+  const mb=([...progressBytes.values()].reduce((a,b)=>a+b,0)/1048576).toFixed(1);
+  notice.hidden=false;PaperUI.set(notice,'正在读取模型文件 · 已接收 '+mb+' MiB','Loading model files · '+mb+' MiB received');
+});
+document.addEventListener('local-scientific-progress',({detail:d})=>{
+  if(!active?.busy||popup.hidden||selectionMode()!=='local')return;
+  const percent=Math.floor(100*d.bytes/d.total);
+  const progressKey=d.phase+'-'+percent;
+  if(lastLocalProgress===progressKey)return;
+  lastLocalProgress=progressKey;
+  const labels={checking:['正在核对已缓存的模型','Checking saved model'],download:['正在下载本机模型','Downloading local model'],
+    ready:['模型文件已核对','Model files verified'],worker:['正在启动本机精译','Starting local translation']};
+  const [zh,en]=labels[d.phase];
+  notice.hidden=false;PaperUI.set(notice,zh+' · '+percent+'%',en+' · '+percent+'%');
+});
+precision.onclick=async()=>{
+  const id=request;
+  if(!precisionPane.hidden){precisionPane.hidden=true;return}
+  try{
+    const s=await getSession();if(!s||id!==request||s.busy)return;
+    const config=await ReaderAccess.options();if(id!==request)return;
+    precisionPane.replaceChildren();precisionPane.hidden=false;
+    const provider=document.createElement('select');provider.setAttribute('aria-label',bilingual('精译服务','Translation provider'));
+    const services={deepseek:'DeepSeek',qwen:'Qwen · 北京',...(ReaderAccess.local&&config.available?.ollama?{ollama:'Ollama · 本机'}:{})};
+    for(const [key,label] of Object.entries(services)){const option=document.createElement('option');option.value=key;option.textContent=label;provider.append(option)}
+    provider.value=Object.keys(services).find(k=>config.available?.[k])||'deepseek';
+    const context=document.createElement('input');context.type='checkbox';
+    const contextLabel=document.createElement('label');contextLabel.append(context,document.createTextNode(bilingual('附上当前选段作上下文','Include selected passage as context')));
+    const preview=document.createElement('pre'),message=document.createElement('small'),keys=document.createElement('div');
+    const send=button('同意发送并精译','Send and refine',async()=>{
+      if(id!==request||s.busy)return;
+      const payload=shown;send.disabled=true;run.disabled=true;cancel.hidden=false;
+      try{await s.refine(payload,ReaderAccess.translate);
+        if(id===request)message.textContent=s.units.find(u=>u.refineError)?.refineError||bilingual('已收到精译。','Refinement received.')}
+      catch(e){if(id===request&&e.name!=='AbortError'){message.textContent=e.message;PaperLanguageText.report(e,'precision')}}
+      finally{if(id===request){paint();refresh()}}
+    });
+    let shown,availability=config;
+    function refresh(){
+      shown=s.precisionRequest(provider.value,context.checked);
+      const msg=shown.message;
+      preview.textContent=[...msg.units.map(u=>u.text),...(msg.context?[msg.context]:[]),...msg.terms.map(p=>p.join(' · '))].join('\n\n');
+      send.disabled=!availability.available?.[provider.value]||s.busy;
+      for(const opt of provider.options)opt.dataset.needsKey=String(!availability.available?.[opt.value]);
+      info.textContent=provider.value==='ollama'?bilingual('发送至本机 Ollama。','Send to local Ollama.'):
+        bilingual('以下文字将发送至 '+services[provider.value]+'，使用你的模型额度。','The text below will be sent to '+services[provider.value]+' using your account.');
+    }
+    const info=document.createElement('small');refresh();
+    ReaderAccess.connections(keys,provider,next=>{availability=next;refresh()});
+    provider.addEventListener('change',refresh);context.onchange=refresh;
+    precisionPane.append(provider,info,contextLabel,preview,keys,send,message);
+    schedulePlace();
+  }catch(e){if(id===request){notice.hidden=false;notice.textContent=e.message;PaperLanguageText.report(e,'precision')}}
+};
 
 // Pointer activation keeps the native range; keyboard activation uses real buttons.
 popup.addEventListener('pointerdown', e => { if (e.target.closest('button')) e.preventDefault() });
-run.onclick = translate;
+run.onclick = ()=>{
+  if(selectionMode()==='choose'){switchModel('quick');return}
+  return translate();
+};
 document.addEventListener('paper-field-change',hide);
+document.addEventListener('reader-language-change',hide);
+document.addEventListener('change',event=>{if(event.target.matches?.('input[type=file]'))hide()},true);
 close.onclick = hide;
 document.addEventListener('selectionchange', () => { clearTimeout(timer); timer = setTimeout(update, 100) });
 document.addEventListener('pointerdown', e => { if (!popup.hidden && !popup.contains(e.target)) hide() }, true);

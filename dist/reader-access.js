@@ -6,7 +6,10 @@
   async function localAPI(path,body,signal){
     const init=body===undefined?{signal}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal};
     const res=await fetch('/api/'+path,init);
-    if(!res.ok)throw Error('Reading service unavailable');
+    if(!res.ok){
+      const detail=await res.json().catch(()=>({}));
+      throw Object.assign(Error(detail.error||'Reading service unavailable'),{status:res.status});
+    }
     return res.json();
   }
   async function fetchIndex(url,signal,format='json'){
@@ -137,6 +140,11 @@
   }
   window.ReaderAccess={local,search,scholarURL,connections,webChat,
     options:()=>local?localAPI('reading-options'):Promise.resolve(ReaderBrowserModels.options()),
+    translate:(body,signal)=>{
+      if(body?.consent!==true||!['deepseek','qwen',...(local?['ollama']:[])].includes(body.provider))
+        throw Error('请先确认服务和发送范围');
+      return local?localAPI('reading-translation',body,signal):ReaderBrowserModels.translate(body,signal);
+    },
     outline:(body,signal)=>local?localAPI('reading-outline',body,signal):ReaderBrowserModels.outline(body,signal),
     ask:async(body,signal)=>{
       if(local)return localAPI('reading-question',body,signal);

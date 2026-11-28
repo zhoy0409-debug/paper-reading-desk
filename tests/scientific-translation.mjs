@@ -70,6 +70,10 @@ console.log('PASS field-specific and personal glossaries, context-dependent abbr
 
 assert.equal(normalizeSelection('tri ﬂuoromethyl-\nphenyl, piperi\u00ad\ndine, benzo-\nxazine'),'trifluoromethyl-phenyl, piperidine, benzoxazine');
 assert.equal(normalizeSelection('well-\nknown; T-4; 5–10 µg/mL'),'well-known; T-4; 5–10 µg/mL');
+const paperForms=new Set(['spectrometer','re-creation','recreation','well-known']);
+assert.equal(normalizeSelection('spectro-\nmeter, re-\ncreation, well-\nknown',paperForms),'spectrometer, re-creation, well-known');
+assert.equal(normalizeSelection('spectro- meter',paperForms),'spectro-meter');
+assert.equal(normalizeSelection('spectro-\nmeter',new Set()),'spectro-meter');
 assert.equal((await selectionTranslation('Abaucin','en',unexpected)).text,'Abaucin');
 for(const output of ['', '   ', null, undefined]){
   for(const [source,from] of [['A light passed through glass.','en'],['玻璃','zh']])

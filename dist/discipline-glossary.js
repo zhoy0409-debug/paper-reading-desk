@@ -17,8 +17,8 @@ const catalog={
     terms:[...treatment,['stroke','卒中'],['hazard ratio','风险比'],['confidence interval','置信区间'],['adverse event','不良事件'],['randomized trial','随机试验']]},
   life:{zh:'生命科学',en:'Life sciences',signal:/\b(?:genes?|proteins?|cellular|genom\w+|transcript\w+|phenotype|neurons?|organisms?|ecolog\w+|species)\b/gi,
     terms:[...treatment,['cell culture','细胞培养'],['culture medium','培养基'],['wild type','野生型'],['gene expression','基因表达'],['knockdown','敲低'],['knockout','敲除'],['biological replicate','生物学重复']]},
-  chemistry:{zh:'化学与材料',en:'Chemistry & materials',signal:/\b(?:catalys\w+|reagents?|solvent|stoichiometr\w+|chromatograph\w+|polymers?|synthesis|adsor(?:ption|bent)|hydrogels?|aqueous solution|reaction yield|crystal structure|materials science)\b/gi,
-    terms:[['reaction yield','反应收率'],['isolated yield','分离收率'],['yield','收率'],['precipitation','沉淀'],['adsorption','吸附'],['adsorption capacity','吸附容量'],['methylene blue','亚甲蓝'],['hydrogel','水凝胶'],['mobile phase','流动相'],['stationary phase','固定相'],['retention time','保留时间'],['thin-layer chromatography','薄层色谱'],['working electrode','工作电极'],['activation energy','活化能'],['charge carrier','载流子']]},
+  chemistry:{zh:'化学与材料',en:'Chemistry & materials',signal:/\b(?:absorbance|spectrophotomet\w*|catalys\w+|reagents?|solvent|stoichiometr\w+|chromatograph\w+|polymers?|synthesis|adsor(?:ption|bent)|hydrogels?|aqueous solution|reaction yield|crystal structure|materials science)\b/gi,
+    terms:[...treatment.filter(([term])=>term==='negative control'||term==='positive control'),['absorbance','吸光度'],['reaction yield','反应收率'],['isolated yield','分离收率'],['yield','收率'],['precipitation','沉淀'],['adsorption','吸附'],['adsorption capacity','吸附容量'],['methylene blue','亚甲蓝'],['hydrogel','水凝胶'],['mobile phase','流动相'],['stationary phase','固定相'],['retention time','保留时间'],['thin-layer chromatography','薄层色谱'],['working electrode','工作电极'],['activation energy','活化能'],['charge carrier','载流子']]},
   computing:{zh:'计算机与数据科学',en:'Computing & data science',signal:/\b(?:algorithms?|datasets?|neural networks?|embedding[s]?|classifier|machine learning|training data|computational complexity|t-SNE|UMAP)\b/gi,
     terms:[['training set','训练集'],['validation set','验证集'],['test set','测试集'],['attention mechanism','注意力机制'],['loss function','损失函数'],['precision','精确率'],['recall','召回率'],['regularization','正则化'],['kernel function','核函数']]},
   engineering:{zh:'工程与交通',en:'Engineering & transport',signal:/\b(?:vehicles?|traffic|actuators?|roadway|torque|mechanical engineering|tensile|strain gauge|control systems?)\b/gi,
@@ -36,6 +36,19 @@ const catalog={
   humanities:{zh:'人文与法律',en:'Humanities & law',signal:/\b(?:linguistics?|textual criticism|jurisprudence|case law|legal precedent|contract law|philolog\w+|corpus linguistics)\b/gi,
     terms:[['case law','判例法'],['burden of proof','举证责任'],['contractual consideration','合同对价'],['contract law','合同法'],['corpus linguistics','语料库语言学'],['textual criticism','文本校勘']]}
 };
+// Narrow profiles inherit the vocabulary of their parent. The list contains
+// project-authored phrase pairs, not text copied from a third-party dictionary.
+for(const [id,parent,zh,en,signal,terms] of [
+  ['molecular','life','分子生物学','Molecular biology',/\b(?:gene expression|transcription factors?|messenger RNA)\b/gi,[['transcription factor','转录因子']]],
+  ['microbiology','life','微生物学','Microbiology',/\b(?:microbial communities|microbiology|microbiome|antimicrobial resistance)\b/gi,[['microbial community','微生物群落'],['antimicrobial resistance','抗微生物药物耐药性']]],
+  ['pharmacology','medicine','药理学','Pharmacology',/\b(?:dose.response|pharmacokinetic\w*|pharmacodynamic\w*)\b/gi,[['half-life','半衰期'],['clearance','清除率']]],
+  ['clinical','medicine','临床医学','Clinical medicine',/\b(?:clinical trials?|clinical outcome|randomi[sz]ed controlled trial)\b/gi,[['primary endpoint','主要终点']]],
+  ['epidemiology','medicine','流行病学','Epidemiology',/\b(?:person.years|incidence rate|prevalence ratio|cohort stud\w*)\b/gi,[['incidence rate','发病率'],['prevalence ratio','患病率比']]],
+  ['biostatistics','math','生物统计学','Biostatistics',/\b(?:standard error of the mean|survival analysis|censoring|odds ratio)\b/gi,[['odds ratio','比值比'],['confidence interval','置信区间']]],
+  ['bioinformatics','computing','生物信息学','Bioinformatics',/\b(?:bioinformatics|sequence alignment|single.cell transcriptom\w*|read counts?|spike-ins?)\b/gi,[['sequence alignment','序列比对'],['read depth','测序深度'],['read counts','读段计数'],['fold change','变化倍数'],['spike-ins','外源添加物']]],
+  ['organic','chemistry','有机化学','Organic chemistry',/\b(?:organic chemistry|enantiomer\w*|stereochem\w*|functional group)\b/gi,[['functional group','官能团'],['enantiomer','对映异构体']]],
+  ['materials','engineering','材料科学','Materials science',/\b(?:microstructure|grain boundaries|materials science|crystallite size)\b/gi,[['grain boundary','晶界'],['microstructure','微观结构']]]
+])catalog[id]={zh,en,signal,parent,terms:[...catalog[parent].terms,...terms]};
 export const fields=[['auto','自动识别','Automatic'],...Object.entries(catalog).map(([k,f])=>[k,f.zh,f.en]),['general','通用','General'],['custom','我的词库','My glossary']];
 // Keep a snapshot so an in-flight translation always uses its original dictionary.
 export function customGlossary(text){
@@ -53,7 +66,7 @@ export function resolveField(choice,text=''){
   let best='general',score=0;
   for(const [id,field] of Object.entries(catalog)){
     const hits=new Set(Array.from(text.matchAll(field.signal),m=>m[0].toLowerCase())).size;
-    if(hits>score){best=id;score=hits}
+    if(hits>score||(hits&&hits===score&&field.parent===best)){best=id;score=hits}
   }
   return best;
 }
@@ -73,9 +86,55 @@ function matcher(field){
   cache.set(field,result);
   return result;
 }
-export function fieldTerms(text,choice='auto'){
-  const field=resolveField(choice,text),{terms,pattern}=matcher(field);
-  return Array.from(text.matchAll(pattern),m=>{
+const senses=[
+  ['phantom',/\b(?:scanned|scanners?|scatterers?|imaged|B[- ]scan|simulated and experimental images|tissue[- ]mimicking)\b/i,'体模'],
+  ['SEM',/scanning electron|electron micrographs?/i,'扫描电子显微镜（SEM）'],
+  ['SEM',/standard error of (?:the )?mean|mean\s*(?:±|\+\/-)\s*SEM/i,'均值标准误（SEM）'],
+  ['SEM',/structural equation model|latent variables?/i,'结构方程模型（SEM）'],
+  ['expression',/gene expression|mRNA|transcription level/i,'基因表达'],
+  ['expression',/mathematical expression|algebraic|evaluate the expression/i,'表达式'],
+  ['resistance',/electric(?:al)? resistance|ohm|voltage|circuit/i,'电阻'],
+  ['resistance',/drag coefficient|air resistance|fluid resistance/i,'阻力'],
+  ['resistance',/drug resistance|antibiotic|antimicrobial resistance/i,'耐药性'],
+  ['vehicle control',/drug|dose|placebo|solvent|pharmaco/i,'溶媒对照'],
+  ['vehicle control',/traffic|steering|automotive|roadway/i,'车辆控制']
+];
+export function fieldTerms(text,choice='auto',context=''){
+  const scope=context?text+' '+context:text;
+  const field=resolveField(choice,scope),{terms,pattern}=matcher(field);
+  const base=Array.from(text.matchAll(pattern),m=>{
     return {index:m.index,original:m[0],value:terms.get(normalizedKey(m[0]))};
   });
+  const matches=[];
+  for(const m of text.matchAll(/\b(?:SEM|expression|resistance|vehicle control|phantom)\b/gi)){
+    if(/^phantom$/i.test(m[0])&&/^\s+(?:limb|pain|sensation|load|power|stock|income)\b/i.test(text.slice(m.index+m[0].length)))continue;
+    const options=senses.filter(([key,cue])=>m[0].toLowerCase()===key.toLowerCase()&&cue.test(scope));
+    if(options.length!==1)continue;
+    const entry=base.find(t=>m.index<t.index+t.original.length&&t.index<m.index+m[0].length);
+    if(entry&&(field?.id==='custom'||entry.original.length>m[0].length))continue;
+    if(entry)entry.value=options[0][2];
+    else matches.push({index:m.index,original:m[0],value:options[0][2]});
+  }
+  return base.concat(matches).sort((a,b)=>a.index-b.index);
+}
+
+// Use only short forms whose expansion is printed in the current document.
+// An exact personal definition has precedence; guessed expansions never enter this list.
+export function paperDefinedTerms(source,field,evidence=''){
+  const found=[];
+  for(const line of evidence.split('\n')){
+    const pair=line.match(/^([A-Z][A-Z\d-]{1,12}s?) = ([A-Za-z][A-Za-z -]{2,100})$/);
+    if(!pair||!source.match(/\b[A-Z][A-Z\d-]{1,12}s?\b/g)?.includes(pair[1]))continue;
+    const [,short,full]=pair;
+    const custom=field?.terms?.get(short.toLowerCase());
+    const inField=[full,full.replace(/s$/i,'')].flatMap(name=>fieldTerms(name,field,full)
+      .filter(term=>term.original.length===name.length).map(term=>term.value));
+    const common=new Set();
+    for(const {terms} of Object.values(catalog)){
+      for(const [name,value] of terms)if(name===full.toLowerCase()||name===full.toLowerCase().replace(/s$/,''))common.add(value);
+    }
+    const value=custom||inField[0]||(common.size===1?[...common][0]:'');
+    if(value)found.push({original:short,value,paperDefinition:full});
+  }
+  return found;
 }

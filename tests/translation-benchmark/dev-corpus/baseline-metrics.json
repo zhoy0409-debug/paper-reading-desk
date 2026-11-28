@@ -1,0 +1,690 @@
+{
+  "runSha256": "ccfee8a9171eb5608953e0e104496e49c466c134618e7c027bb664bcd19c3823",
+  "overall": {
+    "n": 128,
+    "completeAndReadable": [
+      63,
+      128
+    ],
+    "visibleChinese": [
+      115,
+      128
+    ],
+    "semanticallyUsefulSourceUnits": [
+      100,
+      163
+    ],
+    "factsRetained": [
+      211,
+      259
+    ],
+    "termsAccurate": [
+      134,
+      207
+    ],
+    "seriousDisplayedErrors": [
+      41,
+      115
+    ],
+    "seriousFullyAcceptedIds": [
+      "D002",
+      "D004",
+      "D005",
+      "D017",
+      "D018",
+      "D019",
+      "D022",
+      "D023",
+      "D030",
+      "D031",
+      "D034",
+      "D047",
+      "D053",
+      "D054",
+      "D055",
+      "D057",
+      "D060",
+      "D063",
+      "D079",
+      "D080",
+      "D081",
+      "D089",
+      "D090",
+      "D099",
+      "D100",
+      "D103",
+      "D107",
+      "D108",
+      "D111",
+      "D112",
+      "D114",
+      "D117",
+      "D118",
+      "D121",
+      "D122",
+      "D123",
+      "D124",
+      "D125",
+      "D126",
+      "D127",
+      "D128"
+    ],
+    "seriousByDisplayedStatus": {
+      "translated": 41
+    },
+    "readableButReviewOrPartialIds": []
+  },
+  "byField": {
+    "earth": {
+      "n": 17,
+      "completeAndReadable": [
+        10,
+        17
+      ],
+      "visibleChinese": [
+        16,
+        17
+      ],
+      "semanticallyUsefulSourceUnits": [
+        13,
+        19
+      ],
+      "factsRetained": [
+        24,
+        30
+      ],
+      "termsAccurate": [
+        14,
+        19
+      ],
+      "seriousDisplayedErrors": [
+        4,
+        16
+      ],
+      "seriousFullyAcceptedIds": [
+        "D002",
+        "D004",
+        "D005",
+        "D017"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 4
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "bioinformatics": {
+      "n": 21,
+      "completeAndReadable": [
+        11,
+        21
+      ],
+      "visibleChinese": [
+        19,
+        21
+      ],
+      "semanticallyUsefulSourceUnits": [
+        18,
+        27
+      ],
+      "factsRetained": [
+        38,
+        43
+      ],
+      "termsAccurate": [
+        25,
+        30
+      ],
+      "seriousDisplayedErrors": [
+        7,
+        19
+      ],
+      "seriousFullyAcceptedIds": [
+        "D018",
+        "D019",
+        "D022",
+        "D023",
+        "D030",
+        "D031",
+        "D034"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 7
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "materials": {
+      "n": 14,
+      "completeAndReadable": [
+        11,
+        14
+      ],
+      "visibleChinese": [
+        12,
+        14
+      ],
+      "semanticallyUsefulSourceUnits": [
+        13,
+        16
+      ],
+      "factsRetained": [
+        17,
+        21
+      ],
+      "termsAccurate": [
+        16,
+        22
+      ],
+      "seriousDisplayedErrors": [
+        1,
+        12
+      ],
+      "seriousFullyAcceptedIds": [
+        "D047"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 1
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "engineering": {
+      "n": 16,
+      "completeAndReadable": [
+        6,
+        16
+      ],
+      "visibleChinese": [
+        14,
+        16
+      ],
+      "semanticallyUsefulSourceUnits": [
+        13,
+        24
+      ],
+      "factsRetained": [
+        25,
+        29
+      ],
+      "termsAccurate": [
+        13,
+        26
+      ],
+      "seriousDisplayedErrors": [
+        6,
+        14
+      ],
+      "seriousFullyAcceptedIds": [
+        "D053",
+        "D054",
+        "D055",
+        "D057",
+        "D060",
+        "D063"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 6
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "pharmacology": {
+      "n": 17,
+      "completeAndReadable": [
+        8,
+        17
+      ],
+      "visibleChinese": [
+        13,
+        17
+      ],
+      "semanticallyUsefulSourceUnits": [
+        11,
+        19
+      ],
+      "factsRetained": [
+        24,
+        38
+      ],
+      "termsAccurate": [
+        16,
+        27
+      ],
+      "seriousDisplayedErrors": [
+        3,
+        13
+      ],
+      "seriousFullyAcceptedIds": [
+        "D079",
+        "D080",
+        "D081"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 3
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "epidemiology": {
+      "n": 13,
+      "completeAndReadable": [
+        9,
+        13
+      ],
+      "visibleChinese": [
+        12,
+        13
+      ],
+      "semanticallyUsefulSourceUnits": [
+        14,
+        19
+      ],
+      "factsRetained": [
+        29,
+        33
+      ],
+      "termsAccurate": [
+        17,
+        22
+      ],
+      "seriousDisplayedErrors": [
+        2,
+        12
+      ],
+      "seriousFullyAcceptedIds": [
+        "D089",
+        "D090"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 2
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "ecology": {
+      "n": 14,
+      "completeAndReadable": [
+        4,
+        14
+      ],
+      "visibleChinese": [
+        14,
+        14
+      ],
+      "semanticallyUsefulSourceUnits": [
+        12,
+        20
+      ],
+      "factsRetained": [
+        27,
+        29
+      ],
+      "termsAccurate": [
+        21,
+        24
+      ],
+      "seriousDisplayedErrors": [
+        7,
+        14
+      ],
+      "seriousFullyAcceptedIds": [
+        "D099",
+        "D100",
+        "D103",
+        "D107",
+        "D108",
+        "D111",
+        "D112"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 7
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "chemistry": {
+      "n": 16,
+      "completeAndReadable": [
+        4,
+        16
+      ],
+      "visibleChinese": [
+        15,
+        16
+      ],
+      "semanticallyUsefulSourceUnits": [
+        6,
+        19
+      ],
+      "factsRetained": [
+        27,
+        36
+      ],
+      "termsAccurate": [
+        12,
+        37
+      ],
+      "seriousDisplayedErrors": [
+        11,
+        15
+      ],
+      "seriousFullyAcceptedIds": [
+        "D114",
+        "D117",
+        "D118",
+        "D121",
+        "D122",
+        "D123",
+        "D124",
+        "D125",
+        "D126",
+        "D127",
+        "D128"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 11
+      },
+      "readableButReviewOrPartialIds": []
+    }
+  },
+  "bySection": {
+    "abstract": {
+      "n": 45,
+      "completeAndReadable": [
+        17,
+        45
+      ],
+      "visibleChinese": [
+        39,
+        45
+      ],
+      "semanticallyUsefulSourceUnits": [
+        38,
+        67
+      ],
+      "factsRetained": [
+        74,
+        97
+      ],
+      "termsAccurate": [
+        43,
+        78
+      ],
+      "seriousDisplayedErrors": [
+        17,
+        39
+      ],
+      "seriousFullyAcceptedIds": [
+        "D002",
+        "D004",
+        "D005",
+        "D018",
+        "D019",
+        "D053",
+        "D054",
+        "D055",
+        "D057",
+        "D089",
+        "D090",
+        "D099",
+        "D100",
+        "D103",
+        "D114",
+        "D117",
+        "D118"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 17
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "introduction": {
+      "n": 14,
+      "completeAndReadable": [
+        10,
+        14
+      ],
+      "visibleChinese": [
+        14,
+        14
+      ],
+      "semanticallyUsefulSourceUnits": [
+        11,
+        15
+      ],
+      "factsRetained": [
+        20,
+        22
+      ],
+      "termsAccurate": [
+        15,
+        20
+      ],
+      "seriousDisplayedErrors": [
+        3,
+        14
+      ],
+      "seriousFullyAcceptedIds": [
+        "D022",
+        "D023",
+        "D121"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 3
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "methods": {
+      "n": 21,
+      "completeAndReadable": [
+        11,
+        21
+      ],
+      "visibleChinese": [
+        17,
+        21
+      ],
+      "semanticallyUsefulSourceUnits": [
+        15,
+        25
+      ],
+      "factsRetained": [
+        31,
+        40
+      ],
+      "termsAccurate": [
+        17,
+        32
+      ],
+      "seriousDisplayedErrors": [
+        5,
+        17
+      ],
+      "seriousFullyAcceptedIds": [
+        "D047",
+        "D060",
+        "D063",
+        "D079",
+        "D080"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 5
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "results": {
+      "n": 11,
+      "completeAndReadable": [
+        7,
+        11
+      ],
+      "visibleChinese": [
+        11,
+        11
+      ],
+      "semanticallyUsefulSourceUnits": [
+        9,
+        11
+      ],
+      "factsRetained": [
+        25,
+        25
+      ],
+      "termsAccurate": [
+        16,
+        16
+      ],
+      "seriousDisplayedErrors": [
+        3,
+        11
+      ],
+      "seriousFullyAcceptedIds": [
+        "D030",
+        "D031",
+        "D034"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 3
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "figure": {
+      "n": 18,
+      "completeAndReadable": [
+        5,
+        18
+      ],
+      "visibleChinese": [
+        18,
+        18
+      ],
+      "semanticallyUsefulSourceUnits": [
+        9,
+        21
+      ],
+      "factsRetained": [
+        30,
+        36
+      ],
+      "termsAccurate": [
+        22,
+        31
+      ],
+      "seriousDisplayedErrors": [
+        11,
+        18
+      ],
+      "seriousFullyAcceptedIds": [
+        "D081",
+        "D107",
+        "D108",
+        "D111",
+        "D112",
+        "D122",
+        "D123",
+        "D124",
+        "D125",
+        "D126",
+        "D127"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 11
+      },
+      "readableButReviewOrPartialIds": []
+    },
+    "table": {
+      "n": 9,
+      "completeAndReadable": [
+        8,
+        9
+      ],
+      "visibleChinese": [
+        8,
+        9
+      ],
+      "semanticallyUsefulSourceUnits": [
+        9,
+        11
+      ],
+      "factsRetained": [
+        14,
+        16
+      ],
+      "termsAccurate": [
+        11,
+        14
+      ],
+      "seriousDisplayedErrors": [
+        0,
+        8
+      ],
+      "seriousFullyAcceptedIds": [],
+      "seriousByDisplayedStatus": {},
+      "readableButReviewOrPartialIds": []
+    },
+    "discussion": {
+      "n": 4,
+      "completeAndReadable": [
+        2,
+        4
+      ],
+      "visibleChinese": [
+        2,
+        4
+      ],
+      "semanticallyUsefulSourceUnits": [
+        2,
+        4
+      ],
+      "factsRetained": [
+        3,
+        7
+      ],
+      "termsAccurate": [
+        3,
+        7
+      ],
+      "seriousDisplayedErrors": [
+        0,
+        2
+      ],
+      "seriousFullyAcceptedIds": [],
+      "seriousByDisplayedStatus": {},
+      "readableButReviewOrPartialIds": []
+    },
+    "supplement": {
+      "n": 6,
+      "completeAndReadable": [
+        3,
+        6
+      ],
+      "visibleChinese": [
+        6,
+        6
+      ],
+      "semanticallyUsefulSourceUnits": [
+        7,
+        9
+      ],
+      "factsRetained": [
+        14,
+        16
+      ],
+      "termsAccurate": [
+        7,
+        9
+      ],
+      "seriousDisplayedErrors": [
+        2,
+        6
+      ],
+      "seriousFullyAcceptedIds": [
+        "D017",
+        "D128"
+      ],
+      "seriousByDisplayedStatus": {
+        "translated": 2
+      },
+      "readableButReviewOrPartialIds": []
+    }
+  },
+  "timings": {
+    "n": 128,
+    "allAttemptsNearestRankP50Ms": 99,
+    "allAttemptsNearestRankP95Ms": 412
+  }
+}

@@ -1,12 +1,20 @@
-const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=0416'));
+import {assignedValues,chemicalNames,missingAssignments,missingBoundRoles,retainedScientificNames,symbolicBounds,symbolicKeys} from './translation-anchors.js?rev=identity1';
+import {comparisonText} from './translation-facts.js?rev=identity1';
+import {recoverClaimWording} from './translation-claims.js?rev=identity1';
+const {fieldTerms,resolveField}=await (globalThis.PaperLanguageText?.glossary()??import('./discipline-glossary.js?rev=identity1'));
 // Translate supported scientific constructions from their captured subjects and modifiers.
 // Keep the source visible for every passage; opaque identifiers must survive machine translation.
-export function normalizeSelection(text){
+export function normalizeSelection(text,paperWordForms){
   const normalized=text.replace(/\u00ad(?:[ \t]*\r?\n[ \t]*)?/g,'')
     .replace(/[ﬀ-ﬆ]/g,ch=>ch.normalize('NFKC'))
     .replace(/\b(mono|di|tri|tetra|per)\s+(?=fluoro[a-z])/gi,'$1');
   return normalized.replace(/(\b[A-Za-z][a-z]+)[-‐‑]\s+([a-z]+)\b/g,(whole,left,right)=>{
-    // A repeated spelling in the selection disambiguates a printed line-end hyphen.
+    // Prefer an attested hyphenated spelling when the same paper uses both forms.
+    if(paperWordForms&&/[\r\n]/.test(whole)){
+      const lhs=left.toLowerCase(),rhs=right.toLowerCase();
+      if(paperWordForms.has(lhs+'-'+rhs))return left+'-'+right;
+      if(paperWordForms.has(lhs+rhs))return left+right;
+    }
     if(new RegExp('\\b'+left+right+'\\b','i').test(normalized)||/^(?:tions?|ments?|vatus|gatus|xazine|idine|uoromethyl)$/i.test(right))
       return left+right;
     return left+'-'+right;
@@ -54,7 +62,8 @@ const terminology=[
   ['nonlesional skin','非皮损皮肤'],['non-lesional skin','非皮损皮肤'],['lesional skin','皮损皮肤'],
   ['skin swabs','皮肤拭子'],['host-directed therapy','宿主靶向治疗'],
   ['outer membrane vesicles','外膜囊泡'],['cytotoxicity','细胞毒性'],
-  ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],['abaucin','abaucin']
+  ['distance modulus','距离模数'],['redshift','红移'],['minimum inhibitory concentration','最低抑菌浓度'],
+  ...retainedScientificNames.map(name=>[name,name])
 ];
 const exactNames=new Map(terminology);
 function modelText(value){
@@ -63,20 +72,6 @@ function modelText(value){
 }
 function validation(reason,detail){
   return Object.assign(new Error(detail),{stage:'validation',reason});
-}
-// Chemical names in a structure description must survive even when the MT model
-// substitutes a different compound. A supplied subject glossary can localize them.
-function compounds(s,domain){
-  if(!/\b(?:chemical|moiet(?:y|ies)|functional groups?|substituents?|molecul\w*)\b/i.test(s))return [];
-  const chemical=/\b([a-z][a-z\d-]*(?:oxazine|azine|idine|anone|azole|amide|phenyl|alkyl|ethyl|enoate))\b(\s+groups?\b)?/gi;
-  const spans=[];
-  for(const m of s.matchAll(chemical)){
-    if(domain.some(term=>term.index<=m.index&&term.index+term.original.length>=m.index+m[0].length))continue;
-    const name=domain.find(term=>term.index===m.index&&term.original===m[1])?.value??m[1];
-    const suffix=m[2]?(/[\u3400-\u9fff]$/.test(name)?'基团':' 基团'):'';
-    spans.push({index:m.index,original:m[0],value:name+suffix});
-  }
-  return spans;
 }
 const figureRef=/(?:\b(?:fig(?:ure)?s?)\.?\s*|图\s*)(S?\d+[a-z]?(?:\s*[-–]\s*(?:S?\d+)?[a-z])?)(?![a-z\d])/gi;
 const concentration=/(?:\d+(?:\.\d+)?|\.\d+)\s*(?:(?:[fpnumµμk]?g|[fpnumµμ]?mol)\s*\/\s*(?:[mdµμu]?L)|[fpnumµμ]?M)(?![a-zA-Z])/g;
@@ -309,7 +304,7 @@ function treatmentCaption(sentence,field){
 export async function translatePassage(original,from,translate,{field='auto'}={}){
   if(from!=='en')return {text:modelText(await translate(original,from)),warnings:[]};
   field=resolveField(field,original);
-  const lines=[],warnings=[],issues=[];
+  const lines=[],warnings=[],issues=[],candidates=[];
   for(const s of sentences(original)){
     const matched=fieldTerms(s,field);
     if(matched.length===1&&matched[0].original.length===s.length){lines.push(matched[0].value);continue}
@@ -340,7 +335,7 @@ export async function translatePassage(original,from,translate,{field='auto'}={}
     const terms=terminology.filter(([en])=>body.toLowerCase().includes(en.toLowerCase())&&
       !matched.some(m=>m.original.toLowerCase().includes(en.toLowerCase())));
     const prepared=readableProse(body).replace(/\bIn cellulo validation\b/gi,'Validation in cells').replace(/\bin cellulo\b/gi,'in cells').replace(/\bmaybe (?=activated\b)/gi,'may be ');
-    let result=body?modelText(await translate(prepared,from)):'';
+    let result=body?recoverClaimWording(body,modelText(await translate(prepared,from)),field):'';
     if(fig)result=result.replace(new RegExp('^(?:图\\s*|Figure\\s+)'+fig[1]+'(?![a-z\\d])\\s*[|.:：]?\\s*','i'),'');
     // Correct unambiguous terminology in the complete translation before trying
     // placeholders. This preserves the verb and its dependent clauses.
@@ -375,27 +370,29 @@ export async function translatePassage(original,from,translate,{field='auto'}={}
     if(/\bintegrating\b.+\bwith the processes of\b/i.test(body))
       result=result.replace(/将([^。！？]{2,100}?)与([^。！？]{2,70}?)的过程相结合/g,'将$1与$2联系起来');
     const missingSide=['left','right'].some((side,i)=>new RegExp('\\('+side+'\\)','i').test(body)&&!result.includes(i?'右':'左'));
-    const numbers=body.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
-    const resultNumbers=result.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[];
-    const equalNumbers=numbers.map(n=>n.replace(/\s/g,'')).sort().join('|')===resultNumbers.map(n=>n.replace(/\s/g,'')).sort().join('|');
+    const numericTokens=s=>(s.match(/(?:[<>≤≥−-]\s*)?\d+(?:\.\d+)?/g)||[]).map(n=>n.replace(/\s/g,'')).sort().join('|');
+    const equalNumbers=numericTokens(body)===numericTokens(result)||numericTokens(comparisonText(body))===numericTokens(comparisonText(result));
     const panelRefs=s=>Array.from(s.matchAll(/\(([a-z])\)|[（(]([a-z])[)）]|(?:图|小图)\s*([a-z])\b/gi),m=>(m[1]||m[2]||m[3]).toLowerCase()).sort().join(',');
+    const bounds=symbolicKeys(body);
     const facts=missingSide||!equalNumbers||figures(body)!==figures(result)||concentrations(body)!==concentrations(result)||
+      (bounds.length&&(bounds.sort().join('|')!==symbolicKeys(result).sort().join('|')||missingBoundRoles(body,result).length>0))||missingAssignments(body,result).length>0||
       keys.some(k=>!result.includes(k)&&!matched.some(m=>m.original===k&&result.includes(m.value)))||
       panelRefs(body)!==panelRefs(result)||(/\b(?:not|no|without)\b/i.test(body)&&!/[无不未没非]/.test(result));
     const missingTerm=matched.some(m=>!result.includes(m.value))||terms.some(([en,zh])=>!result.toLowerCase().includes(en.toLowerCase())&&!result.includes(zh))||
-      compounds(body,fig?fieldTerms(body,field):matched).some(c=>!result.includes(c.value));
+      chemicalNames(body,fig?fieldTerms(body,field):matched).some(c=>!result.includes(c.value));
     const echoed=body&&body===result&&/[a-z]{2}/i.test(body);
     if(facts||missingTerm||echoed){
+      candidates.push({source:s,text:(fig?'图 '+fig[1]+'　':'')+result,reason:facts?'facts':missingTerm?'terms':'target'});
       issues.push(facts?'facts':missingTerm?'terms':'target');
       warnings.push(s);result=body+(terms.length?'\n'+terms.map(([en,zh])=>en+' · '+zh).join('　'):'');
     }
     lines.push((fig?'图 '+fig[1]+'　':'')+result);
   }
-  return {text:lines.join('\n\n'),warnings,issues};
+  return {text:lines.join('\n\n'),warnings,issues,candidates};
 }
 // A scientific sentence can lose a number or identifier during translation.
 // Retry with protected spans, then run the same factual checks again.
-export async function mapChinese(source,translate,{keepLatinNames=false,field='auto'}={}){
+export async function mapChinese(source,translate,{keepLatinNames=false,field='auto',onFragmentRecovery}={}){
   field=resolveField(field,source);
   const han=/[\u3400-\u9fff]/u;
   const names=new Map(terminology.map(([en,zh])=>[en.toLowerCase(),zh]));
@@ -410,7 +407,8 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
       const value=names.get(m[0].toLowerCase());
       return {index:m.index,original:m[0],value:value&&value!==m[0].toLowerCase()?value:m[0]};
     });
-    const protectedSpans=[...domain,...compounds(s,domain),
+    const protectedSpans=[...domain,...chemicalNames(s,domain),...symbolicBounds(s),...assignedValues(s),
+      ...Array.from(s.matchAll(/(?<![A-Za-z\d])[A-Za-zα-ω][₀-₉]+/giu),m=>({index:m.index,original:m[0],value:m[0]})),
       ...Array.from(s.matchAll(figureRef),m=>({index:m.index,original:m[0],value:'图 '+m[1]})),
       ...Array.from(s.matchAll(concentration),m=>({index:m.index,original:m[0],value:m[0]})),...identifiers];
     const result=[];
@@ -441,6 +439,7 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
   const parts=[];
   for(const s of sentences(source)){
     let result=await translatePassage(s,'en',translate,{field});
+    const firstCandidate=result.candidates?.[0];
     if(result.warnings.length||!han.test(result.text)){
       if(translate.withTerms){
         const pieces=[];let end=0;
@@ -454,16 +453,17 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
       }
       if(result.warnings.length||!han.test(result.text)){
         let localized;
+        onFragmentRecovery?.(s);
         try{localized=await protectedSentence(s)}
         catch(cause){
           if(cause.stage!=='validation'||!result.issues?.length)throw cause;
-          throw Object.assign(validation(result.issues[0],'Protected translation still failed the source checks'),{cause});
+          throw Object.assign(validation(result.issues[0],'Protected translation still failed the source checks'),{cause,candidate:firstCandidate});
         }
         result=await translatePassage(s,'en',async()=>localized,{field});
       }
     }
     if(result.warnings.length||!han.test(result.text))
-      throw validation(result.issues?.[0]||'target','Translated passage did not preserve the source evidence');
+      throw Object.assign(validation(result.issues?.[0]||'target','Translated passage did not preserve the source evidence'),{candidate:firstCandidate});
     let localized=result.text.trim();
     for(const [name,zh] of terminology){
       if(keepLatinNames||!/^(?:[A-Z][a-z]+|[A-Z]\.) [a-z]+$/.test(name)||localized.includes(zh))continue;
@@ -482,14 +482,14 @@ export async function mapChinese(source,translate,{keepLatinNames=false,field='a
 }
 
 // A successful English passage must display Chinese. Proper names can remain in Latin script.
-export async function selectionTranslation(text,from,translate,{field='auto',context=''}={}){
+export async function selectionTranslation(text,from,translate,{field='auto',context='',onFragmentRecovery}={}){
   const original=normalizeSelection(text);
   if(from!=='en'){
     const result=modelText(await translate(original,from));
     if(result===original||!/[\p{Script=Latin}]/u.test(result))throw validation('target','No English translation');
     return {text:result,lang:'en',name:false};
   }
-  const exactField=fieldTerms(original,field).find(t=>t.original.length===original.length);
+  const exactField=fieldTerms(original,field,context).find(t=>t.original.length===original.length);
   if(exactField)return {text:exactField.value,lang:'zh-CN',name:false};
   const term=terminology.find(([en])=>en.toLowerCase()===original.toLowerCase());
   if(term&&term[0]===term[1])return {text:original,lang:'en',name:true};
@@ -499,6 +499,6 @@ export async function selectionTranslation(text,from,translate,{field='auto',con
   else if(/structural equation model/i.test(context))sem='结构方程模型（SEM）';
   const abbreviation={SEM:sem,TEM:'透射电子显微镜（TEM）',MIC:'最低抑菌浓度（MIC）'};
   if(abbreviation[original])return {text:abbreviation[original],lang:'zh-CN',name:false};
-  const result=await mapChinese(original,translate,{keepLatinNames:true,field});
+  const result=await mapChinese(original,translate,{keepLatinNames:true,field,onFragmentRecovery});
   return {text:result,lang:'zh-CN',name:false};
 }

@@ -1,0 +1,134 @@
+{
+  "sourceOutputPairsCompared": 512,
+  "sourceOutputPairsMatchingArchivedRoundtrip": 512,
+  "sourceFile": "f683f4214ded59f0efcaee9e6a921247fa22bef52da37e480cb0a119942430eb",
+  "translationCodeSHA256": {
+    "translation-session.js": "0574129cc8e486319e7681cf39e7e94e666b30d0234eaf9ae7a4a6806f8b7738",
+    "translation-alignment.js": "bc4b08cecea40c9424777dccc073664fb11f3f6208a6ed399376dce417217d55",
+    "scientific-translation.js": "829653fa671518f1c29b8bf5b683fc7de7490757dec5a796ff7774e52d68ebcc",
+    "discipline-glossary.js": "5c919dac4e6907053cd5941675588dd1f69d2e2ede3c753b64e4e4073d4dc42f",
+    "paper-language.js": "68a208758075d279e34dac7979d99d830666f6a0423b98467c43f1cffff79085"
+  },
+  "modes": {
+    "off": {
+      "nRuns": 2,
+      "allAttempts": {
+        "p50Ms": 99.4,
+        "p95Ms": 451
+      },
+      "warm": {
+        "p50Ms": 99.4,
+        "p95Ms": 375.1
+      },
+      "total128MeanSec": 17.9136,
+      "modelRequestBytesPerColdRun": [
+        51934991,
+        51934991
+      ],
+      "workers": [
+        1,
+        1
+      ]
+    },
+    "on": {
+      "nRuns": 2,
+      "allAttempts": {
+        "p50Ms": 110.6,
+        "p95Ms": 462.7
+      },
+      "warm": {
+        "p50Ms": 109.6,
+        "p95Ms": 424.1
+      },
+      "total128MeanSec": 20.659,
+      "modelRequestBytesPerColdRun": [
+        106491667,
+        106491667
+      ],
+      "workers": [
+        1,
+        1
+      ]
+    }
+  },
+  "firstForwardAndReverseIds": [
+    "D001",
+    "D007"
+  ],
+  "callsPerRun": 40,
+  "triggeredSelectionsPerRun": 39,
+  "pairedTargetedExtra": {
+    "p50Ms": 52.1,
+    "p95Ms": 151.0
+  },
+  "initialReverseMs": [
+    810.8,
+    792.4
+  ],
+  "additionalColdModelBytes": 54556676,
+  "alerts": [
+    {
+      "id": "D013",
+      "source": "Median tree cover (Fig 3A) was greatest in urbanized areas in the South like Atlanta and lowest in urbanized areas in the Southwest like Phoenix.",
+      "actual": "中位树木覆盖（图3A）在亚特兰大等南部城市化地区最大，在凤凰城等西南部的城市化地区最低。",
+      "issues": [
+        {
+          "code": "alignment",
+          "severity": "advisory",
+          "detail": "median, fig, greatest, like"
+        }
+      ],
+      "earlierRowIssueCodes": [],
+      "outcome": "unnecessary",
+      "note": "图号、树冠中位数、两座城市和最高最低方向都正确。模型把同义或格式差异当作丢失。"
+    },
+    {
+      "id": "D055",
+      "source": "The impact mechanisms of dense granular flows and dilute granular flows against flexible barriers are investigated using flume tests and the discrete element method.",
+      "actual": "使用流量测试和离散元件方法研究密集颗粒流和稀释颗粒流对柔性屏障的影响机制。",
+      "issues": [
+        {
+          "code": "alignment",
+          "severity": "advisory",
+          "detail": "impact, dense, granular, dilute"
+        }
+      ],
+      "earlierRowIssueCodes": [
+        "quantity",
+        "referent"
+      ],
+      "outcome": "useful",
+      "note": "第二句把水槽试验译成流量测试，改变实验方法。该选段第一句此前已有另一类警示。"
+    },
+    {
+      "id": "D100",
+      "source": "Understanding the combined effects of potential drivers on arthropod predation is urgently needed with regard to anthropogenic climate and land-use change.",
+      "actual": "迫切需要了解潜在驱动因素对节肢动物捕食的综合影响，以改变人为气候和土地利用。",
+      "issues": [
+        {
+          "code": "alignment",
+          "severity": "advisory",
+          "detail": "effects, urgently, needed, regard"
+        }
+      ],
+      "earlierRowIssueCodes": [],
+      "outcome": "useful",
+      "note": "将人为气候和土地利用变化这一研究背景译成研究要改变它们，改变论证关系。"
+    },
+    {
+      "id": "D124",
+      "source": "The aminopropyl group is derived from decarboxylated S-adenosylmethionine (dcSAM), and its addition onto putrescine or spermidine is mediated by spermidine and spermine synthases (SRM and SMS, respectively).",
+      "actual": "氨基丙基来自脱羧S-adenosylmethionine(dcSAM),其添加到puthrescine或精子中由精子合成酶(SRM和SMS)介导。",
+      "issues": [
+        {
+          "code": "alignment",
+          "severity": "advisory",
+          "detail": "group, decarboxylated, addition, onto"
+        }
+      ],
+      "earlierRowIssueCodes": [],
+      "outcome": "useful",
+      "note": "第二句将亚精胺或精胺误作精子，并混淆底物和两种合酶。该警示未覆盖第一句的另一处实质错误。"
+    }
+  ]
+}

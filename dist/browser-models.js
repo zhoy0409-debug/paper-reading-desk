@@ -22,7 +22,7 @@
 
   function contract() {
     if (!contractRequest) {
-      contractRequest = fetch('./reading-models.json?rev=0415d', {credentials:'omit', redirect:'error'})
+      contractRequest = fetch('./reading-models.json?rev=quality1', {credentials:'omit', redirect:'error'})
         .then(response => {
           if (!response.ok) throw Error();
           return response.json();
@@ -59,7 +59,7 @@
       });
       if (!response.ok) {
         const errors = {401:'服务密钥未通过验证',402:'模型账户余额不足',403:'当前凭据无权使用此模型',429:'服务繁忙或额度已用完'};
-        throw Error(errors[response.status] || '模型服务返回错误');
+        throw Object.assign(Error(errors[response.status] || '模型服务返回错误'),{status:response.status});
       }
       const data = await response.json();
       const choice = data?.choices?.[0];
@@ -112,5 +112,9 @@
   }
 
   window.addEventListener('pagehide', () => keys.clear());
-  window.ReaderBrowserModels = {options, setKey, answer, outline};
+  async function translate({provider,consent,message},signal){
+    if(consent!==true||!names.includes(provider))throw Error('请确认服务和选段');
+    return complete(provider,'translation',message,signal);
+  }
+  window.ReaderBrowserModels = {options, setKey, answer, outline,translate};
 })();

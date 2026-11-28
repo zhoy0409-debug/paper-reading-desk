@@ -1,0 +1,36 @@
+{
+  "browser": "msedge",
+  "weightTransport": "verified local file",
+  "rows": [],
+  "requests": [
+    "complete",
+    "bytes=16777216-1348432159",
+    "bytes=16777216-1348432159",
+    "bytes=8388608-16777215"
+  ],
+  "externalPosts": [],
+  "profile": "persistent",
+  "browserVersion": "158.0.4370.45",
+  "storageBefore": {
+    "quota": 10789362809,
+    "usage": 51944569,
+    "usageDetails": {
+      "caches": 51939840,
+      "indexedDB": 4729
+    }
+  },
+  "interruptedRange": "bytes=16777216-1348432159",
+  "firstText": "水",
+  "coldMs": 21388,
+  "resumedRange": "bytes=16777216-1348432159",
+  "firstPaperContext": [
+    {
+      "source": "water",
+      "context": "A sample of water was kept in the shade."
+    }
+  ],
+  "reloadedText": "水",
+  "reloadMs": 16134,
+  "corruptionRepair": "bytes=8388608-16777215",
+  "unconfirmedRedownloads": 0
+}

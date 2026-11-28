@@ -8,6 +8,8 @@
 
 **Axis label recognition.** Tesseract.js, its WebAssembly core and English recognition data are credited in [dist/vendor/ocr/NOTICE.txt](dist/vendor/ocr/NOTICE.txt).
 
+**Optional local scientific translation.** After the reader confirms the download, Tencent’s Apache-2.0 Hy-MT3-1.8B Q4_K_M weights run on the device with the MIT-licensed wllama runtime. The weight manifest records the pinned publisher URLs, file size and SHA-256 checksums. [Weight manifest](dist/vendor/local-mt/hy-mt3-q4.json) · [Model publisher](https://huggingface.co/tencent/Hy-MT3-1.8B-GGUF) · [wllama](https://github.com/ngxson/wllama)
+
 **Presentation export.** PptxGenJS, JSZip and pako retain their notices and license texts in [dist/vendor/pptx](dist/vendor/pptx).
 
 **Portable Windows runtime.** The x64 ZIP includes the official CPython 3.14.10 embeddable distribution. Its license is included under runtime. [Python release and SHA-256](https://www.python.org/downloads/release/python-31410/)

@@ -1,0 +1,7 @@
+{
+  "sha256OfEachSixSelectionRecord": "bf4818e5fd82608f8fc35c76df1a5180732ef52b58f9429dc362afce66125738",
+  "uploadSelections": 6,
+  "regressionPassages": 105,
+  "regressionSentences": 145,
+  "sameTextStatusIssuesAndAttempts": true
+}

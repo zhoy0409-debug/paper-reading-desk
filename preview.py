@@ -42,7 +42,7 @@ class ReadingHandler(SimpleHTTPRequestHandler):
         return self.reply(200,reading_questions.options())
 
     def do_POST(self):
-        if self.path not in ("/api/reading-question","/api/reading-outline","/api/literature-search","/api/model-session","/api/portable-update"):
+        if self.path not in ("/api/reading-question","/api/reading-outline","/api/reading-translation","/api/literature-search","/api/model-session","/api/portable-update"):
             return self.reply(404,{"error":"Unknown route"})
         authority=f"{ADDRESS}:{self.server.server_port}"
         if self.headers.get("Host")!=authority or self.headers.get("Origin")!="http://"+authority:
@@ -77,12 +77,15 @@ class ReadingHandler(SimpleHTTPRequestHandler):
                 query=reading_questions.text(body['query'],120,True)
                 rows,status=reading_questions.public_literature.lookup(query)
                 return self.reply(200,{'literature':rows,'search':{'query':query,'status':status,'count':len(rows)}})
-            outline=self.path=="/api/reading-outline"
-            data=reading_questions.outline_payload(body) if outline else reading_questions.payload(body)
+            validator,respond={
+                "/api/reading-outline":(reading_questions.outline_payload,reading_questions.outline),
+                "/api/reading-translation":(reading_questions.translation_payload,reading_questions.translate_selection)
+            }.get(self.path,(reading_questions.payload,reading_questions.answer))
+            data=validator(body)
         except (ValueError,TypeError,KeyError):
             return self.reply(400,{"error":"请确认选区、问题和公开分享范围。 / Check the selection and question."})
         try:
-            result=reading_questions.outline(data) if outline else reading_questions.answer(data)
+            result=respond(data)
         except reading_questions.ReaderError as exc:
             return self.reply(503,{"error":str(exc)})
         except (OSError,ValueError,KeyError,TypeError):

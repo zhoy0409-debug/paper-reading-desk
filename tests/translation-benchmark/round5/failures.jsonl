@@ -1,0 +1,68 @@
+{"id": "L01", "version": "release", "key": "3c52f9889f11", "grades": "s", "visible": [true], "warnings": [false], "reason": "节律峰相被写成杂技，曲解了相位指标。"}
+{"id": "L02", "version": "release", "key": "2253d9933503", "grades": "s", "visible": [true], "warnings": [false], "reason": "超日波动写成超音速波动，分母和节律中值也失真。"}
+{"id": "L04", "version": "release", "key": "5fb5ba21b357", "grades": "m", "visible": [true], "warnings": [false], "reason": "两个数值和变化方向保留，低峰态术语未译且拼写受损。"}
+{"id": "L05", "version": "release", "key": "78ef6d6c90c6", "grades": "s", "visible": [true], "warnings": [false], "reason": "分形1/f结构拆散，分析方法与数据的关系难以恢复。"}
+{"id": "L06", "version": "release", "key": "c739b8b69f72", "grades": "mm", "visible": [true, true], "warnings": [false, false], "reason": "行为术概况未表达活动记录曲线，检验名称拼写也损坏。"}
+{"id": "L07", "version": "release", "key": "d93f1071c8b5", "grades": "m", "visible": [true], "warnings": [false], "reason": "起止数及增幅保留，但漂白报告没有清楚指向生态学的白化观测。"}
+{"id": "L08", "version": "release", "key": "3b56e23c3a0f", "grades": "m", "visible": [true], "warnings": [false], "reason": "经度维度丢失，地理网格单元错写成细胞。"}
+{"id": "L09", "version": "release", "key": "d81a92c8dcf3", "grades": "m", "visible": [true], "warnings": [false], "reason": "白化事件用语及年代段损坏，死亡和气候影响基本可辨。"}
+{"id": "L10", "version": "release", "key": "d8434e146b20", "grades": "x", "visible": [false], "warnings": [true], "reason": "未返回中文译文。"}
+{"id": "L11", "version": "release", "key": "d7f6de733fca", "grades": "m", "visible": [true], "warnings": [false], "reason": "热历史明确，但生态韧性写成珊瑚礁弹性，容易误读为物理弹性。"}
+{"id": "L12", "version": "release", "key": "8d821367fb50", "grades": "ys", "visible": [true, true], "warnings": [false, false], "reason": "首句报告地理分布准确；次句把白化网格单元面积写成漂白细胞面积。"}
+{"id": "L14", "version": "release", "key": "a5b50aa1567e", "grades": "s", "visible": [true], "warnings": [false], "reason": "把总运行时间的变量名 To 译成“为”，无法按图识别该变量。"}
+{"id": "L15", "version": "release", "key": "fed49bc52e1f", "grades": "m", "visible": [true], "warnings": [false], "reason": "变量关系写成两者的输出，含水量与传感器输出的角色不清。"}
+{"id": "L17", "version": "release", "key": "1deeed04e588", "grades": "m", "visible": [true], "warnings": [false], "reason": "两种电极和绝缘环准确，“易于访问”不适于描述探头与土壤的接触。"}
+{"id": "L18", "version": "release", "key": "04602c453b2e", "grades": "mm", "visible": [true, true], "warnings": [false, false], "reason": "首句倒置了管理作物与节约资源的目的，下一句关于能耗和尺寸的推理表述不清。"}
+{"id": "L19", "version": "release", "key": "4e977bc36bc2", "grades": "s", "visible": [true], "warnings": [false], "reason": "把朗读时的眼动模式变成口腔眼球运动，比较对象错误。"}
+{"id": "L20", "version": "release", "key": "afb5c8bbba15", "grades": "s", "visible": [true], "warnings": [false], "reason": "标点把显著性阈值拆成两个片段，无法按原值核对。"}
+{"id": "L21", "version": "release", "key": "6c5e64429a8f", "grades": "m", "visible": [true], "warnings": [false], "reason": "回归结果保留，关键眼动指标只留下英文形容词加振幅。"}
+{"id": "L22", "version": "release", "key": "7479156ab536", "grades": "ym", "visible": [true, true], "warnings": [false, false], "reason": "保留阅读技能与眼动的相对关系，末尾把符合预期写成是假设的。"}
+{"id": "L23", "version": "release", "key": "349d5bb3d003", "grades": "m", "visible": [true], "warnings": [false], "reason": "比较维度与文献标号的句法破碎，仍能辨认默读研究占主导。"}
+{"id": "L24", "version": "release", "key": "6996803ac085", "grades": "mm", "visible": [true, true], "warnings": [false, false], "reason": "注视错写成固定，扫视和词间回视的术语均有问题。"}
+{"id": "L25", "version": "release", "key": "8567722eba69", "grades": "m", "visible": [true], "warnings": [false], "reason": "漏掉了随时间跟踪细胞状态的限定。"}
+{"id": "L26", "version": "release", "key": "2e24c1dcbbc9", "grades": "s", "visible": [true], "warnings": [false], "reason": "原文说培养基未经细胞培养预处理，译成没有细胞培养条件，改变了对照样本含义。"}
+{"id": "L27", "version": "release", "key": "7d54fb2b913d", "grades": "m", "visible": [true], "warnings": [false], "reason": "时间与定量对象保留，但条件介质和制造程序不足以清楚指明培养基和厂商操作说明。"}
+{"id": "L29", "version": "release", "key": "daa7317c046d", "grades": "m", "visible": [true], "warnings": [false], "reason": "无标签容易被理解为样本标识，未准确表达无需检测标记。"}
+{"id": "L31", "version": "release", "key": "aa1f76f6c72e", "grades": "s", "visible": [true], "warnings": [false], "reason": "把成骨分化增加误作骨质疏松增加，改变生物学结果。"}
+{"id": "L34", "version": "release", "key": "7b4a7b338f35", "grades": "s", "visible": [true], "warnings": [false], "reason": "把成骨刺激写成雌激素刺激，改变实验条件。"}
+{"id": "L36", "version": "release", "key": "8f252cce09c7", "grades": "sm", "visible": [true, true], "warnings": [false, false], "reason": "首句把成骨刺激写成雌激素，次句使水凝胶浓度与相应粘弹性的关系含混。"}
+{"id": "L38", "version": "release", "key": "b9c834d487eb", "grades": "ss", "visible": [true, true], "warnings": [false, false], "reason": "静息态被泛化成其他状态，记忆条件被写成内存状态。"}
+{"id": "L40", "version": "release", "key": "57e3db116f39", "grades": "s", "visible": [true], "warnings": [false], "reason": "P值小数被句号切开，不能按原图直接核对统计阈值。"}
+{"id": "L41", "version": "release", "key": "616e7892998e", "grades": "m", "visible": [true], "warnings": [false], "reason": "在描述结果的括号中把静息状态误写成其余情况。"}
+{"id": "L42", "version": "release", "key": "4de69b35e359", "grades": "xx", "visible": [false, false], "warnings": [true, true], "reason": "未返回两个句子的中文译文。"}
+{"id": "L46", "version": "release", "key": "e3d473c8ff32", "grades": "s", "visible": [true], "warnings": [false], "reason": "把电流参考值译为当前引用，并改写误差所属对象。"}
+{"id": "L01", "version": "previous", "key": "d8d4714a19ac", "grades": "m", "visible": [true], "warnings": [false], "reason": "保留急性失眠组相位延迟，但把峰相推迟写成延长，混淆时点与持续时间。"}
+{"id": "L02", "version": "previous", "key": "ef990890a3d9", "grades": "m", "visible": [true], "warnings": [false], "reason": "保留分量次序及超日波动，mesor 却写成中波成分。"}
+{"id": "L09", "version": "previous", "key": "6417b9ba82f2", "grades": "y", "visible": [false], "warnings": [true], "reason": "20世纪80年代初以来、珊瑚死亡及生态系统能否存续均明确。"}
+{"id": "L10", "version": "previous", "key": "511c0b76515a", "grades": "s", "visible": [false], "warnings": [true], "reason": "两组白化概率界限均丢失，较低概率的比较条件也被改写。"}
+{"id": "L15", "version": "previous", "key": "344a5bbdba47", "grades": "y", "visible": [false], "warnings": [true], "reason": "标定对象、二次关系、决定系数和饱和上界齐全。"}
+{"id": "L16", "version": "previous", "key": "053636848600", "grades": "m", "visible": [false], "warnings": [true], "reason": "电容随水分浓度上升的关系清楚，但显著性程度被弱化。"}
+{"id": "L18", "version": "previous", "key": "c125254327eb", "grades": "yy", "visible": [false, true], "warnings": [true, false], "reason": "两个用途与基于电池板能耗关系判断小型化的可能性均明确。"}
+{"id": "L19", "version": "previous", "key": "a261f380aed5", "grades": "m", "visible": [true], "warnings": [false], "reason": "对默读预测的描述清楚，但第一处没有明确指出朗读相关性强于默读。"}
+{"id": "L20", "version": "previous", "key": "86541f159e01", "grades": "y", "visible": [false], "warnings": [true], "reason": "线色、显著性阈值、测验得分与眼动效率的关联准确。"}
+{"id": "L22", "version": "previous", "key": "05490f8a5e47", "grades": "sy", "visible": [true, true], "warnings": [false, false], "reason": "首个译文单元漏掉眼动这个相关变量。后一句能传达符合预设。"}
+{"id": "L27", "version": "previous", "key": "b195b774e212", "grades": "m", "visible": [true], "warnings": [false], "reason": "采样时间、细胞、培养基、定量方法正确，厂商操作说明误写成生产规程。"}
+{"id": "L30", "version": "previous", "key": "1bb5456f3f8f", "grades": "my", "visible": [true, true], "warnings": [false, false], "reason": "将细胞系统的培养“年龄”写成老化程度；第二句保留潜在用途和状态比较。"}
+{"id": "L31", "version": "previous", "key": "b241a1ce0026", "grades": "y", "visible": [false], "warnings": [true], "reason": "生长因子、成骨分化与基质矿化证据对应。"}
+{"id": "L33", "version": "previous", "key": "e1abdbd3d4db", "grades": "m", "visible": [true], "warnings": [false], "reason": "整体结果保留，但把脊椎通道写成椎间通道，改变了所指的结构。"}
+{"id": "L35", "version": "previous", "key": "e58a3ee8a78c", "grades": "s", "visible": [true], "warnings": [false], "reason": "论文将DS定义为取代度，译成脱粘现象改变了材料学指标。"}
+{"id": "L39", "version": "previous", "key": "3f2d2d21e36d", "grades": "y", "visible": [false], "warnings": [true], "reason": "总时长和一次运行内采集全部数据均准确，个别用词重复。"}
+{"id": "L42", "version": "previous", "key": "ca94317e0037", "grades": "sy", "visible": [true, false], "warnings": [false, true], "reason": "原文写的是以年龄对dFC测量作回归，译文却明确指定年龄为自变量。第二句保留16项分析及其任务条件。"}
+{"id": "L01", "version": "revised", "key": "d8d4714a19ac", "grades": "m", "visible": [false], "warnings": [true], "reason": "保留急性失眠组相位延迟，但把峰相推迟写成延长，混淆时点与持续时间。"}
+{"id": "L02", "version": "revised", "key": "ef990890a3d9", "grades": "m", "visible": [true], "warnings": [false], "reason": "保留分量次序及超日波动，mesor 却写成中波成分。"}
+{"id": "L09", "version": "revised", "key": "6417b9ba82f2", "grades": "y", "visible": [false], "warnings": [true], "reason": "20世纪80年代初以来、珊瑚死亡及生态系统能否存续均明确。"}
+{"id": "L10", "version": "revised", "key": "511c0b76515a", "grades": "s", "visible": [false], "warnings": [true], "reason": "两组白化概率界限均丢失，较低概率的比较条件也被改写。"}
+{"id": "L12", "version": "revised", "key": "3d48e81141d0", "grades": "ys", "visible": [true, true], "warnings": [false, false], "reason": "首句地点和网格报告数正确；第二句研究对象由网格单元变成细胞。"}
+{"id": "L15", "version": "revised", "key": "344a5bbdba47", "grades": "y", "visible": [false], "warnings": [true], "reason": "标定对象、二次关系、决定系数和饱和上界齐全。"}
+{"id": "L16", "version": "revised", "key": "053636848600", "grades": "m", "visible": [false], "warnings": [true], "reason": "电容随水分浓度上升的关系清楚，但显著性程度被弱化。"}
+{"id": "L18", "version": "revised", "key": "32f0e14208dc", "grades": "yy", "visible": [false, true], "warnings": [true, false], "reason": "说明数据如何服务土壤和作物管理，以及能耗与尺寸分析支持小型化的可能性。"}
+{"id": "L19", "version": "revised", "key": "a261f380aed5", "grades": "m", "visible": [true], "warnings": [false], "reason": "对默读预测的描述清楚，但第一处没有明确指出朗读相关性强于默读。"}
+{"id": "L20", "version": "revised", "key": "86541f159e01", "grades": "y", "visible": [false], "warnings": [true], "reason": "线色、显著性阈值、测验得分与眼动效率的关联准确。"}
+{"id": "L22", "version": "revised", "key": "05490f8a5e47", "grades": "sy", "visible": [true, true], "warnings": [false, false], "reason": "首个译文单元漏掉眼动这个相关变量。后一句能传达符合预设。"}
+{"id": "L27", "version": "revised", "key": "b195b774e212", "grades": "m", "visible": [true], "warnings": [false], "reason": "采样时间、细胞、培养基、定量方法正确，厂商操作说明误写成生产规程。"}
+{"id": "L30", "version": "revised", "key": "1bb5456f3f8f", "grades": "my", "visible": [true, true], "warnings": [false, false], "reason": "将细胞系统的培养“年龄”写成老化程度；第二句保留潜在用途和状态比较。"}
+{"id": "L31", "version": "revised", "key": "b241a1ce0026", "grades": "y", "visible": [false], "warnings": [true], "reason": "生长因子、成骨分化与基质矿化证据对应。"}
+{"id": "L33", "version": "revised", "key": "e1abdbd3d4db", "grades": "m", "visible": [true], "warnings": [false], "reason": "整体结果保留，但把脊椎通道写成椎间通道，改变了所指的结构。"}
+{"id": "L35", "version": "revised", "key": "e58a3ee8a78c", "grades": "s", "visible": [true], "warnings": [false], "reason": "论文将DS定义为取代度，译成脱粘现象改变了材料学指标。"}
+{"id": "L39", "version": "revised", "key": "3f2d2d21e36d", "grades": "y", "visible": [false], "warnings": [true], "reason": "总时长和一次运行内采集全部数据均准确，个别用词重复。"}
+{"id": "L42", "version": "revised", "key": "ea6c27dce348", "grades": "sy", "visible": [true, false], "warnings": [false, true], "reason": "第一处将回归变量角色倒置，次句的分析数与任务相关条件一致。"}

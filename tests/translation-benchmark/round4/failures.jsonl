@@ -1,0 +1,64 @@
+{"id": "K05", "version": "release", "key": "6d1e88fa9f56", "grades": "m", "visible": [true], "warnings": [false], "reason": "文章的体积与可重复位置的错误统计均生硬，未准确表达篇幅和定位误差统计。"}
+{"id": "K07", "version": "release", "key": "fd0b194c3c9a", "grades": "m", "visible": [true], "warnings": [false], "reason": "跑步模式被泛译成个人运行模式，使真实环境中检测的人体运动结局不明确。"}
+{"id": "K08", "version": "release", "key": "62266bd90517", "grades": "m", "visible": [true], "warnings": [false], "reason": "两法对齐的垂直顺序保留，但跑步步频被译为缺乏定量含义的节奏。"}
+{"id": "K09", "version": "release", "key": "6c0cb7c13337", "grades": "m", "visible": [true], "warnings": [false], "reason": "后两人被连成不存在的跑者，无法直接读出不存在的是差异，数字对应完整。"}
+{"id": "K13", "version": "release", "key": "95ab078df4bb", "grades": "m", "visible": [true], "warnings": [false], "reason": "初学阅读者被译成开始读者，样本人群不清楚；左右、实验序号、三年预测方向尚在。"}
+{"id": "K19", "version": "release", "key": "a0ac569b79a7", "grades": "s", "visible": [true], "warnings": [false], "reason": "把1000至1400百万立方米写成1000至1400万，数量级错误。"}
+{"id": "K21", "version": "release", "key": "600e7310d152", "grades": "x", "visible": [false], "warnings": [true], "reason": "未返回译文。"}
+{"id": "K22", "version": "release", "key": "621b67b92ff9", "grades": "s", "visible": [true], "warnings": [false], "reason": "将两个水文分区具体误写成行政州，改变上游径流输送目的地。"}
+{"id": "K23", "version": "release", "key": "3b253593b65e", "grades": "m", "visible": [true], "warnings": [false], "reason": "水文学的流量估计被称为地表水排放估计，测量指标的专业含义不清。"}
+{"id": "K24", "version": "release", "key": "13f10f04bb5f", "grades": "ys", "visible": [true, true], "warnings": [false, false], "reason": "第一项计算的时期、方法和降水量可辨；第二句把蒸散量译为蒸发且径流变量无法辨认。"}
+{"id": "K26", "version": "release", "key": "5be93f043f63", "grades": "s", "visible": [true], "warnings": [false], "reason": "在考古聚落图例中将最后的聚落译为地质沉降，使横向偏移的含义改变。"}
+{"id": "K27", "version": "release", "key": "3e3b728e301b", "grades": "s", "visible": [true], "warnings": [false], "reason": "把考古绝对定年译成约会，核心对象被替换。"}
+{"id": "K30", "version": "release", "key": "d10c6d63f388", "grades": "ym", "visible": [true, true], "warnings": [false, false], "reason": "第一句气候依赖和图号清楚；第二句将上弗兰肯地名仅写成上部，比较对象不完整。"}
+{"id": "K31", "version": "release", "key": "f8a4a750ca36", "grades": "s", "visible": [true], "warnings": [false], "reason": "结构化幻影错指实体体模，散点器也未准确表达散射体。"}
+{"id": "K32", "version": "release", "key": "b609d678e0d9", "grades": "s", "visible": [true], "warnings": [false], "reason": "自协方差被译成自动方差，实验体模误作幻影，图示量和对象都错。"}
+{"id": "K33", "version": "release", "key": "830b570b7daa", "grades": "m", "visible": [true], "warnings": [false], "reason": "连接像素卷没有清楚说明亮度最高0.05%的像素所形成的连通体。"}
+{"id": "K35", "version": "release", "key": "d6349023a4cc", "grades": "s", "visible": [true], "warnings": [false], "reason": "成像体模被误作幻影，图中实验对象改变。"}
+{"id": "K36", "version": "release", "key": "6110d872f186", "grades": "sm", "visible": [true, true], "warnings": [false, false], "reason": "将未自然纳入写成不自然地包括，偏振、相干和干涉也发生错译；第二句将全波模型笼统译成完整的波模型。"}
+{"id": "K37", "version": "release", "key": "ee5bb04315e4", "grades": "s", "visible": [true], "warnings": [false], "reason": "丢掉高于70%的阈值方向，将下界变成数值本身。"}
+{"id": "K39", "version": "release", "key": "ed09a5e62b69", "grades": "s", "visible": [true], "warnings": [false], "reason": "初始夹具间距错写成抓地力分离，机械测试参数无法对应。"}
+{"id": "K40", "version": "release", "key": "cb9e62a0171f", "grades": "m", "visible": [true], "warnings": [false], "reason": "力学指标伸长量被笼统称为延长，变化方向保留。"}
+{"id": "K42", "version": "release", "key": "a300b988ee2b", "grades": "sy", "visible": [true, true], "warnings": [false, false], "reason": "首句凭空将吸附纤维网络变为通信光纤网络；第二句饱和与平衡正确。"}
+{"id": "K43", "version": "release", "key": "517ee90aea65", "grades": "m", "visible": [true], "warnings": [false], "reason": "把振幅显著增大写成更大的MEP，定量指标未明确。"}
+{"id": "K45", "version": "release", "key": "d5d4d928ebd9", "grades": "s", "visible": [true], "warnings": [false], "reason": "把10秒译成10次，时长成为次数。"}
+{"id": "K46", "version": "release", "key": "12b9c070924b", "grades": "s", "visible": [true], "warnings": [false], "reason": "将非及物动作条件译为顽固的行动，比较组失真。"}
+{"id": "K01", "version": "previous", "key": "1909c8a32a39", "grades": "y", "visible": [false], "warnings": [true], "reason": "准确保留受试代次、型号及与前代的精度比较。"}
+{"id": "K04", "version": "previous", "key": "88e4e2e008e9", "grades": "y", "visible": [false], "warnings": [true], "reason": "首次测量的型号、两种空间维数与精度读数均对应。"}
+{"id": "K08", "version": "previous", "key": "e771dd66a98a", "grades": "y", "visible": [false], "warnings": [true], "reason": "两法的垂直次序和步频等图示变量准确。"}
+{"id": "K09", "version": "previous", "key": "468dacd4766c", "grades": "y", "visible": [false], "warnings": [true], "reason": "六名跑者逐一对应百分比，与原文对差异的分级一致。"}
+{"id": "K10", "version": "previous", "key": "bcb72de379f5", "grades": "s", "visible": [true], "warnings": [false], "reason": "将寒冷条件下跑法与低风险同时出现，强化为采用该跑法能够降低风险的因果结论。"}
+{"id": "K12", "version": "previous", "key": "de1f1fc89e4b", "grades": "yy", "visible": [false, true], "warnings": [true, false], "reason": "显著性阈值、所有跑者、二者准确率的比较均清楚。"}
+{"id": "K13", "version": "previous", "key": "bdf4212e76f6", "grades": "m", "visible": [false], "warnings": [true], "reason": "提及初学者和三个时间点要素，但“在三年后可预测”把预测时间和结局随访时间混淆。"}
+{"id": "K18", "version": "previous", "key": "f0bc0a0aaf2a", "grades": "yy", "visible": [true, false], "warnings": [false, true], "reason": "两个认知框架、对比和保护作用完整。"}
+{"id": "K19", "version": "previous", "key": "ca9a9a0b69c6", "grades": "s", "visible": [false], "warnings": [true], "reason": "数量换算正确，但水文分区被写成密苏里州，州界与流域界不同。"}
+{"id": "K21", "version": "previous", "key": "d04bb499db2c", "grades": "y", "visible": [false], "warnings": [true], "reason": "逐一删除的交叉验证、70%预测区间和三个地区各自的不确定性正确。"}
+{"id": "K22", "version": "previous", "key": "02f5aee74d3a", "grades": "y", "visible": [false], "warnings": [true], "reason": "保留主水源、流向和两个流域分区。"}
+{"id": "K23", "version": "previous", "key": "87f9ff4bcec0", "grades": "y", "visible": [false], "warnings": [true], "reason": "可辨水流线、对应地表水流量估算及所用径流方法。"}
+{"id": "K30", "version": "previous", "key": "bcb9ab45a995", "grades": "yy", "visible": [false, false], "warnings": [true, true], "reason": "气候依赖、图号、两个弗兰肯地区和南巴伐利亚各地区的比较均正确。"}
+{"id": "K31", "version": "previous", "key": "f83e44ea56d3", "grades": "s", "visible": [true], "warnings": [false], "reason": "实验的结构化体模变为成像幻像，改变模拟和实验比较所用对象。"}
+{"id": "K35", "version": "previous", "key": "f555e7ae5970", "grades": "m", "visible": [true], "warnings": [false], "reason": "把实体成像体模泛称模型，主被动也容易被理解为模型进行成像；图号和视角保留。"}
+{"id": "K36", "version": "previous", "key": "47b137a8d335", "grades": "my", "visible": [true, true], "warnings": [false, false], "reason": "首句将模型不能自然地纳入某些现象强化为无法包含；第二句全波模型目的准确。"}
+{"id": "K43", "version": "previous", "key": "648702bf190f", "grades": "y", "visible": [false], "warnings": [true], "reason": "准确保留肌肉、振幅、两种对照以及显著方向。"}
+{"id": "K45", "version": "previous", "key": "29f1d1210d38", "grades": "y", "visible": [false], "warnings": [true], "reason": "三个试验层次数量都正确。"}
+{"id": "K46", "version": "previous", "key": "3f79747d7a86", "grades": "m", "visible": [true], "warnings": [false], "reason": "有无动作对象的及物与不及物条件分别写为传递与非传递，比较方向与显著性保留。"}
+{"id": "K48", "version": "previous", "key": "47e966e6e1ff", "grades": "ss", "visible": [false, true], "warnings": [true, false], "reason": "每段视频被改为每帧视频且条件性判断变成已达到；休息既称在条件结束后又重复称在条件内，影响事件时序。"}
+{"id": "K01", "version": "revised", "key": "1909c8a32a39", "grades": "y", "visible": [false], "warnings": [true], "reason": "准确保留受试代次、型号及与前代的精度比较。"}
+{"id": "K04", "version": "revised", "key": "88e4e2e008e9", "grades": "y", "visible": [false], "warnings": [true], "reason": "首次测量的型号、两种空间维数与精度读数均对应。"}
+{"id": "K08", "version": "revised", "key": "e771dd66a98a", "grades": "y", "visible": [false], "warnings": [true], "reason": "两法的垂直次序和步频等图示变量准确。"}
+{"id": "K09", "version": "revised", "key": "468dacd4766c", "grades": "y", "visible": [false], "warnings": [true], "reason": "六名跑者逐一对应百分比，与原文对差异的分级一致。"}
+{"id": "K10", "version": "revised", "key": "bcb72de379f5", "grades": "s", "visible": [true], "warnings": [false], "reason": "将寒冷条件下跑法与低风险同时出现，强化为采用该跑法能够降低风险的因果结论。"}
+{"id": "K12", "version": "revised", "key": "de1f1fc89e4b", "grades": "yy", "visible": [false, true], "warnings": [true, false], "reason": "显著性阈值、所有跑者、二者准确率的比较均清楚。"}
+{"id": "K13", "version": "revised", "key": "bdf4212e76f6", "grades": "m", "visible": [false], "warnings": [true], "reason": "提及初学者和三个时间点要素，但“在三年后可预测”把预测时间和结局随访时间混淆。"}
+{"id": "K18", "version": "revised", "key": "f0bc0a0aaf2a", "grades": "yy", "visible": [true, false], "warnings": [false, true], "reason": "两个认知框架、对比和保护作用完整。"}
+{"id": "K19", "version": "revised", "key": "ca9a9a0b69c6", "grades": "s", "visible": [false], "warnings": [true], "reason": "数量换算正确，但水文分区被写成密苏里州，州界与流域界不同。"}
+{"id": "K21", "version": "revised", "key": "d04bb499db2c", "grades": "y", "visible": [false], "warnings": [true], "reason": "逐一删除的交叉验证、70%预测区间和三个地区各自的不确定性正确。"}
+{"id": "K22", "version": "revised", "key": "025a6e75f49f", "grades": "y", "visible": [false], "warnings": [true], "reason": "两个下游分区、上游来水和降水的主次关系均可辨，语序生硬。"}
+{"id": "K30", "version": "revised", "key": "bcb9ab45a995", "grades": "yy", "visible": [true, false], "warnings": [false, true], "reason": "气候依赖、图号、两个弗兰肯地区和南巴伐利亚各地区的比较均正确。"}
+{"id": "K31", "version": "revised", "key": "f83e44ea56d3", "grades": "s", "visible": [true], "warnings": [false], "reason": "实验的结构化体模变为成像幻像，改变模拟和实验比较所用对象。"}
+{"id": "K35", "version": "revised", "key": "f555e7ae5970", "grades": "m", "visible": [true], "warnings": [false], "reason": "把实体成像体模泛称模型，主被动也容易被理解为模型进行成像；图号和视角保留。"}
+{"id": "K36", "version": "revised", "key": "47b137a8d335", "grades": "my", "visible": [true, true], "warnings": [false, false], "reason": "首句将模型不能自然地纳入某些现象强化为无法包含；第二句全波模型目的准确。"}
+{"id": "K43", "version": "revised", "key": "648702bf190f", "grades": "y", "visible": [false], "warnings": [true], "reason": "准确保留肌肉、振幅、两种对照以及显著方向。"}
+{"id": "K45", "version": "revised", "key": "29f1d1210d38", "grades": "y", "visible": [false], "warnings": [true], "reason": "三个试验层次数量都正确。"}
+{"id": "K46", "version": "revised", "key": "3f79747d7a86", "grades": "m", "visible": [false], "warnings": [true], "reason": "有无动作对象的及物与不及物条件分别写为传递与非传递，比较方向与显著性保留。"}
+{"id": "K48", "version": "revised", "key": "47e966e6e1ff", "grades": "ss", "visible": [false, true], "warnings": [true, false], "reason": "每段视频被改为每帧视频且条件性判断变成已达到；休息既称在条件结束后又重复称在条件内，影响事件时序。"}

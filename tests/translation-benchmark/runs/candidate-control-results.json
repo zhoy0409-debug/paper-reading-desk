@@ -1,0 +1,555 @@
+[
+  {
+    "type": "swap percentages",
+    "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+    "target": "A 组增加了 10%，B 组降低了 20%。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "swap percentages",
+    "source": "Group A increased by 10%, whereas Group B decreased by 20%.",
+    "target": "A 组降低了 20%，B 组增加了 10%。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "a"
+      },
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "b"
+      }
+    ]
+  },
+  {
+    "type": "label assignment",
+    "source": "The control group received 2 mg, while the treatment group received 8 mg.",
+    "target": "对照组接受 2 mg，治疗组接受 8 mg。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "label assignment",
+    "source": "The control group received 2 mg, while the treatment group received 8 mg.",
+    "target": "对照组接受 8 mg，治疗组接受 2 mg。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "control"
+      },
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "treatment"
+      }
+    ]
+  },
+  {
+    "type": "exposure time",
+    "source": "Group X was observed for 4 h; group Y was observed for 9 h.",
+    "target": "X 组观察了 4 小时，Y 组观察了 9 小时。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "exposure time",
+    "source": "Group X was observed for 4 h; group Y was observed for 9 h.",
+    "target": "X 组观察了 9 小时，Y 组观察了 4 小时。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "x"
+      },
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "y"
+      }
+    ]
+  },
+  {
+    "type": "negation",
+    "source": "The intervention did not reduce the temperature.",
+    "target": "该干预未降低温度。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "negation",
+    "source": "The intervention did not reduce the temperature.",
+    "target": "该干预降低了温度。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "negation",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "significance",
+    "source": "The difference was not statistically significant.",
+    "target": "差异无统计学意义。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "significance",
+    "source": "The difference was not statistically significant.",
+    "target": "差异有统计学意义。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "negation",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "association",
+    "source": "Exposure was associated with fatigue.",
+    "target": "暴露与疲劳相关。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "association",
+    "source": "Exposure was associated with fatigue.",
+    "target": "暴露导致了疲劳。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "causality",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "direction",
+    "source": "The signal intensity decreased after cooling.",
+    "target": "冷却后信号强度降低。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "direction",
+    "source": "The signal intensity decreased after cooling.",
+    "target": "冷却后信号强度增加。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "direction",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "threshold",
+    "source": "The threshold was P < 0.05.",
+    "target": "阈值为 P < 0.05。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "threshold",
+    "source": "The threshold was P < 0.05.",
+    "target": "阈值为 P > 0.05。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      },
+      {
+        "code": "statistic",
+        "severity": "severe",
+        "detail": "P"
+      }
+    ]
+  },
+  {
+    "type": "concentration",
+    "source": "The sample contained 0.5 mg/mL.",
+    "target": "样品含有 0.5 mg/mL。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "concentration",
+    "source": "The sample contained 0.5 mg/mL.",
+    "target": "样品含有 0.5 µg/mL。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "unit",
+    "source": "The surface was held at 22 °C for 3 h.",
+    "target": "表面在 22 摄氏度下保持了 3 小时。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "unit",
+    "source": "The surface was held at 22 °C for 3 h.",
+    "target": "表面在 22 摄氏度下保持了 3 分钟。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "reference",
+    "source": "The trend is shown in Fig. 3b.",
+    "target": "趋势见图 3b。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "reference",
+    "source": "The trend is shown in Fig. 3b.",
+    "target": "趋势见图 3c。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "figure",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "thousands",
+    "source": "The dataset comprised 1,200 spectra.",
+    "target": "数据集包括 1200 条光谱。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "thousands",
+    "source": "The dataset comprised 1,200 spectra.",
+    "target": "数据集包括 1020 条光谱。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "exponent",
+    "source": "The frequency was 2 × 10³ Hz.",
+    "target": "频率为 2,000 Hz。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "exponent",
+    "source": "The frequency was 2 × 10³ Hz.",
+    "target": "频率为 200 Hz。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "range",
+    "source": "The odds ratio was 1.6 (95% CI 1.2–2.0).",
+    "target": "比值比为 1.6（95% 置信区间为 1.2 至 2.0）。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "range",
+    "source": "The odds ratio was 1.6 (95% CI 1.2–2.0).",
+    "target": "比值比为 1.2（95% 置信区间为 1.6 至 2.0）。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "statistic",
+        "severity": "severe",
+        "detail": "OR"
+      }
+    ]
+  },
+  {
+    "type": "word number",
+    "source": "Three samples were collected from each site.",
+    "target": "每个地点采集了 3 个样品。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "word number",
+    "source": "Three samples were collected from each site.",
+    "target": "每个地点采集了 4 个样品。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "isoform",
+    "source": "The ABC1 signal was stable.",
+    "target": "ABC1 信号稳定。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "isoform",
+    "source": "The ABC1 signal was stable.",
+    "target": "ABC2 信号稳定。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "identifier",
+        "severity": "severe",
+        "detail": "ABC1"
+      }
+    ]
+  },
+  {
+    "type": "dose per group",
+    "source": "Group C received 2 mg/kg, and group D received 5 mg/kg.",
+    "target": "D 组接受 5 mg/kg，C 组接受 2 mg/kg。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "dose per group",
+    "source": "Group C received 2 mg/kg, and group D received 5 mg/kg.",
+    "target": "D 组接受 2 mg/kg，C 组接受 5 mg/kg。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "c"
+      },
+      {
+        "code": "group",
+        "severity": "severe",
+        "detail": "d"
+      }
+    ]
+  },
+  {
+    "type": "statistic",
+    "source": "The hazard ratio was 1.8.",
+    "target": "风险比为 1.8。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "statistic",
+    "source": "The hazard ratio was 1.8.",
+    "target": "比值比为 1.8。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "statistic",
+        "severity": "severe",
+        "detail": "HR"
+      }
+    ]
+  },
+  {
+    "type": "sample size",
+    "source": "The sample size was n = 24.",
+    "target": "样本量为 n = 24。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "sample size",
+    "source": "The sample size was n = 24.",
+    "target": "样本量为 n = 42。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "distinct comparator",
+    "source": "The temperature was at least 8 °C.",
+    "target": "温度至少为 8 °C。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "distinct comparator",
+    "source": "The temperature was at least 8 °C.",
+    "target": "温度低于 8 °C。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "fold",
+    "source": "The signal increased twofold.",
+    "target": "信号增加至原来的 2 倍。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "fold",
+    "source": "The signal increased twofold.",
+    "target": "信号降低至原来的 2 倍。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "direction",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "decimal notation",
+    "source": "The mean was 0.30.",
+    "target": "均值为 0.30。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "decimal notation",
+    "source": "The mean was 0.30.",
+    "target": "均值为 0.03。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "citations",
+    "source": "Two approaches were reported [2, 5].",
+    "target": "已有两种方法被报道 [2, 5]。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "citations",
+    "source": "Two approaches were reported [2, 5].",
+    "target": "已有两种方法被报道 [2, 6]。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "quantity",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  },
+  {
+    "type": "factorial labels",
+    "source": "Panel (a) shows the control; panel (b) shows the sample.",
+    "target": "分图（a）显示对照，分图（b）显示样品。",
+    "gold": true,
+    "accepted": true,
+    "issues": []
+  },
+  {
+    "type": "factorial labels",
+    "source": "Panel (a) shows the control; panel (b) shows the sample.",
+    "target": "分图（c）显示对照，分图（b）显示样品。",
+    "gold": false,
+    "accepted": false,
+    "issues": [
+      {
+        "code": "panel",
+        "severity": "severe",
+        "detail": ""
+      }
+    ]
+  }
+]

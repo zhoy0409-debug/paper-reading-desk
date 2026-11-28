@@ -1,0 +1,1253 @@
+{
+  "browser": "chrome",
+  "weightTransport": "verified local file",
+  "rows": [
+    {
+      "id": "K01",
+      "ms": 12008,
+      "units": [
+        {
+          "id": "2-0",
+          "status": "review",
+          "source": "The results indicate that two newest generations of the Galaxy series included in the research, namely S6 and S7, obtained lower accuracies than their predecessors.",
+          "text": "结果表明，研究中纳入的两款最新代次的Galaxy系列手机，即S6和S7，所获得的定位精度均低于其前代产品。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "2",
+                "targetEvidence": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "结果表明，研究中纳入的两款最新代次的Galaxy系列手机，即S6和S7，所获得的定位精度均低于其前代产品。",
+      "status": "review",
+      "paperContext": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements\nThe reference values of true smartphones coordinates were determined by means of state-of-the-art precise surveying instruments and geodetic calculations. Against the backdrop of lack of public availability of smartphones technical parameters, the conducted research results are relevant especially to smartphones positioning service users community.\nThe authors aimed to verify the hypothesis concerning satisfying the needs for better positioning accuracies by successive generations of mobile devices."
+    },
+    {
+      "id": "K02",
+      "ms": 3809,
+      "units": [
+        {
+          "id": "3-0",
+          "status": "translated",
+          "source": "Measurement platform with attached mobile phones (left) and a plastic cover mounted (right).",
+          "text": "带有附着手机的测量平台（左）以及安装好的塑料罩（右）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "带有附着手机的测量平台（左）以及安装好的塑料罩（右）。",
+      "status": "translated",
+      "paperContext": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements\nA specially designed platform with vertically placed mobile phones was mounted on the roof (Fig 2)."
+    },
+    {
+      "id": "K03",
+      "ms": 13424,
+      "units": [
+        {
+          "id": "4-0",
+          "status": "translated",
+          "source": "The second measurement campaign showed a significant increase in the value of DRMS (2D) by 142% from the value of 1.03 m to 2.49 m, which can be seen in Fig 6.",
+          "text": "第二次测量试验显示，DRMS (2D) 值较1.03 m的数值显著增加了142%，达到2.49 m，如图6所示。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "第二次测量试验显示，DRMS (2D) 值较1.03 m的数值显著增加了142%，达到2.49 m，如图6所示。",
+      "status": "translated",
+      "paperContext": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements\nIn the first measurement campaign, low values of accuracy parameters of 1.03 m (DRMS (2D)) and 2.79 m (DRMS (3D)) were obtained. It should be noted that the RMS (h) error has practically not changed (increase by 9% from a value of 2.6 m to 2.83 m).\nHowever, an increase in the RMS (φ) (by 46%) and RMS (h) errors (by 61%) in the second campaign resulted in higher values of DRMS (2D) and DRMS (3D) of 6.15 m and 11.51 m (Table 4)."
+    },
+    {
+      "id": "K04",
+      "ms": 18079,
+      "units": [
+        {
+          "id": "5-0",
+          "status": "review",
+          "source": "The next generation of the Galaxy series smartphone—S7 in the tests obtained lower values of accuracy characteristics: 4.46 m (DRMS (2D)) and 7.51 m (DRMS (3D)) in the first measurement campaign.",
+          "text": "在测试中，Galaxy系列下一代智能手机——S7获得了更低的精度参数值：首次测量活动中的精度参数为4.46米（DRMS (2D)）和7.51米（DRMS (3D)）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "4.46 m, 7.51 m, 1",
+                "targetEvidence": "4.46, 7.51"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在测试中，Galaxy系列下一代智能手机——S7获得了更低的精度参数值：首次测量活动中的精度参数为4.46米（DRMS (2D)）和7.51米（DRMS (3D)）。",
+      "status": "review",
+      "paperContext": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements\nIn the first 24-hour campaign, the Samsung Galaxy S6 obtained errors of 6.84 m (DRMS (2D)) and 13.05 m (DRMS (3D)), which is a significant deterioration of positioning accuracy compared to older models (Table 3). However, an increase in the RMS (φ) (by 46%) and RMS (h) errors (by 61%) in the second campaign resulted in higher values of DRMS (2D) and DRMS (3D) of 6.15 m and 11.51 m (Table 4).\nIn the first measurement campaign, low values of accuracy parameters of 1.03 m (DRMS (2D)) and 2.79 m (DRMS (3D)) were obtained."
+    },
+    {
+      "id": "K05",
+      "ms": 4900,
+      "units": [
+        {
+          "id": "6-0",
+          "status": "translated",
+          "source": "Due to the limited volume of the article, statistics of errors in the repeatable position were deliberately omitted.",
+          "text": "由于篇幅有限，文中有意省略了重复定位误差的统计结果。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "由于篇幅有限，文中有意省略了重复定位误差的统计结果。",
+      "status": "translated",
+      "paperContext": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements\nBy determining the coordinates of the GNSS receivers of the phones, the previously described accuracy measures of positioning could be related to actual values (predictable accuracy). The applied approach can be found in the geodesy and navigation literature.\nThe linear position determination errors are defined by the Pythagorean theorem and the calculation of the hypotenuse length."
+    },
+    {
+      "id": "K06",
+      "ms": 9391,
+      "units": [
+        {
+          "id": "7-0",
+          "status": "translated",
+          "source": "Therefore, quality tests (both in terms of firmware and hardware) confirm the repeatability of individual devices.",
+          "text": "因此，质量测试（包括固件和硬件方面）证实了各设备的重复性。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "7-1",
+          "status": "translated",
+          "source": "A more detailed analysis of GNSS antenna parameters used in smartphones was carried out in [26].",
+          "text": "在[26]中进行了对智能手机所使用的GNSS天线参数的更详细分析。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "因此，质量测试（包括固件和硬件方面）证实了各设备的重复性。 在[26]中进行了对智能手机所使用的GNSS天线参数的更详细分析。",
+      "status": "translated",
+      "paperContext": "Comparative analysis of positioning accuracy of Samsung Galaxy smartphones in stationary measurements\nGNSS = global navigation satellite systems\nThis would confirm the thesis that individual devices released on the market are identical in terms of technical parameters. In addition, it should be noted that research [27–29] that focused on the precise Real Time Kinematic measurement technology (providing centimetre accuracy) also used single copies of mobile devices.\nWhile addressing the issue of accuracy of GNSS receivers implemented in smartphones, the authors realised that these are very specific measurement devices."
+    },
+    {
+      "id": "K07",
+      "ms": 6278,
+      "units": [
+        {
+          "id": "8-0",
+          "status": "translated",
+          "source": "The results from the RF-based machine-learning algorithm demonstrates that processing gait biomechanical signals from a single wearable sensor can successfully detect changes to an individual’s running patterns based on data obtained in real-world environments.",
+          "text": "基于RF机器学习算法的结果表明，处理单个可穿戴传感器的步态生物力学信号，能够基于现实环境中的数据成功检测个体跑步模式的变化。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "基于RF机器学习算法的结果表明，处理单个可穿戴传感器的步态生物力学信号，能够基于现实环境中的数据成功检测个体跑步模式的变化。",
+      "status": "translated",
+      "paperContext": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions\nAdditionally, the ranked order of variable importance differed across the individual runners.\nThe results of the current study are largely consistent with previous RF-based gait biomechanics studies involving wearable sensors (40,41)."
+    },
+    {
+      "id": "K08",
+      "ms": 7275,
+      "units": [
+        {
+          "id": "9-0",
+          "status": "review",
+          "source": "All the variables in this stacked bar graph are shown in the same vertical order for both methods (VOP, PD, PR, braking, GCT and cadence).",
+          "text": "该堆叠柱状图中的所有变量在两种方法中均以相同的垂直顺序呈现（VOP、PD、PR、制动值、GCT和步频）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "该堆叠柱状图中的所有变量在两种方法中均以相同的垂直顺序呈现（VOP、PD、PR、制动值、GCT和步频）。",
+      "status": "review",
+      "paperContext": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions\nThere was no clear difference in braking between winter and spring because three runners (Runners 1, 3 and 4) exhibited the same values during both conditions, two runners (Runners 4 and 6) had lower braking values in winter, and one runner (Runner 2) presented a higher braking value in winter."
+    },
+    {
+      "id": "K09",
+      "ms": 13160,
+      "units": [
+        {
+          "id": "10-0",
+          "status": "review",
+          "source": "Moderate differences in classification accuracy were also observed between Methods 1 and 2 for Runner 5 (18.59%) and Runner 6 (14.37%), but the differences in classification accuracy between the methods were slight for Runner 3 (8.0%) and Runner 4 (6.14%), and non-existent for Runner 1 (2.16%), and Runner 2 (0.45%).",
+          "text": "在Runner 5（18.59%）和Runner 6（14.37%）上，Method 1与Method 2之间的分类准确率也存在中等程度的差异；但在Runner 3（8.0%）和Runner 4（6.14%）上，两种方法的分类准确率差异较小，而在Runner 1（2.16%）和Runner 2（0.45%）上，两者的分类准确率差异则不存在。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              },
+              {
+                "code": "negation",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在Runner 5（18.59%）和Runner 6（14.37%）上，Method 1与Method 2之间的分类准确率也存在中等程度的差异；但在Runner 3（8.0%）和Runner 4（6.14%）上，两种方法的分类准确率差异较小，而在Runner 1（2.16%）和Runner 2（0.45%）上，两者的分类准确率差异则不存在。",
+      "status": "review",
+      "paperContext": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions\nOverall, for all runners, Method 2 yielded a higher classification accuracy than Method 1.\nInterestingly, the slight differences in classification accuracy obtained between the two tested RF-methods suggest that the inclusion of information from multiple runs is beneficial for building a successful model."
+    },
+    {
+      "id": "K10",
+      "ms": 6958,
+      "units": [
+        {
+          "id": "11-0",
+          "status": "translated",
+          "source": "These findings support previous research indicating a more economical running technique with a lower risk of overuse injury during winter (colder) weather conditions [56–58].",
+          "text": "这些研究结果支持了先前的研究结论，即冬季（较冷）天气条件下，采用更为经济的跑步技术可降低过度使用性损伤的风险[56–58]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "这些研究结果支持了先前的研究结论，即冬季（较冷）天气条件下，采用更为经济的跑步技术可降低过度使用性损伤的风险[56–58]。",
+      "status": "translated",
+      "paperContext": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions\nMoreover, in the current study, regardless of the classification method, all runners exhibited slightly lower values for all biomechanical gait variables, except cadence, during winter as compared to spring. Reduced pelvic drop has also been considered a protective factor for patellofemoral pain [59, 60], as well as a gait retraining strategy to reduce pain associated with this common running-related injury [61].\nThese assumptions are supported by previous studies that also indicated injury rates were higher in colder weather conditions compared to warmer weather due to running on icy and slippery running paths [37–39]."
+    },
+    {
+      "id": "K11",
+      "ms": 6244,
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "The Lumo Run IMU was attached to the posterior aspect of either the runner’s waistband or running belt as per the manufacturer’s instructions [24] (Fig 1).",
+          "text": "根据制造商说明[24]，Lumo Run IMU按照要求固定在跑者的腰带或跑步腰带的后部（图1）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "根据制造商说明[24]，Lumo Run IMU按照要求固定在跑者的腰带或跑步腰带的后部（图1）。",
+      "status": "translated",
+      "paperContext": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions\nIMU = inertial measurement units\n(dimension: 4.98cm x 2.84cm x 0.99cm). This wearable sensor device measured and recorded data for six different biomechanical variables [24] and averaged these data for each ten-strides (Table 1) and a complete description of these variables can be found on the manufacturer’s website [24].\nWith Method 2 (partitioning datasets), 70% of each runner’s total strides performed in both weather condition were randomly selected for training, and the remaining 30% were used for testing purposes."
+    },
+    {
+      "id": "K12",
+      "ms": 10067,
+      "units": [
+        {
+          "id": "13-0",
+          "status": "review",
+          "source": "Significant differences (P<0.05) in the overall classification accuracies were also found between the methods.",
+          "text": "两种方法之间也发现了整体分类准确率的显著差异（P<0.05）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "13-1",
+          "status": "translated",
+          "source": "Overall, for all runners, Method 2 yielded a higher classification accuracy than Method 1.",
+          "text": "总体而言，对于所有跑者而言，方法2的分类准确率均高于方法1。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "两种方法之间也发现了整体分类准确率的显著差异（P<0.05）。 总体而言，对于所有跑者而言，方法2的分类准确率均高于方法1。",
+      "status": "partial",
+      "paperContext": "Using wearable sensors to classify subject-specific running biomechanical gait patterns based on changes in environmental weather conditions\nIn contrast, the overall mean classification accuracy obtained with Method 1 (one-against-another) was 87.18%, and all the runners yielded a classification accuracy higher than 85% except for Runner 5, who exhibited an accuracy of 70.47%. Moderate differences in classification accuracy were also observed between Methods 1 and 2 for Runner 5 (18.59%) and Runner 6 (14.37%), but the differences in classification accuracy between the methods were slight for Runner 3 (8.0%) and Runner 4 (6.14%), and non-existent for Runner 1 (2.16%), and Runner 2 (0.45%).\nTwo runners (Runners 1 and 2) had lower ground contact time values in winter, whereas two runners (Runners 3 and 4) had a higher ground contact time in winter, and the remaining two runners (Runners 5 and 6) had a similar value during both weather conditions."
+    },
+    {
+      "id": "K13",
+      "ms": 16798,
+      "units": [
+        {
+          "id": "14-0",
+          "status": "review",
+          "source": "Region-of-interest (ROI) analyses based on the left DLPFC cluster identified in Experiment-1 revealed that regional GMV within this ROI in beginning readers predicted discrepancy three years later (Experiment-2).",
+          "text": "基于实验-1中识别出的左侧DLPFC簇的感兴趣区域（ROI）分析显示，起始阶段阅读者的该ROI内的局部GMV，在三年后可预测差异（实验-2）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "1, 3, 2",
+                "targetEvidence": "-1, -2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "基于实验-1中识别出的左侧DLPFC簇的感兴趣区域（ROI）分析显示，起始阶段阅读者的该ROI内的局部GMV，在三年后可预测差异（实验-2）。",
+      "status": "review",
+      "paperContext": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding\nDLPFC = dorsolateral prefrontal cortex\nGMV = gray matter volume\nIncreased gray matter volume (GMV) was associated with greater discrepancy (Experiment-1). This region was associated with the fronto-parietal network that is considered fundamental for working memory and cognitive control (Experiment-3).\nUsing the resting state fMRI data from the 1000 Functional Connectome Project [66] with the aforementioned left DLPFC identified in Experiment-1 (COG of cluster: MNI x = -40, y = 38, z = 16) as a seed voxel revealed a bilateral (left > right) fronto-parietal network including superior frontal gyri, insula, and supramarginal gyri [66] (Fig 3A)."
+    },
+    {
+      "id": "K14",
+      "ms": 4834,
+      "units": [
+        {
+          "id": "15-0",
+          "status": "translated",
+          "source": "The Reading System Framework by Perfetti is represented in blue lines.",
+          "text": "Perfetti的阅读系统框架以蓝线表示。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "Perfetti的阅读系统框架以蓝线表示。",
+      "status": "translated",
+      "paperContext": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding\nIt emphasizes the lexical component that mediates decoding, reading comprehension and the integration between language knowledge with reading processes.\nFurther, Perfetti’s reading system framework [86, 87] proposes that the lexicon mediates the relationship between decoding and reading comprehension, and that reading requires integration between language knowledge (e.g., letter knowledge, facts about the world) with reading processes (e.g., decoding, comprehension monitoring; see in Fig 4, blue)."
+    },
+    {
+      "id": "K15",
+      "ms": 4747,
+      "units": [
+        {
+          "id": "16-0",
+          "status": "translated",
+          "source": "Such conditions have been observed in about 3% of a representative sample of university students [7].",
+          "text": "此类情况已在约3%的大学学生代表性样本中观察到[7]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此类情况已在约3%的大学学生代表性样本中观察到[7]。",
+      "status": "translated",
+      "paperContext": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding\nA contrasting profile is the resilient dyslexics, who are readers with developmental dyslexia that, despite their poor decoding skills, comprehend text relatively well [7–10]. This discrepancy has been attributed to good oral language skills, in particular, strong semantic skills [8].\nThe Stanford University and University of California San Francisco Panels on Human Subjects in Medical Research approved the study and a written informed assent and consent was obtained from each child and guardian."
+    },
+    {
+      "id": "K16",
+      "ms": 6680,
+      "units": [
+        {
+          "id": "17-0",
+          "status": "translated",
+          "source": "Namely, these cognitive processes may be key constructs enabling children to be proficient in higher level reading processes (comprehension) despite their relatively poor abilities in lower level reading processes (decoding).",
+          "text": "也就是说，这些认知过程可能是关键机制，使儿童尽管在较低水平的阅读过程（解码）方面能力相对较弱，仍能熟练掌握更高级别的阅读过程（理解）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "也就是说，这些认知过程可能是关键机制，使儿童尽管在较低水平的阅读过程（解码）方面能力相对较弱，仍能熟练掌握更高级别的阅读过程（理解）。",
+      "status": "translated",
+      "paperContext": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding\nA possible functional role of this brain region was identified through Experiment-3, where fronto-parietal networks, identified using rsFC, were associated with working memory and cognitive control.\nFirst, in school-age children with a wide range of reading abilities, the left DLPFC GMV was associated with increased discrepancy between reading comprehension and decoding above and beyond contributions from decoding, reading comprehension measures, diagnosis of dyslexia and other related reading and cognitive skills (Experiment-1)."
+    },
+    {
+      "id": "K17",
+      "ms": 9356,
+      "units": [
+        {
+          "id": "18-0",
+          "status": "translated",
+          "source": "The discrepancy between COMP and DECODE was computed by the difference between the COMP and DECODE measurements, i.e., the standard scores (SS) of WRMT-PC and WRMT-WA (Discrepancy Index, DiscInd).",
+          "text": "COMP与DECODE之间的差异是通过COMP与DECODE测量值之差计算得出，即WRMT-PC和WRMT-WA的标准分（SS）（差异指数，DiscInd）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "COMP与DECODE之间的差异是通过COMP与DECODE测量值之差计算得出，即WRMT-PC和WRMT-WA的标准分（SS）（差异指数，DiscInd）。",
+      "status": "translated",
+      "paperContext": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding\nThe children’s reading comprehension abilities (COMP) were assessed by the Passage Comprehension test, a subtest of the WRMT (WRMT-PC) [45], which requires reading of a single-sentence or a short passage and filling in the missing word in empty blanks (cloze format). Our primary analysis examined discrepancy by using difference scores as the primary dependent variable of interest rather than regressing out DECODE from COMP, as has been done in other studies [46, 47].\nThe Discrepancy index (DiscInd) ranged between -32 and 23SS and was positively correlated with reading comprehension measures such as COMP (WRMT-PC) and GORT-COMP, but not with decoding as measured by DECODE (WRMT-WA) or TOWRE-PDE."
+    },
+    {
+      "id": "K18",
+      "ms": 11246,
+      "units": [
+        {
+          "id": "19-0",
+          "status": "translated",
+          "source": "Reserve has been proposed mostly in the aging literature as a cognitive and/or neural mechanism that allows some to cope better than others despite similar brain deficits [79].",
+          "text": "“储备”这一概念主要在衰老研究领域中被提出，作为一种认知和/或神经机制，它使得某些个体尽管存在相似的脑缺陷，却能够比其他人更好地应对 [79]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "19-1",
+          "status": "review",
+          "source": "Our recent proposal of cognitive resilience in dyslexia has been suggested that several cognitive processes act as protective factors that reduce the severity of dyslexia [78].",
+          "text": "我们关于阅读障碍中认知韧性的最新研究提出，多项认知过程可作为保护因素，减轻阅读障碍的严重程度 [78]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "“储备”这一概念主要在衰老研究领域中被提出，作为一种认知和/或神经机制，它使得某些个体尽管存在相似的脑缺陷，却能够比其他人更好地应对 [79]。 我们关于阅读障碍中认知韧性的最新研究提出，多项认知过程可作为保护因素，减轻阅读障碍的严重程度 [78]。",
+      "status": "partial",
+      "paperContext": "Brain basis of cognitive resilience: Prefrontal cortex predicts better reading comprehension in relation to decoding\nOur study contributes to the brain and cognitive reserve framework, as well as to our recent proposal for a framework of cognitive (and socio-emotional) resilience in dyslexia [78]. Of relevance, executive functions were found to be key protective factors [80–82].\nNamely, these cognitive processes may be key constructs enabling children to be proficient in higher level reading processes (comprehension) despite their relatively poor abilities in lower level reading processes (decoding)."
+    },
+    {
+      "id": "K19",
+      "ms": 15446,
+      "units": [
+        {
+          "id": "20-0",
+          "status": "review",
+          "source": "Tribal lands in the Great Lakes, Missouri, Arkansas-White-Red, and California regions all produced between 1,000 and 1,400 million cubic meters per year.",
+          "text": "大湖区、密苏里州、阿肯色-白红地区以及加利福尼亚 HUC2 区域的部落土地每年产生的平均径流量均在 10 亿至 14 亿立方米之间。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "1000",
+                "targetEvidence": "1000000000"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "大湖区、密苏里州、阿肯色-白红地区以及加利福尼亚 HUC2 区域的部落土地每年产生的平均径流量均在 10 亿至 14 亿立方米之间。",
+      "status": "review",
+      "paperContext": "Streamflow contributions from tribal lands to major river basins of the United States\nOn average, 5,600 million cubic meters of streamflow per year was produced on tribal lands in the Pacific Northwest region, nearly five times greater than tribal lands in any other region.\nTribal lands in the Great Lakes, Missouri, Arkansas-White-Red, and California HUC2 regions all produced mean annual streamflow between 1,000 and 1,400 million m3."
+    },
+    {
+      "id": "K20",
+      "ms": 6503,
+      "units": [
+        {
+          "id": "21-0",
+          "status": "translated",
+          "source": "Individual stream segments join at nodes, which are internal (white) or external (gray) to a tribal land.",
+          "text": "各个溪流段在节点处汇合，这些节点属于部落土地的内部（白色）或外部（灰色）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "各个溪流段在节点处汇合，这些节点属于部落土地的内部（白色）或外部（灰色）。",
+      "status": "translated",
+      "paperContext": "Streamflow contributions from tribal lands to major river basins of the United States\nFive stream segment types are defined by type of nodes that form their endpoints: inflowing segments (black solid line) flow from an external to an internal node, outflowing segments (black dashed line) flow from internal to external, interior segments (white solid line) flow from internal to internal, and exterior segments (gray dotted line) flow from external to external.\nFlowlines with unknown (“uninitialized”) flow direction did not contain these data and largely consisted of irrigation canals, isolated streams, or braided stream segments [34]."
+    },
+    {
+      "id": "K21",
+      "ms": 19151,
+      "units": [
+        {
+          "id": "22-0",
+          "status": "review",
+          "source": "The uncertainty of the annual PRISM data was estimated using single-deletion jackknife cross validation and PRISM 70% prediction interval and was on average about four percent in the Eastern U.S, five percent in the Central U.S. and about 11 percent in the West (Daly, Halbleib et al. 2008).",
+          "text": "年度PRISM数据的不确定性是通过单删除杰克刀交叉验证以及PRISM 70%预测区间进行估算的，其平均值在东部美国约为4%，在中部美国约为5%，在西部约为11%（Daly, Halbleib等，2008）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "4, 5, 11",
+                "targetEvidence": "4%, 5%, 11%"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "年度PRISM数据的不确定性是通过单删除杰克刀交叉验证以及PRISM 70%预测区间进行估算的，其平均值在东部美国约为4%，在中部美国约为5%，在西部约为11%（Daly, Halbleib等，2008）。",
+      "status": "review",
+      "paperContext": "Streamflow contributions from tribal lands to major river basins of the United States\nThe PRISM dataset was selected because it is generated for the entire conterminous United States, incorporates observed precipitation data, and incorporates weighted regressions to account for variable geography [27, 31].\nThe mean annual actual evapotranspiration (AET) data were extracted from a national dataset produced by Sanford and Selnick (2013; 32) derived from regressions based on 838 nationwide streamflow gaging stations, PRISM climate data sets, and USGS national land cover datasets for the period 1971 to 2000 [32]."
+    },
+    {
+      "id": "K22",
+      "ms": 7990,
+      "units": [
+        {
+          "id": "23-0",
+          "status": "review",
+          "source": "Precipitation is the major water input into the HUC2 regions with smaller contributions from streamflow transferred to the Lower Colorado and Lower Mississippi HUC2 regions from upstream regions.",
+          "text": "降水是进入HUC2区域的主要水源输入，来自上游区域的、输送至下科罗拉多及下密西西比HUC2区域的径流量贡献相对较小。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "降水是进入HUC2区域的主要水源输入，来自上游区域的、输送至下科罗拉多及下密西西比HUC2区域的径流量贡献相对较小。",
+      "status": "review",
+      "paperContext": "Streamflow contributions from tribal lands to major river basins of the United States\nNational datasets (1971–2000) are available for precipitation, evapotranspiration, streamflow, and water use and are discussed below. Other water inputs to HUC2 regions from groundwater and engineered transfers of water may also occur between regions but were not considered in this analysis.\nThe conterminous US is spatially divided into 18 major hydrologic regions defined by USGS hydrologic unit codes (HUC2) representing the major rivers of the US [26–28]."
+    },
+    {
+      "id": "K23",
+      "ms": 5906,
+      "units": [
+        {
+          "id": "24-0",
+          "status": "review",
+          "source": "Flowlines and corresponding surface water discharge estimates based on the enhanced runoff method (EROM) were of particular importance.",
+          "text": "基于增强径流法（EROM）的流量线及相应的地表水径流量估算尤为关键。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "基于增强径流法（EROM）的流量线及相应的地表水径流量估算尤为关键。",
+      "status": "review",
+      "paperContext": "Streamflow contributions from tribal lands to major river basins of the United States\nEROM = enhanced runoff method\nGeological Survey (USGS) and provides comprehensive information describing surface water characteristics within the US [34]. Flowlines are digital representations of flowing surface water and either have known or unknown flow direction.\nThe conterminous US had an estimated mean annual streamflow discharge across US conterminous borders of about 2.79 trillion m3 (2.26 billion AF) using NHDplusV2 surface water discharge values."
+    },
+    {
+      "id": "K24",
+      "ms": 7016,
+      "units": [
+        {
+          "id": "25-0",
+          "status": "translated",
+          "source": "Mean annual precipitation was calculated using the PRISM (Parameter elevation Regression on Independent Slopes Model) dataset for 1971–2000 [30].",
+          "text": "1971至2000年的年平均降水量是使用PRISM（基于独立斜率的参数高程回归模型）数据集计算的[30]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "25-1",
+          "status": "translated",
+          "source": "The period 1971–2000 was selected because it was the only multi-decadal time period when precipitation, evapotranspiration, and streamflow datasets were available.",
+          "text": "选取1971至2000年这一时段，是因为这是唯一存在降水、蒸散发和径流量数据集的多个十年时间跨度。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "1971至2000年的年平均降水量是使用PRISM（基于独立斜率的参数高程回归模型）数据集计算的[30]。 选取1971至2000年这一时段，是因为这是唯一存在降水、蒸散发和径流量数据集的多个十年时间跨度。",
+      "status": "translated",
+      "paperContext": "Streamflow contributions from tribal lands to major river basins of the United States\nThe PRISM dataset was selected because it is generated for the entire conterminous United States, incorporates observed precipitation data, and incorporates weighted regressions to account for variable geography [27, 31].\nThe mean annual actual evapotranspiration (AET) data were extracted from a national dataset produced by Sanford and Selnick (2013; 32) derived from regressions based on 838 nationwide streamflow gaging stations, PRISM climate data sets, and USGS national land cover datasets for the period 1971 to 2000 [32]."
+    },
+    {
+      "id": "K25",
+      "ms": 6930,
+      "units": [
+        {
+          "id": "26-0",
+          "status": "translated",
+          "source": "Thus, we conclude that even when a climate proxy such as tree rings that has excellent spatio-temporal resolution is available, it remains difficult to establish potential connections between the settlement dynamic of the LBK and climate variability.",
+          "text": "因此，我们得出结论：即便存在像树轮这样具有优异时空分辨率的气候代理指标，仍难以确立LBK时期聚落动态与气候变率之间的潜在关联。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "因此，我们得出结论：即便存在像树轮这样具有优异时空分辨率的气候代理指标，仍难以确立LBK时期聚落动态与气候变率之间的潜在关联。",
+      "status": "translated",
+      "paperContext": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany\naround 4960 B.C.E.), but should be interpreted very carefully due to asynchronous trends in settlement dynamics.\nAnalysis of tree ring proxies is an excellent method for comparing archaeological and climatological developments: advantages include the high temporal resolution as well as the exact dating, as well as the close spatial connection to the archaeological settlement regions."
+    },
+    {
+      "id": "K26",
+      "ms": 4317,
+      "units": [
+        {
+          "id": "27-0",
+          "status": "translated",
+          "source": "Narrow lines indicate moderate settlement, thick lines indicate intensive settlement and lateral off-set equals spatial discontinuity of settlement.",
+          "text": "细线代表中等程度的定居，粗线代表密集的定居，横向偏移量则代表定居的空间不连续性。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "细线代表中等程度的定居，粗线代表密集的定居，横向偏移量则代表定居的空间不连续性。",
+      "status": "translated",
+      "paperContext": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany\nIn Bavaria for instance, this cherry picking strategy lead to insular settlement concentrations especially in the basins of the Main and Danube rivers, while extended regions were completely bare of Neolithic settlement, such as the Bavarian Forest or the Alpine Foreland (Fig 1)."
+    },
+    {
+      "id": "K27",
+      "ms": 7891,
+      "units": [
+        {
+          "id": "28-0",
+          "status": "translated",
+          "source": "At the moment, it is impossible to define an exact confidence interval for the absolute dating, but the deviation is estimated not to exceed a maximum of 100 years.",
+          "text": "目前，无法为绝对定年确定精确的置信区间，但偏差估计不超过最大100年。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "目前，无法为绝对定年确定精确的置信区间，但偏差估计不超过最大100年。",
+      "status": "translated",
+      "paperContext": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany\nHence, the complete chronological system proposed here (Figs 2 and 3), including the correlation of different regional systems as well as the absolute dating of stylistic phases, is simply a model containing several compromises.\nUp to now it has been fairly impossible to create a widely accepted absolute fine-chronology and to date typological phases precisely."
+    },
+    {
+      "id": "K28",
+      "ms": 4395,
+      "units": [
+        {
+          "id": "29-0",
+          "status": "translated",
+          "source": "For instance, increased hunting or intensification of pig breeding to cope with difficult times are options that were rarely utilized [24].",
+          "text": "例如，应对艰难时期而增加的狩猎活动或强化养猪业，这些选择此前极少被采用[24]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "例如，应对艰难时期而增加的狩猎活动或强化养猪业，这些选择此前极少被采用[24]。",
+      "status": "translated",
+      "paperContext": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany\nThe conservative perpetuation of this economic system over most parts of the LBK-territory for centuries and the obvious refusal of adaptive strategies is remarkable.\nThis includes elements such as burning to keep the vegetation open as well as the increased use of hunting and gathering."
+    },
+    {
+      "id": "K29",
+      "ms": 4597,
+      "units": [
+        {
+          "id": "30-0",
+          "status": "translated",
+          "source": "It is important to mention that hydroclimate variability on a low-frequency scale cannot be deduced from the tree-ring data due to the standardization procedure.",
+          "text": "值得注意的是，由于标准化程序的原因，低频尺度的水文气候变率无法从树轮数据中推导出来。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "值得注意的是，由于标准化程序的原因，低频尺度的水文气候变率无法从树轮数据中推导出来。",
+      "status": "translated",
+      "paperContext": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany\nThe aim of this study is to assess possible links between temporal climate variability and changes of settlement during the LBK, similar to the well-attested dependence of the LBK settlement system on the spatial variability of climatic conditions."
+    },
+    {
+      "id": "K30",
+      "ms": 14830,
+      "units": [
+        {
+          "id": "31-0",
+          "status": "review",
+          "source": "Most striking is the observation that the consistency of settlement patterns over time is clearly dependent on the climatic characteristics of a region (Figs 1 and 3).",
+          "text": "最引人注目的是，定居模式的稳定性随时间推移显然取决于该地区的气候特征（图1和图3）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "figure",
+                "severity": "severe",
+                "detail": ""
+              },
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "3",
+                "targetEvidence": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "31-1",
+          "status": "review",
+          "source": "Upper and especially Lower Franconia show much stronger continuity than all regions in southern Bavaria.",
+          "text": "上弗兰肯地区尤其是下弗兰肯地区，其聚落延续性远强于南巴伐利亚的所有地区。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "最引人注目的是，定居模式的稳定性随时间推移显然取决于该地区的气候特征（图1和图3）。 上弗兰肯地区尤其是下弗兰肯地区，其聚落延续性远强于南巴伐利亚的所有地区。",
+      "status": "review",
+      "paperContext": "Tree rings as a proxy for seasonal precipitation variability and Early Neolithic settlement dynamics in Bavaria, Germany\nWhile southern Bavaria on the whole is characterised by wetter and colder climatic conditions, some of the relatively advantitious regions like the Ries and the southeast settlement areas adjacent to the Danube and the Isar still show reasonably constant occupation.\nAs kill off patterns and analyses of lipid residues in ceramic shards show, the primary focus of husbandry was meat production while milk played a comparatively minor roll [17,18]."
+    },
+    {
+      "id": "K31",
+      "ms": 6037,
+      "units": [
+        {
+          "id": "32-0",
+          "status": "translated",
+          "source": "Here we demonstrate that an optimized scatterer design can overcome this problem resulting in good agreement between simulated and experimental images for a structured phantom.",
+          "text": "我们证明，优化的散射体设计能够克服这一问题，从而在结构化成像幻像中实现模拟图像与实验图像的良好一致性。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "我们证明，优化的散射体设计能够克服这一问题，从而在结构化成像幻像中实现模拟图像与实验图像的良好一致性。",
+      "status": "translated",
+      "paperContext": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation\nThis is a significant problem since, as is well known, the microstructure of a scatterer significantly influences its scattering properties. This approach to OCT image simulation allows for image formation for biological tissues to be simulated with unprecedented realism.\nThe physical, structured, OCT imaging phantom was developed and reported previously by Curatolo et al. [22]."
+    },
+    {
+      "id": "K32",
+      "ms": 3282,
+      "units": [
+        {
+          "id": "33-0",
+          "status": "translated",
+          "source": "Plots of normalized autocovariance along the axial and transverse directions, for simulated and experimental phantoms.",
+          "text": "模拟与实验 phantom 中沿轴向和横向的归一化自协方差图。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "模拟与实验 phantom 中沿轴向和横向的归一化自协方差图。",
+      "status": "translated",
+      "paperContext": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation\nThe resulting plots of autocovariance along the axial and lateral directions are shown in Fig. 10."
+    },
+    {
+      "id": "K33",
+      "ms": 5768,
+      "units": [
+        {
+          "id": "34-0",
+          "status": "translated",
+          "source": "The MATLAB function bwlabel was then used to identify connected volumes of pixels in the upper 0.05% of pixel magnitudes.",
+          "text": "随后使用MATLAB函数bwlabel来识别像素幅度处于前0.05%区间内的连通像素体积。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "随后使用MATLAB函数bwlabel来识别像素幅度处于前0.05%区间内的连通像素体积。",
+      "status": "translated",
+      "paperContext": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation\nThis was done by first calculating a histogram of all C-scan pixel values and obtaining the upper 0.05% of pixel magnitudes. From each connected volume of pixels, the maximum was found and this maximum was assumed to be near the centre of an isolated PSF.\nThe histogram of pixel values from the experimental and simulated images provides for another way to compare the two images."
+    },
+    {
+      "id": "K34",
+      "ms": 4339,
+      "units": [
+        {
+          "id": "35-0",
+          "status": "translated",
+          "source": "The noise in the experimental image has a higher mean than in the simulated case.",
+          "text": "实验图像的噪声均值高于模拟情况。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "实验图像的噪声均值高于模拟情况。",
+      "status": "translated",
+      "paperContext": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation\nThis histogram contains two peaks corresponding to the letters and noise, respectively. The noise in this region must also be greater than the noise in the region originally used to normalize the experimental image.\nPixelation is noticeable in the lateral direction of the simulated case since the lateral pixel size was made larger than that of the experimental image in order to reduce computation time, since each simulated A-scan represents an independent simulation."
+    },
+    {
+      "id": "K35",
+      "ms": 3863,
+      "units": [
+        {
+          "id": "36-0",
+          "status": "translated",
+          "source": "The phantom is imaged from above the letters as is depicted in Fig. 2, along with a typical B-scan.",
+          "text": "如图2所示，该模型从字母上方进行成像，并附有典型的B扫描图。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "如图2所示，该模型从字母上方进行成像，并附有典型的B扫描图。",
+      "status": "translated",
+      "paperContext": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation\nThe phantom is thus useful for replicating many features of OCT image formation observed in tissue.\nA measured B-scan of the PSF phantom is shown alongside a B-scan of the OBEL phantom in Fig. 7."
+    },
+    {
+      "id": "K36",
+      "ms": 8525,
+      "units": [
+        {
+          "id": "37-0",
+          "status": "translated",
+          "source": "Monte-Carlo models are also not applicable to deterministic refractive index distributions and do not naturally include phenomena such as polarisation, coherence and interference.",
+          "text": "蒙特卡洛模型同样不适用于确定性折射率分布，且自然无法包含偏振、相干性和干涉等现象。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "37-1",
+          "status": "translated",
+          "source": "We have developed our full wave model to address questions which these existing models are unable to answer.",
+          "text": "我们已开发出全波模型，以解决现有模型无法回答的问题。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "蒙特卡洛模型同样不适用于确定性折射率分布，且自然无法包含偏振、相干性和干涉等现象。 我们已开发出全波模型，以解决现有模型无法回答的问题。",
+      "status": "translated",
+      "paperContext": "Realistic simulation and experiment reveals the importance of scatterer microstructure in optical coherence tomography image formation\nUp until now, wave optics models have not been full wave and have thus been unable to treat phenomena like multiple scattering, the change in coherence of light due to propagation in tissue and the explicit interference of sample and reference light for deterministic samples.\nFull wave modelling of image formation in optical coherence tomography (OCT) has recently become feasible due to advances in both algorithms and computer hardware."
+    },
+    {
+      "id": "K37",
+      "ms": 5894,
+      "units": [
+        {
+          "id": "38-0",
+          "status": "translated",
+          "source": "Additionally, after nine successive desorption-adsorption cycles, the removal rate is still over 70%.",
+          "text": "此外，经过九次连续的脱附-吸附循环后，去除率仍保持在70%以上。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此外，经过九次连续的脱附-吸附循环后，去除率仍保持在70%以上。",
+      "status": "translated",
+      "paperContext": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater\nThe theoretical maximum adsorption capacity is 47.4 mg·g−1. Moreover, the gelatin/β-CD composite fiber adsorbents exhibit excellent adsorption capability for basic fuchsin, gentian violet, brilliant blue R and malachite green dyes.\nIt is worth noting that after nine cycles of desorption-adsorption regeneration, the composite fiber adsorbents still maintain high adsorption efficiency."
+    },
+    {
+      "id": "K38",
+      "ms": 5103,
+      "units": [
+        {
+          "id": "39-0",
+          "status": "translated",
+          "source": "Effects of initial pH values (a,c) and temperature (b,d) on the adsorption property of MB.",
+          "text": "初始pH值(a,c)和温度(b,d)对亚甲蓝吸附性能的影响。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "初始pH值(a,c)和温度(b,d)对亚甲蓝吸附性能的影响。",
+      "status": "translated",
+      "paperContext": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater\nMB = methylene blue\nCompared to the adsorption capability of the gelatin fiber adsorbent (Figure 8c), the adsorption property of the gelatin/β-CD composite fiber adsorbent is enhanced due to the inclusion between the cavity of β-CD and MB."
+    },
+    {
+      "id": "K39",
+      "ms": 4773,
+      "units": [
+        {
+          "id": "40-0",
+          "status": "translated",
+          "source": "The initial grip separation and crosshead speed were set at 12 mm and 50 mm·min−1, respectively.",
+          "text": "初始夹持间距和横梁速度分别设定为12毫米和50毫米·分钟−1。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "初始夹持间距和横梁速度分别设定为12毫米和50毫米·分钟−1。",
+      "status": "translated",
+      "paperContext": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater\nThe analysis was performed on 10 mm × 20 mm strips. The percentage elongation (E%) and tensile strength of the adsorbents were calculated by the following equations:\nFor the Langmuir adsorption process, the isotherm shape can be classified by the separation factor (RL) shown in Equation (4)."
+    },
+    {
+      "id": "K40",
+      "ms": 6332,
+      "units": [
+        {
+          "id": "41-0",
+          "status": "translated",
+          "source": "Simultaneously, the elongation of adsorbents decreased gradually.",
+          "text": "同时，吸附剂的伸长量逐渐下降。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "同时，吸附剂的伸长量逐渐下降。",
+      "status": "translated",
+      "paperContext": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater\nAlthough the uniform dispersion and good compatibility of gelatin and β-CD can improve the tensile strength of composite fiber adsorbents, excessive β-CD will accumulate and separate from the gelatin matrix, resulting in a gradual decline in tensile strength. After researching the literature [43,44,45,46,47], we think that although the addition of cyclodextrin leads to a decrease in the elongation at break and tensile strength, the adsorbent still shows good mechanical properties.\nTo investigate the adsorption characteristics of gelatin/β-CD and gelatin fiber adsorbents for MB, adsorbent (10.0 mg) was immersed in 8.0 mL MB solution (20 mg·L−1, pH = 8.0), after which the absorbance-wavelength curve was measured at different adsorption times via a Ultraviolet-visible spectroscopy (UV-1800, SHIMADZU, Tokyo, Japan) implement."
+    },
+    {
+      "id": "K41",
+      "ms": 7419,
+      "units": [
+        {
+          "id": "42-0",
+          "status": "translated",
+          "source": "Kadam et al. used a composite polyacrylonitrile (PAN)/β-CD nanofiber membrane to capture air pollutants, including aerosols and volatile organic compounds (VOCs), which showed an excellent air filtration performance [25].",
+          "text": "卡丹等人采用聚丙烯腈/β-环糊精复合纳米纤维膜来捕获空气污染物，包括气溶胶和挥发性有机化合物（VOCs），其表现出优异的空气过滤性能[25]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "卡丹等人采用聚丙烯腈/β-环糊精复合纳米纤维膜来捕获空气污染物，包括气溶胶和挥发性有机化合物（VOCs），其表现出优异的空气过滤性能[25]。",
+      "status": "translated",
+      "paperContext": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater\nVOCs = volatile organic compounds\nIn recent years, researchers have conducted many studies on β-CD-functionalized dye adsorbent materials. Schafer et al.\nTherefore, it has become a hot spot in the research of adsorbing materials for organic pollutants."
+    },
+    {
+      "id": "K42",
+      "ms": 12240,
+      "units": [
+        {
+          "id": "43-0",
+          "status": "translated",
+          "source": "With the extension of adsorption time, the adsorption sites decreased and MB molecules had to pass through the surface of the fibers into the fiber network, which resulted in a slower adsorption rate.",
+          "text": "随着吸附时间的延长，吸附位点减少，亚甲蓝分子不得不穿过纤维表面进入纤维网络，从而导致吸附速率变慢。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "43-1",
+          "status": "translated",
+          "source": "The adsorption capacity became gradually saturated and reached the adsorption equilibrium [48].",
+          "text": "吸附容量逐渐达到饱和，并达到了吸附平衡[48]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "随着吸附时间的延长，吸附位点减少，亚甲蓝分子不得不穿过纤维表面进入纤维网络，从而导致吸附速率变慢。 吸附容量逐渐达到饱和，并达到了吸附平衡[48]。",
+      "status": "translated",
+      "paperContext": "Environmentally Friendly Gelatin/β-Cyclodextrin Composite Fiber Adsorbents for the Efficient Removal of Dyes from Wastewater\nMB = methylene blue\nAttributed to many available adsorption sites, there was a rapid adsorption process in the first 40 min. In addition, as shown in Figure 4, since β-CD can form host-guest complexes with MB molecules, the adsorption property of gelatin/β-CD composite fiber adsorbents improved compared to the pure gelatin fiber adsorbent (S0).\nWith the increase of pH, positively charged MB molecules gradually change into a neutral state, and the carbonyl groups and hydroxyl groups with lone pairs on the gelatin/β-CD composite fiber adsorbents surface can interact with MB molecules through electrostatic force, hydrogen bonds and van der Waals force."
+    },
+    {
+      "id": "K43",
+      "ms": 5923,
+      "units": [
+        {
+          "id": "44-0",
+          "status": "review",
+          "source": "The ball-focused condition produced MEPs of significantly larger amplitude in the FDI muscle, compared to the free observation or static hand conditions.",
+          "text": "在球聚焦条件下，FDI肌的MEP振幅显著高于自由观察或静态手条件下的振幅。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在球聚焦条件下，FDI肌的MEP振幅显著高于自由观察或静态手条件下的振幅。",
+      "status": "review",
+      "paperContext": "Directing visual attention during action observation modulates corticospinal excitability\nMEPs = motor evoked potentials\nFDI = first dorsal interosseous\nEye movements were recorded simultaneously throughout each condition. Furthermore, regression analysis indicated that the number of fixations on the ball was a significant predictor of MEP amplitude in the ball-focused condition.\nPairwise comparisons with the Bonferroni adjustment indicated that in the FDI muscle, MEP amplitudes were significantly larger in the finger-focused (p = .04) and ball-focused (p = .01) conditions, compared to the static hand condition."
+    },
+    {
+      "id": "K44",
+      "ms": 4322,
+      "units": [
+        {
+          "id": "45-0",
+          "status": "translated",
+          "source": "A fourth area of interested, termed ‘other’ comprised any part of the visual display outside of the hand, index finger and ball AOIs.",
+          "text": "第四个感兴趣区域，称为“其他”，包括视觉显示中除手、食指和球感兴趣区域之外的任何部分。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "第四个感兴趣区域，称为“其他”，包括视觉显示中除手、食指和球感兴趣区域之外的任何部分。",
+      "status": "translated",
+      "paperContext": "Directing visual attention during action observation modulates corticospinal excitability\nAOIs = areas of interest\nA fourth AOI termed ‘other’ comprised any part of the visual display outside of the hand, index finger and ball AOIs."
+    },
+    {
+      "id": "K45",
+      "ms": 5858,
+      "units": [
+        {
+          "id": "46-0",
+          "status": "review",
+          "source": "There were 25 trials of 10 s duration for each condition and one stimulation was delivered per trial.",
+          "text": "每个条件共有25次10秒的试验，每次试验进行一次刺激。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "1"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "每个条件共有25次10秒的试验，每次试验进行一次刺激。",
+      "status": "review",
+      "paperContext": "Directing visual attention during action observation modulates corticospinal excitability\nTo ensure that the directed instructions did not influence participants’ viewing behaviour in the non-directed conditions, the static hand and free observation conditions were always presented as the first two conditions in a counterbalanced manner, followed by the counterbalanced presentation of finger-focused and ball-focused conditions. All videos were presented using DMDX video presentation software.\nEach participant’s resting motor threshold (RMT) was then determined by gradually reducing or increasing the stimulation intensity until the minimum intensity capable of producing MEPs in excess of 50 μV in 5 out of 10 trials was identified [33, 34]."
+    },
+    {
+      "id": "K46",
+      "ms": 7474,
+      "units": [
+        {
+          "id": "47-0",
+          "status": "translated",
+          "source": "In addition, Enticott et al. [47] reported that the MEP response in the transitive action observation condition was significantly greater than in the intransitive action observation conditions.",
+          "text": "此外，Enticott 等人 [47] 报告称，在传递性动作观察条件下，MEP反应显著大于非传递性动作观察条件下的反应。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此外，Enticott 等人 [47] 报告称，在传递性动作观察条件下，MEP反应显著大于非传递性动作观察条件下的反应。",
+      "status": "translated",
+      "paperContext": "Directing visual attention during action observation modulates corticospinal excitability\nMEP = motor evoked potentials\n[47] reported that observation of a transitive grasping action, in which a hand interacted with an object, facilitated corticospinal excitability but no such effect was found for observation of a mimed intransitive grasping action that did not involve interaction with an object. In a related experiment, Donne et al.\nD’Innocenzo et al. [18] reported that for the observation of an intransitive thumb abduction-adduction movement, directing visual attention to a fixed point that maximised perception of biological motion across the fovea facilitated corticospinal excitability, compared to free observation."
+    },
+    {
+      "id": "K47",
+      "ms": 6589,
+      "units": [
+        {
+          "id": "48-0",
+          "status": "translated",
+          "source": "Raw MEP amplitude values obtained from the FDI and ADM muscles for each of the four experimental conditions can be found in Table 1.",
+          "text": "表1中列出了四个实验条件下，FDI和ADM肌肉的原始MEP振幅值。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "表1中列出了四个实验条件下，FDI和ADM肌肉的原始MEP振幅值。",
+      "status": "translated",
+      "paperContext": "Directing visual attention during action observation modulates corticospinal excitability\nMEP = motor evoked potentials\nFDI = first dorsal interosseous\nADM = abductor digiti minimi\nThe repeated measures ANOVA conducted on the z-score MEP amplitude data showed a significant muscle x condition interaction effect, F(3,54) = 3.17, p = .03, η2ρ = .15 (see Fig 3).\nTo ensure that the directed instructions did not influence participants’ viewing behaviour in the non-directed conditions, the static hand and free observation conditions were always presented as the first two conditions in a counterbalanced manner, followed by the counterbalanced presentation of finger-focused and ball-focused conditions."
+    },
+    {
+      "id": "K48",
+      "ms": 11521,
+      "units": [
+        {
+          "id": "49-0",
+          "status": "review",
+          "source": "This time point corresponded to the point at which the FDI muscle of the model performing the action would have been at maximum contraction in the squeeze phase of the third pinch in each video [37].",
+          "text": "该时间点对应于在每帧视频中，执行动作的模型在第三捏合动作的挤压阶段，其FDI肌肉已达到最大收缩的状态[37]。每次实验条件结束后，参与者均休息约两分钟。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2min"
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "49-1",
+          "status": "translated",
+          "source": "Following each experimental condition participants were given a rest period of approximately two minutes.",
+          "text": "在每项实验条件下，参与者均接受了约两分钟的休息期。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "该时间点对应于在每帧视频中，执行动作的模型在第三捏合动作的挤压阶段，其FDI肌肉已达到最大收缩的状态[37]。每次实验条件结束后，参与者均休息约两分钟。 在每项实验条件下，参与者均接受了约两分钟的休息期。",
+      "status": "partial",
+      "paperContext": "Directing visual attention during action observation modulates corticospinal excitability\nFDI = first dorsal interosseous\nA bespoke script, run through the Spike 2 software, was used to mark the onset of each video on the continuous EMG recording and then deliver the stimulation 6150 ms after the onset of the video.\nThe primary aim of this experiment was to establish whether directing participants’ visual attention to task-relevant features of an observed ball pinch action would facilitate corticospinal excitability to a greater extent than free observation, where no specific viewing instructions were provided."
+    }
+  ],
+  "requests": [
+    "complete"
+  ],
+  "externalPosts": [],
+  "browserVersion": "158.0.8127.88",
+  "firstText": "水",
+  "coldMs": 15264,
+  "firstPaperContext": [
+    {
+      "source": "water",
+      "context": "A sample of was kept in the shade."
+    }
+  ],
+  "reloadedText": "水",
+  "reloadMs": 10220
+}

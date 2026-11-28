@@ -1,0 +1,11 @@
+# Third scientific translation evaluation
+
+The sample was fixed before evaluating any new engine. Eight previously unused papers contribute six passages apiece. Each paper contributes an abstract sentence, a figure caption, a measurement, a comparison, other body text and a two-sentence passage. The authors, DOI, license, journal and location accompany each source. The UTF-8 SHA-256 of the 48 passages is `c6ea0fca623a92d5d1d82206adff05fb2a8999e19fe2457d93c89496358aca2a`.
+
+The sampler uses the previous round’s text and length criteria with a new seed. Source alternatives were fixed ahead of translation. Two primary papers lacked an eligible sentence in at least one stratum, so the sampler used their predeclared alternates. The publisher XML identifies all eight articles as CC BY 4.0.
+
+Run the public v0.4.18 build and the previous candidate at `cefc94e` on the same inputs. Keep the results out of development. For the new candidate freeze the translation code, weight revisions, decoding, selection policy and checks before reviewing its outputs on these papers. Compare what a reader sees by default. A raw model benchmark is reported separately. Source-only fallbacks, hidden translations and sentences that omit a principal finding earn no useful coverage. Preserve all failures, including when every engine returns text.
+
+To evaluate scientific meaning, shuffle distinct source–target pairs, remove engine identity, warning and display state, then judge each sentence. A useful translation retains the subject, endpoint, direction, measured values and main qualification. Distinguish a severe change of scientific meaning from awkward wording. Record a concrete reason for each decision. Only then join grades to display states and compute the release gate. The previous blind sample is now regression material. Any improvement developed after examining these new outputs requires a fresh independent sample.
+
+Release requires at least 98% usable sentences in the independent sample, zero severe semantic errors displayed without a warning, real reader and portable smoke tests, and a working public download path. Report cold model transfer, warm inference and time to the first usable text separately. A shared key, bibliography lookup or external transmission of the selection cannot be used to establish the quality of the default private translation.

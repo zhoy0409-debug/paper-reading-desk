@@ -37,17 +37,26 @@
         let page, passage = '';
         function index() {
           const text = fold(clean(passage));
+          function record(term, full, printed) {
+            if (!full || !termPattern.test(term)) return;
+            const list = definitions.get(term) || [];
+            if (!list.some(d => d.full === full && d.page === page)) {
+              list.push({term, full, page, text:printed});
+              definitions.set(term, list);
+            }
+          }
           for (const found of text.matchAll(/\(([A-Za-z][A-Za-z0-9-]{1,14})\)/g)) {
             const term = found[1];
             if (!termPattern.test(term)) continue;
             const before = text.slice(Math.max(0, found.index - 190), found.index);
             const full = longForm(before, term);
-            if (!full) continue;
-            const list = definitions.get(term) || [];
-            if (!list.some(d => d.full === full && d.page === page)) {
-              list.push({term, full, page, text:full + ' (' + term + ')'});
-              definitions.set(term, list);
-            }
+            record(term, full, full + ' (' + term + ')');
+          }
+          // Tables and legends often define a series as “XY, full name; ...”.
+          // Require the expansion to align from its first word to its last.
+          for (const pair of text.matchAll(/(?:^|[.;:]\s*)([A-Z][A-Za-z0-9-]{1,14})\s*[,=]\s*([A-Za-z][A-Za-z0-9 /’-]{3,90})(?=[;.]|$)/g)) {
+            const [,term,raw] = pair, full = raw.trim();
+            if (longForm(full,term) === full) record(term,full,pair[0].replace(/^[.;:]\s*/, '').trim());
           }
         }
         for (const row of section.rows || []) {

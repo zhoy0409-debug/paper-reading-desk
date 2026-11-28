@@ -1,0 +1,416 @@
+{
+  "url": "https://zhoy0409-debug.github.io/paper-reading-desk/read/",
+  "engine": "chrome",
+  "rows": [
+    {
+      "id": "K01",
+      "chars": 164,
+      "from": "en",
+      "ms": 75618,
+      "text": "结果表明，研究中包括的Galaxy系列的两代最新一代，即S6和S7,获得的准确性低于其前身。",
+      "status": "translated"
+    },
+    {
+      "id": "K02",
+      "chars": 92,
+      "from": "en",
+      "ms": 106,
+      "text": "带有附加手机(左)和安装塑料盖(右)的测量平台。",
+      "status": "translated"
+    },
+    {
+      "id": "K03",
+      "chars": 159,
+      "from": "en",
+      "ms": 187,
+      "text": "第二次测量活动显示DRMS(2D)的值从1.03米增加到2.49米，显着增加了142%,这在图6中可以看到。",
+      "status": "translated"
+    },
+    {
+      "id": "K04",
+      "chars": 195,
+      "from": "en",
+      "ms": 214,
+      "text": "下一代Galaxy系列智能手机 - S7在测试中获得较低的精度值特征:在第一次测量活动中为4.46米(DRMS(2D))和7.51米(DRMS(3D))。",
+      "status": "translated"
+    },
+    {
+      "id": "K05",
+      "chars": 116,
+      "from": "en",
+      "ms": 92,
+      "text": "由于文章的体积有限，故意省略了可重复位置的错误统计。",
+      "status": "translated"
+    },
+    {
+      "id": "K06",
+      "chars": 211,
+      "from": "en",
+      "ms": 293,
+      "text": "因此，质量测试(包括固件和硬件)证实了单个设备的可重复性。 对智能手机中使用的GNSS天线参数进行了更详细的分析[26 ]。",
+      "status": "translated"
+    },
+    {
+      "id": "K07",
+      "chars": 261,
+      "from": "en",
+      "ms": 674,
+      "text": "RF-based机器学习算法的结果表明，从单个可穿戴传感器处理步态生物力学信号可以根据在现实环境中获得的数据成功检测到个人运行模式的变化。",
+      "status": "translated"
+    },
+    {
+      "id": "K08",
+      "chars": 138,
+      "from": "en",
+      "ms": 306,
+      "text": "此堆叠条形图中的所有变量均以相同的垂直顺序显示两种方法(VOP、PD、PR、制动、GCT和节奏)。",
+      "status": "translated"
+    },
+    {
+      "id": "K09",
+      "chars": 317,
+      "from": "en",
+      "ms": 1346,
+      "text": "方法之间也观察到分类精度的适度差异 1 和 2 为 跑步 5  ( 18.59% ) 和 Runner 6  ( 14.37% ),但方法之间的分类精度差异对Runner来说很小 3  ( 8.0% ) 和 Runner 4  ( 6.14% )，和不存在的Runner 1  ( 2.16% ) 和Runner 2  ( 0.45% ).",
+      "status": "translated"
+    },
+    {
+      "id": "K10",
+      "chars": 174,
+      "from": "en",
+      "ms": 278,
+      "text": "这些发现支持了先前的研究，表明一种更经济的跑步技术，在冬季(较冷)的天气条件下过度使用伤害的风险较低。 56 – 58 ].",
+      "status": "translated"
+    },
+    {
+      "id": "K11",
+      "chars": 155,
+      "from": "en",
+      "ms": 100,
+      "text": "Lumo Run IMU根据制造商的说明[24]（图1）,连接到跑步者腰带或跑步带的后部。",
+      "status": "translated"
+    },
+    {
+      "id": "K12",
+      "chars": 201,
+      "from": "en",
+      "ms": 97,
+      "text": "方法之间也发现了总体分类准确性的显著差异(P<0.05)。 总体而言，对于所有跑步者，方法2的分类精度高于方法1。",
+      "status": "translated"
+    },
+    {
+      "id": "K13",
+      "chars": 212,
+      "from": "en",
+      "ms": 118,
+      "text": "基于实验-1中确定的左DLPFC集群的兴趣区域(ROI)分析表明，在开始读者的ROI中区域GMV预测了三年后的差异(实验-2)。",
+      "status": "translated"
+    },
+    {
+      "id": "K14",
+      "chars": 70,
+      "from": "en",
+      "ms": 38,
+      "text": "Perfetti的阅读系统框架以蓝线表示。",
+      "status": "translated"
+    },
+    {
+      "id": "K15",
+      "chars": 101,
+      "from": "en",
+      "ms": 54,
+      "text": "在大约3%的大学生代表样本中观察到这种情况[7]。",
+      "status": "translated"
+    },
+    {
+      "id": "K16",
+      "chars": 225,
+      "from": "en",
+      "ms": 104,
+      "text": "也就是说，这些认知过程可能是使儿童能够熟练掌握更高层次的阅读过程(理解)的关键结构，尽管他们在较低层次的阅读过程(解码)中的能力相对较差。",
+      "status": "translated"
+    },
+    {
+      "id": "K17",
+      "chars": 196,
+      "from": "en",
+      "ms": 129,
+      "text": "COMP和DECODE之间的差异是由COMP和DECODE测量之间的差异计算的，即WRMT-PC和WRMT-WA(差异指数，DiscInd)的标准分数(SS)。",
+      "status": "translated"
+    },
+    {
+      "id": "K18",
+      "chars": 353,
+      "from": "en",
+      "ms": 183,
+      "text": "储备主要在衰老文献中提出，作为一种认知和/或神经机制，允许一些人比其他人更好地应对，尽管大脑有类似的缺陷[79]。 我们最近提出的阅读障碍的认知弹性建议，几个认知过程充当保护因素，降低阅读障碍的严重程度[78]。",
+      "status": "translated"
+    },
+    {
+      "id": "K19",
+      "chars": 153,
+      "from": "en",
+      "ms": 82,
+      "text": "五大湖，密苏里州，阿肯色州–白红色和加利福尼亚地区的部落土地每年生产1,000至1,400万立方米。",
+      "status": "translated"
+    },
+    {
+      "id": "K20",
+      "chars": 105,
+      "from": "en",
+      "ms": 62,
+      "text": "单个流段在节点上连接，节点是部落土地的内部(白色)或外部(灰色)。",
+      "status": "translated"
+    },
+    {
+      "id": "K21",
+      "chars": 291,
+      "from": "en",
+      "ms": 730,
+      "status": "failed",
+      "error": "Translated passage did not preserve the source evidence",
+      "stage": "validation",
+      "reason": "facts"
+    },
+    {
+      "id": "K22",
+      "chars": 195,
+      "from": "en",
+      "ms": 93,
+      "text": "降水是HUC2地区的主要水输入，从上游地区转移到下科罗拉多州和密西西比州下部HUC2地区的流量贡献较小。",
+      "status": "translated"
+    },
+    {
+      "id": "K23",
+      "chars": 135,
+      "from": "en",
+      "ms": 66,
+      "text": "流线和基于增强径流法(EROM)的相应地表水排放估计尤为重要。",
+      "status": "translated"
+    },
+    {
+      "id": "K24",
+      "chars": 309,
+      "from": "en",
+      "ms": 505,
+      "text": "平均年降水计算使用 PRISM (独立斜坡模型的参数高程回归)数据集 1971 – 2000  [ 30 ]. 期间 1971 – 2000 之所以被选中，是因为这是唯一可用的降水、蒸发和流流数据集的多十年时间段。",
+      "status": "translated"
+    },
+    {
+      "id": "K25",
+      "chars": 250,
+      "from": "en",
+      "ms": 126,
+      "text": "因此，我们得出结论，即使有具有优异的时空分辨率的树木年轮等气候代理，仍然难以在LBK的定居动态和气候变异性之间建立潜在的联系。",
+      "status": "translated"
+    },
+    {
+      "id": "K26",
+      "chars": 148,
+      "from": "en",
+      "ms": 89,
+      "text": "狭窄的线条表示适度的定居，厚线表示密集的定居点，横向偏离等于沉降的空间不连续性。",
+      "status": "translated"
+    },
+    {
+      "id": "K27",
+      "chars": 164,
+      "from": "en",
+      "ms": 88,
+      "text": "目前，不可能为绝对约会定义一个确切的置信区间，但估计偏差不超过100年。",
+      "status": "translated"
+    },
+    {
+      "id": "K28",
+      "chars": 139,
+      "from": "en",
+      "ms": 89,
+      "text": "例如，增加狩猎或加剧养猪以应对困难时期是很少使用的选择[24]。",
+      "status": "translated"
+    },
+    {
+      "id": "K29",
+      "chars": 161,
+      "from": "en",
+      "ms": 93,
+      "text": "值得一提的是，由于标准化程序，不能从树环数据中推断出低频尺度的水文气候变异性。",
+      "status": "translated"
+    },
+    {
+      "id": "K30",
+      "chars": 272,
+      "from": "en",
+      "ms": 250,
+      "text": "最引人注目的是观察到，随着时间的推移，定居模式的一致性显然取决于一个地区的气候特征(图 1和3)。 上部，特别是下法兰克尼亚表现出比巴伐利亚南部所有地区更强的连续性。",
+      "status": "translated"
+    },
+    {
+      "id": "K31",
+      "chars": 176,
+      "from": "en",
+      "ms": 96,
+      "text": "在这里，我们证明优化的散点器设计可以克服这个问题，从而在结构化幻影的模拟和实验图像之间达成一致。",
+      "status": "translated"
+    },
+    {
+      "id": "K32",
+      "chars": 118,
+      "from": "en",
+      "ms": 78,
+      "text": "沿着轴向和横向方向的归态自动方差图，用于模拟和实验幻影。",
+      "status": "translated"
+    },
+    {
+      "id": "K33",
+      "chars": 121,
+      "from": "en",
+      "ms": 151,
+      "text": "然后使用MATLAB函数bwlabel来识别像素量级的上0.05%的连接像素卷。",
+      "status": "translated"
+    },
+    {
+      "id": "K34",
+      "chars": 81,
+      "from": "en",
+      "ms": 46,
+      "text": "实验图像中的噪声比模拟情况下的噪声具有更高的均值。",
+      "status": "translated"
+    },
+    {
+      "id": "K35",
+      "chars": 99,
+      "from": "en",
+      "ms": 62,
+      "text": "幻影从字母上方成像，如图2所示，以及典型的B扫描。",
+      "status": "translated"
+    },
+    {
+      "id": "K36",
+      "chars": 288,
+      "from": "en",
+      "ms": 129,
+      "text": "蒙特卡洛模型也不适用于确定性折射率分布，并且不自然地包括极化，一致性和干扰等现象。 我们开发了完整的波模型来解决这些现有模型无法回答的问题。",
+      "status": "translated"
+    },
+    {
+      "id": "K37",
+      "chars": 101,
+      "from": "en",
+      "ms": 180,
+      "text": "此外，经过连续九次解吸 吸附 周期，去除率仍在 70% .",
+      "status": "translated"
+    },
+    {
+      "id": "K38",
+      "chars": 90,
+      "from": "en",
+      "ms": 65,
+      "text": "初始pH值(a,c)和温度(b,d)对MB吸附特性的影响。",
+      "status": "translated"
+    },
+    {
+      "id": "K39",
+      "chars": 96,
+      "from": "en",
+      "ms": 203,
+      "text": "初始抓地力分离和交叉头速度被设定为 12 毫米和 50 mm·min −1 分别。",
+      "status": "translated"
+    },
+    {
+      "id": "K40",
+      "chars": 65,
+      "from": "en",
+      "ms": 38,
+      "text": "同时，吸附剂的延长逐渐减少。",
+      "status": "translated"
+    },
+    {
+      "id": "K41",
+      "chars": 221,
+      "from": "en",
+      "ms": 152,
+      "text": "Kadam等人使用复合聚丙烯腈(PAN)/β-CD纳米纤维膜来捕获空气污染物，包括气溶胶和挥发性有机化合物(VOCs),其空气质量过滤性能优异[25]。",
+      "status": "translated"
+    },
+    {
+      "id": "K42",
+      "chars": 296,
+      "from": "en",
+      "ms": 226,
+      "text": "随着吸附时间的延长，吸附位点减少，MB分子必须通过纤维表面进入光纤网络，从而降低吸附速度。 吸附容量逐渐饱和，达到吸附平衡[48 ]。",
+      "status": "translated"
+    },
+    {
+      "id": "K43",
+      "chars": 153,
+      "from": "en",
+      "ms": 81,
+      "text": "与自由观察或静态手部条件相比，以球为重点的条件产生了FDI肌肉中明显更大的MEP。",
+      "status": "translated"
+    },
+    {
+      "id": "K44",
+      "chars": 133,
+      "from": "en",
+      "ms": 87,
+      "text": "第四个感兴趣的区域，称为“其他”,包括手，食指和球AOI之外的视觉显示的任何部分。",
+      "status": "translated"
+    },
+    {
+      "id": "K45",
+      "chars": 101,
+      "from": "en",
+      "ms": 58,
+      "text": "每种情况有25次试验，持续时间为10次，每次试验一次刺激。",
+      "status": "translated"
+    },
+    {
+      "id": "K46",
+      "chars": 193,
+      "from": "en",
+      "ms": 244,
+      "text": "此外，Enticott等人。 [47 ] 报告说，在过渡行动观察条件下，MEP的反应明显大于在顽固的行动观察条件下。",
+      "status": "translated"
+    },
+    {
+      "id": "K47",
+      "chars": 132,
+      "from": "en",
+      "ms": 66,
+      "text": "表1中列出了从FDI和ADM肌肉中获得的原始MEP振幅值，用于四个实验条件。",
+      "status": "translated"
+    },
+    {
+      "id": "K48",
+      "chars": 305,
+      "from": "en",
+      "ms": 141,
+      "text": "这个时间点与执行该行动的模型的FDI肌肉在每个视频[37]的第三捏的挤压阶段处于最大收缩点相对应。 在每个实验条件后，参与者被给予大约两分钟的休息时间。",
+      "status": "translated"
+    }
+  ],
+  "probes": {},
+  "snapshots": [
+    {
+      "label": "complete",
+      "files": {
+        "lex.50.50.enzh.s2t.bin": 1,
+        "trgvocab.enzh.spm": 1,
+        "model.enzh.intgemm.alphas.bin": 1,
+        "srcvocab.enzh.spm": 1
+      },
+      "starts": 1,
+      "inferences": 93,
+      "modelReady": [
+        {
+          "start": 81101.5,
+          "end": 81296.89999999851,
+          "from": "en"
+        }
+      ],
+      "requests": [],
+      "ts": 90737.80000000447
+    }
+  ],
+  "version": "0.4.18"
+}

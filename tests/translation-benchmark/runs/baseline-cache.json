@@ -1,0 +1,25 @@
+{
+  "slow": {
+    "ok": true,
+    "ms": 14980,
+    "text": "蓝光进入玻璃。"
+  },
+  "slowRequests": [
+    "lex.50.50.enzh.s2t.bin",
+    "trgvocab.enzh.spm",
+    "model.enzh.intgemm.alphas.bin",
+    "srcvocab.enzh.spm"
+  ],
+  "warmRestartOffline": {
+    "ok": false,
+    "ms": 5,
+    "stage": "download",
+    "message": "Could not download http://127.0.0.1:8218/vendor/bergamot/models.json: Failed to fetch"
+  },
+  "recovered": {
+    "ok": true,
+    "ms": 666,
+    "text": "水逐渐冷却。"
+  },
+  "cacheStorage": []
+}

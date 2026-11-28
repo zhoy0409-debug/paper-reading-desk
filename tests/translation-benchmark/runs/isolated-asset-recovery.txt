@@ -1,0 +1,10 @@
+Recovered test stage: download A translation resource could not be downloaded. Check your connection and retry this selection.
+PASS isolated registry failure and a single successful retry of the same selection.
+Recovered test stage: model The translation model is missing or could not be loaded.
+PASS isolated manifest failure and a single successful retry of the same selection.
+Recovered test stage: worker The translation Worker or WASM runtime could not start. Retry this selection.
+PASS isolated wasm failure and a single successful retry of the same selection.
+Recovered test stage: download A translation resource could not be downloaded. Check your connection and retry this selection.
+PASS isolated file failure and a single successful retry of the same selection.
+Recovered test stage: integrity A translation file could not be verified with SHA-256. Retry this selection.
+PASS isolated digest failure and a single successful retry of the same selection.

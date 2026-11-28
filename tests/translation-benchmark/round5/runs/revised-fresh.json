@@ -1,0 +1,1235 @@
+{
+  "browser": "chrome",
+  "weightTransport": "verified local file",
+  "rows": [
+    {
+      "id": "L01",
+      "ms": 10616,
+      "units": [
+        {
+          "id": "2-0",
+          "status": "review",
+          "source": "The findings suggest a small but significant delay in circadian components in the subjects with acute insomnia, i.e. a larger acrophase, and alterations in the day-to-day variability of acrophase and amplitude.",
+          "text": "研究结果表明，急性失眠受试者的昼夜节律成分存在微小但显著的延迟，即acrophase出现延长，且acrophase与幅度的日际变异性发生改变。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "研究结果表明，急性失眠受试者的昼夜节律成分存在微小但显著的延迟，即acrophase出现延长，且acrophase与幅度的日际变异性发生改变。",
+      "status": "review",
+      "paperContext": "Multiscale adaptive analysis of circadian rhythms and intradaily variability: Application to actigraphy time series in acute insomnia subjects\nWe compared SSA with the traditional techniques of cosinor analysis and intradaily variability using 1-week continuous actigraphy data in young adults with acute insomnia and healthy age-matched controls. The power of the ultradian components follows a fractal 1/f power law for controls, whereas for those with acute insomnia this power law breaks down because of an increased variability at the 90min time scale, reminiscent of Kleitman’s basic rest-activity (BRAC) cycles.\nWhereas the majority of the circadian parameters such as mesor, period and amplitude were similar for both populations, a small but significant delay in the acrophase for subjects with acute insomnia was observed."
+    },
+    {
+      "id": "L02",
+      "ms": 18004,
+      "units": [
+        {
+          "id": "3-0",
+          "status": "translated",
+          "source": "Fractional partial variances λk/λtot ordered from the most dominant λ1/λtot corresponding to the non-oscillating trend or mesor, and (λ2 + λ3)/λtot corresponding to the periodic circadian cycle, down to higher-order λk/λtot with k ≥ 4 corresponding to ultradian fluctuations.",
+          "text": "按从最具主导性的对应非振荡趋势或中波成分的 λ1/λtot，到（λ2 + λ3）/λtot 对应周期性昼夜节律周期，再到更高阶的对应超日波动的 k ≥ 4 的 λk/λtot 的顺序排列的分数偏方差。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "按从最具主导性的对应非振荡趋势或中波成分的 λ1/λtot，到（λ2 + λ3）/λtot 对应周期性昼夜节律周期，再到更高阶的对应超日波动的 k ≥ 4 的 λk/λtot 的顺序排列的分数偏方差。",
+      "status": "translated",
+      "paperContext": "Multiscale adaptive analysis of circadian rhythms and intradaily variability: Application to actigraphy time series in acute insomnia subjects\nA scree diagram is usually represented in log-log scale, see Fig 7, and in the present case one can distinguish a dominant λ1/λtot corresponding to a non-oscillating trend or mesor component g1(n), then—one order of magnitude below—come λ2/λtot and λ3/λtot with very similar values corresponding to the periodic time-series components g2(n) and g3(n) that together constitute the circadian rhythm, and finally—again one order of magnitude below—a long tail k ≥"
+    },
+    {
+      "id": "L03",
+      "ms": 10335,
+      "units": [
+        {
+          "id": "4-0",
+          "status": "translated",
+          "source": "In Fig 6, results are shown for the nonparametric measure of intradaily variability IV(P) as a function of the sampling interval P, according to Eq (6), comparing the population of asymptomatic controls and the acute insomnia subjects.",
+          "text": "在图6中，展示了根据公式(6)，非参数日内变异性度量IV(P)随采样间隔P变化的结果，用于比较无症状对照组与急性失眠受试者。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在图6中，展示了根据公式(6)，非参数日内变异性度量IV(P)随采样间隔P变化的结果，用于比较无症状对照组与急性失眠受试者。",
+      "status": "translated",
+      "paperContext": "Multiscale adaptive analysis of circadian rhythms and intradaily variability: Application to actigraphy time series in acute insomnia subjects\nFor both populations, there is a local maximum near P = 500min; for the population with acute insomnia, there is another local maximum near P = 20min.\nIn Fig 2, the average 24h actigraphy profile is compared for the population of asymptomatic controls and the population of acute insomnia subjects."
+    },
+    {
+      "id": "L04",
+      "ms": 18631,
+      "units": [
+        {
+          "id": "5-0",
+          "status": "translated",
+          "source": "Trends tend to lower the kurtosis of time series, as can be verified easily by adding a linear trend to random gaussian noise (Kurt = 3), which reduces the kurtosis to more platykurtic values (Kurt<3), see Fig 14 in S1 File.",
+          "text": "趋势往往会降低时间序列的峰度，这一点很容易通过向随机高斯噪声中加入线性趋势来验证（峰度=3），这会使峰度降至更偏平峰度的数值（峰度<3），参见S1文件中的图14。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "趋势往往会降低时间序列的峰度，这一点很容易通过向随机高斯噪声中加入线性趋势来验证（峰度=3），这会使峰度降至更偏平峰度的数值（峰度<3），参见S1文件中的图14。",
+      "status": "translated",
+      "paperContext": "Multiscale adaptive analysis of circadian rhythms and intradaily variability: Application to actigraphy time series in acute insomnia subjects\nFig 5, which shows the acrophase as a function of time ϕ0(t), suggests that the cosinor method describes the linear trend of the day-to-day variability of the acrophase as calculated with SSA.\nThe kurtosis of the ϕ0 values over 7 successive days is Kurt≈ 3 for the controls, indicative of a gaussian distribution, whereas Kurt≈ 2 for the acute insomnia subjects, which indicates a platykurtic distribution, see Fig 9."
+    },
+    {
+      "id": "L05",
+      "ms": 14023,
+      "units": [
+        {
+          "id": "6-0",
+          "status": "translated",
+          "source": "On the other hand, fractal 1/f behaviour has been previously observed in actigraphy data using DFA in the context of ageing and dementia [34–36].",
+          "text": "另一方面，在用于衰老和痴呆症的actigraphy数据中，此前已观察到基于DFA的分形1/f行为[34–36]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "另一方面，在用于衰老和痴呆症的actigraphy数据中，此前已观察到基于DFA的分形1/f行为[34–36]。",
+      "status": "translated",
+      "paperContext": "Multiscale adaptive analysis of circadian rhythms and intradaily variability: Application to actigraphy time series in acute insomnia subjects\nThese 90min oscillations are not observed in the actigraphy data of asymptomatic subjects during their daily routine [59], but there is evidence that these rhythms become dominant in experimental conditions with sleep deprivation [60, 61], isolation [62], artificial 90min days [63] and when putting people on learning schedules of 90min [64–66]. In physiology, heart rate variability is one of the best known examples of 1/f noise, and is interpreted as the harmonious contribution of many biological processes at multiple scales [67]; whereas a deviation from the 1/f power law is interpreted as an impoverishment and a predominance of a few single contributing processes [32, 33].\nOne of the best studied examples of physiological time series is heart rate variability, where 1/f noise is interpreted as a reflection of youth and health, and a departure from this power law is often a signature of increased health risk due to ageing [32] or chronic-degenerative disease [33]. 1/f behaviour and its breakdown has been studied in actigraphy data in previous studies applied to ageing and dementia [34–36]."
+    },
+    {
+      "id": "L06",
+      "ms": 19127,
+      "units": [
+        {
+          "id": "7-0",
+          "status": "translated",
+          "source": "In Fig 2, the average 24h actigraphy profile is compared for the population of asymptomatic controls and the population of acute insomnia subjects.",
+          "text": "在图2中，比较了无症状对照组与急性失眠受试者的平均24小时活动记录曲线。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "7-1",
+          "status": "translated",
+          "source": "Here, and in what follows, statistical significance was calculated using a Kruskal-Wallis nonparametric test (IBM SPSS software version 22), with an a priori significance level of p = 0.05.",
+          "text": "在此及后续内容中，统计显著性采用Kruskal-Wallis非参数检验法进行计算（IBM SPSS软件版本22），预先显著性水平为p = 0.05。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在图2中，比较了无症状对照组与急性失眠受试者的平均24小时活动记录曲线。 在此及后续内容中，统计显著性采用Kruskal-Wallis非参数检验法进行计算（IBM SPSS软件版本22），预先显著性水平为p = 0.05。",
+      "status": "translated",
+      "paperContext": "Multiscale adaptive analysis of circadian rhythms and intradaily variability: Application to actigraphy time series in acute insomnia subjects\nA more subtle difference is that the time series of the acute insomnia subject seems to be more “spiky” or intermittent, whereas the time series of the control subject is characterized by more and longer intervals with continuous activity at a more or less constant intensity level. The average 24h profile shows significant differences between the two populations for the rest-to-wake (07:22–09:01) and wake-to-rest transitions (23:01–24:00).\nIn Fig 6, results are shown for the nonparametric measure of intradaily variability IV(P) as a function of the sampling interval P, according to Eq (6), comparing the population of asymptomatic controls and the acute insomnia subjects."
+    },
+    {
+      "id": "L07",
+      "ms": 6823,
+      "units": [
+        {
+          "id": "8-0",
+          "status": "translated",
+          "source": "This search increased the number of observed bleaching reports by 79%, from 4146 to 7429.",
+          "text": "此次检索使观测到的珊瑚白化报告数量增加了79%，从4146份增至7429份。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "此次检索使观测到的珊瑚白化报告数量增加了79%，从4146份增至7429份。",
+      "status": "translated",
+      "paperContext": "A new, high-resolution global mass coral bleaching database\nFirst, we conducted a targeted search for bleaching reports not included in ReefBase by personally contacting scientists and divers conducting monitoring in under-reported locations and by extracting data from the literature. Second, we employed spatial interpolation techniques to develop annual 0.04° × 0.04° latitude-longitude global maps of the probability that bleaching occurred for 1985 through 2010.\nThe area of observed bleaching grid cells in Australia, though only doubling the previous number, increased by over 10 000 km2."
+    },
+    {
+      "id": "L08",
+      "ms": 9653,
+      "units": [
+        {
+          "id": "9-0",
+          "status": "translated",
+          "source": "The area is computed based on 0.04° × 0.04° latitude-longitude grid cells representing original ReefBase reports (blue) and new reports (orange).",
+          "text": "该区域是基于0.04° × 0.04°纬度-经度网格单元计算的，其中代表原始的ReefBase报告（蓝色）和新报告（橙色）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "该区域是基于0.04° × 0.04°纬度-经度网格单元计算的，其中代表原始的ReefBase报告（蓝色）和新报告（橙色）。",
+      "status": "translated",
+      "paperContext": "A new, high-resolution global mass coral bleaching database\nThe area is computed from 0.04° × 0.04° latitude-longitude grid cells containing original ReefBase reports (navy blue), new records (orange), and those in both datasets (grey)."
+    },
+    {
+      "id": "L09",
+      "ms": 33982,
+      "units": [
+        {
+          "id": "10-0",
+          "status": "review",
+          "source": "Episodes of such mass coral “bleaching” around the world since the early 1980s have led to widespread coral mortality and raised questions about the viability of coral reef ecosystems during a period of rapid climate change [2] [3] [4].",
+          "text": "自20世纪80年代初以来，全球范围内此类大规模珊瑚“白化”事件已导致广泛珊瑚死亡，并引发了关于在快速气候变化时期珊瑚礁生态系统能否存续的疑问[2][3][4]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "1980s",
+                "targetEvidence": "20, 80"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "自20世纪80年代初以来，全球范围内此类大规模珊瑚“白化”事件已导致广泛珊瑚死亡，并引发了关于在快速气候变化时期珊瑚礁生态系统能否存续的疑问[2][3][4]。",
+      "status": "review",
+      "paperContext": "A new, high-resolution global mass coral bleaching database\nProlonged ocean temperatures of only 1–2°C above the range of usual coral experience can lead to the paling of reef-building animals due to a breakdown of the symbiosis with the colourful dinoflagellate Symbiodinium that reside in coral tissue [1]. Climate attribution research has found that anthropogenic forcing is likely (>90% chance) to drive recent mass bleaching episodes, including the extensive bleaching across the Eastern Caribbean in 2005 [5] and the northern Great Barrier Reef in 2016 [6].\nThe database will help the scientific community more accurately assess the change in the frequency of mass coral bleaching events, validate methods of predicting mass coral bleaching, and test whether coral reefs are adjusting to rising ocean temperatures."
+    },
+    {
+      "id": "L10",
+      "ms": 33999,
+      "units": [
+        {
+          "id": "11-0",
+          "status": "review",
+          "source": "The annual maximum DHW was significantly higher (difference of 1.47°C-weeks) for coral reef cells with a very likely (>90%) probability of bleaching than those with a more likely than not to likely (>50–66%) probability.",
+          "text": "在极有可能发生白化的珊瑚礁细胞，其年度最大DHW显著更高（差值达1.47°C-weeks），而具有“不太可能但不一定可能”至“很可能”的概率范围的珊瑚礁细胞则低于这一数值。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": ">90%, >50%, 66%",
+                "targetEvidence": ""
+              },
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在极有可能发生白化的珊瑚礁细胞，其年度最大DHW显著更高（差值达1.47°C-weeks），而具有“不太可能但不一定可能”至“很可能”的概率范围的珊瑚礁细胞则低于这一数值。",
+      "status": "review",
+      "paperContext": "A new, high-resolution global mass coral bleaching database\nThe results do show a close historical relationship between the occurrence of thermal stress and a high probability of bleaching, similar to that used by the Coral Reef Watch program in near real-time bleaching prediction. Most notable, the annual maximum DHW for coral reef cells with a likely or very likely chance of bleaching was approximately equivalent to the Bleaching Alert II threshold (8°C-weeks) used by the Coral Reef Watch program to predict severe bleaching with possible mortality.\nOver the 1985–2010 period, the reef area-weighted mean and median of the annual maximum DHW of reef cells with more likely than not, likely, or very likely probabilities of bleaching were each significantly higher (two-sided t-test, p<0.01) than the mean and median DHW of all reef cells (Table 5)."
+    },
+    {
+      "id": "L11",
+      "ms": 13567,
+      "units": [
+        {
+          "id": "12-0",
+          "status": "translated",
+          "source": "It can also be applied to examine the influence of other factors like thermal history [25] [20] and reef resilience [26].",
+          "text": "它还可用于考察热历史[25][20]和礁体韧性[26]等其他因素的影响。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "它还可用于考察热历史[25][20]和礁体韧性[26]等其他因素的影响。",
+      "status": "translated",
+      "paperContext": "A new, high-resolution global mass coral bleaching database\nThe expanded global observational bleaching database provides insight into the patterns in mass coral bleaching over time and the relationship between bleaching and thermal stress. While the ReefBase voluntary bleaching database has been a valuable service for coral reef researchers and managers for many years, the data mining effort undertaken for this study suggests that, without ongoing curation, a voluntary database can suffer from substantial data gaps.\nIn addition, this study used the newer UNEP-WCMC coral reef map that includes large areas of reef that feature few corals, like the largely sand lagoons of most Pacific atolls; this inflates the global reef area and adds locations that are unlikely to have observed bleaching records to inform the spatial modelling."
+    },
+    {
+      "id": "L12",
+      "ms": 25077,
+      "units": [
+        {
+          "id": "13-0",
+          "status": "translated",
+          "source": "Though numerous, the new 2005 reports are clustered in the eastern Caribbean with multiple reports per grid cell.",
+          "text": "尽管数量众多，但新近的2005年报告主要集中在东加勒比地区，每个网格单元均有多份报告。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "13-1",
+          "status": "translated",
+          "source": "The gridded data suggest that new reports represent a 61% increase in the reported area of cells with bleaching (over ReefBase), with 50% of that increase occurring in 2005, 14% in 2006, and 9% in 2010.",
+          "text": "网格化数据显示，新报告的数据表明出现白化的细胞面积比ReefBase数据增加了61%，其中该增幅的50%发生在2005年，14%发生在2006年，9%发生在2010年。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "尽管数量众多，但新近的2005年报告主要集中在东加勒比地区，每个网格单元均有多份报告。 网格化数据显示，新报告的数据表明出现白化的细胞面积比ReefBase数据增加了61%，其中该增幅的50%发生在2005年，14%发生在2006年，9%发生在2010年。",
+      "status": "translated",
+      "paperContext": "A new, high-resolution global mass coral bleaching database\nGridding the data onto the 0.04° × 0.04° resolution indicates that the spatial extent of bleaching observations was highest in 1998, rather than 2005 (Fig 2). Integrating over the entire time period (Fig 3), the largest relative increase in observed bleaching occurred in the Caribbean (333% increase), followed by Micronesia (205%), Western Indian Ocean (172%), Melanesia (164%), Polynesia (129%), and Southeast Asia (122%).\nClimate attribution research has found that anthropogenic forcing is likely (>90% chance) to drive recent mass bleaching episodes, including the extensive bleaching across the Eastern Caribbean in 2005 [5] and the northern Great Barrier Reef in 2016 [6]."
+    },
+    {
+      "id": "L13",
+      "ms": 9006,
+      "units": [
+        {
+          "id": "14-0",
+          "status": "translated",
+          "source": "The experimental results showed that the sensor is a promising tool for monitoring moisture in large-scale farmland using solar power and wireless communication.",
+          "text": "实验结果表明，该传感器是利用太阳能和无线通信监测大面积农田土壤湿度的有前景工具。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "实验结果表明，该传感器是利用太阳能和无线通信监测大面积农田土壤湿度的有前景工具。",
+      "status": "translated",
+      "paperContext": "A wireless soil moisture sensor powered by solar energy\nAn optimal design with time executing sequence is considered to reduce the energy consumption.\nThe main purpose of the experiment was to test the feasibility of using this “plug-and-play” soil moisture sensor with a long-term solar power supply in the farmland environment."
+    },
+    {
+      "id": "L14",
+      "ms": 14706,
+      "units": [
+        {
+          "id": "15-0",
+          "status": "translated",
+          "source": "To = overall operating time, Tw = time to measure soil water content, Td = delay time in between, Ts = time to send data, TF = time to write data into FLASH.",
+          "text": "To = 总运行时间，Tw = 测量土壤含水量的时间，Td = 间隔时间，Ts = 发送数据的时间，TF = 将数据写入FLASH的时间。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "To = 总运行时间，Tw = 测量土壤含水量的时间，Td = 间隔时间，Ts = 发送数据的时间，TF = 将数据写入FLASH的时间。",
+      "status": "translated",
+      "paperContext": "A wireless soil moisture sensor powered by solar energy\nThe sensor electrodes are embedded into the bottom of a supporting rod so that the sensor can measure soil water contents at different depths."
+    },
+    {
+      "id": "L15",
+      "ms": 12743,
+      "units": [
+        {
+          "id": "16-0",
+          "status": "review",
+          "source": "Fig 5 shows that the calibration results under the laboratory conditions fitted a quadratic equation (R2 = 0.9989) between the output of the fringe-capacitance sensor and VSWC ranging from dry to saturation (approximately 40%).",
+          "text": "图5显示，在实验室条件下进行的校准结果表明，边缘电容传感器的输出与从干燥到饱和（约40%）的VSWC值之间符合二次曲线方程（R² = 0.9989）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "图5显示，在实验室条件下进行的校准结果表明，边缘电容传感器的输出与从干燥到饱和（约40%）的VSWC值之间符合二次曲线方程（R² = 0.9989）。",
+      "status": "review",
+      "paperContext": "A wireless soil moisture sensor powered by solar energy\nThis calibration outcome is closely agreed to that of the dielectric sensor that was integrated into a penetration rod[32].\nSoil samples from the field were used for a site-specific calibration under laboratory conditions, prior to the field experiment, to ensure accurate measurements."
+    },
+    {
+      "id": "L16",
+      "ms": 13361,
+      "units": [
+        {
+          "id": "17-0",
+          "status": "review",
+          "source": "Thus the presence of water in the soil between the probe plates produces a highly significant change in its capacitance, the higher the water concentration, the higher the capacitance.",
+          "text": "因此，探针板之间土壤中的水分会产生对其电容的显著变化，水分浓度越高，电容值就越高。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "因此，探针板之间土壤中的水分会产生对其电容的显著变化，水分浓度越高，电容值就越高。",
+      "status": "review",
+      "paperContext": "A wireless soil moisture sensor powered by solar energy\nThe principle of operation of the Frequency Domain capacitance probe relies on the fact that the dielectric constant between water and air differs by a factor of 80. Therefore the capacitance or dielectric constant of soil could be measured, and converted into VSWC via a specific calibration.\nSoil water content plays an important role in governing crop growth and yield."
+    },
+    {
+      "id": "L17",
+      "ms": 17927,
+      "units": [
+        {
+          "id": "18-0",
+          "status": "translated",
+          "source": "To make the sensor easily accessible in the soil, one of the electrodes has a conical shape, and the other electrode is annular, with a PVC insulation isolation ring between the two electrodes.",
+          "text": "为了使传感器在土壤中易于接触，其中一个电极呈锥形，另一个电极为环形，两个电极之间设有PVC绝缘隔离环。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "为了使传感器在土壤中易于接触，其中一个电极呈锥形，另一个电极为环形，两个电极之间设有PVC绝缘隔离环。",
+      "status": "translated",
+      "paperContext": "A wireless soil moisture sensor powered by solar energy\nThe two electrodes of the sensor were embedded in the end of the supporting rod to measure the soil moisture. The supporting rod is a hollow structure and contains a coaxial cable connecting the two electrodes.\nThe soil particles surrounding the electrodes created a dielectric material of the fringe-capacitance sensor."
+    },
+    {
+      "id": "L18",
+      "ms": 19145,
+      "units": [
+        {
+          "id": "19-0",
+          "status": "review",
+          "source": "By interpreting the acquired data it is beneficial to better understand soil physical properties in the field and to manage the crop’s growing process for resource conservation.",
+          "text": "通过解读采集到的数据，有助于更好地理解田间土壤物理性质，并管理作物的生长过程以实现资源节约。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        },
+        {
+          "id": "19-1",
+          "status": "translated",
+          "source": "On the other hand, from the experiment overcomes related the solar panel size to the energy consumption, it is possible for the sensor to be miniaturized in physical dimension.",
+          "text": "另一方面，从实验中得出的关于太阳能板尺寸与能耗的相关结论来看，该传感器在物理尺寸上实现小型化是可行的。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "通过解读采集到的数据，有助于更好地理解田间土壤物理性质，并管理作物的生长过程以实现资源节约。 另一方面，从实验中得出的关于太阳能板尺寸与能耗的相关结论来看，该传感器在物理尺寸上实现小型化是可行的。",
+      "status": "partial",
+      "paperContext": "A wireless soil moisture sensor powered by solar energy\nThe main purpose of the experiment was to test the feasibility of using this “plug-and-play” soil moisture sensor with a long-term solar power supply in the farmland environment. The experiment results indicate that when sunlight is sufficient in Henan Province, the battery requires two days to fully charge in summer and 3 to 4 days to fully charge in winter.\nFig 1 schematically shows the designed system, which including a solar panel (multi-crystalline silicon, diameter 170mm), a supporting rod (stainless steel, diameter 10mm, length 600mm), a soil water content sensor and a wireless communication module (nRF905, Nordic, Norway)."
+    },
+    {
+      "id": "L19",
+      "ms": 13852,
+      "units": [
+        {
+          "id": "20-0",
+          "status": "translated",
+          "source": "Preschool cognitive abilities were more closely related to eye movement patterns of oral than silent reading, while reading skills predicted eye movement patterns during silent reading, but less so during oral reading.",
+          "text": "学龄前认知能力与口语阅读时的眼动模式更为密切相关，而阅读技能可预测默读期间的眼动模式，但在口语阅读中这一相关性较弱。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "学龄前认知能力与口语阅读时的眼动模式更为密切相关，而阅读技能可预测默读期间的眼动模式，但在口语阅读中这一相关性较弱。",
+      "status": "translated",
+      "paperContext": "Eye Movements during Silent and Oral Reading in a Regular Orthography: Basic Characteristics and Correlations with Childhood Cognitive Abilities and Adolescent Reading Skills\nOverall, the findings suggest that eye movement patterns depend on the reading mode.\nWhen reading orally, reading skills were predictive of saccadic amplitudes, but not of the other parameters assessed (see section 4.1. on limitations of the study); (iv) for a restricted set of parameters, differences between silent and oral reading increased with reading skills; and (v) overall preschool cognitive abilities significantly predicted LGVT reading skills in adolescence, but not oculomotor control of either silent or oral reading."
+    },
+    {
+      "id": "L20",
+      "ms": 8627,
+      "units": [
+        {
+          "id": "21-0",
+          "status": "review",
+          "source": "Green and orange lines indicate significant correlations (p < .05), suggesting that better performances on the K-ABC scales were associated with more efficient oculomotor performances.",
+          "text": "绿色和橙色线条表示显著相关性（p < .05），表明K-ABC量表中的较好表现与更高效的眼动表现相关。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "direction",
+                "severity": "severe",
+                "detail": ""
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "绿色和橙色线条表示显著相关性（p < .05），表明K-ABC量表中的较好表现与更高效的眼动表现相关。",
+      "status": "review",
+      "paperContext": "Eye Movements during Silent and Oral Reading in a Regular Orthography: Basic Characteristics and Correlations with Childhood Cognitive Abilities and Adolescent Reading Skills\nThese results indicate that differences between silent and oral reading–including gaze duration, refixation time, the total number and length of eye movements–increase with reading skills, that is, differences are more pronounced in better readers than they are in less-skilled readers."
+    },
+    {
+      "id": "L21",
+      "ms": 9225,
+      "units": [
+        {
+          "id": "22-0",
+          "status": "translated",
+          "source": "When reading orally, reading skills reliably predicted saccadic amplitudes, with the regression model accounting for 36% of variance (F(2,18) = 5.01, p < .05).",
+          "text": "在口语阅读中，阅读技能能够可靠预测扫视幅度，回归模型解释了36%的方差（F(2,18) = 5.01，p < .05）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在口语阅读中，阅读技能能够可靠预测扫视幅度，回归模型解释了36%的方差（F(2,18) = 5.01，p < .05）。",
+      "status": "translated",
+      "paperContext": "Eye Movements during Silent and Oral Reading in a Regular Orthography: Basic Characteristics and Correlations with Childhood Cognitive Abilities and Adolescent Reading Skills\nIn line with the results for silent reading, the associations between the predictors and the criterion variable were not significantly different (Z = 1.32, p > .05).\nWhen reading orally, reading skills were predictive of saccadic amplitudes, but not of the other parameters assessed (see section 4.1. on limitations of the study); (iv) for a restricted set of parameters, differences between silent and oral reading increased with reading skills; and (v) overall preschool cognitive abilities significantly predicted LGVT reading skills in adolescence, but not oculomotor control of either silent or oral reading."
+    },
+    {
+      "id": "L22",
+      "ms": 11523,
+      "units": [
+        {
+          "id": "23-0",
+          "status": "translated",
+          "source": "First, the LGVT being a test of silent reading skills, the closer relation between reading skills and eye movements assessed for silent as compared to oral reading (see section 3.4.)",
+          "text": "首先，LGVT是一项静默阅读技能测试，因此静默阅读与口语阅读所评估的阅读技能之间的相关性更为密切（参见第3.4节）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "23-1",
+          "status": "translated",
+          "source": "was as hypothesized.",
+          "text": "正如假设的那样。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "首先，LGVT是一项静默阅读技能测试，因此静默阅读与口语阅读所评估的阅读技能之间的相关性更为密切（参见第3.4节）。 正如假设的那样。",
+      "status": "translated",
+      "paperContext": "Eye Movements during Silent and Oral Reading in a Regular Orthography: Basic Characteristics and Correlations with Childhood Cognitive Abilities and Adolescent Reading Skills\nAnother limitation is the assessment of reading skills. Perhaps we would have obtained a different pattern of results had we applied an assessment of oral reading skills.\nAs articulation is a limiting factor to the maximum reading speed, the difference between these two reading modes is suspected to increase with reading proficiency and skilled readers generally favor silent reading over oral reading (e.g., [1–3,23])."
+    },
+    {
+      "id": "L23",
+      "ms": 14131,
+      "units": [
+        {
+          "id": "24-0",
+          "status": "translated",
+          "source": "Although there is a substantial body of literature comparing silent to oral reading with respect to speed/efficiency or text comprehension (e.g., [3–8]), the majority of eye movement studies are focused on characteristics of silent reading (e.g., [9–13]; for a review, see [14]).",
+          "text": "尽管已有大量文献比较了默读与朗读在速度/效率或文本理解方面的差异（例如，[3–8]），但大多数眼动研究均聚焦于默读的特征（例如，[9–13]；综述请参见[14]）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "尽管已有大量文献比较了默读与朗读在速度/效率或文本理解方面的差异（例如，[3–8]），但大多数眼动研究均聚焦于默读的特征（例如，[9–13]；综述请参见[14]）。",
+      "status": "translated",
+      "paperContext": "Eye Movements during Silent and Oral Reading in a Regular Orthography: Basic Characteristics and Correlations with Childhood Cognitive Abilities and Adolescent Reading Skills\nComparably little emphasis has been put on ocular behavior during oral reading (e.g., [15–22]) and on the comparison of intraindividual eye movements during silent and oral reading (e.g., [23–27]).\nAlthough most reading research is based on English-speaking cohorts, a number of studies have focused on eye movements in readers of more regular orthographies, such as German or Italian (e.g., [10,17,20,30–36])."
+    },
+    {
+      "id": "L24",
+      "ms": 18772,
+      "units": [
+        {
+          "id": "25-0",
+          "status": "translated",
+          "source": "In their sample of English-speaking first- to fifth-graders, the authors found oral reading to be associated with longer fixation and refixation durations, more frequent refixations, and a higher probability to fixate a word.",
+          "text": "在他们对英语母语的一至五年级儿童的样本中，研究者发现朗读与较长的注视及再注视时长、更频繁的再注视行为，以及更高的注视单词概率相关。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "25-1",
+          "status": "translated",
+          "source": "Interestingly, besides shorter saccades, Vorstius and colleagues [26] found shorter rereading times and fewer interword-regressions in oral than in silent reading, which the authors attributed to the effort to maintain an optimal eye-voice span (i.e. the distance the eyes are ahead of the voice; e.g., [15,20,22]).",
+          "text": "有趣的是，除了眼跳变短之外，Vorstius及其同事[26]还发现，与默读相比，朗读时的重读时间和词间回退次数更少，作者将其归因于维持最佳眼声距离所需的努力（即眼睛领先于声音的距离；例如[15,20,22]）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在他们对英语母语的一至五年级儿童的样本中，研究者发现朗读与较长的注视及再注视时长、更频繁的再注视行为，以及更高的注视单词概率相关。 有趣的是，除了眼跳变短之外，Vorstius及其同事[26]还发现，与默读相比，朗读时的重读时间和词间回退次数更少，作者将其归因于维持最佳眼声距离所需的努力（即眼睛领先于声音的距离；例如[15,20,22]）。",
+      "status": "translated",
+      "paperContext": "Eye Movements during Silent and Oral Reading in a Regular Orthography: Basic Characteristics and Correlations with Childhood Cognitive Abilities and Adolescent Reading Skills\nOnly in 2014 did Vorstius and colleagues [26] focus on developing readers’ eye movements when silently and orally reading sentences with simple grammatical structures.\nWith respect to the findings of Vorstius and colleagues [26], and studies investigating the eye-voice span during oral reading (e.g., [15,20,22]), we intended to characterize the influence of the need to keep a constant span between eyes and voice during oral reading on the intraindividual consistency of eye movement patterns (i.e. the correlations between eye movement parameters during silent and oral reading)."
+    },
+    {
+      "id": "L25",
+      "ms": 7369,
+      "units": [
+        {
+          "id": "26-0",
+          "status": "translated",
+          "source": "This study suggests that our engineered SERS surfaces can be used as a versatile tool both for the characterization of cell culture conditions and the functional state of cells over time.",
+          "text": "本研究表明，我们设计的SERS表面可作为多功能工具，既可用于表征细胞培养条件，也可用于监测细胞随时间的功能状态变化。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "本研究表明，我们设计的SERS表面可作为多功能工具，既可用于表征细胞培养条件，也可用于监测细胞随时间的功能状态变化。",
+      "status": "translated",
+      "paperContext": "Time resolved and label free monitoring of extracellular metabolites by surface enhanced Raman spectroscopy\nThe collected spectra at different time points, clustered by the PCA analysis, followed a well-defined trajectory, corresponding to the functional change of cells toward the activated pro-inflammatory state induced by the LPS.\nThe obtained results suggest how engineered SERS surfaces can be used as a valid tool for multi-analyte detection and represent as well a versatile biosensor able to probe the “age” of cell systems."
+    },
+    {
+      "id": "L26",
+      "ms": 5188,
+      "units": [
+        {
+          "id": "27-0",
+          "status": "translated",
+          "source": "DIV0 corresponds to complete DMEM without conditioning with cell culture.",
+          "text": "DIV0对应于未经过细胞培养条件处理的完整DMEM培养基。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "DIV0对应于未经过细胞培养条件处理的完整DMEM培养基。",
+      "status": "translated",
+      "paperContext": "Time resolved and label free monitoring of extracellular metabolites by surface enhanced Raman spectroscopy\nRaman spectra of DMEM culture medium collected at different DIVs of mouse embryonic fibroblasts NIH/3T3 cell line. The measurements were done with 532 nm laser line, 1 mW power and 10 second acquisition time in liquid conditions.\n2x105 NIH/3T3 cells or Raw 264.7 cells were seeded in cell culture flasks with 3 ml of complete culture medium."
+    },
+    {
+      "id": "L27",
+      "ms": 9683,
+      "units": [
+        {
+          "id": "28-0",
+          "status": "translated",
+          "source": "At 0, 6, 9, 15, 20 and 24 hours after LPS stimulation, samples of the conditioned medium of Raw 264.7 cells were collected and the IL12p40 cytokine was quantified by ELISA, following the manufacturing procedures (BioLegend, San Diego, CA, USA).",
+          "text": "在LPS刺激后0、6、9、15、20和24小时，采集Raw 264.7细胞的条件培养基样本，并按照生产规程（BioLegend，美国加利福尼亚州圣地亚哥），通过ELISA定量IL12p40细胞因子。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在LPS刺激后0、6、9、15、20和24小时，采集Raw 264.7细胞的条件培养基样本，并按照生产规程（BioLegend，美国加利福尼亚州圣地亚哥），通过ELISA定量IL12p40细胞因子。",
+      "status": "translated",
+      "paperContext": "Time resolved and label free monitoring of extracellular metabolites by surface enhanced Raman spectroscopy\nRaw 264.7 cells were stimulated with 100 ng/ml LPS 24 hours.\nAfter 1, 2, 3 and 4 days in vitro (DIV) for the 3T3 and 6, 9, 15, 20 and 24 hours after LPS stimulation for the Raw 264.7, the conditioned medium was collected, centrifuged at 300g, 3 minutes to avoid dead cells and at 200g, 20 minutes to avoid cell debris."
+    },
+    {
+      "id": "L28",
+      "ms": 9992,
+      "units": [
+        {
+          "id": "29-0",
+          "status": "translated",
+          "source": "As shown in Fig 2A, peaks in the SERS spectrum of R6G at 1 μM concentration obtained on the Ag nanostructured substrate (red line) present higher intensity with respect to the corresponding spectrum obtained on the Ag flat (40 nm sputtered Ag) substrate (black line).",
+          "text": "如图2A所示，在1 μM浓度下，于Ag纳米结构基底上获得的R6G SERS光谱（红线）中的峰强度高于在Ag平面基底（溅射40 nm厚Ag）上获得的相应光谱（黑线）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "如图2A所示，在1 μM浓度下，于Ag纳米结构基底上获得的R6G SERS光谱（红线）中的峰强度高于在Ag平面基底（溅射40 nm厚Ag）上获得的相应光谱（黑线）。",
+      "status": "translated",
+      "paperContext": "Time resolved and label free monitoring of extracellular metabolites by surface enhanced Raman spectroscopy\nWe tested the SERS efficiency of the fabricated Ag nanostructured substrates by using R6G as a probe analyte.\n(a) SERS spectra of R6G at 1 μM concentration on the Ag nanostructured substrate (red line) and on the Ag flat substrate (black line). (b) 2D SERS mapping centered at the R6G band at 615 cm-1."
+    },
+    {
+      "id": "L29",
+      "ms": 5408,
+      "units": [
+        {
+          "id": "30-0",
+          "status": "translated",
+          "source": "Indeed, it is relatively easy, label-free and non-destructive for the biological samples.",
+          "text": "确实，该方法对生物样品而言相对简便、无标记且无损。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "确实，该方法对生物样品而言相对简便、无标记且无损。",
+      "status": "translated",
+      "paperContext": "Time resolved and label free monitoring of extracellular metabolites by surface enhanced Raman spectroscopy\nIn comparison to the current available techniques, such as MS and NMR, this method provides several advantages. For these reasons, differently from the MS and NMR, it can be particularly convenient for long term monitoring of analytes in biological samples available only in limited amount.\nAmong plasmonic assisted techniques for biosensing, the most promising candidate is probably Raman spectroscopy, which is label-free, non-destructive and relatively fast to allow real time monitoring of analytes [19–20]."
+    },
+    {
+      "id": "L30",
+      "ms": 13785,
+      "units": [
+        {
+          "id": "31-0",
+          "status": "translated",
+          "source": "The obtained results suggest how engineered SERS surfaces can be used as a valid tool for multi-analyte detection and represent as well a versatile biosensor able to probe the “age” of cell systems.",
+          "text": "所得结果表明，工程化SERS表面可作为多分析物检测的有效工具，同时也能够作为一种多功能生物传感器，用于探测细胞系统的“老化”程度。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "31-1",
+          "status": "translated",
+          "source": "Therefore, it is conceivable to potentially use this system to distinguish pathological versus physiological biosamples, as well as the activation/differentiation states of a cell type, i.e. quiescent or activated lymphocytes [7].",
+          "text": "因此，可以设想利用该系统来区分病理性与生理性生物样本，以及细胞类型的激活/分化状态，即静息或活化的淋巴细胞[7]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "所得结果表明，工程化SERS表面可作为多分析物检测的有效工具，同时也能够作为一种多功能生物传感器，用于探测细胞系统的“老化”程度。 因此，可以设想利用该系统来区分病理性与生理性生物样本，以及细胞类型的激活/分化状态，即静息或活化的淋巴细胞[7]。",
+      "status": "translated",
+      "paperContext": "Time resolved and label free monitoring of extracellular metabolites by surface enhanced Raman spectroscopy\nThis trajectory reflects the changes over time in the composition of the cell medium, supporting the idea that each region of the PC plot can represent a metabolic status of the cells. Unlike fluorescence-based methods, or other conventional biochemical approaches, this SERS method could be expanded to measure numerous bio-components simultaneously and incorporated into an in-line, time resolved monitoring strategy.\nThis study suggests that our engineered SERS surfaces can be used as a versatile tool both for the characterization of cell culture conditions and the functional state of cells over time."
+    },
+    {
+      "id": "L31",
+      "ms": 16255,
+      "units": [
+        {
+          "id": "32-0",
+          "status": "review",
+          "source": "Addition of bone morphogenetic protein-2 (BMP-2) to the culture medium further increased osteogenic differentiation, as evidenced by increased matrix mineralisation.",
+          "text": "在培养基中添加骨形态发生蛋白-2（BMP-2）进一步促进了成骨分化，这由基质矿化的增加所证实。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "2",
+                "targetEvidence": "-2"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在培养基中添加骨形态发生蛋白-2（BMP-2）进一步促进了成骨分化，这由基质矿化的增加所证实。",
+      "status": "review",
+      "paperContext": "3D bioprinting of methacrylated hyaluronic acid (MeHA) hydrogel with intrinsic osteogenicity\nOsteogenic differentiation of MSCs occurred spontaneously in hydrogels with high concentrations of MeHA polymer, in absence of additional osteogenic stimuli. MeHA hydrogels demonstrated to be suitable for 3D bioprinting, and were printed into porous and anatomically shaped scaffolds.\nThe cell-laden gels were subsequently cultured in expansion medium (control) or expansion medium supplemented with 1 μg/ml bone morphogenetic protein 2 (BMP-2) until analysis."
+    },
+    {
+      "id": "L32",
+      "ms": 7146,
+      "units": [
+        {
+          "id": "33-0",
+          "status": "translated",
+          "source": "When the gel’s MeHA polymer concentration was increased, larger areas around the cells stained red, indicating calcium deposition into the surrounding matrix.",
+          "text": "当MeHA聚合物浓度增加时，细胞周围的较大区域呈现红色染色，表明钙沉积到了周围基质中。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "当MeHA聚合物浓度增加时，细胞周围的较大区域呈现红色染色，表明钙沉积到了周围基质中。",
+      "status": "translated",
+      "paperContext": "3D bioprinting of methacrylated hyaluronic acid (MeHA) hydrogel with intrinsic osteogenicity\nAt lower MeHA concentration (1–1.5% (w/v)) gels, only some cells stained red. Most intense staining is seen in the 2.5% (w/v) gels.\nVisco-elastic properties of MeHA gels, measured by rheology and dynamic mechanical analysis, showed that irradiation of the hydrogels with UV light led to increased storage moduli and elastic moduli, indicating increasing gel rigidity."
+    },
+    {
+      "id": "L33",
+      "ms": 9769,
+      "units": [
+        {
+          "id": "34-0",
+          "status": "translated",
+          "source": "In accordance to the results in the porous cubes, the ‘vertebral channel’ remained best intact in the 3% (w/v) gel, indicating that hydrogel rigidity also played a role in shape maintenance of these scaffolds.",
+          "text": "根据多孔立方体中所得结果，3% (w/v) 凝胶中“椎间通道”保持得最好且完整，这表明水凝胶刚性也在这些支架的形状维持中发挥了作用。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "根据多孔立方体中所得结果，3% (w/v) 凝胶中“椎间通道”保持得最好且完整，这表明水凝胶刚性也在这些支架的形状维持中发挥了作用。",
+      "status": "translated",
+      "paperContext": "3D bioprinting of methacrylated hyaluronic acid (MeHA) hydrogel with intrinsic osteogenicity\nIn case of a solid scaffold design, the desired shape could be reached with gels ≥2% (w/v) and they could be handled well after crosslinking, indicating adequate network formation. In order to maintain designed porosity at least 3% (w/v) hydrogel was needed, in non-porous structures scaffolds printed from ≥ 2% (w/v) hydrogels were functional.\nVisco-elastic properties of MeHA gels, measured by rheology and dynamic mechanical analysis, showed that irradiation of the hydrogels with UV light led to increased storage moduli and elastic moduli, indicating increasing gel rigidity."
+    },
+    {
+      "id": "L34",
+      "ms": 9302,
+      "units": [
+        {
+          "id": "35-0",
+          "status": "translated",
+          "source": "In hydrogels that did not receive an external osteogenic stimulus (BMP-2), increasing the MeHA polymer concentration led to significantly higher calcium precipitate formation (in 2.5–3% (w/v)) compared to 1.5% (w/v).",
+          "text": "在未接受外部成骨诱导刺激（BMP-2）的水凝胶中，提高MeHA聚合物浓度会导致钙沉淀形成显著增多（在2.5–3% (w/v)浓度下），相较于1.5% (w/v)浓度。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "在未接受外部成骨诱导刺激（BMP-2）的水凝胶中，提高MeHA聚合物浓度会导致钙沉淀形成显著增多（在2.5–3% (w/v)浓度下），相较于1.5% (w/v)浓度。",
+      "status": "translated",
+      "paperContext": "3D bioprinting of methacrylated hyaluronic acid (MeHA) hydrogel with intrinsic osteogenicity\nOsteogenic differentiation, measured by quantification of calcium deposition by MSCs is depicted in Fig 4. Mineralization increased further when BMP-2 was added.\nCell survival was significantly lower in the 2.5% (w/v) MeHA hydrogels compared to 2% (w/v) after 1 day."
+    },
+    {
+      "id": "L35",
+      "ms": 5961,
+      "units": [
+        {
+          "id": "36-0",
+          "status": "translated",
+          "source": "Following this approach, it was possible to obtain controlled DS on high molecular weight HA.",
+          "text": "采用该方法，能够在高分子量HA上获得可控的脱粘现象。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "采用该方法，能够在高分子量HA上获得可控的脱粘现象。",
+      "status": "translated",
+      "paperContext": "3D bioprinting of methacrylated hyaluronic acid (MeHA) hydrogel with intrinsic osteogenicity\nfor HA with a molecular weight of 100 kDa [20], led to more efficient substitution than reactions performed in purely aqueous environment in their study. The use of photopolymerizable methacrylate groups allowed mixing in of biological components (cells, bioactive molecules, etcetera [32]) at low rigidity, after which exposure at the appropriate wavelength of UV light led to rapid polymerization, causing minimal cell damage [17].\nEqui, Sigma-Aldrich, Zwijndrecht, the Netherlands) was methacrylated following an adapted protocol by Hachet et al [20]."
+    },
+    {
+      "id": "L36",
+      "ms": 14687,
+      "units": [
+        {
+          "id": "37-0",
+          "status": "translated",
+          "source": "When an osteogenic stimulus (BMP-2) was added to the hydrogel with intrinsic osteogenicity, a synergistic pattern of increased mineralization was observed.",
+          "text": "当向具有固有成骨性的水凝胶中添加成骨刺激因子（BMP-2）时，观察到了矿化度增加的协同模式。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "37-1",
+          "status": "translated",
+          "source": "These data indicate that the MeHA hydrogels can function as suitable scaffold material for bone regeneration purposes in regenerative medicine, when the appropriate hydrogel concentration and with this, visco-elastic properties are selected [38].",
+          "text": "这些数据表明，当选定合适的水凝胶浓度以及相应的粘弹性特性时，MeHA水凝胶可作为适合的支架材料用于再生医学中的骨再生用途[38]。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "当向具有固有成骨性的水凝胶中添加成骨刺激因子（BMP-2）时，观察到了矿化度增加的协同模式。 这些数据表明，当选定合适的水凝胶浓度以及相应的粘弹性特性时，MeHA水凝胶可作为适合的支架材料用于再生医学中的骨再生用途[38]。",
+      "status": "translated",
+      "paperContext": "3D bioprinting of methacrylated hyaluronic acid (MeHA) hydrogel with intrinsic osteogenicity\nChanges in viscoelastic properties of MeHA gels have directly led to altered differentiation patterns of neural progenitor cells as reported in literature [35], indicating that mechanical properties of the material influence cell fate [36,37], which is in agreement with our findings.\nTaking together elastic properties, primary cell survival, MSC osteogenic differentiation and 3D bioprinting properties of the MeHA-polymer based hydrogels, the most suitable hydrogel concentration for different purposes in regenerative medicine could be defined."
+    },
+    {
+      "id": "L37",
+      "ms": 7115,
+      "units": [
+        {
+          "id": "38-0",
+          "status": "translated",
+          "source": "In addition to the motor coordination task, we also assessed these effects during a (n-back) working memory task.",
+          "text": "除了运动协调任务外，我们还对（n-back）工作记忆任务期间的这些效应进行了评估。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "除了运动协调任务外，我们还对（n-back）工作记忆任务期间的这些效应进行了评估。",
+      "status": "translated",
+      "paperContext": "Potentiation of motor sub-networks for motor control but not working memory: Interaction of dACC and SMA revealed by resting-state directed functional connectivity\nTo assess the specificity of this effect, here we undertook an analysis of the interaction between dACC and SMA in two distinct contexts. We applied directed functional connectivity analysis to these two task paradigms, and also to the rest condition of each paradigm, in which rest blocks were interspersed with task blocks.\nAn established visual n-back paradigm was used to assess working memory, during which letter stimuli were projected in sequence (Presentation Time: 500 ms; ISI: 2500 ms) and subjects signaled by button press if the letter was a target letter (0-Back condition) or the same as the one shown two letters previously in the sequence (2-Back condition)."
+    },
+    {
+      "id": "L38",
+      "ms": 7369,
+      "units": [
+        {
+          "id": "39-0",
+          "status": "translated",
+          "source": "The dACC → SMA connectivity increased when participants transitioned to the task-active state, relative to the rest state (t = 3.73, p < .05, corrected).",
+          "text": "与静息态相比，当参与者转入任务激活状态时，dACC至SMA的连接性增强（t = 3.73，p < .05，校正后）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "39-1",
+          "status": "translated",
+          "source": "(b) The depicted crossover for the interaction in the Memory condition was not significant (corrected).",
+          "text": "(b) 在记忆条件下所呈现的交互作用交叉项不显著（经校正）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "与静息态相比，当参与者转入任务激活状态时，dACC至SMA的连接性增强（t = 3.73，p < .05，校正后）。 (b) 在记忆条件下所呈现的交互作用交叉项不显著（经校正）。",
+      "status": "translated",
+      "paperContext": "Potentiation of motor sub-networks for motor control but not working memory: Interaction of dACC and SMA revealed by resting-state directed functional connectivity\nAs seen, a State x Direction interaction was observed. Error bars are ± sem.\nBy comparison, during Memory, a crossover interaction between direction and Condition was observed, though this interaction was not significant (corrected)."
+    },
+    {
+      "id": "L39",
+      "ms": 12189,
+      "units": [
+        {
+          "id": "40-0",
+          "status": "review",
+          "source": "The total task duration was 8 minutes and 20 s with all data collected over a single run.",
+          "text": "总任务时长为8分20秒，所有数据均在一次单次运行期间采集完毕。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "8 min",
+                "targetEvidence": "8, 1"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "总任务时长为8分20秒，所有数据均在一次单次运行期间采集完毕。",
+      "status": "review",
+      "paperContext": "Potentiation of motor sub-networks for motor control but not working memory: Interaction of dACC and SMA revealed by resting-state directed functional connectivity\nA block design was employed wherein conditions were blocked (30 s/epochs) for each of the 0- and 2-Back conditions (5 epochs each, 10 epochs total, thus contributing 150 images to the analysis), and, as with the motor task, extended resting epochs of interest were included (20 s; 10 epochs total), during which subjects were instructed to fixate on a cross hair in the center of the field of vision.\nThe total task duration was 6 minutes and 50 s with all data collected over a single run."
+    },
+    {
+      "id": "L40",
+      "ms": 5377,
+      "units": [
+        {
+          "id": "41-0",
+          "status": "translated",
+          "source": "Analysis revealed that sensitivity was significantly greater than zero (t9 = 15.96, p < .001).",
+          "text": "分析结果显示，敏感性显著高于零值（t9 = 15.96，p < .001）。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "分析结果显示，敏感性显著高于零值（t9 = 15.96，p < .001）。",
+      "status": "translated",
+      "paperContext": "Potentiation of motor sub-networks for motor control but not working memory: Interaction of dACC and SMA revealed by resting-state directed functional connectivity\nSensitivity on the working memory task was assessed using the sensitivity index d’ [20] to evaluate participants ability to discriminate targets from distracters during the memory paradigm. Additional regression analyses suggested that sensitivity increased with age (F1,8 = 6.77, p < .05).\nThe second main finding of this report is that the task-related dFC of dACC → SMA was significantly greater for the Motor than for the Memory paradigm (Fig 3), but did not significantly differ for SMA→dACC."
+    },
+    {
+      "id": "L41",
+      "ms": 7015,
+      "units": [
+        {
+          "id": "42-0",
+          "status": "translated",
+          "source": "We note that our applied models of connectivity (dFC) and results (asymmetric dFC on specific subnetworks in the rest and task state) are consistent with this notion and further indicate that this preparatory role of the resting state may be spatially specific.",
+          "text": "我们注意到，我们应用的连接性模型（dFC）及结果（静息状态与任务状态下特定子网络的非对称dFC）均与该观点一致，并进一步表明静息状态的这一准备作用可能具有空间特异性。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "我们注意到，我们应用的连接性模型（dFC）及结果（静息状态与任务状态下特定子网络的非对称dFC）均与该观点一致，并进一步表明静息状态的这一准备作用可能具有空间特异性。",
+      "status": "translated",
+      "paperContext": "Potentiation of motor sub-networks for motor control but not working memory: Interaction of dACC and SMA revealed by resting-state directed functional connectivity\nOur work suggests that, within the dACC ←→ SMA subnetwork, bottom-up dFC (from SMA to dACC) during a resting state that is specific to a motor coordination task may act to potentiate the top-down dFC (from dACC to SMA) exerted during the bookended task."
+    },
+    {
+      "id": "L42",
+      "ms": 7349,
+      "units": [
+        {
+          "id": "43-0",
+          "status": "translated",
+          "source": "We also explored development effects by regressing age on dFC measures of all directions and subnetworks.",
+          "text": "我们还通过以年龄为自变量，回归所有方向和子网络的dFC测量值，来探讨发育效应。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "43-1",
+          "status": "review",
+          "source": "Sixteen regression analyses were conducted to uncover possible age-related modulation of dFC driven by Task, Task condition or Rest (within Task).",
+          "text": "共进行了十六项回归分析，以揭示由任务、任务条件或休息（任务内）驱动的dFC可能的年龄相关调制。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "review",
+            "issues": [
+              {
+                "code": "quantity",
+                "severity": "severe",
+                "detail": "",
+                "sourceEvidence": "",
+                "targetEvidence": "16"
+              }
+            ]
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "我们还通过以年龄为自变量，回归所有方向和子网络的dFC测量值，来探讨发育效应。 共进行了十六项回归分析，以揭示由任务、任务条件或休息（任务内）驱动的dFC可能的年龄相关调制。",
+      "status": "partial",
+      "paperContext": "Potentiation of motor sub-networks for motor control but not working memory: Interaction of dACC and SMA revealed by resting-state directed functional connectivity\n(b) Developmental Effects on Connectivity. Only one regression analysis was significant.\nIn each of these examples, it might appear that task-specific rest epochs functionally modulate bookended task epochs, and thus might appear to differ from context-free rest epochs, whereas the true effect would not actually be one of functional modulation."
+    },
+    {
+      "id": "L43",
+      "ms": 6405,
+      "units": [
+        {
+          "id": "44-0",
+          "status": "translated",
+          "source": "It is also difficult to compensate for unbalanced loads even when the grid is under disruption due to total harmonic distortion (THD) and unbalanced loads.",
+          "text": "即使在电网因总谐波失真（THD）和不平衡负载而发生中断的情况下，也难以补偿不平衡负载。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "即使在电网因总谐波失真（THD）和不平衡负载而发生中断的情况下，也难以补偿不平衡负载。",
+      "status": "translated",
+      "paperContext": "An improved synchronous reference frame current control strategy for a photovoltaic grid-connected inverter under unbalanced and nonlinear load conditions\nIt is challenging to suppress the harmonic content in the output current below a pre-set value in the GCI. The primary advantage and objective of this method is to effectively compensate for the harmonic current content of the grid current and microgrid without the use of any compensation devices, such as active and passive filters.\nPower quality problems are a specific concern with MGs because distortion harmonic sources can represent a high proportion of the total loads or nonlinear loads (NLLs) in small-scale systems [5]."
+    },
+    {
+      "id": "L44",
+      "ms": 4566,
+      "units": [
+        {
+          "id": "45-0",
+          "status": "translated",
+          "source": "Schematics of a system and an MG: (a) without any compensation devices; (b) with active and passive filters; (c) using just the proposed control method on the PV.",
+          "text": "系统及MG的电路图：(a) 无任何补偿装置；(b) 带有有源和无源滤波器；(c) 仅在光伏侧采用所提出的控制方法。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "系统及MG的电路图：(a) 无任何补偿装置；(b) 带有有源和无源滤波器；(c) 仅在光伏侧采用所提出的控制方法。",
+      "status": "translated",
+      "paperContext": "An improved synchronous reference frame current control strategy for a photovoltaic grid-connected inverter under unbalanced and nonlinear load conditions\nThe primary advantage and objective of this method is to effectively compensate for the harmonic current content of the grid current and microgrid without the use of any compensation devices, such as active and passive filters."
+    },
+    {
+      "id": "L45",
+      "ms": 4116,
+      "units": [
+        {
+          "id": "46-0",
+          "status": "translated",
+          "source": "The PV is connected to the MG through a GCI, which produces the distorted waveforms with 11.04% THD.",
+          "text": "光伏通过GCI连接到MG，该GCI产生了THD为11.04%的畸变波形。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "光伏通过GCI连接到MG，该GCI产生了THD为11.04%的畸变波形。",
+      "status": "translated",
+      "paperContext": "An improved synchronous reference frame current control strategy for a photovoltaic grid-connected inverter under unbalanced and nonlinear load conditions\nFig 6(B) shows the PV array output current. Furthermore, the MT and FC are connected to the system through power electronic converters.\nThe output currents of phase ‘a’ in the PV are distorted because of the connection of the three-phase NLL."
+    },
+    {
+      "id": "L46",
+      "ms": 5895,
+      "units": [
+        {
+          "id": "47-0",
+          "status": "translated",
+          "source": "To create the three current references, a PLL system has been proposed in which the error of each is directed into the controller, and the corresponding measured current can be compared.",
+          "text": "为了生成三个电流参考值，已提出一种PLL系统，其中每个误差信号均输入至控制器，并可将相应的测量电流进行比较。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "为了生成三个电流参考值，已提出一种PLL系统，其中每个误差信号均输入至控制器，并可将相应的测量电流进行比较。",
+      "status": "translated",
+      "paperContext": "An improved synchronous reference frame current control strategy for a photovoltaic grid-connected inverter under unbalanced and nonlinear load conditions\nTo provide the phase information of the grid voltage, the PLL technique [33] can be used, which is required to generate the current reference iref and is also used to maintain the GCI synchronism with the grid. Regarding the switches in the GCI, the switching of the output of these controllers is noteworthy.\nThe dq transformation can be used to convert the three phase currents injected by the inverter into three constant DC components defined as the direct, quadrature and zero components: Id, Iq and I0, respectively."
+    },
+    {
+      "id": "L47",
+      "ms": 4726,
+      "units": [
+        {
+          "id": "48-0",
+          "status": "translated",
+          "source": "Thus, this approach is verified to be capable of meeting IEEE 519–1992 recommended harmonic standard limits.",
+          "text": "因此，该方法经验证能够满足 IEEE 519–1992 推荐的谐波标准限值。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "因此，该方法经验证能够满足 IEEE 519–1992 推荐的谐波标准限值。",
+      "status": "translated",
+      "paperContext": "An improved synchronous reference frame current control strategy for a photovoltaic grid-connected inverter under unbalanced and nonlinear load conditions\nThe effects of the proposed control method can be clearly observed by comparing the bold values in Table 4 (between case study I and case study III). The currents and the THD value of the system in all case studies are given in Table 4.\nThe control approach is designed to control the active and reactive power and harmonic current compensation, and it also corrects the system unbalance."
+    },
+    {
+      "id": "L48",
+      "ms": 9168,
+      "units": [
+        {
+          "id": "49-0",
+          "status": "translated",
+          "source": "The proposed control methods are applied to the PV; however, the FC is connected to the grid by the ordinary interface converter without the control strategy.",
+          "text": "所提出的控制方法应用于光伏系统；然而，燃料电池组通过普通接口转换器接入电网，并未采用该控制策略。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        },
+        {
+          "id": "49-1",
+          "status": "translated",
+          "source": "The MT has a frequency of 1,500 Hz, which is similar to a normal generator, but its output voltage has a frequency of 1,500 Hz.",
+          "text": "MT的频率为1,500 Hz，这与普通发电机相似，但其输出电压的频率也为1,500 Hz。",
+          "engine": "Hy-MT3 · local",
+          "validation": {
+            "status": "checked",
+            "issues": []
+          },
+          "attempts": 1
+        }
+      ],
+      "text": "所提出的控制方法应用于光伏系统；然而，燃料电池组通过普通接口转换器接入电网，并未采用该控制策略。 MT的频率为1,500 Hz，这与普通发电机相似，但其输出电压的频率也为1,500 Hz。",
+      "status": "translated",
+      "paperContext": "An improved synchronous reference frame current control strategy for a photovoltaic grid-connected inverter under unbalanced and nonlinear load conditions\nThis MG includes three DGs, namely, the PV, MT and FC, which are connected to the grid by the power electronic interface. Therefore, the effective voltage of the output phase of this 220 V MT has a frequency of 1,500 Hz, but this source cannot be connected to a power system with a frequency of 50 Hz.\nThe RESs are connected to the utility network or microgrid (MG) by an interface converter."
+    }
+  ],
+  "requests": [
+    "complete"
+  ],
+  "externalPosts": [],
+  "profile": "temporary",
+  "browserVersion": "158.0.8127.88",
+  "storageBefore": {
+    "quota": 10789429264,
+    "usage": 52011024,
+    "usageDetails": {
+      "caches": 51937296,
+      "indexedDB": 73728
+    }
+  },
+  "firstText": "水",
+  "coldMs": 19294,
+  "firstPaperContext": [
+    {
+      "source": "water",
+      "context": "A sample of water was kept in the shade."
+    }
+  ],
+  "reloadedText": "水",
+  "reloadMs": 9051
+}

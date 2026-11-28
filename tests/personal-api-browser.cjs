@@ -2,6 +2,7 @@
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const {chromium, webkit, devices} = require('playwright-core');
+const {fixtureOrigin} = require('./personal-api-fixture.cjs');
 const base = new URL(process.argv[2]);
 const mobile = process.env.READER_BROWSER === 'webkit' || process.argv.includes('--mobile');
 const zh = mobile;
@@ -16,39 +17,57 @@ async function test() {
   const browser = await (useWebkit ? webkit : chromium).launch(useWebkit ? {} : {
     channel:process.env.READER_BROWSER_CHANNEL || (process.platform==='win32' ? 'msedge' : 'chromium')
   });
+  const wireFixture=base.protocol==='http:'||!!(process.env.READER_TEST_CERT && process.env.READER_TEST_KEY);
+  let fixture;
   try {
     const context = await browser.newContext({
       ...(mobile ? {...devices['iPhone 13'],locale:'zh-CN'} : {viewport:{width:1440,height:950}}),
-      ignoreHTTPSErrors:base.protocol==='https:' && ['127.0.0.1','localhost'].includes(base.hostname)
+      ignoreHTTPSErrors:base.protocol==='https:' && ['127.0.0.1','localhost'].includes(base.hostname),
+      serviceWorkers:wireFixture?'allow':'block'
     });
     const page = await context.newPage();
     page.setDefaultTimeout(12000);
-    const calls=[], providerPosts=[], errors=[], leak=[];
+    const calls=[], errors=[], leak=[];
     let mode='success';
     page.on('pageerror',err=>errors.push(err.message));
-    page.on('request',req=>{
-      const url=req.url();
-      if(req.method()==='POST'&&Object.values(endpoints).includes(url))providerPosts.push(url);
-      if(Object.values(key).some(k=>url.includes(k)||(req.postData()||'').includes(k)) ||
-        (req.headers().authorization&&!Object.values(endpoints).includes(url)))leak.push(url);
-    });
-    // Only the two paid API endpoints are mocked. Reloads, PDF workers and
-    // language assets use normal browser navigation, including on mobile WebKit.
-    await page.route(url=>Object.values(endpoints).includes(url.href),async route=>{
-      const req=route.request(), provider=Object.keys(endpoints).find(k=>endpoints[k]===req.url());
-      const authorization=await req.headerValue('authorization');
-      const headers={'Access-Control-Allow-Origin':base.origin,'Access-Control-Allow-Headers':'authorization,content-type','Access-Control-Allow-Methods':'POST'};
-      if(req.method()==='OPTIONS')return route.fulfill({status:204,headers});
-      const wire=req.postDataJSON(), prompt=JSON.parse(wire.messages[1].content);
+    function respond(provider,authorization,wire){
+      const prompt=JSON.parse(wire.messages[1].content);
       calls.push({provider,authorization,wire,prompt});
       const part={en:'Verified comparison in the selected figure.',zh:'已核对所选图的比较。',refs:['P1','P999','L999']};
       let content={reported:part,background:part,uncertain:{zh:'',en:'',refs:[]}};
       if(prompt.language)content={outline:'- Main finding\n  - Figure one ⟦Fig1⟧'};
       if(mode==='invalid')content={};
       const status=mode==='quota'?429:mode==='auth'?401:200;
-      return route.fulfill({status,headers,contentType:'application/json',body:JSON.stringify(
-        status===200?{choices:[{message:{content:JSON.stringify(content)}}]}:{error:{message:'Provider error'}}
-      )});
+      return {status,json:status===200?{choices:[{message:{content:JSON.stringify(content)}}]}:{error:{message:'Provider error'}}};
+    }
+    if(wireFixture){
+      fixture=await fixtureOrigin(base.origin,respond);
+      await page.addInitScript(({endpoints,target})=>{
+        const destinations=new Map(Object.entries(endpoints).map(([name,url])=>[url,target+'/'+name]));
+        const native=window.fetch.bind(window);
+        window.fetch=(resource,init)=>{
+          const url=resource instanceof Request?resource.url:String(resource);
+          const redirect=destinations.get(url);
+          return native(redirect||resource,init);
+        };
+      },{endpoints,target:fixture.origin});
+    }else{
+      // Without a local TLS certificate, isolate the mocked endpoints from
+      // service workers that would otherwise bypass Playwright routes.
+      await page.route(url=>Object.values(endpoints).includes(url.href),async route=>{
+        const req=route.request();
+        const headers={'Access-Control-Allow-Origin':base.origin,'Access-Control-Allow-Headers':'authorization,content-type','Access-Control-Allow-Methods':'POST'};
+        if(req.method()==='OPTIONS')return route.fulfill({status:204,headers});
+        const name=Object.keys(endpoints).find(k=>endpoints[k]===req.url());
+        const reply=respond(name,await req.headerValue('authorization'),req.postDataJSON());
+        return route.fulfill({status:reply.status,headers,json:reply.json});
+      });
+    }
+    const allowed=new Set(fixture?Object.keys(endpoints).map(n=>fixture.origin+'/'+n):Object.values(endpoints));
+    page.on('request',req=>{
+      const url=req.url();
+      if(Object.values(key).some(k=>url.includes(k)||(req.postData()||'').includes(k)) ||
+        (req.headers().authorization&&!allowed.has(url)))leak.push(url);
     });
     const url=new URL('?lang='+(zh?'zh':'en'),base);
     await page.goto(url.href);
@@ -80,7 +99,12 @@ async function test() {
       assert.equal(calls.length,prior,'Selecting a provider, saving its key, and an unconfirmed click must not spend credits');
       await consent.check();
       await send.click();
-      await ask.locator('.rq-turn').nth(name==='deepseek'?0:1).getByText(zh?'已核对所选图的比较。':'Verified comparison in the selected figure.',{exact:true}).first().waitFor();
+      const reply=ask.locator('.rq-turn').nth(name==='deepseek'?0:1);
+      await reply.getByText(zh?'已核对所选图的比较。':'Verified comparison in the selected figure.',{exact:true}).first().waitFor().catch(async cause=>{
+        const controlled=await page.evaluate(()=>!!navigator.serviceWorker?.controller);
+        throw new Error('Expected '+name+' answer; intercepted '+(calls.length-prior)+' provider requests; '+
+          'service worker controlled='+controlled+'; reader status='+await status.innerText(),{cause});
+      });
       assert.equal(calls.length,prior+1);
       const call=calls.at(-1);
       assert.equal(call.authorization,'Bearer '+key[name]);
@@ -119,18 +143,15 @@ async function test() {
     assert.deepEqual(await page.evaluate(()=>ReaderBrowserModels.options().available),{evidence:true,deepseek:true,qwen:false});
     const stored=await page.evaluate(()=>JSON.stringify([localStorage,sessionStorage]));
     assert(Object.values(key).every(k=>!stored.includes(k)));
-    const count=providerPosts.length;
-    // Exercise normal navigation after the paid conversations have finished.
-    // The passive listener continues to detect any unexpected provider call.
-    await page.unrouteAll({behavior:'wait'});
+    const count=calls.length;
     await page.evaluate(()=>{document.documentElement.dataset.previousApiDocument='true'});
     await page.reload({waitUntil:'commit',timeout:45000});
     await page.waitForFunction(()=>!document.documentElement.dataset.previousApiDocument&&!!window.ReaderBrowserModels,
       null,{polling:100,timeout:30000});
     assert.deepEqual(await page.evaluate(()=>ReaderBrowserModels.options().available),{evidence:true,deepseek:false,qwen:false});
-    assert.equal(providerPosts.length,count);
+    assert.equal(calls.length,count);
     assert.deepEqual(leak,[]);assert.deepEqual(errors,[]);
     console.log('Passed personal API upload, confirmation, provider isolation, question and outline, error recovery, removal and reload:',zh?'zh/mobile':'en/desktop');
-  } finally {await browser.close();}
+  } finally {await browser.close();if(fixture)await fixture.close();}
 }
 test().catch(err=>{console.error(err);process.exitCode=1});
